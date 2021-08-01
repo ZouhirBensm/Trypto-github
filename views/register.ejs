@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- header -->
+<%-include('templates/header');-%>
+<body>
+  <h1>Register Page</h1>
+  <!-- narbar -->
+  <%-include('templates/navbar-top');-%>
+  <hr />
+<!-- for browser to know tha tthe form contains mutli media. will encripy multie media and send to server -->
+  <form action="/users/store" method="POST">  
+    <label>Email</label>
+    <!-- name allows passing from form to server -->
+    <input type="text" name="email">             
+    <label>Password</label>
+    <input type="password" name="password">                 
+    <button type="submit">Register</button>
+  </form>
+  <%-include('templates/scripts');-%>
+</body>
+</html>

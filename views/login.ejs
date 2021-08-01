@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- header -->
+<%-include('templates/header');-%>
+<body>
+  <h1>Login Page</h1>
+  <!-- narbar -->
+  <%-include('templates/navbar-top');-%>
+  <hr />
+  <form action="/users/login" method="POST">  
+    <label>Email</label>
+    <!-- name allows passing from form to server -->
+    <input type="text" name="email">             
+    <label>Password</label>
+    <input type="password" name="password">                 
+    <button type="submit">Login</button>
+  </form>
+  <%-include('templates/scripts');-%>
+</body>
+</html>
