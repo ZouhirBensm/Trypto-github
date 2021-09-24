@@ -1,0 +1,55 @@
+tr {
+  display: grid;
+  grid-template-rows: repeat(6,1fr);
+  grid-template-columns: repeat(2,1fr);
+  grid-template-areas : 
+  "one two"
+  "three three" 
+  "four five"
+  "six seven"
+  "eight eight"
+  "nine nine";
+}
+tr > td#id1 {
+  grid-area: one;
+}
+tr > td#email1 {
+  grid-area: two;
+}
+tr > td#posteddate1 {
+  grid-area: eight;
+}
+tr > td#crypto1 {
+  grid-area: three;
+}
+tr > td#amount1 {
+  grid-area: four;
+}
+tr > td#price1 {
+  grid-area: six;
+}
+tr > td#expiry1 {
+  grid-area: seven;
+  
+}
+tr > td#payment1 {
+  grid-area: five;
+}
+tr > td#deal1 {
+  grid-area: nine;
+}
+
+
+
+
+div.wrapper {
+  height: 80vh;/* if search engine 70vh */
+  overflow: scroll;
+  border: 1px black solid;
+  position: absolute;
+  bottom: 10%;
+  top: 10%;/* if search engine 20% */
+  left: 3%;
+  right: 3%;
+  
+}

@@ -1,0 +1,65 @@
+body {
+  background-color: lightblue;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+ul.home,
+ul.iflog {
+  list-style: none;
+  background-color: black;
+  /* position: absolute; */
+  margin-bottom: 0;
+  position: fixed;
+  width: 100vw;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  height: 7vh;
+  z-index: 1;
+}
+
+ul.home > li{
+  display: inline;
+  position: sticky;
+  margin: 0 auto;
+}
+ul.home {
+  bottom: 0;
+  justify-content: center;
+}
+
+ul.iflog {
+  top: 0;
+  justify-content: space-around;
+}
+
+
+ul.iflog > li{
+  display: inline;
+  position: sticky;
+  margin: 0 auto;
+}
+
+li > a:link:hover {
+  color: white;
+}
+li > a:visited {
+  color: white;
+}
+li > a:active {
+  color: lightblue;
+}
+
+form#loginregister {
+  height: 80vh;
+  overflow: scroll;
+  border: 1px black solid;
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  left: 3%;
+  right: 3%;
+}

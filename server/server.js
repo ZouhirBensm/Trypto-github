@@ -56,6 +56,8 @@ const BuyCryptoOrder = require('../models/BuyCryptoOrder')
 const SellCryptoOrder = require('../models/SellCryptoOrder')
 
 mongoose.connect('mongodb://localhost:27017/mern_database', {useNewUrlParser:true, useUnifiedTopology: true})
+.catch(e => console.log(`An Error on mongoose.connect: server.js line 61 The Error: ${e}`))
+
 
 
 app.set('view engine', 'ejs')
@@ -75,7 +77,7 @@ app.listen(3000, function () {
 
  
 app.get('/',(req,res)=>{
-  console.log(req.session)
+  //console.log(req.session)
   res.render('index')
 })
 
@@ -88,16 +90,15 @@ app.get('/api',(req,res)=>{
     }
 
     try {
-      let data = await CoinGeckoClient.simple.price(params);
+      let data = await CoinGeckoClient.simple.price(params).then(data=>data.data);
+      return res.json({
+        data: data
+      })
     } catch(e) {
       console.log(`CoinGeckoClient simple() method error: ${e}`)
     }
-    
     //console.log(typeof data.data, typeof JSON.stringify(data.data))
     
-    return res.json({
-      data: data.data
-    })
   })()
   //loadData();
   //delete
@@ -181,7 +182,7 @@ app.get('/register', redirectIfAuthenticatedMiddleware, (req,res)=>{
 app.post('/users/store', redirectIfAuthenticatedMiddleware, async (req,res)=>{
 
   await User.create(req.body,(error,user)=>{
-    console.log(req.body)
+    //console.log(req.body)
     //Log the errors if User validation does not work
       if(error){
           return res.redirect('/register')
@@ -221,6 +222,7 @@ app.post('/users/login', redirectIfAuthenticatedMiddleware, (req,res)=>{
 app.get(['/databases', '/databases/makebuy', '/databases/makesell', '/databases/AllMyOrders'], authMiddleware, (req,res)=>{
   res.render('databases')
 })
+
 
 
 
@@ -282,13 +284,16 @@ app.post('/update', (req,res)=>{
 
 })
 
-app.get('/matches', (req,res)=>{
-  //console.log('get update')
-  //
+app.get('/matches', authMiddleware, (req,res)=>{
+  res.render('matches')
+})
 
-  (async function() {
-    let buyorders = BuyCryptoOrder.find({})
-    let sellorders = SellCryptoOrder.find({})
+app.get('/api/matches', (req,res)=>{
+  (async function(){
+
+    //console.log("_________________________________________________")
+    let buyorders = BuyCryptoOrder.find({}).populate('userid')  //@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    let sellorders = SellCryptoOrder.find({}).populate('userid')
     let userid = req.session.userId
     
     function findSellMatches(_buy){
@@ -302,30 +307,146 @@ app.get('/matches', (req,res)=>{
       });
       return arrayofSellmatches
     }
-
+    function findBuyMatches(_sell){
+      let arrayofBuymatches = []
+      let buy = result[0].filter(_buy => userid != _buy.userid) //filter to not deal with myself
+      buy.forEach(buyorder => {
+        //console.log(_buy.amount, sellorder.maxamount, (parseInt(_buy.amount,10) < sellorder.maxamount))// < sellorder.maxamount)
+        if (_sell.crypto === buyorder.crypto && parseInt(_sell.minamount,10) < buyorder.amount && parseInt(_sell.maxamount,10) > buyorder.amount  && _sell.payment === buyorder.payment) {
+          arrayofBuymatches.push(buyorder)
+        }
+      });
+      return arrayofBuymatches
+    }
+    
     let result = await Promise.all([buyorders, sellorders])
     //let data = await Promise.all([result[0], result[1]])
     //console.log(result[0][0].userid.toString())
-    let mybuyOrders = result[0].filter(element => element.userid.toString() === userid)
+    console.log("user added with result: ", result[0]) //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    let mybuyOrders = result[0].filter(element => element.userid._id.toString() === userid)
+    let mysellOrders = result[1].filter(element => element.userid._id.toString() === userid)
+    
+    console.log("my Shit: ", mybuyOrders, mysellOrders) 
     let arrayOfarrayMatchesforEachBuy = []
-    mybuyOrders.forEach(buy => {
-      let arrayofSellmatches = findSellMatches(buy)
-      arrayOfarrayMatchesforEachBuy.push(arrayofSellmatches)
-    });
-
+    let arrayOfarrayMatchesforEachSell = []
+    
+    async function func1() {
+      mybuyOrders.forEach(buy => {
+        let arrayofSellmatches = findSellMatches(buy)
+        arrayOfarrayMatchesforEachBuy.push(arrayofSellmatches)
+      });
+      return 'funct1 is done searching' //value of promise //You can return the actual array of you want
+    } 
+    async function func2() {
+      mysellOrders.forEach(sell => {
+        let arrayofBuymatches = findBuyMatches(sell)
+        arrayOfarrayMatchesforEachSell.push(arrayofBuymatches)
+      });
+      return 'funct2 is done searching' //value of promise //You can return the actual array of you want
+    }
+    await Promise.all([func1(), func2()]).then(val => {console.log('func1 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val[0], '\n', 'func2 process to receive array of matching buys for each sell:\n', 'Value from promise returned: ', val[1], '\n')})
+    
     // let buyorders = await BuyCryptoOrder.find({}).then(value => {return value})
     // let sellorders = await SellCryptoOrder.find({}).then(value => {return value})
     //console.log('All buy: \n', result[0])
+
     console.log('All my buy: \n', mybuyOrders)
+    console.log('Array of Array of each buy order sell matches: \n', arrayOfarrayMatchesforEachBuy)
+    console.log('All my sell:\n', mysellOrders)
+    console.log('Array of Array of each sell order buy matches: \n', arrayOfarrayMatchesforEachSell)
+
+    //console.log('Boom')
     //console.log('All sell: \n', result[1])
     //console.log('UserID current session: \n', userid)
     //console.log('Sell orders that match: \n', userid)
-    console.log('Array of Array of each buy order sell matches: \n', arrayOfarrayMatchesforEachBuy)
-    res.render('matches')
-    })()
-  //res.render('matches')
-})
+    //res.render('matches')
 
+    try {
+      return res.json({
+        bm: arrayOfarrayMatchesforEachBuy,
+        sm: arrayOfarrayMatchesforEachSell
+      })
+    } catch(e) {
+      console.log(`Call to res.jeson() in /api/matches on server.js not working: Error: ${e}`)
+    }
+    
+    
+  })()
+  //
+  // (async function() {
+  //   console.log("_________________________________________________")
+  //   let buyorders = BuyCryptoOrder.find({})
+  //   let sellorders = SellCryptoOrder.find({})
+  //   let userid = req.session.userId
+    
+  //   function findSellMatches(_buy){
+  //     let arrayofSellmatches = []
+  //     let sell = result[1].filter(_sell => userid != _sell.userid) //filter to not deal with myself
+  //     sell.forEach(sellorder => {
+  //       //console.log(_buy.amount, sellorder.maxamount, (parseInt(_buy.amount,10) < sellorder.maxamount))// < sellorder.maxamount)
+  //       if (_buy.crypto === sellorder.crypto && parseInt(_buy.amount,10) > sellorder.minamount && parseInt(_buy.amount,10) < sellorder.maxamount  && _buy.payment === sellorder.payment) {
+  //         arrayofSellmatches.push(sellorder)
+  //       }
+  //     });
+  //     return arrayofSellmatches
+  //   }
+  //   function findBuyMatches(_sell){
+  //     let arrayofBuymatches = []
+  //     let buy = result[0].filter(_buy => userid != _buy.userid) //filter to not deal with myself
+  //     buy.forEach(buyorder => {
+  //       //console.log(_buy.amount, sellorder.maxamount, (parseInt(_buy.amount,10) < sellorder.maxamount))// < sellorder.maxamount)
+  //       if (_sell.crypto === buyorder.crypto && parseInt(_sell.minamount,10) < buyorder.amount && parseInt(_sell.maxamount,10) > buyorder.amount  && _sell.payment === buyorder.payment) {
+  //         arrayofBuymatches.push(buyorder)
+  //       }
+  //     });
+  //     return arrayofBuymatches
+  //   }
+    
+  //   let result = await Promise.all([buyorders, sellorders])
+  //   //let data = await Promise.all([result[0], result[1]])
+  //   //console.log(result[0][0].userid.toString())
+  //   let mybuyOrders = result[0].filter(element => element.userid.toString() === userid)
+  //   let mysellOrders = result[1].filter(element => element.userid.toString() === userid)
+    
+  //   let arrayOfarrayMatchesforEachBuy = []
+  //   let arrayOfarrayMatchesforEachSell = []
+    
+  //   async function func1() {
+  //     mybuyOrders.forEach(buy => {
+  //       let arrayofSellmatches = findSellMatches(buy)
+  //       arrayOfarrayMatchesforEachBuy.push(arrayofSellmatches)
+  //     });
+  //     return 'funct1 is done searching' //value of promise //You can return the actual array of you want
+  //   } 
+  //   async function func2() {
+  //     mysellOrders.forEach(sell => {
+  //       let arrayofBuymatches = findBuyMatches(sell)
+  //       arrayOfarrayMatchesforEachSell.push(arrayofBuymatches)
+  //     });
+  //     return 'funct2 is done searching' //value of promise //You can return the actual array of you want
+  //   }
+  //   await Promise.all([func1(), func2()]).then(val => {console.log('func1 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val[0], '\n', 'func2 process to receive array of matching buys for each sell:\n', 'Value from promise returned: ', val[1], '\n')})
+    
+  //   // let buyorders = await BuyCryptoOrder.find({}).then(value => {return value})
+  //   // let sellorders = await SellCryptoOrder.find({}).then(value => {return value})
+  //   //console.log('All buy: \n', result[0])
+  //   console.log('All my buy: \n', mybuyOrders)
+  //   console.log('Array of Array of each buy order sell matches: \n', arrayOfarrayMatchesforEachBuy)
+  //   console.log('All my sell:\n', mysellOrders)
+  //   console.log('Array of Array of each sell order buy matches: \n', arrayOfarrayMatchesforEachSell)
+  //   //console.log('Boom')
+  //   //console.log('All sell: \n', result[1])
+  //   //console.log('UserID current session: \n', userid)
+  //   //console.log('Sell orders that match: \n', userid)
+  //   //res.render('matches')
+
+  //   return res.json({
+  //     bm: arrayOfarrayMatchesforEachBuy,
+  //     sm: arrayOfarrayMatchesforEachSell,
+  //   })
+
+  // })
+})
 
 
 app.get(['/databases/CurrentUserID'], authMiddleware, (req,res)=>{

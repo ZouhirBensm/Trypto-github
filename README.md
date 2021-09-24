@@ -1,26 +1,26 @@
 # Commandes
 
-
 ### In terminal
-#### 1. Install dependencies:
->npm install 
-#### 2. Browserify code for it to read require on browser:
-To browserify all .js files
->npm run browserify-all
 
-#### (Not necessary, but recomended if you don't want to save on every file modification) Save automatically these files
+#### 0. Run Database MongoDB
+>brew services start mongodb-community@4.0
 
-to watch ./src/Databases.js and ./src/App.js on save:
-You need 2 terminal processes(in seperate tabs) running. One for each:
 
-Terminal 1
->npm run watchify-app
+#### 1. JSX to JS with require to work in browser, to watch edits on JSX, to transpile:
 
-Terminal 2
->npm run watchify-databases
+>npx webpack
 
-#### Comands to run developer mode locally on host:
+
+#### 2. Comands to run developer mode locally on host:
 http://localhost:3000/
 
->npm run watch
 >npm run server
+
+#### Notes:
+
+Shell mongoldb
+>mongosh
+
+Stop Database MongoDB
+>brew services stop mongodb-community@4.0
+

@@ -1,5 +1,7 @@
 import React from 'react';
-import Prices from './Prices'; 
+import Prices from './Prices';
+import '../styles/PricesComponent.css' 
+
 
 class PricesComponent extends React.Component {
   constructor(){
@@ -32,7 +34,7 @@ class PricesComponent extends React.Component {
 
 
     return (
-    <div>
+    <div className="prices">
       <form name="toogle">
         <label><input type="radio" id="Canada" name="radio" value={this.props.countries.one} onClick={this.handleClick}/>{this.props.countries.one}</label>
         <label><input type="radio" id="America" name="radio" value={this.props.countries.two} onClick={this.handleClick}/>{this.props.countries.two}</label>  

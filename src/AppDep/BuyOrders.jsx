@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
+import '../styles/BuyOrders.css'
+
 let objBuyOrders = {}
 
 function repairData(_objBuyOrders){
@@ -37,12 +39,13 @@ class BuyOrders extends Component {
   
   render() {
     return (
-      <React.Fragment>
-        <BuyOrdersFilter/>
-        <hr/>
-        <BuyOrderTable buyorders={this.state.buyorders}/>
-        <hr/>
-      </React.Fragment>
+      
+        <div className='wrapper'>
+          {/* <BuyOrdersFilter/> */}
+          <BuyOrderTable buyorders={this.state.buyorders}/>
+        </div>
+        
+      
       
     );
   }
@@ -57,7 +60,6 @@ class BuyOrdersFilter extends React.Component {
     
     return(
       <div>
-        <hr />
         This is a placeholder for the buy orders filter
       </div>
     )
@@ -74,7 +76,7 @@ function BuyOrderTable(props){
   )
   return(
     <table className="bordered-table">
-      <thead>
+      {/* <thead>
         <tr>
           <th>Order _id</th>
           <th>Posted by</th>
@@ -82,11 +84,11 @@ function BuyOrderTable(props){
           <th>Crypto</th>
           <th>Amount</th>
           <th>Price</th>
-          <th>Expiry date</th>
-          <th>Expiry time</th>
+          <th>Expiry</th>
           <th>Payment</th>
+          <th>Deal</th>
         </tr>
-      </thead>
+      </thead> */}
       <tbody>
         {buyordersRow}
       </tbody>
@@ -98,15 +100,15 @@ function BuyOrderRow(props) {
   const buyorder = props.buyorder;
   return(
     <tr>
-      <td>{buyorder._id}</td>
-      <td>{buyorder.userid.email}</td>
-      <td>{buyorder.postedDate}</td>
-      <td>{buyorder.crypto}</td>
-      <td>{buyorder.amount}</td>
-      <td>{buyorder.price}</td>
-      <td>{buyorder.expirydate}</td>
-      <td>{buyorder.expirytime}</td>
-      <td>{buyorder.payment}</td>
+      <td id="id1">{buyorder._id}</td>
+      <td id="email1">{buyorder.userid.email} wants to buy</td>
+      <td id="posteddate1">{'On: ' + buyorder.postedDate}</td>
+      <td id="crypto1">{buyorder.crypto}</td>
+      <td id="amount1">{'Amount: ' + buyorder.amount}</td>
+      <td id="price1">{'Price: ' + buyorder.price}</td>
+      <td id="expiry1">{'Exp.: ' + buyorder.expirydate}@{buyorder.expirytime}</td>
+      <td id="payment1">{buyorder.payment}</td>
+      <td id="deal1"><button>Sell to Him/Her</button></td>
       
     </tr>
   );

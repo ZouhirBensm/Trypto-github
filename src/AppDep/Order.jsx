@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import { Nav, Navbar } from 'react-bootstrap';
-import Edit from './Edit';
 
+import Edit from './Edit';
+import Form from './Form';
+import '../styles/Order.css'
 
 
 
@@ -47,53 +49,45 @@ class Order extends Component {
     const order = this.props.order;
     console.log('here', this.props.type)
     return (
-    <tr>
-      <td>{order._id}</td>
-      <td>{order.userid.email}</td>
-      <td>{order.postedDate}</td>
-      <td>{order.crypto}</td>
+      
+    <React.Fragment>
+      {this.state.showComponent ?
+        <Edit           
+        orderid={order._id}
+        ordertype={this.props.type}
+        userid={this.state.userId}
+          
+        crypto = {order.crypto}
 
-      <td>{order.amount ? order.amount : ''}</td>
+        amount = {order.amount ? order.amount : ''}
 
-      <td>{order.minamount ? order.minamount : ''}</td>
-      <td>{order.maxamount ? order.maxamount : ''}</td>
-
-      <td>{order.price}</td>
-      <td>{order.expirydate}</td>
-      <td>{order.expirytime}</td>
-      <td>{order.payment}</td>
-      <td>{this.props.type}</td>
-      <td>
-        <form action="/deleteThisOrder" method="post">
-          <input type='hidden' name='OrderType' value={this.props.type}/> 
-          <input type='hidden' name='OrderID' value={order._id}/> 
-          <input type="submit" value='Delete this order'/>
-        </form>
-      </td>
-      <td>   
-       <button onClick={this.handleClick}>Update</button>
-        {this.state.showComponent ?
-            <Edit           
-            orderid={order._id}
-            ordertype={this.props.type}
-            userid={this.state.userId}
-            
-            crypto = {order.crypto}
-
-            amount = {order.amount ? order.amount : ''}
-
-            minamount = {order.minamount ? order.minamount : ''}
-            maxamount = {order.maxamount ? order.maxamount : ''}
-            
-            price={order.price}
-            expirydate={order.expirydate}
-            expirytime={order.expirytime}
-            payment={order.payment}
-            /> :
-           null
-          }
-      </td>
-    </tr>
+        minamount = {order.minamount ? order.minamount : ''}
+        maxamount = {order.maxamount ? order.maxamount : ''}
+          
+        price={order.price}
+        expirydate={order.expirydate}
+        expirytime={order.expirytime}
+        payment={order.payment}
+        handleclick = {this.handleClick}
+        /> :
+        <Form
+        orderid = {order._id}
+        email = {order.userid.email}
+        postedDate = {order.postedDate}
+        crypto = {order.crypto}
+        amount = {order.amount ? order.amount : ''}
+        minamount = {order.minamount ? order.minamount : ''}
+        maxamount = {order.maxamount ? order.maxamount : ''}
+        price = {order.price}
+        expirydate = {order.expirydate}
+        expirytime = {order.expirytime}
+        payment = {order.payment}
+        valuetype = {this.props.type}
+        valueid = {order._id}
+        handleclick = {this.handleClick}
+        />
+      }
+    </React.Fragment>
     );
   }
 }

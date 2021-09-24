@@ -1,0 +1,96 @@
+div.databases-wrapper {
+  color: yellow;
+  margin-top: 50px;
+  height: 80vh;
+  overflow: scroll;
+  border: 1px black solid;
+  position: absolute;
+  bottom: 10%;
+  margin: 0;
+  left: 3%;
+  right: 3%;
+  padding: none;
+
+  display: flex;
+}
+
+div.makesee {
+  background-color: black;
+  width: 100%;  
+  display: flex;
+  /* height: 7vh; */
+  position: absolute;
+  top: 0;
+  bottom: 90%;
+  
+  /* align-items: center;
+  justify-content: center; */
+}
+
+
+div.makesee > button{
+  margin: 0 auto;
+  border: none;
+  background-color: transparent;
+  color: white;
+}
+
+div.make,
+div.see {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  
+  width: 100%;
+}
+
+div.make > a,
+div.see > a {
+  background-color: darkblue;
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+  /* width: 60%;
+  margin: 0 auto; */
+}
+
+div.make > a:link:hover,
+div.see > a:link:hover {
+  color: white;
+}
+div.make > a:visited,
+div.see > a:visited {
+  color: white;
+}
+div.make > a:active
+div.see > a:active {
+  color: lightblue;
+}
+
+
+div.default {
+  width: 100%;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  
+}
+/* div.default > h3 {
+  border: 1px black solid;
+} */
+
+div.default > button{
+  margin: 0 auto;
+  border: 3.5px solid white;
+  background-color: transparent;
+  color: white;
+
+  background-color: darkblue;
+  
+  border-radius: 10px;
+  padding: 10px;
+}

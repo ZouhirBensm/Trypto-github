@@ -3,11 +3,11 @@
 <!-- header -->
 <%-include('templates/header');-%>
 <body>
-  <h1>Login Page</h1>
   <!-- narbar -->
   <%-include('templates/navbar-top');-%>
-  <hr />
-  <form action="/users/login" method="POST">  
+  
+  <form id="loginregister" action="/users/login" method="POST">
+    <h3>Login</h3>
     <label>Email</label>
     <!-- name allows passing from form to server -->
     <input type="text" name="email">             

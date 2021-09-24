@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
+import '../styles/Make.css'
 
 
 class MakeBuy extends Component {
@@ -27,7 +28,7 @@ class MakeBuy extends Component {
   }
   render() {
     return (
-      <form action="/buyorders/store" method="POST">
+      <form action="/buyorders/store" method="POST" className="form">
         <h3>Making a buy order...</h3>
         <label htmlFor="crypto-select">Crypto</label>
         <select name="crypto" id="crypto-select" required>
@@ -44,7 +45,7 @@ class MakeBuy extends Component {
         <input type="number" id="price-select" name="price" step="0.01" required defaultValue='100'/> 
         <button onClick={this.handleClick}>Market</button>
         <label htmlFor="expirydate-select">Order Expiry Date</label>
-        <input id="expirydate-select" type="date" name="expirydate" required defaultValue='2021-08-15'/>
+        <input id="expirydate-select" type="date" name="expirydate" required defaultValue='2021-09-15'/>
         <label htmlFor="expirytime-select">Order Expiry Time</label>
         <input id="expirytime-select" type="time" name="expirytime" required defaultValue='08:00'/>
         <label htmlFor="payment-select">Payment</label>

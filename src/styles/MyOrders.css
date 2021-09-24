@@ -1,0 +1,18 @@
+
+
+table.bordered-table {
+  border: 1px solid green
+}
+
+
+div.wrapper2 {
+  height: 80vh;
+  overflow: scroll;
+  border: 1px black solid;
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  left: 3%;
+  right: 3%;
+  
+}

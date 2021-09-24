@@ -1,7 +1,9 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom'
-import PricesComponent from './AppDep/PricesComponent'; 
+import PricesComponent from './AppDep/PricesComponent.jsx';
+
+
 let objPrices = {}
 
 function repairData(_objPrices){
@@ -57,7 +59,7 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log("session: ", document.cookie)
+    //console.log("session: ", document.cookie)
     //console.log(this.state.prices)
     let countries = {
       west: {
@@ -71,14 +73,13 @@ class Home extends React.Component {
         three: "Morocco"
       }
     }
-    console.log("session: ", document.cookie)
+    //console.log("session: ", document.cookie)
     return (
       <React.Fragment> 
-        <hr />
-        <h1>Home View</h1>
+        
         <PricesComponent countries={countries.west} prices={this.state.prices}/>
         {/* <PricesComponent countries={countries.third}/> */}
-        <hr />
+        
       </React.Fragment> 
     );
   }

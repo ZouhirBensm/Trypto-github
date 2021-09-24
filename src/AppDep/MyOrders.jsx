@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Order from './Order';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import Edit from '../Matches';
+import '../styles/MyOrders.css'
+
+
 let fetchedOrders = {}
 let type
 
@@ -82,22 +85,23 @@ class MyOrders extends Component {
   }
   render() {
 
-    //console.log(this.state.orderstype)
+    console.log(this.state.orders)
     const myOrdersRows = this.state.orders.map(order => {
+        console.log("boom: ", order)
         return <Order key={order._id} order={order} type={this.state.orderstype}/>
       }
     )
     
     
     return (
-      <div>
+      <div className='wrapper2'>
         <form name="toogle">
           <label><input type="radio" id="Buy" name="radio" value='buy' defaultChecked onClick={this.handleClick}/>Buy</label>
           <label><input type="radio" id="Sell" name="radio" value='sell' onClick={this.handleClick}/>Sell</label>  
         </form>
-        <h1>State: {this.state.orderstype}</h1>
+        {/* <h1>State: {this.state.orderstype}</h1> */}
         <table className="bordered-table">
-        <thead>
+        {/* <thead>
           <tr>
             <th>Order _id</th>
             <th>Posted By</th>
@@ -106,18 +110,16 @@ class MyOrders extends Component {
 
             <th>Amount</th>
 
-            <th>Min Amount</th>
-            <th>Max Amount</th>
             
             <th>Price</th>
             <th>Expiry Date</th>
             <th>Expiry Time</th>
             <th>Payment</th>
-            <th>Type</th>
+            
             <th>Delete?</th>
             <th>Update Amount</th>
           </tr>
-        </thead>
+        </thead> */}
         <tbody>
           {myOrdersRows}
         </tbody>

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
+import '../styles/SellOrders.css'
+
 let objSellOrders = {}
 
 function repairData(_objSellOrders){
@@ -38,12 +40,10 @@ class SellOrders extends Component {
   
   render() {
     return (
-      <React.Fragment>
-        <SellOrdersFilter/>
-        <hr/>
+      <div className="wrapper">
+        {/* <SellOrdersFilter/> */}
         <SellOrderTable sellorders={this.state.sellorders}/>
-        <hr/>
-      </React.Fragment>
+      </div>
       
     );
   }
@@ -58,7 +58,6 @@ class SellOrdersFilter extends React.Component {
     
     return(
       <div>
-        <hr />
         This is a placeholder for the sell orders filter
       </div>
     )
@@ -75,20 +74,19 @@ function SellOrderTable(props){
   )
   return(
     <table className="bordered-table">
-      <thead>
+      {/* <thead>
         <tr>
           <th>Order _id</th>
           <th>Posted by</th>
           <th>Date Posted</th>
           <th>Crypto</th>
-          <th>Min Amount</th>
-          <th>Max Amount</th>
+          <th>Amount</th>
           <th>Price</th>
-          <th>Expiry date</th>
-          <th>Expiry time</th>
+          <th>Expiry</th>
           <th>Payment</th>
+          <th>Deal</th>
         </tr>
-      </thead>
+      </thead> */}
       <tbody>
         {sellordersRow}
       </tbody>
@@ -100,16 +98,17 @@ function SellOrderRow(props) {
   const sellorder = props.sellorder;
   return(
     <tr>
-      <td>{sellorder._id}</td>
-      <td>{sellorder.userid.email}</td>
-      <td>{sellorder.postedDate}</td>
-      <td>{sellorder.crypto}</td>
-      <td>{sellorder.minamount}</td>
-      <td>{sellorder.maxamount}</td>
-      <td>{sellorder.price}</td>
-      <td>{sellorder.expirydate}</td>
-      <td>{sellorder.expirytime}</td>
-      <td>{sellorder.payment}</td>
+      <td id="id2">{sellorder._id}</td>
+      <td id="email2">{sellorder.userid.email} wants to sell</td>
+      <td id="posteddate2">{'On: ' + sellorder.postedDate}</td>
+      <td id="crypto2">{sellorder.crypto}</td>
+      <td id="amountrange2">{'Amount Range: ' +  sellorder.minamount}-{sellorder.maxamount}</td>
+      <td id="price2">{'Price: ' + sellorder.price}</td>
+      <td id="expiry2">{'Exp.: ' + sellorder.expirydate}@{sellorder.expirytime}</td>
+      <td id="payment2">{sellorder.payment}</td>
+      <td id="deal2"><button>Buy from Him/Her</button></td>
     </tr>
   );
 }
+
+
