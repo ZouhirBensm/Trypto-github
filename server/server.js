@@ -9,6 +9,9 @@ const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthe
 //Import authMiddleware
 const authMiddleware = require('../middleware/authMiddleware')
 
+const paginateMiddleware = require('../middleware/paginateMiddleware')
+
+
 
 const express = require('express');
 
@@ -104,28 +107,10 @@ app.get('/api',(req,res)=>{
   //delete
 })
 
-app.get('/data/:target', async (req,res)=>{
-
-  //console.log(typeof req.params.target)
-  switch(req.params.target) {
-    case 'buyordersdata':
-      const buycryptoorders = await BuyCryptoOrder.find({}).populate('userid')
-      //console.log(buycryptoorders, typeof buycryptoorders)
-      res.json({
-        data: buycryptoorders
-      })
-      break;
-    case 'sellordersdata':
-      //console.log('2')
-      const sellcryptoorders = await SellCryptoOrder.find({}).populate('userid')
-      //console.log(sellcryptoorders, typeof sellcryptoorders)
-      res.json({
-        data: sellcryptoorders
-      })
-      break;
-    default:
-      console.log('Target data not identified')
-  } 
+app.get('/data/:target', paginateMiddleware, (req,res)=>{
+  res.json({
+    data: res.paginatedResults
+  })
 })
 
 app.get('/data/buy/:userID', async (req,res)=>{

@@ -5,12 +5,8 @@ import '../styles/Edit.css'
 
 
 class Edit extends Component {
- 
-
   render() {
-
     return (
-      
         // <form action="/update" method="post" id="my_form">
         //   <input type='hidden' name='UserID' value={this.props.userid}/> 
         //   <input type='hidden' name='OrderType' value={this.props.ordertype}/> 
