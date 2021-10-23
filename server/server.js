@@ -113,44 +113,17 @@ app.get('/data/:target', paginateMiddleware, (req,res)=>{
   })
 })
 
-app.get('/data/buy/:userID', async (req,res)=>{
-  //let cryptoorders2 = []
-  const cryptoorders = await BuyCryptoOrder.find({}).populate('userid')
-  
-  // cryptoorders.forEach(element => {
-  //   if (element.userid._id == req.params.userID){
-  //     cryptoorders2.push(element)
-  //   }
-  // })
-  let cryptoorders2 = cryptoorders.filter(cryptoorder => cryptoorder.userid._id == req.params.userID)
+
+
+
+app.get('/data/:target/:userID', paginateMiddleware, (req,res)=>{
   res.json({
-    data: cryptoorders2,
+    data: res.paginatedResults,
   })
-
-
-  //console.log(cryptoorders2, typeof cryptoorders2)
-
-
 })
 
-app.get('/data/sell/:userID', async (req,res)=>{
-  //let cryptoorders2 = []
-  const cryptoorders = await SellCryptoOrder.find({}).populate('userid')
-  
-  // cryptoorders.forEach(element => {
-  //   if (element.userid._id == req.params.userID){
-  //     cryptoorders2.push(element)
-  //   }
-  // })
-  let cryptoorders2 = cryptoorders.filter(cryptoorder => cryptoorder.userid._id == req.params.userID)
-  res.json({
-    data: cryptoorders2,
-  })
-
-  //console.log(cryptoorders2, typeof cryptoorders2)
 
 
-})
 
 app.get('/login', redirectIfAuthenticatedMiddleware, (req,res)=>{
   res.render('login')

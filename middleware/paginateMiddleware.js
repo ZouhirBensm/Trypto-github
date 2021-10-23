@@ -3,11 +3,13 @@ const SellCryptoOrder = require('../models/SellCryptoOrder')
 
 module.exports = async (req, res, next) => {
   let model = req.params.target
-  console.log(model)
+  let user = req.params.userID
+  
   let page = parseInt(req.query.page)
   const limit = parseInt(req.query.limit)
   const crypto = req.query.crypto
-
+  
+  console.log(model, user, crypto)
   
   const startIndex = (page - 1)*limit
   const endIndex = page*limit
@@ -16,6 +18,8 @@ module.exports = async (req, res, next) => {
 
   //console.log(typeof req.params.target)
   let orders
+  let orders2
+
   switch(model) {
     case 'buyordersdata':
       if (crypto == '') {
@@ -30,6 +34,16 @@ module.exports = async (req, res, next) => {
       } else {
         orders = await SellCryptoOrder.find({crypto: crypto}).populate('userid')
       }
+      //console.log('2')
+      break
+    case 'buy':
+      orders = await BuyCryptoOrder.find({userid: user}).populate('userid')
+      //orders = orders2.filter(order => order.userid._id == user)
+      //console.log('2')
+      break
+    case 'sell':
+      orders = await SellCryptoOrder.find({userid: user}).populate('userid')
+      //orders = orders2.filter(order => order.userid._id == user)
       //console.log('2')
       break
     default:
@@ -50,6 +64,7 @@ module.exports = async (req, res, next) => {
         limit: limit
       }
     }
+    
     try {
       //Way to do it if it's a fix length database
       //results1.results = await BuyCryptoOrder.find({}).populate('userid').limit(limit).skip(startIndex).exec()
@@ -61,14 +76,13 @@ module.exports = async (req, res, next) => {
     
     let descriptive = {
       crypto: crypto,
+      user: user,
       page: page,
       limit: limit,
       startIndex: startIndex,
       endIndex: endIndex,
     }
-    console.log("\nDescription: \n", descriptive, "\n\nResults returned:\n", results)
+    console.log("\nDescription: \n", descriptive, "\n\nResults returned:\n", "results")
     next()
-    // results1.results = buycryptoorders.slice(startIndex,endIndex)
-    // res.paginatedResults = results1
-    // next()
+
 }

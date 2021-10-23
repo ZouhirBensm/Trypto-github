@@ -3,6 +3,7 @@ import Order from './Order';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import Edit from '../Matches';
 import '../styles/MyOrders.css'
+import PageSelector from './PageSelector';
 
 
 let fetchedOrders = {}
@@ -22,12 +23,25 @@ class MyOrders extends Component {
       userId: '',
       orderstype: 'buy',
       orders: [],
+      page: 1,
+      limit: 3, //Limit per page defined here!
+      nextPage: 2,
+      previousPage: undefined,
+      on_off_limit_next: false,
+      on_off_limit_previous: true,
     }
     this.handleClick = this.handleClick.bind(this)
-   
+    this.controls = this.controls.bind(this);
   }
 
-
+  controls(_page) {
+    this.setState({
+      page: _page
+    }, () => {
+      //console.log("callback: ", this.state.page)
+      this.loadData(this.state.orderstype)
+    })
+  }
 
 
   componentDidMount(){
@@ -50,7 +64,7 @@ class MyOrders extends Component {
     // if (_orderstype === '') {
     //   _orderstype = 'buy'
     // }
-    const response2 = await fetch(`http://localhost:3000/data/${_orderstype}/${_userID}`)
+    const response2 = await fetch(`http://localhost:3000/data/${_orderstype}/${_userID}?page=${this.state.page}&limit=${this.state.limit}`)
     
     // .then(response2 => response2.json())
     // .then((data) => {
@@ -58,34 +72,53 @@ class MyOrders extends Component {
     // });
     //OR
     const data2 = await response2.json()
-    fetchedOrders = data2.data
+    
+    fetchedOrders = data2.data.results
 
     //console.log(data.type)
     this.setState({
       userId: _userID,
-      orders: fetchedOrders
+      orders: fetchedOrders,
+      nextPage: data2.data.next,
+      previousPage: data2.data.previous,
+    }, () => {
+      if(this.state.nextPage==undefined){
+        this.setState({
+          on_off_limit_next: true
+        })
+      } else {
+        this.setState({
+          on_off_limit_next: false
+        })
+      }
+      if(this.state.previousPage==undefined){
+        this.setState({
+          on_off_limit_previous: true
+        })
+      } else {
+        this.setState({
+          on_off_limit_previous: false
+        })
+      }
+
     })
     
   }
 
-  componentDidUpdate(prevProps, prevState) {
 
-    // Typical usage (don't forget to compare props):
-    if (this.state.orderstype !== prevState.orderstype) {
-      this.loadData(this.state.orderstype);
-      
-    }
-  }
   handleClick(e){
     //e.preventDefault()
     //console.log(e.target.value);
     this.setState({
-      orderstype: e.target.value
+      orderstype: e.target.value,
+      page: 1,
+    }, () => {
+      this.loadData(this.state.orderstype);
     })
   }
   render() {
 
-    console.log(this.state.orders)
+    console.log(" parent updating: ", this.state.page)
     const myOrdersRows = this.state.orders.map(order => {
         console.log("boom: ", order)
         return <Order key={order._id} order={order} type={this.state.orderstype}/>
@@ -124,7 +157,8 @@ class MyOrders extends Component {
           {myOrdersRows}
         </tbody>
       </table>
-
+      {console.log("parents fucking page: ", this.state.page)}
+      <PageSelector page={this.state.page} on_off_limit_previous={this.state.on_off_limit_previous} on_off_limit_next={this.state.on_off_limit_next} previousPage={this.state.previousPage} nextPage={this.state.nextPage} controls={this.controls}/>
 
       </div>
     );

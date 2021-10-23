@@ -12,6 +12,9 @@ class PageSelector extends Component {
     //this.handleClick = this.handleChange.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ page: nextProps.page });  
+  }
   // handleChange(e){
   //   console.log("change!")
   //   // if(){
@@ -26,7 +29,7 @@ class PageSelector extends Component {
     //document.getElementById("myBtn").disabled = true;
     //console.log("ID: ", e.target.id)
     //console.log('child: ', this.props.previousPage, this.props.nextPage)
-
+    console.log("CHECK! : ", this.props.check)
     if(e.target.id == "previous"){
       //console.log("previous was clicked")
       this.setState({
@@ -47,7 +50,7 @@ class PageSelector extends Component {
     }
   }
   render() {
-    
+    console.log("childs fucking page: ", this.state.page)
 
     return (
       <div className="wrapper3">
