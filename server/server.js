@@ -247,12 +247,6 @@ app.get('/matches', authMiddleware, (req,res)=>{
   res.render('matches')
 })
 
-//reference to delete later
-app.get('/data/:target/:userID', paginateMiddleware, (req,res)=>{
-  res.json({
-    data: res.paginatedResults,
-  })
-})
 
 app.get('/api/matches/:target', matchesPaginateMiddleware, (req,res)=>{
 
