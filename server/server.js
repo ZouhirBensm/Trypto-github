@@ -10,6 +10,7 @@ const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthe
 const authMiddleware = require('../middleware/authMiddleware')
 
 const paginateMiddleware = require('../middleware/paginateMiddleware')
+const matchesPaginateMiddleware = require('../middleware/matchesPaginateMiddleware')
 
 
 
@@ -246,90 +247,101 @@ app.get('/matches', authMiddleware, (req,res)=>{
   res.render('matches')
 })
 
-app.get('/api/matches', (req,res)=>{
-  (async function(){
 
-    //console.log("_________________________________________________")
-    let buyorders = BuyCryptoOrder.find({}).populate('userid')  //@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    let sellorders = SellCryptoOrder.find({}).populate('userid')
-    let userid = req.session.userId
-    
-    function findSellMatches(_buy){
-      let arrayofSellmatches = []
-      let sell = result[1].filter(_sell => userid != _sell.userid) //filter to not deal with myself
-      sell.forEach(sellorder => {
-        //console.log(_buy.amount, sellorder.maxamount, (parseInt(_buy.amount,10) < sellorder.maxamount))// < sellorder.maxamount)
-        if (_buy.crypto === sellorder.crypto && parseInt(_buy.amount,10) > sellorder.minamount && parseInt(_buy.amount,10) < sellorder.maxamount  && _buy.payment === sellorder.payment) {
-          arrayofSellmatches.push(sellorder)
-        }
-      });
-      return arrayofSellmatches
-    }
-    function findBuyMatches(_sell){
-      let arrayofBuymatches = []
-      let buy = result[0].filter(_buy => userid != _buy.userid) //filter to not deal with myself
-      buy.forEach(buyorder => {
-        //console.log(_buy.amount, sellorder.maxamount, (parseInt(_buy.amount,10) < sellorder.maxamount))// < sellorder.maxamount)
-        if (_sell.crypto === buyorder.crypto && parseInt(_sell.minamount,10) < buyorder.amount && parseInt(_sell.maxamount,10) > buyorder.amount  && _sell.payment === buyorder.payment) {
-          arrayofBuymatches.push(buyorder)
-        }
-      });
-      return arrayofBuymatches
-    }
-    
-    let result = await Promise.all([buyorders, sellorders])
-    //let data = await Promise.all([result[0], result[1]])
-    //console.log(result[0][0].userid.toString())
-    console.log("user added with result: ", result[0]) //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    let mybuyOrders = result[0].filter(element => element.userid._id.toString() === userid)
-    let mysellOrders = result[1].filter(element => element.userid._id.toString() === userid)
-    
-    console.log("my Shit: ", mybuyOrders, mysellOrders) 
-    let arrayOfarrayMatchesforEachBuy = []
-    let arrayOfarrayMatchesforEachSell = []
-    
-    async function func1() {
-      mybuyOrders.forEach(buy => {
-        let arrayofSellmatches = findSellMatches(buy)
-        arrayOfarrayMatchesforEachBuy.push(arrayofSellmatches)
-      });
-      return 'funct1 is done searching' //value of promise //You can return the actual array of you want
-    } 
-    async function func2() {
-      mysellOrders.forEach(sell => {
-        let arrayofBuymatches = findBuyMatches(sell)
-        arrayOfarrayMatchesforEachSell.push(arrayofBuymatches)
-      });
-      return 'funct2 is done searching' //value of promise //You can return the actual array of you want
-    }
-    await Promise.all([func1(), func2()]).then(val => {console.log('func1 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val[0], '\n', 'func2 process to receive array of matching buys for each sell:\n', 'Value from promise returned: ', val[1], '\n')})
-    
-    // let buyorders = await BuyCryptoOrder.find({}).then(value => {return value})
-    // let sellorders = await SellCryptoOrder.find({}).then(value => {return value})
-    //console.log('All buy: \n', result[0])
+app.get('/api/matches/:target', matchesPaginateMiddleware, (req,res)=>{
 
-    console.log('All my buy: \n', mybuyOrders)
-    console.log('Array of Array of each buy order sell matches: \n', arrayOfarrayMatchesforEachBuy)
-    console.log('All my sell:\n', mysellOrders)
-    console.log('Array of Array of each sell order buy matches: \n', arrayOfarrayMatchesforEachSell)
+  // res.json({
+  //   data: res.paginatedResults,
+  // })
 
-    //console.log('Boom')
-    //console.log('All sell: \n', result[1])
-    //console.log('UserID current session: \n', userid)
-    //console.log('Sell orders that match: \n', userid)
-    //res.render('matches')
+  res.json({
+    data: res.paginatedResults,
+  })
+  // (async function(){
 
-    try {
-      return res.json({
-        bm: arrayOfarrayMatchesforEachBuy,
-        sm: arrayOfarrayMatchesforEachSell
-      })
-    } catch(e) {
-      console.log(`Call to res.jeson() in /api/matches on server.js not working: Error: ${e}`)
-    }
+  //   //console.log("_________________________________________________")
+  //   let buyorders = BuyCryptoOrder.find({}).populate('userid')  //@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  //   let sellorders = SellCryptoOrder.find({}).populate('userid')
+  //   let userid = req.session.userId
+    
+  //   function findSellMatches(_buy){
+  //     let arrayofSellmatches = []
+  //     let sell = result[1].filter(_sell => userid != _sell.userid._id.toString()) //filter to not deal with myself
+  //     sell.forEach(sellorder => {
+  //       //console.log(_buy.amount, sellorder.maxamount, (parseInt(_buy.amount,10) < sellorder.maxamount))// < sellorder.maxamount)
+  //       if (_buy.crypto === sellorder.crypto && parseInt(_buy.amount,10) > sellorder.minamount && parseInt(_buy.amount,10) < sellorder.maxamount  && _buy.payment === sellorder.payment) {
+  //         arrayofSellmatches.push(sellorder)
+  //       }
+  //     });
+  //     return arrayofSellmatches
+  //   }
+  //   function findBuyMatches(_sell){
+  //     let arrayofBuymatches = []
+  //     let buy = result[0].filter(_buy => userid != _buy.userid._id.toString()) //filter to not deal with myself
+  //     buy.forEach(buyorder => {
+  //       //console.log(_buy.amount, sellorder.maxamount, (parseInt(_buy.amount,10) < sellorder.maxamount))// < sellorder.maxamount)
+  //       if (_sell.crypto === buyorder.crypto && parseInt(_sell.minamount,10) < buyorder.amount && parseInt(_sell.maxamount,10) > buyorder.amount  && _sell.payment === buyorder.payment) {
+  //         arrayofBuymatches.push(buyorder)
+  //       }
+  //     });
+  //     return arrayofBuymatches
+  //   }
+    
+  //   let result = await Promise.all([buyorders, sellorders])
+  //   //let data = await Promise.all([result[0], result[1]])
+  //   //console.log(result[0][0].userid.toString())
+  //   console.log("user added with result: ", result[0]) //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  //   let mybuyOrders = result[0].filter(element => element.userid._id.toString() === userid)
+  //   let mysellOrders = result[1].filter(element => element.userid._id.toString() === userid)
+    
+  //   console.log("my Shit: ", mybuyOrders, mysellOrders) 
+  //   let arrayOfarrayMatchesforEachBuy = []
+  //   let arrayOfarrayMatchesforEachSell = []
+    
+  //   async function func1() {
+  //     mybuyOrders.forEach(buy => {
+  //       let arrayofSellmatches = findSellMatches(buy)
+  //       arrayOfarrayMatchesforEachBuy.push(arrayofSellmatches)
+  //     });
+  //     return 'funct1 is done searching' //value of promise //You can return the actual array of you want
+  //   } 
+  //   async function func2() {
+  //     mysellOrders.forEach(sell => {
+  //       let arrayofBuymatches = findBuyMatches(sell)
+  //       arrayOfarrayMatchesforEachSell.push(arrayofBuymatches)
+  //     });
+  //     return 'funct2 is done searching' //value of promise //You can return the actual array of you want
+  //   }
+  //   await Promise.all([func1(), func2()]).then(val => {console.log('func1 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val[0], '\n', 'func2 process to receive array of matching buys for each sell:\n', 'Value from promise returned: ', val[1], '\n')})
+    
+  //   // let buyorders = await BuyCryptoOrder.find({}).then(value => {return value})
+  //   // let sellorders = await SellCryptoOrder.find({}).then(value => {return value})
+  //   //console.log('All buy: \n', result[0])
+
+  //   console.log('All my buy: \n', mybuyOrders)
+  //   console.log('Array of Array of each buy order sell matches: \n', arrayOfarrayMatchesforEachBuy)
+  //   console.log('All my sell:\n', mysellOrders)
+  //   console.log('Array of Array of each sell order buy matches: \n', arrayOfarrayMatchesforEachSell)
+
+  //   //console.log('Boom')
+  //   //console.log('All sell: \n', result[1])
+  //   //console.log('UserID current session: \n', userid)
+  //   //console.log('Sell orders that match: \n', userid)
+  //   //res.render('matches')
+
+  //   try {
+  //     return res.json({
+  //       bm: arrayOfarrayMatchesforEachBuy,
+  //       sm: arrayOfarrayMatchesforEachSell
+  //     })
+  //   } catch(e) {
+  //     console.log(`Call to res.jeson() in /api/matches on server.js not working: Error: ${e}`)
+  //   }
     
     
-  })()
+  // })()
+
+
   //
   // (async function() {
   //   console.log("_________________________________________________")

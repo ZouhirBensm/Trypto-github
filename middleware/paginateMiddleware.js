@@ -24,6 +24,7 @@ module.exports = async (req, res, next) => {
     case 'buyordersdata':
       if (crypto == '') {
         orders = await BuyCryptoOrder.find({}).populate('userid')
+        console.log(orders)
       } else {
         orders = await BuyCryptoOrder.find({crypto: crypto}).populate('userid')
       }
@@ -48,7 +49,7 @@ module.exports = async (req, res, next) => {
       break
     default:
       console.log('Target data not identified')
-    }
+  }
 
     //console.log(orders)
     let results = {}
@@ -69,6 +70,7 @@ module.exports = async (req, res, next) => {
       //Way to do it if it's a fix length database
       //results1.results = await BuyCryptoOrder.find({}).populate('userid').limit(limit).skip(startIndex).exec()
       results.results = orders.slice(startIndex, endIndex)
+      console.log("sliced: ", results.results)
       res.paginatedResults = results
     } catch(e){
       res.status(500).json({message: e.message})

@@ -52,7 +52,7 @@ class MakeSell extends Component {
       <button onClick={this.handleClick}>Market</button>
 
       <label htmlFor="expirydate-select">Order Expiry Date</label>
-      <input id="expirydate-select" type="date" name="expirydate" required defaultValue='2021-11-15'/>
+      <input id="expirydate-select" type="date" name="expirydate" required defaultValue='2022-11-15'/>
 
       <label htmlFor="expirytime-select">Order Expiry Time</label>
       <input id="expirytime-select" type="time" name="expirytime" required defaultValue='08:37'/>
