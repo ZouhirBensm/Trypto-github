@@ -44,7 +44,7 @@ class Matches extends Component {
     }
   }
 
-
+  
   async loadData(_matchestype){
     const response = await fetch(`http://localhost:3000/api/matches/${_matchestype}?page=${this.state.page}&limit=${this.state.limit}`)
     
