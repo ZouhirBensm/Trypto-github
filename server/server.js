@@ -1,3 +1,4 @@
+const ENV = require('../config/base')
 //Global variable loggedIn that will be accessible from all our ejs files
 global.loggedIn = null
 
@@ -28,11 +29,11 @@ const MongoStore = require('connect-mongo');
 app.use(expressSession({
   //Pass in the configuration object with value secret
   //The secret string is used to sign and encrypt the session ID cookie being shared with the browser
-  secret: 'keyboard cat',
+  secret: ENV.express_session_secret,
   resave: false,
   saveUninitialized: true,
   store: MongoStore.create({
-    mongoUrl: 'mongodb://localhost:27017/mern_database',
+    mongoUrl: ENV.database_link,
     collectionName: 'sessions',
     ttl: 1000*60*60*24 // 1 Day,
   }),
@@ -59,7 +60,7 @@ const BuyCryptoOrder = require('../models/BuyCryptoOrder')
 //We import the SellCryptoOrder model
 const SellCryptoOrder = require('../models/SellCryptoOrder')
 
-mongoose.connect('mongodb://localhost:27017/mern_database', {useNewUrlParser:true, useUnifiedTopology: true})
+mongoose.connect(ENV.database_link, {useNewUrlParser:true, useUnifiedTopology: true})
 .catch(e => console.log(`An Error on mongoose.connect: server.js line 61 The Error: ${e}`))
 
 
@@ -75,8 +76,8 @@ app.use('*', (req,res,next)=>{
 app.use(express.static('public'));
 
 
-app.listen(3000, function () {
-  console.log('App started on port 3000');
+app.listen(ENV.port, function () {
+  console.log(`App started on port ${ENV.port}`);
 });
 
  
