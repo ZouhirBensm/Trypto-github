@@ -16,7 +16,7 @@
     "watch": "babel src --out-dir public --watch --verbose",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run server",
-    "heroku-postbuild": "npx webpack"
+    "build": "npx webpack"
   },
   "author": "",
   "license": "ISC",
