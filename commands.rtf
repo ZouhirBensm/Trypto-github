@@ -41,5 +41,15 @@ Stop Database MongoDB\
 brew services stop mongodb-community@4.0\
 \
 Database on Atlas connection to cluster link for compass\
-mongodb+srv://Maestro:DB%24%251993@cluster0.81z5d.mongodb.net/test\cb3 \
+mongodb+srv://Maestro:DB%24%251993@cluster0.81z5d.mongodb.net/test\
+\
+\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf2 sh exec.sh\
+heroku plugins:install heroku-builds  \
+heroku builds:cancel -a hidden-plateau-87550\
+git push heroku master   \
+git add .\
+git commit -m \'93\'94\
 }

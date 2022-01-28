@@ -15,8 +15,7 @@
     "browserify-all": "npm run browserify-app && npm run browserify-databases && npm run browserify-matches",
     "watch": "babel src --out-dir public --watch --verbose",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -w server server/server.js",
-    "build": "npx webpack &"
+    "start": "exec.sh"
   },
   "author": "",
   "license": "ISC",
