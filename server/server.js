@@ -33,7 +33,9 @@ app.use(expressSession({
   resave: false,
   saveUninitialized: true,
   store: MongoStore.create({
+    // mongoUrl: 'mongodb+srv://Maestro:DB%24%251993@cluster0.81z5d.mongodb.net/mern_database_atlas',
     mongoUrl: ENV.database_link,
+    // mongoUrl: 'mongodb+srv://Maestro:DB%24%251993@cluster0.81z5d.mongodb.net/mern_database_atlas',
     collectionName: 'sessions',
     ttl: 1000*60*60*24 // 1 Day,
   }),
@@ -60,6 +62,8 @@ const BuyCryptoOrder = require('../models/BuyCryptoOrder')
 //We import the SellCryptoOrder model
 const SellCryptoOrder = require('../models/SellCryptoOrder')
 
+// ENV.database_link
+// mongodb+srv://Maestro:DB%24%251993@cluster0.81z5d.mongodb.net/mern_database_atlas
 mongoose.connect(ENV.database_link, {useNewUrlParser:true, useUnifiedTopology: true})
 .catch(e => console.log(`An Error on mongoose.connect: server.js line 61 The Error: ${e}`))
 
