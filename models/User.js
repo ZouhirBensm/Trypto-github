@@ -2,7 +2,8 @@ const mongoose = require('mongoose')
 //Create empty Schema object?
 const Schema = mongoose.Schema
 //Import the package bcrypt
-const bcrypt = require('bcrypt')
+// const bcrypt = require('bcrypt')
+var bcrypt = require('bcryptjs');
 
 //Models are defined through the Schema interface
 //Models define collections

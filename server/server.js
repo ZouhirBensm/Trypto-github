@@ -11,7 +11,7 @@ const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthe
 const authMiddleware = require('../middleware/authMiddleware')
 
 const paginateMiddleware = require('../middleware/paginateMiddleware')
-// const matchesPaginateMiddleware = require('../middleware/matchesPaginateMiddleware')
+const matchesPaginateMiddleware = require('../middleware/matchesPaginateMiddleware')
 
 
 
@@ -20,9 +20,10 @@ const express = require('express');
 const app = express();
 const path = require('path')
 const ejs = require('ejs')
-const bcrypt = require('bcrypt')
+// const bcrypt = require('bcrypt')
+var bcrypt = require('bcryptjs');
 const expressSession = require('express-session')
-// const MongoStore = require('connect-mongo');
+const MongoStore = require('connect-mongo');
 
 
 //We register the expressSession middleware in our app
