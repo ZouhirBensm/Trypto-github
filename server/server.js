@@ -6,7 +6,7 @@ const CoinGecko = require('coingecko-api');
 const CoinGeckoClient = new CoinGecko();
 
 //Import redirectIfAuthenticatedMiddleware
-const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthenticatedMiddleware')
+const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthenticatedMiddleware.js')
 
 //Import authMiddleware
 const authMiddleware = require('../middleware/authMiddleware')
