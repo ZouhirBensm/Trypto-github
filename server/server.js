@@ -1,4 +1,4 @@
-const ENV = require('./config/base')
+const ENV = require('../config/base')
 //Global variable loggedIn that will be accessible from all our ejs files
 global.loggedIn = null
 
@@ -6,13 +6,13 @@ const CoinGecko = require('coingecko-api');
 const CoinGeckoClient = new CoinGecko();
 
 //Import redirectIfAuthenticatedMiddleware
-const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware')
+const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthenticatedMiddleware')
 
 //Import authMiddleware
-const authMiddleware = require('./middleware/authMiddleware')
+const authMiddleware = require('../middleware/authMiddleware')
 
-const paginateMiddleware = require('./middleware/paginateMiddleware')
-const matchesPaginateMiddleware = require('./middleware/matchesPaginateMiddleware')
+const paginateMiddleware = require('../middleware/paginateMiddleware')
+const matchesPaginateMiddleware = require('../middleware/matchesPaginateMiddleware')
 
 
 
@@ -58,11 +58,11 @@ mongoose.set('useFindAndModify', false)
 mongoose.set('useCreateIndex', true)
 
 //We import the User model
-const User = require('./models/User')
+const User = require('../models/User')
 //We import the BuyCryptoOrder model
-const BuyCryptoOrder = require('./models/BuyCryptoOrder')
+const BuyCryptoOrder = require('../models/BuyCryptoOrder')
 //We import the SellCryptoOrder model
-const SellCryptoOrder = require('./models/SellCryptoOrder')
+const SellCryptoOrder = require('../models/SellCryptoOrder')
 
 // ENV.database_link
 // mongodb+srv://Maestro:DB%24%251993@cluster0.81z5d.mongodb.net/mern_database_atlas
