@@ -2,6 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import PricesComponent from './AppDep/PricesComponent.jsx';
+const ENV = require('../config/base')
 
 
 let objPrices = {}
@@ -34,9 +35,8 @@ class Home extends React.Component {
     //DOM is ready
     this.loadData()
   }
-
+  
   async loadData(){
-    const ENV = require('../config/base')
     const response = await fetch(`${ENV.domain}/api`)
     //CORRECT WAY TO USE ASYNC/AWAIT. Got to fix others
     const data = await response.json()
@@ -44,24 +44,25 @@ class Home extends React.Component {
     //OR
     // .then(res=>res.json())
     // .then(data=>{
-    //   objPrices = repairData(data)
-    // })
+      //   objPrices = repairData(data)
+      // })
+      
+      //console.log('object working with: ', objPrices,'\n')
+      //repairing data
+      //let repairedData = repairData(objPrices)
+      //console.log(typeof objPrices)
+      
+      
+      this.setState({
+        prices: objPrices
+      })
+      
+    }
     
-    //console.log('object working with: ', objPrices,'\n')
-    //repairing data
-    //let repairedData = repairData(objPrices)
-    //console.log(typeof objPrices)
-    
-
-    this.setState({
-      prices: objPrices
-    })
-    
-  }
-
-  render() {
-    //console.log("session: ", document.cookie)
-    //console.log(this.state.prices)
+    render() {
+      console.log("domain: ", ENV.domain)
+      //console.log("session: ", document.cookie)
+      //console.log(this.state.prices)
     let countries = {
       west: {
         one: "Canada",
@@ -74,7 +75,7 @@ class Home extends React.Component {
         three: "Morocco"
       }
     }
-    //console.log("session: ", document.cookie)
+    
     return (
       <React.Fragment> 
         
