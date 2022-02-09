@@ -1,3 +1,4 @@
+
 const ENV = require('../config/base')
 //Global variable loggedIn that will be accessible from all our ejs files
 global.loggedIn = null

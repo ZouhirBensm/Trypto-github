@@ -1,5 +1,5 @@
 module.exports = {
   database_link: process.env.DATABASE_LINK,
   express_session_secret: process.env.EXPRESS_SECRET,
-  port: process.env.PORT
+  port: process.env.PORT,
 }
