@@ -7,13 +7,13 @@ const CoinGecko = require('coingecko-api');
 const CoinGeckoClient = new CoinGecko();
 
 //Import redirectIfAuthenticatedMiddleware
-// const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthenticatedMiddleware')
+const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthenticatedMiddleware')
 
-// //Import authMiddleware
-// const authMiddleware = require('../middleware/authMiddleware')
+//Import authMiddleware
+const authMiddleware = require('../middleware/authMiddleware')
 
-// const paginateMiddleware = require('../middleware/paginateMiddleware')
-// const matchesPaginateMiddleware = require('../middleware/matchesPaginateMiddleware')
+const paginateMiddleware = require('../middleware/paginateMiddleware')
+const matchesPaginateMiddleware = require('../middleware/matchespaginateMiddleware')
 
 
 
