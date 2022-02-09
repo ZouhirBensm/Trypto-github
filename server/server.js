@@ -13,7 +13,7 @@ const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthe
 const authMiddleware = require('../middleware/authMiddleware')
 
 const paginateMiddleware = require('../middleware/paginateMiddleware')
-const matchesPaginateMiddleware = require('../middleware/matchesPaginateMiddleware')
+const matchesPaginateMiddleware = require(`${process.env.NODE_ENV}/middleware/matchesPaginateMiddleware`)
 
 
 
