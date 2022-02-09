@@ -7,7 +7,7 @@
     "node": "12.18.3"
   },
   "scripts": {
-    "server": "nodemon -w server server/server.js",
+    "server": "node -w server server/server.js",
     "compile": "babel src --out-dir public",
     "browserify-app": "browserify ./public/App.js -o ./public/browserify/App.js",
     "watchify-app": "watchify ./public/App.js -o ./public/browserify/App.js",
@@ -19,9 +19,8 @@
     "watch": "babel src --out-dir public --watch --verbose",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx webpack",
-    "start": "nodemon -w server server/server.js",
-    "build": "npx webpack",
-    "heroku-postbuild": " npm install --only=dev && npm install && npm run build"
+    "start": "node -w server server/server.js",
+    "build": "npx webpack"
   },
   "author": "",
   "license": "ISC",
