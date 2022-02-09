@@ -20,7 +20,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx webpack",
     "start": "nodemon -w server server/server.js",
-    "build": "npx webpack"
+    "build": "npx webpack",
+    "heroku-postbuild": " npm install --only=dev && npm install && npm run build"
   },
   "author": "",
   "license": "ISC",
