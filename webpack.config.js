@@ -14,7 +14,7 @@ const path = require('path')
 
 var config = {
   // watch: true,
-  mode: 'development',
+  mode: 'none',
   resolve: {
     extensions: ['.js', '.jsx']
   },
