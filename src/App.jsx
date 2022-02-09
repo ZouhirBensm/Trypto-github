@@ -36,7 +36,8 @@ class Home extends React.Component {
   }
 
   async loadData(){
-    const response = await fetch('http://localhost:3000/api')
+    const ENV = require('../config/base')
+    const response = await fetch(`${ENV.domain}/api`)
     //CORRECT WAY TO USE ASYNC/AWAIT. Got to fix others
     const data = await response.json()
     objPrices = repairData(data)
