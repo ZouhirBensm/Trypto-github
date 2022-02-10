@@ -1,20 +1,7 @@
 const path = require('path')
-
-// module.exports = {
-//   entry: './public/App.js',
-
-//   output: {
-//     filename: 'App.js',
-//     path: path.resolve(__dirname, 'dist'),
-//   },
-//   watch: true,
-//   mode: 'development',
-  
-// }
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var config = {
-  watch: true,
-  mode: 'development',
   resolve: {
     extensions: ['.js', '.jsx']
   },
@@ -48,6 +35,11 @@ var config = {
     ]
   },
   devtool : 'inline-source-map',
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Production',
+    }),
+  ],
 };
 
 var fooConfig = Object.assign({}, config, {

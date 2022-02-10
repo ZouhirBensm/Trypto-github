@@ -2,7 +2,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import PricesComponent from './AppDep/PricesComponent.jsx';
-const ENV = require('../config/base')
 
 
 let objPrices = {}
@@ -37,7 +36,7 @@ class Home extends React.Component {
   }
   
   async loadData(){
-    const response = await fetch(`${ENV.domain}/api`)
+    const response = await fetch(`http://localhost:3000/api`)
     //CORRECT WAY TO USE ASYNC/AWAIT. Got to fix others
     const data = await response.json()
     objPrices = repairData(data)
@@ -60,7 +59,6 @@ class Home extends React.Component {
     }
     
     render() {
-      console.log("domain: ", ENV.domain)
       //console.log("session: ", document.cookie)
       //console.log(this.state.prices)
     let countries = {
@@ -79,6 +77,7 @@ class Home extends React.Component {
     return (
       <React.Fragment> 
         
+        {/* <p>{process.env.REACT_APP_DOMAIN}</p> */}
         <PricesComponent countries={countries.west} prices={this.state.prices}/>
         {/* <PricesComponent countries={countries.third}/> */}
         
