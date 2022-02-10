@@ -28,6 +28,7 @@ const expressSession = require('express-session')
 const MongoStore = require('connect-mongo');
 
 
+
 //We register the expressSession middleware in our app
 app.use(expressSession({
   //Pass in the configuration object with value secret
@@ -354,3 +355,5 @@ app.get('/logout', (req,res)=>{
       res.redirect('/')
   })
 })
+
+console.log(process.env.ROOT)
