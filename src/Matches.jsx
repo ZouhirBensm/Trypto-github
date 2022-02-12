@@ -46,14 +46,14 @@ class Matches extends Component {
 
   
   async loadData(_matchestype){
-    const response = await fetch(`http://localhost:3000/api/matches/${_matchestype}?page=${this.state.page}&limit=${this.state.limit}`)
+    const response = await fetch(`${process.env.ROOT}/api/matches/${_matchestype}?page=${this.state.page}&limit=${this.state.limit}`)
     
     const data = await response.json()
     //console.log(data,_matchestype)
     
     //let arrayofmatches = []
     //arrayofmatches.push(data.data.results)
-    console.log(data.data)
+    //console.log(data.data)
 
     
     this.setState({
@@ -118,7 +118,7 @@ class Matches extends Component {
     //   }
     // }
     const matchesRows = this.state.matches.map(order => {
-      console.log("row: ", this.state.matchestype, typeof order, order)
+      //console.log("row: ", this.state.matchestype, typeof order, order)
       return <MatcheRow key={order._id} order={order}/>
     });
 

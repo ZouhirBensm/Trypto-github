@@ -15,13 +15,14 @@ class MakeBuy extends Component {
     let crypto = document.getElementById('crypto-select').value
     let amount = document.getElementById('amount-select').value
     let value
-    console.log(crypto, amount)
+    //console.log(crypto, amount)
     
-    fetch('http://localhost:3000/api')
+    fetch(`${process.env.ROOT}/api`)
+    
     .then(res => res.json())
     .then(data => {
       value = data.data[crypto.toLowerCase()].cad
-      console.log(value)
+      //console.log(value)
       document.getElementById('price-select').value = value
     })
     .catch(e => alert(`Their seems to be an error. Enter Price manually. ${e}`))

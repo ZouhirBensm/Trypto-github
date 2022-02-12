@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
   const limit = parseInt(req.query.limit)
   
   
-  console.log(model, limit)
+  //console.log(model, limit)
   
   const startIndex = (page - 1)*limit
   const endIndex = page*limit

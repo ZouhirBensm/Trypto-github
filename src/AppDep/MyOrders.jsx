@@ -50,7 +50,7 @@ class MyOrders extends Component {
   }
   async loadData(_orderstype) {
     let _userID = ''
-    const response1 = await fetch('http://localhost:3000/databases/CurrentUserID')    
+    const response1 = await fetch(`${process.env.ROOT}/databases/CurrentUserID`)    
     // .then(response1 => response1.json())
     // .then(data => {
     //   _userID = data.data
@@ -59,12 +59,12 @@ class MyOrders extends Component {
     const data = await response1.json()
     _userID = data.data
 
-    console.log(_orderstype)
+    //console.log(_orderstype)
     //console.log('This',_userID)
     // if (_orderstype === '') {
     //   _orderstype = 'buy'
     // }
-    const response2 = await fetch(`http://localhost:3000/data/${_orderstype}/${_userID}?page=${this.state.page}&limit=${this.state.limit}`)
+    const response2 = await fetch(`${process.env.ROOT}/data/${_orderstype}/${_userID}?page=${this.state.page}&limit=${this.state.limit}`)
     
     // .then(response2 => response2.json())
     // .then((data) => {
@@ -118,9 +118,9 @@ class MyOrders extends Component {
   }
   render() {
 
-    console.log(" parent updating: ", this.state.page)
+    //console.log(" parent updating: ", this.state.page)
     const myOrdersRows = this.state.orders.map(order => {
-        console.log("boom: ", order)
+        //console.log("boom: ", order)
         return <Order key={order._id} order={order} type={this.state.orderstype}/>
       }
     )

@@ -69,7 +69,7 @@ const SellCryptoOrder = require('../models/SellCryptoOrder')
 // ENV.database_link
 // mongodb+srv://Maestro:DB%24%251993@cluster0.81z5d.mongodb.net/mern_database_atlas
 mongoose.connect(ENV.database_link, {useNewUrlParser:true, useUnifiedTopology: true})
-.catch(e => console.log(`An Error on mongoose.connect: server.js line 61 The Error: ${e}`))
+.catch(e => {throw e})
 
 
 
@@ -337,7 +337,7 @@ app.post('/deleteThisOrder', authMiddleware, (req,res)=>{
   } else if (req.body.OrderType === 'sell') {
     //console.log('Order type is a sell type')
     SellCryptoOrder.findByIdAndDelete(id, (error, sellorder) =>{ 
-    console.log(error, sellorder)
+      console.log(error, sellorder)
     })
   }
   res.redirect('/databases/AllMyOrders') 
@@ -356,4 +356,8 @@ app.get('/logout', (req,res)=>{
   })
 })
 
-console.log(process.env.ROOT)
+// console.log(process.env.ROOT)
+
+/*
+ Entire current directory with the name of Trypto-gitlab with a Project ID: 31112112 is under the restrictions and obligations of intellectual property through a Canadian Copyright © issued by Innovation, Science and Economic Development Canada Canadian Intellectual Property Office. Registration number is 1187187, and registered the 12th of October 2021.
+*/

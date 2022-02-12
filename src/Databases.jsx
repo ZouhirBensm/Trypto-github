@@ -21,7 +21,7 @@ class Databases extends Component {
     let url = window.location.href
     let result = /\/databases\/\w/g.test(url)
 
-    console.log("Important: ", window.location.href, result)
+    //console.log("Important: ", window.location.href, result)
     return (
         <div>
            {!result ?

@@ -29,13 +29,13 @@ class PageSelector extends Component {
     //document.getElementById("myBtn").disabled = true;
     //console.log("ID: ", e.target.id)
     //console.log('child: ', this.props.previousPage, this.props.nextPage)
-    console.log("CHECK! : ", this.props.check)
+    //console.log("CHECK! : ", this.props.check)
     if(e.target.id == "previous"){
       //console.log("previous was clicked")
       this.setState({
           page: this.state.page-1
       }, () => {
-        console.log(this.state.page)
+        //console.log(this.state.page)
         this.props.controls(this.state.page)
       })
     }
@@ -45,12 +45,12 @@ class PageSelector extends Component {
         page: this.state.page+1
       }, () => {
         this.props.controls(this.state.page)
-        console.log(this.state.page)
+        //console.log(this.state.page)
       })
     }
   }
   render() {
-    console.log("childs fucking page: ", this.state.page)
+    //console.log("childs fucking page: ", this.state.page)
 
     return (
       <div className="wrapper3">

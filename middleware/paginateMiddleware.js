@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
   const limit = parseInt(req.query.limit)
   const crypto = req.query.crypto
   
-  console.log(model, user, crypto)
+  //console.log(model, user, crypto)
   
   const startIndex = (page - 1)*limit
   const endIndex = page*limit
@@ -70,7 +70,7 @@ module.exports = async (req, res, next) => {
       //Way to do it if it's a fix length database
       //results1.results = await BuyCryptoOrder.find({}).populate('userid').limit(limit).skip(startIndex).exec()
       results.results = orders.slice(startIndex, endIndex)
-      console.log("sliced: ", results.results)
+      //console.log("sliced: ", results.results)
       res.paginatedResults = results
     } catch(e){
       res.status(500).json({message: e.message})
@@ -84,7 +84,7 @@ module.exports = async (req, res, next) => {
       startIndex: startIndex,
       endIndex: endIndex,
     }
-    console.log("\nDescription: \n", descriptive, "\n\nResults returned:\n", "results")
+    //console.log("\nDescription: \n", descriptive, "\n\nResults returned:\n", "results")
     next()
 
 }

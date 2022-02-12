@@ -32,7 +32,7 @@ class Order extends Component {
   }
   async loadData() {
     let _userID = ''
-    const response1 = await fetch('http://localhost:3000/databases/CurrentUserID')  
+    const response1 = await fetch(`${process.env.ROOT}/databases/CurrentUserID`)  
     const data = await response1.json()
     _userID = data.data
     // .then(response1 => response1.json())
@@ -47,7 +47,7 @@ class Order extends Component {
 
   render() {
     const order = this.props.order;
-    console.log('here', this.props.type)
+    //console.log('here', this.props.type)
     return (
       
     <React.Fragment>

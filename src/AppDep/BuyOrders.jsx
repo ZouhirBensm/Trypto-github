@@ -48,7 +48,7 @@ class BuyOrders extends Component {
   }
   //HANDLE THE CHANGE IN SEARCH INPUT
   handleChange(e){
-    console.log(e.target.value)
+    //console.log(e.target.value)
     this.setState({
       //buyorders: this.props.buyorders,
       searchTerm: e.target.value
@@ -72,8 +72,8 @@ class BuyOrders extends Component {
 
   async loadData(){
 
-    console.log("HERE LOAD: ", this.state.crypto)
-    let response = await fetch(`http://localhost:3000/data/buyordersdata?page=${this.state.page}&limit=${this.state.limit}&crypto=${this.state.crypto}`)
+    //console.log("HERE LOAD: ", this.state.crypto)
+    let response = await fetch(`${process.env.ROOT}/data/buyordersdata?page=${this.state.page}&limit=${this.state.limit}&crypto=${this.state.crypto}`)
     let data = await response.json()
     //console.log(data)
     //console.log("Next: ", data.data.next)
@@ -112,7 +112,7 @@ class BuyOrders extends Component {
   }
   
   render() {
-    console.log("HERE RENDER: ", this.state.crypto)
+    //console.log("HERE RENDER: ", this.state.crypto)
     return (
       <div className='wrapper'>
         <form onSubmit={this.handleSubmit}>

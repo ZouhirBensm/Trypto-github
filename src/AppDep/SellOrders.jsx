@@ -49,7 +49,7 @@ class SellOrders extends Component {
   }
   //HANDLE THE CHANGE IN SEARCH INPUT
   handleChange(e){
-    console.log(e.target.value)
+    //console.log(e.target.value)
     this.setState({
       //buyorders: this.props.buyorders,
       searchTerm: e.target.value
@@ -69,7 +69,7 @@ class SellOrders extends Component {
     this.loadData()
   }
   async loadData(){
-    let response = await fetch(`http://localhost:3000/data/sellordersdata?page=${this.state.page}&limit=${this.state.limit}&crypto=${this.state.crypto}`)
+    let response = await fetch(`${process.env.ROOT}/data/sellordersdata?page=${this.state.page}&limit=${this.state.limit}&crypto=${this.state.crypto}`)
     let data = await response.json()
     objSellOrders = repairData(data)
 
