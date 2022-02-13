@@ -77,7 +77,6 @@ class Home extends React.Component {
     
     return (
       <React.Fragment> 
-        
         {/* <p>{process.env.REACT_APP_DOMAIN}</p> */}
         <PricesComponent countries={countries.west} prices={this.state.prices}/>
         {/* <PricesComponent countries={countries.third}/> */}

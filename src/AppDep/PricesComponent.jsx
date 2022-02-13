@@ -35,6 +35,7 @@ class PricesComponent extends React.Component {
 
     return (
     <div className="prices">
+      <h1>HEEELLOOO!!!!</h1>
       <form name="toogle">
         <label><input type="radio" id="Canada" name="radio" value={this.props.countries.one} onClick={this.handleClick}/>{this.props.countries.one}</label>
         <label><input type="radio" id="America" name="radio" value={this.props.countries.two} onClick={this.handleClick}/>{this.props.countries.two}</label>  

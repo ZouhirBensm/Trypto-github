@@ -24,7 +24,7 @@ module.exports = async (req, res, next) => {
     case 'buyordersdata':
       if (crypto == '') {
         orders = await BuyCryptoOrder.find({}).populate('userid')
-        console.log(orders)
+        // console.log(orders)
       } else {
         orders = await BuyCryptoOrder.find({crypto: crypto}).populate('userid')
       }

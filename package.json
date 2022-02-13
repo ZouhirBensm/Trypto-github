@@ -1,30 +1,20 @@
 {
-  "name": "project",
+  "name": "trypto",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "engines": {
-    "node": "12.18.3"
+    "node": "12.18.3",
+    "npm": "8.3.0"
   },
   "scripts": {
     "server": "nodemon -w server server/server.js",
-    "compile": "babel src --out-dir public",
-    "browserify-app": "browserify ./public/App.js -o ./public/browserify/App.js",
-    "watchify-app": "watchify ./public/App.js -o ./public/browserify/App.js",
-    "browserify-databases": "browserify ./public/Databases.js -o ./public/browserify/Databases.js",
-    "watchify-databases": "watchify ./public/Databases.js -o ./public/browserify/Databases.js",
-    "browserify-matches": "browserify ./public/Matches.js -o ./public/browserify/Matches.js",
-    "watchify-matches": "watchify ./public/Matches.js -o ./public/browserify/Matches.js",
-    "browserify-all": "npm run browserify-app && npm run browserify-databases && npm run browserify-matches",
-    "watch": "babel src --out-dir public --watch --verbose",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx webpack",
     "start": "nodemon -w server server/server.js",
-    "build:npx": "npx webpack",
     "build:dev": "webpack --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"
   },
-  "author": "",
+  "author": "Zouhir Bensmaia",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
