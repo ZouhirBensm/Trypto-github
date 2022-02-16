@@ -24,6 +24,7 @@ class BuyOrders extends Component {
       on_off_limit_previous: true,
       crypto: '',
       searchTerm: '',
+      number_of_pages: 1,
     }
     this.controls = this.controls.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -84,10 +85,12 @@ class BuyOrders extends Component {
     //   objBuyOrders = repairData(data)
     //   //console.log(objBuyOrders.data[0].crypto)
     // });
+    // console.log(data.data.number_of_pages.number)
     this.setState({
       buyorders: objBuyOrders,
       nextPage: data.data.next,
       previousPage: data.data.previous,
+      number_of_pages: data.data.number_of_pages.number
     }, () => {
       if(this.state.nextPage==undefined){
         this.setState({
@@ -132,7 +135,7 @@ class BuyOrders extends Component {
         </form>
         {/* <BuyOrdersFilter/> */}
         <BuyOrderTable buyorders={this.state.buyorders}/>
-        <PageSelector page={this.state.page} on_off_limit_previous={this.state.on_off_limit_previous} on_off_limit_next={this.state.on_off_limit_next} previousPage={this.state.previousPage} nextPage={this.state.nextPage} controls={this.controls}/>
+        <PageSelector number_of_pages={this.state.number_of_pages} page={this.state.page} on_off_limit_previous={this.state.on_off_limit_previous} on_off_limit_next={this.state.on_off_limit_next} previousPage={this.state.previousPage} nextPage={this.state.nextPage} controls={this.controls}/>
       </div>
     );
   }

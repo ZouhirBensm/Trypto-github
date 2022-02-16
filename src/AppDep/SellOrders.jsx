@@ -24,6 +24,7 @@ class SellOrders extends Component {
       on_off_limit_previous: true,
       crypto: '',
       searchTerm: '',
+      number_of_pages: 1,
     }
     this.controls = this.controls.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -83,6 +84,7 @@ class SellOrders extends Component {
       sellorders: objSellOrders,
       nextPage: data.data.next,
       previousPage: data.data.previous,
+      number_of_pages: data.data.number_of_pages.number
     }, () => {
       if(this.state.nextPage==undefined){
         this.setState({
@@ -128,7 +130,7 @@ class SellOrders extends Component {
         {/* <SellOrdersFilter/> */}
         <SellOrderTable sellorders={this.state.sellorders}/>
         
-        <PageSelector page={this.state.page} on_off_limit_previous={this.state.on_off_limit_previous} on_off_limit_next={this.state.on_off_limit_next} previousPage={this.state.previousPage} nextPage={this.state.nextPage} controls={this.controls}/>
+        <PageSelector number_of_pages={this.state.number_of_pages} page={this.state.page} on_off_limit_previous={this.state.on_off_limit_previous} on_off_limit_next={this.state.on_off_limit_next} previousPage={this.state.previousPage} nextPage={this.state.nextPage} controls={this.controls}/>
       </div>
       
     );

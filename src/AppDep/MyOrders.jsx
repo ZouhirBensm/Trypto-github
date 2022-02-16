@@ -29,6 +29,7 @@ class MyOrders extends Component {
       previousPage: undefined,
       on_off_limit_next: false,
       on_off_limit_previous: true,
+      number_of_pages: 1,
     }
     this.handleClick = this.handleClick.bind(this)
     this.controls = this.controls.bind(this);
@@ -81,6 +82,7 @@ class MyOrders extends Component {
       orders: fetchedOrders,
       nextPage: data2.data.next,
       previousPage: data2.data.previous,
+      number_of_pages: data2.data.number_of_pages.number
     }, () => {
       if(this.state.nextPage==undefined){
         this.setState({
@@ -157,8 +159,8 @@ class MyOrders extends Component {
           {myOrdersRows}
         </tbody>
       </table>
-      {console.log("parents fucking page: ", this.state.page)}
-      <PageSelector page={this.state.page} on_off_limit_previous={this.state.on_off_limit_previous} on_off_limit_next={this.state.on_off_limit_next} previousPage={this.state.previousPage} nextPage={this.state.nextPage} controls={this.controls}/>
+      {/* {console.log("parents fucking page: ", this.state.page)} */}
+      <PageSelector number_of_pages={this.state.number_of_pages} page={this.state.page} on_off_limit_previous={this.state.on_off_limit_previous} on_off_limit_next={this.state.on_off_limit_next} previousPage={this.state.previousPage} nextPage={this.state.nextPage} controls={this.controls}/>
 
       </div>
     );
