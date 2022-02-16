@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
 import '../styles/BuyOrders.css'
 import PageSelector from './PageSelector';
+import SearchEngine from './SearchEngine';
 
 let objBuyOrders = {}
 
@@ -118,7 +119,9 @@ class BuyOrders extends Component {
     //console.log("HERE RENDER: ", this.state.crypto)
     return (
       <div className='wrapper'>
-        <form onSubmit={this.handleSubmit}>
+        <SearchEngine searchTerm={this.state.searchTerm} handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>
+
+        {/* <form onSubmit={this.handleSubmit}>
           <label>
             Select a crypto you want to filter for
             <select value={this.state.searchTerm} onChange={this.handleChange}>
@@ -132,7 +135,7 @@ class BuyOrders extends Component {
             </select>
           </label>
           <input type="submit" value="Submit"/>
-        </form>
+        </form> */}
         {/* <BuyOrdersFilter/> */}
         <BuyOrderTable buyorders={this.state.buyorders}/>
         <PageSelector number_of_pages={this.state.number_of_pages} page={this.state.page} on_off_limit_previous={this.state.on_off_limit_previous} on_off_limit_next={this.state.on_off_limit_next} previousPage={this.state.previousPage} nextPage={this.state.nextPage} controls={this.controls}/>
@@ -187,7 +190,6 @@ function BuyOrderRow(props) {
       <td id="expiry1">{'Exp.: ' + buyorder.expirydate}@{buyorder.expirytime}</td>
       <td id="payment1">{buyorder.payment}</td>
       <td id="deal1"><button>Sell to Him/Her</button></td>
-      
     </tr>
   );
 }

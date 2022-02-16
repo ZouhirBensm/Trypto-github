@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
 import '../styles/SellOrders.css'
 import PageSelector from './PageSelector';
+import SearchEngine from './SearchEngine';
 
 let objSellOrders = {}
 
@@ -112,7 +113,9 @@ class SellOrders extends Component {
   render() {
     return (
       <div className="wrapper">
-        <form onSubmit={this.handleSubmit}>
+        <SearchEngine searchTerm={this.state.searchTerm} handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>
+
+        {/* <form onSubmit={this.handleSubmit}>
           <label>
             Select a crypto you want to filter for
             <select value={this.state.searchTerm} onChange={this.handleChange}>
@@ -126,10 +129,10 @@ class SellOrders extends Component {
             </select>
           </label>
           <input type="submit" value="Submit"/>
-        </form>
+        </form> */}
+
         {/* <SellOrdersFilter/> */}
         <SellOrderTable sellorders={this.state.sellorders}/>
-        
         <PageSelector number_of_pages={this.state.number_of_pages} page={this.state.page} on_off_limit_previous={this.state.on_off_limit_previous} on_off_limit_next={this.state.on_off_limit_next} previousPage={this.state.previousPage} nextPage={this.state.nextPage} controls={this.controls}/>
       </div>
       
