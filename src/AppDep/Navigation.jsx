@@ -23,7 +23,7 @@ class Navigation extends React.Component {
   }
   
   render(){
-    
+    console.log(this.state.state)
     return(
 
       // <div>
@@ -37,10 +37,7 @@ class Navigation extends React.Component {
             <button id="See" onClick={this.handleClick}>See Existing orders</button>
           </div> 
           :
-        <div className="makesee">
-          <button id="Make" onClick={this.handleClick}>Make an order</button>
-          <button id="See" onClick={this.handleClick}>See Existing orders</button>
-        </div>
+        null
         }
         
   

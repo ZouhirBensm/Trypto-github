@@ -6,6 +6,7 @@ body {
   font-family: 'Times New Roman', Times, serif;
 }
 
+
 ul.home,
 ul.iflog {
   list-style: none;
@@ -19,6 +20,8 @@ ul.iflog {
   align-items: center;
   height: 7vh;
   z-index: 1;
+  /* Temporary measure */
+  /* display: none; */
 }
 
 ul.home > li{

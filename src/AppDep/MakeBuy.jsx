@@ -6,14 +6,51 @@ import '../styles/Make.css'
 class MakeBuy extends Component {
   constructor(){
     super()
+    this.state = {
+      iterator: 0,
+      message: undefined,
+    }
     this.handleClick = this.handleClick.bind(this)
-   
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+  handleSubmit(e){
+    e.preventDefault()
+    // console.log(e.target.parentNode)
+    // console.log(document.getElementById("form_id").elements);
+    // console.log(document.getElementById("form_id").elements[6].value)
+
+    
+    fetch(`${process.env.ROOT}/buyorders/store`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        crypto: document.getElementById("form_id").elements[0].value,
+        amount: document.getElementById("form_id").elements[1].value,
+        price: document.getElementById("form_id").elements[2].value,
+        expirydate: document.getElementById("form_id").elements[4].value,
+        expirytime: document.getElementById("form_id").elements[5].value,
+        payment: document.getElementById("form_id").elements[6].value,
+        iterator: document.getElementById("form_id").elements[7].value,
+      })
+    })
+    .then(response => response.json())
+    .then(result => {
+      this.setState({
+        iterator: result.iterator,
+        message: result.message,
+      })
+    })
+    
+    
   }
 
   handleClick(e){
     e.preventDefault()
     let crypto = document.getElementById('crypto-select').value
-    let amount = document.getElementById('amount-select').value
+    // let amount = document.getElementById('amount-select').value
     let value
     //console.log(crypto, amount)
     
@@ -28,8 +65,9 @@ class MakeBuy extends Component {
     .catch(e => alert(`Their seems to be an error. Enter Price manually. ${e}`))
   }
   render() {
+    console.log("(1) (render) iterator", this.state.iterator, this.state.message)
     return (
-      <form action="/buyorders/store" method="POST" className="form">
+      <form className="form" id="form_id">
         <h3>Making a buy order...</h3>
         <label htmlFor="crypto-select">Crypto</label>
         <select name="crypto" id="crypto-select" required>
@@ -55,7 +93,8 @@ class MakeBuy extends Component {
             <option value="Interac">Interac</option>
             <option value="Cash">Cash</option>
         </select> 
-        <button type="submit">Submit</button>
+        <input type="hidden" name="iterator" value={this.state.iterator}/>
+        <button type="submit" onClick={(e) => this.handleSubmit(e)}>Submit</button>
 
       </form>
     );

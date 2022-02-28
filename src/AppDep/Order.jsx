@@ -85,6 +85,12 @@ class Order extends Component {
         valuetype = {this.props.type}
         valueid = {order._id}
         handleclick = {this.handleClick}
+        handleDelete = {this.props.handleDelete}
+        
+        on_off_limit_previous={this.props.on_off_limit_previous}
+        on_off_limit_next={this.props.on_off_limit_next}
+        limit={this.props.limit}
+        number_of_pages={this.props.number_of_pages}
         />
       }
     </React.Fragment>

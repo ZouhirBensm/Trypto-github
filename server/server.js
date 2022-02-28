@@ -14,7 +14,7 @@ const authMiddleware = require('../middleware/authMiddleware')
 
 const paginateMiddleware = require('../middleware/paginateMiddleware')
 const matchesPaginateMiddleware = require('../middleware/matchespaginateMiddleware')
-
+const postTrackerMiddleware = require('../middleware/postTrackerMiddleware')
 
 
 const express = require('express');
@@ -65,6 +65,9 @@ const User = require('../models/User')
 const BuyCryptoOrder = require('../models/BuyCryptoOrder')
 //We import the SellCryptoOrder model
 const SellCryptoOrder = require('../models/SellCryptoOrder')
+//We import the PostsAmountsTimeframe model
+const PostsAmountsTimeframe = require('../models/PostAmountsTimeframe')
+
 
 // ENV.database_link
 // mongodb+srv://Maestro:DB%24%251993@cluster0.81z5d.mongodb.net/mern_database_atlas
@@ -91,7 +94,8 @@ app.listen(ENV.port, function () {
  
 app.get('/',(req,res)=>{
   //console.log(req.session)
-  res.render('index')
+  var JSX_to_load = 'App';
+  res.render('index', { JSX_to_load : JSX_to_load })
 })
 
 app.get('/api',(req,res)=>{
@@ -160,6 +164,8 @@ app.post('/users/store', redirectIfAuthenticatedMiddleware, async (req,res)=>{
 })
 
 app.post('/users/login', redirectIfAuthenticatedMiddleware, (req,res)=>{
+  
+  
   //Extract the email and password from the login form with req.body
   const {email, password} = req.body
 
@@ -172,7 +178,12 @@ app.post('/users/login', redirectIfAuthenticatedMiddleware, (req,res)=>{
                   //store
                   //Sets up the Session object with cookie created and userId
                   req.session.userId = user._id
-                  //console.log(req.session)
+
+
+
+                  // console.log("QUERIED DATABASE: ", data)
+                  // console.log("SESSION to WORK WITH: ", req.session)
+
                   res.redirect('/')
                   
               //If password is wrong
@@ -188,7 +199,8 @@ app.post('/users/login', redirectIfAuthenticatedMiddleware, (req,res)=>{
 })
 
 app.get(['/databases', '/databases/makebuy', '/databases/makesell', '/databases/AllMyOrders'], authMiddleware, (req,res)=>{
-  res.render('databases')
+  var JSX_to_load = 'Databases';
+  res.render('index', { JSX_to_load : JSX_to_load })
 })
 
 
@@ -196,7 +208,8 @@ app.get(['/databases', '/databases/makebuy', '/databases/makesell', '/databases/
 
 //Edit  of orders Magic happens here
 app.get(['/databases/AllMyOrders/Edit'], authMiddleware, (req,res)=>{
-  res.render('databases')
+  var JSX_to_load = 'Databases';
+  res.render('index', { JSX_to_load : JSX_to_load })
 })
 
 
@@ -248,12 +261,14 @@ app.post('/update', (req,res)=>{
   }
 
 
-  res.render('databases') 
+  var JSX_to_load = 'Databases';
+  res.render('index', { JSX_to_load : JSX_to_load })
 
 })
 
 app.get('/matches', authMiddleware, (req,res)=>{
-  res.render('matches')
+  var JSX_to_load = 'Matches';
+  res.render('index', { JSX_to_load : JSX_to_load })
 })
 
 
@@ -265,91 +280,138 @@ app.get('/api/matches/:target', matchesPaginateMiddleware, (req,res)=>{
 
 
 app.get(['/databases/CurrentUserID'], authMiddleware, (req,res)=>{
-  //console.log(req.session)
+  console.log(req.session.userId)
 
   res.json({
     data: req.session.userId
   })
-  //res.render('databases')
+  // var JSX_to_load = 'Databases';
+  // res.render('index', { JSX_to_load : JSX_to_load })
+
 })
 
 app.get(['/databases/buyordersdata', '/databases/sellordersdata'], authMiddleware, (req,res)=>{
-  res.render('databases')
+  var JSX_to_load = 'Databases';
+  res.render('index', { JSX_to_load : JSX_to_load })
 
-})
-
-//Save form input buyconstruct.ejs to buycryptoorders database
-app.post('/buyorders/store', authMiddleware, (req,res)=>{
-  
-  req.body.expireAt = new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
-  //var offset = req.body.expireAt.getTimezoneOffset() //
-  //console.log(new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5)))
-  //console.log(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7), req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
-  
-  //console.log('typeof: ', typeof req.body.expireAt + '\n','req.body.expireAt: '+ req.body.expireAt+ '\n','Current Date: '+ new Date()+ '\n')
-  //console.log(new Date('July 22, 2013 14:00:00'))
-  if(req.body.expireAt > new Date()){
-    BuyCryptoOrder.create({
-        ...req.body,
-        userid: req.session.userId
-    }, (error, buycryptoorder) => {
-        //console.log(buycryptoorder, error)
-        res.redirect('/databases')        
-    })
-  } else {
-    res.redirect('/databases')  
-  }
-})
-
-//Save form input sellconstruct.ejs to sellcryptoorders database
-app.post('/sellorders/store', authMiddleware, (req,res)=>{
-  req.body.expireAt = new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
-  //var offset = req.body.expireAt.getTimezoneOffset() //
-  //console.log(new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5)))
-  //console.log(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7), req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
-  
-  //console.log('typeof: ', typeof req.body.expireAt + '\n','req.body.expireAt: '+ req.body.expireAt+ '\n','Current Date: '+ new Date()+ '\n')
-  //console.log(new Date('July 22, 2013 14:00:00'))
-
-  if(req.body.expireAt > new Date()){
-    SellCryptoOrder.create({
-      ...req.body,
-      userid: req.session.userId
-    }, (error, sellcryptoorder) => {
-        res.redirect('/databases')        
-    })
-  } else {
-    res.redirect('/databases')  
-  }
 })
 
 //Save form input sellconstruct.ejs to sellcryptoorders database
 app.post('/deleteThisOrder', authMiddleware, (req,res)=>{
   //console.log('delete comes here')
-  //console.log(req.body) 
+  console.log("server bod:::", req.body) 
   var id = req.body.OrderID
 
   if (req.body.OrderType === 'buy') {
     //console.log('Order type is a buy type')
     BuyCryptoOrder.findByIdAndDelete(req.body.OrderID, (error, buyorder) =>{ 
-      console.log(error, buyorder)
+      console.log(error)
+    })
+    // res.redirect('/databases/AllMyOrders') 
+    res.json({
+      memorized_order_type: req.body.OrderType
     })
   } else if (req.body.OrderType === 'sell') {
     //console.log('Order type is a sell type')
     SellCryptoOrder.findByIdAndDelete(id, (error, sellorder) =>{ 
-      console.log(error, sellorder)
+      console.log(error)
+    })
+    // res.redirect('/databases/AllMyOrders') 
+    res.json({
+      memorized_order_type: req.body.OrderType
     })
   }
-  res.redirect('/databases/AllMyOrders') 
+})
+
+//Save form input buyconstruct.ejs to buycryptoorders database
+app.post('/buyorders/store', authMiddleware, postTrackerMiddleware, (req,res)=>{
+
+  // console.log(req.session)
+  req.body.expireAt = new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
+  //var offset = req.body.expireAt.getTimezoneOffset() //
+  //console.log(new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5)))
+  // console.log(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
+  // console.log(req.body.expireAt)
+  
+  //console.log('typeof: ', typeof req.body.expireAt + '\n','req.body.expireAt: '+ req.body.expireAt+ '\n','Current Date: '+ new Date()+ '\n')
+  //console.log(new Date('July 22, 2013 14:00:00'))
+
+
+
+  if(req.body.expireAt > new Date() && req.session.posts_amounts_timeframe < 7){
+    // 7 orders per timeframe allowed
+    BuyCryptoOrder.create({
+      crypto: req.body.crypto,
+      amount: req.body.amount,
+      price: req.body.price,
+      expirydate: req.body.expirydate,
+      expirytime: req.body.expirytime,
+      payment: req.body.payment,
+      userid: req.session.userId,
+      expireAt: req.body.expireAt
+    }, (error, buycryptoorder) => {
+        //console.log(buycryptoorder, error)
+        // res.redirect('/databases/makebuy')  
+        res.json({
+          iterator: req.session.posts_amounts_timeframe,
+          message: "Buy post successfully saved in database",
+        })
+    })
+  } else {
+    res.json({
+      iterator: req.session.posts_amounts_timeframe,
+      message: "You have reached your posting limit",
+    })
+  }
+
+})
+
+//Save form input sellconstruct.ejs to sellcryptoorders database
+app.post('/sellorders/store', authMiddleware, postTrackerMiddleware, (req,res)=>{
+  console.log(req.body)
+  req.body.expireAt = new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
+  //var offset = req.body.expireAt.getTimezoneOffset() //
+  //console.log(new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5)))
+  //console.log(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7), req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
+  
+  //console.log('typeof: ', typeof req.body.expireAt + '\n','req.body.expireAt: '+ req.body.expireAt+ '\n','Current Date: '+ new Date()+ '\n')
+  //console.log(new Date('July 22, 2013 14:00:00'))
+
+  if(req.body.expireAt > new Date() && req.session.posts_amounts_timeframe < 7){
+    SellCryptoOrder.create({
+      crypto: req.body.crypto,
+      minamount: req.body.minamount,
+      maxamount: req.body.maxamount,
+      price: req.body.price,
+      expirydate: req.body.expirydate,
+      expirytime: req.body.expirytime,
+      payment: req.body.payment,
+      userid: req.session.userId,
+      expireAt: req.body.expireAt
+    }, (error, sellcryptoorder) => {
+      res.json({
+        iterator: req.session.posts_amounts_timeframe,
+        message: "Sell post successfully saved in database",
+      })       
+    })
+  } else {
+    res.json({
+      iterator: req.session.posts_amounts_timeframe,
+      message: "You have reached your posting limit",
+    })
+  }
 })
 
 
 
 
-/* Youtube
-*/
+
 
 app.get('/logout', (req,res)=>{
+
+
+  
+  
   //Destroy the Session data, including the userId property
   req.session.destroy(()=>{
       res.redirect('/')

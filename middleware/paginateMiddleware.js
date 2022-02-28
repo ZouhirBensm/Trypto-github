@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
   //console.log(typeof req.params.target)
   let orders
   let orders2
-
+  console.log("ivi", model)
   switch(model) {
     case 'buyordersdata':
       if (crypto == '') {
@@ -50,44 +50,45 @@ module.exports = async (req, res, next) => {
     default:
       console.log('Target data not identified')
   }
-    const number_of_pages = Math.ceil(orders.length/limit)
-    console.log(number_of_pages)
-    let results = {}
-    results.number_of_pages = {
-      number: number_of_pages
+  console.log("orders45", orders)
+  const number_of_pages = Math.ceil(orders.length/limit)
+  // console.log(number_of_pages)
+  let results = {}
+  results.number_of_pages = {
+    number: number_of_pages
+  }
+  if(endIndex < orders.length){
+    results.next = {
+      page: page + 1,
+      limit: limit
     }
-    if(endIndex < orders.length){
-      results.next = {
-        page: page + 1,
-        limit: limit
-      }
+  }
+  if(startIndex > 0){
+    results.previous = {
+      page: page - 1,
+      limit: limit
     }
-    if(startIndex > 0){
-      results.previous = {
-        page: page - 1,
-        limit: limit
-      }
-    }
-    
-    try {
-      //Way to do it if it's a fix length database
-      //results1.results = await BuyCryptoOrder.find({}).populate('userid').limit(limit).skip(startIndex).exec()
-      results.results = orders.slice(startIndex, endIndex)
-      //console.log("sliced: ", results.results)
-      res.paginatedResults = results
-    } catch(e){
-      res.status(500).json({message: e.message})
-    }
-    
-    let descriptive = {
-      crypto: crypto,
-      user: user,
-      page: page,
-      limit: limit,
-      startIndex: startIndex,
-      endIndex: endIndex,
-    }
-    console.log("\nDescription: \n", descriptive, "\n\nResults returned:\n", results)
-    next()
+  }
+  
+  try {
+    //Way to do it if it's a fix length database
+    //results1.results = await BuyCryptoOrder.find({}).populate('userid').limit(limit).skip(startIndex).exec()
+    results.results = orders.slice(startIndex, endIndex)
+    //console.log("sliced: ", results.results)
+    res.paginatedResults = results
+  } catch(e){
+    res.status(500).json({message: e.message})
+  }
+  
+  let descriptive = {
+    crypto: crypto,
+    user: user,
+    page: page,
+    limit: limit,
+    startIndex: startIndex,
+    endIndex: endIndex,
+  }
+  console.log("\nDescription: \n", descriptive, "\n\nResults returned:\n", results)
+  next()
 
 }

@@ -7,7 +7,7 @@ class PricesComponent extends React.Component {
   constructor(){
     super()
     this.state = {
-      country: ''
+      country: 'Canada'
     }
     this.handleClick = this.handleClick.bind(this)
   }

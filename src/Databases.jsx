@@ -15,29 +15,18 @@ import { BrowserRouter, Route, Switch} from 'react-router-dom';
 
 class Databases extends Component {
 
-
-
   render() {
-    let url = window.location.href
-    let result = /\/databases\/\w/g.test(url)
-
-    //console.log("Important: ", window.location.href, result)
     return (
         <div>
-           {!result ?
-            <Navigation/> :
-            null
-          }        
-          
         <BrowserRouter> 
           <Switch> 
+            <Route exact path="/databases/" component={Navigation} />
             <Route exact path="/databases/makebuy" component={MakeBuy} />
             <Route exact path="/databases/makesell" component={MakeSell} />
             <Route exact path="/databases/buyordersdata" component={BuyOrders} />
             <Route exact path="/databases/sellordersdata" component={SellOrders} />
             <Route exact path="/databases/AllMyOrders" component={MyOrders} />
           </Switch>     
-          
         </BrowserRouter> 
         </div>
       

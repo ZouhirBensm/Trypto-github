@@ -18,6 +18,7 @@ class Matches extends Component {
       previousPage: undefined,
       on_off_limit_next: false,
       on_off_limit_previous: true,
+      number_of_pages: 1,
     }
     this.controls = this.controls.bind(this);
     this.handleClick = this.handleClick.bind(this)
@@ -55,11 +56,12 @@ class Matches extends Component {
     //arrayofmatches.push(data.data.results)
     //console.log(data.data)
 
-    
+
     this.setState({
       matches: data.data.results,
       nextPage: data.data.next,
       previousPage: data.data.previous,
+      number_of_pages: data.data.number_of_pages.number
     }, () => {
       if(this.state.nextPage==undefined){
         this.setState({
@@ -138,7 +140,7 @@ class Matches extends Component {
           {matchesRows? matchesRows: <tr></tr>}
         </tbody>
       </table>
-      <PageSelector page={this.state.page} on_off_limit_previous={this.state.on_off_limit_previous} on_off_limit_next={this.state.on_off_limit_next} previousPage={this.state.previousPage} nextPage={this.state.nextPage} controls={this.controls}/>
+      <PageSelector number_of_pages={this.state.number_of_pages} page={this.state.page} on_off_limit_previous={this.state.on_off_limit_previous} on_off_limit_next={this.state.on_off_limit_next} previousPage={this.state.previousPage} nextPage={this.state.nextPage} controls={this.controls}/>
       </div>
     )
   }

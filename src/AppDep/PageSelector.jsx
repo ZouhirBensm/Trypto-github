@@ -72,21 +72,21 @@ class PageSelector extends Component {
     let extra_span_keys = this.props.number_of_pages
     if(numbered_list.length>4) {
       if(this.state.page === 1 || this.state.page === 2) {
-        console.log("not trimmed start")
+        // console.log("not trimmed start")
         numbered_list = numbered_list.slice(0, 4)
         numbered_list.push(<span data-key={this.props.number_of_pages} onClick={this.handleClick} key={++extra_span_keys}>    ...    </span>)
       } else if (this.state.page === numbered_list.length || this.state.page === numbered_list.length-1 || this.state.page === numbered_list.length-2) {
-        console.log("not trimmed end")
+        // console.log("not trimmed end")
         numbered_list = numbered_list.slice(-4)
         numbered_list.unshift(<span data-key={1} onClick={this.handleClick} key={++extra_span_keys}>    ...    </span>)
       } else if (this.state.page-2 > 0 && this.state.page+2 < numbered_list.length) {
-        console.log("trimed")
+        // console.log("trimed")
         numbered_list = numbered_list.slice(this.state.page-2,this.state.page+2)
         numbered_list.push(<span data-key={this.props.number_of_pages} onClick={this.handleClick} key={++extra_span_keys}>    ...    </span>)
         numbered_list.unshift(<span data-key={1} onClick={this.handleClick} key={++extra_span_keys}>    ...    </span>)
       }
     }
-    console.log("numbered_list2", numbered_list)
+    // console.log("numbered_list2", numbered_list)
     // console.log("you are on page:", this.state.page, "\n", "lower bound:", this.state.page,"\n", "upper bound:", this.state.page,"\n", "and their is:", this.props.number_of_pages,"\n")
 
     //console.log("childs fucking page: ", this.state.page)

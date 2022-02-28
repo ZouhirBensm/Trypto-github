@@ -32,6 +32,7 @@ class MyOrders extends Component {
       number_of_pages: 1,
     }
     this.handleClick = this.handleClick.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
     this.controls = this.controls.bind(this);
   }
 
@@ -51,6 +52,7 @@ class MyOrders extends Component {
   }
   async loadData(_orderstype) {
     let _userID = ''
+    // console.log(`${process.env.ROOT}/databases/CurrentUserID`)
     const response1 = await fetch(`${process.env.ROOT}/databases/CurrentUserID`)    
     // .then(response1 => response1.json())
     // .then(data => {
@@ -102,11 +104,36 @@ class MyOrders extends Component {
           on_off_limit_previous: false
         })
       }
-
+      // let remainder = this.state.orders.length%this.state.limit
+      // console.log("remainder",remainder)
     })
     
   }
 
+  handleDelete(value, _signal = false){
+    //e.preventDefault()
+    //console.log(e.target.value);
+    console.log(_signal);
+
+    if(!_signal){
+      console.log("HERRRE1!!!")
+      this.setState({
+        orderstype: value,
+        page: this.state.page,
+      }, () => {
+        this.loadData(this.state.orderstype);
+      })
+    } else {
+      console.log("HERRRE2!!!")
+      this.setState({
+        orderstype: value,
+        page: this.state.page-1,
+      }, () => {
+        this.loadData(this.state.orderstype);
+      })
+    }
+
+  }
 
   handleClick(e){
     //e.preventDefault()
@@ -123,7 +150,7 @@ class MyOrders extends Component {
     //console.log(" parent updating: ", this.state.page)
     const myOrdersRows = this.state.orders.map(order => {
         //console.log("boom: ", order)
-        return <Order key={order._id} order={order} type={this.state.orderstype}/>
+        return <Order limit={this.state.limit} number_of_pages={this.state.number_of_pages} on_off_limit_previous={this.state.on_off_limit_previous} on_off_limit_next={this.state.on_off_limit_next} handleDelete={this.handleDelete} key={order._id} order={order} type={this.state.orderstype}/>
       }
     )
     

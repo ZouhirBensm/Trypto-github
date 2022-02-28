@@ -47,7 +47,12 @@ module.exports = async (req, res, next) => {
     default:
       console.log('Target data not identified')
   }
+  const number_of_pages = Math.ceil(orders.length/limit)
   let results = {}
+  results.number_of_pages = {
+    number: number_of_pages
+  }
+
   if(endIndex < orders.length){
     results.next = {
       page: page + 1,
