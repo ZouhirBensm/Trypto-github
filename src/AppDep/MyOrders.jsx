@@ -1,27 +1,14 @@
 import React, { Component } from 'react';
-import Order from './Order';
-import { BrowserRouter, Route, Switch} from 'react-router-dom';
-import Edit from '../Matches';
 import '../styles/MyOrders.css'
 import PageSelector from './PageSelector';
-
-
-let fetchedOrders = {}
-let type
-
-// function repairData(_fetchedOrders){
-//   let _repairedData = []
-//   _repairedData = _fetchedOrders.data
-//   return _repairedData
-// }
-
+import OrderTable from './OrderTable';
 
 class MyOrders extends Component {
   constructor(){
     super()
     this.state = {
       userId: '',
-      orderstype: 'buy',
+      orderstype: 'buyordersdata',
       orders: [],
       page: 1,
       limit: 3, //Limit per page defined here!
@@ -30,84 +17,46 @@ class MyOrders extends Component {
       on_off_limit_next: false,
       on_off_limit_previous: true,
       number_of_pages: 1,
+      orderID_toToggle: undefined,
     }
-    this.handleClick = this.handleClick.bind(this)
+    this.handleOrderTypeToogle = this.handleOrderTypeToogle.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.controls = this.controls.bind(this);
+    this.handleClick = this.handleClick.bind(this)
   }
 
-  controls(_page) {
-    this.setState({
-      page: _page
-    }, () => {
-      //console.log("callback: ", this.state.page)
-      this.loadData(this.state.orderstype)
+  handleClick(valuetype, valueid, e){
+    // console.log("handleClick: ", valuetype, valueid)
+
+    fetch(`${process.env.ROOT}/deleteThisOrder`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        OrderType: valuetype,
+        OrderID: valueid
+      })
     })
-  }
+    .then(response => response.json())
+    .then(result => {
+      // console.log(result)
+      let elements_left_in_page = document.getElementsByTagName("tr")
+      // console.log("Conditions", this.state.on_off_limit_next, elements_left_in_page.length === 1, this.state.number_of_pages != 1)
 
-
-  componentDidMount(){
-    //DOM is ready
-    this.loadData(this.state.orderstype)
-  }
-  async loadData(_orderstype) {
-    let _userID = ''
-    // console.log(`${process.env.ROOT}/databases/CurrentUserID`)
-    const response1 = await fetch(`${process.env.ROOT}/databases/CurrentUserID`)    
-    // .then(response1 => response1.json())
-    // .then(data => {
-    //   _userID = data.data
-    // });
-    //OR
-    const data = await response1.json()
-    _userID = data.data
-
-    //console.log(_orderstype)
-    //console.log('This',_userID)
-    // if (_orderstype === '') {
-    //   _orderstype = 'buy'
-    // }
-    const response2 = await fetch(`${process.env.ROOT}/data/${_orderstype}/${_userID}?page=${this.state.page}&limit=${this.state.limit}`)
-    
-    // .then(response2 => response2.json())
-    // .then((data) => {
-    //   fetchedOrders = data.data // you can pass the data to repairData function
-    // });
-    //OR
-    const data2 = await response2.json()
-    
-    fetchedOrders = data2.data.results
-
-    //console.log(data.type)
-    this.setState({
-      userId: _userID,
-      orders: fetchedOrders,
-      nextPage: data2.data.next,
-      previousPage: data2.data.previous,
-      number_of_pages: data2.data.number_of_pages.number
-    }, () => {
-      if(this.state.nextPage==undefined){
-        this.setState({
-          on_off_limit_next: true
-        })
+      //true, true, true
+      if(this.state.on_off_limit_next && elements_left_in_page.length === 1 && this.state.number_of_pages != 1){
+        // console.log("1")
+        this.handleDelete(result.memorized_order_type, true)
       } else {
-        this.setState({
-          on_off_limit_next: false
-        })
+        // console.log("2")
+        this.handleDelete(result.memorized_order_type)
       }
-      if(this.state.previousPage==undefined){
-        this.setState({
-          on_off_limit_previous: true
-        })
-      } else {
-        this.setState({
-          on_off_limit_previous: false
-        })
-      }
-      // let remainder = this.state.orders.length%this.state.limit
-      // console.log("remainder",remainder)
+      // console.log("elements_left_in_page: ",  elements_left_in_page, elements_left_in_page.length)
+      // console.log("bounds: ",  this.props.on_off_limit_previous, this.props.on_off_limit_next)
+      // console.log(result.memorized_order_type)
     })
-    
   }
 
   handleDelete(value, _signal = false){
@@ -132,10 +81,78 @@ class MyOrders extends Component {
         this.loadData(this.state.orderstype);
       })
     }
-
   }
 
-  handleClick(e){
+  controls(_page) {
+    this.setState({
+      page: _page
+    }, () => {
+      //console.log("callback: ", this.state.page)
+      this.loadData(this.state.orderstype)
+    })
+  }
+
+  componentDidMount(){
+    //DOM is ready
+    this.loadData(this.state.orderstype)
+  }
+
+  async loadData(_orderstype) {
+    // console.log(_orderstype)
+    let _userID = ''
+    // console.log(`${process.env.ROOT}/databases/CurrentUserID`)
+    const response1 = await fetch(`${process.env.ROOT}/databases/CurrentUserID`)    
+    const data = await response1.json()
+    //OR
+    // .then(response1 => response1.json())
+    // .then(data => {
+    //   _userID = data.data
+    // });
+
+    _userID = data.data
+    //console.log('This',_userID)
+
+    const response2 = await fetch(`${process.env.ROOT}/data/${_orderstype}/${_userID}?page=${this.state.page}&limit=${this.state.limit}`)
+    //OR
+    // .then(response2 => response2.json())
+    // .then((data) => {
+    //   console.log(data)
+    // });
+    
+    const data2 = await response2.json()
+
+    this.setState({
+      userId: _userID,
+      orders: data2.data.results,
+      nextPage: data2.data.next,
+      previousPage: data2.data.previous,
+      number_of_pages: data2.data.number_of_pages.number
+    }, () => {
+      // console.log("page: ", this.state.previousPage, this.state.nextPage)
+      if(this.state.nextPage==undefined){
+        this.setState({
+          on_off_limit_next: true
+        })
+      } else {
+        this.setState({
+          on_off_limit_next: false
+        })
+      }
+      if(this.state.previousPage==undefined){
+        this.setState({
+          on_off_limit_previous: true
+        })
+      } else {
+        this.setState({
+          on_off_limit_previous: false
+        })
+      }
+      // let remainder = this.state.orders.length%this.state.limit
+      // console.log("remainder",remainder)
+    })
+  }
+
+  handleOrderTypeToogle(e){
     //e.preventDefault()
     //console.log(e.target.value);
     this.setState({
@@ -143,52 +160,33 @@ class MyOrders extends Component {
       page: 1,
     }, () => {
       this.loadData(this.state.orderstype);
+      // console.log("Ordertype on: ", this.state.orderstype)
     })
   }
+  
   render() {
-
-    //console.log(" parent updating: ", this.state.page)
-    const myOrdersRows = this.state.orders.map(order => {
-        //console.log("boom: ", order)
-        return <Order limit={this.state.limit} number_of_pages={this.state.number_of_pages} on_off_limit_previous={this.state.on_off_limit_previous} on_off_limit_next={this.state.on_off_limit_next} handleDelete={this.handleDelete} key={order._id} order={order} type={this.state.orderstype}/>
-      }
-    )
-    
-    
     return (
       <div className='wrapper2'>
         <form name="toogle">
-          <label><input type="radio" id="Buy" name="radio" value='buy' defaultChecked onClick={this.handleClick}/>Buy</label>
-          <label><input type="radio" id="Sell" name="radio" value='sell' onClick={this.handleClick}/>Sell</label>  
+          <label><input type="radio" id="Buy" name="radio" value='buyordersdata' defaultChecked onClick={this.handleOrderTypeToogle}/>Buy</label>
+          <label><input type="radio" id="Sell" name="radio" value='sellordersdata' onClick={this.handleOrderTypeToogle}/>Sell</label>  
         </form>
-        {/* <h1>State: {this.state.orderstype}</h1> */}
-        <table className="bordered-table">
-        {/* <thead>
-          <tr>
-            <th>Order _id</th>
-            <th>Posted By</th>
-            <th>Date Posted</th>
-            <th>Crypto</th>
 
-            <th>Amount</th>
-
-            
-            <th>Price</th>
-            <th>Expiry Date</th>
-            <th>Expiry Time</th>
-            <th>Payment</th>
-            
-            <th>Delete?</th>
-            <th>Update Amount</th>
-          </tr>
-        </thead> */}
-        <tbody>
-          {myOrdersRows}
-        </tbody>
-      </table>
-      {/* {console.log("parents fucking page: ", this.state.page)} */}
-      <PageSelector number_of_pages={this.state.number_of_pages} page={this.state.page} on_off_limit_previous={this.state.on_off_limit_previous} on_off_limit_next={this.state.on_off_limit_next} previousPage={this.state.previousPage} nextPage={this.state.nextPage} controls={this.controls}/>
-
+        <OrderTable 
+        order_type={this.state.orderstype} 
+        orders={this.state.orders}
+        buttons='my'
+        handleClick={this.handleClick}
+        />
+        
+        <PageSelector 
+        number_of_pages={this.state.number_of_pages} 
+        page={this.state.page} 
+        on_off_limit_previous={this.state.on_off_limit_previous} 
+        on_off_limit_next={this.state.on_off_limit_next} 
+        previousPage={this.state.previousPage} 
+        nextPage={this.state.nextPage} 
+        controls={this.controls}/> 
       </div>
     );
   }

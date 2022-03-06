@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom'
 import '../styles/Make.css'
 
 
@@ -19,7 +18,6 @@ class MakeBuy extends Component {
     // console.log(document.getElementById("form_id").elements);
     // console.log(document.getElementById("form_id").elements[6].value)
 
-    
     fetch(`${process.env.ROOT}/buyorders/store`, {
       method: 'POST',
       headers: {
@@ -43,8 +41,6 @@ class MakeBuy extends Component {
         message: result.message,
       })
     })
-    
-    
   }
 
   handleClick(e){

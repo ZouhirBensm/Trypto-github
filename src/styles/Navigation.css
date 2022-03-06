@@ -10,13 +10,10 @@ div.databases-wrapper {
   left: 3%;
   right: 3%;
   padding: none;
-
   display: flex;
 }
 
-
-
-
+div.default,
 div.make,
 div.see {
   height: 100%;
@@ -24,7 +21,6 @@ div.see {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  
   width: 100%;
 }
 
@@ -52,15 +48,6 @@ div.see > a:active {
 }
 
 
-div.default {
-  width: 100%;
-  color: black;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  
-}
 /* div.default > h3 {
   border: 1px black solid;
 } */
@@ -70,9 +57,7 @@ div.default > button{
   border: 3.5px solid white;
   background-color: transparent;
   color: white;
-
   background-color: darkblue;
-  
   border-radius: 10px;
   padding: 10px;
 }

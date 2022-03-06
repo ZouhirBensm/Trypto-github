@@ -1,4 +1,4 @@
-tr {
+div.wrapper tr {
   display: grid;
   grid-template-rows: repeat(6,1fr);
   grid-template-columns: repeat(2,1fr);
@@ -43,12 +43,23 @@ tr > td#deal1 {
 
 
 div.wrapper {
-  height: 80vh;/* if search engine 70vh */
+  /* height: 80vh;
   overflow: scroll;
   border: 1px black solid;
   position: absolute;
   bottom: 10%;
-  top: 10%;/* if search engine 20% */
+  top: 10%;
+  left: 3%;
+  right: 3%; */
+
+
+  height: 70vh;
+  width: 94vw;
+  overflow: scroll;
+  border: 1px red solid;
+  position: absolute;
+  bottom: 10%;
+  top: 20%;
   left: 3%;
   right: 3%;
   

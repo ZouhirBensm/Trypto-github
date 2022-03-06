@@ -28,8 +28,6 @@ class PricesComponent extends React.Component {
         return <Prices key={i} price={price} country={this.state.country}/>
       }
     )
-
-
     //console.log(typeof this.props.prices)
 
 

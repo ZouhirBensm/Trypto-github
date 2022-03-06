@@ -1,16 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../styles/Navigation.css'
 
 class Navigation extends React.Component {
   constructor(){
     super()
     this.state = {
-      state: ''
+      state: null
     }
     this.handleClick = this.handleClick.bind(this)
+    this.switchResult = this.switchResult.bind(this)
   }
-
-
 
   handleClick(e){
     //e.preventDefault()
@@ -18,44 +17,43 @@ class Navigation extends React.Component {
     this.setState({
       state: e.target.id
     })
-
-    //window.location.href="/databases"
   }
-  
-  render(){
-    console.log(this.state.state)
-    return(
 
-      // <div>
-      //   <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam quis iste rerum esse. Ex odio aut consectetur modi incidunt autem! Error ab quis illo eius!</h1>
-      // </div>
-      <div className="databases-wrapper">
-  
-        {(this.state.state != "Make" && this.state.state != "See") ?
+  switchResult(_state){
+    switch(_state) {
+      case null:
+        return (
           <div className="default">
             <button id="Make" onClick={this.handleClick}>Make an order</button>
             <button id="See" onClick={this.handleClick}>See Existing orders</button>
           </div> 
-          :
-        null
-        }
-        
-  
-        {(this.state.state === "Make") ?
+        )
+      case "Make":
+        return (
           <div className="make">
-            {/* When this is changed and one of the link is accessed/clicked => affect parent class */}
             <a href="/databases/makebuy">Make a Buy Order</a>
             <a href="/databases/makesell">Make a Sell Order</a>
           </div>
-          :
-          (this.state.state === "See") ?
+        )
+      case "See":
+        return (
           <div className="see"> 
-            <a href="/databases/buyordersdata">People Buying</a>
-            <a href="/databases/sellordersdata">People Selling</a>
+            <a href={`/databases/buyordersdata`}>People Buying</a>
+            <a href={`/databases/sellordersdata`}>People Selling</a>
             <a href="/databases/AllMyOrders">All my Orders</a>
-          </div> :
-          null
-        }
+          </div>
+        )
+      default:
+        return null
+    } 
+  }
+  
+  render(){
+    let component = this.switchResult(this.state.state);
+    console.log(this.state.state)
+    return(
+      <div className="databases-wrapper">
+        {component}
       </div>
     )
   }

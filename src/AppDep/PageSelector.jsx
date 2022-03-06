@@ -93,7 +93,6 @@ class PageSelector extends Component {
 
     return (
       <div className="wrapper3">
-
         {this.props.number_of_pages === 0 ? <div>No entries avaible at the moment</div> : ''}
         {/* <h1>PageSelector</h1>
         <p>you are on page: {this.state.page}</p>
@@ -102,11 +101,9 @@ class PageSelector extends Component {
           <button disabled={this.props.on_off_limit_previous} id="previous" onClick={this.handleClick}>Previous Page</button>
           <div className="page_numbers">
             {numbered_list.length === 0 ? '0': numbered_list}
-
           </div>
           <button disabled={this.props.on_off_limit_next} id="next"  onClick={this.handleClick}>Next Page</button>
         </div>
-        
       </div>
     );
   }

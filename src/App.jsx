@@ -1,10 +1,6 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom'
 import PricesComponent from './AppDep/PricesComponent.jsx';
-
-
-
 
 class Home extends React.Component {
   constructor(){
@@ -12,7 +8,22 @@ class Home extends React.Component {
     this.state = {
       prices: []
     }
+    this.repairData = this.repairData.bind(this)
   }
+
+  repairData(_objPrices){
+    let wahad
+    let zouj
+    let _repairedData = []
+    wahad = _objPrices.data
+    zouj = Object.getOwnPropertyNames(wahad)
+    _repairedData = Object.values(wahad)
+    for (let i=0; i<zouj.length; i++){
+      _repairedData[i].name = zouj[i]
+    }
+    return _repairedData
+  }
+
   componentDidMount(){
     //DOM is ready
     this.loadData()
@@ -22,7 +33,7 @@ class Home extends React.Component {
     let objPrices = {}
     const response = await fetch(`${process.env.ROOT}/api`)
     const data = await response.json()
-    objPrices = repairData(data)
+    objPrices = this.repairData(data)
 
     this.setState({
       prices: objPrices
@@ -56,22 +67,6 @@ class Home extends React.Component {
     );
   }
 }
-
-
-function repairData(_objPrices){
-  let wahad
-  let zouj
-  let _repairedData = []
-  wahad = _objPrices.data
-  zouj = Object.getOwnPropertyNames(wahad)
-  _repairedData = Object.values(wahad)
-  for (let i=0; i<zouj.length; i++){
-    _repairedData[i].name = zouj[i]
-  }
-  return _repairedData
-}
-
-
 
 const element = <Home />;
 

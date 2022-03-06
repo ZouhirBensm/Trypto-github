@@ -3,15 +3,15 @@ const SellCryptoOrder = require('../models/SellCryptoOrder')
 
 module.exports = async (req, res, next) => {
   let model = req.params.target
-  
+
   let page = parseInt(req.query.page)
   const limit = parseInt(req.query.limit)
+
   
-  
-  //console.log(model, limit)
   
   const startIndex = (page - 1)*limit
   const endIndex = page*limit
+  let orders
 
   let userid = req.session.userId
   let buyorders = BuyCryptoOrder.find({}).populate('userid')
@@ -23,26 +23,22 @@ module.exports = async (req, res, next) => {
 
   let arrayOfarrayMatchesforEachBuy = []
   let arrayOfarrayMatchesforEachSell = []
-
   //await Promise.all([func1(), func2()]).then(val => {console.log('func1 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val[0], '\n', 'func2 process to receive array of matching buys for each sell:\n', 'Value from promise returned: ', val[1], '\n')})
-  let orders
 
   switch(model) {
-    case 'buy-matches':
-        await func1().then(val => {console.log('func1 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val, '\n')})
-        orders = arrayOfarrayMatchesforEachBuy
-        // console.log("original\n", orders);
-        // console.log(orders)
-        // console.log("array\n", orders.flat());
-        orders = orders.flat().filter((v, i, a) => a.indexOf(v) === i)
-        //console.log("unique\n", unique);
-
-      break
-    case 'sell-matches':
+    case 'buyordersdata':
         await func2().then(val => {console.log('func2 process to receive array of matching buys for each sell:\n', 'Value from promise returned: ', val, '\n')})
         orders = arrayOfarrayMatchesforEachSell
         orders = orders.flat().filter((v, i, a) => a.indexOf(v) === i)
         //console.log(orders)
+      break
+    case 'sellordersdata':
+        await func1().then(val => {console.log('func1 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val, '\n')})
+        orders = arrayOfarrayMatchesforEachBuy
+        // console.log("original\n", orders);
+        // console.log("array\n", orders.flat());
+        orders = orders.flat().filter((v, i, a) => a.indexOf(v) === i)
+
       break
     default:
       console.log('Target data not identified')
@@ -70,23 +66,29 @@ module.exports = async (req, res, next) => {
     //Way to do it if it's a fix length database
     //results1.results = await BuyCryptoOrder.find({}).populate('userid').limit(limit).skip(startIndex).exec()
     results.results = orders.slice(startIndex, endIndex)
-    console.log("sliced: ", results.results)
+    //console.log("sliced: ", results.results)
+  
     res.paginatedResults = results
   } catch(e){
     res.status(500).json({message: e.message})
   }
 
-  next()
-  //console.log("_________________________________________________")
 
+
+
+  next()
   
+
   
   function findSellMatches(_buy){
     let arrayofSellmatches = []
     let sell = result[1].filter(_sell => userid != _sell.userid._id.toString()) //filter to not deal with myself
     sell.forEach(sellorder => {
       //console.log(_buy.amount, sellorder.maxamount, (parseInt(_buy.amount,10) < sellorder.maxamount))// < sellorder.maxamount)
-      if (_buy.crypto === sellorder.crypto && parseInt(_buy.amount,10) > sellorder.minamount && parseInt(_buy.amount,10) < sellorder.maxamount  && _buy.payment === sellorder.payment) {
+      if (_buy.crypto === sellorder.crypto && 
+      parseInt(_buy.amount,10) > sellorder.minamount && 
+      parseInt(_buy.amount,10) < sellorder.maxamount  && 
+      _buy.payment === sellorder.payment) {
         arrayofSellmatches.push(sellorder)
       }
     });
@@ -118,5 +120,4 @@ module.exports = async (req, res, next) => {
     });
     return 'funct2 is done searching' //value of promise //You can return the actual array of you want
   }
-
 }

@@ -121,16 +121,15 @@ app.get('/api',(req,res)=>{
   //delete
 })
 
-app.get('/data/:target', paginateMiddleware, (req,res)=>{
-  res.json({
-    data: res.paginatedResults
-  })
-})
+
+// app.get('/api/matches/:target', matchesPaginateMiddleware, (req,res)=>{
+//   res.json({
+//     data: res.paginatedResults,
+//   })
+// })
 
 
-
-
-app.get('/data/:target/:userID', paginateMiddleware, (req,res)=>{
+app.get('/data/:target/:userID?', paginateMiddleware, (req,res)=>{
   res.json({
     data: res.paginatedResults,
   })
@@ -215,54 +214,42 @@ app.get(['/databases/AllMyOrders/Edit'], authMiddleware, (req,res)=>{
 
 
 app.post('/update', (req,res)=>{
-  const UserID = req.session.userId
-  var OrderID = req.body.OrderID
-  var OrderType = req.body.OrderType
-  
 
-  var NewCrypto = req.body.NewCrypto
+  console.log(req.body)
   
-  var NewAmount = req.body.NewAmount
+  console.log('Current User: ' + req.session.userId + ' and Order asked to update: ' + req.body.OrderID + ' order to update type: ' + req.body.OrderType)
   
-  var NewMinAmount = req.body.NewMinAmount
-  var NewMaxAmount = req.body.NewMaxAmount
-
-  var NewPrice = req.body.NewPrice
-  var NewExpiryDate = req.body.NewExpiryDate
-  var NewExpiryTime = req.body.NewExpiryTime
-  var NewPayment = req.body.NewPayment
-  
-  // var NewAmount = req.body.NewAmount
-  //console.log('Current User: ' + UserID + ' and Order asked to update: ' + OrderID + ' order to update type: ' + OrderType)
-  
-  if(OrderType === 'buy'){
-    BuyCryptoOrder.findByIdAndUpdate(OrderID, {
-      crypto: NewCrypto,
-      amount: NewAmount,
-      price: NewPrice,
-      expirydate: NewExpiryDate,
-      expirytime: NewExpiryTime,
-      payment: NewPayment,
+  if(req.body.OrderType === 'buyordersdata'){
+    BuyCryptoOrder.findByIdAndUpdate(req.body.OrderID, {
+      crypto: req.body.NewCrypto,
+      amount: req.body.NewAmount,
+      price: req.body.NewPrice,
+      expirydate: req.body.NewExpiryDate,
+      expirytime: req.body.NewExpiryTime,
+      payment: req.body.NewPayment,
       }, (error, blogspot) => { 
       console.log(error,blogspot) 
     })
-  } else if (OrderType === 'sell'){
-    SellCryptoOrder.findByIdAndUpdate(OrderID, {
-      crypto: NewCrypto,
-      minamount: NewMinAmount,
-      maxamount: NewMaxAmount,
-      price: NewPrice,
-      expirydate: NewExpiryDate,
-      expirytime: NewExpiryTime,
-      payment: NewPayment,
+  } else if (req.body.OrderType === 'sellordersdata'){
+    SellCryptoOrder.findByIdAndUpdate(req.body.OrderID, {
+      crypto: req.body.NewCrypto,
+      minamount: req.body.NewMinAmount,
+      maxamount: req.body.NewMaxAmount,
+      price: req.body.NewPrice,
+      expirydate: req.body.NewExpiryDate,
+      expirytime: req.body.NewExpiryTime,
+      payment: req.body.NewPayment,
       }, (error, blogspot) => { 
       console.log(error,blogspot) 
     })
   }
 
 
-  var JSX_to_load = 'Databases';
-  res.render('index', { JSX_to_load : JSX_to_load })
+  // var JSX_to_load = 'Databases';
+  // res.render('index', { JSX_to_load : JSX_to_load })
+
+  
+  res.redirect('/databases/AllMyOrders') 
 
 })
 
@@ -272,11 +259,6 @@ app.get('/matches', authMiddleware, (req,res)=>{
 })
 
 
-app.get('/api/matches/:target', matchesPaginateMiddleware, (req,res)=>{
-  res.json({
-    data: res.paginatedResults,
-  })
-})
 
 
 app.get(['/databases/CurrentUserID'], authMiddleware, (req,res)=>{
@@ -302,7 +284,7 @@ app.post('/deleteThisOrder', authMiddleware, (req,res)=>{
   console.log("server bod:::", req.body) 
   var id = req.body.OrderID
 
-  if (req.body.OrderType === 'buy') {
+  if (req.body.OrderType === 'buyordersdata') {
     //console.log('Order type is a buy type')
     BuyCryptoOrder.findByIdAndDelete(req.body.OrderID, (error, buyorder) =>{ 
       console.log(error)
@@ -311,7 +293,7 @@ app.post('/deleteThisOrder', authMiddleware, (req,res)=>{
     res.json({
       memorized_order_type: req.body.OrderType
     })
-  } else if (req.body.OrderType === 'sell') {
+  } else if (req.body.OrderType === 'sellordersdata') {
     //console.log('Order type is a sell type')
     SellCryptoOrder.findByIdAndDelete(id, (error, sellorder) =>{ 
       console.log(error)
@@ -337,8 +319,8 @@ app.post('/buyorders/store', authMiddleware, postTrackerMiddleware, (req,res)=>{
   //console.log(new Date('July 22, 2013 14:00:00'))
 
 
-
-  if(req.body.expireAt > new Date() && req.session.posts_amounts_timeframe < 7){
+  console.log("WAZAAAA", req.session.posts_amounts_timeframe)
+  if(req.body.expireAt > new Date() && req.session.posts_amounts_timeframe < 20){
     // 7 orders per timeframe allowed
     BuyCryptoOrder.create({
       crypto: req.body.crypto,
@@ -377,7 +359,7 @@ app.post('/sellorders/store', authMiddleware, postTrackerMiddleware, (req,res)=>
   //console.log('typeof: ', typeof req.body.expireAt + '\n','req.body.expireAt: '+ req.body.expireAt+ '\n','Current Date: '+ new Date()+ '\n')
   //console.log(new Date('July 22, 2013 14:00:00'))
 
-  if(req.body.expireAt > new Date() && req.session.posts_amounts_timeframe < 7){
+  if(req.body.expireAt > new Date() && req.session.posts_amounts_timeframe < 20){
     SellCryptoOrder.create({
       crypto: req.body.crypto,
       minamount: req.body.minamount,

@@ -1,17 +1,16 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom'
-import MatcheRow from './AppDep/MatcheRow';
-import './styles/Matches.css'
+import './styles/MyOrders.css'
 import PageSelector from './AppDep/PageSelector';
-
-
+import OrderTable from './AppDep/OrderTable';
+import axios from 'axios';
 
 class Matches extends Component {
   constructor(){
     super()
     this.state = {
-      matches: [],
-      matchestype: 'buy-matches',
+      orders: [],
+      orderstype: 'sellordersdata',
       page: 1,
       limit: 2, //Limit per page defined here!
       nextPage: 2,
@@ -21,44 +20,33 @@ class Matches extends Component {
       number_of_pages: 1,
     }
     this.controls = this.controls.bind(this);
-    this.handleClick = this.handleClick.bind(this)
-    //this.loadData(this.state.matchestype)
+    this.handleToogleFound = this.handleToogleFound.bind(this)
   }
+
   controls(_page) {
     this.setState({
       page: _page
     }, () => {
-      //console.log("callback: ", this.state.page)
-      this.loadData(this.state.matchestype)
+      this.loadData(this.state.orderstype)
     })
   }
-
+  
   componentDidMount(){
-    //Might be an issue!!
-    let url = window.location.href
-    let result = /\/matches/g.test(url)
-    //console.log('result:', url ,result)
-    if(result){
-      //DOM is ready
-      this.loadData(this.state.matchestype)
-      //console.log("data: ", this.state.matches)
-    }
+    this.loadData(this.state.orderstype)
   }
 
   
-  async loadData(_matchestype){
-    const response = await fetch(`${process.env.ROOT}/api/matches/${_matchestype}?page=${this.state.page}&limit=${this.state.limit}`)
+  async loadData(_orderstype){
+    // const response = await fetch(`${process.env.ROOT}/api/matches/${_orderstype}?page=${this.state.page}&limit=${this.state.limit}`)
+    // let data = await axios.get(`${process.env.ROOT}/api/matches/${_orderstype}?page=${this.state.page}&limit=${this.state.limit}`)
+    let data = await axios.get(`${process.env.ROOT}/data/${_orderstype}?page=${this.state.page}&limit=${this.state.limit}`)
+    .then(response => {
+      return response.data
+    })
     
-    const data = await response.json()
-    //console.log(data,_matchestype)
-    
-    //let arrayofmatches = []
-    //arrayofmatches.push(data.data.results)
-    //console.log(data.data)
-
-
+    console.log("Data retrieved matches: ", data.data)
     this.setState({
-      matches: data.data.results,
+      orders: data.data.results,
       nextPage: data.data.next,
       previousPage: data.data.previous,
       number_of_pages: data.data.number_of_pages.number
@@ -81,65 +69,42 @@ class Matches extends Component {
           on_off_limit_previous: false
         })
       }
-
     })
+
     
   }
   componentDidUpdate(prevProps, prevState) {
-
     // Typical usage (don't forget to compare props):
-    if (this.state.matchestype !== prevState.matchestype) {
-      this.loadData(this.state.matchestype);
-      
+    if (this.state.orderstype !== prevState.orderstype) {
+      this.loadData(this.state.orderstype);
     }
   }
 
-
-
-  handleClick(e){
-    //e.preventDefault()
-    //console.log(e.target.value);
+  handleToogleFound(e){
     this.setState({
-      matchestype: e.target.value,
+      orderstype: e.target.value,
       page: 1,
     }, () => {
-      this.loadData(this.state.matchestype);
+      this.loadData(this.state.orderstype);
     })
   }
 
   render() {
-    //console.log("Here: ", this.state.matches, this.state.matches.length)
-    // let matchesRows = []
-    
-    // if(this.state.matches.length > 0){
-    //   for (let i = 0; i < this.state.matches.length; i++) {
-    //     matchesRows[i] = this.state.matches[i].map(order => {
-    //       console.log("row: ", this.state.matchestype, typeof order, order)
-    //       return <MatcheRow key={order._id} order={order}/>
-    //     });
-    //   }
-    // }
-    const matchesRows = this.state.matches.map(order => {
-      //console.log("row: ", this.state.matchestype, typeof order, order)
-      return <MatcheRow key={order._id} order={order}/>
-    });
-
-    //console.log(matchesRows)
+    console.log("operating under: ", this.state.orderstype)
 
 
     return (
-      <div className="matches">
+      <div className="wrapper2">
           <form name="toogle">
-            <label><input type="radio" id="matchesbuy" name="radio" value='buy-matches' defaultChecked onClick={this.handleClick}/>Sell orders that match my buys</label>
-            <label><input type="radio" id="matchessell" name="radio" value='sell-matches' onClick={this.handleClick}/>Buy orders that match my sells</label>  
+            <label><input type="radio" id="matchesbuy" name="radio" value='sellordersdata' defaultChecked onClick={this.handleToogleFound}/>Sell orders that match my buys</label>
+            <label><input type="radio" id="matchessell" name="radio" value='buyordersdata' onClick={this.handleToogleFound}/>Buy orders that match my sells</label> 
           </form>
-          {/* {<h1>State: {this.state.matchestype}</h1>} */}
-          <table className="bordered-table">
-        <tbody>
-          
-          {matchesRows? matchesRows: <tr></tr>}
-        </tbody>
-      </table>
+
+        <OrderTable 
+        order_type={this.state.orderstype} 
+        orders={this.state.orders}
+        buttons='normal'
+        />
       <PageSelector number_of_pages={this.state.number_of_pages} page={this.state.page} on_off_limit_previous={this.state.on_off_limit_previous} on_off_limit_next={this.state.on_off_limit_next} previousPage={this.state.previousPage} nextPage={this.state.nextPage} controls={this.controls}/>
       </div>
     )

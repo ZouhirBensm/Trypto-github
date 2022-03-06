@@ -1,9 +1,7 @@
 import React from 'react';
 
-
-
-
 class Prices extends React.Component {
+
   constructor(){
     super()
     this.renderSwitch = this.renderSwitch.bind(this)
@@ -21,22 +19,17 @@ class Prices extends React.Component {
         return ""
     } 
   }
-  render() {
 
+  render() {
     const price = this.props.price;
     return (
       <tr>
-        
         <td>{this.props.country}</td>
         <td>{price.name}</td>
         <td>
           {this.renderSwitch(this.props.country, price)}
         </td>
-        
-        
-        
       </tr>
-
     );
   }
 }

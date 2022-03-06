@@ -17,6 +17,7 @@
   "author": "Zouhir Bensmaia",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.26.0",
     "bcryptjs": "^2.4.3",
     "coingecko-api": "^1.0.10",
     "connect-mongo": "^4.4.1",

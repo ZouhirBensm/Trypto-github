@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom'
 import '../styles/Make.css'
 
 
@@ -20,7 +19,6 @@ class MakeSell extends Component {
     // console.log(document.getElementById("form_id").elements);
     // console.log(document.getElementById("form_id").elements[6].value)
 
-    
     fetch(`${process.env.ROOT}/sellorders/store`, {
       method: 'POST',
       headers: {
@@ -46,6 +44,7 @@ class MakeSell extends Component {
       })
     })
   }
+
   handleClick(e){
     e.preventDefault()
     let crypto = document.getElementById('crypto-select').value
@@ -63,8 +62,9 @@ class MakeSell extends Component {
     })
     .catch(e => alert(`Their seems to be an error. Enter Price manually. ${e}`))
   }
+
   render() {
-    console.log("(1) (render) iterator", this.state.iterator, this.state.message)
+    // console.log("(1) (render) iterator", this.state.iterator, this.state.message)
     return (
     <form className="form" id="form_id">  
     <h3>Making a sell order...</h3>
