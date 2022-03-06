@@ -3,6 +3,7 @@ const SellCryptoOrder = require('../models/SellCryptoOrder')
 const ENV = require('../config/base')
 
 module.exports = async (req, res, next) => {
+
   let model = req.params.target
   let user = req.params.userID
   let page = parseInt(req.query.page)
@@ -22,7 +23,7 @@ module.exports = async (req, res, next) => {
   if(crypto){
     find.crypto = crypto
   }
-  console.log("\nFind filter: \n", find, user, typeof user)
+  // console.log("\nFind filter: \n", find, user, typeof user)
 
 
   let buyorders = BuyCryptoOrder.find(find).populate('userid')
@@ -66,7 +67,6 @@ module.exports = async (req, res, next) => {
       console.log('Target data not identified')
   }
 
-
   let descriptive = {
     model: model,
     page: page,
@@ -74,9 +74,8 @@ module.exports = async (req, res, next) => {
     limit: limit,
     userid: user,
   }
-  console.log("\nDescription: \n", descriptive)
-  console.log("Retrieved Orders", orders)
-
+  // console.log("\nDescription: \n", descriptive)
+  // console.log("Retrieved Orders", orders)
 
   const number_of_pages = Math.ceil(orders.length/limit)
 
@@ -101,42 +100,28 @@ module.exports = async (req, res, next) => {
   results.results = orders.slice(startIndex, endIndex)
   res.paginatedResults = results
 
-  
-  // try {
-  //   //Way to do it if it's a fix length database
-  //   //results1.results = await BuyCryptoOrder.find({}).populate('userid').limit(limit).skip(startIndex).exec()
-  //   results.results = orders.slice(startIndex, endIndex)
-  //   //console.log("sliced: ", results.results)
-
-  //   res.paginatedResults = results
-  // } catch(e){
-  //   res.status(500).json({message: e.message})
-  // }
-
-  
-  // console.log("Results returned:\n", results)
-
   next()
 
 
+  // Functions
   async function func1() {
     mybuyOrders.forEach(buy => {
       let arrayofSellmatches = findSellMatches(buy)
       arrayOfarrayMatchesforEachBuy.push(arrayofSellmatches)
     });
-    return 'funct1 is done searching' //value of promise //You can return the actual array of you want
+    return 'funct1 is done searching' //value of promise //You can return the actual array if you want
   } 
   async function func2() {
     mysellOrders.forEach(sell => {
       let arrayofBuymatches = findBuyMatches(sell)
       arrayOfarrayMatchesforEachSell.push(arrayofBuymatches)
     });
-    return 'funct2 is done searching' //value of promise //You can return the actual array of you want
+    return 'funct2 is done searching' //value of promise //You can return the actual array if you want
   }
   
   function findSellMatches(_buy){
     let arrayofSellmatches = []
-    let sell = result[1].filter(_sell => userid != _sell.userid._id.toString()) //filter to not deal with myself
+    let sell = result[1].filter(_sell => userid != _sell.userid._id.toString()) //filter to not deal with current logged in user
     sell.forEach(sellorder => {
       //console.log(_buy.amount, sellorder.maxamount, (parseInt(_buy.amount,10) < sellorder.maxamount))// < sellorder.maxamount)
       if (_buy.crypto === sellorder.crypto && 
@@ -150,9 +135,8 @@ module.exports = async (req, res, next) => {
   }
   function findBuyMatches(_sell){
     let arrayofBuymatches = []
-    let buy = result[0].filter(_buy => userid != _buy.userid._id.toString()) //filter to not deal with myself
+    let buy = result[0].filter(_buy => userid != _buy.userid._id.toString()) //filter to not deal with current logged in user
     buy.forEach(buyorder => {
-      //console.log(_buy.amount, sellorder.maxamount, (parseInt(_buy.amount,10) < sellorder.maxamount))// < sellorder.maxamount)
       if (_sell.crypto === buyorder.crypto && parseInt(_sell.minamount,10) < buyorder.amount && parseInt(_sell.maxamount,10) > buyorder.amount  && _sell.payment === buyorder.payment) {
         arrayofBuymatches.push(buyorder)
       }

@@ -1,5 +1,4 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var config = {
   resolve: {
@@ -35,11 +34,6 @@ var config = {
     ]
   },
   devtool : 'inline-source-map',
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Production',
-    }),
-  ],
 };
 
 var fooConfig = Object.assign({}, config, {

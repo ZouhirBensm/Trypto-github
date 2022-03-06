@@ -41,7 +41,6 @@
     "babel-loader": "^8.2.2",
     "browserify": "^17.0.0",
     "css-loader": "^6.2.0",
-    "html-webpack-plugin": "^5.5.0",
     "style-loader": "^3.2.1",
     "watchify": "^4.0.0",
     "webpack": "^5.67.0",

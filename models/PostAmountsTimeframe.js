@@ -18,6 +18,7 @@ const PostsAmountsTimeframeSchema = new Schema({
 })
 
 PostsAmountsTimeframeSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
+
 //Access the database my_database via mongoose.model.
 //The first argument: The name of the collection the model is for.
 //Apply the model to the collection?

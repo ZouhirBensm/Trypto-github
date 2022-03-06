@@ -32,7 +32,9 @@ module.exports = async (req, res, next) => {
   
 
   console.log("(3) on server: ", req.session.posts_amounts_timeframe)
+  // Save session data in database PostsAmountsTimeframe
   if(req.session.posts_amounts_timeframe === 1){
+    console.log("create")
     PostsAmountsTimeframe.create({
       userid: req.session.userId,
       posts_amounts_timeframe: req.session.posts_amounts_timeframe,
@@ -40,10 +42,8 @@ module.exports = async (req, res, next) => {
     }, (error, postsamountstimeframe) => {
       console.log(error)
     })
-  console.log("create")
   } else {
     options = { upsert: true, new: true, setDefaultsOnInsert: true };
-    // Save session data in database PostsAmountsTimeframe
     PostsAmountsTimeframe.findOneAndUpdate( {
       userid: req.session.userId,
     }, {
