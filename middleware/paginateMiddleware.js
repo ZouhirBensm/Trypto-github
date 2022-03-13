@@ -39,9 +39,10 @@ module.exports = async (req, res, next) => {
   
   let orders
 
+  console.log(req.headers.referer)
   switch(model) {
     case 'buyordersdata':
-        if(req.headers.referer == ENV.domain + '/matches'){
+        if(req.headers.referer == ENV.domain + '/databases/matches'){
           await func2().then(val => {console.log('func2 process to receive array of matching buys for each sell:\n', 'Value from promise returned: ', val, '\n')})
           orders = arrayOfarrayMatchesforEachSell
           orders = orders.flat().filter((v, i, a) => a.indexOf(v) === i)
@@ -52,7 +53,7 @@ module.exports = async (req, res, next) => {
         }
       break
     case 'sellordersdata':
-      if(req.headers.referer == ENV.domain + '/matches'){
+      if(req.headers.referer == ENV.domain + '/databases/matches'){
         await func1().then(val => {console.log('func1 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val, '\n')})
         orders = arrayOfarrayMatchesforEachBuy
         // console.log("original\n", orders);

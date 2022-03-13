@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/Navigation.css'
+import './styles/Navigation.css'
 
 class Navigation extends React.Component {
   constructor(){
@@ -41,6 +41,7 @@ class Navigation extends React.Component {
             <a href={`/databases/buyordersdata`}>People Buying</a>
             <a href={`/databases/sellordersdata`}>People Selling</a>
             <a href="/databases/AllMyOrders">All my Orders</a>
+            <a href="/databases/matches">Matches</a>
           </div>
         )
       default:

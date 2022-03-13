@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../styles/MyOrders.css'
+import './styles/MyOrders.css'
 import PageSelector from './PageSelector';
 import OrderTable from './OrderTable';
 

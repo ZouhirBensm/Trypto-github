@@ -51,16 +51,9 @@ var barConfig = Object.assign({}, config,{
     path: path.resolve(__dirname, 'public/dist'),
   },
 });
-var booConfig = Object.assign({}, config,{
-  entry: './src/Matches.jsx',
-  output: {
-    filename: 'Matches.js',
-    path: path.resolve(__dirname, 'public/dist'),
-  },
-});
 
 
 // Return Array of Configurations
 module.exports = [
-  fooConfig, barConfig, booConfig,
+  fooConfig, barConfig
 ];

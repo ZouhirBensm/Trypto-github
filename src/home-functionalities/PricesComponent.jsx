@@ -1,6 +1,6 @@
 import React from 'react';
 import Prices from './Prices';
-import '../styles/PricesComponent.css' 
+import './styles/PricesComponent.css' 
 
 
 class PricesComponent extends React.Component {

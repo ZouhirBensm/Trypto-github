@@ -1,11 +1,12 @@
 
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom'
-import MakeBuy from './AppDep/MakeBuy';
-import MakeSell from './AppDep/MakeSell';
-import Orders from './AppDep/Orders';
-import MyOrders from './AppDep/MyOrders';
-import Navigation from './AppDep/Navigation';
+import MakeBuy from './databases-functionalities/MakeBuy';
+import MakeSell from './databases-functionalities/MakeSell';
+import Orders from './databases-functionalities/Orders';
+import MyOrders from './databases-functionalities/MyOrders';
+import Navigation from './databases-functionalities/Navigation';
+import Matches from './databases-functionalities/Matches';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 
 class Databases extends Component {
@@ -18,6 +19,7 @@ class Databases extends Component {
             <Route exact path="/databases/makebuy" component={MakeBuy} />
             <Route exact path="/databases/makesell" component={MakeSell} />
             <Route exact path="/databases/AllMyOrders" component={MyOrders} />
+            <Route exact path="/databases/matches" component={Matches} />
             <Route exact path="/databases/:order_type" component={Orders} />
           </Switch>     
         </BrowserRouter> 

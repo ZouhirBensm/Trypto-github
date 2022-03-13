@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../styles/Orders.css'
+import './styles/Orders.css'
 import PageSelector from './PageSelector';
 import SearchEngine from './SearchEngine';
 import OrderTable from './OrderTable';

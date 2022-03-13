@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-import PricesComponent from './AppDep/PricesComponent.jsx';
+import PricesComponent from './home-functionalities/PricesComponent.jsx';
 
 class Home extends React.Component {
   constructor(){

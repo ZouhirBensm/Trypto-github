@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../styles/Make.css'
+import './styles/Make.css'
 
 
 class MakeSell extends Component {

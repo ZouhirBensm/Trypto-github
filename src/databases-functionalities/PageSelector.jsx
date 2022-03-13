@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
-import '../styles/PageSelector.css'
+import './styles/PageSelector.css'
 
 
 
 class PageSelector extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       page: 1,
     }
     this.handleClick = this.handleClick.bind(this);
+    this.paginatorSetter = this.paginatorSetter.bind(this);
     //this.handleClick = this.handleChange.bind(this);
+    console.log("props", props)
+    this.numbered_list = this.paginatorSetter(props)
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ page: nextProps.page });  
+    // console.log(nextProps, this.props)
+    this.numbered_list = this.paginatorSetter(nextProps)
   }
 
   handleClick(e) {
@@ -52,11 +57,9 @@ class PageSelector extends Component {
     }
   }
 
-
-
-  render() {
+  paginatorSetter(props){
     let pages_numbers = [];
-    for (let i = 1; i < this.props.number_of_pages+1; i++) {
+    for (let i = 1; i < props.number_of_pages+1; i++) {
       pages_numbers.push(i)
     }
 
@@ -69,12 +72,12 @@ class PageSelector extends Component {
       }
     )
 
-    let extra_span_keys = this.props.number_of_pages
+    let extra_span_keys = props.number_of_pages
     if(numbered_list.length>4) {
       if(this.state.page === 1 || this.state.page === 2) {
         // console.log("not trimmed start")
         numbered_list = numbered_list.slice(0, 4)
-        numbered_list.push(<span data-key={this.props.number_of_pages} onClick={this.handleClick} key={++extra_span_keys}>    ...    </span>)
+        numbered_list.push(<span data-key={props.number_of_pages} onClick={this.handleClick} key={++extra_span_keys}>    ...    </span>)
       } else if (this.state.page === numbered_list.length || this.state.page === numbered_list.length-1 || this.state.page === numbered_list.length-2) {
         // console.log("not trimmed end")
         numbered_list = numbered_list.slice(-4)
@@ -82,10 +85,17 @@ class PageSelector extends Component {
       } else if (this.state.page-2 > 0 && this.state.page+2 < numbered_list.length) {
         // console.log("trimed")
         numbered_list = numbered_list.slice(this.state.page-2,this.state.page+2)
-        numbered_list.push(<span data-key={this.props.number_of_pages} onClick={this.handleClick} key={++extra_span_keys}>    ...    </span>)
+        numbered_list.push(<span data-key={props.number_of_pages} onClick={this.handleClick} key={++extra_span_keys}>    ...    </span>)
         numbered_list.unshift(<span data-key={1} onClick={this.handleClick} key={++extra_span_keys}>    ...    </span>)
       }
     }
+    return numbered_list
+  }
+
+
+
+  render() {
+
     // console.log("numbered_list2", numbered_list)
     // console.log("you are on page:", this.state.page, "\n", "lower bound:", this.state.page,"\n", "upper bound:", this.state.page,"\n", "and their is:", this.props.number_of_pages,"\n")
 
@@ -100,7 +110,7 @@ class PageSelector extends Component {
         <div className="pagination">
           <button disabled={this.props.on_off_limit_previous} id="previous" onClick={this.handleClick}>Previous Page</button>
           <div className="page_numbers">
-            {numbered_list.length === 0 ? '0': numbered_list}
+            {this.numbered_list.length === 0 ? '0': this.numbered_list}
           </div>
           <button disabled={this.props.on_off_limit_next} id="next"  onClick={this.handleClick}>Next Page</button>
         </div>

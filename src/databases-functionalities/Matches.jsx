@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom'
 import './styles/MyOrders.css'
-import PageSelector from './AppDep/PageSelector';
-import OrderTable from './AppDep/OrderTable';
+import PageSelector from './PageSelector';
+import OrderTable from './OrderTable';
 import axios from 'axios';
 
 class Matches extends Component {
@@ -105,12 +105,21 @@ class Matches extends Component {
         orders={this.state.orders}
         buttons='normal'
         />
-      <PageSelector number_of_pages={this.state.number_of_pages} page={this.state.page} on_off_limit_previous={this.state.on_off_limit_previous} on_off_limit_next={this.state.on_off_limit_next} previousPage={this.state.previousPage} nextPage={this.state.nextPage} controls={this.controls}/>
+      <PageSelector 
+      number_of_pages={this.state.number_of_pages} 
+      page={this.state.page} 
+      on_off_limit_previous={this.state.on_off_limit_previous} 
+      on_off_limit_next={this.state.on_off_limit_next} 
+      previousPage={this.state.previousPage} 
+      nextPage={this.state.nextPage} 
+      controls={this.controls}/>
       </div>
     )
   }
 }
 
-const element = <Matches />;
+// const element = <Matches />;
 
-ReactDOM.render(element, document.getElementById('contents'));
+// ReactDOM.render(element, document.getElementById('contents'));
+
+export default Matches

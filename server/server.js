@@ -172,7 +172,9 @@ app.post('/users/login', redirectIfAuthenticatedMiddleware, (req,res)=>{
   })
 })
 
-app.get(['/databases', '/databases/makebuy', '/databases/makesell', '/databases/AllMyOrders'], authMiddleware, (req,res)=>{
+
+
+app.get(['/databases', '/databases/makebuy', '/databases/makesell', '/databases/AllMyOrders', '/databases/buyordersdata', '/databases/sellordersdata', '/databases/matches'], authMiddleware, (req,res)=>{
   var JSX_to_load = 'Databases';
   res.render('index', { JSX_to_load : JSX_to_load })
 })
@@ -212,11 +214,6 @@ app.post('/update', (req,res)=>{
 
 })
 
-app.get('/matches', authMiddleware, (req,res)=>{
-  var JSX_to_load = 'Matches';
-  res.render('index', { JSX_to_load : JSX_to_load })
-})
-
 app.get(['/databases/CurrentUserID'], authMiddleware, (req,res)=>{
   console.log(req.session.userId)
 
@@ -225,10 +222,6 @@ app.get(['/databases/CurrentUserID'], authMiddleware, (req,res)=>{
   })
 })
 
-app.get(['/databases/buyordersdata', '/databases/sellordersdata'], authMiddleware, (req,res)=>{
-  var JSX_to_load = 'Databases';
-  res.render('index', { JSX_to_load : JSX_to_load })
-})
 
 app.post('/deleteThisOrder', authMiddleware, (req,res)=>{
   // console.log("req body on /deleteThisOrder: ", req.body) 
@@ -333,5 +326,5 @@ app.get('/logout', (req,res)=>{
 })
 
 /*
- Entire repository with the name of Trypto-gitlab with a Project ID: 31112112 and accessed with user freelancebenz@gmail.com is under the intellectual property restrictions and obligations through a Canadian Copyright © issued by Innovation, Science and Economic Development Canada Canadian Intellectual Property Office. Registration number is 1187187, and registered the 12th of October 2021.
+ Entire repository with the name of Trypto-gitlab with a Project ID: 31112112 and accessed with user freelancebenz@gmail.com is under the intellectual property restrictions and obligations of the Canadian Copyright © issued by Innovation, Science and Economic Development Canada Canadian Intellectual Property Office. Registration number is 1187187, and registered the 12th of October 2021.
 */
