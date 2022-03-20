@@ -1,4 +1,4 @@
-div#contents > div > button.drop-down {
+div#react-div > div > button.drop-down {
   margin: 0 auto;
   display: block;
   position: absolute;
@@ -6,9 +6,13 @@ div#contents > div > button.drop-down {
   bottom: 83vh;
   left: 0;
   right: 0;
+  width: fit-content;
+  /* left: 30%;
+  right: 30%; */
+  /* min-width: fit-content; */
 } 
 
-div#contents > div > div.search-inputs {
+div#react-div > div > div.search-inputs {
   background-color: red;
   position: absolute;
   top: 7vh;
@@ -19,8 +23,8 @@ div#contents > div > div.search-inputs {
 
  
 
-div#contents,
-div#contents > div {
+div#react-div,
+div#react-div > div {
   width: 100%;
   height: 100%;
   position: relative;

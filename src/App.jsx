@@ -70,4 +70,4 @@ class Home extends React.Component {
 
 const element = <Home />;
 
-ReactDOM.render(element, document.getElementById('contents'));
+ReactDOM.render(element, document.getElementById('react-div'));

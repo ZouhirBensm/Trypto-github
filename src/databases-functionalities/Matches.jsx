@@ -120,6 +120,6 @@ class Matches extends Component {
 
 // const element = <Matches />;
 
-// ReactDOM.render(element, document.getElementById('contents'));
+// ReactDOM.render(element, document.getElementById('react-div'));
 
 export default Matches

@@ -4,7 +4,7 @@
 <%-include('templates/header');-%>
 <body>
   <!-- narbar -->
-  <%-include('templates/navbar-top');-%>
+  <%-include('templates/navbar');-%>
   
   <form id="loginregister" action="/users/login" method="POST">
     <h3>Login</h3>
@@ -15,6 +15,6 @@
     <input type="password" name="password">                 
     <button type="submit">Login</button>
   </form>
-  <%-include('templates/scripts');-%>
+  <!-- <%-include('templates/scripts');-%> -->
 </body>
 </html>

@@ -15,10 +15,9 @@ const authMiddleware = require('../middleware/authMiddleware')
 const paginateMiddleware = require('../middleware/paginateMiddleware')
 const postTrackerMiddleware = require('../middleware/postTrackerMiddleware')
 
-
 const express = require('express');
 
-const app = express();
+const express_server_router = express();
 const path = require('path')
 const ejs = require('ejs')
 // const bcrypt = require('bcrypt')
@@ -28,8 +27,8 @@ const MongoStore = require('connect-mongo');
 
 
 
-//We register the expressSession middleware in our app
-app.use(expressSession({
+//We register the expressSession middleware in our express_server_router
+express_server_router.use(expressSession({
   //Pass in the configuration object with value secret
   //The secret string is used to sign and encrypt the session ID cookie being shared with the browser
   secret: ENV.express_session_secret,
@@ -43,14 +42,17 @@ app.use(expressSession({
     // ttl: 1000*60*60*24 // 1 Day,
   }),
   cookie: {
-      secure: false,
-      sameSite: 'strict',
-      //originalMaxAge: 24*60*60
-      maxAge: 1000*60*60*24 // 1 Day
+    secure: false,
+    sameSite: 'strict',
+    //originalMaxAge: 24*60*60
+    maxAge: 1000*60*60*24 // 1 Day
   }
 }))
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+
+// Parse incomming requests that have json payloads
+express_server_router.use(express.json())
+// Tell your express.js application to parse incomming requests that are URL encoded data (usually form post and utf-8 content)
+express_server_router.use(express.urlencoded({extended: true}))
 const mongoose = require('mongoose')
 
 //Fixes
@@ -73,29 +75,30 @@ mongoose.connect(ENV.database_link, {useNewUrlParser:true, useUnifiedTopology: t
 
 
 
-app.set('view engine', 'ejs')
+express_server_router.set('view engine', 'ejs')
+// console.log(express_server_router.get("view engine"))
 
 //Middleware executed for all requests
-app.use('*', (req,res,next)=>{
+express_server_router.use('*', (req,res,next)=>{
   loggedIn = req.session.userId
   next()
 })
 
-app.use(express.static('public'));
+express_server_router.use(express.static('public'));
 
 
-app.listen(ENV.port, function () {
+express_server_router.listen(ENV.port, function () {
   console.log(`App started on port ${ENV.port}`);
 });
 
  
-app.get('/',(req,res)=>{
+express_server_router.get('/',(req,res)=>{
   //console.log(req.session)
   var JSX_to_load = 'App';
   res.render('index', { JSX_to_load : JSX_to_load })
 })
 
-app.get('/api', async (req,res)=>{
+express_server_router.get('/api', async (req,res)=>{
 
   let params = {
     ids: ['bitcoin', 'ethereum', 'litecoin', 'bitcoin-cash', 'zcash', 'monero'],
@@ -113,17 +116,17 @@ app.get('/api', async (req,res)=>{
   //console.log(typeof data.data, typeof JSON.stringify(data.data))
 })
 
-app.get('/data/:target/:userID?', paginateMiddleware, (req,res)=>{
+express_server_router.get('/data/:target/:userID?', paginateMiddleware, (req,res)=>{
   res.json({
     data: res.paginatedResults,
   })
 })
 
-app.get('/login', redirectIfAuthenticatedMiddleware, (req,res)=>{
+express_server_router.get('/login', redirectIfAuthenticatedMiddleware, (req,res)=>{
   res.render('login')
 })
 
-app.get('/register', redirectIfAuthenticatedMiddleware, (req,res)=>{
+express_server_router.get('/register', redirectIfAuthenticatedMiddleware, (req,res)=>{
   //res.sendFile helps us get the full absulute path which otherwise changes
   //based on different Operating systems
   //res.sendFile(path.resolve(__dirname,'pages/contact.html'))
@@ -131,7 +134,7 @@ app.get('/register', redirectIfAuthenticatedMiddleware, (req,res)=>{
 })
 
 //User model creates a new document with browser request data
-app.post('/users/store', redirectIfAuthenticatedMiddleware, async (req,res)=>{
+express_server_router.post('/users/store', redirectIfAuthenticatedMiddleware, async (req,res)=>{
 
   await User.create(req.body,(error,user)=>{
     //console.log(req.body)
@@ -143,7 +146,7 @@ app.post('/users/store', redirectIfAuthenticatedMiddleware, async (req,res)=>{
   })
 })
 
-app.post('/users/login', redirectIfAuthenticatedMiddleware, (req,res)=>{
+express_server_router.post('/users/login', redirectIfAuthenticatedMiddleware, (req,res)=>{
   
   
   //Extract the email and password from the login form with req.body
@@ -174,12 +177,12 @@ app.post('/users/login', redirectIfAuthenticatedMiddleware, (req,res)=>{
 
 
 
-app.get(['/databases', '/databases/makebuy', '/databases/makesell', '/databases/AllMyOrders', '/databases/buyordersdata', '/databases/sellordersdata', '/databases/matches'], authMiddleware, (req,res)=>{
+express_server_router.get(['/databases', '/databases/makebuy', '/databases/makesell', '/databases/AllMyOrders', '/databases/buyordersdata', '/databases/sellordersdata', '/databases/matches'], authMiddleware, (req,res)=>{
   var JSX_to_load = 'Databases';
   res.render('index', { JSX_to_load : JSX_to_load })
 })
 
-app.post('/update', (req,res)=>{
+express_server_router.post('/update', (req,res)=>{
 
   console.log(req.body)
   
@@ -214,7 +217,7 @@ app.post('/update', (req,res)=>{
 
 })
 
-app.get(['/databases/CurrentUserID'], authMiddleware, (req,res)=>{
+express_server_router.get(['/databases/CurrentUserID'], authMiddleware, (req,res)=>{
   console.log(req.session.userId)
 
   res.json({
@@ -223,7 +226,7 @@ app.get(['/databases/CurrentUserID'], authMiddleware, (req,res)=>{
 })
 
 
-app.post('/deleteThisOrder', authMiddleware, (req,res)=>{
+express_server_router.post('/deleteThisOrder', authMiddleware, (req,res)=>{
   // console.log("req body on /deleteThisOrder: ", req.body) 
   var id = req.body.OrderID
 
@@ -246,7 +249,7 @@ app.post('/deleteThisOrder', authMiddleware, (req,res)=>{
   }
 })
 
-app.post('/buyorders/store', authMiddleware, postTrackerMiddleware, (req,res)=>{
+express_server_router.post('/buyorders/store', authMiddleware, postTrackerMiddleware, (req,res)=>{
 
   // console.log(req.session)
   req.body.expireAt = new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
@@ -284,7 +287,7 @@ app.post('/buyorders/store', authMiddleware, postTrackerMiddleware, (req,res)=>{
 })
 
 
-app.post('/sellorders/store', authMiddleware, postTrackerMiddleware, (req,res)=>{
+express_server_router.post('/sellorders/store', authMiddleware, postTrackerMiddleware, (req,res)=>{
   console.log(req.body)
   req.body.expireAt = new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
   //console.log(new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5)))
@@ -318,7 +321,7 @@ app.post('/sellorders/store', authMiddleware, postTrackerMiddleware, (req,res)=>
   }
 })
 
-app.get('/logout', (req,res)=>{
+express_server_router.get('/logout', (req,res)=>{
   //Destroy the Session data, including the userId property
   req.session.destroy(()=>{
       res.redirect('/')

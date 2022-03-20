@@ -4,6 +4,7 @@ body {
   width: 100vw;
   position: relative;
   font-family: 'Times New Roman', Times, serif;
+  margin: 0;
 }
 
 
@@ -32,11 +33,13 @@ ul.home > li{
 ul.home {
   bottom: 0;
   justify-content: center;
+  margin: 0;
 }
 
 ul.iflog {
   top: 0;
   justify-content: space-around;
+  margin: 0;
 }
 
 

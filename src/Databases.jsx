@@ -30,5 +30,5 @@ class Databases extends Component {
 
 const element = <Databases />;
 
-ReactDOM.render(element, document.getElementById('contents'));
+ReactDOM.render(element, document.getElementById('react-div'));
 
