@@ -165,6 +165,7 @@ class MyOrders extends Component {
   }
   
   render() {
+    console.log("ordertype!!! ", this.state.orderstype)
     return (
       <div className='wrapper2'>
         <form name="toogle">

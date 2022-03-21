@@ -45,9 +45,9 @@ var fooConfig = Object.assign({}, config, {
   },
 });
 var barConfig = Object.assign({}, config,{
-  entry: './src/Databases.jsx',
+  entry: './src/OrdersApp.jsx',
   output: {
-    filename: 'Databases.js',
+    filename: 'OrdersApp.js',
     path: path.resolve(__dirname, 'public/dist'),
   },
 });

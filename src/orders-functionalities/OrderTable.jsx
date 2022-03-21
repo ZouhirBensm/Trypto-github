@@ -71,6 +71,7 @@ class OrderRow extends Component {
     console.log("state buttons child", this.props.buttons)
     const order = this.props.order;
 
+    console.log(order)
     let display_normal = [];
     let display_editing = [];
     // console.log(this.props.buttons)

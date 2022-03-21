@@ -3,8 +3,15 @@ const ENV = require('../config/base')
 global.loggedIn = null
 // console.log(process.env.ROOT)
 
+// A shell in which your views are rendered: file in which other render() views are rendered layouts.ejs
+const layouts = require("express-ejs-layouts")
 const CoinGecko = require('coingecko-api');
 const CoinGeckoClient = new CoinGecko();
+
+// Import Long homeOrdersController functions
+const homeOrdersController = require("../controllers/home-orders-controllers/homeOrdersController")
+// Import Long Controller functions
+const Controller = require("../controllers/Controller")
 
 //Import redirectIfAuthenticatedMiddleware
 const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthenticatedMiddleware')
@@ -12,16 +19,14 @@ const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthe
 //Import authMiddleware
 const authMiddleware = require('../middleware/authMiddleware')
 
-const paginateMiddleware = require('../middleware/paginateMiddleware')
-const postTrackerMiddleware = require('../middleware/postTrackerMiddleware')
+const postTrackerMiddleware = require('../middleware/home-orders-middleware/postTrackerMiddleware')
 
 const express = require('express');
 
 const express_server_router = express();
 const path = require('path')
 const ejs = require('ejs')
-// const bcrypt = require('bcrypt')
-var bcrypt = require('bcryptjs');
+
 const expressSession = require('express-session')
 const MongoStore = require('connect-mongo');
 
@@ -49,6 +54,8 @@ express_server_router.use(expressSession({
   }
 }))
 
+// Express.js know to use this package as an additional middleware layer
+express_server_router.use(layouts)
 // Parse incomming requests that have json payloads
 express_server_router.use(express.json())
 // Tell your express.js application to parse incomming requests that are URL encoded data (usually form post and utf-8 content)
@@ -63,9 +70,9 @@ mongoose.set('useCreateIndex', true)
 //We import the User model
 const User = require('../models/User')
 //We import the BuyCryptoOrder model
-const BuyCryptoOrder = require('../models/BuyCryptoOrder')
+const BuyCryptoOrder = require('../models/home-orders-models/BuyCryptoOrder')
 //We import the SellCryptoOrder model
-const SellCryptoOrder = require('../models/SellCryptoOrder')
+const SellCryptoOrder = require('../models/home-orders-models/SellCryptoOrder')
 
 
 // ENV.database_link
@@ -88,14 +95,14 @@ express_server_router.use(express.static('public'));
 
 
 express_server_router.listen(ENV.port, function () {
-  console.log(`App started on port ${ENV.port}`);
+  console.log(`Express web server has started and is listening for requests on port ${ENV.port}`);
 });
 
  
 express_server_router.get('/',(req,res)=>{
   //console.log(req.session)
   var JSX_to_load = 'App';
-  res.render('index', { JSX_to_load : JSX_to_load })
+  res.render('home-orders', { JSX_to_load : JSX_to_load })
 })
 
 express_server_router.get('/api', async (req,res)=>{
@@ -116,29 +123,19 @@ express_server_router.get('/api', async (req,res)=>{
   //console.log(typeof data.data, typeof JSON.stringify(data.data))
 })
 
-express_server_router.get('/data/:target/:userID?', paginateMiddleware, (req,res)=>{
-  res.json({
-    data: res.paginatedResults,
-  })
-})
+express_server_router.get('/data/:target/:userID?', homeOrdersController.paginateController)
 
 express_server_router.get('/login', redirectIfAuthenticatedMiddleware, (req,res)=>{
   res.render('login')
 })
 
 express_server_router.get('/register', redirectIfAuthenticatedMiddleware, (req,res)=>{
-  //res.sendFile helps us get the full absulute path which otherwise changes
-  //based on different Operating systems
-  //res.sendFile(path.resolve(__dirname,'pages/contact.html'))
   res.render('register')
 })
 
-//User model creates a new document with browser request data
+// Register New User
 express_server_router.post('/users/store', redirectIfAuthenticatedMiddleware, async (req,res)=>{
-
   await User.create(req.body,(error,user)=>{
-    //console.log(req.body)
-    //Log the errors if User validation does not work
       if(error){
           return res.redirect('/register')
       }
@@ -146,76 +143,16 @@ express_server_router.post('/users/store', redirectIfAuthenticatedMiddleware, as
   })
 })
 
-express_server_router.post('/users/login', redirectIfAuthenticatedMiddleware, (req,res)=>{
-  
-  
-  //Extract the email and password from the login form with req.body
-  const {email, password} = req.body
-
-  //Try to find one user with the inputed email
-  User.findOne({email: email}, (error,user)=>{
-      if(user){
-          //Compare inputed password with database user.password
-          bcrypt.compare(password, user.password, (error,same)=>{
-              if(same){
-                  //store
-                  //Sets up the Session object with cookie created and userId
-                  req.session.userId = user._id
-                  res.redirect('/')
-                  
-              //If password is wrong
-              } else {
-                  res.redirect('/login')
-              }
-          })
-      // If user email does not exist in database
-      } else {
-          res.redirect('/login')
-      }
-  })
-})
+express_server_router.post('/users/login', redirectIfAuthenticatedMiddleware, Controller.loginController)
 
 
 
 express_server_router.get(['/databases', '/databases/makebuy', '/databases/makesell', '/databases/AllMyOrders', '/databases/buyordersdata', '/databases/sellordersdata', '/databases/matches'], authMiddleware, (req,res)=>{
-  var JSX_to_load = 'Databases';
-  res.render('index', { JSX_to_load : JSX_to_load })
+  var JSX_to_load = 'OrdersApp';
+  res.render('home-orders', { JSX_to_load : JSX_to_load })
 })
 
-express_server_router.post('/update', (req,res)=>{
-
-  console.log(req.body)
-  
-  console.log('Current User: ' + req.session.userId + ' and Order asked to update: ' + req.body.OrderID + ' order to update type: ' + req.body.OrderType)
-  
-  if(req.body.OrderType === 'buyordersdata'){
-    BuyCryptoOrder.findByIdAndUpdate(req.body.OrderID, {
-      crypto: req.body.NewCrypto,
-      amount: req.body.NewAmount,
-      price: req.body.NewPrice,
-      expirydate: req.body.NewExpiryDate,
-      expirytime: req.body.NewExpiryTime,
-      payment: req.body.NewPayment,
-      }, (error, blogspot) => { 
-      console.log(error,blogspot) 
-    })
-  } else if (req.body.OrderType === 'sellordersdata'){
-    SellCryptoOrder.findByIdAndUpdate(req.body.OrderID, {
-      crypto: req.body.NewCrypto,
-      minamount: req.body.NewMinAmount,
-      maxamount: req.body.NewMaxAmount,
-      price: req.body.NewPrice,
-      expirydate: req.body.NewExpiryDate,
-      expirytime: req.body.NewExpiryTime,
-      payment: req.body.NewPayment,
-      }, (error, blogspot) => { 
-      console.log(error,blogspot) 
-    })
-  }
-
-  res.redirect('/databases/AllMyOrders') 
-
-})
+express_server_router.post('/update', homeOrdersController.updateOrderController)
 
 express_server_router.get(['/databases/CurrentUserID'], authMiddleware, (req,res)=>{
   console.log(req.session.userId)
@@ -225,101 +162,9 @@ express_server_router.get(['/databases/CurrentUserID'], authMiddleware, (req,res
   })
 })
 
+express_server_router.post('/deleteThisOrder', authMiddleware, homeOrdersController.deleteOrderController)
 
-express_server_router.post('/deleteThisOrder', authMiddleware, (req,res)=>{
-  // console.log("req body on /deleteThisOrder: ", req.body) 
-  var id = req.body.OrderID
-
-  if (req.body.OrderType === 'buyordersdata') {
-    //console.log('Order type is a buy type')
-    BuyCryptoOrder.findByIdAndDelete(req.body.OrderID, (error, buyorder) =>{ 
-      console.log(error)
-    })
-    res.json({
-      memorized_order_type: req.body.OrderType
-    })
-  } else if (req.body.OrderType === 'sellordersdata') {
-    //console.log('Order type is a sell type')
-    SellCryptoOrder.findByIdAndDelete(id, (error, sellorder) =>{ 
-      console.log(error)
-    })
-    res.json({
-      memorized_order_type: req.body.OrderType
-    })
-  }
-})
-
-express_server_router.post('/buyorders/store', authMiddleware, postTrackerMiddleware, (req,res)=>{
-
-  // console.log(req.session)
-  req.body.expireAt = new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
-  //console.log(new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5)))
-  // console.log(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
-  
-  //console.log('typeof: ', typeof req.body.expireAt + '\n','req.body.expireAt: '+ req.body.expireAt+ '\n','Current Date: '+ new Date()+ '\n')
-  //console.log(new Date('July 22, 2013 14:00:00'))
-
-
-  console.log("WAZAAAA", req.session.posts_amounts_timeframe)
-  if(req.body.expireAt > new Date() && req.session.posts_amounts_timeframe < 20){
-    // 19 orders per timeframe allowed
-    BuyCryptoOrder.create({
-      crypto: req.body.crypto,
-      amount: req.body.amount,
-      price: req.body.price,
-      expirydate: req.body.expirydate,
-      expirytime: req.body.expirytime,
-      payment: req.body.payment,
-      userid: req.session.userId,
-      expireAt: req.body.expireAt
-    }, (error, buycryptoorder) => {
-        res.json({
-          iterator: req.session.posts_amounts_timeframe,
-          message: "Buy post successfully saved in database",
-        })
-    })
-  } else {
-    res.json({
-      iterator: req.session.posts_amounts_timeframe,
-      message: "You have reached your posting limit",
-    })
-  }
-})
-
-
-express_server_router.post('/sellorders/store', authMiddleware, postTrackerMiddleware, (req,res)=>{
-  console.log(req.body)
-  req.body.expireAt = new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
-  //console.log(new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5)))
-  //console.log(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7), req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
-  
-  //console.log('typeof: ', typeof req.body.expireAt + '\n','req.body.expireAt: '+ req.body.expireAt+ '\n','Current Date: '+ new Date()+ '\n')
-  //console.log(new Date('July 22, 2013 14:00:00'))
-
-  if(req.body.expireAt > new Date() && req.session.posts_amounts_timeframe < 20){
-    SellCryptoOrder.create({
-      crypto: req.body.crypto,
-      minamount: req.body.minamount,
-      maxamount: req.body.maxamount,
-      price: req.body.price,
-      expirydate: req.body.expirydate,
-      expirytime: req.body.expirytime,
-      payment: req.body.payment,
-      userid: req.session.userId,
-      expireAt: req.body.expireAt
-    }, (error, sellcryptoorder) => {
-      res.json({
-        iterator: req.session.posts_amounts_timeframe,
-        message: "Sell post successfully saved in database",
-      })       
-    })
-  } else {
-    res.json({
-      iterator: req.session.posts_amounts_timeframe,
-      message: "You have reached your posting limit",
-    })
-  }
-})
+express_server_router.post('/:target/store', authMiddleware, postTrackerMiddleware, homeOrdersController.registerOrder)
 
 express_server_router.get('/logout', (req,res)=>{
   //Destroy the Session data, including the userId property
@@ -329,5 +174,5 @@ express_server_router.get('/logout', (req,res)=>{
 })
 
 /*
- Entire repository with the name of Trypto-gitlab with a Project ID: 31112112 and accessed with user freelancebenz@gmail.com is under the intellectual property restrictions and obligations of the Canadian Copyright © issued by Innovation, Science and Economic Development Canada Canadian Intellectual Property Office. Registration number is 1187187, and registered the 12th of October 2021.
+ Entire repository with the name of Trypto-gitlab with a Project ID: 31112112 and accessed with user account: freelancebenz@gmail.com is regimented under the intellectual property restrictions and obligations of the Canadian Copyright © issued by Innovation, Science and Economic Development Canada Canadian Intellectual Property Office. Registered the 12th of October 2021 under registration number is 1187187.
 */

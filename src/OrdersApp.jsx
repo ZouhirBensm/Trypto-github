@@ -1,12 +1,12 @@
 
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom'
-import MakeBuy from './databases-functionalities/MakeBuy';
-import MakeSell from './databases-functionalities/MakeSell';
-import Orders from './databases-functionalities/Orders';
-import MyOrders from './databases-functionalities/MyOrders';
-import Navigation from './databases-functionalities/Navigation';
-import Matches from './databases-functionalities/Matches';
+import MakeBuy from './orders-functionalities/MakeBuy';
+import MakeSell from './orders-functionalities/MakeSell';
+import Orders from './orders-functionalities/Orders';
+import MyOrders from './orders-functionalities/MyOrders';
+import Navigation from './orders-functionalities/Navigation';
+import Matches from './orders-functionalities/Matches';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 
 class Databases extends Component {

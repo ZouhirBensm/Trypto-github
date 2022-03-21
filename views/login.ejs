@@ -1,20 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<!-- header -->
-<%-include('templates/header');-%>
-<body>
-  <!-- narbar -->
-  <%-include('templates/navbar');-%>
-  
-  <form id="loginregister" action="/users/login" method="POST">
-    <h3>Login</h3>
-    <label>Email</label>
-    <!-- name allows passing from form to server -->
-    <input type="text" name="email">             
-    <label>Password</label>
-    <input type="password" name="password">                 
-    <button type="submit">Login</button>
-  </form>
-  <!-- <%-include('templates/scripts');-%> -->
-</body>
-</html>
+<form id="loginregister" action="/users/login" method="POST">
+  <h3>Login</h3>
+  <label>Email</label>
+  <!-- name allows passing from form to server -->
+  <input type="text" name="email">             
+  <label>Password</label>
+  <input type="password" name="password">                 
+  <button type="submit">Login</button>
+</form>

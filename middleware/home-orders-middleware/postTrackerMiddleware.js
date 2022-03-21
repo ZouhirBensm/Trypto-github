@@ -1,4 +1,4 @@
-const PostsAmountsTimeframe = require('../models/PostAmountsTimeframe')
+const PostsAmountsTimeframe = require('../../models/home-orders-models/PostAmountsTimeframe')
 
 module.exports = async (req, res, next) => {
 
