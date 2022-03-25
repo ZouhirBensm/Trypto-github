@@ -26,10 +26,12 @@ module.exports = {
     }
     // console.log("\nFind filter: \n", find, user, typeof user)
   
-  
+
     let buyorders = BuyCryptoOrder.find(find).populate('userid')
     let sellorders = SellCryptoOrder.find(find).populate('userid')
-    let result = await Promise.all([buyorders, sellorders])
+    let result = await Promise.all([buyorders, sellorders]).catch(e => {
+      return next(e)
+    })
   
     let mybuyOrders = result[0].filter(element => element.userid._id.toString() === userid)
     let mysellOrders = result[1].filter(element => element.userid._id.toString() === userid)
@@ -44,7 +46,9 @@ module.exports = {
     switch(model) {
       case 'buyordersdata':
           if(req.headers.referer == ENV.domain + '/databases/matches'){
-            await func2().then(val => {console.log('func2 process to receive array of matching buys for each sell:\n', 'Value from promise returned: ', val, '\n')})
+            await func2().then(val => {console.log('func2 process to receive array of matching buys for each sell:\n', 'Value from promise returned: ', val, '\n')}).catch(e => {
+              return next(e)
+            })
             orders = arrayOfarrayMatchesforEachSell
             orders = orders.flat().filter((v, i, a) => a.indexOf(v) === i)
             //console.log(orders)
@@ -55,7 +59,9 @@ module.exports = {
         break
       case 'sellordersdata':
         if(req.headers.referer == ENV.domain + '/databases/matches'){
-          await func1().then(val => {console.log('func1 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val, '\n')})
+          await func1().then(val => {console.log('func1 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val, '\n')}).catch(e => {
+            return next(e)
+          })
           orders = arrayOfarrayMatchesforEachBuy
           // console.log("original\n", orders);
           // console.log("array\n", orders.flat());
@@ -107,7 +113,7 @@ module.exports = {
     })
   
   
-    // Functions
+    // Functions // To make into Promises
     async function func1() {
       mybuyOrders.forEach(buy => {
         let arrayofSellmatches = findSellMatches(buy)
@@ -149,7 +155,10 @@ module.exports = {
     }
   
   },
-  updateOrderController: (req,res)=>{
+
+
+
+  updateOrderController: (req,res, next)=>{
 
     console.log(req.body)
     
@@ -163,8 +172,9 @@ module.exports = {
         expirydate: req.body.NewExpiryDate,
         expirytime: req.body.NewExpiryTime,
         payment: req.body.NewPayment,
-        }, (error, blogspot) => { 
-        console.log("Update Callback: ", error, blogspot) 
+        }, (error, blogspot) => {
+        if(error){return next(error)}
+        console.log("Update Callback: ", blogspot) 
       })
     } else if (req.body.OrderType === 'sellordersdata'){
       SellCryptoOrder.findByIdAndUpdate(req.body.OrderID, {
@@ -176,21 +186,22 @@ module.exports = {
         expirytime: req.body.NewExpiryTime,
         payment: req.body.NewPayment,
         }, (error, blogspot) => { 
-        console.log("Update Callback: ", error, blogspot) 
+        if(error){return next(error)}
+        console.log("Update Callback: ", blogspot) 
       })
     }
   
     res.redirect('/databases/AllMyOrders') 
   
   },
-  deleteOrderController: (req,res)=>{
+  deleteOrderController: (req,res,next)=>{
     // console.log("req body on /deleteThisOrder: ", req.body) 
     var id = req.body.OrderID
   
     if (req.body.OrderType === 'buyordersdata') {
       //console.log('Order type is a buy type')
       BuyCryptoOrder.findByIdAndDelete(req.body.OrderID, (error, buyorder) =>{ 
-        console.log("Error: ", error)
+        if(error){return next(error)}
       })
       res.json({
         memorized_order_type: req.body.OrderType
@@ -198,14 +209,14 @@ module.exports = {
     } else if (req.body.OrderType === 'sellordersdata') {
       //console.log('Order type is a sell type')
       SellCryptoOrder.findByIdAndDelete(id, (error, sellorder) =>{ 
-        console.log("Error: ", error)
+        if(error){return next(error)}
       })
       res.json({
         memorized_order_type: req.body.OrderType
       })
     }
   },
-  registerOrder:  (req,res)=>{
+  registerOrder:  (req,res,next)=>{
     console.log(req.params.target)
     // console.log(req.session)
     req.body.expireAt = new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
@@ -243,10 +254,11 @@ module.exports = {
         userid: req.session.userId,
         expireAt: req.body.expireAt
       }, (error, typecryptoorder) => {
-          res.json({
-            iterator: req.session.posts_amounts_timeframe,
-            message: `${/[^o]*/.exec(req.params.target)[0].charAt(0).toUpperCase() + /[^o]*/.exec(req.params.target)[0].slice(1)} post successfully saved in database`,
-          })
+        if(error){return next(error)}
+        res.json({
+          iterator: req.session.posts_amounts_timeframe,
+          message: `${/[^o]*/.exec(req.params.target)[0].charAt(0).toUpperCase() + /[^o]*/.exec(req.params.target)[0].slice(1)} post successfully saved in database`,
+        })
       })
     } else {
       res.json({

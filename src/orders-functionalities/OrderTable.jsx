@@ -105,7 +105,7 @@ class OrderRow extends Component {
     )
 
     if (this.props.buttons == "normal") {
-      display_normal.push(<td id="deal1" key={`td-deal-key-order:${order._id}`}><button>Sell to Him/Her</button></td>)
+      display_normal.push(<td id="deal1" key={`td-deal-key-order:${order._id}`}><a href="/messaging"><button>Deal</button></a></td>)
     }
   
     if (this.props.buttons == "my") {

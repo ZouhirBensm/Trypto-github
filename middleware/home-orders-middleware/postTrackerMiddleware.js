@@ -5,6 +5,7 @@ module.exports = async (req, res, next) => {
   // Load from saved amount of posts per time frame in Session Object
   // req.session.posts_amounts_timeframe
 
+  // Starting with Express 5, route handlers and middleware that return a Promise will call next(value) automatically when they reject or throw an error. For example If find throws an error or rejects, next will be called with either the thrown error or the rejected value. If no rejected value is provided, next will be called with a default Error object provided by the Express router.
   let data = await PostsAmountsTimeframe.find({userid: req.session.userId})
   
   console.log("DATA: ", data)
@@ -40,7 +41,7 @@ module.exports = async (req, res, next) => {
       posts_amounts_timeframe: req.session.posts_amounts_timeframe,
       expireAt: date_reset_posts_count
     }, (error, postsamountstimeframe) => {
-      console.log(error)
+      if(error) {console.log(error)}
     })
   } else {
     options = { upsert: true, new: true, setDefaultsOnInsert: true };
@@ -49,9 +50,7 @@ module.exports = async (req, res, next) => {
     }, {
       posts_amounts_timeframe: req.session.posts_amounts_timeframe,
     }, options, (error, postsamountstimeframe) => {
-        if (error) {
-          console.log(error)
-        }      
+      if (error) {console.log(error)}      
     })
   }
   
