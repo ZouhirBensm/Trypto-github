@@ -6,10 +6,14 @@
   <label>Password</label>
   <input type="password" name="password" value="<%= password %>">                 
   <button type="submit">Login</button>
-</form>  
-<% console.log(notification) %> 
+</form> 
+<div id="mydiv"><%= notification %></div> 
 <% if(notification){ %> 
   <% for (let i = 0; i < notification.length; i++) {%> 
     <h1><%= notification[i] %></h1>
   <% } %> 
 <% } %> 
+<script>
+  var test = document.getElementById('mydiv').innerHTML
+  console.log(test)
+</script>
