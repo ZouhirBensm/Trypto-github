@@ -36,17 +36,7 @@ module.exports = {
     })
     console.log("2", notification)
 
-    req.session.userId ? (
-      res.redirect('/')
-      ) : (
-      res.render('login', {notification, email, password}, function(err, html) {
-        if(err) {
-          next(err)
-        } else {
-          res.send(html);
-        }
-      })
-    )
+    req.session.userId ? (res.redirect('/')) : (res.render('login', {notification, email, password}))
   },
 
 
