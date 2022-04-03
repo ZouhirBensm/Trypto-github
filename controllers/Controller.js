@@ -13,12 +13,12 @@ module.exports = {
     email? null: notification.push("Please enter an e-mail")
     
     //Try to find one user with the inputed email
-    await User.findOne({email: email}, (error,user)=>{
+    await User.findOne({email: email}, async (error,user)=>{
       // console.log(email,user)
       if (error) {return next(error)}
       if(user){
         //Compare inputed password with database user.password
-        bcrypt.compare(password, user.password, (error,same)=>{
+        await bcrypt.compare(password, user.password, (error,same)=>{
           if (error) {return next(error)}
           if(same){
               //store
