@@ -14,7 +14,7 @@ module.exports = {
     
     //Try to find one user with the inputed email
     await User.findOne({email: email}, (error,user)=>{
-      console.log(email,user)
+      // console.log(email,user)
       if (error) {return next(error)}
       if(user){
         //Compare inputed password with database user.password
@@ -34,6 +34,7 @@ module.exports = {
         email? notification.push("This email was not found in our repertoire"): null
       }
     })
+    console.log("2", notification)
 
     req.session.userId ? (
       res.redirect('/')

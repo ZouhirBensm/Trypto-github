@@ -53,10 +53,11 @@ router.get('/api', async (req,res,next)=>{
 router.get('/data/:target/:userID?', homeOrdersController.paginateController)
 
 router.get('/login', redirectIfAuthenticatedMiddleware, (req,res,next)=>{
-  const notification = null
-  const email = null
-  const password = null
+  let notification
+  let email
+  let password
   // res.render('login')
+  console.log("1", notification)
   res.render('login', {notification, email, password}, function(err, html) {
     if(err) {
         return next(err)
