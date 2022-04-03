@@ -13,12 +13,12 @@ module.exports = {
     email? null: notification.push("Please enter an e-mail")
     
     //Try to find one user with the inputed email
-    await User.findOne({email: email}, async (error,user)=>{
+    await User.findOne({email: email}, (error,user)=>{
       // console.log(email,user)
       if (error) {return next(error)}
       if(user){
         //Compare inputed password with database user.password
-        await bcrypt.compare(password, user.password, (error,same)=>{
+        bcrypt.compare(password, user.password, (error,same)=>{
           if (error) {return next(error)}
           if(same){
               //store
@@ -36,7 +36,17 @@ module.exports = {
     })
     console.log("2", notification)
 
-    req.session.userId ? (res.redirect('/')) : (res.render('login', {notification, email, password}))
+    req.session.userId ? (
+      res.redirect('/')
+      ) : (
+      res.render('login', {notification, email, password}, function(err, html) {
+        if(err) {
+          next(err)
+        } else {
+          res.send(html);
+        }
+      })
+    )
   },
 
 
