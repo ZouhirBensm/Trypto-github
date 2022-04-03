@@ -67,6 +67,8 @@ router.get('/login', redirectIfAuthenticatedMiddleware, (req,res,next)=>{
   })
 })
 
+router.post('/users/login', redirectIfAuthenticatedMiddleware, Controller.loginController)
+
 router.get('/register', redirectIfAuthenticatedMiddleware, (req,res)=>{
   res.render('register')
 })
@@ -78,10 +80,6 @@ router.post('/users/store', redirectIfAuthenticatedMiddleware, async (req,res, n
     res.redirect('/')
   })
 })
-
-router.post('/users/login', redirectIfAuthenticatedMiddleware, Controller.loginController)
-
-
 
 router.get(['/databases', '/databases/makebuy', '/databases/makesell', '/databases/AllMyOrders', '/databases/buyordersdata', '/databases/sellordersdata', '/databases/matches'], authMiddleware, (req,res)=>{
   var JSX_to_load = 'OrdersApp';

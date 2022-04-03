@@ -7,6 +7,7 @@
   <input type="password" name="password" value="<%= password %>">                 
   <button type="submit">Login</button>
 </form>  
+<% console.log(notification) %> 
 <% if(notification){ %> 
   <% for (let i = 0; i < notification.length; i++) {%> 
     <h1><%= notification[i] %></h1>
