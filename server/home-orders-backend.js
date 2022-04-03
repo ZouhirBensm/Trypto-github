@@ -52,8 +52,18 @@ router.get('/api', async (req,res,next)=>{
 
 router.get('/data/:target/:userID?', homeOrdersController.paginateController)
 
-router.get('/login', redirectIfAuthenticatedMiddleware, (req,res)=>{
-  res.render('login')
+router.get('/login', redirectIfAuthenticatedMiddleware, (req,res,next)=>{
+  const notification = null
+  const email = null
+  const password = null
+  // res.render('login')
+  res.render('login', {notification, email, password}, function(err, html) {
+    if(err) {
+        return next(err)
+    } else {
+        res.send(html);
+    }
+  })
 })
 
 router.get('/register', redirectIfAuthenticatedMiddleware, (req,res)=>{

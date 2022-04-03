@@ -2,8 +2,13 @@
   <h3>Login</h3>
   <label>Email</label>
   <!-- name allows passing from form to server -->
-  <input type="text" name="email">             
+  <input type="text" name="email" value="<%= email %>">             
   <label>Password</label>
-  <input type="password" name="password">                 
+  <input type="password" name="password" value="<%= password %>">                 
   <button type="submit">Login</button>
-</form>
+</form>  
+<% if(notification){ %> 
+  <% for (let i = 0; i < notification.length; i++) {%> 
+    <h1><%= notification[i] %></h1>
+  <% } %> 
+<% } %> 
