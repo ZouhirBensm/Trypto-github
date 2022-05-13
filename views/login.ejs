@@ -7,12 +7,14 @@
   <input type="password" name="password" value="<%= password %>">                 
   <button type="submit">Login</button>
 </form> 
-<div id="mydiv"><%= notification %></div> 
-<% if(notification){ %> 
-  <% for (let i = 0; i < notification.length; i++) {%> 
-    <h1><%= notification[i] %></h1>
+<div id="move">
+  <div id="mydiv"><%= notification %></div> 
+  <% if(notification){ %> 
+    <% for (let i = 0; i < notification.length; i++) {%> 
+      <h1><%= notification[i] %></h1>
+    <% } %> 
   <% } %> 
-<% } %> 
+</div>
 <script>
   var test = document.getElementById('mydiv').innerHTML
   console.log(test)

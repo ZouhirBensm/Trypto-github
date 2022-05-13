@@ -69,3 +69,8 @@ form#loginregister {
   left: 3%;
   right: 3%;
 }
+
+div#move {
+  position: relative;
+  top: 35%;
+}

@@ -52,7 +52,7 @@ router.get('/api', async (req,res,next)=>{
 
 router.get('/data/:target/:userID?', homeOrdersController.paginateController)
 
-router.get('/login', redirectIfAuthenticatedMiddleware, (req,res,next)=>{
+router.get('/users/login', redirectIfAuthenticatedMiddleware, (req,res,next)=>{
   let notification
   let email
   let password
