@@ -57,7 +57,7 @@ router.get('/users/login', redirectIfAuthenticatedMiddleware, (req,res,next)=>{
   let email
   let password
   // res.render('login')
-  console.log("1 notification", notification)
+  console.log("1 notification: ", notification)
   res.render('login', {notification, email, password}, function(err, html) {
     if(err) {
         return next(err)
