@@ -59,7 +59,7 @@ li > a:active {
   color: lightblue;
 }
 
-form#loginregister {
+/* form#loginregister {
   height: 80vh;
   overflow: scroll;
   border: 1px black solid;
@@ -68,9 +68,5 @@ form#loginregister {
   bottom: 10%;
   left: 3%;
   right: 3%;
-}
+} */
 
-div#move {
-  position: relative;
-  top: 35%;
-}

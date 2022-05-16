@@ -51,9 +51,16 @@ var barConfig = Object.assign({}, config,{
     path: path.resolve(__dirname, 'public/dist'),
   },
 });
+var zooConfig = Object.assign({}, config,{
+  entry: './src/LoginRegister.jsx',
+  output: {
+    filename: 'LoginRegister.js',
+    path: path.resolve(__dirname, 'public/dist'),
+  },
+});
 
 
 // Return Array of Configurations
 module.exports = [
-  fooConfig, barConfig
+  fooConfig, barConfig, zooConfig
 ];

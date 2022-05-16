@@ -28,7 +28,7 @@ const { CustomError } = require('../custom-errors/home-orders-custom-errors')
 router.get('/',(req,res)=>{
   // console.log(loggedIn)
   var JSX_to_load = 'App';
-  res.render('home-orders', { JSX_to_load : JSX_to_load })
+  res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
 })
 
 router.get('/api', async (req,res,next)=>{
@@ -53,37 +53,38 @@ router.get('/api', async (req,res,next)=>{
 router.get('/data/:target/:userID?', homeOrdersController.paginateController)
 
 router.get('/users/login', redirectIfAuthenticatedMiddleware, (req,res,next)=>{
-  let notification
-  let email
-  let password
-  // res.render('login')
-  console.log("1 notification: ", notification)
-  res.render('login', {notification, email, password}, function(err, html) {
-    if(err) {
-        return next(err)
-    } else {
-        res.send(html);
-    }
-  })
+  // let notification
+  // let email
+  // let password
+  // // res.render('login')
+  // console.log("1 notification: ", notification)
+  // res.render('login', {notification, email, password}, function(err, html) {
+  //   if(err) {
+  //       return next(err)
+  //   } else {
+  //       res.send(html);
+  //   }
+  // })
+  console.log("ICI??")
+  var JSX_to_load = 'LoginRegister';
+  res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
 })
+
 
 router.post('/users/login', redirectIfAuthenticatedMiddleware, Controller.loginController)
 
-router.get('/register', redirectIfAuthenticatedMiddleware, (req,res)=>{
-  res.render('register')
+router.get('/users/register', redirectIfAuthenticatedMiddleware, (req,res)=>{
+  var JSX_to_load = 'LoginRegister';
+  // console.log(JSX_to_load)
+  res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
 })
 
 // Register New User
-router.post('/users/store', redirectIfAuthenticatedMiddleware, async (req,res, next)=>{
-  await User.create(req.body,(error,user)=>{
-    if(error){return next(error)}
-    res.redirect('/')
-  })
-})
+router.post('/users/register', redirectIfAuthenticatedMiddleware, Controller.registerController)
 
 router.get(['/databases', '/databases/makebuy', '/databases/makesell', '/databases/AllMyOrders', '/databases/buyordersdata', '/databases/sellordersdata', '/databases/matches'], authMiddleware, (req,res)=>{
   var JSX_to_load = 'OrdersApp';
-  res.render('home-orders', { JSX_to_load : JSX_to_load })
+  res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
 })
 
 router.post('/update', homeOrdersController.updateOrderController)

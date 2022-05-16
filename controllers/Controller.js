@@ -4,11 +4,22 @@ const User = require('../models/User')
 var bcrypt = require('bcryptjs');
 
 module.exports = {
+  registerController: async (req,res, next)=>{
+    await User.create(req.body,(error,user)=>{
+      if(error){return next(error)}
+      // console.log("redirect normally")
+      res.json({
+        data: ['success']
+      })
+    })
+  },
   loginController: async (req,res,next)=>{
   
     let notification = []
     //Extract the email and password from the login form with req.body
+
     const {email, password} = req.body
+    console.log("Backend Reception:! ", req.body)
     
     email? null: notification.push("Please enter an e-mail")
     
@@ -36,17 +47,19 @@ module.exports = {
     })
     console.log("2", notification)
 
-    req.session.userId ? (
-      res.redirect('/')
-      ) : (
-      res.render('login', {notification, email, password}, function(err, html) {
-        if(err) {
-          next(err)
-        } else {
-          res.send(html);
-        }
+
+
+    console.log("what do we have??", req.session.userId)
+    if(req.session.userId) {
+      res.json({
+        data: ['success']
       })
-    )
+    } else {
+      res.json({
+        data: notification
+      })
+    }
+
   },
 
 
