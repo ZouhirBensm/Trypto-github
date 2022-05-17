@@ -6,9 +6,9 @@ var bcrypt = require('bcryptjs');
 module.exports = {
   registerController: async (req,res, next)=>{
     await User.create(req.body,(error,user)=>{
-      if(error){return next(error)}
+      if(error){return next(error)} // special kind of error
       // console.log("redirect normally")
-      res.json({
+      res.status(200).json({
         data: ['success']
       })
     })

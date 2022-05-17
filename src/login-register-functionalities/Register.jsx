@@ -8,8 +8,8 @@ class Register extends React.Component {
     this.state = {
       notification: []
     }
-    this.verifyEmail = this.verifyEmail.bind(this)
     // These functions need to be put in a library
+    this.verifyEmail = this.verifyEmail.bind(this)
     this.verifyPassword = this.verifyPassword.bind(this)
     this.handleValidation = this.handleValidation.bind(this)
     this.handleRegistrationCall = this.handleRegistrationCall.bind(this)
@@ -20,7 +20,7 @@ class Register extends React.Component {
     e.preventDefault()
     const email = document.getElementById("loginregister").elements[0].value
     const password = document.getElementById("loginregister").elements[1].value
-    let flag, notification
+    let flag, notification = [];
     // console.log(e.target.parentNode)
     // console.log(document.getElementById("loginregister").elements);
     // console.log(email)
@@ -28,33 +28,31 @@ class Register extends React.Component {
 
 
     // Destructuring and assigning 
-    ({flag = flag_value, notification = notification_value} = this.verifyEmail(email))
-
-
-    console.log(flag, notification)    
+    ({flag, notification} = this.verifyEmail(email))
+    console.log("after verifyEmail: ", flag, notification)    
     if(!flag) {
       // set the state of the notification to tell the user "Hey user email not good!"
       console.log("Hey user email not good!");
       // yield to end process
-      yield `${email} is valid`
+      yield {enviroment: "development", purpose: "logging", message: notification}
     } else {
       // set the state of the notification to tell component "Good email"
       console.log("Hey component email good!");
       // proceed to check the password
       
-      ({flag = flag_value, notification = notification_value} = this.verifyPassword(password))
-      console.log(flag, notification);
+      ({flag, notification} = this.verifyPassword(password))
+      console.log("after verifyPassword: ", flag, notification);
       if(!flag) {
         // set the state of the notification to tell User "Hey user password not Good"
         console.log("Hey user password not Good");
         // yield to end process
-        yield `${password} is valid`
-      } else {
+        yield {enviroment: "development", purpose: "logging", message: notification}
+      } else { // finish and return
         // set the state of the notification to tell component "Good password"
         console.log("Hey component password good!");
         // proceed to make api call this.handleRegistration(email, password)
-        // returns flag, message
-        this.handleRegistrationCall(email, password)
+        // returns new flag, message
+        ({flag, notification} = this.handleRegistrationCall(email, password))
         if(!flag) {
           // set the state of the notification to tell the user <message>
           // yield to end process with <message>
@@ -68,36 +66,39 @@ class Register extends React.Component {
     
     
   }
-  handleRegistrationCall (_email, _password){
+  async handleRegistrationCall (_email, _password){
     console.log("Making API call!")
 
     // crediential verified then you can do a call to register user on backend
-    // fetch(`${process.env.ROOT}/users/register`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     email: _email,
-    //     password: _password,
-    //   })
-    // })
-    // .then(response => {
-    //   // console.log("api ress: ", response); 
-    //   return response.json()
-    // })
-    // .then(data => {
-    //   console.log(data.data[0])
-    //   if(data.data[0] === "success"){
-    //     // window.location.href = `${process.env.ROOT}/`;
-    //   }
-    // })
+    
+    const response = await fetch(`${process.env.ROOT}/users/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        email: _email,
+        password: _password,
+      })
+    });
+    console.log(response)
+    if(response.status === 200){
+      // window.location.href = `${process.env.ROOT}/`;
+
+    }
+    const data = await response.json()
+
+    console.log(data)
+    
+
 
 
 
     // if backend registration success return
     // return for handleRegistrationCall: flag + "User Account has been registered on the backend"
+    // update page notification
+
     // if backend registration fails return
     // return for handleRegistrationCall: flag + "Server Error backend Was unable to register your proper filled inputs (Server Crash)"
 
@@ -124,9 +125,9 @@ class Register extends React.Component {
         <form id="loginregister" className="form">
           <h3>Register React</h3>
           <label>Email</label>
-          <input type="text" name="email" value="y@example.com"/> 
+          <input type="text" name="email" value="@example.com"/> 
           <label>Password</label>
-          <input type="password" name="password" value="Zouhir123"/> 
+          <input type="password" name="password" value="Zouhir123!"/> 
           <button type="submit" onClick={(e) => {
             let gen = this.handleValidation(e)
             let val = gen.next()
@@ -153,30 +154,33 @@ class Register extends React.Component {
     if (EmailVerif_status) {
       return {
         flag: true,
-        notification: ['email is good']
+        notification: ['email format is proper: <name>@<email-provider>.<extention>']
       }
     } else {
       return {
         flag: false,
-        notification: ['email is bad']
+        notification: ['email format is invalid i.e not as such: <name>@<email-provider>.<extention>']
       }
     }
   }
 
   verifyPassword(_password){
-    console.log("verifying this password: ", _password)
+    console.log("\n\nverifying this password: ", _password)
+    let flag = undefined, notification = [];
+  
+    (/\d/g).test(_password)? null : notification = notification.concat("Your password must contain at least a digit [0-9]");
+    (/[A-Za-z]/g).test(_password)? null : notification = notification.concat("Your password must contain at least an alphabet character [A-Za-z]");
+    (/[\[\]\+?.,|=`~!@:#";/$'>%<^&*(){_}-]/g).test(_password)? null : notification = notification.concat("Your password must contain at least a special character: [@#!$%^&*()[]{}-_+/<'>;\":?.,|=`~]");
+    !(/\s/g).test(_password)? null : notification = notification.concat("Your password cannot contain any spaces at any point");
+    !(_password.length < 8) ? null: notification = notification.concat("Your password's length insufficient. Passwords require at least 7 characters");
+    !(_password.length > 39) ? null: notification = notification.concat("Your password's length excessivly long. Passwords require to be less than 40 characters");
+    !(_password.length === 0) ? null: notification = notification.concat("No password was inputed!");
+  
+    ({flag, notification} =  {flag: !notification.length, notification: notification.length === 0? ["password format is proper: respect\'s all conditions"]:notification})
+    console.log(flag, notification)
     
-    if (true) {
-      return {
-        flag: true,
-        notification: ['password is good']
-      }
-    } else {
-      return {
-        flag: false,
-        notification: ['password is bad']
-      }
-    }
+    return {flag, notification}
+  
   }
 }
 
