@@ -2,14 +2,17 @@
 const User = require('../models/User')
 // const bcrypt = require('bcrypt')
 var bcrypt = require('bcryptjs');
+const { MongoCreateCustomError } = require('../custom-errors/home-orders-custom-errors')
 
 module.exports = {
   registerController: async (req,res, next)=>{
     await User.create(req.body,(error,user)=>{
-      if(error){return next(error)} // special kind of error
-      // console.log("redirect normally")
+      // TODO: Add backend validation with proper custom errors
+      if(error){return next(new MongoCreateCustomError())} // Redirects error type MongoCreateCustomError to next error middleware. Similar to try{throw new MongoCreateCustomError()}catch(err){next(err)}
       res.status(200).json({
-        data: ['success']
+        server: {
+          message: 'User successfully created'
+        }
       })
     })
   },

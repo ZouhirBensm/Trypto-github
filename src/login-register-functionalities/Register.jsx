@@ -16,7 +16,7 @@ class Register extends React.Component {
   }
 
   //generator function
-  *handleValidation(e){
+  async *handleValidation(e){
     e.preventDefault()
     const email = document.getElementById("loginregister").elements[0].value
     const password = document.getElementById("loginregister").elements[1].value
@@ -34,7 +34,7 @@ class Register extends React.Component {
       // set the state of the notification to tell the user "Hey user email not good!"
       console.log("Hey user email not good!");
       // yield to end process
-      yield {enviroment: "development", purpose: "logging", message: notification}
+      yield {yield_level: 1, number_of_max_yield_levels: 3, inProcessChecking: "email", message: notification}
     } else {
       // set the state of the notification to tell component "Good email"
       console.log("Hey component email good!");
@@ -46,19 +46,24 @@ class Register extends React.Component {
         // set the state of the notification to tell User "Hey user password not Good"
         console.log("Hey user password not Good");
         // yield to end process
-        yield {enviroment: "development", purpose: "logging", message: notification}
+        yield {yield_level: 2, number_of_max_yield_levels: 3, levelinProcessChecking: "password", message: notification}
       } else { // finish and return
         // set the state of the notification to tell component "Good password"
         console.log("Hey component password good!");
         // proceed to make api call this.handleRegistration(email, password)
         // returns new flag, message
-        ({flag, notification} = this.handleRegistrationCall(email, password))
+        ({flag, notification} = await this.handleRegistrationCall(email, password))
+        console.log("\n\nAfter API call, we are left with: ", flag, notification)
         if(!flag) {
           // set the state of the notification to tell the user <message>
-          // yield to end process with <message>
+          console.log("Hey component the server failed")
+          // yield the final return to end process with server error notification
+          return {yield_level: 3, number_of_max_yield_levels: 3, inProcessChecking: "POST /users/register endpoint", message: notification}
         } else {
           // set the state of the notification to tell component <message>
+          console.log("Hey component we successfully registered the user")
           // pass that state.notification <message> as a prop to render the home compnent
+          return {yield_level: 3, number_of_max_yield_levels: 3, inProcessChecking: "POST /users/register endpoint", message: notification}
         }
       }
       
@@ -70,6 +75,7 @@ class Register extends React.Component {
     console.log("Making API call!")
 
     // crediential verified then you can do a call to register user on backend
+    // was unable to catch custom error: look into
     
     const response = await fetch(`${process.env.ROOT}/users/register`, {
       method: 'POST',
@@ -81,26 +87,34 @@ class Register extends React.Component {
         email: _email,
         password: _password,
       })
-    });
-    console.log(response)
-    if(response.status === 200){
-      // window.location.href = `${process.env.ROOT}/`;
-
-    }
-    const data = await response.json()
-
-    console.log(data)
+    })
+   
+    
     
 
+    // console.log(response)
+    let data = await response.json()
+    // console.log(data)
 
+    
+    switch (response.status) {
+      case 200:
+        // window.location.href = `${process.env.ROOT}/`;
+        return {
+          flag: true,
+          notification: [data.server.message]
+        }
+        // update page notification
+      case 500:
+        // console.log("HERE", data.error.message)
+        return {
+          flag: false,
+          notification: [data.error.message]
+        }
+      default:
+        break;
+    }
 
-
-    // if backend registration success return
-    // return for handleRegistrationCall: flag + "User Account has been registered on the backend"
-    // update page notification
-
-    // if backend registration fails return
-    // return for handleRegistrationCall: flag + "Server Error backend Was unable to register your proper filled inputs (Server Crash)"
 
     // finalYield a flag and then return the calling function *handleValidation(e) with this string `${returned message}`
   }
@@ -125,12 +139,12 @@ class Register extends React.Component {
         <form id="loginregister" className="form">
           <h3>Register React</h3>
           <label>Email</label>
-          <input type="text" name="email" value="@example.com"/> 
+          <input type="text" name="email" value="z@example.com"/> 
           <label>Password</label>
-          <input type="password" name="password" value="Zouhir123!"/> 
-          <button type="submit" onClick={(e) => {
+          <input type="password" name="password"/> 
+          <button type="submit" onClick={async (e) => {
             let gen = this.handleValidation(e)
-            let val = gen.next()
+            let val = await gen.next()
             console.log("Returned val on button click statements\nAfter let val = gen.next()\n", val)
             }
           }
@@ -146,6 +160,7 @@ class Register extends React.Component {
 
 
   verifyEmail(_emailstr){
+    console.log(" __________________________ VERIFICATION __________________________");
     console.log("verifying this email: ", _emailstr);
     const emailRegularExpression = /(^[^@.]+)@([^@.]+)\.{1}(\w{1,6}$)/;
     const EmailVerif_status = emailRegularExpression.test(_emailstr) 

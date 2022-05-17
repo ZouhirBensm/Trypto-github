@@ -10,7 +10,7 @@ const express = require('express');
 
 const homeOrdersBackend = require('./home-orders-backend')
 const messagingBackend = require('./messaging-backend');
-const { errorLogger, errorResponder } = require('../middleware/error-middleware/error-handle-fcts')
+const { errorLogger, errorResponder, errorDispatcher } = require('../middleware/error-middleware/error-handle-fcts')
 const { invalidPathHandler } = require("../controllers/Controller")
 
 const express_server_router = express();
@@ -83,9 +83,12 @@ express_server_router.use('/messaging', messagingBackend)
 
 // Middleware error handlers that processes any thrown errors
 express_server_router.use(errorLogger)
-// Cuts off error handling to express' default error handler because the function responds to client
+// Retrieves the error and either responds to client based on the nature of the error or redirects the error to the generic errorResponder middleware
+express_server_router.use(errorDispatcher)
+// Cuts off error handling from express' default error handler because the function responds to client
 express_server_router.use(errorResponder)
-// Fail-safe catch-all non registered routes to render error page
+// Fail-safe catch-all non registered routes to render error page 
+// all requests go through this and sets up a default response if a "earlier" response does not exist i.e no endpoints match the request made on the server
 express_server_router.use(invalidPathHandler)
 
 
