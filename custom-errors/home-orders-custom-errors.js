@@ -20,8 +20,18 @@ class MongoCreateCustomError extends CustomError {
   }
 }
 
+
+class LoggingInError extends CustomError {
+  constructor(){
+    super()
+    this.type = this.constructor.name
+    this.message
+  }
+}
+
 module.exports = {
   CustomError,
   SubCustomError,
-  MongoCreateCustomError
+  MongoCreateCustomError,
+  LoggingInError
 }

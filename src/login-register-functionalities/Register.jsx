@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles/LoginRegister.css' 
 
+
 class Register extends React.Component {
 
   constructor(){
@@ -32,6 +33,7 @@ class Register extends React.Component {
     console.log("after verifyEmail: ", flag, notification)    
     if(!flag) {
       // set the state of the notification to tell the user "Hey user email not good!"
+      this.setState({notification: notification})
       console.log("Hey user email not good!");
       // yield to end process
       yield {yield_level: 1, number_of_max_yield_levels: 3, inProcessChecking: "email", message: notification}
@@ -44,6 +46,7 @@ class Register extends React.Component {
       console.log("after verifyPassword: ", flag, notification);
       if(!flag) {
         // set the state of the notification to tell User "Hey user password not Good"
+        this.setState({notification: notification})
         console.log("Hey user password not Good");
         // yield to end process
         yield {yield_level: 2, number_of_max_yield_levels: 3, inProcessChecking: "password", message: notification}
@@ -56,15 +59,17 @@ class Register extends React.Component {
         console.log("\n\nAfter API call, we are left with: ", flag, notification)
         if(!flag) {
           // set the state of the notification to tell the user <message>
+          this.setState({notification: notification})
           console.log("Hey component the server failed")
           // yield the final return to end process with server error notification
-          return {yield_level: 3, number_of_max_yield_levels: 3, inProcessChecking: "POST /users/register endpoint", message: notification}
+          // return {yield_level: 3, number_of_max_yield_levels: 3, inProcessChecking: "POST /users/register endpoint", message: notification}
         } else {
-          // set the state of the notification to tell component <message>
-          console.log("Hey component we successfully registered the user")
-          // pass that state.notification <message> as a prop to render the home compnent
-          return {yield_level: 3, number_of_max_yield_levels: 3, inProcessChecking: "POST /users/register endpoint", message: notification}
+          // TODO
+          // post or get(query string) the message/notification then serve it from the server, have it as a pop up if you want
+          window.location.href = `${process.env.ROOT}/`;
+
         }
+        return {yield_level: 3, number_of_max_yield_levels: 3, inProcessChecking: "POST /users/register endpoint", message: notification}
       }
       
     }
@@ -73,9 +78,6 @@ class Register extends React.Component {
   }
   async handleRegistrationCall (_email, _password){
     console.log("Making API call!")
-
-    // crediential verified then you can do a call to register user on backend
-    // was unable to catch custom error: look into
     
     const response = await fetch(`${process.env.ROOT}/users/register`, {
       method: 'POST',
@@ -99,17 +101,15 @@ class Register extends React.Component {
     
     switch (response.status) {
       case 200:
-        // window.location.href = `${process.env.ROOT}/`;
         return {
           flag: true,
-          notification: [data.server.message]
+          notification: data.server.message
         }
         // update page notification
       case 500:
-        // console.log("HERE", data.error.message)
         return {
           flag: false,
-          notification: [data.error.message]
+          notification: data.error.message
         }
       default:
         break;
@@ -127,11 +127,11 @@ class Register extends React.Component {
 
   render() {
 
-    // const notifyDisplays = this.state.notification?.map((notification, index) => {
-    //   return <div key={index}>{notification}</div>
-    // })
+    const notifyDisplays = this.state.notification?.map((notification, index) => {
+      return <div key={index}>{notification}</div>
+    })
 
-    // console.log(notifyDisplays)
+    console.log(notifyDisplays)
     
     return (
       // Template out this code
@@ -154,7 +154,7 @@ class Register extends React.Component {
           >Register</button>
         </form>
         {/* display the notification from the server here! */}
-        {/* { notifyDisplays } */}
+        { notifyDisplays }
       </div>
     );
   }

@@ -8,13 +8,22 @@ const errorLogger = (err, req ,res, next) => {
   next(err) // Sends the error to next middleware error handler function
 }
 
-const errorDispatcher = (err, req ,res, next) => {
+const errorResponseDispatcher = (err, req ,res, next) => {
   switch (err.constructor.name) {
-    case "MongoCreateCustomError":
+    case "MongoError":
+      res.status(500).json({
+        error: {
+          type: `${err.name}`,
+          message: [`${err.message}`],
+        }
+      })
+      break;
+    // This custom error is not needed but it's format is good to keep to implement new validation custom errors for the backend!
+    case "LoggingInError":
       res.status(err.statusCode).json({
         error: {
-          type: `${err.type}`,
-          message: `${err.message}`,
+          type: `${err.name}`,
+          message: res.locals.notification, // Array<string> format
         }
       })
       break;
@@ -35,6 +44,6 @@ const errorResponder = (err, req ,res, next) => {
 
 module.exports = {
   errorLogger,
-  errorDispatcher,
+  errorResponseDispatcher,
   errorResponder
 }

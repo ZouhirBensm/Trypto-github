@@ -6,7 +6,7 @@ class Login extends React.Component {
   constructor(){
     super()
     this.state = {
-      notification: null
+      notification: []
     }
     this.functionneed = this.functionneed.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -35,13 +35,15 @@ class Login extends React.Component {
       return response.json()
     })
     .then(data => {
-      console.log(data.data[0])
-      if(data.data[0] === "success"){
+      console.log(data)
+      if(data.server){
         window.location.href = `${process.env.ROOT}/`;
-      } else {
+      } else if(data.error){
         this.setState({
-          notification: data.data,
+          notification: data.error.message,
         })
+      } else {
+        throw new Error("Front end does not support server response data structure, when api call made to POST /users/login.\nMust be object with data.server.message or data.error.message")
       }
       // console.log("server responses with: ", data)
     })
@@ -51,7 +53,7 @@ class Login extends React.Component {
 
   render() {
 
-    const notifyDisplays = this.state.notification?.map((notification, index) => {
+    const notifyDisplays = this.state.notification.map((notification, index) => {
       return <div key={index}>{notification}</div>
     })
 

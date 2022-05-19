@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import PricesComponent from './home-functionalities/PricesComponent.jsx';
 
 class Home extends React.Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       prices: []
     }
@@ -62,6 +62,7 @@ class Home extends React.Component {
         {/* <p>{process.env.REACT_APP_DOMAIN}</p> */}
         <PricesComponent countries={countries.west} prices={this.state.prices}/>
         {/* <PricesComponent countries={countries.third}/> */}
+
         
       </React.Fragment> 
     );
@@ -71,3 +72,5 @@ class Home extends React.Component {
 const element = <Home />;
 
 ReactDOM.render(element, document.getElementById('react-div'));
+
+export default Home

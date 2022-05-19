@@ -10,7 +10,7 @@ const express = require('express');
 
 const homeOrdersBackend = require('./home-orders-backend')
 const messagingBackend = require('./messaging-backend');
-const { errorLogger, errorResponder, errorDispatcher } = require('../middleware/error-middleware/error-handle-fcts')
+const { errorLogger, errorResponder, errorResponseDispatcher } = require('../middleware/error-middleware/error-handle-fcts')
 const { invalidPathHandler } = require("../controllers/Controller")
 
 const express_server_router = express();
@@ -84,7 +84,7 @@ express_server_router.use('/messaging', messagingBackend)
 // Middleware error handlers that processes any thrown errors
 express_server_router.use(errorLogger)
 // Retrieves the error and either responds to client based on the nature of the error or redirects the error to the generic errorResponder middleware
-express_server_router.use(errorDispatcher)
+express_server_router.use(errorResponseDispatcher)
 // Cuts off error handling from express' default error handler because the function responds to client
 express_server_router.use(errorResponder)
 // Fail-safe catch-all non registered routes to render error page 
@@ -101,5 +101,5 @@ express_server_router.listen(ENV.port, function () {
 
 
 /*
- Entire repository with the name of Trypto-gitlab on the Gitlab platform (URL: https://gitlab.com/Maestro07/trypto-gitlab) with a Project ID: 31112112 and accessed with user account: freelancebenz@gmail.com is regimented under the intellectual property restrictions and obligations of the Canadian Copyright © issued by Innovation, Science and Economic Development Canada Canadian Intellectual Property Office. Registered the 12th of October 2021 under the registration number 1187187.
+ Entire repository with the name of Trypto-gitlab on the Gitlab platform (URL: https://gitlab.com/Maestro07/trypto-gitlab) with a Project ID: 31112112 and accessed with user account: freelancebenz@gmail.com is regimented by the intellectual property laws of the Canadian Intellectual Property Office Canadian Copyright © issued by Innovation, Science and Economic Development Canada. Copyright registered the 12th of October 2021 under the registration number 1187187. Registerer name is Zouhir Mohamed Bachir, born the 26th January 1993. Copyright encompasses all future and past software edits.
 */

@@ -3,15 +3,23 @@ const User = require('../models/User')
 // const bcrypt = require('bcrypt')
 var bcrypt = require('bcryptjs');
 const { MongoCreateCustomError } = require('../custom-errors/home-orders-custom-errors')
+const { LoggingInError } = require('../custom-errors/home-orders-custom-errors')
+
 
 module.exports = {
   registerController: async (req,res, next)=>{
     await User.create(req.body,(error,user)=>{
       // TODO: Add backend validation with proper custom errors
-      if(error){return next(new MongoCreateCustomError())} // Redirects error type MongoCreateCustomError to next error middleware. Similar to try{throw new MongoCreateCustomError()}catch(err){next(err)}
+      // new MongoCreateCustomError()
+      if(error){
+        console.log("\n\n___lgging the error NAME:___ ", error.name, error.message)
+        // console.log("\n\n___lgging the custom error:___ ", new MongoCreateCustomError())
+        // return next(new MongoCreateCustomError())
+        return next(error)
+      } // Redirects error type MongoCreateCustomError to next error middleware. Similar to try{throw new MongoCreateCustomError()}catch(err){next(err)}
       res.status(200).json({
         server: {
-          message: 'User successfully created'
+          message: ['User successfully created']
         }
       })
     })
@@ -54,18 +62,35 @@ module.exports = {
 
     console.log("what do we have??", req.session.userId)
     if(req.session.userId) {
-      res.json({
-        data: ['success']
+      // res.json({
+      //   data: ['success']
+      // })
+      res.status(200).json({
+        server:{
+          message: ["User successfully logged in"]
+        }
       })
     } else {
-      res.json({
-        data: notification
-      })
+      // res.json({
+      //   data: notification
+      // })
+      const error = new LoggingInError()
+      // Appending the notification array to the res object, in order to pass to next error middlware errorLogger
+      res.locals.notification = notification
+      console.log(res.locals.notification)
+      next(error)
+
+    //   res.status(500).json({
+    //     error: {
+    //       // type: `${err.name}`,
+    //       // message: `${err.message}`,
+    //       message: notification
+    //     }
+    //   })
+    // }
+
     }
-
   },
-
-
 
   invalidPathHandler: (req, res) => {
     res.render('error')
