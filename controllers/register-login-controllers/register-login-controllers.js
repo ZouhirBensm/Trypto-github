@@ -91,7 +91,9 @@ module.exports = {
     }
   },
 
-  invalidPathHandler: (req, res) => {
-    res.render('error')
+  invalidPathHandler: (req, res, next) => {
+    // console.log(req.method)
+    if(req.method === "GET") res.render('error')
+    next()
   }
 }

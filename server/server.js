@@ -87,10 +87,15 @@ express_server_router.use(errorLogger)
 express_server_router.use(errorResponseDispatcher)
 // Cuts off error handling from express' default error handler because the function responds to client
 express_server_router.use(errorResponder)
+
 // Fail-safe catch-all non registered routes to render error page 
-// all requests go through this and sets up a default response if a "earlier" response does not exist i.e no endpoints match the request made on the server
+// if "earlier" endpoints does not exist 
+// i.e no endpoints match the request made on the server and no error thrown
+// all requests go through this and either sets up a custom no match page response (if it's a GET request) 
+// or uses Express' default response (if it's anything other than a GET request) 
 express_server_router.use(invalidPathHandler)
 
+// Note: Errors thrown during the application (i.e. before express_server_router.use(errorLogger)) get dealt with the error function middlewares (the errorResponder always responds), and thus circumvent this express_server_router.use(invalidPathHandler) middleware
 
 
 
