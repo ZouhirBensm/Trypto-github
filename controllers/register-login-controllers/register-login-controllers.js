@@ -1,9 +1,8 @@
 //We import the User model
-const User = require('../models/User')
+const User = require('../../models/User')
 // const bcrypt = require('bcrypt')
 var bcrypt = require('bcryptjs');
-const { MongoCreateCustomError } = require('../custom-errors/home-orders-custom-errors')
-const { LoggingInError } = require('../custom-errors/home-orders-custom-errors')
+const { MongoCreateCustomError, LoggingInError } = require('../../custom-errors/custom-errors')
 
 
 module.exports = {

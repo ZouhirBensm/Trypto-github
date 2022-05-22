@@ -11,6 +11,7 @@ class SubCustomError extends CustomError {
   }
 }
 
+// Kept as an example
 class MongoCreateCustomError extends CustomError {
   constructor(){
     super()

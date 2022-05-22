@@ -5,9 +5,9 @@ const CoinGecko = require('coingecko-api');
 const CoinGeckoClient = new CoinGecko();
 
 // Import Long homeOrdersController functions
-const homeOrdersController = require("../controllers/home-orders-controllers/homeOrdersController")
-// Import Long Controller functions
-const Controller = require("../controllers/Controller")
+const homeOrdersController = require("../controllers/home-orders-controllers/home-orders-controllers")
+// Import Long RegisterLoginController functions
+const RegisterLoginController = require("../controllers/register-login-controllers/register-login-controllers")
 
 // Import redirectIfAuthenticatedMiddleware
 const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthenticatedMiddleware')
@@ -20,7 +20,7 @@ const postTrackerMiddleware = require('../middleware/home-orders-middleware/post
 const User = require('../models/User')
 
 // No Custom Error needed at the moment
-const { CustomError } = require('../custom-errors/home-orders-custom-errors')
+const { CustomError } = require('../custom-errors/custom-errors')
 
 
 
@@ -71,7 +71,7 @@ router.get('/users/login', redirectIfAuthenticatedMiddleware, (req,res,next)=>{
 })
 
 
-router.post('/users/login', redirectIfAuthenticatedMiddleware, Controller.loginController)
+router.post('/users/login', redirectIfAuthenticatedMiddleware, RegisterLoginController.loginController)
 
 router.get('/users/register', redirectIfAuthenticatedMiddleware, (req,res)=>{
   var JSX_to_load = 'LoginRegister';
@@ -80,7 +80,7 @@ router.get('/users/register', redirectIfAuthenticatedMiddleware, (req,res)=>{
 })
 
 // Register New User
-router.post('/users/register', redirectIfAuthenticatedMiddleware, Controller.registerController)
+router.post('/users/register', redirectIfAuthenticatedMiddleware, RegisterLoginController.registerController)
 
 router.get(['/databases', '/databases/makebuy', '/databases/makesell', '/databases/AllMyOrders', '/databases/buyordersdata', '/databases/sellordersdata', '/databases/matches'], authMiddleware, (req,res)=>{
   var JSX_to_load = 'OrdersApp';

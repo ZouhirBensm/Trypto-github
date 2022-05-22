@@ -1,3 +1,4 @@
+// Categorised as a global modal
 const mongoose = require('mongoose')
 //Create empty Schema object?
 const Schema = mongoose.Schema
