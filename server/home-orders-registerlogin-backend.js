@@ -80,7 +80,7 @@ router.get('/users/register', redirectIfAuthenticatedMiddleware, (req,res)=>{
 })
 
 // Register New User
-router.post('/users/register', redirectIfAuthenticatedMiddleware, RegisterLoginController.registerController)
+router.post('/users/register', redirectIfAuthenticatedMiddleware, RegisterLoginController.validateController, RegisterLoginController.registerController)
 
 router.get(['/databases', '/databases/makebuy', '/databases/makesell', '/databases/AllMyOrders', '/databases/buyordersdata', '/databases/sellordersdata', '/databases/matches'], authMiddleware, (req,res)=>{
   var JSX_to_load = 'OrdersApp';

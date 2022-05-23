@@ -5,19 +5,29 @@ class CustomError extends Error {
   }
 }
 
-class SubCustomError extends CustomError {
+// Kept as an example
+// class SubCustomError extends CustomError {
+//   constructor(){
+//     super()
+//   }
+// }
+
+// Used to test errorResponseDispatcher when the error is thrown at register-login-controllers.js in registerController function, when User.create errors' out
+class MongoError extends CustomError {
   constructor(){
     super()
+    this.type = this.constructor.name
+    this.message = ['msg1', 'msg2', 'msg3']
   }
 }
 
-// Kept as an example
-class MongoCreateCustomError extends CustomError {
-  constructor(){
+// TODO Setup validatee as an enum: Email, Password, ...
+class ValidationError extends CustomError {
+  constructor(notification, validatee){
     super()
-    // this.statusCode = 200 // overwrite
     this.type = this.constructor.name
-    this.message = `Server was unable to create your account`
+    this.message = notification
+    this.validatee = validatee
   }
 }
 
@@ -31,8 +41,9 @@ class LoggingInError extends CustomError {
 }
 
 module.exports = {
+  // SubCustomError,
+  MongoError,
   CustomError,
-  SubCustomError,
-  MongoCreateCustomError,
+  ValidationError,
   LoggingInError
 }
