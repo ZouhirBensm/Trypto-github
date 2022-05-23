@@ -4,7 +4,6 @@ const ENV = require('../../config/base')
 
 module.exports = {
   paginateController: async (req, res, next) => {
-
     let model = req.params.target
     let user = req.params.userID
     let page = parseInt(req.query.page)
@@ -42,26 +41,76 @@ module.exports = {
     
     let orders
   
-    console.log(req.headers.referer)
+    // console.log(req.headers.referer)
+    console.log("\n\n____________________________________")
+
+
+    let func1 = function() {
+      return new Promise(function(resolve, reject) {
+        try{
+          mybuyOrders.forEach(buy => {
+            // In the future we can define custom errors to be thrown in certain scenarios
+            let arrayofSellmatches = findSellMatches(buy)
+            arrayOfarrayMatchesforEachBuy.push(arrayofSellmatches)
+          });
+        } catch(err){
+          reject(err)
+        } 
+        resolve('func1 is done searching') //value of promise //You can return the actual array if you want
+      });
+    };
+
+    let func2 = function() {
+      return new Promise(function(resolve, reject) {
+        try{
+          mysellOrders.forEach(sell => {
+            // In the future we can define custom errors to be thrown in certain scenarios
+            let arrayofBuymatches = findBuyMatches(sell)
+            arrayOfarrayMatchesforEachSell.push(arrayofBuymatches)
+          });
+        } catch(err){
+          reject(err)
+        } 
+        resolve('funct2 is done searching') //value of promise //You can return the actual array if you want
+      });
+    };
+
     switch(model) {
       case 'buyordersdata':
-          if(req.headers.referer == ENV.domain + '/databases/matches'){
-            await func2().then(val => {console.log('func2 process to receive array of matching buys for each sell:\n', 'Value from promise returned: ', val, '\n')}).catch(e => {
-              return next(e)
-            })
-            orders = arrayOfarrayMatchesforEachSell
-            orders = orders.flat().filter((v, i, a) => a.indexOf(v) === i)
-            //console.log(orders)
-          } else {
-            console.log("Normal Mode!") 
-            orders = result[0]
+        if(req.headers.referer == ENV.domain + '/databases/matches'){
+          
+          try {
+            await func2()
+            .then(
+              val => {console.log('func2 process to receive array of matching buys for each sell:\n', 'Value from promise returned: ', val, '\n'); return val;},
+              rejected_err => {console.log("func2 reject function caught a rejected error: ", rejected_err); throw rejected_err}
+            )
+          } catch(err){
+            return next(err)
           }
+          
+          orders = arrayOfarrayMatchesforEachSell
+          orders = orders.flat().filter((v, i, a) => a.indexOf(v) === i)
+          //console.log(orders)
+        } else {
+          console.log("Normal Mode!") 
+          orders = result[0]
+        }
         break
       case 'sellordersdata':
         if(req.headers.referer == ENV.domain + '/databases/matches'){
-          await func1().then(val => {console.log('func1 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val, '\n')}).catch(e => {
-            return next(e)
-          })
+          
+          try {
+            await func1()
+            .then(
+              val => {console.log('func1 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val, '\n')},
+              rejected_err => {console.log("func1 reject function caught a rejected error: ", rejected_err); throw rejected_err}
+            )
+          } catch(err){
+            return next(err)
+          }
+
+
           orders = arrayOfarrayMatchesforEachBuy
           // console.log("original\n", orders);
           // console.log("array\n", orders.flat());
@@ -74,7 +123,7 @@ module.exports = {
       default:
         console.log('Target data not identified')
     }
-  
+
     let descriptive = {
       model: model,
       page: page,
@@ -111,23 +160,6 @@ module.exports = {
     res.json({
       data: res.paginatedResults,
     })
-  
-  
-    // Functions // To make into Promises
-    async function func1() {
-      mybuyOrders.forEach(buy => {
-        let arrayofSellmatches = findSellMatches(buy)
-        arrayOfarrayMatchesforEachBuy.push(arrayofSellmatches)
-      });
-      return 'funct1 is done searching' //value of promise //You can return the actual array if you want
-    } 
-    async function func2() {
-      mysellOrders.forEach(sell => {
-        let arrayofBuymatches = findBuyMatches(sell)
-        arrayOfarrayMatchesforEachSell.push(arrayofBuymatches)
-      });
-      return 'funct2 is done searching' //value of promise //You can return the actual array if you want
-    }
     
     function findSellMatches(_buy){
       let arrayofSellmatches = []

@@ -34,6 +34,7 @@ const errorResponseDispatcher = (err, req ,res, next) => {
 }
 
 const errorResponder = (err, req ,res, next) => {
+  console.log("Arrive HERE??")
   // Catches all errors, and as a consequence of responding to client, circumvents express' default error handler 
   res.header("Content-Type", "application/json")
   

@@ -43,6 +43,7 @@ class Matches extends Component {
     .then(response => {
       return response.data
     })
+    .catch((err)=>console.log(err))
     
     console.log("Data retrieved matches: ", data.data)
     this.setState({
@@ -84,9 +85,8 @@ class Matches extends Component {
     this.setState({
       orderstype: e.target.value,
       page: 1,
-    }, () => {
-      this.loadData(this.state.orderstype);
-    })
+    }
+    )
   }
 
   render() {
@@ -95,24 +95,25 @@ class Matches extends Component {
 
     return (
       <div className="wrapper2">
-          <form name="toogle">
-            <label><input type="radio" id="matchesbuy" name="radio" value='sellordersdata' defaultChecked onClick={this.handleToogleFound}/>Sell orders that match my buys</label>
-            <label><input type="radio" id="matchessell" name="radio" value='buyordersdata' onClick={this.handleToogleFound}/>Buy orders that match my sells</label> 
-          </form>
+        <form name="toogle">
+          <label><input type="radio" id="matchesbuy" name="radio" value='sellordersdata' defaultChecked onClick={this.handleToogleFound}/>Sell orders that match my buys</label>
+          <label><input type="radio" id="matchessell" name="radio" value='buyordersdata' onClick={this.handleToogleFound}/>Buy orders that match my sells</label> 
+        </form>
 
         <OrderTable 
         order_type={this.state.orderstype} 
         orders={this.state.orders}
-        buttons='normal'
-        />
-      <PageSelector 
-      number_of_pages={this.state.number_of_pages} 
-      page={this.state.page} 
-      on_off_limit_previous={this.state.on_off_limit_previous} 
-      on_off_limit_next={this.state.on_off_limit_next} 
-      previousPage={this.state.previousPage} 
-      nextPage={this.state.nextPage} 
-      controls={this.controls}/>
+        buttons='normal'/>
+
+        <PageSelector 
+        number_of_pages={this.state.number_of_pages} 
+        page={this.state.page} 
+        on_off_limit_previous={this.state.on_off_limit_previous} 
+        on_off_limit_next={this.state.on_off_limit_next} 
+        previousPage={this.state.previousPage} 
+        nextPage={this.state.nextPage} 
+        controls={this.controls}/>
+
       </div>
     )
   }
