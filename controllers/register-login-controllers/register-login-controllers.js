@@ -1,21 +1,46 @@
+const {verifyEmail, verifyPassword} = require('../../libs/validations')
 //We import the User model
 const User = require('../../models/User')
 // const bcrypt = require('bcrypt')
 var bcrypt = require('bcryptjs');
-const { MongoCreateCustomError, LoggingInError } = require('../../custom-errors/custom-errors')
+const { ValidationError, LoggingInError, MongoError } = require('../../custom-errors/custom-errors')
 
 
 module.exports = {
-  registerController: async (req,res, next)=>{
+  validateController: (req,res, next) => {
+    let flag, notification = [];
+    console.log(req.body);
+  
+    ({flag, notification} = verifyEmail(req.body.email));
+    console.log(flag, notification);
+  
+    if (flag) {
+      ({flag, notification} = verifyPassword(req.body.password));
+      console.log(flag, notification);
+      if (flag) {
+        //execute registerController with the current req
+        next()
+      } else {
+        console.log('Password failed to validate') 
+        const error = new ValidationError(notification, "Password")
+        next(error) 
+      }
+    } else {
+      console.log('Email failed to validate')
+      const error = new ValidationError(notification, "Email")
+      next(error)
+    }
+
+  },
+
+  registerController: async (req,res, next) => {
     await User.create(req.body,(error,user)=>{
-      // TODO: Add backend validation with proper custom errors
-      // new MongoCreateCustomError()
       if(error){
-        console.log("\n\n___lgging the error NAME:___ ", error.name, error.message)
-        // console.log("\n\n___lgging the custom error:___ ", new MongoCreateCustomError())
-        // return next(new MongoCreateCustomError())
+        // error = new MongoError()
+        console.log("\n\n___lgging the error NAME:___ ", error.type, error.message)
+        // Needs Testing
         return next(error)
-      } // Redirects error type MongoCreateCustomError to next error middleware. Similar to try{throw new MongoCreateCustomError()}catch(err){next(err)}
+      }
       res.status(200).json({
         server: {
           message: ['User successfully created']
@@ -70,23 +95,17 @@ module.exports = {
         }
       })
     } else {
-      // res.json({
-      //   data: notification
-      // })
-      const error = new LoggingInError()
-      // Appending the notification array to the res object, in order to pass to next error middlware errorLogger
-      res.locals.notification = notification
-      console.log(res.locals.notification)
-      next(error)
+      // simple way
+      let err = new LoggingInError()
+      err.message = notification
+      console.log(err)
+      next(err)
 
-    //   res.status(500).json({
-    //     error: {
-    //       // type: `${err.name}`,
-    //       // message: `${err.message}`,
-    //       message: notification
-    //     }
-    //   })
-    // }
+      // Example of Appending the notification array to the res object, in order to pass to next error middlware errorLogger
+      // const error = new LoggingInError()
+      // res.locals.notification = notification
+      // console.log(res.locals.notification)
+      // next(error)
 
     }
   },

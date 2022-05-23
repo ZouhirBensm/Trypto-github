@@ -1,5 +1,5 @@
 // No Custom Error needed at the moment
-const { MongoCreateCustomError } = require('../../custom-errors/custom-errors')
+const { MongoError } = require('../../custom-errors/custom-errors')
 
 
 // Other Error Handlers
@@ -9,24 +9,37 @@ const errorLogger = (err, req ,res, next) => {
 }
 
 const errorResponseDispatcher = (err, req ,res, next) => {
+  console.log("error Constructor!!! ", err.constructor.name)
   switch (err.constructor.name) {
+    // Used to experiment custom throw errors for mongo DB methods
     case "MongoError":
       res.status(500).json({
         error: {
-          type: `${err.name}`,
-          message: [`${err.message}`],
+          type: err.type,
+          message: err.message,
         }
       })
       break;
-    // This custom error is not needed but it's format is good to keep to implement new validation custom errors for the backend!
+
     case "LoggingInError":
       res.status(err.statusCode).json({
         error: {
-          type: `${err.name}`,
-          message: res.locals.notification, // Array<string> format
+          type: err.type,
+          message: err.message, // Array<string> format
+          // message: res.locals.notification, // Array<string> format
+          
         }
       })
       break;
+    case "ValidationError":
+      res.status(err.statusCode).json({
+        error: {
+          type: err.type,
+          message: err.message, // Array<string> format
+          validatee: err.validatee
+        }
+      })
+    break;
     default:
       next(err)
       break;
