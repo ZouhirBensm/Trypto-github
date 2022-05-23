@@ -1,5 +1,9 @@
-if(process.env.NODE_ENV === 'production') {
-  module.exports = require('./prod')
-} else {
-  module.exports = require('./dev')
+switch (process.env.NODE_ENV) {
+  case 'staging':
+    module.exports = require('./stag')
+    break;
+
+  default:
+    module.exports = require('./dev')
+    break;
 }
