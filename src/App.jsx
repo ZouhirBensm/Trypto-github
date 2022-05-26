@@ -31,7 +31,7 @@ class Home extends React.Component {
   
   async loadData(){
     let objPrices = {}
-    const response = await fetch(`${process.env.ROOT}/api`)
+    const response = await fetch(`${process.env.ROOT}/cryptoprice`)
     const data = await response.json()
     objPrices = this.repairData(data)
 

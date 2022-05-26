@@ -37,8 +37,6 @@ class Matches extends Component {
 
   
   async loadData(_orderstype){
-    // const response = await fetch(`${process.env.ROOT}/api/matches/${_orderstype}?page=${this.state.page}&limit=${this.state.limit}`)
-    // let data = await axios.get(`${process.env.ROOT}/api/matches/${_orderstype}?page=${this.state.page}&limit=${this.state.limit}`)
     let data = await axios.get(`${process.env.ROOT}/data/${_orderstype}?page=${this.state.page}&limit=${this.state.limit}`)
     .then(response => {
       return response.data

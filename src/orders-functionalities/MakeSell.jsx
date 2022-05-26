@@ -53,7 +53,7 @@ class MakeSell extends Component {
     let value
     //console.log(crypto, minamount, maxamount)
     
-    fetch(`${process.env.ROOT}/api`)
+    fetch(`${process.env.ROOT}/cryptoprice`)
     .then(res => res.json())
     .then(data => {
       value = data.data[crypto.toLowerCase()].cad

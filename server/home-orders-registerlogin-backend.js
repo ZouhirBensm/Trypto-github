@@ -31,7 +31,7 @@ router.get('/',(req,res)=>{
   res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
 })
 
-router.get('/api', async (req,res,next)=>{
+router.get('/cryptoprice', async (req,res,next)=>{
 
   let params = {
     ids: ['bitcoin', 'ethereum', 'litecoin', 'bitcoin-cash', 'zcash', 'monero'],

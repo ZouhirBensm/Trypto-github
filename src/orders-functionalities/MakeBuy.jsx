@@ -50,7 +50,7 @@ class MakeBuy extends Component {
     let value
     //console.log(crypto, amount)
     
-    fetch(`${process.env.ROOT}/api`)
+    fetch(`${process.env.ROOT}/cryptoprice`)
     
     .then(res => res.json())
     .then(data => {
