@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles/LoginRegister.css' 
-import {verifyEmail, verifyPassword} from '../../libs/validations'
+import {verifyEmail, verifyPassword} from '../../full-stack-libs/validations'
+
 
 
 class Register extends React.Component {

@@ -1,11 +1,15 @@
 const BuyCryptoOrder = require('../../models/home-orders-models/BuyCryptoOrder')
 const SellCryptoOrder = require('../../models/home-orders-models/SellCryptoOrder')
 const ENV = require('../../config/base')
+const {filterObject, func2, func1} = require('../libs/match-maker-functions')
 
 module.exports = {
-  paginateController: async (req, res, next) => {
-    let model = req.params.target
-    let user = req.params.userID
+  getPaginatedOrdersController: async (req, res, next) => {
+    // URL path parameters
+    let type_orders = req.params.type_orders
+    let path_param_userID = req.params.userID
+
+    // Query string parameters
     let page = parseInt(req.query.page)
     const limit = parseInt(req.query.limit)
     const crypto = req.query.crypto
@@ -14,29 +18,22 @@ module.exports = {
     const endIndex = page*limit
     // console.log("domain: ", ENV.domain)
     // console.log("Analize request", req.headers.referer)
-    let userid = req.session.userId
   
-    let find = {}
-    if(user){
-      find.userid = user
-    }
-    if(crypto){
-      find.crypto = crypto
-    }
-    // console.log("\nFind filter: \n", find, user, typeof user)
+    let filter_object = filterObject(path_param_userID, crypto)
+
+    // console.log("\nFind filter: \n", filter_object)
   
 
-    let buyorders = BuyCryptoOrder.find(find).populate('userid')
-    let sellorders = SellCryptoOrder.find(find).populate('userid')
-    let result = await Promise.all([buyorders, sellorders]).catch(e => {
+    let buyorders = BuyCryptoOrder.find(filter_object).populate('userid')
+    let sellorders = SellCryptoOrder.find(filter_object).populate('userid')
+
+    let array_all_orders = await Promise.all([buyorders, sellorders]).catch(e => {
       return next(e)
     })
   
-    let mybuyOrders = result[0].filter(element => element.userid._id.toString() === userid)
-    let mysellOrders = result[1].filter(element => element.userid._id.toString() === userid)
+    let mybuyOrders = array_all_orders[0].filter(order_entry => order_entry.userid._id.toString() === req.session.userId)
+    let mysellOrders = array_all_orders[1].filter(order_entry => order_entry.userid._id.toString() === req.session.userId)
   
-    let arrayOfarrayMatchesforEachBuy = []
-    let arrayOfarrayMatchesforEachSell = []
     //await Promise.all([func1(), func2()]).then(val => {console.log('func1 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val[0], '\n', 'func2 process to receive array of matching buys for each sell:\n', 'Value from promise returned: ', val[1], '\n')})
     
     let orders
@@ -45,79 +42,43 @@ module.exports = {
     console.log("\n\n____________________________________")
 
 
-    let func1 = function() {
-      return new Promise(function(resolve, reject) {
-        try{
-          mybuyOrders.forEach(buy => {
-            // In the future we can define custom errors to be thrown in certain scenarios
-            let arrayofSellmatches = findSellMatches(buy)
-            arrayOfarrayMatchesforEachBuy.push(arrayofSellmatches)
-          });
-        } catch(err){
-          reject(err)
-        } 
-        resolve('func1 is done searching') //value of promise //You can return the actual array if you want
-      });
-    };
-
-    let func2 = function() {
-      return new Promise(function(resolve, reject) {
-        try{
-          mysellOrders.forEach(sell => {
-            // In the future we can define custom errors to be thrown in certain scenarios
-            let arrayofBuymatches = findBuyMatches(sell)
-            arrayOfarrayMatchesforEachSell.push(arrayofBuymatches)
-          });
-        } catch(err){
-          reject(err)
-        } 
-        resolve('funct2 is done searching') //value of promise //You can return the actual array if you want
-      });
-    };
-
-    switch(model) {
+    switch(type_orders) {
       case 'buyordersdata':
         if(req.headers.referer == ENV.domain + '/databases/matches'){
           
           try {
-            await func2()
+            orders = await func2(mysellOrders, array_all_orders[0], req.session.userId)
             .then(
-              val => {console.log('func2 process to receive array of matching buys for each sell:\n', 'Value from promise returned: ', val, '\n'); return val;},
+              arrayOfarrayMatchesforEachSell => {console.log('func2 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', arrayOfarrayMatchesforEachSell, '\n'); orders = arrayOfarrayMatchesforEachSell; orders = orders.flat().filter((v, i, a) => a.indexOf(v) === i); return orders},
               rejected_err => {console.log("func2 reject function caught a rejected error: ", rejected_err); throw rejected_err}
             )
           } catch(err){
             return next(err)
           }
-          
-          orders = arrayOfarrayMatchesforEachSell
-          orders = orders.flat().filter((v, i, a) => a.indexOf(v) === i)
-          //console.log(orders)
+
+          console.log("orders!!!!!:::::", orders)
         } else {
           console.log("Normal Mode!") 
-          orders = result[0]
+          orders = array_all_orders[0]
         }
         break
       case 'sellordersdata':
         if(req.headers.referer == ENV.domain + '/databases/matches'){
           
           try {
-            await func1()
+            orders = await func1(mybuyOrders, array_all_orders[1], req.session.userId)
             .then(
-              val => {console.log('func1 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val, '\n')},
+              arrayOfarrayMatchesforEachBuy => {console.log('func1 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', arrayOfarrayMatchesforEachBuy, '\n'); orders = arrayOfarrayMatchesforEachBuy; orders = orders.flat().filter((v, i, a) => a.indexOf(v) === i); return orders},
               rejected_err => {console.log("func1 reject function caught a rejected error: ", rejected_err); throw rejected_err}
             )
           } catch(err){
             return next(err)
           }
 
-
-          orders = arrayOfarrayMatchesforEachBuy
-          // console.log("original\n", orders);
-          // console.log("array\n", orders.flat());
-          orders = orders.flat().filter((v, i, a) => a.indexOf(v) === i)
+          console.log("orders!!!!!:::::", orders)
         } else {
           console.log("Normal Mode!") 
-          orders = result[1]
+          orders = array_all_orders[1]
         }
         break
       default:
@@ -125,11 +86,11 @@ module.exports = {
     }
 
     let descriptive = {
-      model: model,
+      type_orders: type_orders,
       page: page,
       crypto: crypto,
       limit: limit,
-      userid: user,
+      userid: path_param_userID,
     }
     // console.log("\nDescription: \n", descriptive)
     // console.log("Retrieved Orders", orders)
@@ -155,36 +116,10 @@ module.exports = {
     }
     
     results.results = orders.slice(startIndex, endIndex)
-    res.paginatedResults = results
   
     res.json({
-      data: res.paginatedResults,
+      data: results,
     })
-    
-    function findSellMatches(_buy){
-      let arrayofSellmatches = []
-      let sell = result[1].filter(_sell => userid != _sell.userid._id.toString()) //filter to not deal with current logged in user
-      sell.forEach(sellorder => {
-        //console.log(_buy.amount, sellorder.maxamount, (parseInt(_buy.amount,10) < sellorder.maxamount))// < sellorder.maxamount)
-        if (_buy.crypto === sellorder.crypto && 
-        parseInt(_buy.amount,10) > sellorder.minamount && 
-        parseInt(_buy.amount,10) < sellorder.maxamount  && 
-        _buy.payment === sellorder.payment) {
-          arrayofSellmatches.push(sellorder)
-        }
-      });
-      return arrayofSellmatches
-    }
-    function findBuyMatches(_sell){
-      let arrayofBuymatches = []
-      let buy = result[0].filter(_buy => userid != _buy.userid._id.toString()) //filter to not deal with current logged in user
-      buy.forEach(buyorder => {
-        if (_sell.crypto === buyorder.crypto && parseInt(_sell.minamount,10) < buyorder.amount && parseInt(_sell.maxamount,10) > buyorder.amount  && _sell.payment === buyorder.payment) {
-          arrayofBuymatches.push(buyorder)
-        }
-      });
-      return arrayofBuymatches
-    }
   
   },
 

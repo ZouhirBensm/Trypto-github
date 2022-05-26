@@ -37,7 +37,7 @@ class Matches extends Component {
 
   
   async loadData(_orderstype){
-    let data = await axios.get(`${process.env.ROOT}/data/${_orderstype}?page=${this.state.page}&limit=${this.state.limit}`)
+    let data = await axios.get(`${process.env.ROOT}/paginated-orders/${_orderstype}?page=${this.state.page}&limit=${this.state.limit}`)
     .then(response => {
       return response.data
     })

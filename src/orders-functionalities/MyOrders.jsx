@@ -112,7 +112,7 @@ class MyOrders extends Component {
     _userID = data.data
     //console.log('This',_userID)
 
-    const response2 = await fetch(`${process.env.ROOT}/data/${_orderstype}/${_userID}?page=${this.state.page}&limit=${this.state.limit}`)
+    const response2 = await fetch(`${process.env.ROOT}/paginated-orders/${_orderstype}/${_userID}?page=${this.state.page}&limit=${this.state.limit}`)
     //OR
     // .then(response2 => response2.json())
     // .then((data) => {

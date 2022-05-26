@@ -15,6 +15,8 @@ const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthe
 const authMiddleware = require('../middleware/authMiddleware')
 // Import postTrackerMiddleware
 const postTrackerMiddleware = require('../middleware/home-orders-middleware/postTrackerMiddleware')
+// Import postTrackerMiddleware
+const paginatedOrdersAccessMiddleware = require('../middleware/home-orders-middleware/paginated-orders-access-middleware')
 
 // We import the User model
 const User = require('../models/User')
@@ -50,7 +52,7 @@ router.get('/cryptoprice', async (req,res,next)=>{
   //console.log(typeof data.data, typeof JSON.stringify(data.data))
 })
 
-router.get('/data/:target/:userID?', homeOrdersController.paginateController)
+router.get('/paginated-orders/:type_orders/:userID?', paginatedOrdersAccessMiddleware, homeOrdersController.getPaginatedOrdersController)
 
 router.get('/users/login', redirectIfAuthenticatedMiddleware, (req,res,next)=>{
   // let notification
@@ -81,6 +83,7 @@ router.get('/users/register', redirectIfAuthenticatedMiddleware, (req,res)=>{
 
 // Register New User
 router.post('/users/register', redirectIfAuthenticatedMiddleware, RegisterLoginController.validateController, RegisterLoginController.registerController)
+
 
 router.get(['/databases', '/databases/makebuy', '/databases/makesell', '/databases/AllMyOrders', '/databases/buyordersdata', '/databases/sellordersdata', '/databases/matches'], authMiddleware, (req,res)=>{
   var JSX_to_load = 'OrdersApp';

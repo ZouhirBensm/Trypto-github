@@ -1,4 +1,4 @@
-const {verifyEmail, verifyPassword} = require('../../libs/validations')
+const {verifyEmail, verifyPassword} = require('../../full-stack-libs/validations')
 //We import the User model
 const User = require('../../models/User')
 // const bcrypt = require('bcrypt')

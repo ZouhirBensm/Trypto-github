@@ -76,7 +76,7 @@ class Orders extends Component {
     let objOrders = {}
     // console.log("LOAD: ", this.props.match.params.order_type)
     // console.log("LOAD: ", this.props.orders)
-    let response = await fetch(`${process.env.ROOT}/data/${this.props.match.params.order_type}?page=${this.state.page}&limit=${this.state.limit} ${this.state.crypto ? `&crypto=${this.state.crypto}`: "" }`)
+    let response = await fetch(`${process.env.ROOT}/paginated-orders/${this.props.match.params.order_type}?page=${this.state.page}&limit=${this.state.limit}${this.state.crypto ? `&crypto=${this.state.crypto}`: "" }`)
     let data = await response.json()
     //console.log(data)
     //console.log("Next: ", data.data.next)
