@@ -31,7 +31,14 @@ function findBuyMatches(_sell, buyOrders, id){
   let arrayofBuymatches = []
   let buy = buyOrders.filter(_buy => id != _buy.userid._id.toString()) //filter to not deal with current logged in user
   buy.forEach(buyorder => {
-    if (_sell.crypto === buyorder.crypto && parseInt(_sell.minamount,10) < buyorder.amount && parseInt(_sell.maxamount,10) > buyorder.amount  && _sell.payment === buyorder.payment) {
+    if (
+      parseInt(_sell.price,10) < parseInt(buyorder.price,10) * 1.10 &&
+      parseInt(_sell.price,10) > parseInt(buyorder.price,10) * 0.9 &&
+      _sell.crypto === buyorder.crypto && 
+      parseInt(_sell.minamount,10) < buyorder.amount && 
+      parseInt(_sell.maxamount,10) > buyorder.amount  && 
+      _sell.payment === buyorder.payment
+    ) {
       arrayofBuymatches.push(buyorder)
     }
   });
@@ -62,11 +69,15 @@ function findSellMatches(_buy, sellOrders, id){
   let arrayofSellmatches = []
   let sell = sellOrders.filter(_sell => id != _sell.userid._id.toString()) //filter to not deal with current logged in user
   sell.forEach(sellorder => {
-    //console.log(_buy.amount, sellorder.maxamount, (parseInt(_buy.amount,10) < sellorder.maxamount))// < sellorder.maxamount)
-    if (_buy.crypto === sellorder.crypto && 
-    parseInt(_buy.amount,10) > sellorder.minamount && 
-    parseInt(_buy.amount,10) < sellorder.maxamount  && 
-    _buy.payment === sellorder.payment) {
+    console.log("\n\n\n\n lala: ", parseInt(_buy.price,10) < parseInt(sellorder.price,10) * 1.10, parseInt(_buy.price,10) > parseInt(sellorder.price,10) * 0.9)
+    if (
+      parseInt(_buy.price,10) < parseInt(sellorder.price,10) * 1.10 &&
+      parseInt(_buy.price,10) > parseInt(sellorder.price,10) * 0.9 &&
+      _buy.crypto === sellorder.crypto && 
+      parseInt(_buy.amount,10) > parseInt(sellorder.minamount, 10) && 
+      parseInt(_buy.amount,10) < parseInt(sellorder.maxamount, 10)  && 
+      _buy.payment === sellorder.payment
+    ) {
       arrayofSellmatches.push(sellorder)
     }
   });
