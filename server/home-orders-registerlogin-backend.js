@@ -9,20 +9,30 @@ const homeOrdersController = require("../controllers/home-orders-controllers/hom
 // Import Long RegisterLoginController functions
 const RegisterLoginController = require("../controllers/register-login-controllers/register-login-controllers")
 
-// Import redirectIfAuthenticatedMiddleware
-const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthenticatedMiddleware')
-// Import authMiddleware
-const authMiddleware = require('../middleware/authMiddleware')
+// Import loggedInRedirectHome
+const loggedInRedirectHome = require('../middleware/loggedIn-redirect-home')
+// Import checkIfUseridWithinDBmiddleware
+const checkIfUseridWithinDBmiddleware = require('../middleware/checkIf-userid-withinDB-middleware')
 // Import postTrackerMiddleware
 const postTrackerMiddleware = require('../middleware/home-orders-middleware/postTrackerMiddleware')
-// Import postTrackerMiddleware
+// Import paginatedOrdersAccessMiddleware
 const paginatedOrdersAccessMiddleware = require('../middleware/home-orders-middleware/paginated-orders-access-middleware')
+// Import checkifSecondUserCredPost
+const checkifSecondUserCredPost = require('../middleware/checkif-second-user-cred-post')
 
 // We import the User model
 const User = require('../models/User')
 
 // No Custom Error needed at the moment
 const { CustomError } = require('../custom-errors/custom-errors')
+
+
+
+router.get('/paginated-orders/:type_orders/:userID?', paginatedOrdersAccessMiddleware,  homeOrdersController.getPaginatedOrdersController)
+
+
+
+
 
 
 
@@ -52,9 +62,8 @@ router.get('/cryptoprice', async (req,res,next)=>{
   //console.log(typeof data.data, typeof JSON.stringify(data.data))
 })
 
-router.get('/paginated-orders/:type_orders/:userID?', paginatedOrdersAccessMiddleware, homeOrdersController.getPaginatedOrdersController)
 
-router.get('/users/login', redirectIfAuthenticatedMiddleware, (req,res,next)=>{
+router.get('/users/login', loggedInRedirectHome, (req,res,next)=>{
   // let notification
   // let email
   // let password
@@ -73,26 +82,26 @@ router.get('/users/login', redirectIfAuthenticatedMiddleware, (req,res,next)=>{
 })
 
 
-router.post('/users/login', redirectIfAuthenticatedMiddleware, RegisterLoginController.loginController)
+router.post('/users/login', checkifSecondUserCredPost, RegisterLoginController.loginController)
 
-router.get('/users/register', redirectIfAuthenticatedMiddleware, (req,res)=>{
+router.get('/users/register', loggedInRedirectHome, (req,res)=>{
   var JSX_to_load = 'LoginRegister';
   // console.log(JSX_to_load)
   res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
 })
 
 // Register New User
-router.post('/users/register', redirectIfAuthenticatedMiddleware, RegisterLoginController.validateController, RegisterLoginController.registerController)
+router.post('/users/register', checkifSecondUserCredPost, RegisterLoginController.validateController, RegisterLoginController.registerController)
 
 
-router.get(['/databases', '/databases/makebuy', '/databases/makesell', '/databases/AllMyOrders', '/databases/buyordersdata', '/databases/sellordersdata', '/databases/matches'], authMiddleware, (req,res)=>{
+router.get(['/databases', '/databases/makebuy', '/databases/makesell', '/databases/AllMyOrders', '/databases/buyordersdata', '/databases/sellordersdata', '/databases/matches'], checkIfUseridWithinDBmiddleware, (req,res)=>{
   var JSX_to_load = 'OrdersApp';
   res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
 })
 
 router.post('/update', homeOrdersController.updateOrderController)
 
-router.get(['/databases/CurrentUserID'], authMiddleware, (req,res)=>{
+router.get(['/databases/CurrentUserID'], checkIfUseridWithinDBmiddleware, (req,res)=>{
   console.log(req.session.userId)
 
   res.json({
@@ -100,9 +109,9 @@ router.get(['/databases/CurrentUserID'], authMiddleware, (req,res)=>{
   })
 })
 
-router.post('/deleteThisOrder', authMiddleware, homeOrdersController.deleteOrderController)
+router.post('/deleteThisOrder', checkIfUseridWithinDBmiddleware, homeOrdersController.deleteOrderController)
 
-router.post('/:target/store', authMiddleware, postTrackerMiddleware, homeOrdersController.registerOrder)
+router.post('/:target/store', checkIfUseridWithinDBmiddleware, postTrackerMiddleware, homeOrdersController.registerOrder)
 
 router.get('/logout', (req,res)=>{
   //Destroy the Session data, including the userId property

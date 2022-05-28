@@ -96,8 +96,8 @@ module.exports = {
       })
     } else {
       // simple way
-      let err = new LoggingInError()
-      err.message = notification
+      let err = new LoggingInError(notification)
+      // err.message = notification
       console.log(err)
       next(err)
 

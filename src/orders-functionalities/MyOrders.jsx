@@ -119,14 +119,14 @@ class MyOrders extends Component {
     //   console.log(data)
     // });
     
-    const data2 = await response2.json()
+    const serverOBJ = await response2.json()
 
     this.setState({
       userId: _userID,
-      orders: data2.data.results,
-      nextPage: data2.data.next,
-      previousPage: data2.data.previous,
-      number_of_pages: data2.data.number_of_pages.number
+      orders: serverOBJ.srv_.ORDERS,
+      nextPage: serverOBJ.srv_.next,
+      previousPage: serverOBJ.srv_.previous,
+      number_of_pages: serverOBJ.srv_.number_of_pages.number
     }, () => {
       // console.log("page: ", this.state.previousPage, this.state.nextPage)
       if(this.state.nextPage==undefined){

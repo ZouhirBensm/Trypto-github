@@ -37,18 +37,19 @@ class Matches extends Component {
 
   
   async loadData(_orderstype){
-    let data = await axios.get(`${process.env.ROOT}/paginated-orders/${_orderstype}?page=${this.state.page}&limit=${this.state.limit}`)
+    let serverOBJ = await axios.get(`${process.env.ROOT}/paginated-orders/${_orderstype}?page=${this.state.page}&limit=${this.state.limit}`)
     .then(response => {
+      console.log("response: ", response, "\n\n")
       return response.data
     })
     .catch((err)=>console.log(err))
     
-    console.log("Data retrieved matches: ", data.data)
+    console.log("Data retrieved matches: ", serverOBJ.srv_)
     this.setState({
-      orders: data.data.results,
-      nextPage: data.data.next,
-      previousPage: data.data.previous,
-      number_of_pages: data.data.number_of_pages.number
+      orders: serverOBJ.srv_.ORDERS,
+      nextPage: serverOBJ.srv_.next,
+      previousPage: serverOBJ.srv_.previous,
+      number_of_pages: serverOBJ.srv_.number_of_pages.number
     }, () => {
       if(this.state.nextPage==undefined){
         this.setState({

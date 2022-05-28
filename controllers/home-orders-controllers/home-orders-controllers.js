@@ -1,10 +1,11 @@
 const BuyCryptoOrder = require('../../models/home-orders-models/BuyCryptoOrder')
 const SellCryptoOrder = require('../../models/home-orders-models/SellCryptoOrder')
 const ENV = require('../../config/base')
-const {filterObject, func2, func1} = require('../libs/match-maker-functions')
+const {filterObject, buyMatchesFinder, sellMatchesFinder} = require('../libs/match-maker-functions')
 
 module.exports = {
   getPaginatedOrdersController: async (req, res, next) => {
+    let orders
     // URL path parameters
     let type_orders = req.params.type_orders
     let path_param_userID = req.params.userID
@@ -24,101 +25,105 @@ module.exports = {
     // console.log("\nFind filter: \n", filter_object)
   
 
-    let buyorders = BuyCryptoOrder.find(filter_object).populate('userid')
-    let sellorders = SellCryptoOrder.find(filter_object).populate('userid')
+    let bOrders = BuyCryptoOrder.find(filter_object).populate('userid')
+    let sOrders = SellCryptoOrder.find(filter_object).populate('userid')
 
-    let array_all_orders = await Promise.all([buyorders, sellorders]).catch(e => {
+    let [buyOrders, sellOrders] = await Promise.all([bOrders, sOrders]).catch(e => {
       return next(e)
     })
   
-    let mybuyOrders = array_all_orders[0].filter(order_entry => order_entry.userid._id.toString() === req.session.userId)
-    let mysellOrders = array_all_orders[1].filter(order_entry => order_entry.userid._id.toString() === req.session.userId)
+    let mybuyOrders = buyOrders.filter(order_entry => order_entry.userid._id.toString() === req.session.userId)
+    let mysellOrders = sellOrders.filter(order_entry => order_entry.userid._id.toString() === req.session.userId)
   
-    //await Promise.all([func1(), func2()]).then(val => {console.log('func1 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val[0], '\n', 'func2 process to receive array of matching buys for each sell:\n', 'Value from promise returned: ', val[1], '\n')})
+    //await Promise.all([sellMatchesFinder(), buyMatchesFinder()]).then(val => {console.log('sellMatchesFinder process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val[0], '\n', 'buyMatchesFinder process to receive array of matching buys for each sell:\n', 'Value from promise returned: ', val[1], '\n')})
     
-    let orders
   
     // console.log(req.headers.referer)
     console.log("\n\n____________________________________")
 
 
     switch(type_orders) {
+
       case 'buyordersdata':
         if(req.headers.referer == ENV.domain + '/databases/matches'){
-          
           try {
-            orders = await func2(mysellOrders, array_all_orders[0], req.session.userId)
+            orders = await buyMatchesFinder(mysellOrders, buyOrders, req.session.userId)
             .then(
-              arrayOfarrayMatchesforEachSell => {console.log('func2 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', arrayOfarrayMatchesforEachSell, '\n'); orders = arrayOfarrayMatchesforEachSell; orders = orders.flat().filter((v, i, a) => a.indexOf(v) === i); return orders},
-              rejected_err => {console.log("func2 reject function caught a rejected error: ", rejected_err); throw rejected_err}
+              arrayOfarrayMatchesforEachSell => {console.log('buyMatchesFinder process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', arrayOfarrayMatchesforEachSell, '\n'); orders = arrayOfarrayMatchesforEachSell; orders = orders.flat().filter((v, i, a) => a.indexOf(v) === i); return orders},
+              rejected_err => {console.log("buyMatchesFinder reject function caught a rejected error: ", rejected_err); throw rejected_err}
             )
           } catch(err){
             return next(err)
           }
-
           console.log("orders!!!!!:::::", orders)
         } else {
           console.log("Normal Mode!") 
-          orders = array_all_orders[0]
+          orders = buyOrders
+          console.log("orders!!!!!:::::", orders)
         }
         break
+
       case 'sellordersdata':
         if(req.headers.referer == ENV.domain + '/databases/matches'){
-          
           try {
-            orders = await func1(mybuyOrders, array_all_orders[1], req.session.userId)
+            orders = await sellMatchesFinder(mybuyOrders, sellOrders, req.session.userId)
             .then(
-              arrayOfarrayMatchesforEachBuy => {console.log('func1 process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', arrayOfarrayMatchesforEachBuy, '\n'); orders = arrayOfarrayMatchesforEachBuy; orders = orders.flat().filter((v, i, a) => a.indexOf(v) === i); return orders},
-              rejected_err => {console.log("func1 reject function caught a rejected error: ", rejected_err); throw rejected_err}
+              arrayOfarrayMatchesforEachBuy => {console.log('sellMatchesFinder process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', arrayOfarrayMatchesforEachBuy, '\n'); orders = arrayOfarrayMatchesforEachBuy; orders = orders.flat().filter((v, i, a) => a.indexOf(v) === i); return orders},
+              rejected_err => {console.log("sellMatchesFinder reject function caught a rejected error: ", rejected_err); throw rejected_err}
             )
           } catch(err){
             return next(err)
           }
-
           console.log("orders!!!!!:::::", orders)
         } else {
           console.log("Normal Mode!") 
-          orders = array_all_orders[1]
+          orders = sellOrders
+          console.log("orders!!!!!:::::", orders)
         }
         break
+
       default:
         console.log('Target data not identified')
+        break
     }
 
-    let descriptive = {
-      type_orders: type_orders,
-      page: page,
-      crypto: crypto,
-      limit: limit,
-      userid: path_param_userID,
-    }
+    // let descriptive = {
+    //   type_orders: type_orders,
+    //   page: page,
+    //   crypto: crypto,
+    //   limit: limit,
+    //   userid: path_param_userID,
+    // }
     // console.log("\nDescription: \n", descriptive)
     // console.log("Retrieved Orders", orders)
   
     const number_of_pages = Math.ceil(orders.length/limit)
   
-    let results = {}
-    results.number_of_pages = {
+    let orders_management_obj = {}
+
+    orders_management_obj.number_of_pages = {
       number: number_of_pages
     }
   
     if(endIndex < orders.length){
-      results.next = {
+      orders_management_obj.next = {
         page: page + 1,
         limit: limit
       }
     }
     if(startIndex > 0){
-      results.previous = {
+      orders_management_obj.previous = {
         page: page - 1,
         limit: limit
       }
     }
     
-    results.results = orders.slice(startIndex, endIndex)
+    orders_management_obj.ORDERS = orders.slice(startIndex, endIndex)
+
+    console.log("sliced:::::: ", orders_management_obj.ORDERS)
   
     res.json({
-      data: results,
+      srv_: orders_management_obj,
     })
   
   },

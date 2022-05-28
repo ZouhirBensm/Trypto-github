@@ -11,7 +11,7 @@ function filterObject(path_param_userID = null, crypto = null){
 
 
 
-let func2 = function(_mysellOrders, buyOrders, id) {
+let buyMatchesFinder = function(_mysellOrders, buyOrders, id) {
   let _arrayOfarrayMatchesforEachSell = []
   return new Promise(function(resolve, reject) {
     try{
@@ -41,7 +41,7 @@ function findBuyMatches(_sell, buyOrders, id){
 
 
 
-let func1 = function(_mybuyOrders, sellOrders, id) {
+let sellMatchesFinder = function(_mybuyOrders, sellOrders, id) {
   let _arrayOfarrayMatchesforEachBuy = []
   return new Promise(function(resolve, reject) {
     try{
@@ -74,4 +74,4 @@ function findSellMatches(_buy, sellOrders, id){
 }
 
 
-module.exports =  {filterObject, func2, func1}
+module.exports =  {filterObject, buyMatchesFinder, sellMatchesFinder}

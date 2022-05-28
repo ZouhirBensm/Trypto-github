@@ -29,7 +29,7 @@ class Orders extends Component {
   
   repairData(_objOrders){
     let _repairedData = []
-    _repairedData = _objOrders.data.results
+    _repairedData = _objOrders.srv_.results
     return _repairedData
   }
   
@@ -77,11 +77,11 @@ class Orders extends Component {
     // console.log("LOAD: ", this.props.match.params.order_type)
     // console.log("LOAD: ", this.props.orders)
     let response = await fetch(`${process.env.ROOT}/paginated-orders/${this.props.match.params.order_type}?page=${this.state.page}&limit=${this.state.limit}${this.state.crypto ? `&crypto=${this.state.crypto}`: "" }`)
-    let data = await response.json()
-    //console.log(data)
+    let serverOBJ = await response.json()
+    console.log("just added: ", serverOBJ)
     //console.log("Next: ", data.data.next)
     //console.log("Previous: ", data.data.previous)
-    objOrders = this.repairData(data)
+
     // .then(response => response.json())
     // .then(data => {
     //   objOrders = repairData(data)
@@ -89,10 +89,10 @@ class Orders extends Component {
     // });
     // console.log(data.data.number_of_pages.number)
     this.setState({
-      orders: objOrders,
-      nextPage: data.data.next,
-      previousPage: data.data.previous,
-      number_of_pages: data.data.number_of_pages.number
+      orders: serverOBJ.srv_.ORDERS,
+      nextPage: serverOBJ.srv_.next,
+      previousPage: serverOBJ.srv_.previous,
+      number_of_pages: serverOBJ.srv_.number_of_pages.number
     }, () => {
       if(this.state.nextPage==undefined){
         this.setState({
