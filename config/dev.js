@@ -3,4 +3,5 @@ module.exports = {
   express_session_secret: 'keyboard cat',
   port: 3000,
   domain: 'http://localhost:3000',
+  database_name: 'mern_database',
 }

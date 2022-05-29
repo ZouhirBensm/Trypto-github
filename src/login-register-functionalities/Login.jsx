@@ -64,7 +64,7 @@ class Login extends React.Component {
         <form id="loginregister" className="form">
           <h3>Login</h3>
           <label>Email</label>
-          <input type="text" name="email" value="z@example.com"/> 
+          <input type="text" name="email"/> 
           <label>Password</label>
           <input type="text" name="password" value="Zouhir123!"/> 
           <button type="submit" onClick={(e) => this.handleSubmit(e)}>Login</button>

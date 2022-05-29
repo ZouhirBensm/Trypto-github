@@ -34,7 +34,7 @@ class Profile extends React.Component {
 
     if(response.status === 200){
       console.log("do we make it here?")
-      // window.location.href = `${process.env.ROOT}/`;
+      window.location.href = `${process.env.ROOT}?popup=${srv_.srv_}`;
     } else {
       throw new Error("Server was unable to delete the account.")
     }
