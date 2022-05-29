@@ -8,19 +8,20 @@ module.exports = async (req, res, next) => {
   // Starting with Express 5, route handlers and middleware that return a Promise will call next(value) automatically when they reject or throw an error. For example If find throws an error or rejects, next will be called with either the thrown error or the rejected value. If no rejected value is provided, next will be called with a default Error object provided by the Express router.
   let data = await PostsAmountsTimeframe.find({userid: req.session.userId})
   
-  console.log("DATA: ", data)
+  console.log("postTrackerMiddleware PostsAmountsTimeframe retrived from DB: \n", data)
 
   if (data[0]) {
     // console.log(typeof data[0].posts_amounts_timeframe)
     req.session.posts_amounts_timeframe = data[0].posts_amounts_timeframe
   } else {
-    req.session.posts_amounts_timeframe = 0
+    req.session.posts_amounts_timeframe = req.body.iterator // used to be = 0 #@
   }
   // console.log("check: ", req.body.iterator, req.session.posts_amounts_timeframe)
 
-  if(req.body.iterator == 0 && req.session.posts_amounts_timeframe == 0){
-    req.session.posts_amounts_timeframe = req.body.iterator
-  }
+  //just commented #@
+  // if(req.body.iterator == 0 && req.session.posts_amounts_timeframe == 0){
+  //   req.session.posts_amounts_timeframe = req.body.iterator
+  // }
 
   req.session.posts_amounts_timeframe++
 
@@ -32,7 +33,7 @@ module.exports = async (req, res, next) => {
   var date_reset_posts_count = new Date(date_now)
   
 
-  console.log("(3) on server: ", req.session.posts_amounts_timeframe)
+  console.log("postTrackerMiddleware (3) on server: ", req.session.posts_amounts_timeframe)
   // Save session data in database PostsAmountsTimeframe
   if(req.session.posts_amounts_timeframe === 1){
     console.log("create")

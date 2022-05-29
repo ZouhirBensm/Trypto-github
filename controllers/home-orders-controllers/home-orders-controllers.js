@@ -189,7 +189,7 @@ module.exports = {
     }
   },
   registerOrder:  (req,res,next)=>{
-    console.log(req.params.target)
+    console.log("register order: req.params.target: \n", req.params.target)
     // console.log(req.session)
     req.body.expireAt = new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
     //console.log(new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5)))
@@ -207,11 +207,11 @@ module.exports = {
         TypeCryptoOrder = SellCryptoOrder
         break;
       default:
-        console.log(`Database to call upon is ${TypeCryptoOrder}`)
+        console.log(`Target "${TypeCryptoOrder}" not reconized`)
         break;
     }
   
-    console.log("WAZAAAA", req.session.posts_amounts_timeframe)
+    console.log("register order: req.session.posts_amounts_timeframe: \n", req.session.posts_amounts_timeframe)
     if(req.body.expireAt > new Date() && req.session.posts_amounts_timeframe < 20){
       // 19 orders per timeframe allowed
       TypeCryptoOrder.create({
@@ -235,7 +235,7 @@ module.exports = {
     } else {
       res.json({
         iterator: req.session.posts_amounts_timeframe,
-        message: "You have reached your posting limit",
+        message: "You have reached your posting limit or expire date/time is before the present time",
       })
     }
   }
