@@ -24,7 +24,10 @@ const checkifSecondUserCredPost = require('../middleware/checkif-second-user-cre
 const User = require('../models/User')
 
 // No Custom Error needed at the moment
-const { CustomError } = require('../custom-errors/custom-errors')
+const { CustomError } = require('../custom-errors/custom-errors');
+const BuyCryptoOrder = require('../models/home-orders-models/BuyCryptoOrder');
+const SellCryptoOrder = require('../models/home-orders-models/SellCryptoOrder');
+const PostsAmountsTimeframe = require('../models/home-orders-models/PostAmountsTimeframe')
 
 
 
@@ -38,7 +41,7 @@ router.get('/paginated-orders/:type_orders/:userID?', paginatedOrdersAccessMiddl
 
 
 router.get('/',(req,res)=>{
-  // console.log(loggedIn)
+  console.log("Are we still logged in? ", req.session.userId)
   var JSX_to_load = 'App';
   res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
 })
@@ -63,45 +66,67 @@ router.get('/cryptoprice', async (req,res,next)=>{
 })
 
 
-router.get('/users/login', loggedInRedirectHome, (req,res,next)=>{
-  // let notification
-  // let email
-  // let password
-  // // res.render('login')
-  // console.log("1 notification: ", notification)
-  // res.render('login', {notification, email, password}, function(err, html) {
-  //   if(err) {
-  //       return next(err)
-  //   } else {
-  //       res.send(html);
-  //   }
-  // })
-  console.log("ICI??")
-  var JSX_to_load = 'LoginRegister';
-  res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
+router.get('/users/:what_page', loggedInRedirectHome, (req,res,next)=>{
+  console.log("icit: ", req.params.what_page, req.session.userId)
+  var JSX_to_load = 'MgtUser';
+  res.render('generic-boilerplate-ejs-to-render-react-components', { 
+    JSX_to_load : JSX_to_load, 
+    [req.params.what_page === "profile" ? "userId": null]: req.session.userId,
+  })
+})
+
+router.delete('/users/profile/delete/:userId', async (req,res,next)=>{
+  console.log("\n\n\n\n____Process to delete user and all of his orders___")
+  console.log(req.params.userId, " vs ", req.session.userId)
+
+  console.log("Session:", req.session)
+
+  await BuyCryptoOrder.deleteMany({userid: req.session.userId}, (error, response)=>{
+    if(error){return next(error)}
+    console.log("buys deleted response", response)
+  })
+  await SellCryptoOrder.deleteMany({userid: req.session.userId}, (error, response)=>{
+    if(error){return next(error)}
+    console.log("sells deleted response", response)
+  })
+  await PostsAmountsTimeframe.deleteOne({userid: req.session.userId}, (error, response)=>{
+    if(error){return next(error)}
+    console.log("posts amounts deleted response", response)
+  })
+  await User.findByIdAndDelete(req.session.userId, (error, user) =>{ 
+    if(error){return next(error)}
+    console.log("user deleted", user)
+  })
+
+  res.status(200).json({
+    srv_: "User account and linked data completly deleted."
+  })
 })
 
 
 router.post('/users/login', checkifSecondUserCredPost, RegisterLoginController.loginController)
 
-router.get('/users/register', loggedInRedirectHome, (req,res)=>{
-  var JSX_to_load = 'LoginRegister';
-  // console.log(JSX_to_load)
-  res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
-})
+// router.get('/users/register', loggedInRedirectHome, (req,res)=>{
+//   var JSX_to_load = 'MgtUser';
+//   // console.log(JSX_to_load)
+//   res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
+// })
 
 // Register New User
 router.post('/users/register', checkifSecondUserCredPost, RegisterLoginController.validateController, RegisterLoginController.registerController)
 
-
-router.get(['/databases', '/databases/makebuy', '/databases/makesell', '/databases/AllMyOrders', '/databases/buyordersdata', '/databases/sellordersdata', '/databases/matches'], checkIfUseridWithinDBmiddleware, (req,res)=>{
+// makebuy, makesell, AllMyOrders, matches, buyordersdata, sellordersdata
+router.get('/databases/:what_page?', checkIfUseridWithinDBmiddleware, (req,res)=>{
+  console.log(req.params.what_page)
   var JSX_to_load = 'OrdersApp';
   res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
 })
 
+
+
 router.post('/update', homeOrdersController.updateOrderController)
 
-router.get(['/databases/CurrentUserID'], checkIfUseridWithinDBmiddleware, (req,res)=>{
+router.get(['/current-user-ID'], checkIfUseridWithinDBmiddleware, (req,res)=>{
   console.log(req.session.userId)
 
   res.json({
@@ -120,7 +145,10 @@ router.get('/logout', (req,res)=>{
   })
 })
 
-
+// router.get('/users/profile', (req,res)=>{
+//   var JSX_to_load = 'MgtUser';
+//   res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
+// })
 
 
 module.exports = router

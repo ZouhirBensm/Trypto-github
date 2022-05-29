@@ -100,8 +100,8 @@ class MyOrders extends Component {
   async loadData(_orderstype) {
     // console.log(_orderstype)
     let _userID = ''
-    // console.log(`${process.env.ROOT}/databases/CurrentUserID`)
-    const response1 = await fetch(`${process.env.ROOT}/databases/CurrentUserID`)    
+    // console.log(`${process.env.ROOT}/current-user-ID`)
+    const response1 = await fetch(`${process.env.ROOT}/current-user-ID`)    
     const data = await response1.json()
     //OR
     // .then(response1 => response1.json())
@@ -110,7 +110,6 @@ class MyOrders extends Component {
     // });
 
     _userID = data.data
-    //console.log('This',_userID)
 
     const response2 = await fetch(`${process.env.ROOT}/paginated-orders/${_orderstype}/${_userID}?page=${this.state.page}&limit=${this.state.limit}`)
     //OR

@@ -1,5 +1,5 @@
 import React from 'react';
-import './styles/LoginRegister.css' 
+import './styles/MgtUser.css' 
 
 class Login extends React.Component {
 
@@ -64,9 +64,9 @@ class Login extends React.Component {
         <form id="loginregister" className="form">
           <h3>Login</h3>
           <label>Email</label>
-          <input type="text" name="email"/> 
+          <input type="text" name="email" value="z@example.com"/> 
           <label>Password</label>
-          <input type="text" name="password"/> 
+          <input type="text" name="password" value="Zouhir123!"/> 
           <button type="submit" onClick={(e) => this.handleSubmit(e)}>Login</button>
         </form>
         {/* display the notification from the server here! */}

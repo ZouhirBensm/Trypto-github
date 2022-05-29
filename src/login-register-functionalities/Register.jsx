@@ -1,5 +1,5 @@
 import React from 'react';
-import './styles/LoginRegister.css' 
+import './styles/MgtUser.css' 
 import {verifyEmail, verifyPassword} from '../../full-stack-libs/validations'
 
 
@@ -129,9 +129,9 @@ class Register extends React.Component {
         <form id="loginregister" className="form">
           <h3>Register React</h3>
           <label>Email</label>
-          <input type="text" name="email"/> 
+          <input type="text" name="email" value="z@example.com"/> 
           <label>Password</label>
-          <input type="password" name="password"/> 
+          <input type="password" name="password" value="Zouhir123!"/> 
           <button type="submit" 
           onClick={
             async (e) => {

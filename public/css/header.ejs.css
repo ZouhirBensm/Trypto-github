@@ -12,8 +12,6 @@ ul.home,
 ul.iflog {
   list-style: none;
   background-color: black;
-  /* position: absolute; */
-  margin-bottom: 0;
   position: fixed;
   width: 100vw;
   padding: 0;

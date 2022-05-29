@@ -2,7 +2,8 @@
 // else next()
 module.exports = (req,res,next)=>{
     if(req.session.userId){
-        return res.redirect('/')
+        req.params.what_page != 'profile'? res.redirect('/'): next() 
+    } else {
+        req.params.what_page === 'profile'? res.redirect('/'): next()
     }
-    next()
 }

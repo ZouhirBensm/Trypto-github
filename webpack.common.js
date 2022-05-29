@@ -3,7 +3,21 @@ const path = require('path')
 var config = {
   resolve: {
     extensions: ['.js', '.jsx']
+    // fallback: {
+    //   "zlib": false,
+    //   "path": false,
+    //   "crypto": false,
+    //   "fs": false,
+    //   "stream": false,
+    //   "http": false,
+    //   "net": false,
+    //   "tls": false,
+    //   "https": false,
+    //   "crypto-browserify": false,
+    // "crypto-browserify": require.resolve('crypto-browserify'), //if you want to use this module also don't forget npm i crypto-browserify 
+    // } 
   },
+  stats: {errorDetails: true},
   module: {
     rules: [
       {
@@ -52,13 +66,12 @@ var barConfig = Object.assign({}, config,{
   },
 });
 var zooConfig = Object.assign({}, config,{
-  entry: './src/LoginRegister.jsx',
+  entry: './src/MgtUser.jsx',
   output: {
-    filename: 'LoginRegister.js',
+    filename: 'MgtUser.js',
     path: path.resolve(__dirname, 'public/dist'),
   },
 });
-
 
 // Return Array of Configurations
 module.exports = [

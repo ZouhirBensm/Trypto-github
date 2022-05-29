@@ -1,5 +1,8 @@
 <ul class="home">
   <li><a href="/">Home</a></li>
+  <%if(loggedIn){%>
+    <li><a href="/users/profile">Profile</a></li>
+  <%}%>
 </ul>
 <ul class="iflog">
   <%if(!loggedIn){%>
