@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-// In case you need to connect to DB
+// In case you need to connect to DB #@
 // const ENV = require('../config/base')
 // const {MongoClient} = require('mongodb');
 // const uri = ENV.database_link;
@@ -20,12 +20,12 @@ const RegisterLoginController = require("../controllers/register-login-controlle
 const loggedInRedirectHome = require('../middleware/loggedIn-redirect-home')
 // Import checkIfUseridWithinDBmiddleware
 const checkIfUseridWithinDBmiddleware = require('../middleware/checkIf-userid-withinDB-middleware')
-// Import postTrackerMiddleware
-const postTrackerMiddleware = require('../middleware/home-orders-middleware/postTrackerMiddleware')
 // Import paginatedOrdersAccessMiddleware
 const paginatedOrdersAccessMiddleware = require('../middleware/home-orders-middleware/paginated-orders-access-middleware')
-// Import checkifSecondUserCredPost
-const checkifSecondUserCredPost = require('../middleware/checkif-second-user-cred-post')
+// Import StopIfAlreadyLoggedIn
+const StopIfAlreadyLoggedIn = require('../middleware/stop-if-already-loggedin')
+// Import requireReferer
+const requireReferer = require('../middleware/require-referer')
 
 // We import the User model
 const User = require('../models/User')
@@ -35,13 +35,29 @@ const { CustomError } = require('../custom-errors/custom-errors');
 
 const BuyCryptoOrder = require('../models/home-orders-models/BuyCryptoOrder');
 const SellCryptoOrder = require('../models/home-orders-models/SellCryptoOrder');
-const PostsAmountsTimeframe = require('../models/home-orders-models/PostAmountsTimeframe')
 
 
 
 router.get('/paginated-orders/:type_orders/:userID?', paginatedOrdersAccessMiddleware,  homeOrdersController.getPaginatedOrdersController)
 
 
+router.get('/users/:what_page', loggedInRedirectHome, (req,res,next)=>{
+  console.log("icit: ", req.params.what_page, req.session.userId)
+  var JSX_to_load = 'MgtUser';
+  res.render('generic-boilerplate-ejs-to-render-react-components', { 
+    JSX_to_load : JSX_to_load, 
+    [req.params.what_page === "profile" ? "userId": null]: req.session.userId,
+  })
+})
+
+
+
+// Login User
+router.post('/users/login', requireReferer, StopIfAlreadyLoggedIn, RegisterLoginController.loginController)
+
+
+// Register New User
+router.post('/users/register', requireReferer, StopIfAlreadyLoggedIn, RegisterLoginController.validateController, RegisterLoginController.registerController)
 
 
 
@@ -50,7 +66,7 @@ router.get('/paginated-orders/:type_orders/:userID?', paginatedOrdersAccessMiddl
 
 router.get('/',(req,res)=>{
 
-  console.log("Are we still logged in? ", req.session.userId, "\n\nDo we have any pop-up messages", req.query.popup)
+  console.log("Are we still logged in? ", req.session.userId, "\n\nDo we have any pop-up messages:: ", req.query.popup)
   var JSX_to_load = 'App';
   res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
 })
@@ -75,14 +91,7 @@ router.get('/cryptoprice', async (req,res,next)=>{
 })
 
 
-router.get('/users/:what_page', loggedInRedirectHome, (req,res,next)=>{
-  console.log("icit: ", req.params.what_page, req.session.userId)
-  var JSX_to_load = 'MgtUser';
-  res.render('generic-boilerplate-ejs-to-render-react-components', { 
-    JSX_to_load : JSX_to_load, 
-    [req.params.what_page === "profile" ? "userId": null]: req.session.userId,
-  })
-})
+
 
 router.delete('/users/profile/delete/:userId', async (req,res,next)=>{
   console.log("\n\n\n\n____Process to delete user and all of his orders___")
@@ -113,7 +122,7 @@ router.delete('/users/profile/delete/:userId', async (req,res,next)=>{
     srv_: "User account and linked data completly deleted."
   })
 
-  // How to use the DB and do stuff to it. Ideally you would pass the DB from server.js and just manipulate it here
+  // How to use the DB and do stuff to it. Ideally you would pass the DB from server.js and just manipulate it here #@
   // try {
   //   await client.connect();
   //   // databasesList = await client.db().admin().listDatabases();
@@ -132,16 +141,7 @@ router.delete('/users/profile/delete/:userId', async (req,res,next)=>{
 })
 
 
-router.post('/users/login', checkifSecondUserCredPost, RegisterLoginController.loginController)
 
-// router.get('/users/register', loggedInRedirectHome, (req,res)=>{
-//   var JSX_to_load = 'MgtUser';
-//   // console.log(JSX_to_load)
-//   res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
-// })
-
-// Register New User
-router.post('/users/register', checkifSecondUserCredPost, RegisterLoginController.validateController, RegisterLoginController.registerController)
 
 // makebuy, makesell, AllMyOrders, matches, buyordersdata, sellordersdata
 router.get('/databases/:what_page?', checkIfUseridWithinDBmiddleware, (req,res)=>{
@@ -151,8 +151,7 @@ router.get('/databases/:what_page?', checkIfUseridWithinDBmiddleware, (req,res)=
 })
 
 
-// patch
-router.post('/update', homeOrdersController.updateOrderController)
+router.patch('/update', homeOrdersController.updateOrderController)
 
 router.get(['/current-user-ID'], checkIfUseridWithinDBmiddleware, (req,res)=>{
   console.log(req.session.userId)
@@ -164,7 +163,7 @@ router.get(['/current-user-ID'], checkIfUseridWithinDBmiddleware, (req,res)=>{
 
 router.post('/deleteThisOrder', checkIfUseridWithinDBmiddleware, homeOrdersController.deleteOrderController)
 
-router.post('/:target/store', checkIfUseridWithinDBmiddleware, postTrackerMiddleware, homeOrdersController.registerOrder)
+router.post('/:target/store', checkIfUseridWithinDBmiddleware, homeOrdersController.registerOrder)
 
 router.get('/logout', (req,res)=>{
   //Destroy the Session data, including the userId property

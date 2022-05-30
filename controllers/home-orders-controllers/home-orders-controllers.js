@@ -39,7 +39,7 @@ module.exports = {
     
   
     // console.log(req.headers.referer)
-    console.log("\n\n____________________________________")
+    // console.log("\n\n____________________________________")
 
 
     switch(type_orders) {
@@ -55,11 +55,11 @@ module.exports = {
           } catch(err){
             return next(err)
           }
-          console.log("orders!!!!!:::::", orders)
+          // console.log("orders!!!!!:::::", orders)
         } else {
-          console.log("Normal Mode!") 
+          // console.log("Normal Mode!") 
           orders = buyOrders
-          console.log("orders!!!!!:::::", orders)
+          // console.log("orders!!!!!:::::", orders)
         }
         break
 
@@ -74,11 +74,11 @@ module.exports = {
           } catch(err){
             return next(err)
           }
-          console.log("orders!!!!!:::::", orders)
+          // console.log("orders!!!!!:::::", orders)
         } else {
-          console.log("Normal Mode!") 
+          // console.log("Normal Mode!") 
           orders = sellOrders
-          console.log("orders!!!!!:::::", orders)
+          // console.log("orders!!!!!:::::", orders)
         }
         break
 
@@ -120,7 +120,7 @@ module.exports = {
     
     orders_management_obj.ORDERS = orders.slice(startIndex, endIndex)
 
-    console.log("sliced:::::: ", orders_management_obj.ORDERS)
+    // console.log("sliced:::::: ", orders_management_obj.ORDERS)
   
     res.json({
       srv_: orders_management_obj,
@@ -130,40 +130,50 @@ module.exports = {
 
 
 
-  updateOrderController: (req,res, next)=>{
+  updateOrderController: async (req,res, next)=>{
 
-    console.log(req.body)
+    console.log("new DATA:", req.body)
     
     console.log('Current User: ' + req.session.userId + ' and Order asked to update: ' + req.body.OrderID + ' order to update type: ' + req.body.OrderType)
     
     if(req.body.OrderType === 'buyordersdata'){
-      BuyCryptoOrder.findByIdAndUpdate(req.body.OrderID, {
-        crypto: req.body.NewCrypto,
-        amount: req.body.NewAmount,
-        price: req.body.NewPrice,
-        expirydate: req.body.NewExpiryDate,
-        expirytime: req.body.NewExpiryTime,
-        payment: req.body.NewPayment,
-        }, (error, blogspot) => {
-        if(error){return next(error)}
-        console.log("Update Callback: ", blogspot) 
-      })
+    //   old_buycryptoOrder = await BuyCryptoOrder.findById(req.body.OrderID) #@
+    //   console.log("\n\n\n\n___________________________old crypto order:", old_buycryptoOrder)
+    //   BuyCryptoOrder.findByIdAndUpdate(req.body.OrderID, {
+    //     // crypto: req.body.NewCrypto,
+    //     [old_buycryptoOrder.crypto != req.body.NewCrypto ? "crypto": null]: req.body.NewCrypto,
+    //     // amount: req.body.NewAmount,
+    //     [old_buycryptoOrder.amount != req.body.NewAmount ? "amount": null]: req.body.NewAmount,
+    //     // price: req.body.NewPrice,
+    //     [old_buycryptoOrder.price != req.body.NewPrice ? "price": null]: req.body.NewPrice,
+    //     // expirydate: req.body.NewExpiryDate,
+    //     [old_buycryptoOrder.expirydate != req.body.NewExpiryDate ? "expirydate": null]: req.body.NewExpiryDate,
+    //     // expirytime: req.body.NewExpiryTime,
+    //     [old_buycryptoOrder.expirytime != req.body.NewExpiryTime ? "expirytime": null]: req.body.NewExpiryTime,
+    //     // payment: req.body.NewPayment,
+    //     [old_buycryptoOrder.payment != req.body.NewPayment ? "payment": null]: req.body.NewPayment,
+    //     }, (error, old_order) => {
+    //     if(error){return next(error)}
+    //     console.log("Update Callback: ", old_order) 
+    //   })
+
+    BuyCryptoOrder.findByIdAndUpdate(req.body.OrderID, { $set: req.body }, { upsert: true, new: true }, (error, order) => {
+      if(error){return next(error)}
+      console.log("Update Callback: ", order) 
+    });
+
+
     } else if (req.body.OrderType === 'sellordersdata'){
-      SellCryptoOrder.findByIdAndUpdate(req.body.OrderID, {
-        crypto: req.body.NewCrypto,
-        minamount: req.body.NewMinAmount,
-        maxamount: req.body.NewMaxAmount,
-        price: req.body.NewPrice,
-        expirydate: req.body.NewExpiryDate,
-        expirytime: req.body.NewExpiryTime,
-        payment: req.body.NewPayment,
-        }, (error, blogspot) => { 
+      SellCryptoOrder.findByIdAndUpdate(req.body.OrderID, { $set: req.body }, { upsert: true, new: true }, (error, order) => {
         if(error){return next(error)}
-        console.log("Update Callback: ", blogspot) 
-      })
+        console.log("Update Callback: ", order) 
+      });
     }
   
-    res.redirect('/databases/AllMyOrders') 
+    res.json({
+      srv_: "successfully updated"
+    })
+    // res.redirect('/databases/AllMyOrders') 
   
   },
   deleteOrderController: (req,res,next)=>{
@@ -211,9 +221,8 @@ module.exports = {
         break;
     }
   
-    console.log("register order: req.session.posts_amounts_timeframe: \n", req.session.posts_amounts_timeframe)
-    if(req.body.expireAt > new Date() && req.session.posts_amounts_timeframe < 20){
-      // 19 orders per timeframe allowed
+    
+    if(req.body.expireAt > new Date()){
       TypeCryptoOrder.create({
         crypto: req.body.crypto,
         [req.body.amount ? "amount": null]: req.body.amount,
@@ -228,14 +237,12 @@ module.exports = {
       }, (error, typecryptoorder) => {
         if(error){return next(error)}
         res.json({
-          iterator: req.session.posts_amounts_timeframe,
-          message: `${/[^o]*/.exec(req.params.target)[0].charAt(0).toUpperCase() + /[^o]*/.exec(req.params.target)[0].slice(1)} post successfully saved in database`,
+          saved: "success"
         })
       })
     } else {
       res.json({
-        iterator: req.session.posts_amounts_timeframe,
-        message: "You have reached your posting limit or expire date/time is before the present time",
+        saved: "date inputed cannot be before present"
       })
     }
   }

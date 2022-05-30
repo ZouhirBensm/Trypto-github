@@ -65,6 +65,58 @@ class OrderRow extends Component {
     super(props)
     // this.state = {
     // }
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  async handleSubmit(e){
+    e.preventDefault()
+    console.log("Testing handle submit")
+    const orderType = document.getElementById("my_form").elements["OrderType"].value
+    let amount, minamount, maxamount
+    // console.log(document.getElementById("my_form").elements["OrderID"].value)
+    // console.log(document.getElementById("my_form").elements["OrderType"].value)
+    // console.log(document.getElementById("my_form").elements["price"].value)
+    // console.log(document.getElementById("my_form").elements["expirydate"].value)
+    // console.log(document.getElementById("my_form").elements["expirytime"].value)
+    // console.log(document.getElementById("my_form").elements["crypto"].value)
+    // console.log(document.getElementById("my_form").elements["payment"].value)
+    if (orderType === "buyordersdata") {
+      amount = document.getElementById("my_form").elements["amount"].value
+      minamount, maxamount = undefined
+    } else if (orderType === "sellordersdata") {
+      minamount = document.getElementById("my_form").elements["minamount"].value
+      maxamount = document.getElementById("my_form").elements["maxamount"].value
+      amount = undefined
+    }
+    console.log(amount, minamount, maxamount)
+    const response = await fetch(`${process.env.ROOT}/update`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        OrderType: document.getElementById("my_form").elements["OrderType"].value,
+        OrderID: document.getElementById("my_form").elements["OrderID"].value,
+        crypto: document.getElementById("my_form").elements["crypto"].value,
+        [orderType === "buyordersdata" ? "amount": null]: amount,
+        [orderType === "sellordersdata" ? "minamount": null]: minamount,
+        [orderType === "sellordersdata" ? "maxamount": null]: maxamount,
+        price: document.getElementById("my_form").elements["price"].value,
+        expirydate: document.getElementById("my_form").elements["expirydate"].value,
+        expirytime: document.getElementById("my_form").elements["expirytime"].value,
+        payment: document.getElementById("my_form").elements["payment"].value,
+      })
+    })
+
+    console.log("api ress: ", response);
+    const payload = await response.json()
+    console.log("payload: ", payload)
+
+    if (response.status === 200) {
+      window.location.href = `${process.env.ROOT}?popup=${payload.srv_}`;
+    }
+
   }
 
   render(){
@@ -114,7 +166,20 @@ class OrderRow extends Component {
 
     if (this.props.buttons == "edit") {
       display_editing.push(
-        <td id="form4" key={`td-edit-form4-key-order:${order._id}`}><form action="/update" method="post" id="my_form"></form></td>,
+      //   <div id="container-log-reg">
+      //   <form id="loginregister" className="form">
+      //     <h3>Login</h3>
+      //     <label>Email</label>
+      //     <input type="text" name="email"/> 
+      //     <label>Password</label>
+      //     <input type="text" name="password" value="Zouhir123!"/> 
+      //     <button type="submit" onClick={(e) => this.handleSubmit(e)}>Login</button>
+      //   </form>
+      //   {/* display the notification from the server here! */}
+      //   { notifyDisplays }
+      // </div>
+
+        <td id="form4" key={`td-edit-form4-key-order:${order._id}`}><form className="update-form" id="my_form"></form></td>,
         <td id="ordertype4" key={`td-edit-ordertype4-key-order:${order._id}`}><input form="my_form" type='hidden' name='OrderType' value={this.props.order_type}/></td>,
         <td id="orderid4" key={`td-edit-orderid4-key-order:${order._id}`}><input form="my_form" type='hidden' name='OrderID' value={order._id}/> </td>,
         <td id="crypto1" key={`td-edit-crypto-key-order:${order._id}`}>
@@ -126,13 +191,13 @@ class OrderRow extends Component {
         amount_editing,
         <td id="price1" key={`td-edit-price-key-order:${order._id}`}>
           <label htmlFor="price-select">Price</label>
-          <input form="my_form" type="number" id="price-select" name="NewPrice" min="0" required defaultValue={order.price}/> 
+          <input form="my_form" type="number" id="price-select" name="price" min="0" required defaultValue={order.price}/> 
         </td>,
         <td id="expiry1" key={`td-edit-expiry-key-order:${order._id}`}>
           <label htmlFor="expirydate-select">Order Expiry Date</label>
-          <input form="my_form" id="expirydate-select" type="date" name="NewExpiryDate" required defaultValue={order.expirydate}/>
+          <input form="my_form" id="expirydate-select" type="date" name="expirydate" required defaultValue={order.expirydate}/>
           <label htmlFor="expirytime-select">Order Expiry Time</label>
-          <input form="my_form" id="expirytime-select" type="time" name="NewExpiryTime" required defaultValue={order.expirytime}/>
+          <input form="my_form" id="expirytime-select" type="time" name="expirytime" required defaultValue={order.expirytime}/>
         </td> ,
         <td id="payment1" key={`td-edit-payment-key-order:${order._id}`}>
           <label htmlFor="payment-select">Payment</label>
@@ -140,7 +205,7 @@ class OrderRow extends Component {
             curentValue = {order.payment}
           />
         </td>,
-        <td id="button1" key={`td-edit-button1-key-order:${order._id}`}><input form="my_form" type="submit" value='Save'/></td>,
+        <td id="button1" key={`td-edit-button1-key-order:${order._id}`}><button type="submit" onClick={(e) => this.handleSubmit(e)}>SaveHandle</button></td>,
         <td id="button2" key={`td-edit-button2-key-order:${order._id}`}><button onClick={(e) => this.props.handleToogleEdit("my", order._id, e)}>Revert</button></td>
       )
     }
@@ -174,7 +239,7 @@ class OrderRow extends Component {
 function TheSelectCrypto(props){
   let currentValue = props.curentValue;
   return(
-  <select form="my_form" name="NewCrypto" id="crypto-select" required defaultValue={currentValue}>
+  <select form="my_form" name="crypto" id="crypto-select" required defaultValue={currentValue}>
     <option value="Bitcoin">Bitcoin</option>
     <option value="Ethereum">Ethereum</option>
     <option value="Litecoin">Litecoin</option>
@@ -189,7 +254,7 @@ function BuyAmount(props) {
   return(
   <div>
     <label htmlFor="amount-select">Amount</label>
-    <input form="my_form" type="number" id="amount-select" name="NewAmount" min="10" max="10000" required defaultValue={props.amount}/>  
+    <input form="my_form" type="number" id="amount-select" name="amount" min="10" max="10000" required defaultValue={props.amount}/>  
   </div>
   )
 }
@@ -198,9 +263,9 @@ function SellAmount(props) {
   return (
   <div>
       <label htmlFor="min-amount-select">Min Amount</label>
-      <input form="my_form" type="number" id="min-amount-select" name="NewMinAmount" required defaultValue={props.minamount}/> 
+      <input form="my_form" type="number" id="min-amount-select" name="minamount" required defaultValue={props.minamount}/> 
       <label htmlFor="max-amount-select">Max Amount</label>
-      <input form="my_form" type="number" id="max-amount-select" name="NewMaxAmount" required defaultValue={props.maxamount}/> 
+      <input form="my_form" type="number" id="max-amount-select" name="maxamount" required defaultValue={props.maxamount}/> 
   </div>
   )
 }
@@ -208,7 +273,7 @@ function SellAmount(props) {
 function TheSelectPayment(props){
   let currentValue = props.curentValue;
   return(
-  <select form="my_form" name="NewPayment" id="payment-select" required defaultValue={currentValue}>
+  <select form="my_form" name="payment" id="payment-select" required defaultValue={currentValue}>
     <option value="Paypal">Paypal</option>
     <option value="Interac">Interac</option>
     <option value="Cash">Cash</option>

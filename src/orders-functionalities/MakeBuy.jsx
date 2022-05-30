@@ -6,8 +6,8 @@ class MakeBuy extends Component {
   constructor(){
     super()
     this.state = {
-      iterator: 0,
-      message: undefined,
+      // iterator: 0,
+      // message: undefined,
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -31,15 +31,16 @@ class MakeBuy extends Component {
         expirydate: document.getElementById("form_id").elements[4].value,
         expirytime: document.getElementById("form_id").elements[5].value,
         payment: document.getElementById("form_id").elements[6].value,
-        iterator: document.getElementById("form_id").elements[7].value,
+        // iterator: document.getElementById("form_id").elements[7].value,
       })
     })
     .then(response => response.json())
     .then(result => {
-      this.setState({
-        iterator: result.iterator,
-        message: result.message,
-      })
+      // this.setState({
+      //   iterator: result.iterator,
+      //   message: result.message,
+      // })
+      console.log(result)
     })
   }
 
@@ -61,7 +62,7 @@ class MakeBuy extends Component {
     .catch(e => alert(`Their seems to be an error. Enter Price manually. ${e}`))
   }
   render() {
-    console.log("(1) (render) iterator", this.state.iterator, this.state.message)
+    // console.log("(1) (render) iterator", this.state.iterator, this.state.message)
     return (
       <form className="form" id="form_id">
         <h3>Making a buy order...</h3>
@@ -89,7 +90,7 @@ class MakeBuy extends Component {
             <option value="Interac">Interac</option>
             <option value="Cash">Cash</option>
         </select> 
-        <input type="hidden" name="iterator" value={this.state.iterator}/>
+        {/* <input type="hidden" name="iterator" value={this.state.iterator}/> */}
         <button type="submit" onClick={(e) => this.handleSubmit(e)}>Submit</button>
 
       </form>
