@@ -6,8 +6,8 @@ class MakeSell extends Component {
   constructor(){
     super()
     this.state = {
-      iterator: 0,
-      message: undefined,
+      // iterator: 0,
+      // message: undefined,
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -19,7 +19,7 @@ class MakeSell extends Component {
     // console.log(document.getElementById("form_id").elements);
     // console.log(document.getElementById("form_id").elements[6].value)
 
-    fetch(`${process.env.ROOT}/sellorders/store`, {
+    fetch(`${process.env.ROOT}/sellorders/save`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,10 +38,11 @@ class MakeSell extends Component {
     })
     .then(response => response.json())
     .then(result => {
-      this.setState({
-        iterator: result.iterator,
-        message: result.message,
-      })
+      // this.setState({
+      //   iterator: result.iterator,
+      //   message: result.message,
+      // })
+      console.log(result)
     })
   }
 

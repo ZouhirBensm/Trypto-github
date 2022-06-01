@@ -18,7 +18,7 @@ class MakeBuy extends Component {
     // console.log(document.getElementById("form_id").elements);
     // console.log(document.getElementById("form_id").elements[6].value)
 
-    fetch(`${process.env.ROOT}/buyorders/store`, {
+    fetch(`${process.env.ROOT}/buyorders/save`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

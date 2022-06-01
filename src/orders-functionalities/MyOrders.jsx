@@ -28,8 +28,8 @@ class MyOrders extends Component {
   handleClick(valuetype, valueid, e){
     // console.log("handleClick: ", valuetype, valueid)
 
-    fetch(`${process.env.ROOT}/deleteThisOrder`, {
-      method: 'POST',
+    fetch(`${process.env.ROOT}/delete-this-order`, {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -40,22 +40,22 @@ class MyOrders extends Component {
       })
     })
     .then(response => response.json())
-    .then(result => {
-      // console.log(result)
+    .then(OBJserv_ => {
+      // console.log(OBJserv_)
       let elements_left_in_page = document.getElementsByTagName("tr")
       // console.log("Conditions", this.state.on_off_limit_next, elements_left_in_page.length === 1, this.state.number_of_pages != 1)
 
       //true, true, true
       if(this.state.on_off_limit_next && elements_left_in_page.length === 1 && this.state.number_of_pages != 1){
         // console.log("1")
-        this.handleDelete(result.memorized_order_type, true)
+        this.handleDelete(OBJserv_.memorized_order_type, true)
       } else {
         // console.log("2")
-        this.handleDelete(result.memorized_order_type)
+        this.handleDelete(OBJserv_.memorized_order_type)
       }
       // console.log("elements_left_in_page: ",  elements_left_in_page, elements_left_in_page.length)
       // console.log("bounds: ",  this.props.on_off_limit_previous, this.props.on_off_limit_next)
-      // console.log(result.memorized_order_type)
+      // console.log(OBJserv_.memorized_order_type)
     })
   }
 
@@ -99,17 +99,15 @@ class MyOrders extends Component {
 
   async loadData(_orderstype) {
     // console.log(_orderstype)
-    let _userID = ''
+    // let _userID = ''
     // console.log(`${process.env.ROOT}/current-user-ID`)
-    const response1 = await fetch(`${process.env.ROOT}/current-user-ID`)    
-    const data = await response1.json()
-    //OR
-    // .then(response1 => response1.json())
-    // .then(data => {
-    //   _userID = data.data
-    // });
+    // const response1 = await fetch(`${process.env.ROOT}/current-user-ID`)    
+    // const srv_ = await response1.json()
+    // _userID = srv_.srv_usr_ID
 
-    _userID = data.data
+
+    const _userID = document.getElementById("userId").innerHTML
+    // console.log("did it work????", _userID, typeof _userID)
 
     const response2 = await fetch(`${process.env.ROOT}/paginated-orders/${_orderstype}/${_userID}?page=${this.state.page}&limit=${this.state.limit}`)
     //OR

@@ -50,6 +50,16 @@ router.get('/users/:what_page', loggedInRedirectHome, (req,res,next)=>{
   })
 })
 
+// makebuy, makesell, AllMyOrders, matches, buyordersdata, sellordersdata
+router.get('/databases/:what_page?', checkIfUseridWithinDBmiddleware, (req,res)=>{
+  console.log("what_page: ", req.params.what_page)
+  
+  var JSX_to_load = 'OrdersApp';
+  res.render('generic-boilerplate-ejs-to-render-react-components', { 
+    JSX_to_load : JSX_to_load , 
+    [req.params.what_page === "AllMyOrders" ? "userId": null]: req.session.userId,
+  })
+})
 
 
 // Login User
@@ -143,39 +153,29 @@ router.delete('/users/profile/delete/:userId', async (req,res,next)=>{
 
 
 
-// makebuy, makesell, AllMyOrders, matches, buyordersdata, sellordersdata
-router.get('/databases/:what_page?', checkIfUseridWithinDBmiddleware, (req,res)=>{
-  console.log(req.params.what_page)
-  var JSX_to_load = 'OrdersApp';
-  res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
-})
+
 
 
 router.patch('/update', homeOrdersController.updateOrderController)
 
-router.get(['/current-user-ID'], checkIfUseridWithinDBmiddleware, (req,res)=>{
+router.get('/current-user-ID', checkIfUseridWithinDBmiddleware, (req,res)=>{
   console.log(req.session.userId)
 
   res.json({
-    data: req.session.userId
+    srv_usr_ID: req.session.userId
   })
 })
 
-router.post('/deleteThisOrder', checkIfUseridWithinDBmiddleware, homeOrdersController.deleteOrderController)
+router.delete('/delete-this-order', checkIfUseridWithinDBmiddleware, homeOrdersController.deleteOrderController)
 
-router.post('/:target/store', checkIfUseridWithinDBmiddleware, homeOrdersController.registerOrder)
+router.post('/:type_order/save', checkIfUseridWithinDBmiddleware, homeOrdersController.registerOrder)
 
 router.get('/logout', (req,res)=>{
   //Destroy the Session data, including the userId property
   req.session.destroy(()=>{
-      res.redirect('/')
+      res.redirect('/?popup=You have successfully logged out')
   })
 })
-
-// router.get('/users/profile', (req,res)=>{
-//   var JSX_to_load = 'MgtUser';
-//   res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
-// })
 
 
 module.exports = router

@@ -157,6 +157,9 @@ module.exports = {
     //     console.log("Update Callback: ", old_order) 
     //   })
 
+    // If upsert is true then if the row trying to be updated does not exist then a new row is inserted instead , if false then it does not do anything .
+
+    // If new is true then the modified document is returned after the update rather than the original , if false then the original document is returned
     BuyCryptoOrder.findByIdAndUpdate(req.body.OrderID, { $set: req.body }, { upsert: true, new: true }, (error, order) => {
       if(error){return next(error)}
       console.log("Update Callback: ", order) 
@@ -177,12 +180,12 @@ module.exports = {
   
   },
   deleteOrderController: (req,res,next)=>{
-    // console.log("req body on /deleteThisOrder: ", req.body) 
+    // console.log("req body on /delete-this-order: ", req.body) 
     var id = req.body.OrderID
   
     if (req.body.OrderType === 'buyordersdata') {
       //console.log('Order type is a buy type')
-      BuyCryptoOrder.findByIdAndDelete(req.body.OrderID, (error, buyorder) =>{ 
+      BuyCryptoOrder.findByIdAndDelete(id, (error, buyorder) =>{ 
         if(error){return next(error)}
       })
       res.json({
@@ -199,7 +202,7 @@ module.exports = {
     }
   },
   registerOrder:  (req,res,next)=>{
-    console.log("register order: req.params.target: \n", req.params.target)
+    console.log("register order: req.params.type_order: \n", req.params.type_order)
     // console.log(req.session)
     req.body.expireAt = new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
     //console.log(new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5)))
@@ -209,7 +212,7 @@ module.exports = {
     //console.log(new Date('July 22, 2013 14:00:00'))
   
     let TypeCryptoOrder = undefined
-    switch (req.params.target) {
+    switch (req.params.type_order) {
       case "buyorders":
         TypeCryptoOrder = BuyCryptoOrder
         break;

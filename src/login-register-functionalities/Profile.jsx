@@ -14,7 +14,6 @@ class Profile extends React.Component {
     e.preventDefault()
     const userId = document.getElementById("userId").innerHTML
     console.log("did it work?", userId)
-    console.log(userId)
 
     const response = await fetch(`${process.env.ROOT}/users/profile/delete/${userId}`, {
       method: 'DELETE',
@@ -42,7 +41,6 @@ class Profile extends React.Component {
 
 
   render() {
-    
     return (
       <div id="container-log-reg">
         <button type="submit" onClick={(e) => this.handleSubmit(e)}>Delete Account</button>
