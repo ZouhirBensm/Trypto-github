@@ -4,4 +4,5 @@ module.exports = {
   port: process.env.PORT,
   domain: process.env.REACT_APP_DOMAIN,
   database_name: process.env.DATABASE_NAME,
+  environment: process.env.ENVIRONMENT,
 }

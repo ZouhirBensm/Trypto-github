@@ -1,7 +1,10 @@
+const httpStatus = require("http-status-codes")
+let errorCode = httpStatus.StatusCodes.INTERNAL_SERVER_ERROR
+
 class CustomError extends Error {
   constructor() {
     super()
-    this.statusCode = 500
+    this.statusCode = errorCode
   }
 }
 

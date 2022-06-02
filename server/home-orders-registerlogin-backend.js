@@ -75,7 +75,7 @@ router.post('/users/register', requireReferer, StopIfAlreadyLoggedIn, RegisterLo
 
 
 router.get('/',(req,res)=>{
-
+  throw new Error("wdewdcwedew")
   console.log("Are we still logged in? ", req.session.userId, "\n\nDo we have any pop-up messages:: ", req.query.popup)
   var JSX_to_load = 'App';
   res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
@@ -179,3 +179,4 @@ router.get('/logout', (req,res)=>{
 
 
 module.exports = router
+//router references the homeOrdersBackend const

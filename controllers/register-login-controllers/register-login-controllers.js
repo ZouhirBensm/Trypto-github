@@ -3,6 +3,8 @@ const {verifyEmail, verifyPassword} = require('../../full-stack-libs/validations
 const User = require('../../models/User')
 // const bcrypt = require('bcrypt')
 var bcrypt = require('bcryptjs');
+
+const httpStatus = require("http-status-codes")
 const { ValidationError, LoggingInError, MongoError } = require('../../custom-errors/custom-errors')
 
 
@@ -112,7 +114,11 @@ module.exports = {
 
   invalidPathHandler: (req, res, next) => {
     // console.log(req.method)
-    if(req.method === "GET") res.render('error')
+    if(req.method === "GET") {
+      let errorCode = httpStatus.StatusCodes.NOT_FOUND
+      res.status(errorCode)
+      res.render('error')
+    }
     next()
   }
 }
