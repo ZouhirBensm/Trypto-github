@@ -1,4 +1,12 @@
 const mongoose = require('mongoose')
+
+const db = mongoose.connection
+
+db.once("open", () => {
+  console.log(`Successfully connected to MongoDB using Mongoose from SellCryptoOrder.js the readyState is ${db.readyState}, and the connection string is ${db._connectionString}`)
+})
+
+
 //Create empty Schema object?
 const Schema = mongoose.Schema
 

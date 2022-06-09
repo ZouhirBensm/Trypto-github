@@ -1,5 +1,13 @@
 // Categorised as a global modal
 const mongoose = require('mongoose')
+
+// Checking the connection
+const db = mongoose.connection
+db.once("open", () => {
+  console.log(`Successfully connected to MongoDB using Mongoose from User.js the readyState is ${db.readyState}, and the connection string is ${db._connectionString}`)
+})
+
+
 //Create empty Schema object?
 const Schema = mongoose.Schema
 //Import the package bcrypt
@@ -20,7 +28,7 @@ const UserSchema = new Schema({
     }
 })
 
-//Before save any records into User collection, execute the 
+//Before save any records into users collection, execute the 
 //function passed into the second argument
 //Allows to change user data before saving it into the database
 UserSchema.pre('save',function(next){
@@ -39,6 +47,6 @@ UserSchema.pre('save',function(next){
 //Access the database my_database via mongoose.model.
 //The first argument: The name of the collection the model is for.
 //Apply the model to the collection?
-const User = mongoose.model('User',UserSchema)
+const User = mongoose.model('User', UserSchema)
 //Export User variable to other files
 module.exports = User

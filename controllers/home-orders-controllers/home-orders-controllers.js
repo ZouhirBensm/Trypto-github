@@ -1,3 +1,4 @@
+// When required for the first time runs the entire script, then subsequent times only retrieces the Model
 const BuyCryptoOrder = require('../../models/home-orders-models/BuyCryptoOrder')
 const SellCryptoOrder = require('../../models/home-orders-models/SellCryptoOrder')
 const ENV = require('../../config/base')
@@ -5,6 +6,13 @@ const {filterObject, buyMatchesFinder, sellMatchesFinder} = require('../libs/mat
 
 module.exports = {
   getPaginatedOrdersController: async (req, res, next) => {
+
+    // const mongoose = require('mongoose')
+    // const db = mongoose.connection
+    // console.log(`Successfully connected to MongoDB using Mongoose from getPaginatedOrdersController the readyState is ${db.readyState}, and the connection string is ${db._connectionString}`)
+
+
+
     let orders
     // URL path parameters
     let type_orders = req.params.type_orders

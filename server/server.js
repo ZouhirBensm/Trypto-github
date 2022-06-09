@@ -3,14 +3,41 @@ const ENV = require('../config/base')
 global.loggedIn = null
 // console.log(process.env.ROOT)
 
+
+const mongoose = require('mongoose')
+
+//Fixes
+mongoose.set('useNewUrlParser', true)
+mongoose.set('useUnifiedTopology', true)
+mongoose.set('useFindAndModify', false)
+mongoose.set('useCreateIndex', true)
+
+// ENV.database_link
+// mongodb+srv://Maestro:DB%24%251993@cluster0.81z5d.mongodb.net/mern_database_atlas
+mongoose.connect(ENV.database_link)
+.catch(e => {throw e})
+
+// Assign the "DB CONNECTION" to the db variable
+// db can then be use for "DATA CHANGES", "DATA STATE CHANGES"
+const db = mongoose.connection
+
+// runs once the DB is connected to the web server on the open event i.e. as soon the DB "opens"/connects
+db.once("open", () => {
+  console.log(`Successfully connected to MongoDB using Mongoose from server.js the readyState is ${db.readyState}, and the connection string is ${db._connectionString}`)
+})
+
+
+
+
+
 // A shell in which your views are rendered: file in which other render() views are rendered layouts.ejs
 const layouts = require("express-ejs-layouts")
 
 
 const express = require('express');
 
-const homeOrdersBackend = require('./home-orders-registerlogin-backend')
-const messagingBackend = require('./messaging-backend');
+const homeOrdersBackend_router = require('./home-orders-registerlogin-backend')
+const messagingBackend_router = require('./messaging-backend');
 const { errorLogger, errorResponder, errorResponseDispatcher } = require('../middleware/error-middleware/error-handle-fcts')
 
 const { invalidPathHandler } = require("../controllers/register-login-controllers/register-login-controllers")
@@ -49,17 +76,8 @@ express_server_router.use(layouts)
 express_server_router.use(express.json())
 // Tell your express.js application to parse incomming requests that are URL encoded data (usually form post and utf-8 content)
 express_server_router.use(express.urlencoded({extended: true}))
-const mongoose = require('mongoose')
 
-//Fixes
-mongoose.set('useNewUrlParser', true)
-mongoose.set('useFindAndModify', false)
-mongoose.set('useCreateIndex', true)
 
-// ENV.database_link
-// mongodb+srv://Maestro:DB%24%251993@cluster0.81z5d.mongodb.net/mern_database_atlas
-mongoose.connect(ENV.database_link, {useNewUrlParser:true, useUnifiedTopology: true})
-.catch(e => {throw e})
 
 
 express_server_router.set('view engine', 'ejs')
@@ -76,10 +94,10 @@ express_server_router.use(express.static('public'));
 
 
 
-express_server_router.use('/', homeOrdersBackend)
+express_server_router.use('/', homeOrdersBackend_router)
 // All routes that fall upon this router are appended by default the first path argument '/messaging'. 
 // Then within the router you only define from the 2nd layer directory
-express_server_router.use('/messaging', messagingBackend)
+express_server_router.use('/messaging', messagingBackend_router)
 
 
 // Fail-safe catch-all non registered routes to render error page 

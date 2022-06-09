@@ -1,4 +1,13 @@
+const ENV = require('../../config/base')
+
 const mongoose = require('mongoose')
+
+const db = mongoose.connection
+
+db.once("open", () => {
+  console.log(`Successfully connected to MongoDB using Mongoose from BuyCryptoOrder.js the readyState is ${db.readyState}, and the connection string is ${db._connectionString}`)
+})
+
 //Create empty Schema object?
 const Schema = mongoose.Schema
 
@@ -32,6 +41,6 @@ BuyCryptoOrderSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
 //Access the database my_database via mongoose.model.
 //The first argument: The name of the collection the model is for.
 //Apply the model to the collection?
-const BuyCryptoOrder = mongoose.model('BuyCryptoOrder',BuyCryptoOrderSchema)
+const BuyCryptoOrder = mongoose.model('BuyCryptoOrder', BuyCryptoOrderSchema)
 //Export User variable to other files
 module.exports = BuyCryptoOrder
