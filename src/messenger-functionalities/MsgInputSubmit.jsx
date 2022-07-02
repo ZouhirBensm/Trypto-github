@@ -7,6 +7,8 @@ class MsgInputSubmit extends React.Component {
     super()
     this.state = {
     }
+    this._userID = document.getElementById("userId").innerHTML
+    console.log(this._userID)
   }
 
 
@@ -14,8 +16,9 @@ class MsgInputSubmit extends React.Component {
     
     return (
         <form id="chatForm">
-          <input type="text" name="" id="chat-input"/>
+          <input id="chat-input" type="text" name=""/>
           <input className="button" type="submit" value="Send"/>
+          <input  id="chat-user-id" type="hidden" value={this._userID} name=""/>
         </form>
     );
   }

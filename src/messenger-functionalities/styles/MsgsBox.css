@@ -5,8 +5,13 @@
   overflow: scroll;
 }
 
-/* #msg-box li {
+#msg-box li {
   text-decoration: none;
   list-style: none;
   padding: 10px;
-} */
+}
+
+.message.current-user {
+  font-weight: bold;
+  color: #3d41b4;
+}

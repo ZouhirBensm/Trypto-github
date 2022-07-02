@@ -10,7 +10,7 @@ messagingBackend_app_router.get('/', checkIfUseridWithinDBmiddleware, (req,res)=
   var JSX_to_load = 'Messaging';
   res.render('generic-boilerplate-ejs-to-render-react-components', { 
     JSX_to_load : JSX_to_load, 
-    // [req.params.what_page === "profile" ? "userId": null]: req.session.userId,
+    userId: req.session.userId,
   })
 })
 
