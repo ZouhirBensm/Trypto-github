@@ -59,8 +59,15 @@ var zooConfig = Object.assign({}, config,{
     path: path.resolve(__dirname, 'public/dist'),
   },
 });
+var looConfig = Object.assign({}, config,{
+  entry: './src/Messaging.jsx',
+  output: {
+    filename: 'Messaging.js',
+    path: path.resolve(__dirname, 'public/dist'),
+  },
+});
 
 // Return Array of Configurations
 module.exports = [
-  fooConfig, barConfig, zooConfig
+  fooConfig, barConfig, zooConfig, looConfig
 ];

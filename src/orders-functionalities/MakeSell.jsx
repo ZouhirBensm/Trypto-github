@@ -65,7 +65,7 @@ class MakeSell extends Component {
   }
 
   render() {
-    console.log("(1) (render) iterator", this.state.iterator, this.state.message)
+    // console.log("(1) (render) iterator", this.state.iterator, this.state.message)
     return (
     <form className="form" id="form_id">  
     <h3>Making a sell order...</h3>

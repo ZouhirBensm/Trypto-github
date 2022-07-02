@@ -1,6 +1,6 @@
 const { LoggingInError } = require("../custom-errors/custom-errors")
 
-// If your already logged middleware makes imposible to post for new loggin or register
+// If your already logged middleware makes impossible to post for new loggin or register
 module.exports = (req,res,next)=>{
 
   console.log(req.headers)

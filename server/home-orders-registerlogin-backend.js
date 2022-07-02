@@ -1,5 +1,5 @@
 const express = require('express')
-const homeOrdersBackend_router = express.Router()
+const homeOrdersBackend_app_router = express.Router()
 
 // In case you need to connect to DB #@
 // const ENV = require('../config/base')
@@ -38,10 +38,10 @@ const SellCryptoOrder = require('../models/home-orders-models/SellCryptoOrder');
 
 
 
-homeOrdersBackend_router.get('/paginated-orders/:type_orders/:userID?', paginatedOrdersAccessMiddleware,  homeOrdersController.getPaginatedOrdersController)
+homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:userID?', paginatedOrdersAccessMiddleware,  homeOrdersController.getPaginatedOrdersController)
 
 
-homeOrdersBackend_router.get('/users/:what_page', loggedInRedirectHome, (req,res,next)=>{
+homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHome, (req,res,next)=>{
   console.log("icit: ", req.params.what_page, req.session.userId)
   var JSX_to_load = 'MgtUser';
   res.render('generic-boilerplate-ejs-to-render-react-components', { 
@@ -51,7 +51,7 @@ homeOrdersBackend_router.get('/users/:what_page', loggedInRedirectHome, (req,res
 })
 
 // makebuy, makesell, AllMyOrders, matches, buyordersdata, sellordersdata
-homeOrdersBackend_router.get('/databases/:what_page?', checkIfUseridWithinDBmiddleware, (req,res)=>{
+homeOrdersBackend_app_router.get('/databases/:what_page?', checkIfUseridWithinDBmiddleware, (req,res)=>{
   console.log("what_page: ", req.params.what_page)
   
   var JSX_to_load = 'OrdersApp';
@@ -63,24 +63,24 @@ homeOrdersBackend_router.get('/databases/:what_page?', checkIfUseridWithinDBmidd
 
 
 // Login User
-homeOrdersBackend_router.post('/users/login', requireReferer, StopIfAlreadyLoggedIn, RegisterLoginController.loginController)
+homeOrdersBackend_app_router.post('/users/login', requireReferer, StopIfAlreadyLoggedIn, RegisterLoginController.loginController)
 
 
 // Register New User
-homeOrdersBackend_router.post('/users/register', requireReferer, StopIfAlreadyLoggedIn, RegisterLoginController.validateController, RegisterLoginController.registerController)
+homeOrdersBackend_app_router.post('/users/register', requireReferer, StopIfAlreadyLoggedIn, RegisterLoginController.validateController, RegisterLoginController.registerController)
 
 
 
 
 
 
-homeOrdersBackend_router.get('/',(req,res)=>{
+homeOrdersBackend_app_router.get('/',(req,res)=>{
   console.log("Are we still logged in? ", req.session.userId, "\n\nDo we have any pop-up messages:: ", req.query.popup)
   var JSX_to_load = 'App';
   res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
 })
 
-homeOrdersBackend_router.get('/cryptoprice', async (req,res,next)=>{
+homeOrdersBackend_app_router.get('/cryptoprice', async (req,res,next)=>{
 
   let params = {
     ids: ['bitcoin', 'ethereum', 'litecoin', 'bitcoin-cash', 'zcash', 'monero'],
@@ -102,7 +102,7 @@ homeOrdersBackend_router.get('/cryptoprice', async (req,res,next)=>{
 
 
 
-homeOrdersBackend_router.delete('/users/profile/delete/:userId', async (req,res,next)=>{
+homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', async (req,res,next)=>{
   console.log("\n\n\n\n____Process to delete user and all of his orders___")
   console.log(req.params.userId, " vs ", req.session.userId)
 
@@ -155,9 +155,9 @@ homeOrdersBackend_router.delete('/users/profile/delete/:userId', async (req,res,
 
 
 
-homeOrdersBackend_router.patch('/update', homeOrdersController.updateOrderController)
+homeOrdersBackend_app_router.patch('/update', homeOrdersController.updateOrderController)
 
-homeOrdersBackend_router.get('/current-user-ID', checkIfUseridWithinDBmiddleware, (req,res)=>{
+homeOrdersBackend_app_router.get('/current-user-ID', checkIfUseridWithinDBmiddleware, (req,res)=>{
   console.log(req.session.userId)
 
   res.json({
@@ -165,11 +165,11 @@ homeOrdersBackend_router.get('/current-user-ID', checkIfUseridWithinDBmiddleware
   })
 })
 
-homeOrdersBackend_router.delete('/delete-this-order', checkIfUseridWithinDBmiddleware, homeOrdersController.deleteOrderController)
+homeOrdersBackend_app_router.delete('/delete-this-order', checkIfUseridWithinDBmiddleware, homeOrdersController.deleteOrderController)
 
-homeOrdersBackend_router.post('/:type_order/save', checkIfUseridWithinDBmiddleware, homeOrdersController.registerOrder)
+homeOrdersBackend_app_router.post('/:type_order/save', checkIfUseridWithinDBmiddleware, homeOrdersController.registerOrder)
 
-homeOrdersBackend_router.get('/logout', (req,res)=>{
+homeOrdersBackend_app_router.get('/logout', (req,res)=>{
   //Destroy the Session data, including the userId property
   req.session.destroy(()=>{
       res.redirect('/?popup=You have successfully logged out')
@@ -177,5 +177,5 @@ homeOrdersBackend_router.get('/logout', (req,res)=>{
 })
 
 
-module.exports = homeOrdersBackend_router
+module.exports = homeOrdersBackend_app_router
 //router references the homeOrdersBackend const
