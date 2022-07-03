@@ -22,12 +22,15 @@ class ChatContainer extends React.Component {
     script1.src = "socket.io/socket.io.js";
     script2.src = "js/socketio.js";
 
+    script1.async = false;
+    script2.async = false; 
+
     
     // document.body.appendChild(script1);
     // document.body.appendChild(script2);
 
     insertAfter(reference, script1)
-    insertAfter(reference, script2)
+    insertAfter(script1, script2)
 
     function insertAfter(referenceNode, newNode ) {
       console.log(referenceNode.parentNode)

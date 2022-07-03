@@ -71,6 +71,10 @@ express_server_app_router.use(expressSession({
 }))
 
 
+express_server_app_router.set('view engine', 'ejs')
+// console.log(express_server_app_router.get("view engine"))
+
+
 const messengerControllers = require("../controllers/messenger-controllers/messenger-controllers")
 
 
@@ -82,16 +86,17 @@ express_server_app_router.use(express.json())
 express_server_app_router.use(express.urlencoded({extended: true}))
 
 
-
-
-express_server_app_router.set('view engine', 'ejs')
-// console.log(express_server_app_router.get("view engine"))
-
 //Middleware executed for all requests
 express_server_app_router.use('*', (req,res,next)=>{
   loggedIn = req.session.userId
   next()
 })
+
+
+
+
+
+
 
 // Enablig ressources on our public directory to be served by the web server on HTTP requests, therefor accessible to servered HTML, EJS files when public ressources referenced within.
 express_server_app_router.use(express.static('public'));

@@ -5,12 +5,10 @@ let chatController = (io) => {
   io.on("connection", socket =>{
     console.log("new connection")
     
-    socket.on("messaging", (inputvalue)=>{
-      const msg = inputvalue // renaming
-      console.log("Received from client input.value", msg)
-      io.emit("broadcast", {
-        content: msg
-      })
+    socket.on("messaging", (userSendObjectPackaged)=>{
+
+      console.log("Received from client input.value", userSendObjectPackaged)
+      io.emit("broadcast", userSendObjectPackaged)
     })
     
     // DISCONNECT client page reloads or exits (because io() looses the connection?)
