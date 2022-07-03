@@ -9,11 +9,12 @@ stages:
     - installs
     - staging
 
-staging:
+installs:
+    stage: staging
     image: ruby:latest
   
-staging:
-    stage: installs
+installs:
+    stage: staging
     # type: deploy
     script:
         - apt-get update -qy
