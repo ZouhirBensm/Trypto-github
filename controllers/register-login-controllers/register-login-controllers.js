@@ -71,7 +71,7 @@ module.exports = {
           if(same){
               //store
               //Sets up the Session object with cookie created and userId
-              req.session.userId = user._id 
+              req.session.userId = user._id
           //If password is wrong
           } else {
             password? notification.push("Erroneous password submission for this email"): notification.push("Please enter a password")

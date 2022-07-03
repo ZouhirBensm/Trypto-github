@@ -1,4 +1,5 @@
 <div id='react-div'></div>
-<!-- Capable from server send data to determine what React base component to render: Either App.js or Databases.js -->
 <div id="userId" style="display: none;"><%if(locals.userId){%><%=userId%><%}%></div>
+<div id="currentUserEmail"><%if(locals.currentUserEmail){%><%=currentUserEmail%><%}%></div>
+<!-- Capable from server send data to determine what React base component to render: Either App.js or Databases.js -->
 <script type="text/javascript" src="../dist/<%= JSX_to_load %>.js"></script>
