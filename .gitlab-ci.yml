@@ -6,6 +6,7 @@ image: node:latest
 #     - gem install dpl
 
 stages:
+    - installs
     - staging
 
 staging:
