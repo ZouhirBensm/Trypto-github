@@ -32,9 +32,11 @@ db.once("open", () => {
 
 // A shell in which your views are rendered: file in which other render() views are rendered layouts.ejs
 const layouts = require("express-ejs-layouts")
-const { Server } = require("socket.io")
 
 const express = require('express');
+const { createServer } = require("http");
+const { Server } = require("socket.io")
+
 
 const homeOrdersBackend_app_router = require('./home-orders-registerlogin-backend')
 const messagingBackend_app_router = require('./messaging-backend');
@@ -43,6 +45,7 @@ const { errorLogger, errorResponder, errorResponseDispatcher } = require('../mid
 const { invalidPathHandler } = require("../controllers/register-login-controllers/register-login-controllers")
 
 const express_server_app_router = express();
+
 
 const expressSession = require('express-session')
 const MongoStore = require('connect-mongo');
@@ -129,13 +132,18 @@ express_server_app_router.use(errorResponder)
 // Note: Errors thrown during the application (i.e. before express_server_app_router.use(errorLogger)) get dealt with the error function middlewares (the errorResponder always responds), and thus circumvent this express_server_app_router.use(invalidPathHandler) middleware
 
 
-// .listen() Returns a Express.JS HTTP web server instance
-const server_instance = express_server_app_router.listen(ENV.port, function () {
+
+// IO
+const server_instance = createServer(express_server_app_router);
+const io = new Server(server_instance);
+messengerControllers.chatController(io)
+
+// .listen() Returns a Express.JS HTTP web server instance when express_server_app_router.listen()
+// listening on the server_instance also listens on the express_server_app_router?
+server_instance.listen(ENV.port, function () {
   console.log(`Express web server has started and is listening for requests on port ${ENV.port}`);
 });
 
-const io = new Server(server_instance)
-messengerControllers.chatController(io)
 
 
 
