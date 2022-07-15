@@ -68,6 +68,7 @@ class OrderRow extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+
   async handleSubmit(e){
     e.preventDefault()
     console.log("Testing handle submit")
@@ -157,7 +158,11 @@ class OrderRow extends Component {
     )
 
     if (this.props.buttons == "normal") {
-      display_normal.push(<td id="deal1" key={`td-deal-key-order:${order._id}`}><a href="/messaging"><button>Deal</button></a></td>)
+
+
+      display_normal.push(<td id="deal1" key={`td-deal-key-order:${order._id}`}>
+        <button><a href={`/messaging?orderId=${order._id}&userIdB=${order.userid._id}`}>Deal</a></button>
+      </td>)
     }
   
     if (this.props.buttons == "my") {

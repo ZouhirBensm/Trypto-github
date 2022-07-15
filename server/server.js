@@ -19,7 +19,8 @@ mongoose.connect(ENV.database_link)
 
 // Assign the "DB CONNECTION" to the db variable
 // db can then be use for "DATA CHANGES", "DATA STATE CHANGES"
-const db = mongoose.connection
+global.db = mongoose.connection
+const clientP = db.then(m => m.getClient())
 
 // runs once the DB is connected to the web server on the open event i.e. as soon the DB "opens"/connects
 db.once("open", () => {
@@ -51,8 +52,7 @@ const expressSession = require('express-session')
 const MongoStore = require('connect-mongo');
 
 
-//We register the expressSession middleware in our express_server_app_router
-express_server_app_router.use(expressSession({
+const sessionMiddleware = expressSession({
   //Pass in the configuration object with value secret
   //The secret string is used to sign and encrypt the session ID cookie being shared with the browser
   secret: ENV.express_session_secret,
@@ -60,10 +60,12 @@ express_server_app_router.use(expressSession({
   saveUninitialized: true,
   store: MongoStore.create({
     // mongoUrl: 'mongodb+srv://Maestro:DB%24%251993@cluster0.81z5d.mongodb.net/mern_database_atlas',
-    mongoUrl: ENV.database_link,
+    // mongoUrl: ENV.database_link,
+    clientPromise: clientP,
     // mongoUrl: 'mongodb+srv://Maestro:DB%24%251993@cluster0.81z5d.mongodb.net/mern_database_atlas',
-    collectionName: 'sessions',
+    // collectionName: 'sessions',
     // ttl: 1000*60*60*24 // 1 Day,
+    stringify: false,
   }),
   cookie: {
     secure: false,
@@ -71,7 +73,11 @@ express_server_app_router.use(expressSession({
     //originalMaxAge: 24*60*60
     maxAge: 1000*60*60*24 // 1 Day
   }
-}))
+});
+
+
+//We register the expressSession middleware in our express_server_app_router
+express_server_app_router.use(sessionMiddleware)
 
 
 express_server_app_router.set('view engine', 'ejs')
@@ -106,6 +112,14 @@ express_server_app_router.use(express.static('public'));
 
 
 
+express_server_app_router.use((req, res, next) => {
+  // console.log("Testing!")
+  res.locals.ENV = ENV;
+  res.locals.userId = req.session.userId
+  next()
+})
+
+
 express_server_app_router.use('/', homeOrdersBackend_app_router)
 // All routes that fall upon this router are appended by default the first path argument '/messaging'. 
 // Then within the router you only define from the 2nd layer directory
@@ -136,6 +150,28 @@ express_server_app_router.use(errorResponder)
 // IO
 const server_instance = createServer(express_server_app_router);
 const io = new Server(server_instance);
+
+// convert a connect middleware to a Socket.IO middleware
+const wrap = function(middleware) { 
+  // console.log("socket.request: ", socket.request); 
+  return (socket, next) => {middleware(socket.request, {}, next)}
+};
+
+io.use(wrap(sessionMiddleware));
+
+// only allow authenticated users
+io.use((socket, next) => {
+  // console.log("SESSSSSSSSS: ", socket.request.session);
+  const session = socket.request.session;
+  // console.log(session.authenticated)
+  if (session && session.userId) {
+    // console.log("a223")
+    next();
+  } else {
+    next(new Error("unauthorized"));
+  }
+});
+
 messengerControllers.chatController(io)
 
 // .listen() Returns a Express.JS HTTP web server instance when express_server_app_router.listen()

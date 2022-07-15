@@ -10,6 +10,10 @@ class ChatContainer extends React.Component {
     super()
     this.state = {
     }
+    this._userID = document.getElementById("userId").innerHTML
+    this._currentUserEmail = document.getElementById("currentUserEmail").innerHTML
+    this._userIDB = document.getElementById("userIdB").innerHTML
+    this._orderID = document.getElementById("orderId").innerHTML
   }
 
   componentDidMount(){
@@ -44,7 +48,14 @@ class ChatContainer extends React.Component {
     return (
       <React.Fragment>
         <div className="wrapper-chat">
-          <h1>Chat</h1>
+          <h1>Chat:</h1>
+          <p>LoggedIn as</p>
+          <p>{this._userID}</p>
+          <p><strong>{this._currentUserEmail}</strong></p>
+          <h1>Communicating to:</h1>
+          <p>{this._userIDB}</p>
+          <h1>Order ID:</h1>
+          <p>{this._orderID}</p>
           <MsgInputSubmit/>
           <MsgsBox/>
         </div>
