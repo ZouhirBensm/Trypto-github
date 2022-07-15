@@ -22,6 +22,17 @@ let chatController = (io) => {
     
 
     
+    // console.log('\n_______', "new connection")
+
+    const userAId = socket.request._query['userAId']
+    const userBId = socket.request._query['userBId']
+    const orderId = socket.request._query['orderId']
+
+
+    // current socket
+    const sckIdA = socket.id
+
+    // console.log(`orderId: ${orderId}\nuser A: (id: ${userAId}, socketID: ${sckIdA})\nuser B: (id: ${userBId}, socketID: ${undefined})`, '\n_______');
 
     // Connected Sockets
     var srvSockets = io.sockets.sockets
@@ -54,7 +65,8 @@ let chatController = (io) => {
           // let ret = await sessionCollection.find({"session.userId": ObjectId(socket.request.session.userId)})
           // console.log("fuckshit: ", await ret.toArray())
           console.log("0000")
-          let prom_resolved = await sessionCollection.findOneAndUpdate({"session.userId": ObjectId(socket.request.session.userId)}, {$set: {"session.socketId": socket.id}}, { upsert: true, new: true })
+          let prom_resolved = await sessionCollection.findOneAndUpdate({"session.userId": ObjectId(socket.request.session.userId)}, {$set: {"session.socket.id": socket.id, "session.socket.appendedUserB": userBId}}, { upsert: true, new: true })
+
           console.log("1")
         }
         console.log("2")
@@ -87,17 +99,7 @@ let chatController = (io) => {
     
 
 
-    // console.log('\n_______', "new connection")
 
-    const userAId = socket.request._query['userAId']
-    const userBId = socket.request._query['userBId']
-    const orderId = socket.request._query['orderId']
-
-
-    // current socket
-    const sckIdA = socket.id
-
-    console.log(`orderId: ${orderId}\nuser A: (id: ${userAId}, socketID: ${sckIdA})\nuser B: (id: ${userBId}, socketID: ${undefined})`, '\n_______');
 
 
     let found_protagonists_match = await Message.find({$and: [
@@ -123,6 +125,11 @@ let chatController = (io) => {
         
       });
     }
+
+
+
+
+
 
     socket.on("messaging", async (userSendObjectPackaged)=>{
 
@@ -185,17 +192,20 @@ let chatController = (io) => {
 
 
       // TODO
+      // Socket B Querying information
       // Check for socket presence
       console.log("\n\n\n\n__________\n____________upon msg event: ", connected_sockets, userBId, sessions)
       let userBSocketConnectionId = null
-        // if user B socket present: emit to him
+      let userBAppendedSocketsUserBId = null
+        // user B socket present
         let isUserBSocketConnection = (function(){
           let truthy_array_checker = []
           for (const session of sessions) {
-            if(session.session.userId.toString() == userBId && !!session.session.socketId){
-              userBSocketConnectionId = session.session.socketId
+            if(session.session.userId.toString() == userBId && !!session.session.socket.id){
+              userBSocketConnectionId = session.session.socket.id
+              userBAppendedSocketsUserBId = session.session.socket.appendedUserB
               // io.emit("broadcast", userSendObjectPackaged)
-              console.log("_______send event: ", session.session.socketId, sckIdA, userSendObjectPackaged, "_________")
+              console.log("_______send event: ", session.session.socket.id, sckIdA, userSendObjectPackaged, "_________")
               truthy_array_checker.push(true)
             } else {
               truthy_array_checker.push(false)
@@ -204,16 +214,27 @@ let chatController = (io) => {
           console.log("truthy_array_checker: ", truthy_array_checker)
           return !(truthy_array_checker.every(bool => bool === false))
         })()
-
+        
         console.log("userB has a socket?: ", isUserBSocketConnection, "what is the socket id: ", userBSocketConnectionId)
         
         
         io.to(sckIdA).emit('broadcast', userSendObjectPackaged);
-
+        
+        
+        
+        
         if (isUserBSocketConnection) {
-          // filter the emit as such, to do so only when the userIdB is the one destined to receive is relevant
-          // console.log("___Before emiting checking order is relevant",orderId)
-          io.to(userBSocketConnectionId).emit('broadcast', userSendObjectPackaged);
+
+          // Determining whether to emit to user B depending on socket set up
+          // The person we are allowed to talk to is determined by how the socket is set up
+          console.log("\n\n___Before emiting\n", "sockets UI user B is: \n", userBAppendedSocketsUserBId, "\nsource of message has to be the sockets UI user B: \n", userSendObjectPackaged.chatUserId)
+          
+          // if the socket is setup with user B, we only want 
+          if(userSendObjectPackaged.chatUserId == userBAppendedSocketsUserBId){
+            io.to(userBSocketConnectionId).emit('broadcast', userSendObjectPackaged);
+          } else {
+            console.log("Socket B is not setup to receive messages from the msg emiting user")
+          }
 
         }
 
@@ -245,7 +266,7 @@ let chatController = (io) => {
         sessions = await all_sessions.toArray()
   
         console.log("did it work? ", sessions)
-        let prom2_resolved = await sessionCollection.update({"session.userId": ObjectId(socket.request.session.userId)}, {$unset: {"session.socketId":1}});
+        let prom2_resolved = await sessionCollection.update({"session.userId": ObjectId(socket.request.session.userId)}, {$unset: {"session.socket":1}});
 
         // let prom_resolved = await sessionCollection.findOneAndUpdate({"session.userId": ObjectId(socket.request.session.userId)}, {$set: {"session.socketId": socket.id}}, { upsert: true, new: true })
 

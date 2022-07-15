@@ -42,7 +42,14 @@ console.log("socketio in the house!")
     console.log("The server userSendObjectPackaged: ", userSendObjectPackaged)
     console.log("received from this sender: ", userSendObjectPackaged.chatUserId, "channelled with: ", userIdB)
 
+    // var item = document.createElement("li")
+    // item.innerHTML = `<strong class="message${equalityCheck_LogInID_to_msgUserID(userSendObjectPackaged.chatUserId)}">${userSendObjectPackaged.chatUserEmail}</strong>: ${userSendObjectPackaged.content}`
+    // msgBox.appendChild(item)
+    // msgBox.scrollTo(0, msgBox.scrollHeight)
+
+
     // undefined for first load, and display message only if message destined to myself or to the person set up as userIdB on the page
+    // Double checking on the front end, emit is already filtered on the backend.
     if (userSendObjectPackaged.chatUserId == userId | userSendObjectPackaged.chatUserId == userIdB | userSendObjectPackaged.chatUserId == undefined){
       var item = document.createElement("li")
       item.innerHTML = `<strong class="message${equalityCheck_LogInID_to_msgUserID(userSendObjectPackaged.chatUserId)}">${userSendObjectPackaged.chatUserEmail}</strong>: ${userSendObjectPackaged.content}`
