@@ -131,7 +131,7 @@ class Register extends React.Component {
           <label>Email</label>
           <input type="text" name="email"/> 
           <label>Password</label>
-          <input type="password" name="password" value="Zouhir123!"/> 
+          <input type="password" name="password"/> 
           <button type="submit" 
           onClick={
             async (e) => {

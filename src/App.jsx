@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {lazy, Suspense} from 'react';
 import ReactDOM from 'react-dom'
 import PricesComponent from './home-functionalities/PricesComponent.jsx';
 
@@ -57,14 +57,15 @@ class Home extends React.Component {
       }
     }
     
+    console.log(countries.west, this.state.prices)
     return (
-      <React.Fragment> 
+    
+      <React.Fragment>
         {/* <p>{process.env.REACT_APP_DOMAIN}</p> */}
-        <PricesComponent countries={countries.west} prices={this.state.prices}/>
         {/* <PricesComponent countries={countries.third}/> */}
-
-        
+        <PricesComponent countries={countries.west} prices={this.state.prices}/>
       </React.Fragment> 
+      
     );
   }
 }

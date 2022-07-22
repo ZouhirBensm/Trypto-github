@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {lazy, Suspense} from 'react';
 import Prices from './Prices';
 import './styles/PricesComponent.css' 
+
 
 
 class PricesComponent extends React.Component {
@@ -25,7 +26,9 @@ class PricesComponent extends React.Component {
     let i=0
     const pricesRows = this.props.prices.map(price => {
         i++
-        return <Prices key={i} price={price} country={this.state.country}/>
+        return (
+            <Prices key={i} price={price} country={this.state.country}/>
+        )
       }
     )
     //console.log(typeof this.props.prices)

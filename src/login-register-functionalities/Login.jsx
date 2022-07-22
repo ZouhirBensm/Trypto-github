@@ -66,7 +66,7 @@ class Login extends React.Component {
           <label>Email</label>
           <input type="text" name="email"/> 
           <label>Password</label>
-          <input type="text" name="password" value="Zouhir123!"/> 
+          <input type="text" name="password"/> 
           <button type="submit" onClick={(e) => this.handleSubmit(e)}>Login</button>
         </form>
         {/* display the notification from the server here! */}
