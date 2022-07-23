@@ -2,6 +2,9 @@ import React, {lazy, Suspense} from 'react';
 import ReactDOM from 'react-dom'
 import PricesComponent from './home-functionalities/PricesComponent.jsx';
 
+
+// let PricesComponent = lazy(()=>{ return import('./home-functionalities/PricesComponent.jsx')})
+
 class Home extends React.Component {
   constructor(props){
     super(props)
@@ -11,6 +14,8 @@ class Home extends React.Component {
     this.repairData = this.repairData.bind(this)
   }
 
+
+  
   repairData(_objPrices){
     let wahad
     let zouj
@@ -63,6 +68,9 @@ class Home extends React.Component {
       <React.Fragment>
         {/* <p>{process.env.REACT_APP_DOMAIN}</p> */}
         {/* <PricesComponent countries={countries.third}/> */}
+        {/* <Suspense fallback={<div style={{color: "red", position: "absolute", top: "200px"}}>Loading...</div>}>
+          <PricesComponent countries={countries.west} prices={this.state.prices}/>
+        </Suspense> */}
         <PricesComponent countries={countries.west} prices={this.state.prices}/>
       </React.Fragment> 
       
@@ -72,6 +80,9 @@ class Home extends React.Component {
 
 const element = <Home />;
 
+
 ReactDOM.render(element, document.getElementById('react-div'));
 
+
 export default Home
+
