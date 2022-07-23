@@ -57,8 +57,8 @@ let chatController = (io) => {
       // console.log(sessions)
       
       for(let session of sessions) {
-        console.log("what?\n", session.session.userId?.toString(), socket.request.session.userId)
-        console.log(session.session.userId?.toString() == socket.request.session.userId)
+        // console.log("what?\n", session.session.userId?.toString(), socket.request.session.userId)
+        // console.log(session.session.userId?.toString() == socket.request.session.userId)
         
         if (session.session.userId && session.session.userId.toString() == socket.request.session.userId) {
           console.log("fuckshit: ", await sessionCollection.find().toArray())
