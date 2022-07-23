@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+// import React from 'react';
 import './styles/Orders.css'
 import PageSelector from './PageSelector';
 import SearchEngine from './SearchEngine';
 import OrderTable from './OrderTable';
 
-class Orders extends Component {
+class Orders extends React.Component {
   constructor(props){
     super(props)
     this.state = {

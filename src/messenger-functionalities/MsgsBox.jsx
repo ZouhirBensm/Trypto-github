@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import './styles/MsgsBox.css' 
 
 class MsgsBox extends React.Component {

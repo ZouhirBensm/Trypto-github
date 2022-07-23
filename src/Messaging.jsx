@@ -1,11 +1,11 @@
 
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom'
+// import React, {Component} from 'react';
+// import ReactDOM from 'react-dom'
 import ChatContainer from './messenger-functionalities/ChatContainer';
 
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 
-class Messaging extends Component {
+class Messaging extends React.Component {
   render() {
     return (
       <ChatContainer/>

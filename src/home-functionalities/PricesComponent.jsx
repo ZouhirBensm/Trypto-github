@@ -1,4 +1,4 @@
-import React, {lazy, Suspense} from 'react';
+// import React, {lazy, Suspense} from 'react';
 import Prices from './Prices';
 import './styles/PricesComponent.css' 
 

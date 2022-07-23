@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import './styles/MgtUser.css' 
 import {verifyEmail, verifyPassword} from '../../full-stack-libs/validations'
 

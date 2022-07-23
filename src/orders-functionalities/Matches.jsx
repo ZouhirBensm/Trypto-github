@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom'
+// import React from 'react';
+// import ReactDOM from 'react-dom'
 import './styles/MyOrders.css'
 import PageSelector from './PageSelector';
 import OrderTable from './OrderTable';
-import axios from 'axios';
+// import axios from 'axios';
 
-class Matches extends Component {
+class Matches extends React.Component {
   constructor(){
     super()
     this.state = {
@@ -37,12 +37,25 @@ class Matches extends Component {
 
   
   async loadData(_orderstype){
-    let serverOBJ = await axios.get(`${process.env.ROOT}/paginated-orders/${_orderstype}?page=${this.state.page}&limit=${this.state.limit}`)
+    let serverOBJ = await fetch(`${process.env.ROOT}/paginated-orders/${_orderstype}?page=${this.state.page}&limit=${this.state.limit}`, {
+      method: 'GET'
+    })
+    .then(response => {
+      // console.log("response: ", response, "\n\n")
+      return response.json()
+    })
     .then(response => {
       console.log("response: ", response, "\n\n")
-      return response.data
+      return response
     })
     .catch((err)=>console.log(err))
+
+    // let serverOBJ = await axios.get(`${process.env.ROOT}/paginated-orders/${_orderstype}?page=${this.state.page}&limit=${this.state.limit}`)
+    // .then(response => {
+    //   console.log("response: ", response, "\n\n")
+    //   return response.data
+    // })
+    // .catch((err)=>console.log(err))
     
     console.log("Data retrieved matches: ", serverOBJ.srv_)
     this.setState({

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+// import React from 'react';
 import './styles/MyOrders.css'
 import PageSelector from './PageSelector';
 import OrderTable from './OrderTable';
 
-class MyOrders extends Component {
+class MyOrders extends React.Component {
   constructor(){
     super()
     this.state = {

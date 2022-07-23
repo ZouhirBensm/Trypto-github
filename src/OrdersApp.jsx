@@ -1,15 +1,42 @@
 
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom'
-import MakeBuy from './orders-functionalities/MakeBuy';
-import MakeSell from './orders-functionalities/MakeSell';
-import Orders from './orders-functionalities/Orders';
-import MyOrders from './orders-functionalities/MyOrders';
-import Navigation from './orders-functionalities/Navigation';
-import Matches from './orders-functionalities/Matches';
+// import React from 'react';
+// import ReactDOM from 'react-dom'
+// import MakeBuy from './orders-functionalities/MakeBuy';
+// import MakeSell from './orders-functionalities/MakeSell';
+// import Orders from './orders-functionalities/Orders';
+// import MyOrders from './orders-functionalities/MyOrders';
+// import Navigation from './orders-functionalities/Navigation';
+// import Matches from './orders-functionalities/Matches';
+
+
+import loadable from "@loadable/component";
+import Loading from "./Loading";
+
+
+const MakeBuy = loadable(() => import("./orders-functionalities/MakeBuy"),{
+  fallback: <Loading/>
+});
+const MakeSell = loadable(() => import("./orders-functionalities/MakeSell"),{
+  fallback: <Loading/>
+});
+const Orders = loadable(() => import("./orders-functionalities/Orders"),{
+  fallback: <Loading/>
+});
+const MyOrders = loadable(() => import("./orders-functionalities/MyOrders"),{
+  fallback: <Loading/>
+});
+const Navigation = loadable(() => import("./orders-functionalities/Navigation"),{
+  fallback: <Loading/>
+});
+const Matches = loadable(() => import("./orders-functionalities/Matches"),{
+  fallback: <Loading/>
+});
+
+
+
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 
-class Databases extends Component {
+class Databases extends React.Component {
   render() {
     return (
         <div>

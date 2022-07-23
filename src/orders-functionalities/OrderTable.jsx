@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+// import React from 'react';
 
-class OrderTable extends Component {
+class OrderTable extends React.Component {
 
   constructor(props){
     super(props)
@@ -60,7 +60,7 @@ class OrderTable extends Component {
 }
 
 
-class OrderRow extends Component {
+class OrderRow extends React.Component {
   constructor(props){
     super(props)
     // this.state = {

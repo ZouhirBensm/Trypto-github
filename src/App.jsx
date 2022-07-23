@@ -1,11 +1,11 @@
-import React, {lazy, Suspense} from 'react';
-import ReactDOM from 'react-dom'
+// import React, {lazy, Suspense} from 'react';
+// import ReactDOM from 'react-dom'
 import PricesComponent from './home-functionalities/PricesComponent.jsx';
 
 
 // let PricesComponent = lazy(()=>{ return import('./home-functionalities/PricesComponent.jsx')})
 
-class Home extends React.Component {
+class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
@@ -78,11 +78,11 @@ class Home extends React.Component {
   }
 }
 
-const element = <Home />;
+const element = <App />;
 
 
 ReactDOM.render(element, document.getElementById('react-div'));
 
 
-export default Home
+export default App
 

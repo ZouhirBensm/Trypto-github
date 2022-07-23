@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+// import React from 'react';
 import './styles/SearchEngine.css'
 
 
-class SearchEngine extends Component {
+class SearchEngine extends React.Component {
   constructor() {
     super();
     this.state = {

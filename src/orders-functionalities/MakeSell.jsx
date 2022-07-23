@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+// import React from 'react';
 import './styles/Make.css'
 
 
-class MakeSell extends Component {
+class MakeSell extends React.Component {
   constructor(){
     super()
     this.state = {
