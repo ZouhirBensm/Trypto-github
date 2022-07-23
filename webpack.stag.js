@@ -5,6 +5,7 @@ const {EnvironmentPlugin} = require("webpack")
 
 
 // let config_array = []
+//deploy
 
 let stage_config = merge(config, {
   mode: 'production',
