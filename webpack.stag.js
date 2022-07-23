@@ -6,7 +6,7 @@ const {EnvironmentPlugin} = require("webpack")
 
 // let config_array = []
 
-let stage_config = merge(common_element, {
+let stage_config = merge(config, {
   mode: 'production',
   plugins: [
     new EnvironmentPlugin({
