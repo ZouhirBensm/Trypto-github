@@ -1,8 +1,8 @@
 // import React from 'react';
 import './styles/Orders.css'
+import OrderTable from './OrderTable';
 import PageSelector from './PageSelector';
 import SearchEngine from './SearchEngine';
-import OrderTable from './OrderTable';
 
 class Orders extends React.Component {
   constructor(props){

@@ -1,8 +1,8 @@
 // import React from 'react';
 // import ReactDOM from 'react-dom'
 import './styles/MyOrders.css'
-import PageSelector from './PageSelector';
 import OrderTable from './OrderTable';
+import PageSelector from './PageSelector';
 // import axios from 'axios';
 
 class Matches extends React.Component {

@@ -70,8 +70,10 @@ module.exports = {
           if (error) {return next(error)}
           if(same){
               //store
+              console.log("return this shit: ", user._id)
               //Sets up the Session object with cookie created and userId
               req.session.userId = user._id
+              console.log("do we arrive here?", req.session.userId)
           //If password is wrong
           } else {
             password? notification.push("Erroneous password submission for this email"): notification.push("Please enter a password")
@@ -81,13 +83,16 @@ module.exports = {
       } else {
         email? notification.push("This email was not found in our repertoire"): null
       }
+      // return undefined
     })
-    console.log("2", notification)
+
+
+    console.log("notification:\n", notification)
 
 
 
-    console.log("what do we have??", req.session.userId)
-    if(req.session.userId) {
+    console.log("what do we have as userId??\n", req.session.userId, !!req.session.userId)
+    if(!!req.session.userId) {
       // res.json({
       //   data: ['success']
       // })
