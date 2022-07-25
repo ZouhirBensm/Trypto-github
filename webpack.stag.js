@@ -13,7 +13,12 @@ let stage_config = merge(config, {
     new EnvironmentPlugin({
       ROOT: "https://hidden-plateau-87550.herokuapp.com",
     })
-  ]
+  ],
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  }
 })
 
 

@@ -44,8 +44,8 @@ var config = {
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'public/dist'),
-    // clean: true
-  },
+    // clean: true,
+  }
 };
 
 module.exports = config

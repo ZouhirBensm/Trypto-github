@@ -57,7 +57,7 @@ class Login extends React.Component {
       return <div key={index}>{notification}</div>
     })
 
-    console.log(notifyDisplays)
+    // console.log(notifyDisplays)
     
     return (
       <div id="container-log-reg">

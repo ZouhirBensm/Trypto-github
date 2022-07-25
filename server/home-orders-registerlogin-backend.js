@@ -63,7 +63,7 @@ homeOrdersBackend_app_router.get('/databases/:what_page?', checkIfUseridWithinDB
 
 
 // Login User
-homeOrdersBackend_app_router.post('/users/login', requireReferer, StopIfAlreadyLoggedIn, RegisterLoginController.loginController)
+homeOrdersBackend_app_router.post('/users/login', requireReferer, StopIfAlreadyLoggedIn, RegisterLoginController.loginController, )
 
 
 // Register New User
@@ -75,7 +75,7 @@ homeOrdersBackend_app_router.post('/users/register', requireReferer, StopIfAlrea
 
 
 homeOrdersBackend_app_router.get('/',(req,res)=>{
-  console.log("Are we still logged in? ", req.session.userId, "\n\nDo we have any pop-up messages:: ", req.query.popup)
+  console.log("\n\nBack in get '/' \nAre we still logged in? \n", req.session.userId, "\nDo we have any pop-up messages:: \n", req.query.popup)
   var JSX_to_load = 'App';
   res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
 })

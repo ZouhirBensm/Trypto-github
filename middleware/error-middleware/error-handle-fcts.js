@@ -11,7 +11,7 @@ const errorLogger = (err, req ,res, next) => {
 }
 
 const errorResponseDispatcher = (err, req ,res, next) => {
-  console.log("error Constructor!!! ", err.constructor.name)
+  console.log("errorResponseDispatcher\n Constructor!!! ", err.constructor.name)
   switch (err.constructor.name) {
     // Used to experiment custom throw errors for mongo DB methods
     case "MongoError":
@@ -43,13 +43,13 @@ const errorResponseDispatcher = (err, req ,res, next) => {
       })
     break;
     default:
-      next(err)
+      return next(err)
       break;
   }
 }
 
 const errorResponder = (err, req ,res, next) => {
-  console.log("Arrive HERE??")
+  console.log("Arrive errorResponder??")
   console.log(ENV.environment )
   // Catches all errors, and as a consequence of responding to client, circumvents express' default error handler 
   res.header("Content-Type", "application/json")
@@ -57,7 +57,7 @@ const errorResponder = (err, req ,res, next) => {
 
   let error_sent
   ENV.environment === "developement" ? error_sent = `\n\nOn errorResponder\n\nAn Error has occured on the server please have a look! Error: ${err}`: `${errorStatus} | Sorry, our web server is Down!`
-  res.status(errorStatus).send(error_sent) 
+  return res.status(errorStatus).send(error_sent) 
   
   // Personal note: err is an object and JSON.stringify(err,null,4) is a string
 
