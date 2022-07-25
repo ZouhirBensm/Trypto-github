@@ -191,17 +191,17 @@ let chatController = (io) => {
         console.log("did it work? ", sessions)
 
 
-      // TODO
-      // Socket B Querying information
-      // Check for socket presence
-      console.log("\n\n\n\n__________\n____________upon msg event: ", connected_sockets, userBId, sessions)
-      let userBSocketConnectionId = null
-      let userBAppendedSocketsUserBId = null
+        // TODO
+        // Socket B Querying information
+        // Check for socket presence
+        console.log("\n\n\n\n__________\n____________upon msg event: ", connected_sockets, userBId, sessions)
+        let userBSocketConnectionId = null
+        let userBAppendedSocketsUserBId = null
         // user B socket present
         let isUserBSocketConnection = (function(){
           let truthy_array_checker = []
           for (const session of sessions) {
-            if(session.session.userId.toString() == userBId && !!session.session.socket.id){
+            if(session.session.userId.toString() == userBId && !!session.session.socket?.id){
               userBSocketConnectionId = session.session.socket.id
               userBAppendedSocketsUserBId = session.session.socket.appendedUserB
               // io.emit("broadcast", userSendObjectPackaged)
@@ -217,7 +217,8 @@ let chatController = (io) => {
         
         console.log("userB has a socket?: ", isUserBSocketConnection, "what is the socket id: ", userBSocketConnectionId)
         
-        
+        // Send to original sender
+        console.log("wawawa")
         io.to(sckIdA).emit('broadcast', userSendObjectPackaged);
         
         
@@ -240,15 +241,15 @@ let chatController = (io) => {
 
         // if not: do nothing
 
-      console.log("Received from client input.value", userSendObjectPackaged)
-      // io.emit("broadcast", userSendObjectPackaged)
+        console.log("Received from client input.value", userSendObjectPackaged)
+        // io.emit("broadcast", userSendObjectPackaged)
 
-    } catch (e) {
-        console.error(e);
-    } finally {
-      console.log("CLOSEEE")
-      await client.close();
-    }
+      } catch (e) {
+          console.error(e);
+      } finally {
+        console.log("CLOSEEE")
+        await client.close();
+      }
 
     })
     

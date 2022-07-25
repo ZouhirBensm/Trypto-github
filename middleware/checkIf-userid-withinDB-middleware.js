@@ -9,6 +9,8 @@ module.exports = (req,res,next)=>{
             return res.redirect('/')
         }
         res.locals.currentUserEmail = user.email;
+        res.locals.userIdB = req.query.userIdB;
+        res.locals.orderId = req.query.orderId;
         next()
     })
 }

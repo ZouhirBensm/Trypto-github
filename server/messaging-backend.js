@@ -20,9 +20,9 @@ messagingBackend_app_router.get('/', checkIfUseridWithinDBmiddleware, (req,res)=
   var JSX_to_load = 'Messaging';
   res.render('generic-boilerplate-ejs-to-render-react-components', { 
     JSX_to_load : JSX_to_load, 
-    userId: req.session.userId,
-    userIdB: req.query.userIdB,
-    orderId: req.query.orderId,
+    // userId: req.session.userId,
+    // userIdB: req.query.userIdB,
+    // orderId: req.query.orderId,
   })
 
 

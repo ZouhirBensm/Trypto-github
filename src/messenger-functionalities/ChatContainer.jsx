@@ -44,6 +44,7 @@ class ChatContainer extends React.Component {
 
 
   render() {
+    console.log("Do we have access to currentUserEmail??", currentUserEmail)
     
     return (
       <React.Fragment>

@@ -35,6 +35,7 @@ const { CustomError } = require('../custom-errors/custom-errors');
 
 const BuyCryptoOrder = require('../models/home-orders-models/BuyCryptoOrder');
 const SellCryptoOrder = require('../models/home-orders-models/SellCryptoOrder');
+const Message = require('../models/messaging-models/Message')
 
 
 
@@ -46,7 +47,7 @@ homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHome, (req
   var JSX_to_load = 'MgtUser';
   res.render('generic-boilerplate-ejs-to-render-react-components', { 
     JSX_to_load : JSX_to_load, 
-    [req.params.what_page === "profile" ? "userId": null]: req.session.userId,
+    // [req.params.what_page === "profile" ? "userId": null]: req.session.userId,
   })
 })
 
@@ -57,7 +58,7 @@ homeOrdersBackend_app_router.get('/databases/:what_page?', checkIfUseridWithinDB
   var JSX_to_load = 'OrdersApp';
   res.render('generic-boilerplate-ejs-to-render-react-components', { 
     JSX_to_load : JSX_to_load , 
-    [req.params.what_page === "AllMyOrders" ? "userId": null]: req.session.userId,
+    // [req.params.what_page === "AllMyOrders" ? "userId": null]: req.session.userId,
   })
 })
 
@@ -116,10 +117,23 @@ homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', async (req,
     if(error){return next(error)}
     console.log("sells deleted response", response)
   })
-  // await PostsAmountsTimeframe.deleteOne({userid: req.session.userId}, (error, response)=>{
-  //   if(error){return next(error)}
-  //   console.log("posts amounts deleted response", response)
-  // })
+
+  await Message.deleteMany({
+    protagonists: {
+      $elemMatch: {"$in": [req.session.userId]}
+    }
+  }, (error, response)=>{
+    if(error){return next(error)}
+    console.log("messages deleted response", response)
+  })
+
+  await SellCryptoOrder.deleteMany({userid: req.session.userId}, (error, response)=>{
+    if(error){return next(error)}
+    console.log("sells deleted response", response)
+  })
+
+
+
   await User.findByIdAndDelete(req.session.userId, (error, user) =>{ 
     if(error){return next(error)}
     console.log("user deleted", user)
