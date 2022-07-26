@@ -96,10 +96,10 @@ express_server_app_router.use(express.urlencoded({extended: true}))
 
 
 //Middleware executed for all requests
-express_server_app_router.use('*', (req,res,next)=>{
-  loggedIn = req.session.userId
-  next()
-})
+// express_server_app_router.use('*', (req,res,next)=>{
+//   loggedIn = req.session.userId
+//   next()
+// })
 
 
 
@@ -116,6 +116,7 @@ express_server_app_router.use((req, res, next) => {
   // console.log("Testing!")
   res.locals.ENV = ENV;
   res.locals.userId = req.session.userId
+  loggedIn = req.session.userId
   next()
 })
 
@@ -146,33 +147,10 @@ express_server_app_router.use(errorResponder)
 // Note: Errors thrown during the application (i.e. before express_server_app_router.use(errorLogger)) get dealt with the error function middlewares (the errorResponder always responds), and thus circumvent this express_server_app_router.use(invalidPathHandler) middleware
 
 
+// Upgrade the HTTP Express Server to a Socket IO Server
+module.exports = {express_server_app_router, sessionMiddleware}
+const server_instance = require("./ioServer")
 
-// IO
-const server_instance = createServer(express_server_app_router);
-const io = new Server(server_instance);
-
-// convert a connect middleware to a Socket.IO middleware
-const wrap = function(middleware) { 
-  // console.log("socket.request: ", socket.request); 
-  return (socket, next) => {middleware(socket.request, {}, next)}
-};
-
-io.use(wrap(sessionMiddleware));
-
-// only allow authenticated users
-io.use((socket, next) => {
-  // console.log("SESSSSSSSSS: ", socket.request.session);
-  const session = socket.request.session;
-  // console.log(session.authenticated)
-  if (session && session.userId) {
-    // console.log("a223")
-    next();
-  } else {
-    next(new Error("unauthorized"));
-  }
-});
-
-messengerControllers.chatController(io)
 
 // .listen() Returns a Express.JS HTTP web server instance when express_server_app_router.listen()
 // listening on the server_instance also listens on the express_server_app_router?
