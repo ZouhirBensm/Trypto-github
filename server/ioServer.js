@@ -1,7 +1,7 @@
 
 const { createServer } = require("http");
 const { Server } = require("socket.io")
-const messengerControllers = require("../controllers/messenger-controllers/messenger-controllers")
+const chatControllers = require("../controllers/messenger-controllers/messenger-controllers")
 const {express_server_app_router, sessionMiddleware} = require("./server")
 
 // console.log(express_server_app_router)
@@ -32,6 +32,6 @@ io.use((socket, next) => {
   }
 });
 
-messengerControllers.chatControllers(io)
+chatControllers(io)
 
 module.exports = server_instance
