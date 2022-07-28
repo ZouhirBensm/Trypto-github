@@ -89,9 +89,10 @@ class Register extends React.Component {
       })
     })
    
-    // console.log(response)
+    console.log(response)
     let data = await response.json()
     // console.log(data)
+
 
     switch (response.status) {
       case 200:

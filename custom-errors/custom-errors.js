@@ -17,10 +17,21 @@ class CustomError extends Error {
 
 // Used to test errorResponseDispatcher when the error is thrown at register-login-controllers.js in registerController function, when User.create errors' out
 class MongoError extends CustomError {
-  constructor(){
+  constructor(message, code){
     super()
     this.type = this.constructor.name
-    this.message = ['msg1', 'msg2', 'msg3']
+    this.message = message
+    this.usr_message = message
+    // Override usr_message
+    switch (code) {
+      // Code for duplicate entries
+      case 11000:
+        this.usr_message = ["This user already exists in our repertoire, please input another email."]
+        break;
+    
+      default:
+        break;
+    }
   }
 }
 

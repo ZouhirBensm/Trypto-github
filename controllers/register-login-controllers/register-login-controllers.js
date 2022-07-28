@@ -38,8 +38,9 @@ module.exports = {
   registerController: async (req,res, next) => {
     await User.create(req.body,(error,user)=>{
       if(error){
-        // error = new MongoError()
-        console.log("\n\n___lgging the error NAME:___ ", error.type, error.message)
+        // console.log("\n\nOriginal MongoDB error ", error)
+        error = new MongoError(error.message, error.code)
+        // console.log("\nOverrided  error ", error)
         // Needs Testing
         return next(error)
       }
@@ -49,6 +50,8 @@ module.exports = {
         }
       })
     })
+
+    
   },
   loginController: async (req,res,next)=>{
   
@@ -61,20 +64,18 @@ module.exports = {
     email? null: notification.push("Please enter an e-mail")
     
     //Try to find one user with the inputed email
-    await User.findOne({email: email}, async (error,user)=>{
-      // console.log(email,user)
-      if (error) {return next(error)}
+    var query = User.findOne({email: email})
+    await query.exec(async function(error,user){
+      if (error) {return notification= [`Error occured in findOne`]}
       if(user){
+      //Compare inputed password with database user.password
+      try { req.session.userId = await comparePaswords(password, user) } catch(err) {console.log("err is\n\n", err.message); notification.push(err.message)}
 
-        //Compare inputed password with database user.password
-        try { req.session.userId = await comparePaswords(password, user) } catch(err) {console.log("err is\n\n", err.message); notification.push(err.message)}
-
-        // If user email does not exist in database
-        } else {
-          email? notification.push("This email was not found in our repertoire"): null
-        }
-      // return undefined
-    })
+      // If user email does not exist in database
+      } else {
+        email? notification.push("This email was not found in our repertoire"): null
+      }
+    });
 
     function comparePaswords(password, user){
       return new Promise(function(resolve, reject) {
@@ -93,7 +94,6 @@ module.exports = {
         )
       })
     }
-
 
     console.log("notification 2:\n", notification)
 
@@ -114,7 +114,7 @@ module.exports = {
       let err = new LoggingInError(notification)
       // err.message = notification
       // console.log(err)
-      next(err)
+      return next(err)
 
       // Example of Appending the notification array to the res object, in order to pass to next error middlware errorLogger
       // const error = new LoggingInError()
@@ -123,6 +123,8 @@ module.exports = {
       // next(error)
 
     }
+
+    // console.log("END TEST!!!!")
   },
 
   invalidPathHandler: (req, res, next) => {
