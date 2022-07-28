@@ -66,8 +66,15 @@ class OrderRow extends React.Component {
     // this.state = {
     // }
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.deal = this.deal.bind(this)
+    this.userId = document.getElementById("userId").innerHTML
   }
 
+  deal(order, e){
+    e.preventDefault()
+    // console.log(`/messaging?orderId=${order._id}&userIdB=${order.userid._id}`)
+    window.location.href = `/messaging?orderId=${order._id}&userIdB=${order.userid._id}`
+  }
 
   async handleSubmit(e){
     e.preventDefault()
@@ -158,10 +165,11 @@ class OrderRow extends React.Component {
     )
 
     if (this.props.buttons == "normal") {
-
+      // console.log("\nloggedIn User:\n", this.userId, "\nuser id of the order\n", order.userid._id, "\nequality:\n", this.userId === order.userid._id)
 
       display_normal.push(<td id="deal1" key={`td-deal-key-order:${order._id}`}>
-        <button><a href={`/messaging?orderId=${order._id}&userIdB=${order.userid._id}`}>Deal</a></button>
+        <button disabled={this.userId === order.userid._id} onClick={(e) => this.deal(order, e)}>Deal</button>
+        {/* <a href={`/messaging?orderId=${order._id}&userIdB=${order.userid._id}`}>Deal</a> */}
       </td>)
     }
   
