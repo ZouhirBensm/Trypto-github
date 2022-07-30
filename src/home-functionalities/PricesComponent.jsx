@@ -11,6 +11,7 @@ class PricesComponent extends React.Component {
       country: 'Canada'
     }
     this.handleClick = this.handleClick.bind(this)
+    this.popup = document.getElementById("popup").innerHTML
   }
 
   handleClick(e){
@@ -23,6 +24,8 @@ class PricesComponent extends React.Component {
   }
 
   render() {
+    console.log("popup:", this.popup)
+
     let i=0
     const pricesRows = this.props.prices.map(price => {
         i++
@@ -53,6 +56,9 @@ class PricesComponent extends React.Component {
         {pricesRows}
       </tbody>
     </table>
+    {this.popup?
+    <p>{this.popup}</p>
+    :null}
     </div>
 
     );

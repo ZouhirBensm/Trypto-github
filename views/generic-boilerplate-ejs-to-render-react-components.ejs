@@ -3,5 +3,6 @@
 <div id="currentUserEmail" style="display: none;"><%if(locals.currentUserEmail){%><%=currentUserEmail%><%}%></div>
 <div id="userIdB" style="display: none;"><%if(locals.userIdB){%><%=userIdB%><%}%></div>
 <div id="orderId" style="display: none;"><%if(locals.orderId){%><%=orderId%><%}%></div>
+<div id="popup" style="display: none;"><%if(locals.popup){%><%=popup%><%}%></div>
 <!-- Capable from server send data to determine what React base component to render: Either App.js or Databases.js -->
 <script type="text/javascript" src="../dist/<%= JSX_to_load %>.js"></script>

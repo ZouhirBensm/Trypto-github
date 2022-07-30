@@ -2,6 +2,7 @@
 const BuyCryptoOrder = require('../../models/home-orders-models/BuyCryptoOrder')
 const SellCryptoOrder = require('../../models/home-orders-models/SellCryptoOrder')
 const ENV = require('../../config/base')
+const httpStatus = require("http-status-codes")
 const {filterObject, buyMatchesFinder, sellMatchesFinder} = require('../libs/match-maker-functions')
 
 module.exports = {
@@ -209,6 +210,9 @@ module.exports = {
       })
     }
   },
+
+
+
   registerOrder:  (req,res,next)=>{
     console.log("register order: req.params.type_order: \n", req.params.type_order)
     // console.log(req.session)
@@ -246,14 +250,16 @@ module.exports = {
         userid: req.session.userId,
         expireAt: req.body.expireAt
       }, (error, typecryptoorder) => {
+        // error = new Error("create failed")
+        // return next(error)
         if(error){return next(error)}
-        res.json({
+        res.status(httpStatus.StatusCodes.OK).json({
           saved: "success"
         })
       })
     } else {
-      res.json({
-        saved: "date inputed cannot be before present"
+      res.status(httpStatus.StatusCodes.BAD_REQUEST).json({
+        saved: "No"
       })
     }
   }

@@ -6,19 +6,18 @@ class MakeBuy extends React.Component {
   constructor(){
     super()
     this.state = {
-      // iterator: 0,
-      // message: undefined,
+      popup_state: null,
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-  handleSubmit(e){
+  async handleSubmit(e){
     e.preventDefault()
     // console.log(e.target.parentNode)
     // console.log(document.getElementById("form_id").elements);
     // console.log(document.getElementById("form_id").elements[6].value)
 
-    fetch(`${process.env.ROOT}/buyorders/save`, {
+    let response = await fetch(`${process.env.ROOT}/buyorders/save`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -34,14 +33,36 @@ class MakeBuy extends React.Component {
         // iterator: document.getElementById("form_id").elements[7].value,
       })
     })
-    .then(response => response.json())
-    .then(result => {
-      // this.setState({
-      //   iterator: result.iterator,
-      //   message: result.message,
-      // })
-      console.log(result)
-    })
+
+    console.log("server response status:", response.status)
+
+    switch (response.status) {
+      case 200:
+        console.log(200)
+        this.setState({
+          popup_state: "You have successfully made an order"
+        })
+        break;
+      case 400:
+        console.log(400)
+        this.setState({
+          popup_state: "Expiry time and date field cannot be before present, please modify, and retry submission."
+        })
+        break;
+      case 500:
+        console.log(500)
+        this.setState({
+          popup_state: "An issue has occured, please try again later. A website maintainer is looking into the mater."
+        })
+        break;
+    
+      default:
+        break;
+    }
+
+    let json_SRV = await response.json()
+    console.log("server response json:", json_SRV)
+
   }
 
   handleClick(e){
@@ -64,36 +85,43 @@ class MakeBuy extends React.Component {
   render() {
     // console.log("(1) (render) iterator", this.state.iterator, this.state.message)
     return (
-      <form className="form" id="form_id">
-        <h3>Making a buy order...</h3>
-        <label htmlFor="crypto-select">Crypto</label>
-        <select name="crypto" id="crypto-select" required>
-            <option value="Bitcoin" defaultValue>Bitcoin</option>
-            <option value="Ethereum">Ethereum</option>
-            <option value="Litecoin">Litecoin</option>
-            <option value="Bitcoin Cash">Bitcoin Cash</option>
-            <option value="Zcash">Zcash</option>
-            <option value="Monero">Monero</option>
-        </select> 
-        <label htmlFor="amount-select">Amount (CAD)</label>
-        <input type="number" id="amount-select" name="amount" required defaultValue='100'/>  
-        <label htmlFor="price-select">Price/Unit</label>
-        <input type="number" id="price-select" name="price" step="0.01" required defaultValue='50000'/> 
-        <button onClick={this.handleClick}>Market</button>
-        <label htmlFor="expirydate-select">Order Expiry Date</label>
-        <input id="expirydate-select" type="date" name="expirydate" required defaultValue='2022-09-15'/>
-        <label htmlFor="expirytime-select">Order Expiry Time</label>
-        <input id="expirytime-select" type="time" name="expirytime" required defaultValue='08:00'/>
-        <label htmlFor="payment-select">Payment</label>
-        <select name="payment" id="payment-select" required>
-            <option value="Paypal" defaultValue>Paypal</option>
-            <option value="Interac">Interac</option>
-            <option value="Cash">Cash</option>
-        </select> 
-        {/* <input type="hidden" name="iterator" value={this.state.iterator}/> */}
-        <button type="submit" onClick={(e) => this.handleSubmit(e)}>Submit</button>
+      <div className="make-container">
+        <form className="form" id="form_id">
+          <h3>Making a buy order...</h3>
+          <label htmlFor="crypto-select">Crypto</label>
+          <select name="crypto" id="crypto-select" required>
+              <option value="Bitcoin" defaultValue>Bitcoin</option>
+              <option value="Ethereum">Ethereum</option>
+              <option value="Litecoin">Litecoin</option>
+              <option value="Bitcoin Cash">Bitcoin Cash</option>
+              <option value="Zcash">Zcash</option>
+              <option value="Monero">Monero</option>
+          </select> 
+          <label htmlFor="amount-select">Amount (CAD)</label>
+          <input type="number" id="amount-select" name="amount" required defaultValue='100'/>  
+          <label htmlFor="price-select">Price/Unit</label>
+          <input type="number" id="price-select" name="price" step="0.01" required defaultValue='50000'/> 
+          <button onClick={this.handleClick}>Market</button>
+          <label htmlFor="expirydate-select">Order Expiry Date</label>
+          <input id="expirydate-select" type="date" name="expirydate" required defaultValue='2022-09-15'/>
+          <label htmlFor="expirytime-select">Order Expiry Time</label>
+          <input id="expirytime-select" type="time" name="expirytime" required defaultValue='08:00'/>
+          <label htmlFor="payment-select">Payment</label>
+          <select name="payment" id="payment-select" required>
+              <option value="Paypal" defaultValue>Paypal</option>
+              <option value="Interac">Interac</option>
+              <option value="Cash">Cash</option>
+          </select> 
+          {/* <input type="hidden" name="iterator" value={this.state.iterator}/> */}
+          <button type="submit" onClick={(e) => this.handleSubmit(e)}>Submit</button>
+        </form>
 
-      </form>
+        {this.state.popup_state?
+        <p>{this.state.popup_state}</p>
+        :null}
+        
+      </div>
+
     );
   }
 }

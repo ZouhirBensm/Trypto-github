@@ -10,6 +10,18 @@ class Login extends React.Component {
     }
     this.functionneed = this.functionneed.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.popup = null
+    this.functionneed()
+  }
+  
+  functionneed(){
+    const params = new Proxy(new URLSearchParams(window.location.search), {
+      get: (searchParams, prop) => searchParams.get(prop),
+    });
+    // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
+    let value = params.popup; // "some_value"
+    console.log(value)
+    this.popup = value
   }
 
   handleSubmit(e){
@@ -37,7 +49,7 @@ class Login extends React.Component {
     .then(data => {
       console.log(data)
       if(data.server){
-        window.location.href = `${process.env.ROOT}/`;
+        window.location.href = `${process.env.ROOT}/?popup=You have successfully logged in!`;
       } else if(data.error){
         this.setState({
           notification: data.error.message,
@@ -49,10 +61,9 @@ class Login extends React.Component {
     })
   }
 
-  functionneed(){}
-
   render() {
 
+    console.log(this.popup)
     const notifyDisplays = this.state.notification.map((notification, index) => {
       return <div key={index}>{notification}</div>
     })
@@ -71,6 +82,11 @@ class Login extends React.Component {
         </form>
         {/* display the notification from the server here! */}
         { notifyDisplays }
+
+        {this.popup?
+        <p>{this.popup}</p>
+        :null}
+
       </div>
     );
   }
