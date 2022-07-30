@@ -13,12 +13,10 @@ import loadable from "@loadable/component";
 import Loading from "./Loading";
 
 
-const MakeBuy = loadable(() => import("./orders-functionalities/MakeBuy"),{
+const Make = loadable(() => import("./orders-functionalities/Make"),{
   fallback: <Loading/>
 });
-const MakeSell = loadable(() => import("./orders-functionalities/MakeSell"),{
-  fallback: <Loading/>
-});
+
 const Orders = loadable(() => import("./orders-functionalities/Orders"),{
   fallback: <Loading/>
 });
@@ -43,11 +41,12 @@ class Databases extends React.Component {
         <BrowserRouter> 
           <Switch> 
             <Route exact path="/databases/" component={Navigation} />
-            <Route exact path="/databases/makebuy" component={MakeBuy} />
-            <Route exact path="/databases/makesell" component={MakeSell} />
+            {/* <Route exact path="/databases/makebuy" component={MakeBuy} /> */}
+            {/* <Route exact path="/databases/makesell" component={MakeSell} /> */}
             <Route exact path="/databases/AllMyOrders" component={MyOrders} />
             <Route exact path="/databases/matches" component={Matches} />
             <Route exact path="/databases/:order_type" component={Orders} />
+            <Route exact path="/make/:type" component={Make} />
           </Switch>     
         </BrowserRouter> 
         </div>

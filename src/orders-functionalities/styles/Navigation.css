@@ -26,7 +26,7 @@ div.see {
 
 div.make > a,
 div.see > a {
-  background-color: darkblue;
+  background-color: orangered;
   color: white;
   border-radius: 10px;
   padding: 10px;
@@ -57,7 +57,8 @@ div.default > button{
   border: 3.5px solid white;
   background-color: transparent;
   color: white;
-  background-color: darkblue;
+  background-color: red;
   border-radius: 10px;
   padding: 10px;
+  font-family: 'Roboto', sans-serif;
 }

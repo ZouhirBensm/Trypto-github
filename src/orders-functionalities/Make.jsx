@@ -2,35 +2,62 @@
 import './styles/Make.css'
 
 
-class MakeBuy extends React.Component {
-  constructor(){
-    super()
+class Make extends React.Component {
+  constructor(props){
+    super(props)
     this.state = {
       popup_state: null,
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+
+    console.log("constructor", this.props.match.params.type)
   }
+
+
   async handleSubmit(e){
     e.preventDefault()
     // console.log(e.target.parentNode)
     // console.log(document.getElementById("form_id").elements);
     // console.log(document.getElementById("form_id").elements[6].value)
 
-    let response = await fetch(`${process.env.ROOT}/buyorders/save`, {
+    let [url_param_order_type_to_save, amount_s] = []
+
+    this.props.match.params.type === "makebuy"? [url_param_order_type_to_save, amount_s] = ["buyorders", ["amount"]]:
+    this.props.match.params.type === "makesell"? [url_param_order_type_to_save, amount_s] = ["sellorders", ["minamount", "maxamount"]]:
+    null
+
+    let amount_fields_obj = {}
+    for (const field of amount_s) {
+      // console.log("field", field)
+      amount_fields_obj[field] = document.getElementById("form_id").elements[field].value
+    }
+
+    // console.log(amount_fields_obj)
+
+    // console.log({
+    //   crypto: document.getElementById("form_id").elements["crypto"].value,
+    //   ...amount_fields_obj,
+    //   price: document.getElementById("form_id").elements["price"].value,
+    //   expirydate: document.getElementById("form_id").elements["expirydate"].value,
+    //   expirytime: document.getElementById("form_id").elements["expirytime"].value,
+    //   payment: document.getElementById("form_id").elements["payment"].value,
+    //   // iterator: document.getElementById("form_id").elements[7].value,
+    // }, url_param_order_type_to_save)
+
+    let response = await fetch(`${process.env.ROOT}/${url_param_order_type_to_save}/save`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        crypto: document.getElementById("form_id").elements[0].value,
-        amount: document.getElementById("form_id").elements[1].value,
-        price: document.getElementById("form_id").elements[2].value,
-        expirydate: document.getElementById("form_id").elements[4].value,
-        expirytime: document.getElementById("form_id").elements[5].value,
-        payment: document.getElementById("form_id").elements[6].value,
-        // iterator: document.getElementById("form_id").elements[7].value,
+        crypto: document.getElementById("form_id").elements["crypto"].value,
+        ...amount_fields_obj,
+        price: document.getElementById("form_id").elements["price"].value,
+        expirydate: document.getElementById("form_id").elements["expirydate"].value,
+        expirytime: document.getElementById("form_id").elements["expirytime"].value,
+        payment: document.getElementById("form_id").elements["payment"].value,
       })
     })
 
@@ -83,11 +110,31 @@ class MakeBuy extends React.Component {
     .catch(e => alert(`Their seems to be an error. Enter Price manually. ${e}`))
   }
   render() {
-    // console.log("(1) (render) iterator", this.state.iterator, this.state.message)
+    
+    let amount_field
+    if (this.props.match.params.type == "makebuy") {
+      amount_field = 
+      <React.Fragment>
+        <label htmlFor="amount-select">Amount (CAD)</label>
+        <input type="number" id="amount-select" name="amount" required defaultValue='100'/> 
+      </React.Fragment>
+    }
+
+    if (this.props.match.params.type == "makesell") {
+      amount_field = 
+      <React.Fragment>
+        <label htmlFor="min-amount-select">Min Amount (CAD)</label>
+        <input type="number" id="min-amount-select" name="minamount" required defaultValue='500'/>  
+
+        <label htmlFor="max-amount-select">Max Amount (CAD)</label>
+        <input type="number" id="max-amount-select" name="maxamount" required defaultValue='1000'/> 
+      </React.Fragment>
+    }
+
     return (
       <div className="make-container">
         <form className="form" id="form_id">
-          <h3>Making a buy order...</h3>
+          <h3>Making a {this.props.match.params.type} order...</h3>
           <label htmlFor="crypto-select">Crypto</label>
           <select name="crypto" id="crypto-select" required>
               <option value="Bitcoin" defaultValue>Bitcoin</option>
@@ -97,8 +144,11 @@ class MakeBuy extends React.Component {
               <option value="Zcash">Zcash</option>
               <option value="Monero">Monero</option>
           </select> 
-          <label htmlFor="amount-select">Amount (CAD)</label>
-          <input type="number" id="amount-select" name="amount" required defaultValue='100'/>  
+
+
+          {amount_field}
+
+
           <label htmlFor="price-select">Price/Unit</label>
           <input type="number" id="price-select" name="price" step="0.01" required defaultValue='50000'/> 
           <button onClick={this.handleClick}>Market</button>
@@ -126,4 +176,4 @@ class MakeBuy extends React.Component {
   }
 }
 
-export default MakeBuy
+export default Make

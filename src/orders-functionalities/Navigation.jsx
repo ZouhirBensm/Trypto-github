@@ -31,8 +31,8 @@ class Navigation extends React.Component {
       case "Make":
         return (
           <div className="make">
-            <a href="/databases/makebuy">Make a Buy Order</a>
-            <a href="/databases/makesell">Make a Sell Order</a>
+            <a href="/make/makebuy">Make a Buy Order</a>
+            <a href="/make/makesell">Make a Sell Order</a>
           </div>
         )
       case "See":
