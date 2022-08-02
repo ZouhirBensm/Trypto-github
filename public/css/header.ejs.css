@@ -19,6 +19,7 @@ ul.iflog {
   align-items: center;
   height: fit-content;
   z-index: 1;
+  color: red;
   /* Temporary measure */
   /* display: none; */
 }
