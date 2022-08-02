@@ -84,15 +84,15 @@ function messaging_evt(socket, io, userAId, sckIdA, userBId){
         for (const session of sessions) {
           // Check for user B in sessions and whether has a socket connection
           console.log("debug: ", session.session)
-          if(session.session.userId?.toString() == userBId && !!session?.session.socket?.id){
-            // User's B socket ID found 
-            userBSocketConnectionId = session.session.socket.id
-            userB_is_SetupWithID = session.session.socket.appendedUserB
-            truthy_array_checker.push(true)
-            break
-          } else {
-            truthy_array_checker.push(false)
-          }
+          // if(session.session.userId?.toString() == userBId && !!session?.session.socket?.id){
+          //   // User's B socket ID found 
+          //   userBSocketConnectionId = session.session.socket.id
+          //   userB_is_SetupWithID = session.session.socket.appendedUserB
+          //   truthy_array_checker.push(true)
+          //   break
+          // } else {
+          //   truthy_array_checker.push(false)
+          // }
         }
         // console.log("truthy_array_checker: ", truthy_array_checker)
         return !(truthy_array_checker.every(bool => bool === false))
