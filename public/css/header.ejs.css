@@ -47,13 +47,13 @@ ul.iflog > li{
   margin: 0 auto;
 }
 
-li > a:link:hover {
+li a:link:hover {
   color: white;
 }
-li > a:visited {
+li a:visited {
   color: red;
 }
-li > a:active {
+li a:active {
   color: lightblue;
 }
 
