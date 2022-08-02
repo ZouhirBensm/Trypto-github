@@ -49,6 +49,7 @@ ul.iflog > li{
 }
 a {
   text-decoration: none;
+  color: red;
 }
 
 li a:link:hover {
