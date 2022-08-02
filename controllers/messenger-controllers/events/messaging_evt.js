@@ -84,7 +84,7 @@ function messaging_evt(socket, io, userAId, sckIdA, userBId){
         for (const session of sessions) {
           // Check for user B in sessions and whether has a socket connection
           console.log("debug: ", session.session)
-          if(session.session.userId.toString() == userBId && !!session?.session?.socket?.id){
+          if(session.session.userId?.toString() == userBId && !!session?.session.socket?.id){
             // User's B socket ID found 
             userBSocketConnectionId = session.session.socket.id
             userB_is_SetupWithID = session.session.socket.appendedUserB
