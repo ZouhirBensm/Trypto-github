@@ -51,7 +51,7 @@ li > a:link:hover {
   color: white;
 }
 li > a:visited {
-  color: white;
+  color: red;
 }
 li > a:active {
   color: lightblue;
