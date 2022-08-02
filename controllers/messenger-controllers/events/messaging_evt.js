@@ -86,7 +86,7 @@ function messaging_evt(socket, io, userAId, sckIdA, userBId){
           console.log("debug: ", session.session)
           // session.session.userId?.toString() == userBId
           // !!session?.session.socket?.id
-          if(session?.session?.userId?.toString() == userBId && !!session?.session?.socket?.id){
+          if(session.session.userId?.toString() == userBId && !!session.session.socket?.id){
             // User's B socket ID found 
             userBSocketConnectionId = session.session.socket.id
             userB_is_SetupWithID = session.session.socket.appendedUserB
