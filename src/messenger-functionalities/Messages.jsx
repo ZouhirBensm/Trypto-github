@@ -2,16 +2,20 @@
 // import React, {Component} from 'react';
 // import ReactDOM from 'react-dom'
 
-// TODO Will require to change directory to something more generic because used in messages page, and orders page
+// TODO #82 Have a way to keep track of unread messages, and to display that number as a red notification on the messages link on the nav bar and messages list icons /Users/Zouhir/Documents/MERN/BlockchainMERN/src/messenger-functionalities/Messages.jsx
+
+
+// TODO #83 Will require to change directory to something more generic because used in messages page, and orders page
 import PageSelector from '../orders-functionalities/PageSelector';
+import MessageTable from '../messenger-functionalities/MessageTable';
 
 class Messages extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      messages: [],
+      convos: [],
       page: 1,
-      limit: 3, //Limit per page defined here!
+      limit: 2, //Limit per page defined here!
       nextPage: 2,
       previousPage: undefined,
       on_off_limit_next: false,
@@ -45,32 +49,31 @@ class Messages extends React.Component {
 
     console.log("serverOBJ: ", serverOBJ)
 
-    // this.setState({
-    //   orders: serverOBJ.srv_.ORDERS,
-    //   nextPage: serverOBJ.srv_.next,
-    //   previousPage: serverOBJ.srv_.previous,
-    //   number_of_pages: serverOBJ.srv_.number_of_pages.number
-    // }, () => {
-    //   if(this.state.nextPage==undefined){
-    //     this.setState({
-    //       on_off_limit_next: true
-    //     })
-    //   } else {
-    //     this.setState({
-    //       on_off_limit_next: false
-    //     })
-    //   }
-    //   if(this.state.previousPage==undefined){
-    //     this.setState({
-    //       on_off_limit_previous: true
-    //     })
-    //   } else {
-    //     this.setState({
-    //       on_off_limit_previous: false
-    //     })
-    //   }
-
-    // })
+    this.setState({
+      convos: serverOBJ.srv_.CONVOS,
+      nextPage: serverOBJ.srv_.next,
+      previousPage: serverOBJ.srv_.previous,
+      number_of_pages: serverOBJ.srv_.number_of_pages.number
+    }, () => {
+      if(this.state.nextPage==undefined){
+        this.setState({
+          on_off_limit_next: true
+        })
+      } else {
+        this.setState({
+          on_off_limit_next: false
+        })
+      }
+      if(this.state.previousPage==undefined){
+        this.setState({
+          on_off_limit_previous: true
+        })
+      } else {
+        this.setState({
+          on_off_limit_previous: false
+        })
+      }
+    })
   }
 
 
@@ -80,17 +83,17 @@ class Messages extends React.Component {
   }
 
   render() {
-    console.log("Here messages!: ", this.state.messages)
+    console.log("Here convos!: ", this.state.convos)
     
 
     return (
       <React.Fragment>
         <h2>Messages Component</h2>
-        {/* <OrderTable 
-        buttons='normal' 
-        order_type={this.props.match.params.order_type} 
-        orders={this.state.orders}
-        /> */}
+        <MessageTable 
+        // buttons='normal' 
+        // order_type={this.props.match.params.order_type} 
+        convos={this.state.convos}
+        />
         <PageSelector 
         number_of_pages={this.state.number_of_pages} 
         page={this.state.page} 

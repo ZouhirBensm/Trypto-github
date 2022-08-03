@@ -2,7 +2,7 @@
 // import React, {Component} from 'react';
 // import ReactDOM from 'react-dom'
 
-// TODO lazy loading will be required after
+// TODO #82 Lazy loading syntax
 import ChatContainer from './messenger-functionalities/ChatContainer';
 import Messages from './messenger-functionalities/Messages';
 

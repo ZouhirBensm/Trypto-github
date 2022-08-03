@@ -45,8 +45,6 @@ let chatControllers = (io) => {
     try {
       await mongodbClient.connect();
 
-
-      // might not need the let TODO
       let sessionCollection = mongodbClient.db(ENV.database_name).collection("sessions")
       all_sessions = sessionCollection.find()
       sessions = await all_sessions.toArray()
@@ -113,7 +111,6 @@ let chatControllers = (io) => {
           chatUserEmail: msg.sender.email,
           datetime: msg.postedDate
         }
-        // TODO
         socket.emit("broadcast", format_for_UI_object)
       });
     } else {

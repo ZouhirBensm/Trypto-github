@@ -35,7 +35,6 @@ class MongoError extends CustomError {
   }
 }
 
-// TODO Setup validatee as an enum: Email, Password, ...
 class ValidationError extends CustomError {
   constructor(notification, validatee){
     super()

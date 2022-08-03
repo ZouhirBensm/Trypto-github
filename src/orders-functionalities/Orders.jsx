@@ -3,7 +3,7 @@ import './styles/Orders.css'
 import OrderTable from './OrderTable';
 import PageSelector from './PageSelector';
 import SearchEngine from './SearchEngine';
-// TODO Think of a way to merge Orders, with MyOrders instead of having 2 files
+// TODO #86 Think of a way to merge Orders, with MyOrders instead of having 2 files
 
 class Orders extends React.Component {
   constructor(props){

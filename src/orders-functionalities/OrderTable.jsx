@@ -1,5 +1,6 @@
 // import React from 'react';
 
+// TODO #87 Add pop ups when user updates, deletes an order
 class OrderTable extends React.Component {
 
   constructor(props){
@@ -24,12 +25,13 @@ class OrderTable extends React.Component {
     // console.log("Parent toogled id ", this.state.orderID_toToggle )
     // console.log("buttons ", this.state.buttons )
 
-    const ordersRow = this.props.orders.map((order) => {
+    const ordersRow = this.props.orders.map((order, i) => {
       return <OrderRow 
       handleClick={this.props.handleClick} 
       buttons={order._id === this.state.orderID_toToggle? this.state.buttons: this.props.buttons} 
       order_type={this.props.order_type} 
       key={order._id} 
+      keyy={i}
       order={order}
       handleToogleEdit={this.handleToogleEdit}
       />
@@ -131,7 +133,10 @@ class OrderRow extends React.Component {
     console.log("state buttons child", this.props.buttons)
     const order = this.props.order;
 
-    console.log(order)
+
+    console.log(`row ${this.props.keyy} executing: `, order)
+
+
     let display_normal = [];
     let display_editing = [];
     // console.log(this.props.buttons)

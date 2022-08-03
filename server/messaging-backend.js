@@ -1,4 +1,6 @@
-// TODO: think of a way to merge messaging-backend.js in /paginated-messages/:userID route WITH home-orders-controllers.js in getPaginatedOrdersController
+// TODO: # 77 Think of a way to merge messaging-backend.js in /paginated-messages/:userID route WITH home-orders-controllers.js in getPaginatedOrdersController
+
+// TODO: # 78 Fix populate queries
 
 const express = require('express')
 const ENV = require('../config/base')
@@ -74,16 +76,47 @@ messagingBackend_app_router.get('/paginated-messages/:userID', async (req,res) =
   // console.log("endIndex: ", endIndex)
   // console.log("\nFind filter: \n", filter_object)
 
+  // TODO #79 Decentralize the DB Message structure and re-write all the queries that reference it! see gitlab issue image.
 
-  // TODO better to use back end req.session.userId than path_param_userID bellow. Make sure they are equal (in middleware for e.g.)
+  // TODO #78 I only require to populate the last sender's email in the msg_stream, but in this instance all senders get their email's populated
+  
+  // TODO #80 Query by req.session.userId and check equality with path_param_userID
   let query = Message.find({protagonists: {$elemMatch: {"$in": [path_param_userID]}}})
+  .populate({
+    path: "msg_stream.sender", 
+    // match: { "_id": { $ne: path_param_userID} }, 
+    select: "email"
+  })
+
+  // Instance of multiple populate operations
+  // let query = Message.find({protagonists: {$elemMatch: {"$in": [path_param_userID]}}})
+  // .populate({
+  //   path: "msg_stream.sender", 
+  //   match: { "_id": { $ne: path_param_userID} }, 
+  //   select: "_id"
+  // })
+  // .populate({
+  //   path: "msg_stream.receiver", 
+  //   match: { "_id": { $ne: path_param_userID} }, 
+  //   select: "_id"
+  // })
+  
+  // .populate("msg_stream.receiver", "email")
+  
 
   let protagonists_communications = await query.exec()
 
-  console.log(`entries with my protagonist ${req.session.userId}:`,protagonists_communications)
+
+
+  // console.log(`entries with my protagonist ${req.session.userId}:`,protagonists_communications)
+
+  protagonists_communications.forEach(element => {
+    console.log(element.msg_stream)
+  });
 
   const number_of_pages = Math.ceil(protagonists_communications.length/limit)
 
+  // TODO #81 Refactor this variable name into something "convo"
   let messages_page_management_obj = {}
 
   messages_page_management_obj.number_of_pages = {
@@ -103,7 +136,7 @@ messagingBackend_app_router.get('/paginated-messages/:userID', async (req,res) =
     }
   }
 
-  messages_page_management_obj.MSGS = protagonists_communications.slice(startIndex, endIndex)
+  messages_page_management_obj.CONVOS = protagonists_communications.slice(startIndex, endIndex)
 
   res.json({
     srv_: messages_page_management_obj,

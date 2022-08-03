@@ -63,10 +63,7 @@ class Register extends React.Component {
           // yield the final return to end process with server error notification
           // return {yield_level: 3, number_of_max_yield_levels: 3, inProcessChecking: "POST /users/register endpoint", message: notification}
         } else {
-          // TODO
-          // post or get(query string) the message/notification then serve it from the server, have it as a pop up if you want
           this.constructor()
-
           window.location.href = `${process.env.ROOT}/users/login?popup=Congrats you have successfully registered, you can now log in!`;
 
         }
