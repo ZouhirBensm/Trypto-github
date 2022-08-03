@@ -33,6 +33,12 @@ module.exports = {
 
     // console.log("\nFind filter: \n", filter_object)
   
+    // console.log("\n\norders_user: ", path_param_userID)
+    // console.log("page: ", page)
+    // console.log("limit: ", limit)
+    // console.log("startIndex: ", startIndex)
+    // console.log("endIndex: ", endIndex)
+    // console.log("\nFind filter: \n", filter_object)
 
     let bOrders = BuyCryptoOrder.find(filter_object).populate('userid')
     let sOrders = SellCryptoOrder.find(filter_object).populate('userid')
@@ -96,6 +102,9 @@ module.exports = {
         break
     }
 
+
+    // console.log("ORDERS!!", orders)
+    
     // let descriptive = {
     //   type_orders: type_orders,
     //   page: page,
@@ -108,31 +117,31 @@ module.exports = {
   
     const number_of_pages = Math.ceil(orders.length/limit)
   
-    let orders_management_obj = {}
+    let orders_page_management_obj = {}
 
-    orders_management_obj.number_of_pages = {
+    orders_page_management_obj.number_of_pages = {
       number: number_of_pages
     }
   
     if(endIndex < orders.length){
-      orders_management_obj.next = {
+      orders_page_management_obj.next = {
         page: page + 1,
         limit: limit
       }
     }
     if(startIndex > 0){
-      orders_management_obj.previous = {
+      orders_page_management_obj.previous = {
         page: page - 1,
         limit: limit
       }
     }
     
-    orders_management_obj.ORDERS = orders.slice(startIndex, endIndex)
+    orders_page_management_obj.ORDERS = orders.slice(startIndex, endIndex)
 
-    // console.log("sliced:::::: ", orders_management_obj.ORDERS)
+    // console.log("sliced:::::: ", orders_page_management_obj.ORDERS)
   
     res.json({
-      srv_: orders_management_obj,
+      srv_: orders_page_management_obj,
     })
   
   },

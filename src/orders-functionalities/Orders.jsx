@@ -3,6 +3,7 @@ import './styles/Orders.css'
 import OrderTable from './OrderTable';
 import PageSelector from './PageSelector';
 import SearchEngine from './SearchEngine';
+// TODO Think of a way to merge Orders, with MyOrders instead of having 2 files
 
 class Orders extends React.Component {
   constructor(props){
@@ -73,12 +74,12 @@ class Orders extends React.Component {
   }
 
   async loadData(){
-    let objOrders = {}
+    // let objOrders = {}
     // console.log("LOAD: ", this.props.match.params.order_type)
     // console.log("LOAD: ", this.props.orders)
     let response = await fetch(`${process.env.ROOT}/paginated-orders/${this.props.match.params.order_type}?page=${this.state.page}&limit=${this.state.limit}${this.state.crypto ? `&crypto=${this.state.crypto}`: "" }`)
     let serverOBJ = await response.json()
-    console.log("just added: ", serverOBJ)
+    console.log("serverOBJ: ", serverOBJ)
     //console.log("Next: ", data.data.next)
     //console.log("Previous: ", data.data.previous)
 
@@ -118,16 +119,19 @@ class Orders extends React.Component {
   
   render() {
     // console.log(this.props)
-    // console.log("HERE RENDER: ", this.state.orders)
+    console.log("Here orders!: ", this.state.orders)
     // console.log("here@@@", this.props.match.params.order_type)
     return (
       <React.Fragment>
-      <SearchEngine searchTerm={this.state.searchTerm} handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>
-      <div className='wrapper'>
+        <SearchEngine 
+        searchTerm={this.state.searchTerm} handleSubmit={this.handleSubmit} handleChange={this.handleChange}
+        />
+        <div className='wrapper'>
         <OrderTable 
         buttons='normal' 
         order_type={this.props.match.params.order_type} 
-        orders={this.state.orders}/>
+        orders={this.state.orders}
+        />
         <PageSelector 
         number_of_pages={this.state.number_of_pages} 
         page={this.state.page} 
@@ -135,7 +139,8 @@ class Orders extends React.Component {
         on_off_limit_next={this.state.on_off_limit_next} 
         previousPage={this.state.previousPage} 
         nextPage={this.state.nextPage} 
-        controls={this.controls}/>
+        controls={this.controls}
+        />
       </div>
       </React.Fragment>
     );
