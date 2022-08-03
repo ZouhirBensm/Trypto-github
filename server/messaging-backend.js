@@ -30,4 +30,21 @@ messagingBackend_app_router.get('/', checkIfUseridWithinDBmiddleware, (req,res)=
 })
 
 
+// Route is called upon as request from browser as '/messaging/'
+messagingBackend_app_router.get('/messages', checkIfUseridWithinDBmiddleware, (req,res)=>{
+  
+  // res.send("HHEEELLOOO!!!")
+
+  var JSX_to_load = 'Messaging';
+  res.render('generic-boilerplate-ejs-to-render-react-components', { 
+    JSX_to_load : JSX_to_load, 
+    // userId: req.session.userId,
+    // userIdB: req.query.userIdB,
+    // orderId: req.query.orderId,
+  })
+
+
+})
+
+
 module.exports = messagingBackend_app_router
