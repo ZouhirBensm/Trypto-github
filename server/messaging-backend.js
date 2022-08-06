@@ -56,7 +56,7 @@ messagingBackend_app_router.get('/messages', checkIfUseridWithinDBmiddleware, (r
 })
 
 // :type_orders/:userID?
-messagingBackend_app_router.get('/paginated-messages/:userID', async (req,res) => { // TODO route callback is required to be in controller file and also all dependencies
+messagingBackend_app_router.get('/paginated-messages/:userID', async (req,res) => { // TODO #92 route callback is required to be in controller file and also all dependencies
 
   // let messages
 
