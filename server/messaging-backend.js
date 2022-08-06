@@ -14,8 +14,6 @@ const checkIfUseridWithinDBmiddleware = require('../middleware/checkIf-userid-wi
 const {filterObject} = require('../controllers/libs/match-maker-functions')
 
 const Message = require('../models/messaging-models/Message')
-
-const Message2 = require('../models/messaging-models/Message2')
 const Protagonist = require('../models/messaging-models/Protagonist')
 const { ObjectId } = require('mongodb')
 
@@ -83,38 +81,7 @@ messagingBackend_app_router.get('/paginated-messages/:userID', async (req,res) =
   // TODO #78 I only require to populate the last sender's email in the msg_stream, but in this instance all senders get their email's populated
   
   // TODO #80 Query by req.session.userId and check equality with path_param_userID
-  let query = Message.find({protagonists: {$elemMatch: {"$in": [path_param_userID]}}})
-  .populate({
-    path: "msg_stream.sender", 
-    // match: { "_id": { $ne: path_param_userID} }, 
-    select: "email"
-  })
-
-  // Instance of multiple populate operations
-  // let query = Message.find({protagonists: {$elemMatch: {"$in": [path_param_userID]}}})
-  // .populate({
-  //   path: "msg_stream.sender", 
-  //   match: { "_id": { $ne: path_param_userID} }, 
-  //   select: "_id"
-  // })
-  // .populate({
-  //   path: "msg_stream.receiver", 
-  //   match: { "_id": { $ne: path_param_userID} }, 
-  //   select: "_id"
-  // })
-  
-  // .populate("msg_stream.receiver", "email")
-  
-  let protagonists_communications = await query.exec()
-
-
-
-
-
-
-
-
-  let query2 = Message2.find()
+  let query2 = Message.find()
   .populate({
     // Populate protagonists
     path: "protagonists", 

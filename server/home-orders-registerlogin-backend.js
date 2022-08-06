@@ -35,6 +35,8 @@ const { CustomError } = require('../custom-errors/custom-errors');
 
 const BuyCryptoOrder = require('../models/home-orders-models/BuyCryptoOrder');
 const SellCryptoOrder = require('../models/home-orders-models/SellCryptoOrder');
+
+const Protagonist = require('../models/messaging-models/Protagonist')
 const Message = require('../models/messaging-models/Message')
 
 
@@ -120,14 +122,14 @@ homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', async (req,
     console.log("sells deleted response", response)
   })
 
-  await Message.deleteMany({
-    protagonists: {
-      $elemMatch: {"$in": [req.session.userId]}
-    }
-  }, (error, response)=>{
-    if(error){return next(error)}
-    console.log("messages deleted response", response)
-  })
+  // await Message.deleteMany({
+  //   protagonists: {
+  //     $elemMatch: {"$in": [req.session.userId]}
+  //   }
+  // }, (error, response)=>{
+  //   if(error){return next(error)}
+  //   console.log("messages deleted response", response)
+  // })
 
   await SellCryptoOrder.deleteMany({userid: req.session.userId}, (error, response)=>{
     if(error){return next(error)}

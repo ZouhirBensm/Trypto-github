@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 // Checking the connection
 const db = mongoose.connection
 db.once("open", () => {
-  console.log(`Successfully connected to MongoDB using Mongoose from Messages.js the readyState is ${db.readyState}, and the connection string is ${db._connectionString}`)
+  console.log(`Successfully connected to MongoDB using Mongoose from Messages2.js the readyState is ${db.readyState}, and the connection string is ${db._connectionString}`)
 })
 
 
@@ -14,11 +14,11 @@ const Schema = mongoose.Schema
 //Models are defined through the Schema interface
 //Models define collections
 const MessageSchema = new Schema({
-    protagonists: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    }],
+    protagonists: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Protagonist',
+      required: true
+    },
     msg_stream: [{
         text: {
             type: String,
