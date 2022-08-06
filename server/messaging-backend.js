@@ -67,7 +67,7 @@ messagingBackend_app_router.get('/paginated-messages/:userID', async (req,res) =
   const endIndex = page*limit
 
 
-  let filter_object = filterObject(path_param_userID)
+  // let filter_object = filterObject(path_param_userID)
   
   // console.log("\n\nmsgs_user: ", path_param_userID)
   // console.log("page: ", page)
@@ -81,7 +81,7 @@ messagingBackend_app_router.get('/paginated-messages/:userID', async (req,res) =
   // TODO #78 I only require to populate the last sender's email in the msg_stream, but in this instance all senders get their email's populated
   
   // TODO #80 Query by req.session.userId and check equality with path_param_userID
-  let query2 = Message.find()
+  let user_relevant_msg_query = Message.find()
   .populate({
     // Populate protagonists
     path: "protagonists", 
@@ -97,21 +97,19 @@ messagingBackend_app_router.get('/paginated-messages/:userID', async (req,res) =
     select: "-_id email"
   })
 
-  let protagonists_communications2 = await query2.exec()
+  let protagonists_communications = await user_relevant_msg_query.exec()
 
   //FILTER
-  let protagonists_communications3 = protagonists_communications2.filter(element => element.protagonists != null)
-  console.log("this::: ", protagonists_communications3)
+  protagonists_communications = protagonists_communications.filter(element => element.protagonists != null)
+  console.log("\n\nLogged in user's convos\n\n", protagonists_communications)
 
   // console.log(`entries with my protagonist ${req.session.userId}:`,protagonists_communications)
 
-  protagonists_communications3.forEach(element => {
-    console.log("boom",element.msg_stream)
+  protagonists_communications.forEach(element => {
+    console.log("\n\nActual msg_streams:\n\n",element.msg_stream)
   });
 
-  // console.log("compare", "\n\nnew\n\n", protagonists_communications3, "\n\nold\n\n", protagonists_communications)
-
-  const number_of_pages = Math.ceil(protagonists_communications3.length/limit)
+  const number_of_pages = Math.ceil(protagonists_communications.length/limit)
 
   // TODO #81 Refactor this variable name into something "convo"
   let messages_page_management_obj = {}
@@ -120,7 +118,7 @@ messagingBackend_app_router.get('/paginated-messages/:userID', async (req,res) =
     number: number_of_pages
   }
 
-  if(endIndex < protagonists_communications3.length){
+  if(endIndex < protagonists_communications.length){
     messages_page_management_obj.next = {
       page: page + 1,
       limit: limit
@@ -133,7 +131,7 @@ messagingBackend_app_router.get('/paginated-messages/:userID', async (req,res) =
     }
   }
 
-  messages_page_management_obj.CONVOS = protagonists_communications3.slice(startIndex, endIndex)
+  messages_page_management_obj.CONVOS = protagonists_communications.slice(startIndex, endIndex)
 
   res.json({
     srv_: messages_page_management_obj,

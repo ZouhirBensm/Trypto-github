@@ -38,9 +38,9 @@ function messaging_evt(socket, io, userAId, sckIdA, userBId){
           receiver: userBId,
           postedDate: userSendObjectPackaged.datetime
         }] }
-      }, options, (error, new_message2_entry) => {
+      }, options, (error, new_message_entry) => {
         if(error) {console.error(error)} 
-        console.log("\n\nAdded a msg to msg_stream, new msg_stream length is: ", new_message2_entry.msg_stream.length)     
+        console.log("\n\nAdded a msg to msg_stream, new msg_stream length is: ", new_message_entry.msg_stream.length)     
       })
     // Scenario B: No discussion already exists between both protagonists
     // We CREATE A protagonists entry for both protagonists
@@ -60,9 +60,9 @@ function messaging_evt(socket, io, userAId, sckIdA, userBId){
             receiver: userBId,
             postedDate: userSendObjectPackaged.datetime
           }]
-        }, (error, message2_entry) => {
+        }, (error, message_entry) => {
           if(error){return console.error(error)}
-          console.log("\n\nSaved in message2 collection this new entry:\n", message2_entry)
+          console.log("\n\nSaved in message2 collection this new entry:\n", message_entry)
         })
       })
     }
