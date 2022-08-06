@@ -15,6 +15,10 @@ const {filterObject} = require('../controllers/libs/match-maker-functions')
 
 const Message = require('../models/messaging-models/Message')
 
+const Message2 = require('../models/messaging-models/Message2')
+const Protagonist = require('../models/messaging-models/Protagonist')
+const { ObjectId } = require('mongodb')
+
 
 
 // Route is called upon as request from browser as '/messaging/'
@@ -23,8 +27,6 @@ messagingBackend_app_router.get('/', checkIfUseridWithinDBmiddleware, (req,res)=
   // console.log("logged in user: ", req.session.userId)
   // console.log("orderId: ", req.query.orderId)
   // console.log("user B: ", req.query.userIdB)
-
-  
 
   var JSX_to_load = 'Messaging';
   res.render('generic-boilerplate-ejs-to-render-react-components', { 
@@ -103,18 +105,46 @@ messagingBackend_app_router.get('/paginated-messages/:userID', async (req,res) =
   
   // .populate("msg_stream.receiver", "email")
   
-
   let protagonists_communications = await query.exec()
 
 
 
+
+
+
+
+
+  let query2 = Message2.find()
+  .populate({
+    // Populate protagonists
+    path: "protagonists", 
+    // Condition to population on the protagonists document fields
+    match: {protagonists: {$elemMatch: {$in: [path_param_userID]}}},
+    // Fields allowed to populate with
+    select: "-_id protagonists"
+  })
+  .populate({
+    // Populate msg_stream
+    path: "msg_stream.sender", 
+    // Fields allowed to populate with
+    select: "-_id email"
+  })
+
+  let protagonists_communications2 = await query2.exec()
+
+  //FILTER
+  let protagonists_communications3 = protagonists_communications2.filter(element => element.protagonists != null)
+  console.log("this::: ", protagonists_communications3)
+
   // console.log(`entries with my protagonist ${req.session.userId}:`,protagonists_communications)
 
-  protagonists_communications.forEach(element => {
-    console.log(element.msg_stream)
+  protagonists_communications3.forEach(element => {
+    console.log("boom",element.msg_stream)
   });
 
-  const number_of_pages = Math.ceil(protagonists_communications.length/limit)
+  // console.log("compare", "\n\nnew\n\n", protagonists_communications3, "\n\nold\n\n", protagonists_communications)
+
+  const number_of_pages = Math.ceil(protagonists_communications3.length/limit)
 
   // TODO #81 Refactor this variable name into something "convo"
   let messages_page_management_obj = {}
@@ -123,7 +153,7 @@ messagingBackend_app_router.get('/paginated-messages/:userID', async (req,res) =
     number: number_of_pages
   }
 
-  if(endIndex < protagonists_communications.length){
+  if(endIndex < protagonists_communications3.length){
     messages_page_management_obj.next = {
       page: page + 1,
       limit: limit
@@ -136,7 +166,7 @@ messagingBackend_app_router.get('/paginated-messages/:userID', async (req,res) =
     }
   }
 
-  messages_page_management_obj.CONVOS = protagonists_communications.slice(startIndex, endIndex)
+  messages_page_management_obj.CONVOS = protagonists_communications3.slice(startIndex, endIndex)
 
   res.json({
     srv_: messages_page_management_obj,

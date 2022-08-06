@@ -1,4 +1,7 @@
 const Message = require('../../../models/messaging-models/Message')
+const Message2 = require('../../../models/messaging-models/Message2')
+const Protagonist = require('../../../models/messaging-models/Protagonist')
+
 const ENV = require('../../../config/base')
 const { MongoClient } = require('mongodb');
 const uri = ENV.database_link;
@@ -12,13 +15,19 @@ function messaging_evt(socket, io, userAId, sckIdA, userBId){
 
     console.log("\n\n\n\n\n____'messaging' EVENT____\n\n\n\n\n")
 
-    // Query the messages DB, to see if any entry with BOTH protagonists, if any.
+    // Query the messages collection, to see if any entry with BOTH protagonists, if any.
     let message_entry_with_both_protagonists = await Message.find({$and: [
       {protagonists: {$elemMatch: {"$in": [userAId]}}},
       {protagonists: {$elemMatch: {"$in": [userBId]}}}
     ]})
 
-    console.log("\n\nAny found entry of the the 2 protagonist's in the messages DB?:\n")
+    // Query the protagonists collection, to see if any entry with BOTH protagonists, if any.
+    let protagonistEntryIfAny = await Protagonist.find({$and: [
+      {protagonists: {$elemMatch: {"$in": [userAId]}}},
+      {protagonists: {$elemMatch: {"$in": [userBId]}}}
+    ]})
+
+    console.log("\n\nAny found entry of the the 2 protagonist's in the messages DB?:\n", protagonistEntryIfAny)
 
     // Scenario A: A discussion already exists between both protagonists:
     // We ADD the message to the msg_stream between protagonists
@@ -56,6 +65,51 @@ function messaging_evt(socket, io, userAId, sckIdA, userBId){
         console.log("\n\nSaved in messages collection this new entry:\n", message_entry)
       })
 
+    }
+
+
+    // Scenario A: A discussion already exists between both protagonists:
+    // We ADD the message to the msg_stream between protagonists
+    if (protagonistEntryIfAny[0]){
+      console.log("\nA: YES\n")
+      console.log("Found entry:\n\n", protagonistEntryIfAny[0])
+      options = { upsert: true, new: true, setDefaultsOnInsert: true };
+      Message2.findOneAndUpdate( {
+        protagonists: protagonistEntryIfAny[0]._id,
+      }, {
+        "$push": { msg_stream: [{
+          text: userSendObjectPackaged.content,
+          sender: userAId,
+          receiver: userBId,
+          postedDate: userSendObjectPackaged.datetime
+        }] }
+      }, options, (error, new_message2_entry) => {
+        if(error) {console.error(error)} 
+        console.log("\n\nAdded a msg to msg_stream, new msg_stream length is: ", new_message2_entry.msg_stream.length)     
+      })
+    // Scenario B: No discussion already exists between both protagonists
+    // We CREATE A protagonists entry for both protagonists
+    // We also create a message2 entry
+    } else {
+      console.log("\nA: NO\n")
+      Protagonist.create({
+        protagonists: [userAId, userBId],
+      }, (error, protagonist_entry) => {
+        if(error){return console.error(error)}
+        console.log("\n\nSaved in protagonists collection this new entry:\n", protagonist_entry)
+        Message2.create({
+          protagonists: protagonist_entry._id,
+          msg_stream: [{
+            text: userSendObjectPackaged.content,
+            sender: userAId,
+            receiver: userBId,
+            postedDate: userSendObjectPackaged.datetime
+          }]
+        }, (error, message2_entry) => {
+          if(error){return console.error(error)}
+          console.log("\n\nSaved in message2 collection this new entry:\n", message2_entry)
+        })
+      })
     }
     
     // After the DB logic, now we determine whether the user B has a socket, to emit to, otherwise do nothing.

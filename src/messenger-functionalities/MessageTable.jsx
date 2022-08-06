@@ -66,7 +66,7 @@ class MessageRow extends React.Component {
   render(){
     const convo = this.props.convo;
 
-    const communicating_with_ID = convo.protagonists.filter(protagonist => {return protagonist != userId})
+    const communicating_with_ID = convo.protagonists.protagonists.filter(protagonist => {return protagonist != userId})
 
     const most_recent_convo_text = convo.msg_stream.at(-1).text
     const most_recent_convo_sender_email = convo.msg_stream.at(-1).sender.email

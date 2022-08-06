@@ -1,6 +1,9 @@
 const Message = require('../../models/messaging-models/Message')
 // const mongoose = require('mongoose');
 
+const Message2 = require('../../models/messaging-models/Message2')
+const Protagonist = require('../../models/messaging-models/Protagonist')
+
 const ENV = require('../../config/base')
 const { MongoClient } = require('mongodb');
 var ObjectId = require('mongodb').ObjectId; 
@@ -90,21 +93,55 @@ let chatControllers = (io) => {
     console.log("\n\nArray of Connected socket ID's:\n\n", connected_sockets);
     
 
-    // Query the messages DB, to see if any entry with BOTH protagonists, if any.
+    // Query the messages collection, to see if any entry with BOTH protagonists, if any.
     // Populate with sender information, because will be needed
+
     let message_entry_with_both_protagonists = await Message.find({$and: [
       {protagonists: {$elemMatch: {"$in": [userAId]}}},
       {protagonists: {$elemMatch: {"$in": [userBId]}}}
     ]}).populate("msg_stream.sender")
 
-    console.log("\n\nAny found entry of the the 2 protagonist's in the messages DB?:\n")
-    
+    console.log("\n\nAny found entry of the the 2 protagonist's in the messages collection?:\n")
+
     if(message_entry_with_both_protagonists[0]){
       console.log("\nA: YES\n")
       console.log("Found entry:\n\n", message_entry_with_both_protagonists[0])
 
       // Loop through the message.msg_stream to emit it on the connected socket to display past conversation.
       message_entry_with_both_protagonists[0].msg_stream.forEach(msg => {
+        const format_for_UI_object = {
+          content: msg.text,
+          chatUserId: msg.sender._id,
+          chatUserEmail: msg.sender.email,
+          datetime: msg.postedDate
+        }
+        socket.emit("broadcast", format_for_UI_object)
+      });
+    } else {
+      console.log("\nA: NO\n")
+    }
+
+    // Query the protagonists collection, to see if any entry with BOTH protagonists, if any.
+    // Populate with sender information, because will be needed
+    
+    let protagonistEntryIfAny = await Protagonist.find({$and: [
+      {protagonists: {$elemMatch: {"$in": [userAId]}}},
+      {protagonists: {$elemMatch: {"$in": [userBId]}}}
+    ]})
+    
+    // .populate("msg_stream.sender")
+    
+    console.log("\n\nAny found entry of the the 2 protagonist's in the protagonists collection?:\n")
+    
+    if(protagonistEntryIfAny[0]){
+      console.log("\nA: YES\n")
+      console.log("Found entry:\n\n", protagonistEntryIfAny[0])
+
+      // Find the message2 entry that references both protagonists
+      let message2_entry_with_both_protagonists = await Message2.find({protagonists: protagonistEntryIfAny[0]._id}).populate("msg_stream.sender")
+
+      // Loop through the message.msg_stream to emit it on the connected socket to display past conversation.
+      message2_entry_with_both_protagonists[0].msg_stream.forEach(msg => {
         const format_for_UI_object = {
           content: msg.text,
           chatUserId: msg.sender._id,
