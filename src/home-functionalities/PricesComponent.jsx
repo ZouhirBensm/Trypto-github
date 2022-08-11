@@ -15,7 +15,7 @@ class PricesComponent extends React.Component {
   }
 
   handleClick(e){
-    //e.preventDefault()
+    e.preventDefault()
     //console.log(e.target.value);
     this.setState({
       country: e.target.value

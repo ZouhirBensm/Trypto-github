@@ -9,6 +9,8 @@
 import PageSelector from '../orders-functionalities/PageSelector';
 import MessageTable from '../messenger-functionalities/MessageTable';
 
+import './styles/Messages.css' 
+
 class Messages extends React.Component {
   constructor(props){
     super(props)
@@ -22,7 +24,8 @@ class Messages extends React.Component {
       on_off_limit_previous: true,
       number_of_pages: 1,
     }
-    this._userID = document.getElementById("userId").innerHTML
+    this._userId = document.getElementById("userId").innerHTML
+    this._currentUserEmail = document.getElementById("currentUserEmail").innerHTML
     this.controls = this.controls.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this)
     // this.handleChange = this.handleChange.bind(this)
@@ -41,7 +44,7 @@ class Messages extends React.Component {
   }
 
   async loadData(){
-    let response = await fetch(`${process.env.ROOT}/messaging/paginated-messages/${this._userID}?page=${this.state.page}&limit=${this.state.limit}`)
+    let response = await fetch(`${process.env.ROOT}/messaging/paginated-messages/${this._userId}?page=${this.state.page}&limit=${this.state.limit}`)
 
     // console.log("response: ", response)
 
@@ -88,21 +91,24 @@ class Messages extends React.Component {
 
     return (
       <React.Fragment>
-        <h2>Messages Component</h2>
-        <MessageTable 
-        // buttons='normal' 
-        // order_type={this.props.match.params.order_type} 
-        convos={this.state.convos}
-        />
-        <PageSelector 
-        number_of_pages={this.state.number_of_pages} 
-        page={this.state.page} 
-        on_off_limit_previous={this.state.on_off_limit_previous} 
-        on_off_limit_next={this.state.on_off_limit_next} 
-        previousPage={this.state.previousPage} 
-        nextPage={this.state.nextPage} 
-        controls={this.controls}
-        />
+        <div className="wrapper">
+          <h2>Messages Component</h2>
+          <h4>Logged in as: {this._currentUserEmail}</h4>
+          <MessageTable 
+          // buttons='normal' 
+          // order_type={this.props.match.params.order_type} 
+          convos={this.state.convos}
+          />
+          <PageSelector 
+          number_of_pages={this.state.number_of_pages} 
+          page={this.state.page} 
+          on_off_limit_previous={this.state.on_off_limit_previous} 
+          on_off_limit_next={this.state.on_off_limit_next} 
+          previousPage={this.state.previousPage} 
+          nextPage={this.state.nextPage} 
+          controls={this.controls}
+          />
+        </div>
       </React.Fragment>
     )
   }

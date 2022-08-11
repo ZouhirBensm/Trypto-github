@@ -1,0 +1,37 @@
+div.wrapper {
+  height: 80vh;
+  overflow: scroll;
+  border: 1px black solid;
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  left: 3%;
+  right: 3%;
+}
+
+table.bordered-table {
+  border: 1px solid green;
+  width: 100%;
+}
+
+div.wrapper tr {
+  display: grid;
+  grid-template-rows: repeat(2,1fr);
+  grid-template-columns: repeat(2,1fr);
+  grid-template-areas : 
+  "one two"
+  "three four";
+}
+
+tr > td#img-profile {
+  grid-area: one;
+}
+tr > td#msg-notifications {
+  grid-area: two;
+}
+tr > td#last-sender-email {
+  grid-area: three;
+}
+tr > td#recent-msg {
+  grid-area: four;
+}

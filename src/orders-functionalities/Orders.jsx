@@ -78,6 +78,7 @@ class Orders extends React.Component {
     // console.log("LOAD: ", this.props.match.params.order_type)
     // console.log("LOAD: ", this.props.orders)
     let response = await fetch(`${process.env.ROOT}/paginated-orders/${this.props.match.params.order_type}?page=${this.state.page}&limit=${this.state.limit}${this.state.crypto ? `&crypto=${this.state.crypto}`: "" }`)
+    
     let serverOBJ = await response.json()
     console.log("serverOBJ: ", serverOBJ)
     //console.log("Next: ", data.data.next)

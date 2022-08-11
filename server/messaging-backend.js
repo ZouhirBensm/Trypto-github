@@ -88,7 +88,12 @@ messagingBackend_app_router.get('/paginated-messages/:userID', async (req,res) =
     // Condition to population on the protagonists document fields
     match: {protagonists: {$elemMatch: {$in: [path_param_userID]}}},
     // Fields allowed to populate with
-    select: "-_id protagonists"
+    select: "-_id protagonists",
+    populate: {
+      path: 'protagonists',
+      model: 'User',
+      select: "_id email"
+    } 
   })
   .populate({
     // Populate msg_stream
@@ -107,6 +112,7 @@ messagingBackend_app_router.get('/paginated-messages/:userID', async (req,res) =
 
   protagonists_communications.forEach(element => {
     console.log("\n\nActual msg_streams:\n\n",element.msg_stream)
+    console.log("\n\nActual protagonists emails:\n\n",element.protagonists.protagonists)
   });
 
   const number_of_pages = Math.ceil(protagonists_communications.length/limit)
