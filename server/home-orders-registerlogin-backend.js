@@ -140,7 +140,7 @@ homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', async (req,
     console.log("protagonist deletion response", response)
   })
 
-  // TODO Instead of deleting the message streams that reference all the protagonists entry the logged in user was engaged. Feed the Message.deleteMany the array of references and delete all at once i.e. the method loops
+  // TODO #95 Instead of deleting the message streams one-by-one through each element of the protagonists ID array (i.e. array of reference ID's from the messages collection, that reference all the protagonist entries the logged in user was a protagonist). Feed the Message.deleteMany the array of protagonists ID references and delete all at once i.e. the method itself loops
   for (const obj_id of array_of_protagonist_ids_where_user_is_engaged) {
     console.log(obj_id)
 
