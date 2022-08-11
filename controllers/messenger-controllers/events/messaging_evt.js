@@ -47,24 +47,40 @@ function messaging_evt(socket, io, userAId, sckIdA, userBId){
     // We also create a message2 entry
     } else {
       console.log("\nA: NO\n")
-      Protagonist.create({
-        protagonists: [userAId, userBId],
-      }, (error, protagonist_entry) => {
-        if(error){return console.error(error)}
-        console.log("\n\nSaved in protagonists collection this new entry:\n", protagonist_entry)
-        Message.create({
-          protagonists: protagonist_entry._id,
-          msg_stream: [{
-            text: userSendObjectPackaged.content,
-            sender: userAId,
-            receiver: userBId,
-            postedDate: userSendObjectPackaged.datetime
-          }]
-        }, (error, message_entry) => {
-          if(error){return console.error(error)}
-          console.log("\n\nSaved in message2 collection this new entry:\n", message_entry)
-        })
+      let pro1 = new Protagonist({protagonists: [userAId, userBId]})
+      let mes1 = new Message({
+        msg_stream: [{
+          text: userSendObjectPackaged.content,
+          sender: userAId,
+          receiver: userBId,
+          postedDate: userSendObjectPackaged.datetime
+        }]
       })
+
+      pro1.messages = mes1._id
+      mes1.protagonists = pro1._id
+
+      pro1.save((err)=>{if(err) console.log(err); console.log("saved protagonists")})
+      mes1.save((err)=>{if(err) console.log(err); console.log("saved message")})
+
+      // Protagonist.create({
+      //   protagonists: [userAId, userBId],
+      // }, (error, protagonist_entry) => {
+      //   if(error){return console.error(error)}
+      //   console.log("\n\nSaved in protagonists collection this new entry:\n", protagonist_entry)
+      //   Message.create({
+      //     protagonists: protagonist_entry._id,
+      //     msg_stream: [{
+      //       text: userSendObjectPackaged.content,
+      //       sender: userAId,
+      //       receiver: userBId,
+      //       postedDate: userSendObjectPackaged.datetime
+      //     }]
+      //   }, (error, message_entry) => {
+      //     if(error){return console.error(error)}
+      //     console.log("\n\nSaved in message2 collection this new entry:\n", message_entry)
+      //   })
+      // })
     }
     
     // After the DB logic, now we determine whether the user B has a socket, to emit to, otherwise do nothing.

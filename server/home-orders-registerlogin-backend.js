@@ -113,35 +113,55 @@ homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', async (req,
 
   console.log("Session:", req.session)
 
-  await BuyCryptoOrder.deleteMany({userid: req.session.userId}, (error, response)=>{
-    if(error){return next(error)}
-    console.log("buys deleted response", response)
-  })
-  await SellCryptoOrder.deleteMany({userid: req.session.userId}, (error, response)=>{
-    if(error){return next(error)}
-    console.log("sells deleted response", response)
-  })
-
-  // await Message.deleteMany({
-  //   protagonists: {
-  //     $elemMatch: {"$in": [req.session.userId]}
-  //   }
-  // }, (error, response)=>{
+  // await BuyCryptoOrder.deleteMany({userid: req.session.userId}, (error, response)=>{
   //   if(error){return next(error)}
-  //   console.log("messages deleted response", response)
+  //   console.log("buys deleted response", response)
+  // })
+  // await SellCryptoOrder.deleteMany({userid: req.session.userId}, (error, response)=>{
+  //   if(error){return next(error)}
+  //   console.log("sells deleted response", response)
   // })
 
-  await SellCryptoOrder.deleteMany({userid: req.session.userId}, (error, response)=>{
+  // Gets all id's where protagonist is engaged in conversations [{_id:}, {_id:}, ...]
+  let array_of_protagonist_ids_where_user_is_engaged = await Protagonist.find({
+    protagonists: {
+      $elemMatch: {"$in": [req.session.userId]}
+    }
+  }, { _id: 1})
+
+  console.log("icit array_of_protagonist_entries_need_tobe_deleted!", array_of_protagonist_ids_where_user_is_engaged)
+
+  await Protagonist.deleteMany({
+    protagonists: {
+      $elemMatch: {"$in": [req.session.userId]}
+    }
+  }, (error, response)=>{
     if(error){return next(error)}
-    console.log("sells deleted response", response)
+    console.log("protagonist deletion response", response)
   })
 
+  for (const obj_id of array_of_protagonist_ids_where_user_is_engaged) {
+    await Message.deleteOne({
+      protagonists: obj_id._id
+    }, (error, response)=>{
+      if(error){return next(error)}
+      console.log("One Message deletion response", response)
+    })
+  }
+
+  
 
 
-  await User.findByIdAndDelete(req.session.userId, (error, user) =>{ 
-    if(error){return next(error)}
-    console.log("user deleted", user)
-  })
+  
+
+
+
+
+
+  // await User.findByIdAndDelete(req.session.userId, (error, user) =>{ 
+  //   if(error){return next(error)}
+  //   console.log("user deleted", user)
+  // })
 
   req.session.destroy()
 

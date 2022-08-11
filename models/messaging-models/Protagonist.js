@@ -17,8 +17,13 @@ const ProtagonistSchema = new Schema({
     protagonists: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
-    }]
+        // required: true
+    }],
+    messages: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Message',
+      // required: true
+  }
 })
 
 

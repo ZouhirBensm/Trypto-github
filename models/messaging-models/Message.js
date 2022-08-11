@@ -17,7 +17,7 @@ const MessageSchema = new Schema({
     protagonists: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Protagonist',
-      required: true
+    //   required: true
     },
     msg_stream: [{
         text: {
