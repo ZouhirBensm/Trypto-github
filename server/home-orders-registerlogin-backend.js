@@ -113,14 +113,14 @@ homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', async (req,
 
   console.log("Session:", req.session)
 
-  // await BuyCryptoOrder.deleteMany({userid: req.session.userId}, (error, response)=>{
-  //   if(error){return next(error)}
-  //   console.log("buys deleted response", response)
-  // })
-  // await SellCryptoOrder.deleteMany({userid: req.session.userId}, (error, response)=>{
-  //   if(error){return next(error)}
-  //   console.log("sells deleted response", response)
-  // })
+  await BuyCryptoOrder.deleteMany({userid: req.session.userId}, (error, response)=>{
+    if(error){return next(error)}
+    console.log("buys deleted response", response)
+  })
+  await SellCryptoOrder.deleteMany({userid: req.session.userId}, (error, response)=>{
+    if(error){return next(error)}
+    console.log("sells deleted response", response)
+  })
 
   // Gets all id's where protagonist is engaged in conversations [{_id:}, {_id:}, ...]
   let array_of_protagonist_ids_where_user_is_engaged = await Protagonist.find({
@@ -140,7 +140,10 @@ homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', async (req,
     console.log("protagonist deletion response", response)
   })
 
+  // TODO Instead of deleting the message streams that reference all the protagonists entry the logged in user was engaged. Feed the Message.deleteMany the array of references and delete all at once i.e. the method loops
   for (const obj_id of array_of_protagonist_ids_where_user_is_engaged) {
+    console.log(obj_id)
+
     await Message.deleteOne({
       protagonists: obj_id._id
     }, (error, response)=>{
@@ -149,19 +152,10 @@ homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', async (req,
     })
   }
 
-  
-
-
-  
-
-
-
-
-
-  // await User.findByIdAndDelete(req.session.userId, (error, user) =>{ 
-  //   if(error){return next(error)}
-  //   console.log("user deleted", user)
-  // })
+  await User.findByIdAndDelete(req.session.userId, (error, user) =>{ 
+    if(error){return next(error)}
+    console.log("user deleted", user)
+  })
 
   req.session.destroy()
 
