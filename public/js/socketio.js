@@ -1,66 +1,74 @@
 console.log("socketio in the house!")
+
 // $(document).ready(() => {
-  var userIdB = document.getElementById("userIdB").innerHTML
-  var orderId = document.getElementById("orderId").innerHTML
+// })
 
-  console.log("good", {domain, userId, userIdB, orderId})
-  // const protocol = /^(\w+)\:/.exec(domain)
+// Get information from ejs pre-loaded template page
+// var userIdA = document.getElementById("userId").innerHTML
+var userIdB = document.getElementById("userIdB").innerHTML
+var orderId = document.getElementById("orderId").innerHTML
 
-
-  // console.log(protocol)
-  
-  // wsDomain = domain.replace(protocol[1], 'wp')
-  // console.log(wsDomain, typeof wsDomain)
-
-  // const socket = io()
-  const socket = io(`${domain}`, { query: `userAId=${userId}&userBId=${userIdB}&orderId=${orderId}` });
+// Imporatant information to work with
+// userId is pre loaded and retreived from the backend /Users/Zouhir/Documents/MERN/BlockchainMERN/server/server.js line 115: res.locals.userId = req.session.userId
+console.log("EJS page preloaded information: ", {domain, userId, userIdB, orderId})
 
 
-  var msgBox = document.getElementById("msg-box")
-  var chatForm = document.getElementById("chatForm")
-  var chatInput = document.getElementById("chat-input")
-  // Comes from component MsgInputSubmit that retrieves the parameter that it got served from the server. That parameter represents the current logged in user.
-  var chatUserId = document.getElementById("chat-user-id")
-  var chatUserEmail = document.getElementById("chat-user-email")
+// Instantiating a socket connection using TCP to the domain i.e. http://localhost:3000, with query params
+const socket = io(`${domain}`, { query: `userAId=${userId}&userBId=${userIdB}&orderId=${orderId}` });
 
-  chatForm.addEventListener("submit", (e)=>{
-    e.preventDefault()
-    console.log("submit")
-    userSendObjectPackaged = {
-      content: chatInput.value,
-      chatUserId: chatUserId.value,
-      chatUserEmail: chatUserEmail.value,
-      datetime: new Date(),
-      orderId: orderId,
-    }
-    console.log("Submited: ", userSendObjectPackaged)
-    socket.emit("messaging", userSendObjectPackaged)
-    chatInput.value = ''
-  })
+// Retrieving HTML Elements needed
+var msgBox = document.getElementById("msg-box")
+var chatForm = document.getElementById("chatForm")
+var chatInput = document.getElementById("chat-input")
+var loggedInEmail = document.getElementById("currentUserEmail").innerHTML
 
-  socket.on("broadcast", (userSendObjectPackaged) => {
-    console.log("The server userSendObjectPackaged: ", userSendObjectPackaged)
-    console.log("received from this sender: ", userSendObjectPackaged.chatUserId, "channelled with: ", userIdB)
+console.log("User that is currently logged in used for message author when submition of a new message: ", userId)
 
-    // var item = document.createElement("li")
-    // item.innerHTML = `<strong class="message${equalityCheck_LogInID_to_msgUserID(userSendObjectPackaged.chatUserId)}">${userSendObjectPackaged.chatUserEmail}</strong>: ${userSendObjectPackaged.content}`
-    // msgBox.appendChild(item)
-    // msgBox.scrollTo(0, msgBox.scrollHeight)
-
-
-    // undefined for first load, and display message only if message destined to myself or to the person set up as userIdB on the page
-    // Double checking on the front end, emit is already filtered on the backend.
-    if (userSendObjectPackaged.chatUserId == userId | userSendObjectPackaged.chatUserId == userIdB | userSendObjectPackaged.chatUserId == undefined){
-      var item = document.createElement("li")
-      item.innerHTML = `<strong class="message${equalityCheck_LogInID_to_msgUserID(userSendObjectPackaged.chatUserId)}">${userSendObjectPackaged.chatUserEmail}</strong>: ${userSendObjectPackaged.content}`
-      msgBox.appendChild(item)
-      msgBox.scrollTo(0, msgBox.scrollHeight)
-    }
-  })
-
-  function equalityCheck_LogInID_to_msgUserID(_id) {
-    return _id === chatUserId.value ? " current-user": ""
+// ______________________________ SUBMIT ______________________________
+// Submit message from the form
+chatForm.addEventListener("submit", (e)=>{
+  e.preventDefault()
+  console.log("submit")
+  // Content of the submission to the backend
+  userSendObjectPackaged = {
+    content: chatInput.value,
+    msgAuthorId: userId,
+    msgAuthorEmail: loggedInEmail,
+    datetime: new Date(),
+    orderId: orderId,
   }
-// document.addEventListener("DOMContentLoaded", () => {
-// })
-// })
+  // console.log("Submited package: ", userSendObjectPackaged)
+  
+  // Triggering a "messaging" on the backend
+  socket.emit("messaging", userSendObjectPackaged)
+  // Reset the input field
+  chatInput.value = ''
+})
+// ______________________________ SUBMIT ______________________________
+
+// ______________________________ RETRIEVE BROADCAST ______________________________
+// Processing the message that get "broadcasted" from the backend on "connection" event and on "messaging" event
+// Process one message at a time
+socket.on("broadcast", (SentObjectPackaged) => {
+  console.log("\n\n\n\n\n___new message___\n\n\n\n")
+  // console.log("from the server SentObjectPackaged: ", SentObjectPackaged)
+  // console.log("\nreceived from this sender: ", SentObjectPackaged.msgAuthorId, " supposed channelled with: ", userIdB)
+
+
+  // Undefined for first load
+  // Display message only if message destined to myself or if the message is authored as userIdB on the page
+  // Double checking on the front end, emit is already filters on the backend.
+  if (SentObjectPackaged.msgAuthorId == userId | SentObjectPackaged.msgAuthorId == userIdB | SentObjectPackaged.msgAuthorId == undefined){
+    // New message item
+    var item = document.createElement("li")
+
+    // Define HTML and add class if logged in user is the author.
+    item.innerHTML = `<strong class="message${window.utils.equalityCheck_LogInID_to_msgUserID(SentObjectPackaged.msgAuthorId, userId)}">${SentObjectPackaged.msgAuthorEmail}</strong>: ${SentObjectPackaged.content}`
+
+    // Append item and scroll
+    msgBox.appendChild(item)
+    msgBox.scrollTo(0, msgBox.scrollHeight)
+  }
+})
+
+// ______________________________ RETRIEVE BROADCAST ______________________________

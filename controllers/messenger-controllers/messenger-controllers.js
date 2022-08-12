@@ -61,7 +61,7 @@ let chatControllers = (io) => {
         if (session.session.userId && session.session.userId.toString() == socket.request.session.userId) {
 
           // When my session is found, if any. Add the socket ID, and a appended user B the communications are attended to, to a socket field.
-          // await does have an effect because without it would go 1,2,3,4, then back to resolving the promise, but at that point the mongo connection would be closed, thus throw an error.
+          // await does have an effect because without it would go 1,2,3,4, then back to resolving the promise, but at that point the mongo connection would be closed, thus throws an error.
           // With await the promise is resolved, then proceeds to 1,2,3,4
           let my_session_entry = await sessionCollection.findOneAndUpdate({"session.userId": ObjectId(socket.request.session.userId)}, {$set: {"session.socket.id": socket.id, "session.socket.appendedUserB": userBId}}, { upsert: true, new: true })
 
@@ -116,8 +116,8 @@ let chatControllers = (io) => {
       message_entry_with_both_protagonists[0].msg_stream.forEach(msg => {
         const format_for_UI_object = {
           content: msg.text,
-          chatUserId: msg.sender._id,
-          chatUserEmail: msg.sender.email,
+          msgAuthorId: msg.sender._id,
+          msgAuthorEmail: msg.sender.email,
           datetime: msg.postedDate
         }
         socket.emit("broadcast", format_for_UI_object)

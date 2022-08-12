@@ -2,7 +2,8 @@
 // import './styles/MgtUser.css' 
 import MsgInputSubmit from './MsgInputSubmit';
 import MsgsBox from './MsgsBox';
-import './styles/ChatContainer.css' 
+import './styles/ChatContainer.css';
+import utils from "../../full-stack-libs/utils"
 
 class ChatContainer extends React.Component {
 
@@ -15,8 +16,9 @@ class ChatContainer extends React.Component {
     this._userIDB = document.getElementById("userIdB").innerHTML
     this._orderID = document.getElementById("orderId").innerHTML
   }
-
+  
   componentDidMount(){
+    window.utils = utils
     // const reference = document.getElementsByClassName("wrapper-chat")[0]
     const reference = document.getElementById("chatForm")
 

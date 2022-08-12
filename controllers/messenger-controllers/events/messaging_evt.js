@@ -134,8 +134,8 @@ function messaging_evt(socket, io, userAId, sckIdA, userBId){
       // If user B has a socket, check if it is setup with user A, if so emit to user B
       if (isUserBSocketConnected) {
         
-        // if user's B socket is linked to the senders users i.e user A ID or userSendObjectPackaged.chatUserId
-        if(userSendObjectPackaged.chatUserId == userB_is_SetupWithID){
+        // if user's B socket is linked to the senders users i.e user A ID or userSendObjectPackaged.msgAuthorId
+        if(userSendObjectPackaged.msgAuthorId == userB_is_SetupWithID){
           // Emit to User B
           io.to(userBSocketConnectionId).emit('broadcast', userSendObjectPackaged);
         } else {
