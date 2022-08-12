@@ -1,6 +1,8 @@
 
 // import loadable from "@loadable/component";
-// import Loading from "./Loading";
+// // import Loading from "./Loading";
+// import Loading from "./generic-components/Loading";
+
 
 
 // const LoadableComponent = loadable(() => import("./App"), {
@@ -19,4 +21,4 @@
 
 // export default Home
 
-// https://v5.reactrouter.com/web/guides/code-splitting
+// // https://v5.reactrouter.com/web/guides/code-splitting

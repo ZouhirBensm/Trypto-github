@@ -108,8 +108,9 @@ let chatControllers = (io) => {
       console.log("\nA: YES\n")
       console.log("Found entry:\n\n", protagonistEntryIfAny[0])
 
-      // Find the message2 entry that references both protagonists
-      let message_entry_with_both_protagonists = await Message.find({protagonists: protagonistEntryIfAny[0]._id}).populate("msg_stream.sender")
+      // Find the message entry that references both protagonists
+      let message_entry_with_both_protagonists = await Message.find({protagonists: protagonistEntryIfAny[0]._id})
+      .populate("msg_stream.sender")
 
       // Loop through the message.msg_stream to emit it on the connected socket to display past conversation.
       message_entry_with_both_protagonists[0].msg_stream.forEach(msg => {

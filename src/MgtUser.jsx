@@ -6,7 +6,8 @@
 // import Register from './login-register-functionalities/Register'
 // import Profile from './login-register-functionalities/Profile'
 import loadable from "@loadable/component";
-import Loading from "./Loading";
+// import Loading from "./Loading";
+import Loading from "./generic-components/Loading"
 
 
 const Login = loadable(() => import("./login-register-functionalities/Login"),{

@@ -1,7 +1,8 @@
 // import React from 'react';
 import './styles/Orders.css'
 import OrderTable from './OrderTable';
-import PageSelector from './PageSelector';
+// import PageSelector from './PageSelector';
+import PageSelector from '../generic-components/PageSelector';
 import SearchEngine from './SearchEngine';
 // TODO #86 Think of a way to merge Orders, with MyOrders instead of having 2 files
 

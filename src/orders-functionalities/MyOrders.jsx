@@ -1,7 +1,8 @@
 // import React from 'react';
 import './styles/MyOrders.css'
 import OrderTable from './OrderTable';
-import PageSelector from './PageSelector';
+// import PageSelector from './PageSelector';
+import PageSelector from '../generic-components/PageSelector';
 
 class MyOrders extends React.Component {
   constructor(){

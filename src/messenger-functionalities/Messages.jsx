@@ -6,7 +6,8 @@
 
 
 // TODO #83 Will require to change directory to something more generic because used in messages page, and orders page
-import PageSelector from '../orders-functionalities/PageSelector';
+// import PageSelector from '../orders-functionalities/PageSelector';
+import PageSelector from '../generic-components/PageSelector'
 import MessageTable from '../messenger-functionalities/MessageTable';
 
 import './styles/Messages.css' 
