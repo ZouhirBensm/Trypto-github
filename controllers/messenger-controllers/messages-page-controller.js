@@ -50,6 +50,8 @@ async function messagesPageController(req,res){
     console.log("\n\nActual protagonists emails:\n\n",element.protagonists.protagonists)
   });
 
+  
+
   const number_of_pages = Math.ceil(protagonists_communications.length/limit)
 
   // TODO #81 Refactor this variable name into something "convo"
