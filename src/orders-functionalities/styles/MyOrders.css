@@ -11,14 +11,6 @@ div.wrapper2 tr {
   "nine ten";
 }
 
-
-table.bordered-table {
-  border: 1px solid green;
-  width: 100%;
-  
-}
-
-
 div.wrapper2 {
   height: 80vh;
   overflow: scroll;
@@ -30,10 +22,41 @@ div.wrapper2 {
   right: 3%;
 }
 
+table.bordered-table {
+  border: 1px solid green;
+  width: 100%;
+  
+}
+
+
+
+tr > td#id1 {
+  grid-area: one;
+}
+tr > td#email1 {
+  grid-area: two;
+}
+tr > td#posteddate1 {
+  grid-area: eight;
+}
+tr > td#crypto1 {
+  grid-area: four;
+}
+tr > td#price1 {
+  grid-area: five;
+}
+tr > td#expiry1 {
+  grid-area: three;
+}
+tr > td#payment1 {
+  grid-area: six;
+}
+tr > td#amount1 {
+  grid-area: seven;
+}
 tr > td#button1 {
   grid-area: nine;
 }
-
 tr > td#button2 {
   grid-area: ten;
 }

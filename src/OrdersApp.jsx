@@ -42,8 +42,6 @@ class Databases extends React.Component {
         <BrowserRouter> 
           <Switch> 
             <Route exact path="/databases/" component={Navigation} />
-            {/* <Route exact path="/databases/makebuy" component={MakeBuy} /> */}
-            {/* <Route exact path="/databases/makesell" component={MakeSell} /> */}
             <Route exact path="/databases/AllMyOrders" component={MyOrders} />
             <Route exact path="/databases/matches" component={Matches} />
             <Route exact path="/databases/:order_type" component={Orders} />

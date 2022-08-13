@@ -10,6 +10,18 @@ div.wrapper tr {
   "eight eight"
   "nine nine";
 }
+
+div.wrapper {
+  height: 70vh;
+  width: 94vw;
+  overflow: scroll;
+  border: 1px red solid;
+  position: absolute;
+  bottom: 10%;
+  top: 20%;
+  left: 3%;
+  right: 3%;
+}
 tr > td#id1 {
   grid-area: one;
 }
@@ -30,37 +42,10 @@ tr > td#price1 {
 }
 tr > td#expiry1 {
   grid-area: seven;
-  
 }
 tr > td#payment1 {
   grid-area: five;
 }
 tr > td#deal1 {
   grid-area: nine;
-}
-
-
-
-
-div.wrapper {
-  /* height: 80vh;
-  overflow: scroll;
-  border: 1px black solid;
-  position: absolute;
-  bottom: 10%;
-  top: 10%;
-  left: 3%;
-  right: 3%; */
-
-
-  height: 70vh;
-  width: 94vw;
-  overflow: scroll;
-  border: 1px red solid;
-  position: absolute;
-  bottom: 10%;
-  top: 20%;
-  left: 3%;
-  right: 3%;
-  
 }

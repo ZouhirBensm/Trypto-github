@@ -20,15 +20,13 @@ class MyOrders extends React.Component {
       number_of_pages: 1,
       orderID_toToggle: undefined,
     }
+    this.controls = this.controls.bind(this);
     this.handleOrderTypeToogle = this.handleOrderTypeToogle.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
-    this.controls = this.controls.bind(this);
     this.handleClick = this.handleClick.bind(this)
   }
 
   handleClick(valuetype, valueid, e){
-    // console.log("handleClick: ", valuetype, valueid)
-
     fetch(`${process.env.ROOT}/delete-this-order`, {
       method: 'DELETE',
       headers: {
@@ -42,27 +40,18 @@ class MyOrders extends React.Component {
     })
     .then(response => response.json())
     .then(OBJserv_ => {
-      // console.log(OBJserv_)
       let elements_left_in_page = document.getElementsByTagName("tr")
-      // console.log("Conditions", this.state.on_off_limit_next, elements_left_in_page.length === 1, this.state.number_of_pages != 1)
 
-      //true, true, true
       if(this.state.on_off_limit_next && elements_left_in_page.length === 1 && this.state.number_of_pages != 1){
-        // console.log("1")
         this.handleDelete(OBJserv_.memorized_order_type, true)
       } else {
-        // console.log("2")
         this.handleDelete(OBJserv_.memorized_order_type)
       }
-      // console.log("elements_left_in_page: ",  elements_left_in_page, elements_left_in_page.length)
-      // console.log("bounds: ",  this.props.on_off_limit_previous, this.props.on_off_limit_next)
-      // console.log(OBJserv_.memorized_order_type)
     })
   }
 
   handleDelete(value, _signal = false){
-    //e.preventDefault()
-    //console.log(e.target.value);
+    e.preventDefault()
     console.log(_signal);
 
     if(!_signal){
@@ -88,7 +77,6 @@ class MyOrders extends React.Component {
     this.setState({
       page: _page
     }, () => {
-      //console.log("callback: ", this.state.page)
       this.loadData(this.state.orderstype)
     })
   }
@@ -99,23 +87,9 @@ class MyOrders extends React.Component {
   }
 
   async loadData(_orderstype) {
-    // console.log(_orderstype)
-    // let _userID = ''
-    // console.log(`${process.env.ROOT}/current-user-ID`)
-    // const response1 = await fetch(`${process.env.ROOT}/current-user-ID`)    
-    // const srv_ = await response1.json()
-    // _userID = srv_.srv_usr_ID
-
-
     const _userID = document.getElementById("userId").innerHTML
-    // console.log("did it work????", _userID, typeof _userID)
 
     const response2 = await fetch(`${process.env.ROOT}/paginated-orders/${_orderstype}/${_userID}?page=${this.state.page}&limit=${this.state.limit}`)
-    //OR
-    // .then(response2 => response2.json())
-    // .then((data) => {
-    //   console.log(data)
-    // });
     
     const serverOBJ = await response2.json()
 
@@ -126,7 +100,6 @@ class MyOrders extends React.Component {
       previousPage: serverOBJ.srv_.previous,
       number_of_pages: serverOBJ.srv_.number_of_pages.number
     }, () => {
-      // console.log("page: ", this.state.previousPage, this.state.nextPage)
       if(this.state.nextPage==undefined){
         this.setState({
           on_off_limit_next: true
@@ -145,20 +118,16 @@ class MyOrders extends React.Component {
           on_off_limit_previous: false
         })
       }
-      // let remainder = this.state.orders.length%this.state.limit
-      // console.log("remainder",remainder)
     })
   }
 
   handleOrderTypeToogle(e){
     //e.preventDefault()
-    //console.log(e.target.value);
     this.setState({
       orderstype: e.target.value,
       page: 1,
     }, () => {
       this.loadData(this.state.orderstype);
-      // console.log("Ordertype on: ", this.state.orderstype)
     })
   }
   

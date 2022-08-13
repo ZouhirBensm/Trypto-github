@@ -4,7 +4,6 @@ import OrderTable from './OrderTable';
 // import PageSelector from './PageSelector';
 import PageSelector from '../generic-components/PageSelector';
 import SearchEngine from './SearchEngine';
-// TODO #86 Think of a way to merge Orders, with MyOrders instead of having 2 files
 
 class Orders extends React.Component {
   constructor(props){
@@ -53,9 +52,7 @@ class Orders extends React.Component {
   }
 
   handleChange(e){
-    //console.log(e.target.value)
     this.setState({
-      //orders: this.props.orders,
       searchTerm: e.target.value
     })
   }
@@ -64,7 +61,6 @@ class Orders extends React.Component {
     this.setState({
       page: _page
     }, () => {
-      //console.log("callback: ", this.state.page)
       this.loadData()
     })
   }
@@ -75,22 +71,11 @@ class Orders extends React.Component {
   }
 
   async loadData(){
-    // let objOrders = {}
-    // console.log("LOAD: ", this.props.match.params.order_type)
-    // console.log("LOAD: ", this.props.orders)
     let response = await fetch(`${process.env.ROOT}/paginated-orders/${this.props.match.params.order_type}?page=${this.state.page}&limit=${this.state.limit}${this.state.crypto ? `&crypto=${this.state.crypto}`: "" }`)
     
     let serverOBJ = await response.json()
     console.log("serverOBJ: ", serverOBJ)
-    //console.log("Next: ", data.data.next)
-    //console.log("Previous: ", data.data.previous)
 
-    // .then(response => response.json())
-    // .then(data => {
-    //   objOrders = repairData(data)
-    //   //console.log(objOrders.data[0].crypto)
-    // });
-    // console.log(data.data.number_of_pages.number)
     this.setState({
       orders: serverOBJ.srv_.ORDERS,
       nextPage: serverOBJ.srv_.next,
@@ -120,9 +105,7 @@ class Orders extends React.Component {
   }
   
   render() {
-    // console.log(this.props)
     console.log("Here orders!: ", this.state.orders)
-    // console.log("here@@@", this.props.match.params.order_type)
     return (
       <React.Fragment>
         <SearchEngine 

@@ -55,11 +55,14 @@ homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHome, (req
 
 // makebuy, makesell, AllMyOrders, matches, buyordersdata, sellordersdata
 homeOrdersBackend_app_router.get(['/databases/:what_page?', '/make/:type'], checkIfUseridWithinDBmiddleware, (req,res)=>{
+
   console.log("what_page: ", req.params.what_page)
   console.log("what_type: ", req.params.type)
+  
   var JSX_to_load = 'OrdersApp';
+
   res.render('generic-boilerplate-ejs-to-render-react-components', { 
-    JSX_to_load : JSX_to_load , 
+    JSX_to_load : JSX_to_load, 
     // [req.params.what_page === "AllMyOrders" ? "userId": null]: req.session.userId,
   })
 })
