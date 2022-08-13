@@ -14,6 +14,8 @@ const { messagesPageController } = require("../controllers/messenger-controllers
 
 // Import checkIfUseridWithinDBmiddleware
 const checkIfUseridWithinDBmiddleware = require('../middleware/checkIf-userid-withinDB-middleware')
+// Import paginatedMessagesMiddleware
+const paginatedMessagesMiddleware = require('../middleware/messages-middleware/paginated-messages-middleware')
 
 
 const {filterObject} = require('../controllers/libs/match-maker-functions')
@@ -61,7 +63,7 @@ messagingBackend_app_router.get('/messages', checkIfUseridWithinDBmiddleware, (r
 })
 
 // :type_orders/:userID?
-messagingBackend_app_router.get('/paginated-messages/:userID', messagesPageController)
+messagingBackend_app_router.get('/paginated-messages/:userID', paginatedMessagesMiddleware, messagesPageController)
 
 // paginatedOrdersAccessMiddleware,  homeOrdersController.getPaginatedOrdersController
 

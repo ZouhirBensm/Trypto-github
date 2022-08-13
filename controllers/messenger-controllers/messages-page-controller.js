@@ -5,35 +5,22 @@ const Message = require('../../models/messaging-models/Message')
 
 
 async function messagesPageController(req,res){
-  // let messages
 
-  let path_param_userID = req.params.userID
   let page = parseInt(req.query.page)
   const limit = parseInt(req.query.limit)
   const startIndex = (page - 1)*limit
   const endIndex = page*limit
 
-
-  // let filter_object = filterObject(path_param_userID)
-  
-  // console.log("\n\nmsgs_user: ", path_param_userID)
-  // console.log("page: ", page)
-  // console.log("limit: ", limit)
-  // console.log("startIndex: ", startIndex)
-  // console.log("endIndex: ", endIndex)
-  // console.log("\nFind filter: \n", filter_object)
-
   // TODO #79 Decentralize the DB Message structure and re-write all the queries that reference it! see gitlab issue image.
 
   // TODO #78 I only require to populate the last sender's email in the msg_stream, but in this instance all senders get their email's populated
-  
-  // TODO #80 Query by req.session.userId and check equality with path_param_userID
+
   let user_relevant_msg_query = Message.find()
   .populate({
     // Populate protagonists
     path: "protagonists", 
     // Condition to population on the protagonists document fields
-    match: {protagonists: {$elemMatch: {$in: [path_param_userID]}}},
+    match: {protagonists: {$elemMatch: {$in: [res.locals.path_param_userID]}}},
     // Fields allowed to populate with
     select: "-_id protagonists",
     populate: {
@@ -48,6 +35,7 @@ async function messagesPageController(req,res){
     // Fields allowed to populate with
     select: "-_id email"
   })
+
 
   let protagonists_communications = await user_relevant_msg_query.exec()
 
