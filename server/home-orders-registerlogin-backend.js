@@ -15,6 +15,9 @@ const CoinGeckoClient = new CoinGecko();
 const homeOrdersController = require("../controllers/home-orders-controllers/home-orders-controllers")
 // Import Long RegisterLoginController functions
 const RegisterLoginController = require("../controllers/register-login-controllers/register-login-controllers")
+// Import distributePaginatedDataController
+const distributePaginatedDataController = require("../controllers/generic-controllers/distribute-paginated-data-controller")
+
 
 // Import loggedInRedirectHome
 const loggedInRedirectHome = require('../middleware/loggedIn-redirect-home')
@@ -26,6 +29,11 @@ const paginatedOrdersAccessMiddleware = require('../middleware/home-orders-middl
 const StopIfAlreadyLoggedIn = require('../middleware/stop-if-already-loggedin')
 // Import requireReferer
 const requireReferer = require('../middleware/require-referer')
+// Import paginatingSetupMiddleware
+const paginatingSetupMiddleware = require('../middleware/paginating-setup-middleware')
+// Import intermediateMiddlewareOrders
+const ordersRetrievalMiddleware = require('../middleware/home-orders-middleware/orders-retrieval-middleware')
+
 
 // We import the User model, the mongoose connection is already defined for all routers files
 const User = require('../models/User')
@@ -39,9 +47,7 @@ const SellCryptoOrder = require('../models/home-orders-models/SellCryptoOrder');
 const Protagonist = require('../models/messaging-models/Protagonist')
 const Message = require('../models/messaging-models/Message')
 
-
-
-homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:userID?', paginatedOrdersAccessMiddleware,  homeOrdersController.getPaginatedOrdersController)
+homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:userID?', paginatedOrdersAccessMiddleware, paginatingSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
 
 
 homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHome, (req,res,next)=>{

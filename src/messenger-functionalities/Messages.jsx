@@ -4,9 +4,6 @@
 
 // TODO #82 Have a way to keep track of unread messages, and to display that number as a red notification on the messages link on the nav bar and messages list icons /Users/Zouhir/Documents/MERN/BlockchainMERN/src/messenger-functionalities/Messages.jsx
 
-
-// TODO #83 Will require to change directory to something more generic because used in messages page, and orders page
-// import PageSelector from '../orders-functionalities/PageSelector';
 import PageSelector from '../generic-components/PageSelector'
 import MessageTable from '../messenger-functionalities/MessageTable';
 

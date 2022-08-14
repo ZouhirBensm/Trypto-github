@@ -1,5 +1,3 @@
-// TODO: # 77 Think of a way to merge messaging-backend.js in /paginated-messages/:userID route WITH home-orders-controllers.js in getPaginatedOrdersController
-
 // TODO: # 78 Fix populate queries
 
 const express = require('express')
@@ -7,22 +5,21 @@ const ENV = require('../config/base')
 
 const messagingBackend_app_router = express.Router()
 
-
-// Import Long RegisterLoginController functions
-const { messagesPageController } = require("../controllers/messenger-controllers/messages-page-controller")
+// Import distributePaginatedDataController
+const distributePaginatedDataController = require("../controllers/generic-controllers/distribute-paginated-data-controller")
 
 
 // Import checkIfUseridWithinDBmiddleware
 const checkIfUseridWithinDBmiddleware = require('../middleware/checkIf-userid-withinDB-middleware')
-// Import paginatedMessagesMiddleware
-const paginatedMessagesMiddleware = require('../middleware/messages-middleware/paginated-messages-middleware')
+
+// Import checkURLuserIDMiddleware
+const checkURLuserIDMiddleware = require('../middleware/check-URL-userID-middleware')
 
 
-const {filterObject} = require('../controllers/libs/match-maker-functions')
-
-// const Message = require('../models/messaging-models/Message')
-// const Protagonist = require('../models/messaging-models/Protagonist')
-// const { ObjectId } = require('mongodb')
+// Import paginatingSetupMiddleware
+const paginatingSetupMiddleware = require('../middleware/paginating-setup-middleware')
+// Import messagesRetrievalMiddleware
+const messagesInfoRetrievalMiddleware = require('../middleware/messages-middleware/messages-info-retrieval-middleware')
 
 
 
@@ -62,13 +59,7 @@ messagingBackend_app_router.get('/messages', checkIfUseridWithinDBmiddleware, (r
 
 })
 
-// :type_orders/:userID?
-messagingBackend_app_router.get('/paginated-messages/:userID', paginatedMessagesMiddleware, messagesPageController)
-
-
-
-
-// paginatedOrdersAccessMiddleware,  homeOrdersController.getPaginatedOrdersController
+messagingBackend_app_router.get('/paginated-messages/:userID', checkURLuserIDMiddleware, paginatingSetupMiddleware, messagesInfoRetrievalMiddleware, distributePaginatedDataController)
 
 
 module.exports = messagingBackend_app_router
