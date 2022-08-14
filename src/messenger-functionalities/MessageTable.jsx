@@ -10,13 +10,19 @@ class MessageTable extends React.Component {
 
   render(){
 
-    const convosRow = this.props.convos.map((convo, i) => {
-      return <MessageRow 
-      key={i} 
-      keyy={i} 
-      convo={convo}
-      />
-    })
+    let convosRow
+
+    if(this.props.convos){
+      convosRow = this.props.convos.map((convo, i) => {
+        return <MessageRow 
+        key={i} 
+        keyy={i} 
+        convo={convo}
+        />
+      })
+    } else {
+      console.error(`this.props.convos resolved to a false for some reason`)
+    }
 
     // console.log("done execution we got: ", convosRow)
     // console.log("Does Not Require Keys: ", ordersRow)

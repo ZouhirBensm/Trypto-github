@@ -38,52 +38,41 @@ class Matches extends React.Component {
 
   
   async loadData(_orderstype){
-    let serverOBJ = await fetch(`${process.env.ROOT}/paginated-orders/${_orderstype}?page=${this.state.page}&limit=${this.state.limit}`, {
-      method: 'GET'
-    })
-    .then(response => {
-      // console.log("response: ", response, "\n\n")
-      return response.json()
-    })
-    .then(response => {
-      console.log("response: ", response, "\n\n")
-      return response
-    })
-    .catch((err)=>console.log(err))
-
-    // let serverOBJ = await axios.get(`${process.env.ROOT}/paginated-orders/${_orderstype}?page=${this.state.page}&limit=${this.state.limit}`)
-    // .then(response => {
-    //   console.log("response: ", response, "\n\n")
-    //   return response.data
-    // })
-    // .catch((err)=>console.log(err))
     
-    console.log("Data retrieved matches: ", serverOBJ.srv_)
-    this.setState({
-      orders: serverOBJ.srv_.ORDERS,
-      nextPage: serverOBJ.srv_.next,
-      previousPage: serverOBJ.srv_.previous,
-      number_of_pages: serverOBJ.srv_.number_of_pages.number
-    }, () => {
-      if(this.state.nextPage==undefined){
-        this.setState({
-          on_off_limit_next: true
-        })
-      } else {
-        this.setState({
-          on_off_limit_next: false
-        })
-      }
-      if(this.state.previousPage==undefined){
-        this.setState({
-          on_off_limit_previous: true
-        })
-      } else {
-        this.setState({
-          on_off_limit_previous: false
-        })
-      }
-    })
+    let response = await fetch(`${process.env.ROOT}/paginated-orders/${_orderstype}?page=${this.state.page}&limit=${this.state.limit}`)
+    
+    let serverOBJ = await response.json()
+
+    if(response.ok){
+      this.setState({
+        orders: serverOBJ.srv_.ORDERS,
+        nextPage: serverOBJ.srv_.next,
+        previousPage: serverOBJ.srv_.previous,
+        number_of_pages: serverOBJ.srv_.number_of_pages.number
+      }, () => {
+        if(this.state.nextPage==undefined){
+          this.setState({
+            on_off_limit_next: true
+          })
+        } else {
+          this.setState({
+            on_off_limit_next: false
+          })
+        }
+        if(this.state.previousPage==undefined){
+          this.setState({
+            on_off_limit_previous: true
+          })
+        } else {
+          this.setState({
+            on_off_limit_previous: false
+          })
+        }
+      })
+    // Custom Errors get spitted out here
+    } else {
+      console.error("Error: ", serverOBJ)
+    }
 
     
   }

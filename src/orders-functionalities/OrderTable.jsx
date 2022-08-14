@@ -25,17 +25,23 @@ class OrderTable extends React.Component {
     // console.log("Parent toogled id ", this.state.orderID_toToggle )
     // console.log("buttons ", this.state.buttons )
 
-    const ordersRow = this.props.orders.map((order, i) => {
-      return <OrderRow 
-      handleClick={this.props.handleClick} 
-      buttons={order._id === this.state.orderID_toToggle? this.state.buttons: this.props.buttons} 
-      order_type={this.props.order_type} 
-      key={order._id} 
-      keyy={i}
-      order={order}
-      handleToogleEdit={this.handleToogleEdit}
-      />
-    })
+    let ordersRow
+    
+    if(this.props.orders){
+      ordersRow = this.props.orders.map((order, i) => {
+        return <OrderRow 
+        handleClick={this.props.handleClick} 
+        buttons={order._id === this.state.orderID_toToggle? this.state.buttons: this.props.buttons} 
+        order_type={this.props.order_type} 
+        key={order._id} 
+        keyy={i}
+        order={order}
+        handleToogleEdit={this.handleToogleEdit}
+        />
+      })
+    } else {
+      console.error(`this.props.orders resolved to a false for some reason`)
+    }
     // console.log("Does Not Require Keys: ", ordersRow)
 
     return(

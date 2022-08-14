@@ -1,4 +1,4 @@
-const { LoggingInError } = require("../custom-errors/custom-errors")
+const { LoggingInError } = require("../../custom-errors/custom-errors")
 
 // Checking whether or not the URL userID is equal to the backend logged in userID
 module.exports = (req, res, next)=>{

@@ -20,17 +20,19 @@ const distributePaginatedDataController = require("../controllers/generic-contro
 
 
 // Import loggedInRedirectHome
-const loggedInRedirectHome = require('../middleware/loggedIn-redirect-home')
+const loggedInRedirectHome = require('../middleware/loggedin/loggedIn-redirect-home')
 // Import checkIfUseridWithinDBmiddleware
-const checkIfUseridWithinDBmiddleware = require('../middleware/checkIf-userid-withinDB-middleware')
-// Import paginatedOrdersAccessMiddleware
-const paginatedOrdersAccessMiddleware = require('../middleware/home-orders-middleware/paginated-orders-access-middleware')
+const checkIfUseridWithinDBmiddleware = require('../middleware/loggedin/checkIf-userid-withinDB-middleware')
+
+// Import paginatedDataAccessMiddleware
+const paginatedDataAccessMiddleware = require('../middleware/generic/paginated-data-access-middleware')
+
 // Import StopIfAlreadyLoggedIn
-const StopIfAlreadyLoggedIn = require('../middleware/stop-if-already-loggedin')
+const StopIfAlreadyLoggedIn = require('../middleware/loggedin/stop-if-already-loggedin')
 // Import requireReferer
-const requireReferer = require('../middleware/require-referer')
+const requireReferer = require('../middleware/generic/require-referer')
 // Import paginatingSetupMiddleware
-const paginatingSetupMiddleware = require('../middleware/paginating-setup-middleware')
+const paginatingSetupMiddleware = require('../middleware/generic/paginating-setup-middleware')
 // Import intermediateMiddlewareOrders
 const ordersRetrievalMiddleware = require('../middleware/home-orders-middleware/orders-retrieval-middleware')
 
@@ -47,7 +49,8 @@ const SellCryptoOrder = require('../models/home-orders-models/SellCryptoOrder');
 const Protagonist = require('../models/messaging-models/Protagonist')
 const Message = require('../models/messaging-models/Message')
 
-homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:userID?', paginatedOrdersAccessMiddleware, paginatingSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
+
+homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:userID?', paginatedDataAccessMiddleware, paginatingSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
 
 
 homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHome, (req,res,next)=>{

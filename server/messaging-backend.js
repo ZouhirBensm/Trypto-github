@@ -10,14 +10,14 @@ const distributePaginatedDataController = require("../controllers/generic-contro
 
 
 // Import checkIfUseridWithinDBmiddleware
-const checkIfUseridWithinDBmiddleware = require('../middleware/checkIf-userid-withinDB-middleware')
+const checkIfUseridWithinDBmiddleware = require('../middleware/loggedin/checkIf-userid-withinDB-middleware')
 
 // Import checkURLuserIDMiddleware
-const checkURLuserIDMiddleware = require('../middleware/check-URL-userID-middleware')
+const checkURLuserIDMiddleware = require('../middleware/loggedin/check-URL-userID-middleware')
 
 
 // Import paginatingSetupMiddleware
-const paginatingSetupMiddleware = require('../middleware/paginating-setup-middleware')
+const paginatingSetupMiddleware = require('../middleware/generic/paginating-setup-middleware')
 // Import messagesRetrievalMiddleware
 const messagesInfoRetrievalMiddleware = require('../middleware/messages-middleware/messages-info-retrieval-middleware')
 

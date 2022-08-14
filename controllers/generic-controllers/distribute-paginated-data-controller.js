@@ -1,10 +1,11 @@
 const ENV = require('../../config/base')
+const {FirstPathNotRegistered} = require("../../custom-errors/custom-errors")
 
 const full_stack_utils = require('../../full-stack-libs/utils')
 
 module.exports = (req, res, next)=>{
 
-  console.log("in commonController1: ", res.locals.data_to_be_paginated_and_served)
+  console.log("in distribute-paginated-data-controller.js: ", res.locals.data_to_be_paginated_and_served)
 
   const number_of_pages = Math.ceil(res.locals.data_to_be_paginated_and_served.length/res.locals.limit)
   
@@ -40,14 +41,14 @@ module.exports = (req, res, next)=>{
 
   switch (firstPath) {
     case "messaging":
-      // TODO better the optionality syntax for either CONVOS or ORDERS
       data_pages_managed_obj.CONVOS = res.locals.data_to_be_paginated_and_served.slice(res.locals.startIndex, res.locals.endIndex)
       break;
     case "databases":
       data_pages_managed_obj.ORDERS = res.locals.data_to_be_paginated_and_served.slice(res.locals.startIndex, res.locals.endIndex)
-    break;
+      break;
     default:
-      // TODO figure out what to do when the referer does not match one required. 
+      let error = new FirstPathNotRegistered(firstPath)
+      return next(error)
       break;
   }
 

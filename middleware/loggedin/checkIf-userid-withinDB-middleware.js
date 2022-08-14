@@ -1,4 +1,4 @@
-const User = require('../models/User')
+const User = require('../../models/User')
 
 // Check to see if userId within the DB, if so (only if logged in - so implicitly checks log status), then next(),
 // else no user in the DB, redirect to home

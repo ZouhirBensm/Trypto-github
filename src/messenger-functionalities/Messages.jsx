@@ -43,38 +43,46 @@ class Messages extends React.Component {
 
   async loadData(){
     let response = await fetch(`${process.env.ROOT}/messaging/paginated-messages/${this._userId}?page=${this.state.page}&limit=${this.state.limit}`)
-
+    
     // console.log("response: ", response)
-
+    
     let serverOBJ = await response.json()
 
-    console.log("serverOBJ: ", serverOBJ)
+    
+    if(response.ok){
 
-    this.setState({
-      convos: serverOBJ.srv_.CONVOS,
-      nextPage: serverOBJ.srv_.next,
-      previousPage: serverOBJ.srv_.previous,
-      number_of_pages: serverOBJ.srv_.number_of_pages.number
-    }, () => {
-      if(this.state.nextPage==undefined){
-        this.setState({
-          on_off_limit_next: true
-        })
-      } else {
-        this.setState({
-          on_off_limit_next: false
-        })
-      }
-      if(this.state.previousPage==undefined){
-        this.setState({
-          on_off_limit_previous: true
-        })
-      } else {
-        this.setState({
-          on_off_limit_previous: false
-        })
-      }
-    })
+      console.log("serverOBJ: ", serverOBJ)
+
+      this.setState({
+        convos: serverOBJ.srv_.CONVOS,
+        nextPage: serverOBJ.srv_.next,
+        previousPage: serverOBJ.srv_.previous,
+        number_of_pages: serverOBJ.srv_.number_of_pages.number
+      }, () => {
+        if(this.state.nextPage==undefined){
+          this.setState({
+            on_off_limit_next: true
+          })
+        } else {
+          this.setState({
+            on_off_limit_next: false
+          })
+        }
+        if(this.state.previousPage==undefined){
+          this.setState({
+            on_off_limit_previous: true
+          })
+        } else {
+          this.setState({
+            on_off_limit_previous: false
+          })
+        }
+      })
+    // Custom Errors get spitted out here
+    } else {
+      console.error("Error: ", serverOBJ)
+    }
+
   }
 
 

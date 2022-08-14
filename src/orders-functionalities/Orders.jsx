@@ -74,34 +74,42 @@ class Orders extends React.Component {
     let response = await fetch(`${process.env.ROOT}/paginated-orders/${this.props.match.params.order_type}?page=${this.state.page}&limit=${this.state.limit}${this.state.crypto ? `&crypto=${this.state.crypto}`: "" }`)
     
     let serverOBJ = await response.json()
-    console.log("serverOBJ: ", serverOBJ)
 
-    this.setState({
-      orders: serverOBJ.srv_.ORDERS,
-      nextPage: serverOBJ.srv_.next,
-      previousPage: serverOBJ.srv_.previous,
-      number_of_pages: serverOBJ.srv_.number_of_pages.number
-    }, () => {
-      if(this.state.nextPage==undefined){
-        this.setState({
-          on_off_limit_next: true
-        })
-      } else {
-        this.setState({
-          on_off_limit_next: false
-        })
-      }
-      if(this.state.previousPage==undefined){
-        this.setState({
-          on_off_limit_previous: true
-        })
-      } else {
-        this.setState({
-          on_off_limit_previous: false
-        })
-      }
+    if(response.ok){
 
-    })
+      console.log("serverOBJ: ", serverOBJ)
+
+      this.setState({
+        orders: serverOBJ.srv_.ORDERS,
+        nextPage: serverOBJ.srv_.next,
+        previousPage: serverOBJ.srv_.previous,
+        number_of_pages: serverOBJ.srv_.number_of_pages.number
+      }, () => {
+        if(this.state.nextPage==undefined){
+          this.setState({
+            on_off_limit_next: true
+          })
+        } else {
+          this.setState({
+            on_off_limit_next: false
+          })
+        }
+        if(this.state.previousPage==undefined){
+          this.setState({
+            on_off_limit_previous: true
+          })
+        } else {
+          this.setState({
+            on_off_limit_previous: false
+          })
+        }
+  
+      })
+    // Custom Errors get spitted out here
+    } else {
+      console.error("Error: ", serverOBJ)
+    }
+
   }
   
   render() {
