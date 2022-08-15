@@ -3,6 +3,8 @@
 import PricesComponent from './home-functionalities/PricesComponent.jsx';
 
 
+// TODO #97 Put root files in src in their own folder, adjust webpack configs accordingly. Name the folder: "root SPAs"
+
 // let PricesComponent = lazy(()=>{ return import('./home-functionalities/PricesComponent.jsx')})
 
 class App extends React.Component {

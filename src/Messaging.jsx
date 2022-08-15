@@ -1,10 +1,14 @@
+import loadable from "@loadable/component";
+// import Loading from "./Loading";
+import Loading from "./generic-components/Loading";
 
-// import React, {Component} from 'react';
-// import ReactDOM from 'react-dom'
+const Messages = loadable(() => import("./messenger-functionalities/Messages"),{
+  fallback: <Loading/>
+});
 
-// TODO #82 Lazy loading syntax
-import ChatContainer from './messenger-functionalities/ChatContainer';
-import Messages from './messenger-functionalities/Messages';
+const ChatContainer = loadable(() => import("./messenger-functionalities/ChatContainer"),{
+  fallback: <Loading/>
+});
 
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 

@@ -3,6 +3,8 @@ const ENV = require('../config/base')
 global.loggedIn = null
 // console.log(process.env.ROOT)
 
+// TODO #98 Better organize server folder
+
 
 const mongoose = require('mongoose')
 

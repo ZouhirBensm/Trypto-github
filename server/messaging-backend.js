@@ -1,4 +1,4 @@
-// TODO: # 78 Fix populate queries
+// TODO: #78 Fix populate queries
 
 const express = require('express')
 const ENV = require('../config/base')
