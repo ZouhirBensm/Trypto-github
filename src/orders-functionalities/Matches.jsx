@@ -105,7 +105,8 @@ class Matches extends React.Component {
         <OrderTable 
         order_type={this.state.orderstype} 
         orders={this.state.orders}
-        buttons='normal'/>
+        buttons='normal'
+        loadData={this.loadData}/>
 
         <PageSelector 
         number_of_pages={this.state.number_of_pages} 

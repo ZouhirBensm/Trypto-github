@@ -124,6 +124,7 @@ class Orders extends React.Component {
         buttons='normal' 
         order_type={this.props.match.params.order_type} 
         orders={this.state.orders}
+        loadData={this.loadData}
         />
         <PageSelector 
         number_of_pages={this.state.number_of_pages} 

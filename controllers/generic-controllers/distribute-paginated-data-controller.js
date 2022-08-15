@@ -5,11 +5,10 @@ const full_stack_utils = require('../../full-stack-libs/utils')
 
 module.exports = (req, res, next)=>{
 
-  console.log("in distribute-paginated-data-controller.js: ", res.locals.data_to_be_paginated_and_served)
+  // console.log("in distribute-paginated-data-controller.js: ", res.locals.data_to_be_paginated_and_served)
 
   const number_of_pages = Math.ceil(res.locals.data_to_be_paginated_and_served.length/res.locals.limit)
-  
-  // TODO #81 Refactor this variable name into something "convo"
+
   let data_pages_managed_obj = {}
 
   data_pages_managed_obj.number_of_pages = {

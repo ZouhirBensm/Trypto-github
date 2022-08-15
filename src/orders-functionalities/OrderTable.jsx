@@ -1,6 +1,4 @@
 // import React from 'react';
-
-// TODO #87 Add pop ups when user updates, deletes an order
 class OrderTable extends React.Component {
 
   constructor(props){
@@ -31,6 +29,7 @@ class OrderTable extends React.Component {
       ordersRow = this.props.orders.map((order, i) => {
         return <OrderRow 
         handleClick={this.props.handleClick} 
+        loadData={this.props.loadData}
         buttons={order._id === this.state.orderID_toToggle? this.state.buttons: this.props.buttons} 
         order_type={this.props.order_type} 
         key={order._id} 
@@ -84,18 +83,31 @@ class OrderRow extends React.Component {
     window.location.href = `/messaging?orderId=${order._id}&userIdB=${order.userid._id}`
   }
 
+  displayEditPopUp(){
+    console.log("ARE WE GOOD!")
+    
+    const wrapper2 = document.getElementsByClassName("wrapper2")[0]
+    console.log(wrapper2)
+
+    let div = document.getElementById("popup");
+
+    console.log(!!(div.innerHTML))
+    if (!!(div.innerHTML)) {
+      console.log("div is filled")
+      div.innerHTML = "Edit successful!"
+    } else {
+      console.log("div is empty")
+      div.style.display = "block"
+      div.innerHTML = "Edit successful!"
+      wrapper2.insertBefore(div, wrapper2.firstChild);
+    }
+  }
+
   async handleSubmit(e){
     e.preventDefault()
     console.log("Testing handle submit")
     const orderType = document.getElementById("my_form").elements["OrderType"].value
     let amount, minamount, maxamount
-    // console.log(document.getElementById("my_form").elements["OrderID"].value)
-    // console.log(document.getElementById("my_form").elements["OrderType"].value)
-    // console.log(document.getElementById("my_form").elements["price"].value)
-    // console.log(document.getElementById("my_form").elements["expirydate"].value)
-    // console.log(document.getElementById("my_form").elements["expirytime"].value)
-    // console.log(document.getElementById("my_form").elements["crypto"].value)
-    // console.log(document.getElementById("my_form").elements["payment"].value)
     if (orderType === "buyordersdata") {
       amount = document.getElementById("my_form").elements["amount"].value
       minamount, maxamount = undefined
@@ -130,17 +142,23 @@ class OrderRow extends React.Component {
     console.log("payload: ", payload)
 
     if (response.status === 200) {
-      window.location.href = `${process.env.ROOT}?popup=${payload.srv_}`;
+      // window.location.href = `${process.env.ROOT}?popup=${payload.srv_}`;
+      this.displayEditPopUp()
+
+      // Reset page display after the edit
+      this.props.loadData(this.props.order_type)
+      const orderIDjust_clicked = document.getElementById("my_form").elements["OrderID"].value
+      this.props.handleToogleEdit("my", orderIDjust_clicked, e)
     }
 
   }
 
   render(){
-    console.log("state buttons child", this.props.buttons)
+    // console.log("state buttons child", this.props.buttons)
     const order = this.props.order;
 
 
-    console.log(`row ${this.props.keyy} executing: `, order)
+    // console.log(`row ${this.props.keyy} executing: `, order)
 
 
     let display_normal = [];
@@ -149,9 +167,11 @@ class OrderRow extends React.Component {
     
     let amount_normal;
     let amount_editing;
+    let wantsTO;
     // console.log("WTF ", this.props.order_type)
     // console.log(order)
     if (this.props.order_type == "buyordersdata") {
+      wantsTO = "wants to buy"
       amount_normal = <td id="amount1" key={`td-amount-key-order:${order._id}`}>{'Amount: ' + order.amount}</td>
       amount_editing =      
       <td id="amount1" key={`td-edit-amount-key-order:${order._id}`}>
@@ -160,6 +180,7 @@ class OrderRow extends React.Component {
     }
 
     if (this.props.order_type == "sellordersdata") {
+      wantsTO = "wants to sell"
       amount_normal = <td id="amount1" key={`td-amount-key-order:${order._id}`}>{'Amount Range: ' +  order.minamount}-{order.maxamount}</td>
       amount_editing =
       <td id="amount1" key={`td-edit-amount-key-order:${order._id}`}>
@@ -185,24 +206,11 @@ class OrderRow extends React.Component {
     }
   
     if (this.props.buttons == "my") {
-      display_normal.push(<td id="button1" key={`td-button1-key-order:${order._id}`}><button onClick={(e) => this.props.handleClick(this.props.order_type, order._id, e)}>Delete</button></td>, <td id="button2" key={`td-button2-key-order:${order._id}`}><button onClick={(e) => this.props.handleToogleEdit("edit", order._id, e)}>Update</button></td>)
+      display_normal.push(<td id="button1" key={`td-button1-key-order:${order._id}`}><button onClick={(e) => this.props.handleClick(this.props.order_type, order._id, e)}>Delete</button></td>, <td id="button2" key={`td-button2-key-order:${order._id}`}><button onClick={(e) => this.props.handleToogleEdit("edit", order._id, e)}>Edit</button></td>)
     }
 
     if (this.props.buttons == "edit") {
       display_editing.push(
-      //   <div id="container-log-reg">
-      //   <form id="loginregister" className="form">
-      //     <h3>Login</h3>
-      //     <label>Email</label>
-      //     <input type="text" name="email"/> 
-      //     <label>Password</label>
-      //     <input type="text" name="password" value="Zouhir123!"/> 
-      //     <button type="submit" onClick={(e) => this.handleSubmit(e)}>Login</button>
-      //   </form>
-      //   {/* display the notification from the server here! */}
-      //   { notifyDisplays }
-      // </div>
-
         <td id="form4" key={`td-edit-form4-key-order:${order._id}`}><form className="update-form" id="my_form"></form></td>,
         <td id="ordertype4" key={`td-edit-ordertype4-key-order:${order._id}`}><input form="my_form" type='hidden' name='OrderType' value={this.props.order_type}/></td>,
         <td id="orderid4" key={`td-edit-orderid4-key-order:${order._id}`}><input form="my_form" type='hidden' name='OrderID' value={order._id}/> </td>,
@@ -229,8 +237,8 @@ class OrderRow extends React.Component {
             curentValue = {order.payment}
           />
         </td>,
-        <td id="button1" key={`td-edit-button1-key-order:${order._id}`}><button type="submit" onClick={(e) => this.handleSubmit(e)}>SaveHandle</button></td>,
-        <td id="button2" key={`td-edit-button2-key-order:${order._id}`}><button onClick={(e) => this.props.handleToogleEdit("my", order._id, e)}>Revert</button></td>
+        <td id="button1" key={`td-edit-button2-key-order:${order._id}`}><button onClick={(e) => this.props.handleToogleEdit("my", order._id, e)}>Done</button></td>,
+        <td id="button2" key={`td-edit-button1-key-order:${order._id}`}><button type="submit" onClick={(e) => this.handleSubmit(e)}>Save</button></td>
       )
     }
 
@@ -238,7 +246,7 @@ class OrderRow extends React.Component {
     return(
       <tr>
         <td id="id1">{order._id}</td>
-        <td id="email1">{order.userid.email} wants to buy</td>
+        <td id="email1">{order.userid.email} {wantsTO}</td>
         <td id="posteddate1">{'On: ' + order.postedDate}</td>
         {this.props.buttons == "normal" || this.props.buttons == "my" ? display_normal: null}
         {this.props.buttons == "edit" ? display_editing: null}

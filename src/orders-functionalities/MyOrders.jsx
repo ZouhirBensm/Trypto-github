@@ -24,10 +24,35 @@ class MyOrders extends React.Component {
     this.handleOrderTypeToogle = this.handleOrderTypeToogle.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleClick = this.handleClick.bind(this)
+
+    // this.displayDeleteMsg = this.handleClick.bind(this)
+    this.loadData_andDisplayDltMsg = this.loadData_andDisplayDltMsg.bind(this)
+    this.loadData = this.loadData.bind(this)
   }
 
-  handleClick(valuetype, valueid, e){
-    fetch(`${process.env.ROOT}/delete-this-order`, {
+  displayDeleteMsg(){
+    console.log("ARE WE GOOD!")
+    const wrapper2 = document.getElementsByClassName("wrapper2")[0]
+    console.log(wrapper2)
+
+    let div = document.getElementById("popup");
+    
+    console.log(!!(div.innerHTML))
+    if (!!(div.innerHTML)) {
+      console.log("div is filled")
+      div.innerHTML = "Deletion successful!"
+    } else {
+      console.log("div is empty")
+      div.style.display = "block"
+      div.innerHTML = "Deletion successful!"
+      wrapper2.insertBefore(div, wrapper2.firstChild);
+    }
+
+  }
+
+  async handleClick(valuetype, valueid, e){
+    // console.log(e)
+    let response = await fetch(`${process.env.ROOT}/delete-this-order`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -38,39 +63,38 @@ class MyOrders extends React.Component {
         OrderID: valueid
       })
     })
-    .then(response => response.json())
-    .then(OBJserv_ => {
-      let elements_left_in_page = document.getElementsByTagName("tr")
 
+    if(response.ok){
+      let OBJserv_ = await response.json()
+      let elements_left_in_page = document.getElementsByTagName("tr")
+  
       if(this.state.on_off_limit_next && elements_left_in_page.length === 1 && this.state.number_of_pages != 1){
         this.handleDelete(OBJserv_.memorized_order_type, true)
       } else {
         this.handleDelete(OBJserv_.memorized_order_type)
       }
-    })
+    } else {
+      console.error("deletion failed!")
+    }
+
+  }
+
+  async loadData_andDisplayDltMsg(){
+    console.log("add the delete successful message!")
+    this.displayDeleteMsg()
+    this.loadData(this.state.orderstype);
   }
 
   handleDelete(value, _signal = false){
-    e.preventDefault()
     console.log(_signal);
 
-    if(!_signal){
-      console.log("HERRRE1!!!")
-      this.setState({
-        orderstype: value,
-        page: this.state.page,
-      }, () => {
-        this.loadData(this.state.orderstype);
-      })
-    } else {
-      console.log("HERRRE2!!!")
-      this.setState({
-        orderstype: value,
-        page: this.state.page-1,
-      }, () => {
-        this.loadData(this.state.orderstype);
-      })
-    }
+    let number
+    (!_signal)? number = 0: number = 1
+
+    this.setState({
+      orderstype: value,
+      page: this.state.page-number,
+    }, this.loadData_andDisplayDltMsg)
   }
 
   controls(_page) {
@@ -87,6 +111,7 @@ class MyOrders extends React.Component {
   }
 
   async loadData(_orderstype) {
+    console.log("FUUCKK")
     const _userID = document.getElementById("userId").innerHTML
 
     const response2 = await fetch(`${process.env.ROOT}/paginated-orders/${_orderstype}/${_userID}?page=${this.state.page}&limit=${this.state.limit}`)
@@ -137,7 +162,7 @@ class MyOrders extends React.Component {
   }
   
   render() {
-    console.log("ordertype!!! ", this.state.orderstype)
+    // console.log("ordertype!!! ", this.state.orderstype)
     return (
       <div className='wrapper2'>
         <form name="toogle">
@@ -150,6 +175,7 @@ class MyOrders extends React.Component {
         orders={this.state.orders}
         buttons='my'
         handleClick={this.handleClick}
+        loadData={this.loadData}
         />
         
         <PageSelector 

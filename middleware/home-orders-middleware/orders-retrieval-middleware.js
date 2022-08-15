@@ -7,7 +7,7 @@ const ENV = require('../../config/base')
 const {filterObject, buyMatchesFinder, sellMatchesFinder} = require('../../middleware/libs/match-maker-functions')
 
 module.exports = async (req,res,next)=>{
-  console.log("in intermediateMiddlewareOrders: ",res.locals.page, res.locals.limit, res.locals.startIndex, res.locals.endIndex)
+  console.log("\n\n\n______in intermediateMiddlewareOrders: \n\n",res.locals.page, res.locals.limit, res.locals.startIndex, res.locals.endIndex)
 
 
   // URL path parameters
@@ -36,9 +36,21 @@ module.exports = async (req,res,next)=>{
     return next(e)
   })
 
-  let mybuyOrders = buyOrders.filter(order_entry => order_entry.userid._id.toString() === req.session.userId)
-  let mysellOrders = sellOrders.filter(order_entry => order_entry.userid._id.toString() === req.session.userId)
+  console.log("buys: ", buyOrders)
 
+  console.log(req.session.userId)
+  let mybuyOrders = buyOrders.filter((order_entry) => {
+    // console.log(order_entry.userid._id, req.session.userId)
+    // console.log(order_entry.userid._id.toString() == req.session.userId)
+    return order_entry.userid._id.toString() == req.session.userId;
+  })
+  let mysellOrders = sellOrders.filter((order_entry) => {
+    // console.log(order_entry.userid._id, req.session.userId)
+    // console.log(order_entry.userid._id.toString() == req.session.userId)
+    return order_entry.userid._id.toString() == req.session.userId
+  })
+
+  console.log("my buys: ", mybuyOrders)
   //await Promise.all([sellMatchesFinder(), buyMatchesFinder()]).then(val => {console.log('sellMatchesFinder process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val[0], '\n', 'buyMatchesFinder process to receive array of matching buys for each sell:\n', 'Value from promise returned: ', val[1], '\n')})
   
 
@@ -91,7 +103,7 @@ module.exports = async (req,res,next)=>{
       break
   }
 
-  // console.log("ORDERS!!", orders)
+  console.log("\n\n\n\n_______ORDERS!!______", orders)
   
   // let descriptive = {
   //   type_orders: type_orders,
@@ -102,6 +114,7 @@ module.exports = async (req,res,next)=>{
   // }
   // console.log("\nDescription: \n", descriptive)
   // console.log("Retrieved Orders", orders)
+
 
 
   res.locals.data_to_be_paginated_and_served = orders
