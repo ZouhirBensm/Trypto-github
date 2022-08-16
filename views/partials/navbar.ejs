@@ -1,18 +1,36 @@
 <ul class="home">
   <li><a href="/">Home</a></li>
   <%if(loggedIn){%>
-    <li><a href="/users/profile">Profile</a></li>
+    <!-- <li><a href="/users/profile">Profile</a></li> -->
     <li><a href="/messaging/messages">Messages</a></li>
-  <%}%>
-</ul>
-<ul class="iflog">
+    <%}%>
+  </ul>
+  <ul class="iflog">
+  <li><div onclick="toogleSideNav()">Toogle</div></li>
   <%if(!loggedIn){%>
     <li><a href="/users/login">Login</a></li>
     <li><a href="/users/register">Register</a></li>
   <%}%>
   <%if(loggedIn){%>
-    <li><a href="/databases">OrdersApp</a></li>  
+    <!-- <li><a href="/databases">OrdersApp</a></li>   -->
     <li><a href="/logout">Log out</a></li>
   <%}%>
 </ul>
+
+<div class="sidebar-container">
+  <ul class="sidenav">
+    <%if(!loggedIn){%>
+      <li><a href="#">Template</a></li>
+    <%}%>
+    <%if(loggedIn){%>
+      <li><a href="/users/profile">Profile</a></li>
+      <li><a href="/databases">OrdersApp</a></li>  
+    <%}%>
+    <li><a href="/blog">Blog posts</a></li>
+  </ul>
+</div>
+
+<script src="/js/toogle.js"></script>
+
+
 

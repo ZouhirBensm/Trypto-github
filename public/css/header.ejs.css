@@ -61,14 +61,38 @@ li a:active {
   color: lightblue;
 }
 
-/* form#loginregister {
-  height: 80vh;
-  overflow: scroll;
+
+
+
+div.sidebar-container {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: darkslateblue;
+  width: 80%;
   border: 1px black solid;
   position: absolute;
-  top: 10%;
-  bottom: 10%;
-  left: 3%;
-  right: 3%;
-} */
+  top: 1.3em;
+  bottom: 1.3em;
+  margin: 0;
+  left: 0;
+  z-index: 2;
+  padding: 0;
+}
 
+ul.sidenav {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.disable {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+div[onclick="toogleSideNav()"] {
+  color: red;
+}
