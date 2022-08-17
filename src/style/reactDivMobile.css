@@ -1,0 +1,18 @@
+/* 
+2 Cases: 
+Case 1:
+In cases you have 2 components B, and C (siblings and children) getting leveraged within component A (parent), and you require component B, C to follow the same wrapper CSS flow, use this style on B or C
+Case 2:
+Case also when you have component B (nested) in component A (parent) and A adds more tags to B, then apply this styles to B - Note: you can also just style A's wrapper 
+*/
+
+div#react-div{
+  height: 80vh;
+  overflow: scroll;
+  border: 1px black solid;
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  left: 3%;
+  right: 3%;
+}

@@ -2,6 +2,8 @@
 // import ReactDOM from 'react-dom'
 import PricesComponent from './home-functionalities/PricesComponent.jsx';
 
+import Register from './login-register-functionalities/Register.jsx';
+
 
 // TODO #97 Put root files in src in their own folder, adjust webpack configs accordingly. Name the folder: "root SPAs"
 
@@ -32,8 +34,14 @@ class App extends React.Component {
   }
 
   componentDidMount(){
+    console.log("in component: ", userId)
     //DOM is ready
     this.loadData()
+    
+    // const pricesComponent = document.getElementsByClassName("prices")[0]
+    // const registerComponent = document.getElementById("container-log-reg")
+
+    // registerComponent.insertBefore(pricesComponent, registerComponent.firstChild);
   }
   
   async loadData(){
@@ -74,6 +82,10 @@ class App extends React.Component {
           <PricesComponent countries={countries.west} prices={this.state.prices}/>
         </Suspense> */}
         <PricesComponent countries={countries.west} prices={this.state.prices}/>
+
+        {userId? null:<Register/>}
+        
+
       </React.Fragment> 
       
     );

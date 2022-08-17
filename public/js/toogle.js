@@ -14,16 +14,22 @@ function toogleSideNav() {
     sideNav.style.display = "none";
   }
 
-  let reactDiv = document.getElementById("react-div")
 
-  console.log(reactDiv)
+  let reactDiv = document.getElementById("react-div")
+  let erroBox = document.getElementsByClassName("error-box")[0]
+
+  // Work with errorBox if present else reactDiv
+  // errorBox is sometimes the main wrapper to disable sometimes
+  let elementToDisableEnable = erroBox || reactDiv
+
+  console.log(reactDiv, erroBox, elementToDisableEnable)
 
   if(sideNav.style.display == "flex") {
     console.log("disable all")
-    reactDiv.classList.add("disable");
+    elementToDisableEnable.classList.add("disable");
 
   } else {
     console.log("enable all")
-    reactDiv.classList.remove("disable");
+    elementToDisableEnable.classList.remove("disable");
   }
 }
