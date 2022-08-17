@@ -7,13 +7,14 @@ import {verifyEmail, verifyPassword} from '../../full-stack-libs/validations'
 
 class Register extends React.Component {
 
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       notification: []
     }
     this.handleValidation = this.handleValidation.bind(this)
     this.handleRegistrationCall = this.handleRegistrationCall.bind(this)
+    console.log("step in register: ", this.props.step)
   }
 
   //generator function

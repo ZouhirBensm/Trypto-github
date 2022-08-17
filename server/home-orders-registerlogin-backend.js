@@ -54,8 +54,22 @@ homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:userID?', pagi
 
 
 homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHome, (req,res,next)=>{
-  console.log("icit: ", req.params.what_page, req.session.userId)
+  console.log("/users/:what_page: ", req.params.what_page, req.session.userId)
   var JSX_to_load = 'MgtUser';
+  res.render('generic-boilerplate-ejs-to-render-react-components', { 
+    JSX_to_load : JSX_to_load, 
+    // [req.params.what_page === "profile" ? "userId": null]: req.session.userId,
+  })
+})
+
+homeOrdersBackend_app_router.get('/subscription/:step?', loggedInRedirectHome, function(req,res,next) {
+
+
+  console.log("/subscription/:step?: ", req.params.step, req.session.userId)
+
+
+
+  var JSX_to_load = 'Subscription';
   res.render('generic-boilerplate-ejs-to-render-react-components', { 
     JSX_to_load : JSX_to_load, 
     // [req.params.what_page === "profile" ? "userId": null]: req.session.userId,

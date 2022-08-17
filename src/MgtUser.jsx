@@ -13,9 +13,6 @@ import Loading from "./generic-components/Loading"
 const Login = loadable(() => import("./login-register-functionalities/Login"),{
   fallback: <Loading/>
 });
-const Register = loadable(() => import("./login-register-functionalities/Register"),{
-  fallback: <Loading/>
-});
 const Profile = loadable(() => import("./login-register-functionalities/Profile"),{
   fallback: <Loading/>
 });
@@ -28,12 +25,8 @@ class MgtUser extends React.Component {
     return (
       <BrowserRouter> 
         <Switch> 
-          <Route exact path="/users/login" component={Login}/>
-          <Route exact path="/users/register" component={Register}/>
-          <Route exact path="/users/profile" component={Profile}/>
-
-          {/* <Route exact path="/users/register" component={Register} />
-          <Route exact path="/users/profile" component={Profile} /> */}
+          <Route path="/users/login" component={Login}/>
+          <Route path="/users/profile" component={Profile}/>
         </Switch>     
       </BrowserRouter> 
     )

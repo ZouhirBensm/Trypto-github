@@ -40,6 +40,7 @@ var config = {
     OrdersApp: './src/OrdersApp.jsx',
     MgtUser: './src/MgtUser.jsx',
     Messaging: './src/Messaging.jsx',
+    Subscription: './src/Subscription.jsx',
   },
   output: {
     filename: '[name].js',

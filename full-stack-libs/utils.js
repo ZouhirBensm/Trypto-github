@@ -23,4 +23,15 @@ module.exports = {
     
     return parsedFULLPATH[1]
   },
+  parseFullPath4lastpath: (fullpath) => {
+    // const parsedFULLPATH = /^(\w+)\:\/\/([^\/]+)\/(.*)$/.exec(url);
+    const parsedFULLPATH = /\/?([^\/]+)$/.exec(fullpath);
+    
+    if (!parsedFULLPATH) {
+      return false
+    }
+    // console.log(parsedURL)
+    
+    return parsedFULLPATH[1]
+  }
 }
