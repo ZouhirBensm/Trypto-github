@@ -55,9 +55,9 @@ class Subscription extends React.Component {
         <Switch>
           
           <Route exact path={path}>
-            <Link to="/subscription/step1" onClick={(e) => this.setStepFunction('step1',e)}> Step1 </Link>
-            <Link to="/subscription/step2" onClick={(e) => this.setStepFunction('step2',e)}> Step2 </Link>
-            <Link to="/subscription/step3" onClick={(e) => this.setStepFunction('step3',e)}> Step3 </Link>
+            <Link to="/subscription/1" onClick={(e) => this.setStepFunction('1',e)}> Step1 </Link>
+            <Link to="/subscription/2" onClick={(e) => this.setStepFunction('2',e)}> Step2 </Link>
+            <Link to="/subscription/3" onClick={(e) => this.setStepFunction('3',e)}> Step3 </Link>
             <br/>
             <br/>
             {this.state.step}
@@ -66,14 +66,14 @@ class Subscription extends React.Component {
               (props) => <SubscAlter {...props} step={this.state.step}/>
             }/> */}
 
-            <Route path="/subscription/step1" render={
-              (props) => <Register {...props} step={this.state.step}/>
-            }/>
-            <Route path="/subscription/step2" render={
+            <Route path="/subscription/1" render={
               (props) => <ChoosePlan {...props} step={this.state.step}/>
             }/>
-            <Route path="/subscription/step3" render={
+            <Route path="/subscription/2" render={
               (props) => <CardInfoSubmission {...props} step={this.state.step}/>
+            }/>
+            <Route path="/subscription/3" render={
+              (props) => <Register {...props} step={this.state.step}/>
             }/>
 
           </Route>
