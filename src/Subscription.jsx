@@ -28,7 +28,9 @@ class Subscription extends React.Component {
     let step = utils.parseFullPath4lastpath(window.location)
     console.log("constructor Subscription: step: ", step)
     this.state = {
-      step: step
+      step: step,
+      email: "",
+      password: "",
     }
     this.setStepFunction = this.setStepFunction.bind(this)
     this.nextStep=this.nextStep.bind(this)
@@ -45,15 +47,8 @@ class Subscription extends React.Component {
   }
 
   setStepFunction(stepp, e){
-    // e.preventDefault()
-    // console.log("setStepFunction")
     console.log("setStepFunction: stepp:", stepp)
-    this.setState({ step: stepp }
-      // , ()=>{
-      // let path = `/subscription/${this.state.step}`
-      // window.location.href= `${domain}${path}`
-      // }
-    ); 
+    this.setState({ step: stepp }); 
   }
 
 
