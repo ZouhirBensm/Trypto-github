@@ -13,7 +13,6 @@ class Register extends React.Component {
       notification: []
     }
     this.handleValidation = this.handleValidation.bind(this)
-    this.handleRegistrationCall = this.handleRegistrationCall.bind(this)
     console.log("step in register: ", this.props.step)
   }
 
@@ -50,70 +49,14 @@ class Register extends React.Component {
         this.setState({notification: notification})
         console.log("Hey user password not Good");
         // yield to end process
-        yield {yield_level: 2, number_of_max_yield_levels: 3, inProcessChecking: "password", message: notification}
       } else { // finish and return
         // set the state of the notification to tell component "Good password"
         console.log("Hey component password good!");
-        // proceed to make api call this.handleRegistration(email, password)
-        // returns new flag, message
-        ({flag, notification} = await this.handleRegistrationCall(email, password))
-        console.log("\n\nAfter API call, we are left with: ", flag, notification)
-        if(!flag) {
-          // set the state of the notification to tell the user <message>
-          this.setState({notification: notification})
-          console.log("Hey component the server failed")
-          // yield the final return to end process with server error notification
-          // return {yield_level: 3, number_of_max_yield_levels: 3, inProcessChecking: "POST /users/register endpoint", message: notification}
-        } else {
-          this.constructor()
-          window.location.href = `${process.env.ROOT}/users/login?popup=Congrats you have successfully registered, you can now log in!`;
-
-        }
-        return {yield_level: 3, number_of_max_yield_levels: 3, inProcessChecking: "POST /users/register endpoint", message: notification}
+        this.setState({notification: notification})
       }
+      return {yield_level: 2, number_of_max_yield_levels: 2, inProcessChecking: "password", message: notification}
     }
   }
-
-  async handleRegistrationCall (_email, _password){
-    console.log("Making API call!")
-    
-    const response = await fetch(`${process.env.ROOT}/users/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        email: _email,
-        password: _password,
-      })
-    })
-   
-    console.log(response)
-    let data = await response.json()
-    // console.log(data)
-
-
-    switch (response.status) {
-      case 200:
-        return {
-          flag: true,
-          notification: data.server.message
-        }
-        // update page notification
-      case 500:
-        return {
-          flag: false,
-          notification: data.error.message
-        }
-      default:
-        break;
-    }
-    // finalYield a flag and then return the calling function *handleValidation(e) with this string `${returned message}`
-  }
-
-  
-
 
 
   render() {
