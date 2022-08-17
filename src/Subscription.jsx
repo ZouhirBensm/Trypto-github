@@ -26,17 +26,28 @@ class Subscription extends React.Component {
   constructor(){
     super()
     let step = utils.parseFullPath4lastpath(window.location)
-    console.log(step)
+    console.log("constructor Subscription: step: ", step)
     this.state = {
       step: step
     }
     this.setStepFunction = this.setStepFunction.bind(this)
+    this.nextStep=this.nextStep.bind(this)
+    this.previousStep=this.previousStep.bind(this)
+  }
+
+  nextStep(e){
+    console.log("parent!")
+    window.location.href= `${domain}/subscription/${++this.state.step}`
+  }
+  previousStep(e){
+    console.log("parent!")
+    window.location.href= `${domain}/subscription/${--this.state.step}`
   }
 
   setStepFunction(stepp, e){
     // e.preventDefault()
-    console.log("hello")
-    console.log(stepp)
+    // console.log("setStepFunction")
+    console.log("setStepFunction: stepp:", stepp)
     this.setState({ step: stepp }
       // , ()=>{
       // let path = `/subscription/${this.state.step}`
@@ -48,7 +59,7 @@ class Subscription extends React.Component {
 
   render() {
     let path = `/subscription/${this.state.step}`
-    console.log(path)
+    console.log("path: ", path)
     return (
       // <div>Subscriptions</div>
       <Router>
@@ -60,20 +71,20 @@ class Subscription extends React.Component {
             <Link to="/subscription/3" onClick={(e) => this.setStepFunction('3',e)}> Step3 </Link>
             <br/>
             <br/>
-            {this.state.step}
+            {"step: " + this.state.step}
 
             {/* <Route path="/subscription/:step" render={
               (props) => <SubscAlter {...props} step={this.state.step}/>
             }/> */}
 
             <Route path="/subscription/1" render={
-              (props) => <ChoosePlan {...props} step={this.state.step}/>
+              (props) => <ChoosePlan {...props} step={this.state.step} nextStep={this.nextStep}/>
             }/>
             <Route path="/subscription/2" render={
-              (props) => <CardInfoSubmission {...props} step={this.state.step}/>
+              (props) => <Register {...props} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep}/>
             }/>
             <Route path="/subscription/3" render={
-              (props) => <Register {...props} step={this.state.step}/>
+              (props) => <CardInfoSubmission {...props} step={this.state.step} previousStep={this.previousStep}/>
             }/>
 
           </Route>

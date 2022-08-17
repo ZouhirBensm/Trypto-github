@@ -1,9 +1,18 @@
 
 class CardInfoSubmission extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+    }
+    // this.functionn=this.functionn.bind(this)
+  }
 
   render(){
     return (
-      <h1>CardInfoSubmission</h1>
+      <div>
+        <h1>CardInfoSubmission</h1>
+        <button onClick={(e) => this.props.previousStep(e)}>Previous!</button>
+      </div>
     )
   }
 }

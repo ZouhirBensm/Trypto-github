@@ -146,6 +146,8 @@ class Register extends React.Component {
         </form>
         {/* display the notification from the server here! */}
         { notifyDisplays }
+        <button onClick={(e) => this.props.previousStep(e)}>Previous!</button>
+        <button onClick={(e) => this.props.nextStep(e)}>Next!</button>
       </div>
     );
   }
