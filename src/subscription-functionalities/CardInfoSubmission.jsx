@@ -12,7 +12,7 @@ class CardInfoSubmission extends React.Component {
     return (
       <div>
         <h1>CardInfoSubmission</h1>
-        <Link to="/subscription/2" onClick={(e) => this.props.previousStep(e)}> Previous </Link>
+        <a href="/subscription/2" onClick={(e) => this.props.previousStep(e)}> Previous </a>
       </div>
     )
   }

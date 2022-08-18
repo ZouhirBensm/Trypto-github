@@ -17,7 +17,7 @@ class ChoosePlan extends React.Component {
       <div>
         <h1>ChoosePlan</h1>
         {/* <button onClick={(e) => this.props.nextStep(e)}>Next!</button> */}
-        <Link to="/subscription/2" onClick={(e) => this.props.nextStep(e)}> Next </Link>
+        <a href="/subscription/2" onClick={(e) => this.props.nextStep(e)}> Next </a>
       </div>
     )
   }

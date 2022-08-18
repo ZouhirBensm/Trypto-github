@@ -17,7 +17,7 @@ class Register extends React.Component {
     console.log("step in register: ", this.props.step)
   }
 
-  async logging(){
+  async asyncFunctionToreturnValidation(){
     console.log("Hello!!!!!!")
     let gen = this.handleValidation()
     let val = await gen.next() // Issue!
@@ -86,58 +86,23 @@ class Register extends React.Component {
           <input type="text" name="email" onChange={(e) => this.props.handleChange("email", e)}/>
           <label>Password</label>
           <input type="password" name="password" onChange={(e) => this.props.handleChange("password", e)}/> 
-          <Link to="/subscription/3" 
-          onClick={
-            async (e) => {
-              let gen = this.handleValidation(e)
-              let val = await gen.next()
-              this.props.nextStep(e)
-              console.log("Returned val on button click statements\nAfter let val = await gen.next()\n", val)
-            }
-          }> Register Link! </Link>
-
-          {/* Works___________ */}
           {"step: " + this.props.step}
-
-          <Link to={`/subscription/${"3"}`} 
+          <a href="/subscription/3" 
           onClick={
             async (e) => {
-              e.persist()
-              let returnedValue = await this.logging()
-              console.log("returnedValue: ", returnedValue)
+              e.preventDefault()
+              let returnedValue = await this.asyncFunctionToreturnValidation()
               if (returnedValue.done){
                 this.props.nextStep()
-              } else {
-                console.log("try and rerender register")
-                // window.location.href = "http://localhost:3000/subscription/2"
-                // e.preventDefault()
-                return this
               }
-              // let gen = this.handleValidation(e)
-              // let val = await gen.next() // Issue!
-              // console.log("Returned val on button click statements\nAfter let val = await gen.next()\n", val)
-              // this.props.nextStep(e)
             }
-          }> Register TesT! </Link>
-
-
-          <button type="submit" 
-          onClick={
-            async (e) => {
-              let gen = this.handleValidation(e)
-              let val = await gen.next()
-              await gen.next()
-              
-              console.log("Returned val on button click statements\nAfter let val = await gen.next()\n", val)
-              // console.log("Returned val on button click statements\nAfter await gen.next()\n", gen)
-            }
-          }>Register</button>
+          }>Register</a>
           
         </form>
         {/* display the notification from the server here! */}
         { notifyDisplays }
-        <Link to="/subscription/1" onClick={(e) => this.props.previousStep(e)}> Previous </Link>
-        <Link to="/subscription/3" onClick={(e) => this.props.nextStep(e)}> Next </Link>
+        <a href="/subscription/1" onClick={(e) => this.props.previousStep(e)}> Previous </a>
+        <a href="/subscription/3" onClick={(e) => this.props.nextStep(e)}> Next </a>
       </div>
     );
   }
