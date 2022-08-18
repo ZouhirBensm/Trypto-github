@@ -98,16 +98,20 @@ class Register extends React.Component {
 
           {/* Works___________ */}
           {"step: " + this.props.step}
-          
+
           <Link to={`/subscription/${"3"}`} 
           onClick={
             async (e) => {
+              e.persist()
               let returnedValue = await this.logging()
               console.log("returnedValue: ", returnedValue)
               if (returnedValue.done){
                 this.props.nextStep()
               } else {
                 console.log("try and rerender register")
+                // window.location.href = "http://localhost:3000/subscription/2"
+                // e.preventDefault()
+                return this
               }
               // let gen = this.handleValidation(e)
               // let val = await gen.next() // Issue!
