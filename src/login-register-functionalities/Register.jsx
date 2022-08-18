@@ -75,9 +75,9 @@ class Register extends React.Component {
         <form id="loginregister" className="form">
           <h3>Register React</h3>
           <label>Email</label>
-          <input type="text" name="email" onChange={(e) => this.props.handleChange("email", e)}/>
+          <input type="text" name="email" value="h@example.com" onChange={(e) => this.props.handleChange("email", e)}/>
           <label>Password</label>
-          <input type="password" name="password" onChange={(e) => this.props.handleChange("password", e)}/> 
+          <input type="password" name="password" value="Zouhir123!" onChange={(e) => this.props.handleChange("password", e)}/> 
           <Link to="/subscription/3" 
           onClick={
             async (e) => {
@@ -90,8 +90,8 @@ class Register extends React.Component {
           {/* Works */}
           <Link to="/subscription/3" 
           onClick={
-              (e) => {
-              // let gen = this.handleValidation(e)
+              async (e) => {
+              let gen = this.handleValidation(e)
               // let val = await gen.next()
               this.props.nextStep(e)
               // console.log("Returned val on button click statements\nAfter let val = await gen.next()\n", val)
