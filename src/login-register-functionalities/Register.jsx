@@ -103,7 +103,7 @@ class Register extends React.Component {
             async (e) => {
               let gen = this.handleValidation(e)
               let val = await gen.next()
-              // await gen.next()
+              await gen.next()
               
               console.log("Returned val on button click statements\nAfter let val = await gen.next()\n", val)
               // console.log("Returned val on button click statements\nAfter await gen.next()\n", gen)
