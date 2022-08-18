@@ -48,13 +48,15 @@ class Register extends React.Component {
         // set the state of the notification to tell User "Hey user password not Good"
         this.setState({notification: notification})
         console.log("Hey user password not Good");
+        yield {yield_level: 2, number_of_max_yield_levels: 3, inProcessChecking: "password", message: notification}
         // yield to end process
       } else { // finish and return
         // set the state of the notification to tell component "Good password"
         console.log("Hey component password good!");
         this.setState({notification: notification})
+        this.props.nextStep()
+        return {yield_level: 2, number_of_max_yield_levels: 3, inProcessChecking: "nothing", message: notification}
       }
-      return {yield_level: 2, number_of_max_yield_levels: 2, inProcessChecking: "password", message: notification}
     }
   }
 
@@ -73,15 +75,16 @@ class Register extends React.Component {
         <form id="loginregister" className="form">
           <h3>Register React</h3>
           <label>Email</label>
-          <input type="text" name="email"/> 
+          <input type="text" name="email" onChange={(e) => this.props.handleChange("email", e)}/>
           <label>Password</label>
-          <input type="password" name="password"/> 
+          <input type="password" name="password" onChange={(e) => this.props.handleChange("password", e)}/> 
           <button type="submit" 
           onClick={
             async (e) => {
               let gen = this.handleValidation(e)
               let val = await gen.next()
               // await gen.next()
+
               console.log("Returned val on button click statements\nAfter let val = await gen.next()\n", val)
               // console.log("Returned val on button click statements\nAfter await gen.next()\n", gen)
             }

@@ -35,14 +35,21 @@ class Subscription extends React.Component {
     this.setStepFunction = this.setStepFunction.bind(this)
     this.nextStep=this.nextStep.bind(this)
     this.previousStep=this.previousStep.bind(this)
+    this.handleChange=this.handleChange.bind(this)
   }
 
   nextStep(e){
     console.log("parent!")
+    // this.setState({
+    //   step: ++this.state.step
+    // })
     window.location.href= `${domain}/subscription/${++this.state.step}`
   }
   previousStep(e){
     console.log("parent!")
+    // this.setState({
+    //   step: --this.state.step
+    // })
     window.location.href= `${domain}/subscription/${--this.state.step}`
   }
 
@@ -51,10 +58,19 @@ class Subscription extends React.Component {
     this.setState({ step: stepp }); 
   }
 
+  // TODO get rid of this and buffer the data on the server https://www.digitalocean.com/community/tutorials/using-buffers-in-node-js when the rest is submitted save all to DB, if nothin is submitted (keep track of the process on the front end and know in node when we exited) delete the buffer
+  handleChange(input, e){
+    console.log("in parent", e.target.value)
+    this.setState({
+      [input]: e.target.value
+    })
+  }
+
 
   render() {
     let path = `/subscription/${this.state.step}`
     console.log("path: ", path)
+    console.log("state: ", this.state)
     return (
       // <div>Subscriptions</div>
       <Router>
@@ -76,7 +92,7 @@ class Subscription extends React.Component {
               (props) => <ChoosePlan {...props} step={this.state.step} nextStep={this.nextStep}/>
             }/>
             <Route path="/subscription/2" render={
-              (props) => <Register {...props} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep}/>
+              (props) => <Register {...props} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep} handleChange={this.handleChange}/>
             }/>
             <Route path="/subscription/3" render={
               (props) => <CardInfoSubmission {...props} step={this.state.step} previousStep={this.previousStep}/>
