@@ -1,4 +1,5 @@
 
+import { Link, Switch, Route, BrowserRouter as Router } from "react-router-dom";
 class ChoosePlan extends React.Component {
   constructor(props){
     super(props)
@@ -15,7 +16,8 @@ class ChoosePlan extends React.Component {
     return (
       <div>
         <h1>ChoosePlan</h1>
-        <button onClick={(e) => this.props.nextStep(e)}>Next!</button>
+        {/* <button onClick={(e) => this.props.nextStep(e)}>Next!</button> */}
+        <Link to="/subscription/2" onClick={(e) => this.props.nextStep(e)}> Next </Link>
       </div>
     )
   }

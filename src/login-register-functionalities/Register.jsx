@@ -2,6 +2,7 @@
 
 import '../style/reactDivMobile.css'
 import {verifyEmail, verifyPassword} from '../../full-stack-libs/validations'
+import { Link, Switch, Route, BrowserRouter as Router } from "react-router-dom";
 
 
 
@@ -53,9 +54,9 @@ class Register extends React.Component {
       } else { // finish and return
         // set the state of the notification to tell component "Good password"
         console.log("Hey component password good!");
-        this.setState({notification: notification})
         this.props.nextStep()
-        return {yield_level: 2, number_of_max_yield_levels: 3, inProcessChecking: "nothing", message: notification}
+        // this.setState({notification: notification})
+        // return {yield_level: 2, number_of_max_yield_levels: 3, inProcessChecking: "nothing", message: notification}
       }
     }
   }
@@ -92,8 +93,8 @@ class Register extends React.Component {
         </form>
         {/* display the notification from the server here! */}
         { notifyDisplays }
-        <button onClick={(e) => this.props.previousStep(e)}>Previous!</button>
-        <button onClick={(e) => this.props.nextStep(e)}>Next!</button>
+        <Link to="/subscription/1" onClick={(e) => this.props.previousStep(e)}> Previous </Link>
+        <Link to="/subscription/3" onClick={(e) => this.props.nextStep(e)}> Next </Link>
       </div>
     );
   }

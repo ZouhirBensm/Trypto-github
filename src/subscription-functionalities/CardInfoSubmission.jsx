@@ -1,4 +1,5 @@
 
+import { Link, Switch, Route, BrowserRouter as Router } from "react-router-dom";
 class CardInfoSubmission extends React.Component {
   constructor(props){
     super(props)
@@ -11,7 +12,7 @@ class CardInfoSubmission extends React.Component {
     return (
       <div>
         <h1>CardInfoSubmission</h1>
-        <button onClick={(e) => this.props.previousStep(e)}>Previous!</button>
+        <Link to="/subscription/2" onClick={(e) => this.props.previousStep(e)}> Previous </Link>
       </div>
     )
   }

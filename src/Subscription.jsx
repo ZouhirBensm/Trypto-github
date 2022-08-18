@@ -40,10 +40,11 @@ class Subscription extends React.Component {
 
   nextStep(e){
     console.log("parent!")
-    // this.setState({
-    //   step: ++this.state.step
-    // })
-    window.location.href= `${domain}/subscription/${++this.state.step}`
+    this.setState({
+      step: ++this.state.step
+    })
+    // window.history.replaceState(null, null, `${domain}/subscription/${this.state.step}`)
+    // window.location.href= `${domain}/subscription/${++this.state.step}`
   }
   previousStep(e){
     console.log("parent!")
@@ -71,6 +72,7 @@ class Subscription extends React.Component {
     let path = `/subscription/${this.state.step}`
     console.log("path: ", path)
     console.log("state: ", this.state)
+    
     return (
       // <div>Subscriptions</div>
       <Router>
