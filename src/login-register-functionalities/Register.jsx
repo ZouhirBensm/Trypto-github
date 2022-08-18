@@ -54,9 +54,8 @@ class Register extends React.Component {
       } else { // finish and return
         // set the state of the notification to tell component "Good password"
         console.log("Hey component password good!");
-        this.props.nextStep()
-        // this.setState({notification: notification})
-        // return {yield_level: 2, number_of_max_yield_levels: 3, inProcessChecking: "nothing", message: notification}
+        this.setState({notification: notification})
+        return {yield_level: 2, number_of_max_yield_levels: 3, inProcessChecking: "nothing", message: notification}
       }
     }
   }
@@ -79,17 +78,38 @@ class Register extends React.Component {
           <input type="text" name="email" onChange={(e) => this.props.handleChange("email", e)}/>
           <label>Password</label>
           <input type="password" name="password" onChange={(e) => this.props.handleChange("password", e)}/> 
+          <Link to="/subscription/3" 
+          onClick={
+            async (e) => {
+              let gen = this.handleValidation(e)
+              let val = await gen.next()
+              this.props.nextStep(e)
+              console.log("Returned val on button click statements\nAfter let val = await gen.next()\n", val)
+            }
+          }> Register Link! </Link>
+          {/* Works */}
+          <Link to="/subscription/3" 
+          onClick={
+              (e) => {
+              // let gen = this.handleValidation(e)
+              // let val = await gen.next()
+              this.props.nextStep(e)
+              // console.log("Returned val on button click statements\nAfter let val = await gen.next()\n", val)
+            }
+          }> Register TesT! </Link>
+
           <button type="submit" 
           onClick={
             async (e) => {
               let gen = this.handleValidation(e)
               let val = await gen.next()
               // await gen.next()
-
+              
               console.log("Returned val on button click statements\nAfter let val = await gen.next()\n", val)
               // console.log("Returned val on button click statements\nAfter await gen.next()\n", gen)
             }
           }>Register</button>
+          
         </form>
         {/* display the notification from the server here! */}
         { notifyDisplays }
