@@ -3,6 +3,7 @@
 import PricesComponent from './home-functionalities/PricesComponent.jsx';
 
 import Register from './login-register-functionalities/Register.jsx';
+import Subscription from './Subscription'
 
 
 // TODO #97 Put root files in src in their own folder, adjust webpack configs accordingly. Name the folder: "root SPAs"
@@ -83,7 +84,7 @@ class App extends React.Component {
         </Suspense> */}
         <PricesComponent countries={countries.west} prices={this.state.prices}/>
 
-        {userId? null:<Register/>}
+        {/* {userId? null:<Subscription/>} */}
         
 
       </React.Fragment> 

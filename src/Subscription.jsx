@@ -104,6 +104,9 @@ class Subscription extends React.Component {
   }
 }
 
+
+export default Subscription
+
 const element = <Subscription />;
 
 ReactDOM.render(element, document.getElementById('react-div'));

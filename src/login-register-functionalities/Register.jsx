@@ -102,7 +102,7 @@ class Register extends React.Component {
         {/* display the notification from the server here! */}
         { notifyDisplays }
         <button onClick={(e) => this.props.setStateStep('1')}> Previous </button>
-        <button onClick={(e) => this.props.setStateStep('3')}> Next </button>
+        {/* <button onClick={(e) => this.props.setStateStep('3')}> Next </button> */}
       </div>
     );
   }
