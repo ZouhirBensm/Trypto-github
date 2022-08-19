@@ -36,8 +36,14 @@ class Subscription extends React.Component {
     this.nextStep=this.nextStep.bind(this)
     this.previousStep=this.previousStep.bind(this)
     this.handleChange=this.handleChange.bind(this)
+    this.setStateStep=this.setStateStep.bind(this)
   }
 
+  setStateStep(step){
+    this.setState({
+      step: step
+    })
+  }
   nextStep(e){
     console.log("parent!")
     this.setState({
@@ -71,13 +77,13 @@ class Subscription extends React.Component {
     
     switch (path) {
       case `/subscription/1`:
-        component = <ChoosePlan step={this.state.step} nextStep={this.nextStep}/>
+        component = <ChoosePlan setStateStep={this.setStateStep} step={this.state.step} nextStep={this.nextStep}/>
         break;
       case `/subscription/2`:
-        component = <Register step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep} handleChange={this.handleChange}/>
+        component = <Register setStateStep={this.setStateStep} email={this.state.email} password={this.state.password} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep} handleChange={this.handleChange}/>
         break;
       case `/subscription/3`:
-        component = <CardInfoSubmission step={this.state.step} previousStep={this.previousStep}/>
+        component = <CardInfoSubmission setStateStep={this.setStateStep} step={this.state.step} previousStep={this.previousStep}/>
         break;
     
       default:
@@ -87,9 +93,10 @@ class Subscription extends React.Component {
     return (
       // <div>Subscriptions</div>
       <React.Fragment>
-        <a href="/subscription/1">Step1</a>
-        <a href="/subscription/2">Step2</a>
-        <a href="/subscription/3">Step3</a>
+        <a href="/subscription/1"> Restart </a>
+        {/* <button onClick={(e) => {this.setStateStep('1')}}> Step1 </button>
+        <button onClick={(e) => {this.setStateStep('2')}}> Step2 </button>
+        <button onClick={(e) => {this.setStateStep('3')}}> Step3 </button> */}
 
         {component}
       </React.Fragment>

@@ -83,9 +83,9 @@ class Register extends React.Component {
         <form id="loginregister" className="form">
           <h3>Register React</h3>
           <label>Email</label>
-          <input type="text" name="email" onChange={(e) => this.props.handleChange("email", e)}/>
+          <input type="text" name="email" value={this.props.email} onChange={(e) => this.props.handleChange("email", e)}/>
           <label>Password</label>
-          <input type="password" name="password" onChange={(e) => this.props.handleChange("password", e)}/> 
+          <input type="password" name="password" value={this.props.password} onChange={(e) => this.props.handleChange("password", e)}/> 
           {"step: " + this.props.step}
           <a href="/subscription/3" 
           onClick={
@@ -101,8 +101,8 @@ class Register extends React.Component {
         </form>
         {/* display the notification from the server here! */}
         { notifyDisplays }
-        <a href="/subscription/1" onClick={(e) => this.props.previousStep(e)}> Previous </a>
-        <a href="/subscription/3" onClick={(e) => this.props.nextStep(e)}> Next </a>
+        <button onClick={(e) => this.props.setStateStep('1')}> Previous </button>
+        <button onClick={(e) => this.props.setStateStep('3')}> Next </button>
       </div>
     );
   }
