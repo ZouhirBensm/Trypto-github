@@ -34,6 +34,33 @@ module.exports = {
     }
 
   },
+  checkRegisterController: async(req,res,next) => {
+    console.log("we got: ", req.body)
+
+    let mightFindUser
+    try {
+      mightFindUser = await User.findOne(req.body)
+    } catch (e) {
+      error = new MongoError(e.message, e.code)
+      return next(error)
+    }
+    
+    if(mightFindUser){
+      console.log("one", mightFindUser)
+      res.status(httpStatus.StatusCodes.INTERNAL_SERVER_ERROR).json({
+        error: {
+          message: ['We did find a duplicate email in the database, please register under another email.']
+        }
+      })
+    } else {
+      console.log("one", mightFindUser)
+      res.status(httpStatus.StatusCodes.OK).json({
+        server: {
+          message: ['We did not find a duplicate email']
+        }
+      })
+    }
+  },
 
   registerController: async (req,res, next) => {
     await User.create(req.body,(error,user)=>{

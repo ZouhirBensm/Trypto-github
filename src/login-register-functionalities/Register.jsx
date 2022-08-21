@@ -60,18 +60,69 @@ class Register extends React.Component {
         yield {yield_level: 2, number_of_max_yield_levels: 3, inProcessChecking: "password", message: notification}
         // yield to end process
       } else { // finish and return
-        // set the state of the notification to tell component "Good password"
         console.log("Hey component password good!");
-        // this.setState({notification: notification})
-        return {yield_level: 2, number_of_max_yield_levels: 3, inProcessChecking: "nothing", message: notification}
+        ({flag, notification} = await this.checkIfEmailDuplicateInDatabase(email))
+        console.log("\n\nAfter API call, we are left with: ", flag, notification)
+        if(!flag) {
+          console.log("BAM!", notification)
+          console.log("Hey component their is an issue on the server")
+          this.setState({notification: notification})
+          yield {yield_level: 3, number_of_max_yield_levels: 4, inProcessChecking: "password", message: notification}
+        } else {
+          this.setState({notification: notification})
+          console.log("success")
+          return {yield_level: 4, number_of_max_yield_levels: 4, inProcessChecking: "POST /check/register endpoint", message: notification}
+        }
       }
     }
   }
 
+  async checkIfEmailDuplicateInDatabase (_email){
+    console.log("Making API call!")
+    let response
+    let data
+
+    response = await fetch(`${process.env.ROOT}/check/user/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        email: _email,
+      })
+    })
+
+    data = await response.json()
+   
+    console.log(response)
+    // console.log(data)
+
+
+    switch (response.status) {
+      case 200:
+        return {
+          flag: true,
+          notification: data.server.message
+        }
+        // update page notification
+      case 500:
+        return {
+          flag: false,
+          notification: typeof data.error.message === 'string'? [data.error.message]: data.error.message
+        }
+      default:
+        break;
+    }
+    // finalYield a flag and then return the calling function *handleValidation(e) with this string `${returned message}`
+  }
+
+
 
   render() {
-
-    const notifyDisplays = this.state.notification?.map((notification, index) => {
+    console.log(typeof this.state.notification)
+    let notifyDisplays
+    notifyDisplays = this.state.notification?.map((notification, index) => {
       return <div key={index}>{notification}</div>
     })
 
@@ -86,22 +137,26 @@ class Register extends React.Component {
           <input type="text" name="email" value={this.props.email} onChange={(e) => this.props.handleChange("email", e)}/>
           <label>Password</label>
           <input type="password" name="password" value={this.props.password} onChange={(e) => this.props.handleChange("password", e)}/> 
-          {"step: " + this.props.step}
-          <a href="/subscription/3" 
+          <button 
           onClick={
             async (e) => {
               e.preventDefault()
               let returnedValue = await this.asyncFunctionToreturnValidation()
-              if (returnedValue.done){
-                this.props.nextStep()
+              // console.log("work with this!", this.props.plan)
+              if (returnedValue.value.yield_level == 4){
+                // this.props.nextStep()
+                if(this.props.plan == "free") this.props.setStateStep(3)
+                if(this.props.plan == "basic") this.props.nextStep()
+              } else {
+                console.log("arrived until: ", returnedValue.value.yield_level)
               }
             }
-          }>Register</a>
+          }>Register</button>
           
         </form>
         {/* display the notification from the server here! */}
         { notifyDisplays }
-        <button onClick={(e) => this.props.setStateStep('1')}> Previous </button>
+        <button onClick={(e) => this.props.setStateStep(1)}> Previous </button>
         {/* <button onClick={(e) => this.props.setStateStep('3')}> Next </button> */}
       </div>
     );

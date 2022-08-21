@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "@loadable/component": "^5.15.2",
+    "@paypal/paypal-js": "^5.1.1",
     "axios": "^0.26.0",
     "bcryptjs": "^2.4.3",
     "coingecko-api": "^1.0.10",

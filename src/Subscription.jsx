@@ -21,17 +21,21 @@ const ChoosePlan = loadable(() => import("./subscription-functionalities/ChooseP
 const CardInfoSubmission = loadable(() => import("./subscription-functionalities/CardInfoSubmission"),{
   fallback: <Loading/>
 });
+const Confirmation = loadable(() => import("./subscription-functionalities/Confirmation"),{
+  fallback: <Loading/>
+});
 
 
 class Subscription extends React.Component {
   constructor(){
     super()
-    let step = utils.parseFullPath4lastpath(window.location)
-    console.log("constructor Subscription: step: ", step)
+    // let step = utils.parseFullPath4lastpath(window.location)
+    // console.log("constructor Subscription: step: ", step)
     this.state = {
-      step: step,
+      step: 1,
       email: "",
       password: "",
+      plan: "",
     }
     this.nextStep=this.nextStep.bind(this)
     this.previousStep=this.previousStep.bind(this)
@@ -60,7 +64,6 @@ class Subscription extends React.Component {
     // window.location.href= `${domain}/subscription/${--this.state.step}`
   }
 
-  // TODO get rid of this and buffer the data on the server https://www.digitalocean.com/community/tutorials/using-buffers-in-node-js when the rest is submitted save all to DB, if nothin is submitted (keep track of the process on the front end and know in node when we exited) delete the buffer
   handleChange(input, e){
     console.log("in parent", e.target.value)
     this.setState({
@@ -70,20 +73,23 @@ class Subscription extends React.Component {
 
 
   render() {
-    let path = `/subscription/${this.state.step}`
-    console.log("path: ", path)
+    // let path = `/subscription/${this.state.step}`
+    // console.log("path: ", path)
     console.log("state: ", this.state)
     let component
     
-    switch (path) {
-      case `/subscription/1`:
-        component = <ChoosePlan setStateStep={this.setStateStep} step={this.state.step} nextStep={this.nextStep}/>
+    switch (this.state.step) {
+      case 1:
+        component = <ChoosePlan handleChange={this.handleChange} setStateStep={this.setStateStep} step={this.state.step} plan={this.state.plan} nextStep={this.nextStep}/>
         break;
-      case `/subscription/2`:
-        component = <Register setStateStep={this.setStateStep} email={this.state.email} password={this.state.password} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep} handleChange={this.handleChange}/>
+      case 2:
+        component = <Register plan={this.state.plan} setStateStep={this.setStateStep} email={this.state.email} password={this.state.password} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep} handleChange={this.handleChange}/>
         break;
-      case `/subscription/3`:
-        component = <CardInfoSubmission setStateStep={this.setStateStep} step={this.state.step} previousStep={this.previousStep}/>
+      case 3:
+        component = <CardInfoSubmission plan={this.state.plan} setStateStep={this.setStateStep} step={this.state.step} previousStep={this.previousStep}/>
+        break;
+      case 4:
+        component = <Confirmation plan={this.state.plan} setStateStep={this.setStateStep} previousStep={this.previousStep}/>
         break;
     
       default:
@@ -93,7 +99,7 @@ class Subscription extends React.Component {
     return (
       // <div>Subscriptions</div>
       <React.Fragment>
-        <a href="/subscription/1"> Restart </a>
+        <a href="/subscription"> Restart </a>
         {/* <button onClick={(e) => {this.setStateStep('1')}}> Step1 </button>
         <button onClick={(e) => {this.setStateStep('2')}}> Step2 </button>
         <button onClick={(e) => {this.setStateStep('3')}}> Step3 </button> */}

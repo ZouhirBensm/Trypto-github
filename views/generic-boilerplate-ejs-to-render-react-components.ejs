@@ -4,5 +4,11 @@
 <div id="userIdB" style="display: none;"><%if(locals.userIdB){%><%=userIdB%><%}%></div>
 <div id="orderId" style="display: none;"><%if(locals.orderId){%><%=orderId%><%}%></div>
 <div id="popup" style="display: none;"><%if(locals.popup){%><%=popup%><%}%></div>
+
+<!-- TODO Client ID is a environment variable -->
+<!-- React way -->
+<!-- <%if(locals.isPaypalScriptNeeded){%>
+  <script src="https://www.paypal.com/sdk/js?client-id=ATXJhXxcZNV30C3S1vll7GE8VfNhZLnRfkz1dfS7ic1PTRQI8k7e8FwQWIOwoFBJs6nMM49JIVnESF_f&vault=true&intent=subscription"></script>
+<%}%> -->
 <!-- Capable from server send data to determine what React base component to render: Either App.js or Databases.js -->
 <script type="text/javascript" src="../dist/<%= JSX_to_load %>.js"></script>

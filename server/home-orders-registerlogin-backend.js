@@ -62,16 +62,17 @@ homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHome, (req
   })
 })
 
-homeOrdersBackend_app_router.get('/subscription/:step?', loggedInRedirectHome, function(req,res,next) {
+homeOrdersBackend_app_router.get('/subscription', loggedInRedirectHome, function(req,res,next) {
 
 
-  console.log("/subscription/:step?: ", req.params.step, req.session.userId)
+  console.log("/subscription: ", req.session.userId)
 
 
 
   var JSX_to_load = 'Subscription';
   res.render('generic-boilerplate-ejs-to-render-react-components', { 
     JSX_to_load : JSX_to_load, 
+    isPaypalScriptNeeded: true
     // [req.params.what_page === "profile" ? "userId": null]: req.session.userId,
   })
 })
@@ -97,6 +98,9 @@ homeOrdersBackend_app_router.post('/users/login', requireReferer, StopIfAlreadyL
 
 // Register New User
 homeOrdersBackend_app_router.post('/users/register', requireReferer, StopIfAlreadyLoggedIn, RegisterLoginController.validateController, RegisterLoginController.registerController)
+
+// Check if you can register
+homeOrdersBackend_app_router.post('/check/user/register', requireReferer, StopIfAlreadyLoggedIn, RegisterLoginController.checkRegisterController)
 
 
 
