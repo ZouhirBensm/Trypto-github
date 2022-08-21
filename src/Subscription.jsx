@@ -86,10 +86,10 @@ class Subscription extends React.Component {
         component = <Register plan={this.state.plan} setStateStep={this.setStateStep} email={this.state.email} password={this.state.password} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep} handleChange={this.handleChange}/>
         break;
       case 3:
-        component = <CardInfoSubmission plan={this.state.plan} setStateStep={this.setStateStep} step={this.state.step} previousStep={this.previousStep}/>
+        component = <CardInfoSubmission plan={this.state.plan} setStateStep={this.setStateStep} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep}/>
         break;
       case 4:
-        component = <Confirmation plan={this.state.plan} setStateStep={this.setStateStep} previousStep={this.previousStep}/>
+        component = <Confirmation email={this.state.email} plan={this.state.plan} setStateStep={this.setStateStep} previousStep={this.previousStep}/>
         break;
     
       default:
@@ -99,7 +99,7 @@ class Subscription extends React.Component {
     return (
       // <div>Subscriptions</div>
       <React.Fragment>
-        <a href="/subscription"> Restart </a>
+        {this.state.step != 4? <a href="/subscription"> Restart </a>: null}
         {/* <button onClick={(e) => {this.setStateStep('1')}}> Step1 </button>
         <button onClick={(e) => {this.setStateStep('2')}}> Step2 </button>
         <button onClick={(e) => {this.setStateStep('3')}}> Step3 </button> */}

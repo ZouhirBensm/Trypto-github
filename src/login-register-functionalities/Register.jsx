@@ -145,7 +145,7 @@ class Register extends React.Component {
               // console.log("work with this!", this.props.plan)
               if (returnedValue.value.yield_level == 4){
                 // this.props.nextStep()
-                if(this.props.plan == "free") this.props.setStateStep(3)
+                if(this.props.plan == "free") this.props.setStateStep(4)
                 if(this.props.plan == "basic") this.props.nextStep()
               } else {
                 console.log("arrived until: ", returnedValue.value.yield_level)
