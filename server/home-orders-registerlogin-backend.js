@@ -123,7 +123,8 @@ let i= 0;
 homeOrdersBackend_app_router.post('/paypal-webhook', (req,res)=>{
   console.log(`\n\n${i++}___________________________________________\n\n\n`)
   console.log("WEBHOOK!!!!, req.body: ", req.body)
-  console.log("WEBHOOK!!!!, JSON.stringify(req.body): ", JSON.stringify(req.body))
+  console.log("WEBHOOK!!!!, JSON.stringify(req.body): ", JSON.stringify(req.body))]
+  res.status(200).send("ok")
 })
 
 
