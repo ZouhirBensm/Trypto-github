@@ -5,8 +5,74 @@ class CardInfoSubmission extends React.Component {
   constructor(props){
     super(props)
     this.state = {
+      notification: [],
     }
-    // this.functionn=this.functionn.bind(this)
+    this.basicPlanRegistrationProcess=this.basicPlanRegistrationProcess.bind(this)
+    this.handleRegistrationCall=this.handleRegistrationCall.bind(this)
+  }
+
+  async basicPlanRegistrationProcess(paypal_subscriptionID, paypal_plan_id, paypal_product_id){
+    console.log("basic registration")
+    let flag, notification
+    console.log("actuallly register the user", this.props.email, this.props.password, this.props.plan);
+    console.log("paypal_subscriptionID: ", paypal_subscriptionID)
+    console.log("paypal_plan_id: ", paypal_plan_id)
+    console.log("paypal_product_id: ", paypal_product_id);
+
+    
+    ({flag, notification} =  await this.handleRegistrationCall(this.props.email, this.props.password, this.props.plan, paypal_subscriptionID, paypal_plan_id, paypal_product_id));
+
+    if (flag){
+      // this.setState({notification: notification})
+      this.props.nextStep()
+    } else {
+      this.setState({notification: notification})
+    }
+    console.log(flag, notification)
+
+  }
+
+
+  async handleRegistrationCall (_email, _password, _plan, _paypal_subscriptionID, _paypal_plan_id, _paypal_product_id){
+    console.log("Making API call!")
+    
+    const response = await fetch(`${process.env.ROOT}/users/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        email: _email,
+        password: _password,
+        plan: _plan,
+        paypal_subscriptionID: _paypal_subscriptionID,
+        paypal_plan_id: _paypal_plan_id,
+        paypal_product_id: _paypal_product_id,
+      })
+    })
+   
+    console.log(response)
+    let data = await response.json()
+    console.log(data)
+
+
+    switch (response.status) {
+      case 200:
+        return {
+          flag: true,
+          notification: data.server.message
+        }
+        // update page notification
+      case 500:
+        return {
+          flag: false,
+          notification: typeof data.error.message === 'string'? [data.error.message]: data.error.message
+        }
+      default:
+        break;
+    }
+
   }
 
   // componentDidMount(){
@@ -42,33 +108,41 @@ class CardInfoSubmission extends React.Component {
   // React way
   createSubscription(data, actions) {
     return actions.subscription.create({
-      // TODO environment variable plan ID
-      'plan_id': 'P-8K2448559P9609535MMAPYHA'
+      'plan_id': process.env.paypal_plan_id
     });
   }
 
   onApprove(data, actions) {
     // alert('You have successfully created subscription ' + data.subscriptionID); 
     // Optional message given to subscriber
-    console.log("ACTIONS: ", actions)
-    this.props.nextStep()
+    console.log("ACTIONS: ", actions, "SUBSCRIPTION ID", data.subscriptionID)
+    this.basicPlanRegistrationProcess(data.subscriptionID, process.env.paypal_plan_id, process.env.paypal_product_id)
   }
 
   render(){
+
+    console.log(typeof this.state.notification)
+    let notifyDisplays
+    notifyDisplays = this.state.notification?.map((notification, index) => {
+      return <div key={index}>{notification}</div>
+    })
+
+    console.log(notifyDisplays)
+
     return (
       <div className="payment-component-wrapper">
-        {/* TODO Environment variable client ID */}
-  
         <h1>CardInfoSubmission</h1>
 
-        <div id="paypal-button-container"></div>
+        {/* <div id="paypal-button-container"></div> */}
+        { notifyDisplays }
         
-        {/* React way */}
         <PayPalButton
           createSubscription={(data, actions) => this.createSubscription(data, actions)}
           onApprove={(data, actions) => this.onApprove(data, actions)}
         />
 
+
+        <hr/>
         <p>You can unsubscribe anytime by a click of a button on the your profiles page!</p>
 
         <button onClick={(e) => this.props.setStateStep(2)}> Previous </button>

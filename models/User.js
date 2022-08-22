@@ -25,6 +25,11 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    subscriptionID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Subscriber',
+        default: null
     }
 })
 

@@ -22,9 +22,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap" rel="stylesheet">
 
   <script>
+    // TODO directly use the values if possible, instead of having to assign to variables
+    // TODO subs and users 1-1 relation: verify best practices? Does sub need to reference user? Does free tier need a sub credentials?
+    // TODO add webhook when cancelling subs in the paypal account sb-mzq9r20359069@business.example.com, delete the subscription in the application
+    // TODO permissions to distinguish users and subs
     var userId = '<%= locals.userId  %>'
     var domain = '<%-locals.ENV.domain%>'
     console.log("header script: ", userId, domain, window.location.href)
 	</script>
+
+<%if(locals.isPaypalScriptNeeded){%>
+<script>
+   var paypal_client_id = '<%-locals.ENV.paypal_client_id%>'
+   console.log("header script: ", paypal_client_id)
+</script>
+<%}%>
   
 </head>

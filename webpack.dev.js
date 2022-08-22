@@ -15,6 +15,9 @@ let dev_config = merge(config, {
   plugins: [
     new EnvironmentPlugin({
       ROOT: "http://localhost:3000",
+      // All credentials generated through the https://developer.paypal.com/ URL, logged in as businessZBRS@gmail.com, in a sandbox context
+      paypal_plan_id: "P-8K2448559P9609535MMAPYHA", // Product linked to sb-mzq9r20359069@business.example.com, throught to the BidBlock Development Staging created app, requires a product ID
+      paypal_product_id: "PROD-6NP19803R0467982A" // Product linked to sb-mzq9r20359069@business.example.com, throught to the BidBlock Development Staging created app
     })
   ]
 })

@@ -5,4 +5,7 @@ module.exports = {
   domain: 'http://localhost:3000',
   database_name: 'mern_database',
   environment: 'developement',
+  // All credentials generated through the https://developer.paypal.com/ URL, logged in as businessZBRS@gmail.com, in a sandbox context
+  paypal_product_id: 'PROD-6NP19803R0467982A', // Product linked to sb-mzq9r20359069@business.example.com, throught to the BidBlock Development Staging created app
+  paypal_client_id: 'ATXJhXxcZNV30C3S1vll7GE8VfNhZLnRfkz1dfS7ic1PTRQI8k7e8FwQWIOwoFBJs6nMM49JIVnESF_f'  // BidBlock Development Staging created app client ID linked to sb-mzq9r20359069@business.example.com
 }

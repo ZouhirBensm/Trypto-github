@@ -86,7 +86,7 @@ class Subscription extends React.Component {
         component = <Register plan={this.state.plan} setStateStep={this.setStateStep} email={this.state.email} password={this.state.password} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep} handleChange={this.handleChange}/>
         break;
       case 3:
-        component = <CardInfoSubmission plan={this.state.plan} setStateStep={this.setStateStep} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep}/>
+        component = <CardInfoSubmission email={this.state.email} password={this.state.password} plan={this.state.plan} setStateStep={this.setStateStep} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep}/>
         break;
       case 4:
         component = <Confirmation email={this.state.email} plan={this.state.plan} setStateStep={this.setStateStep} previousStep={this.previousStep}/>

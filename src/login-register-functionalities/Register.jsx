@@ -14,8 +14,67 @@ class Register extends React.Component {
       notification: []
     }
     this.handleValidation = this.handleValidation.bind(this)
+    this.handleRegistrationCall = this.handleRegistrationCall.bind(this)
     console.log("step in register: ", this.props.step)
+    this.freePlanRegistrationProcess = this.freePlanRegistrationProcess.bind(this)
   }
+
+  async freePlanRegistrationProcess() {
+    console.log("heyy")
+    let flag, notification
+    console.log("actuallly register the user", this.props.email, this.props.password, this.props.plan);
+    ({flag, notification} = await this.handleRegistrationCall(this.props.email, this.props.password, this.props.plan))
+
+    console.log(flag, notification)
+    if (flag){
+      this.setState({notification: notification})
+      this.props.setStateStep(4)
+    } else {
+      this.setState({notification: notification})
+    }
+  }
+
+  async handleRegistrationCall (_email, _password, _plan){
+    console.log("Making API call!")
+    
+    const response = await fetch(`${process.env.ROOT}/users/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        email: _email,
+        password: _password,
+        plan: _plan,
+      })
+    })
+   
+    console.log(response)
+    let data = await response.json()
+    console.log(data)
+
+
+    switch (response.status) {
+      case 200:
+        return {
+          flag: true,
+          notification: data.server.message
+        }
+        // update page notification
+      case 500:
+        return {
+          flag: false,
+          notification: typeof data.error.message === 'string'? [data.error.message]: data.error.message
+        }
+      default:
+        break;
+    }
+
+  }
+
+
+
 
   async asyncFunctionToreturnValidation(){
     console.log("Hello!!!!!!")
@@ -69,7 +128,7 @@ class Register extends React.Component {
           this.setState({notification: notification})
           yield {yield_level: 3, number_of_max_yield_levels: 4, inProcessChecking: "password", message: notification}
         } else {
-          this.setState({notification: notification})
+          // this.setState({notification: notification})
           console.log("success")
           return {yield_level: 4, number_of_max_yield_levels: 4, inProcessChecking: "POST /check/register endpoint", message: notification}
         }
@@ -145,8 +204,12 @@ class Register extends React.Component {
               // console.log("work with this!", this.props.plan)
               if (returnedValue.value.yield_level == 4){
                 // this.props.nextStep()
-                if(this.props.plan == "free") this.props.setStateStep(4)
-                if(this.props.plan == "basic") this.props.nextStep()
+                if(this.props.plan == "free") {
+                  await this.freePlanRegistrationProcess()
+                }
+                if(this.props.plan == "basic") {
+                  this.props.nextStep()
+                }
               } else {
                 console.log("arrived until: ", returnedValue.value.yield_level)
               }
