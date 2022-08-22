@@ -70,11 +70,11 @@ module.exports = {
     switch (req.body.plan) {
       case "free":
         // Create User with a 
-        await User.create(req.body,(error,user)=>{
-          if(error){
-            error = new MongoError(error.message, error.code)
+        await User.create(req.body,(err,user)=>{
+          if(err){
+            err = new MongoError(err.message, err.code)
             // Needs Testing
-            return next(error)
+            return next(err)
           }
           res.status(200).json({
             server: {
@@ -137,7 +137,7 @@ module.exports = {
         try{
           await user_instance.save()
         } catch (err) {
-          err = new MongoError(err.message, err.code)
+          err = new MongoError(`You have successfully subscribed on paypal's servers, but not on BidBlock's servers' because of this error: ${err.message}`, err.code)
           return next(err)
         }
         console.log("saved user information")
@@ -145,7 +145,7 @@ module.exports = {
         try{
           await subscriber_instance.save()  
         } catch (err) {
-          err = new MongoError(err.message, err.code)
+          err = new MongoError(`You have successfully subscribed on paypal's servers, but not on BidBlock's servers' because of this error: ${err.message}`, err.code)
           return next(err)
         }
         console.log("saved subscriber information")

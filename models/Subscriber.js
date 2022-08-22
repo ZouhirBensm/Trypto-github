@@ -39,6 +39,10 @@ const SubscriberSchema = new Schema({
   userID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
+  },
+  subscriptionDateTime: {
+      type: Date,
+      default: new Date(),
   }
 })
 

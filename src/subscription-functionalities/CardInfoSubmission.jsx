@@ -23,8 +23,8 @@ class CardInfoSubmission extends React.Component {
     ({flag, notification} =  await this.handleRegistrationCall(this.props.email, this.props.password, this.props.plan, paypal_subscriptionID, paypal_plan_id, paypal_product_id));
 
     if (flag){
-      // this.setState({notification: notification})
-      this.props.nextStep()
+      this.setState({notification: notification})
+      // this.props.nextStep()
     } else {
       this.setState({notification: notification})
     }
@@ -106,10 +106,21 @@ class CardInfoSubmission extends React.Component {
   // }
 
   // React way
-  createSubscription(data, actions) {
-    return actions.subscription.create({
-      'plan_id': process.env.paypal_plan_id
-    });
+  async createSubscription(data, actions) {
+    // check server is up
+    let response = await fetch(`${domain}/isup`)
+    let srv_data = await response.json()
+    console.log("RESPONSE", response)
+    console.log("DATA", srv_data)
+    
+    // check database is up
+    if(response.status === 200){
+      return actions.subscription.create({
+        'plan_id': process.env.paypal_plan_id
+      });
+    } else {
+      this.setState({notification: srv_data.error.message})
+    }
   }
 
   onApprove(data, actions) {

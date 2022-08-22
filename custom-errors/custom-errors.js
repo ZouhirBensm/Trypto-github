@@ -35,6 +35,7 @@ class MongoError extends CustomError {
   }
 }
 
+
 class ValidationError extends CustomError {
   constructor(notification, validatee){
     super()
