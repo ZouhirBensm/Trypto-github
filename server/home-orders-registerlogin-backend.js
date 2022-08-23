@@ -6,36 +6,8 @@ const homeOrdersBackend_app_router = express.Router()
 
 const ENV = require('../config/base')
 
-var paypal = require('paypal-rest-sdk');
-
-var paypal_client_id = ENV.paypal_client_id;
-var paypal_secret = ENV.paypal_secret;
-
-paypal.configure({
-  'mode': 'sandbox', //sandbox or live
-  'client_id': paypal_client_id,
-  'client_secret': paypal_secret
-});
-
-// TODO environment variable for the webhook url.
-var webhooks = {
-  "url": "https://hidden-plateau-87550.herokuapp.com/paypal-webhook",
-  "event_types": [{
-      "name": "BILLING.SUBSCRIPTION.CANCELLED"
-  },{
-      "name": "BILLING.SUBSCRIPTION.SUSPENDED"
-  }
-]};
-
-paypal.notification.webhook.create(webhooks, function (err, webhook) {
-  if (err) {
-      console.log(err.response);
-      throw err;
-  } else {
-      console.log("Create webhook Response");
-      console.log(webhook);
-  }
-});
+// Manually create a webhook
+// https://riptutorial.com/paypal/example/1867/testing-sandbox-webhooks-with-ngrok-and-express--node-
 
 // In case you need to connect to DB #@
 // const {MongoClient} = require('mongodb');
