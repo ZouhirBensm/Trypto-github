@@ -122,15 +122,6 @@ homeOrdersBackend_app_router.get('/',(req,res)=>{
   res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
 })
 
-let i= 0;
-
-homeOrdersBackend_app_router.post('/paypal-webhook', (req,res)=>{
-  console.log(`\n\n${i++}___________________________________________\n\n\n`)
-  console.log("WEBHOOK!!!!, req.body: ", req.body)
-  console.log("WEBHOOK!!!!, JSON.stringify(req.body): ", JSON.stringify(req.body))
-  res.status(200).end()
-})
-
 
 homeOrdersBackend_app_router.get('/isup',(req,res)=>{
   // TODO put this in a controller generic folder
