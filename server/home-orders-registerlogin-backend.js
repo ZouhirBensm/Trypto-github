@@ -17,7 +17,7 @@ paypal.configure({
   'client_secret': paypal_secret
 });
 
-// TODO environment variable for the webhook url
+// TODO environment variable for the webhook url.
 var webhooks = {
   "url": "https://hidden-plateau-87550.herokuapp.com/paypal-webhook",
   "event_types": [{
