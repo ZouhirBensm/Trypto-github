@@ -12,11 +12,13 @@ class PayPalService {
       // Iterate the original request payload object
       // and prepend its keys and values to the post string
 
-      console.log("body in service: ", body)
+      console.log("body in service BEFORE: \n", body)
       Object.keys(body).map((key) => {
+        console.log("\nkey", key)
         postreq = `${postreq}&${key}=${body[key]}`;
         return key;
       });
+      console.log("\n\npostreq in service AFTER: ", postreq)
 
       console.log(ENV.paypal_ipn_verification_url)
       // In Development and Staging environment: 'https://ipnpb.sandbox.paypal.com/cgi-bin/webscr'
@@ -32,9 +34,15 @@ class PayPalService {
         method: 'POST',
         headers: {
           'Content-Length': postreq.length,
+          'Connection': 'close'
         },
         encoding: 'utf-8',
-        body: postreq
+        body: postreq,
+        
+        strictSSL: true,
+        rejectUnauthorized: false,
+        requestCert: true,
+        agent: false
       };
 
       // Make a post request to PayPal
