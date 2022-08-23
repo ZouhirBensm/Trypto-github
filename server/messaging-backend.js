@@ -37,9 +37,6 @@ messagingBackend_app_router.get('/', checkIfUseridWithinDBmiddleware, (req,res)=
     // userIdB: req.query.userIdB,
     // orderId: req.query.orderId,
   })
-
-
-
 })
 
 
