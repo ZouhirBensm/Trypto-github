@@ -38,11 +38,11 @@ class PayPalService {
         },
         encoding: 'utf-8',
         body: postreq,
-        
-        strictSSL: true,
-        rejectUnauthorized: false,
-        requestCert: true,
-        agent: false
+
+        // strictSSL: true,
+        // rejectUnauthorized: false,
+        // requestCert: true,
+        // agent: false
       };
 
       // Make a post request to PayPal
