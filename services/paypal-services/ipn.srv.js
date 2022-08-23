@@ -1,5 +1,8 @@
+// TODO: delete these libraries npm
 const request = require('request')
 const Promise = require('bluebird')
+
+
 const ENV = require('../../config/base')
 
 class PayPalService {

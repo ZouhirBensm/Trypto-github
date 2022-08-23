@@ -1,4 +1,9 @@
 const httpStatus = require("http-status-codes")
+
+// TODO: delete these folders/files
+// /Users/Zouhir/Documents/MERN/BlockchainMERN/services/paypal-services/ipn.srv.js
+
+
 const PayPalService = require("../../services/paypal-services/ipn.srv")
 
 class IPNController { 
@@ -40,9 +45,13 @@ class IPNController {
         case 'recurring_payment_suspended_due_to_max_failed_payment':  
           // Contact the user for more details
           break;
+        case 'recurring_payment_profile_created':  
+        // Contact the user for more details
+        break;
         default:
           console.log('Unhandled transaction type: ', transactionType);
       }
+      console.log('end: ', transactionType);
     } catch(e) {
       console.error(e); 
     }

@@ -4,7 +4,10 @@ const paypalBackend_app_router = express.Router()
 
 
 
-const IPNController = require('../controllers/paypal-controllers/ipn.ctrl')
+// TODO: delete these folders/files
+// /Users/Zouhir/Documents/MERN/BlockchainMERN/controllers/paypal-controllers/ipn.ctrl.js
+
+// const IPNController = require('../controllers/paypal-controllers/ipn.ctrl')
 
 
 
@@ -14,7 +17,7 @@ paypalBackend_app_router.post('/',   (req,res) =>{
   res.end();
 })
 
-paypalBackend_app_router.post('/ipn', IPNController.index)
+// paypalBackend_app_router.post('/ipn', IPNController.index)
 
 
 
