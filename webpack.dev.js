@@ -17,7 +17,9 @@ let dev_config = merge(config, {
       ROOT: "http://localhost:3000",
       // All credentials generated through the https://developer.paypal.com/ URL, logged in as businessZBRS@gmail.com, in a sandbox context
       paypal_plan_id: "P-8K2448559P9609535MMAPYHA", // Product linked to sb-mzq9r20359069@business.example.com, throught to the BidBlock Development Staging created app, requires a product ID
-      paypal_product_id: "PROD-6NP19803R0467982A" // Product linked to sb-mzq9r20359069@business.example.com, throught to the BidBlock Development Staging created app
+      paypal_product_id: "PROD-6NP19803R0467982A", // Product linked to sb-mzq9r20359069@business.example.com, throught to the BidBlock Development Staging created app
+      paypal_api_root: "https://api-m.sandbox.paypal.com/v1",
+      paypal_access_token: 'A21AAJkruharCMNbZQWgxwOhJWjdr4GmTh0JpynOyE2gztLXSjMN5_i_DtsIqIYtt_YzwILVELfXHxQOXYDkG9vHbA93_sc6A', // Generated from developer.paypal.com, linked to the sb-mzq9r20359069@business.example.com sandbox account, linked to the BidBlock Development Staging app, generated with client_id:secret
     })
   ]
 })
