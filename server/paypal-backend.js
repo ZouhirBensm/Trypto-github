@@ -12,7 +12,7 @@ const paypalBackend_app_router = express.Router()
 
 
 // Route is called upon as request from browser as '/paypal/'
-paypalBackend_app_router.post('/',   (req,res) =>{
+paypalBackend_app_router.get('/',   (req,res) =>{
   res.status(200).send('paypal home');
   res.end();
 })

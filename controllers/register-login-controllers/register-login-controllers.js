@@ -85,39 +85,6 @@ module.exports = {
         
         break;
       case "basic":
-
-        // await Subscriber.create({
-        //   paypal_subscriptionID: req.body.paypal_subscriptionID,
-        //   paypal_plan_id: req.body.paypal_plan_id,
-        //   paypal_product_id: req.body.paypal_product_id,
-        //   plan: req.body.plan,
-        // }, async (error,subscriber)=>{
-        //   if(error){
-        //     error = new MongoError(error.message, error.code)
-        //     // Needs Testing
-        //     return next(error)
-        //   }
-        //   console.log(`subscriber successfully created`)
-        //   await User.create({
-        //     email: req.body.email,
-        //     password: req.body.password,
-        //     subscriptionID: subscriber._id,
-        //   },(error,user)=>{
-        //     if(error){
-        //       error = new MongoError(error.message, error.code)
-        //       // Needs Testing
-        //       return next(error)
-        //     }
-        //     res.status(200).json({
-        //       server: {
-        //         message: [`Subscriber ${req.body.email} successfully created, with the paypal subscriber ID: ${req.body.paypal_subscriptionID}`]
-        //       }
-        //     })
-        //   })
- 
-        // })
-
-        
         let subscriber_instance = new Subscriber({
           paypal_subscriptionID: req.body.paypal_subscriptionID,
           paypal_plan_id: req.body.paypal_plan_id,
@@ -149,25 +116,6 @@ module.exports = {
           return next(err)
         }
         console.log("saved subscriber information")
-        
-        // user_instance.save((err)=>{
-        //   err = new MongoError("a 500 error in the server", 500)
-        //   if(err) {
-        //     // err = new MongoError(err.message, err.code)
-        //     // Needs Testing
-        //     return next(err)
-        //   } 
-        //   console.log("saved user information")
-        // })
-
-        // subscriber_instance.save((err)=>{
-        //   if(err) {
-        //     err = new MongoError(err.message, err.code)
-        //     // Needs Testing
-        //     return next(err)
-        //   } 
-        //   console.log("saved subscriber information")
-        // })
       
         res.status(200).json({
           server: {
