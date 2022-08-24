@@ -55,12 +55,83 @@ const Message = require('../models/messaging-models/Message')
 
 homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:userID?', paginatedDataAccessMiddleware, paginatingSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
 
+// V1
+// homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHome, async (req,res,next)=>{
+//   console.log("/users/:what_page: ", req.params.what_page, req.session.userId)
+  
+//   let isSessionUserSubscriber = await User.exists({
+//     _id: req.session.userId,
+//     subscriptionID: { $ne: null }
+//   })
 
-homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHome, (req,res,next)=>{
+//   console.log({isSessionUserSubscriber})
+
+//   let sessionUser = null
+//   if (isSessionUserSubscriber) {
+//     let query = User.findOne({
+//       _id: req.session.userId,
+//       // subscriptionID: { $ne: null }
+//     })
+//     .select('registrationDateTime email subscriptionID -_id')
+//     .populate({
+//       // Populate protagonists
+//       path: "subscriptionID", 
+//       // Fields allowed to populate with
+//       select: "-_id plan subscriptionDateTime paypal_subscriptionID paypal_plan_id",
+//     })
+
+//     sessionUser = await query.exec()
+//     console.log({sessionUser})
+//   }
+  
+  
+//   var JSX_to_load = 'MgtUser';
+//   res.render('generic-boilerplate-ejs-to-render-react-components', { 
+//     JSX_to_load : JSX_to_load, 
+//     [sessionUser? "sessionUser": null]: sessionUser
+//     // [req.params.what_page === "profile" ? "userId": null]: req.session.userId,
+//   })
+// })
+
+
+// V2
+homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHome, async (req,res,next)=>{
   console.log("/users/:what_page: ", req.params.what_page, req.session.userId)
+  
+  let isSessionUserSubscriber = await User.exists({
+    _id: req.session.userId,
+    subscriptionID: { $ne: null }
+  })
+
+  console.log({isSessionUserSubscriber})
+
+  let sessionUser = null
+
+  let query = User.findOne({
+    _id: req.session.userId,
+    // subscriptionID: { $ne: null }
+  })
+  .select('registrationDateTime email subscriptionID -_id')
+
+  if (isSessionUserSubscriber) {
+    
+    query = query.populate({
+      // Populate protagonists
+      path: "subscriptionID", 
+      // Fields allowed to populate with
+      select: "-_id plan subscriptionDateTime paypal_subscriptionID paypal_plan_id",
+    })
+
+  }
+  
+  sessionUser = await query.exec()
+  console.log({sessionUser})
+  
+  
   var JSX_to_load = 'MgtUser';
   res.render('generic-boilerplate-ejs-to-render-react-components', { 
     JSX_to_load : JSX_to_load, 
+    [sessionUser? "sessionUser": null]: sessionUser
     // [req.params.what_page === "profile" ? "userId": null]: req.session.userId,
   })
 })

@@ -23,8 +23,8 @@ class CardInfoSubmission extends React.Component {
     ({flag, notification} =  await this.handleRegistrationCall(this.props.email, this.props.password, this.props.plan, paypal_subscriptionID, paypal_plan_id, paypal_product_id));
 
     if (flag){
-      this.setState({notification: notification})
-      // this.props.nextStep()
+      // this.setState({notification: notification})
+      this.props.nextStep()
     } else {
       this.setState({notification: notification})
     }
