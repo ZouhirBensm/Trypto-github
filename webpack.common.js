@@ -2,7 +2,10 @@ const path = require('path')
 
 var config = {
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    fallback: {
+      "buffer": require.resolve("buffer")
+    },
   },
   stats: {errorDetails: true},
   module: {

@@ -11,14 +11,56 @@ class Profile extends React.Component {
     this.handleProfileDeletion = this.handleProfileDeletion.bind(this)
     this.handleDeleteMySubscription = this.handleDeleteMySubscription.bind(this)
     this.returnFetchAuthorizationString = this.returnFetchAuthorizationString.bind(this)
+    this.paypalUnSub = this.paypalUnSub.bind(this)
+    this.tryDirectUnsub = this.tryDirectUnsub.bind(this)
+  }
+
+  async tryDirectUnsub(e){
+    console.log("tryDirectUnsub")
+
+    let Authorization_string_for_fetch = await this.returnFetchAuthorizationString()
+
+    let response = await fetch(`${process.env.paypal_api_root}/billing/subscriptions/${sessionUser.subscriptionID.paypal_subscriptionID}/cancel`, {
+      body: JSON.stringify({
+        reason: "test_reason",
+      }),
+      headers: {
+        Authorization: `${Authorization_string_for_fetch}`,
+        "Content-Type": "application/json"
+      },
+      method: "POST"
+    })
+
+    console.log("response!!\n ", response)
+  }
+
+  async paypalUnSub(e){
+    console.log("paypal unsub!")
+
+
+    let response = await fetch(`${process.env.ROOT}/paypal/unsubscribe`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        reason: "test_reason",
+      })
+    })
+
+    console.log(response)
+
+
   }
 
   // TODO refactor and do it all on the back end!!!!!
   async returnFetchAuthorizationString(e){
     let stringToConvert = `${ENV.paypal_client_id}:${ENV.paypal_secret}`
     
-    // Buffer.from("Hello World").toString('base64')
-    let BASE64_paypal = btoa(stringToConvert)
+  
+    let BASE64_paypal = Buffer.from(stringToConvert).toString('base64')
+    // let BASE64_paypal2 = btoa(stringToConvert)
 
     let Authorization_string_for_fetch = `Basic ${BASE64_paypal}`
 
@@ -26,6 +68,8 @@ class Profile extends React.Component {
 
     return Authorization_string_for_fetch
   }
+
+
 
   async handleDeleteMySubscription(e){
     e.preventDefault()
@@ -151,6 +195,14 @@ class Profile extends React.Component {
           <div>
             <button type="submit" onClick={(e) => this.handleDeleteMySubscription(e)}>Delete Subscription</button>
             <button type="submit" onClick={(e) => this.returnFetchAuthorizationString(e)}>returnFetchAuthorizationString</button>
+            <br/>
+            <br/>
+            <hr/>
+            <button type="submit" onClick={(e) => this.paypalUnSub(e)}>paypal endpoint</button>
+            <br/>
+            <br/>
+            <hr/>
+            <button type="submit" onClick={(e) => this.tryDirectUnsub(e)}>try direct unsub</button>
           </div>
           :
           null
