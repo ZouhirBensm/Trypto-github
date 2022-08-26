@@ -1,5 +1,6 @@
 const User = require('../../models/User')
 
+// TODO see where this middleware is used and displace the res.locals to theit propper next(), because this middleware is supposed to exclusivly just check if logged in or not!
 // Check to see if userId within the DB, if so (only if logged in - so implicitly checks log status), then next(),
 // else no user in the DB, redirect to home
 module.exports = (req,res,next)=>{

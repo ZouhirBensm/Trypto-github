@@ -184,7 +184,7 @@ module.exports = {
       let err = new LoggingInError(notification)
       // err.message = notification
       console.log(err)
-      next(err)
+      return next(err)
 
       // Example of Appending the notification array to the res object, in order to pass to next error middlware errorLogger
       // const error = new LoggingInError()

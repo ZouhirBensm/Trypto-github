@@ -8,6 +8,6 @@ module.exports = (req, res, next)=>{
     next()
   } else {
     console.log("In the check-URL-userID-middleware.js")
-    next(new LoggingInError(["You cannot access the page because the query userID is not equal to the current logged in user on the backend."]))
+    return next(new LoggingInError(["You cannot access the page because the query userID is not equal to the current logged in user on the backend."]))
   }
 }

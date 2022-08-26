@@ -24,6 +24,8 @@ const homeOrdersController = require("../controllers/home-orders-controllers/hom
 const RegisterLoginController = require("../controllers/register-login-controllers/register-login-controllers")
 // Import distributePaginatedDataController
 const distributePaginatedDataController = require("../controllers/generic-controllers/distribute-paginated-data-controller")
+// Import isUpController
+const isUpController = require("../controllers/generic-controllers/is-up-controller")
 
 
 // Import loggedInRedirectHome
@@ -42,6 +44,9 @@ const requireReferer = require('../middleware/generic/require-referer')
 const paginatingSetupMiddleware = require('../middleware/generic/paginating-setup-middleware')
 // Import intermediateMiddlewareOrders
 const ordersRetrievalMiddleware = require('../middleware/home-orders-middleware/orders-retrieval-middleware')
+
+// Import checkSession_is_subscriberMiddleware
+const checkSession_is_subscriberMiddleware = require('../middleware/paypal-middleware/check-session-is-subscriber-middleware')
 
 
 // We import the User model, the mongoose connection is already defined for all routers files
@@ -98,16 +103,16 @@ homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:userID?', pagi
 // })
 
 
-// V2
-homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHome, async (req,res,next)=>{
+homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHome, checkSession_is_subscriberMiddleware ,async (req,res,next)=>{
   console.log("/users/:what_page: ", req.params.what_page, req.session.userId)
+  console.log("/users/:what_page: ", res.locals.isSessionUserSubscriber)
   
-  let isSessionUserSubscriber = await User.exists({
-    _id: req.session.userId,
-    subscriptionID: { $ne: null }
-  })
+  // let isSessionUserSubscriber = await User.exists({
+  //   _id: req.session.userId,
+  //   subscriptionID: { $ne: null }
+  // })
 
-  console.log({isSessionUserSubscriber})
+  // console.log({isSessionUserSubscriber})
 
   let sessionUser = null
 
@@ -117,7 +122,7 @@ homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHome, asyn
   })
   .select('registrationDateTime email subscriptionID -_id')
 
-  if (isSessionUserSubscriber) {
+  if (res.locals.isSessionUserSubscriber) {
     
     query = query.populate({
       // Populate protagonists
@@ -194,24 +199,7 @@ homeOrdersBackend_app_router.get('/',(req,res)=>{
 })
 
 
-homeOrdersBackend_app_router.get('/isup',(req,res)=>{
-  // TODO put this in a controller generic folder
-  console.log(mongoose.connection.readyState);
-
-  if(mongoose.connection.readyState === 1){
-    res.status(httpStatus.StatusCodes.OK).json({
-      server: {
-        message: ["Yes the server, and mongoose connection is up!"]
-      }
-    })
-  } else {
-    res.status(httpStatus.StatusCodes.INTERNAL_SERVER_ERROR).json({
-      error: {
-        message: ["Server is running, but problem with mongoose connection!"]
-      }
-    })
-  }
-})
+homeOrdersBackend_app_router.get('/isup', isUpController)
 
 homeOrdersBackend_app_router.get('/cryptoprice', async (req,res,next)=>{
 

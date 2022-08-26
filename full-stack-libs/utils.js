@@ -37,13 +37,23 @@ module.exports = {
     
     return parsedFULLPATH[1]
   },
-  // TODO try without async
-  returnFetchAuthorizationString: async () => {
-    let stringToConvert = `${ENV.paypal_client_id}:${ENV.paypal_secret}`
-    let BASE64_paypal = Buffer.from(stringToConvert).toString('base64')
-    let Authorization_string_for_fetch = `Basic ${BASE64_paypal}`
-    console.log(`from: ${ENV.paypal_client_id}:${ENV.paypal_secret} to: ${Authorization_string_for_fetch}`)
+  return_Authorization_header_value_4_fetch: () => {
+    // Used in cURL
+    // -u "Authorization: <client_id>:<secret>"
+    let cURL_uflag_authorization_value = `${ENV.paypal_client_id}:${ENV.paypal_secret}`
+    
+  
+    // For fetch require to be as follows
+    // headers: { Authorization: "Basic (TransformedToBase64(<client_id>:<secret>))", "Content-Type": "application/json"}
+    // <client_id>:<secret>
+    let client_idCOLONsecret2Base64 = Buffer.from(cURL_uflag_authorization_value).toString('base64')
+    // let client_idCOLONsecret2Base64_2 = btoa(cURL_uflag_authorization_value)
 
-    return Authorization_string_for_fetch
+    // Header "Authorization" value
+    let Authorization_header_value_4_fetch = `Basic ${client_idCOLONsecret2Base64}`
+
+    console.log(`from: cURL -u "Authorization: ${ENV.paypal_client_id}:${ENV.paypal_secret}"` , " to ", `headers: { Authorization: "${Authorization_header_value_4_fetch}"} for fetch`)
+
+    return Authorization_header_value_4_fetch
   }
 }
