@@ -22,7 +22,13 @@ mongoose.connect(ENV.database_link)
 // Assign the "DB CONNECTION" to the db variable
 // db can then be use for "DATA CHANGES", "DATA STATE CHANGES"
 global.db = mongoose.connection
-const clientP = db.then(m => m.getClient())
+// console.log("\n\n\n\ndb:\n\n", db._connectionString, db, typeof db)
+// const clientP = db.then(m => m.getClient())
+const clientP = db.then(m => {
+  // console.log("\n\n\n\nm:\n\n", m); 
+  return m.getClient();
+})
+// console.log("\n\n\n\clientP\n\n", clientP)
 
 // runs once the DB is connected to the web server on the open event i.e. as soon the DB "opens"/connects
 db.once("open", () => {

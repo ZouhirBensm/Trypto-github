@@ -80,7 +80,9 @@ module.exports = {
 
   registerOrder:  (req,res,next)=>{
     console.log("register order: req.params.type_order: \n", req.params.type_order)
-    // console.log(req.session)
+    
+    console.log("\n\nexpiration:\n", req.body.expirydate)
+
     req.body.expireAt = new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
     //console.log(new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5)))
     // console.log(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))

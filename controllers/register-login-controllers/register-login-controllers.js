@@ -89,7 +89,7 @@ module.exports = {
           paypal_subscriptionID: req.body.paypal_subscriptionID,
           paypal_plan_id: req.body.paypal_plan_id,
           paypal_product_id: req.body.paypal_product_id,
-          plan: req.body.plan,
+          plan: req.body.plan
         })
 
         let user_instance = new User({

@@ -4,15 +4,16 @@ const Subscriber = require('../../models/Subscriber')
 const utils = require('../../full-stack-libs/utils')
 
 module.exports = async (req,res, next) =>{
-
-  console.log("in post /paypal/unsubscribe endpoint res.locals.isSessionUserSubscriber", res.locals.isSessionUserSubscriber)
   console.log('in post paypal/unsubscribe req.body', req.body)
+  console.log({isSessionUserSubscriber: res.locals.isSessionUserSubscriber})
+
 
   // Proceeding from this point session User has a subscription
-  if (!res.locals.isSessionUserSubscriber) {
-    return next(new Error("sorry, cannot proceed, endpoint requires the logged in user to be a subscriber"))
-  }
+  // TODO requires to be deleted and checked in the proper middleware i.e. where isSessionUserSubscriber stems 
 
+  // if (!res.locals.isSessionUserSubscriber) {
+  //   return next(new Error(`Sorry, cannot proceed, endpoint ${req.method} ${req.headers.referer} requires the logged in user to be a subscriber`))
+  // }
 
   // Find Subscription information
   let subscriptionInfo = await Subscriber.findOne({userID: req.session.userId}).select('plan subscriptionDateTime paypal_subscriptionID paypal_plan_id')
@@ -61,6 +62,8 @@ module.exports = async (req,res, next) =>{
   })
 
   console.log("response!!\n ", paypal_cancel_sub_response)
+
+  
   res.locals.paypalCancelSubResponseStatus = paypal_cancel_sub_response.status
 
   next()

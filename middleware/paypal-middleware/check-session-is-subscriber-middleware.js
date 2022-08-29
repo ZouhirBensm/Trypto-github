@@ -10,9 +10,13 @@ module.exports = async (req, res, next)=>{
     subscriptionID: { $ne: null }
   })
 
-  console.log({isSessionUserSubscriber})
+  console.log("\n\n/check-session-is-subscriber-middleware.js\n", {isSessionUserSubscriber})
 
   res.locals.isSessionUserSubscriber = isSessionUserSubscriber;
+
+  if (!isSessionUserSubscriber && req.method === 'POST') {
+    return next(new Error(`Sorry, cannot proceed, endpoint ${req.method} ${req.headers.referer} requires the logged in user to be a subscriber`))
+  }
 
   next()
 }

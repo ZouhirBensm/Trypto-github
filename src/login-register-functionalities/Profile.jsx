@@ -57,16 +57,24 @@ class Profile extends React.Component {
     console.log("sessionUser!!!! ", sessionUser)
     return (
       <div id="container-log-reg">
+        Delete Acount<br/>
         <button type="submit" onClick={(e) => this.handleProfileDeletion(e)}>Delete Account</button>
 
         {
           sessionUser.subscriptionID ? 
           <div>
+            <br/>
+            <hr/>
+            Only present when subscriber!<br/>
             <button type="submit" onClick={(e) => this.paypalUnSub(e)}>Unsubscribe</button>
           </div>
           :
           null
         }
+        <br/>
+        <hr/>
+        Always present regardless of subscriber or not<br/>
+        <button type="submit" onClick={(e) => this.paypalUnSub(e)}>Unsubscribe</button>
       </div>
     );
   }

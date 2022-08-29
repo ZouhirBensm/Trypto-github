@@ -43,10 +43,15 @@ const SubscriberSchema = new Schema({
   subscriptionDateTime: {
       type: Date,
       default: new Date(),
-  }
+  },
+  expireAt: {
+      type: Date,
+      //default: Date.now,
+      //expires: 5000
+  },
 })
 
-
+SubscriberSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
 
 //Access the database my_database via mongoose.model.
 //The first argument: The name of the collection the model is for.

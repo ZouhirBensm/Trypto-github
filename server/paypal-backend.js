@@ -1,9 +1,41 @@
 const express = require('express')
-const fetch = require('node-fetch')
+const fetch = require('node-fetch');
+const Agenda = require("agenda");
 const ENV = require('../config/base');
 const Subscriber = require('../models/Subscriber');
 const User = require('../models/User');
 const utils = require('../full-stack-libs/utils')
+
+// Setting up agenda for persistant jobs on each event when user unsubscribes to nullify their User subscriptionID field
+console.log("before agenda: ", db._connectionString)
+const agenda = new Agenda({
+  db: { 
+    address: db._connectionString,
+    maxConcurrency: 10, // not having wanted effect of having no more thant 10 jobs processes runing simultaneously total
+    defaultConcurrency: 1, // not having wanted effect of 1 process per job
+    collection: "NullifyUserSubscriptionJobs"
+  },
+});
+
+
+
+
+
+(async function () {
+  await agenda.start()
+  // const numRemoved = await agenda.cancel({ name: "Nullify particular User subscriptionID field" });
+
+  async function graceful() {
+    await agenda.stop();
+    await agenda.close({ force: true });
+    console.log(" Exiting agenda gracefully...")
+    process.exit(0);
+  }
+  
+  process.on("SIGTERM", graceful);
+  process.on("SIGINT", graceful);
+})();
+
 
 const paypalBackend_app_router = express.Router()
 
@@ -11,6 +43,8 @@ const paypalBackend_app_router = express.Router()
 const checkSession_is_subscriberMiddleware = require('../middleware/paypal-middleware/check-session-is-subscriber-middleware')
 // Import checkPostedUserID_is_SessionUserIDMiddleware
 const checkPostedUserID_is_SessionUserIDMiddleware = require('../middleware/generic/check-posted-userid-is-session-userID-middleware')
+
+const hasUnSubProcessStarted = require('../middleware/paypal-middleware/has-unsub-process-started-middleware')
 
 
 
@@ -33,26 +67,82 @@ paypalBackend_app_router.get('/',   (req,res) =>{
 //_____________________________________________
 
 // TODO create a is logged in middleware and put in position: 1
-paypalBackend_app_router.post('/unsubscribe', checkPostedUserID_is_SessionUserIDMiddleware, checkSession_is_subscriberMiddleware, paypalSubscriptionDeletionMiddleware, async (req,res) => {
+paypalBackend_app_router.post('/unsubscribe', checkPostedUserID_is_SessionUserIDMiddleware, checkSession_is_subscriberMiddleware, hasUnSubProcessStarted, paypalSubscriptionDeletionMiddleware, async (req,res) => {
 
   let paypal_cancel_sub_response_status = res.locals.paypalCancelSubResponseStatus
   let subscriptionInfo = res.locals.subscriptionInfo
 
-  console.log("in the end controller for paypal/unsubscribe we got: ", paypal_cancel_sub_response_status)
+  console.log("in the end controller for paypal/unsubscribe we got: ", subscriptionInfo)
   
   // In the 200 range
   if(paypal_cancel_sub_response_status > 199 || paypal_cancel_sub_response_status < 300 ){
-    
-    const SubscriptiondeletionReturn = await Subscriber.findOneAndDelete({_id: subscriptionInfo._id})
-    
 
-    // TODO Unset the subscriptionID, completly gets rid of the subscriptionID field, see if it's better to set it to null OR create without a subscriptionID when free plan, and create the field on basic plan
+    console.log("\n\nSubscription date time: \n", subscriptionInfo.subscriptionDateTime, "\ntype:\n", typeof subscriptionInfo.subscriptionDateTime)
+
+    let today = new Date()
+
+    console.log("today: ", today, "todays's month: ", today.getMonth())
+
+    let unsubscriptionTakesEffectOnBidBlock = new Date(subscriptionInfo.subscriptionDateTime.setMonth(today.getMonth()+1))
+
+    console.log({unsubscriptionTakesEffectOnBidBlock})
+
+    // set the expiryAt field of the Subscriber entry at the unsubscriptionTakesEffectOnBidBlock date
+    const SubscriptionSetExpityReturn = await Subscriber.findOneAndUpdate({_id: subscriptionInfo._id}, {expireAt: unsubscriptionTakesEffectOnBidBlock})
+
+
+    // const dateToCron = (date) => {
+    //     const seconds = date.getSeconds();
+    //     const minutes = date.getMinutes();
+    //     const hours = date.getHours();
+    //     const days = date.getDate();
+    //     const months = date.getMonth() + 1;
+    //     const dayOfWeek = date.getDay();
+    //     const year = date.getFullYear();
+    
+    //     // return `${minutes} ${hours} ${days} ${months} ${dayOfWeek}`;
+    //     return `seconds: ${seconds}, minutes: ${minutes}, hours: ${hours}, days: ${days}, months ${months}, dayOfWeek ${dayOfWeek}, year ${year}`
+    // };
+
+    // const unsubscriptionTakesEffectOnBidBlock_cron = dateToCron(unsubscriptionTakesEffectOnBidBlock);
+    // console.log(unsubscriptionTakesEffectOnBidBlock_cron);
+
+
+    
+    // To test
+    // const date1 = new Date(2022, 7, 28, 9, 52, 0);
+    // const date2 = new Date(2022, 7, 28, 9, 54, 0);
+
+    // console.log(date1, date2)
+
+    
+    // var todayOffSetFuture2min = new Date(today.getTime() + 1*60000)
+
+    agenda.define(`Nullify particular User: ${req.session.userId} subscriptionID field`, async (job, done) => {
+      let userUnsubscribed = await User.updateOne({_id: req.session.userId}, {subscriptionID: null});
+      console.log("executing the event: Nullify particular User subscriptionID field")
+      done()
+      const numRemoved = await agenda.cancel({ name: `Nullify particular User: ${req.session.userId} subscriptionID field`});
+      console.log("cancelled!")
+    });
+
+
+    await agenda.schedule(unsubscriptionTakesEffectOnBidBlock, `Nullify particular User: ${req.session.userId} subscriptionID field`);
+
+
+
+
+    // var todayOffSetFuture2min = new Date(today.getTime() + 2*60000)
+    // agenda.schedule(todayOffSetFuture2min, "Nullify particular User subscriptionID field");
+
+
+    // set the User.subscriptionID field to null on the unsubscriptionTakesEffectOnBidBlock date
     // TODO apply the changes at the next month registration date day
-    let userUnsubscribed = await User.updateOne({_id: req.session.userId}, {$unset: {subscriptionID: 1 }});
+    
 
-    // let userToUnsubscribe = await User.findOne({ _id: req.session.userId })
-    // userToUnsubscribe.subscriptionID = null
-    // userToUnsubscribe =  await userToUnsubscribe.save()
+
+    // const SubscriptiondeletionReturn = await Subscriber.findOneAndDelete({_id: subscriptionInfo._id})
+    // let userUnsubscribed = await User.updateOne({_id: req.session.userId}, {subscriptionID: null});
 
     res.status(200).send('POST to /paypal/unsubscribe response when done, you should have the user unsubscribed now!');
     res.end();
