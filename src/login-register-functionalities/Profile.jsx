@@ -99,7 +99,7 @@ class Profile extends React.Component {
             section={
               [
                 {prepend: 'plan:', value: `${plan}`},
-                {prepend: 'subscriptionDatetime:', value: `${subscriptionDateTime}`},
+                {prepend: 'subscription date time:', value: `${subscriptionDateTime}`},
                 {prepend: 'next billing dateTime:', value: `${current_billing_cycle_top_datetime}`},
                 {prepend: 'paid for current billing cycle:', value: `FROM: ${current_billing_cycle_botom_datetime} TO: ${current_billing_cycle_top_datetime}`},
                 ...(sessionUser.subscriptionID?.expireAt ? [{prepend: 'requested subscription termination dateTime:', value: `${sessionUser.subscriptionID.expireAt}`}] : []),
