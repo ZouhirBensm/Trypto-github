@@ -1,4 +1,4 @@
-const { LoggingInError } = require("../../custom-errors/custom-errors")
+const { UnsubscribeError } = require("../../custom-errors/custom-errors")
 const Subscriber = require("../../models/Subscriber")
 
 // Check if the User with posted userId has a subscription i.e. returns true/false
@@ -14,7 +14,8 @@ module.exports = async (req, res, next)=>{
   res.locals.hasUnSubProcessStarted = hasUnSubProcessStarted;
 
   if (hasUnSubProcessStarted) {
-    return next(new Error(`Sorry, cannot proceed, endpoint ${req.method} ${req.headers.referer} says that the unsubscription process is already engaged.`))
+    let error = new UnsubscribeError(`You have already engaged a request to unsubscribe. No need to request again. Thank you.`, `Sorry, cannot proceed, endpoint ${req.method} ${req.headers.referer} says that the unsubscription process is already engaged.`)
+    return next(error)
   }
 
   next()

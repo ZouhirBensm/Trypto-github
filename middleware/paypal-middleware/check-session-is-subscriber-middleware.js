@@ -1,4 +1,4 @@
-const { LoggingInError } = require("../../custom-errors/custom-errors")
+const { UnsubscribeError } = require("../../custom-errors/custom-errors")
 const Subscriber = require("../../models/Subscriber")
 const User = require("../../models/User")
 
@@ -15,7 +15,8 @@ module.exports = async (req, res, next)=>{
   res.locals.isSessionUserSubscriber = isSessionUserSubscriber;
 
   if (!isSessionUserSubscriber && req.method === 'POST') {
-    return next(new Error(`Sorry, cannot proceed, endpoint ${req.method} ${req.headers.referer} requires the logged in user to be a subscriber`))
+    let error = new UnsubscribeError(`You are not a subscriber to be doing this type of request!`, `Sorry, cannot proceed, endpoint ${req.method} ${req.headers.referer} requires the logged in user to be a subscriber`)
+    return next(error)
   }
 
   next()

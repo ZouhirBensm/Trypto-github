@@ -1,4 +1,4 @@
-console.log("TOOOOGGGLLLEEEE!")
+// console.log("TOOOOGGGLLLEEEE!")
 
 // TODO #102 Add touch event to slide main left nav bar
 function toogleSideNav() {

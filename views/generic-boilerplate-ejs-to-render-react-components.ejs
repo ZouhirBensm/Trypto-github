@@ -8,7 +8,7 @@
   var userId = '<%= locals.userId  %>'
   var domain = '<%-locals.ENV.domain%>'
   let ENV = <%-JSON.stringify(locals.ENV)%>;
-  console.log("header script: ", userId, domain, window.location.href, ENV)
+  // console.log("header script: ", userId, domain, window.location.href, ENV)
 </script>
 
 
@@ -28,7 +28,7 @@
 <%if(locals.sessionUser){%>
   <script type='text/javascript'>
     let sessionUser =  <%-JSON.stringify(sessionUser)%>;
-    console.log(sessionUser) 
+    // console.log(sessionUser) 
   </script>
 <%}%>
 

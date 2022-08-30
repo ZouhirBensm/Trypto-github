@@ -71,6 +71,16 @@ class FirstPathNotRegistered extends CustomError {
   }
 }
 
+
+class UnsubscribeError extends CustomError {
+  constructor(client_message, admin_message){
+    super()
+    this.type = this.constructor.name
+    this.client_message = client_message
+    this.admin_message= admin_message
+  }
+}
+
 module.exports = {
   // SubCustomError,
   MongoError,
@@ -78,5 +88,6 @@ module.exports = {
   ValidationError,
   LoggingInError,
   NoRefererError,
-  FirstPathNotRegistered
+  FirstPathNotRegistered,
+  UnsubscribeError
 }

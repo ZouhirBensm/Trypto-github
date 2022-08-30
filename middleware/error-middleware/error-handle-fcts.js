@@ -60,6 +60,17 @@ const errorResponseDispatcher = async (err, req ,res, next) => {
         }
       })
     break;
+    case "UnsubscribeError":
+      return res.status(err.statusCode).json({
+        error: {
+          type: err.type,
+          message: {
+            client_message: err.client_message,
+            admin_message: err.admin_message
+          }
+        }
+      })
+    break;
     default:
       console.log("switch end")
       return next(err)

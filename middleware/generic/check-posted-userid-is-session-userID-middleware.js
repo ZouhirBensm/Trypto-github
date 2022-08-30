@@ -1,4 +1,4 @@
-
+const { UnsubscribeError } = require("../../custom-errors/custom-errors")
 
 // Check integrety of the posted user id
 // 1. is he equal to the one on logged in session
@@ -8,6 +8,7 @@ module.exports = async (req, res, next)=>{
   if (req.body.userId == req.session.userId) {
     next()
   } else {
-    return next(new Error("sorry, cannot proceed, POSTED req.body.userId != LOGGEDIN SESSION req.session.userId"))
+    let error = new UnsubscribeError(`Posted userId does not coincide with the web server session's userId`, `Sorry, cannot proceed, endpoint ${req.method} ${req.headers.referer} says that the POSTED req.body.userId != LOGGEDIN SESSION req.session.userId`)
+    return next(error)
   }
 }

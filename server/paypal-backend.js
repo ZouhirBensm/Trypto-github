@@ -2,6 +2,8 @@ const express = require('express')
 const fetch = require('node-fetch');
 const Agenda = require("agenda");
 const ENV = require('../config/base');
+const httpStatus = require("http-status-codes")
+
 const Subscriber = require('../models/Subscriber');
 const User = require('../models/User');
 const utils = require('../full-stack-libs/utils')
@@ -76,7 +78,7 @@ paypalBackend_app_router.post('/unsubscribe', checkPostedUserID_is_SessionUserID
   console.log("in the end controller for paypal/unsubscribe we got: ", subscriptionInfo)
   
   // In the 200 range
-  if(paypal_cancel_sub_response_status > 199 || paypal_cancel_sub_response_status < 300 ){
+  if(paypal_cancel_sub_response_status > 199 && paypal_cancel_sub_response_status < 300 ){
 
     console.log("\n\nSubscription date time: \n", subscriptionInfo.subscriptionDateTime, "\ntype:\n", typeof subscriptionInfo.subscriptionDateTime)
 
@@ -93,34 +95,6 @@ paypalBackend_app_router.post('/unsubscribe', checkPostedUserID_is_SessionUserID
     // set the expiryAt field of the Subscriber entry at the unsubscriptionTakesEffectOnBidBlock date
     const SubscriptionSetExpityReturn = await Subscriber.findOneAndUpdate({_id: subscriptionInfo._id}, {expireAt: unsubscriptionTakesEffectOnBidBlock})
 
-
-    // const dateToCron = (date) => {
-    //     const seconds = date.getSeconds();
-    //     const minutes = date.getMinutes();
-    //     const hours = date.getHours();
-    //     const days = date.getDate();
-    //     const months = date.getMonth() + 1;
-    //     const dayOfWeek = date.getDay();
-    //     const year = date.getFullYear();
-    
-    //     // return `${minutes} ${hours} ${days} ${months} ${dayOfWeek}`;
-    //     return `seconds: ${seconds}, minutes: ${minutes}, hours: ${hours}, days: ${days}, months ${months}, dayOfWeek ${dayOfWeek}, year ${year}`
-    // };
-
-    // const unsubscriptionTakesEffectOnBidBlock_cron = dateToCron(unsubscriptionTakesEffectOnBidBlock);
-    // console.log(unsubscriptionTakesEffectOnBidBlock_cron);
-
-
-    
-    // To test
-    // const date1 = new Date(2022, 7, 28, 9, 52, 0);
-    // const date2 = new Date(2022, 7, 28, 9, 54, 0);
-
-    // console.log(date1, date2)
-
-    
-    // var todayOffSetFuture2min = new Date(today.getTime() + 1*60000)
-
     agenda.define(`Nullify particular User: ${req.session.userId} subscriptionID field`, async (job, done) => {
       let userUnsubscribed = await User.updateOne({_id: req.session.userId}, {subscriptionID: null});
       console.log("executing the event: Nullify particular User subscriptionID field")
@@ -132,26 +106,23 @@ paypalBackend_app_router.post('/unsubscribe', checkPostedUserID_is_SessionUserID
 
     await agenda.schedule(unsubscriptionTakesEffectOnBidBlock, `Nullify particular User: ${req.session.userId} subscriptionID field`);
 
+    res.status(httpStatus.StatusCodes.OK).json({
+      server: {
+        client_message: `You have successfully unsubscribed, your paid for subscription benefits will stay valid until: ${unsubscriptionTakesEffectOnBidBlock}, and recurring charges will seize as of today`,
+        admin_message: 'POST to /paypal/unsubscribe response when done, you should have the user unsubscribed now!'
+      }
+    });
+    // res.end();
 
-
-
-    // var todayOffSetFuture2min = new Date(today.getTime() + 2*60000)
-    // agenda.schedule(todayOffSetFuture2min, "Nullify particular User subscriptionID field");
-
-
-    // set the User.subscriptionID field to null on the unsubscriptionTakesEffectOnBidBlock date
-    // TODO apply the changes at the next month registration date day
-    
-
-
-    // const SubscriptiondeletionReturn = await Subscriber.findOneAndDelete({_id: subscriptionInfo._id})
-    // let userUnsubscribed = await User.updateOne({_id: req.session.userId}, {subscriptionID: null});
-
-    res.status(200).send('POST to /paypal/unsubscribe response when done, you should have the user unsubscribed now!');
-    res.end();
   } else {
-    res.status(200).send('POST to /paypal/unsubscribe response when done, subsciption is  still on BidBlock and Paypal files, please contact an admin to unsubscribe properly!');
-    res.end();
+
+    res.status(httpStatus.StatusCodes.ACCEPTED).json({
+      server: {
+        client_message: `Unsubscription failed for some backend reason, please contact webmaster to manually unsubscribe for you! contact <a href="https://webdevelopercanada.website/Zouhir">Webmaster's website<a/>`,
+        admin_message: 'POST to /paypal/unsubscribe response when done, subsciption is  still on BidBlock and Paypal files, please contact an admin to unsubscribe properly!'
+      }
+    });
+    // res.end();
   }
 
 })

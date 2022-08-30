@@ -65,6 +65,8 @@ module.exports = async (req,res, next) =>{
 
   
   res.locals.paypalCancelSubResponseStatus = paypal_cancel_sub_response.status
+  // for testing
+  // res.locals.paypalCancelSubResponseStatus = 400
 
   next()
 

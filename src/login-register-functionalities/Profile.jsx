@@ -9,6 +9,7 @@ class Profile extends React.Component {
   constructor(){
     super()
     this.state = {
+      unsub_popup: undefined
     }
     this.handleProfileDeletion = this.handleProfileDeletion.bind(this)
     this.paypalUnSub = this.paypalUnSub.bind(this)
@@ -16,7 +17,8 @@ class Profile extends React.Component {
 
   async paypalUnSub(e){
     console.log("paypal unsub!")
-    let response = await fetch(`${process.env.ROOT}/paypal/unsubscribe`, {
+    let response
+    response = await fetch(`${process.env.ROOT}/paypal/unsubscribe`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -27,7 +29,21 @@ class Profile extends React.Component {
         reason: "test_reason",
       })
     })
-    console.log("response for paypalUnSub", response)
+
+    let json = await response.json()
+
+    console.log("response, json for paypalUnSub", response, json)
+
+    if(response.status === 200 || response.status === 202) {
+      this.setState({
+        unsub_popup: json.server.client_message
+      })
+    } else {
+      this.setState({
+        unsub_popup: json.error.message.client_message
+      })
+    }
+
   }
 
   
@@ -55,7 +71,12 @@ class Profile extends React.Component {
 
 
   render() {
-    console.log("sessionUser!!!! ", sessionUser, userId)
+    if(this.state.unsub_popup) {
+      let unsub_popup = document.getElementsByClassName('unsub-popup')[0]
+      unsub_popup.innerHTML = this.state.unsub_popup
+    }
+
+    // console.log("sessionUser!!!! ", sessionUser, userId)
     // User card information
     let userEmail = sessionUser.email
     let registrationTimeDate = sessionUser.registrationDateTime
@@ -87,6 +108,7 @@ class Profile extends React.Component {
           position={0}
         />
 
+
         { sessionUser.subscriptionID ? 
           <CardShell 
             colapsable={false}
@@ -113,6 +135,8 @@ class Profile extends React.Component {
           :
           null
         }
+
+        <div className="unsub-popup"></div>
 
       </React.Fragment>
     );

@@ -7,7 +7,7 @@ class CardShell extends React.Component {
     this.state = {
     }
     // this.buildMainCardChilden()
-    console.log("scdec", props)
+    // console.log("props", props)
     this.initCardHTML()
     this.collapsableSetup()
   }
@@ -74,7 +74,7 @@ class CardShell extends React.Component {
 
 
 
-    console.log("My Shit: ", MainCard, TitleCard, Section, SectionWrapper, SectionUl, Button)
+    // console.log("My Shit: ", MainCard, TitleCard, Section, SectionWrapper, SectionUl, Button)
 
     
     let ReactDiv = document.getElementById("react-div")
@@ -125,13 +125,13 @@ class CardShell extends React.Component {
     let UL = MainCard.querySelector('.section-ul')
 
     // let UL = document.getElementById("section-ul")
-    console.log(UL)
+    // console.log(UL)
     for (let index = 0; index < this.props.section.length; index++) {
       const listInfoObject = this.props.section[index];
-      console.log(listInfoObject)
+      // console.log(listInfoObject)
       let virginLiTag = document.createElement('li')
       virginLiTag.innerHTML = `${listInfoObject.prepend} ${listInfoObject.value}`
-      console.log(virginLiTag)
+      // console.log(virginLiTag)
       UL.appendChild(virginLiTag)
       // console.log(TitleCard)
     }
