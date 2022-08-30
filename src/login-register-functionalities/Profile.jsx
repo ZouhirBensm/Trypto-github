@@ -1,5 +1,7 @@
 // import React from 'react';
 import './styles/MgtUser.css' 
+import CardShell from './CardShell'
+import billing_utils from '../../full-stack-libs/utils.billing'
 
 
 class Profile extends React.Component {
@@ -11,7 +13,6 @@ class Profile extends React.Component {
     this.handleProfileDeletion = this.handleProfileDeletion.bind(this)
     this.paypalUnSub = this.paypalUnSub.bind(this)
   }
-
 
   async paypalUnSub(e){
     console.log("paypal unsub!")
@@ -54,88 +55,69 @@ class Profile extends React.Component {
 
 
   render() {
-    console.log("sessionUser!!!! ", sessionUser)
+    console.log("sessionUser!!!! ", sessionUser, userId)
+    // User card information
+    let userEmail = sessionUser.email
+    let registrationTimeDate = sessionUser.registrationDateTime
+    // Subscription card information
+    let plan = sessionUser.subscriptionID?.plan
+    let subscriptionDateTime = sessionUser.subscriptionID?.subscriptionDateTime
+    let [current_billing_cycle_botom_datetime, current_billing_cycle_top_datetime] = billing_utils.BillingDateTimeCalculator(sessionUser.subscriptionID?.subscriptionDateTime)
+
     return (
-      <div id="container-log-reg">
+      <React.Fragment>
+        <CardShell 
+          colapsable={true}
+          title_card={
+            [
+              {tag: 'span', content: 'Logged in user: '},
+              {tag: 'img', content: 'SRC_LINK'},
+              {tag: 'span', content: `${userEmail}`},
+            ]
+          }
+          section={
+            [
+              {prepend: 'userId:', value: `${userId}`},
+              {prepend: 'registrationDatetime:', value: `${registrationTimeDate}`},
+            ]
+          }
+          section_btn={this.handleProfileDeletion}
+          section_btn_name="Delete Account"
+          wrapper_className="user-info"
+          position={0}
+        />
 
-
-        <div className="main-card user-info">
-          {/* main user card */}
-          <div className="title-card">
-            <span>Logged in user: </span>
-            <img src="" alt="" />
-            <span>EMAIL</span>
-          </div>
-          {/* main user card */}
-
-          {/* colapses */}
-          <div className="section">
-            {/* extra div */}
-            <div>
-              <ul>
-                <li>userId: USERID</li>
-                <li>registrationDatetime: REGISTRATIONDATETIME</li>
-              </ul>
-              <button type="submit" onClick={(e) => this.handleProfileDeletion(e)}>Delete Account</button>
-            </div>
-            {/* extra div */}
-          </div>
-          {/* colapses */}
-        </div>
-
-        <div className="main-card subscription-info">
-          {/* main subscription card */}
-          <div className="title-card">
-            <span>Subscriber: </span>
-            <span>PLAN</span>
-          </div>
-          {/* main subscription card */}
-
-          <div className="section">
-            {/* extra div */}
-            <div>
-              <ul>
-                <li>plan: PLAN</li>
-                <li>subscriptionDatetime: SUBSCRIPTIONDATETIME</li>
-                <li>next billing dateTime: NEXTBILLINDATETIME</li>
-                <li>paid for billing cycle: FROM: START TO: END</li>
-                <li>requested subscription termination dateTime: expireAt</li>
-              </ul>
-
-              <button type="submit" onClick={(e) => this.paypalUnSub(e)}>Unsubscribe</button>
-
-            </div>
-            {/* extra div */}
-          </div>
-        </div>
-
-
-
-
-
-        {/* __________________________BUTONS______________________________ */}
-
-
-        {/* Delete Acount<br/>
-        <button type="submit" onClick={(e) => this.handleProfileDeletion(e)}>Delete Account</button>
-        {
-          sessionUser.subscriptionID ? 
-          <div>
-            <br/>
-            <hr/>
-            Only present when subscriber!<br/>
-            <button type="submit" onClick={(e) => this.paypalUnSub(e)}>Unsubscribe</button>
-          </div>
+        { sessionUser.subscriptionID ? 
+          <CardShell 
+            colapsable={false}
+            title_card={
+              [
+                {tag: 'span', content: 'Subscriber plan: '},
+                {tag: 'span', content: `${plan}`},
+              ]
+            }
+            section={
+              [
+                {prepend: 'plan:', value: `${plan}`},
+                {prepend: 'subscriptionDatetime:', value: `${subscriptionDateTime}`},
+                {prepend: 'next billing dateTime:', value: `${current_billing_cycle_top_datetime}`},
+                {prepend: 'paid for current billing cycle:', value: `FROM: ${current_billing_cycle_botom_datetime} TO: ${current_billing_cycle_top_datetime}`},
+                ...(sessionUser.subscriptionID?.expireAt ? [{prepend: 'requested subscription termination dateTime:', value: `${sessionUser.subscriptionID.expireAt}`}] : []),
+              ]
+            }
+            section_btn={this.paypalUnSub}
+            section_btn_name="Unsubscribe"
+            wrapper_className="subscription-info"
+            position={1}
+          />
           :
           null
-        } */}
+        }
 
-
-
-
-      </div>
+      </React.Fragment>
     );
   }
+
 }
 
 export default Profile

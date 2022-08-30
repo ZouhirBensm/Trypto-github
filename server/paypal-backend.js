@@ -5,6 +5,7 @@ const ENV = require('../config/base');
 const Subscriber = require('../models/Subscriber');
 const User = require('../models/User');
 const utils = require('../full-stack-libs/utils')
+const billing_utils = require('../full-stack-libs/utils.billing')
 
 // Setting up agenda for persistant jobs on each event when user unsubscribes to nullify their User subscriptionID field
 console.log("before agenda: ", db._connectionString)
@@ -79,11 +80,13 @@ paypalBackend_app_router.post('/unsubscribe', checkPostedUserID_is_SessionUserID
 
     console.log("\n\nSubscription date time: \n", subscriptionInfo.subscriptionDateTime, "\ntype:\n", typeof subscriptionInfo.subscriptionDateTime)
 
-    let today = new Date()
 
-    console.log("today: ", today, "todays's month: ", today.getMonth())
+    let [current_billing_cycle_botom_datetime, current_billing_cycle_top_datetime] = billing_utils.BillingDateTimeCalculator(subscriptionInfo.subscriptionDateTime)
 
-    let unsubscriptionTakesEffectOnBidBlock = new Date(subscriptionInfo.subscriptionDateTime.setMonth(today.getMonth()+1))
+    
+    unsubscriptionTakesEffectOnBidBlock = current_billing_cycle_top_datetime;
+
+    console.log("unsubscription takes effect: ", unsubscriptionTakesEffectOnBidBlock)
 
     console.log({unsubscriptionTakesEffectOnBidBlock})
 
