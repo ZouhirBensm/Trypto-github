@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const fetch = require('node-fetch')
 
 const httpStatus = require("http-status-codes")
 const homeOrdersBackend_app_router = express.Router()
@@ -11,9 +12,14 @@ const ENV = require('../config/base')
 
 
 // In case you need to connect to DB #@
-// const {MongoClient} = require('mongodb');
-// const uri = ENV.database_link;
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const {MongoClient} = require('mongodb');
+// try replace with MogoClient.ObjectId
+var ObjectId = require('mongodb').ObjectId;
+const uri = ENV.database_link;
+const mongodbClient = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+
+const utils = require('../full-stack-libs/utils')
 
 
 const CoinGecko = require('coingecko-api');
@@ -61,6 +67,7 @@ const SellCryptoOrder = require('../models/home-orders-models/SellCryptoOrder');
 
 const Protagonist = require('../models/messaging-models/Protagonist')
 const Message = require('../models/messaging-models/Message')
+const Subscriber = require('../models/Subscriber')
 
 
 homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:userID?', paginatedDataAccessMiddleware, paginatingSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
@@ -233,6 +240,65 @@ homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', async (req,
     })
   }
 
+  let isSessionUserSubscriber = await User.exists({
+    _id: req.session.userId,
+    subscriptionID: { $ne: null }
+  })
+
+
+  if(isSessionUserSubscriber){
+    // see if expireAt field exists on the subscribers where userId = req.session.userId
+    let hasUnSubProcessStarted = await Subscriber.exists({
+      userID: req.session.userId,
+      expireAt: { $ne: null }
+    })
+  
+    console.log("\n\n", {hasUnSubProcessStarted})
+  
+    if(hasUnSubProcessStarted){
+      // let nullify_user_subscription_jobs
+      try {
+        await mongodbClient.connect();
+  
+        let nullify_user_subscription_jobs_collection = mongodbClient.db(ENV.database_name).collection("NullifyUserSubscriptionJobs")
+        nullify_user_subscription_jobs_deletion_response = await nullify_user_subscription_jobs_collection.findOneAndDelete({name: `Nullify particular User: ${req.session.userId} subscriptionID field`})
+  
+        console.log("\n\nnullify_user_subscription_jobs_deletion_response:\n\n", nullify_user_subscription_jobs_deletion_response)
+        
+        console.log(1)
+      } catch (e) {
+          console.log(2)
+          console.error(e);
+      } finally {
+        console.log(1)
+        await mongodbClient.close();
+      }
+    } else {
+      // make api call to paypal to unsubscribe the the user that has not an expiration process under gone
+      let subscriptionInfo = await Subscriber.findOne({userID: req.session.userId}).select('paypal_subscriptionID')
+  
+      console.log("\nsubscriptionInfo___________1\n", subscriptionInfo)
+  
+      let Authorization_header_value_4_fetch = utils.return_Authorization_header_value_4_fetch()
+  
+      let paypal_cancel_sub_response = await fetch(`${ENV.paypal_api_root}/billing/subscriptions/${subscriptionInfo.paypal_subscriptionID}/cancel`, {
+        body: JSON.stringify({
+          reason: "reason not yet implemented in the BidBlock application",
+        }),
+        headers: {
+          Authorization: `${Authorization_header_value_4_fetch}`,
+          "Content-Type": "application/json"
+        },
+        method: "POST"
+      })
+      console.log("response!!\n ", paypal_cancel_sub_response)
+    }
+  }
+    
+
+
+  // TODO delete what it references
+  // subscribers entry stays in scenario where subscriber and expiring subscriber
   await User.findByIdAndDelete(req.session.userId, (error, user) =>{ 
     if(error){return next(error)}
     console.log("user deleted", user)
@@ -240,6 +306,7 @@ homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', async (req,
 
   req.session.destroy()
 
+  // TODO if paypal_cancel_sub_response.status in 200s good, else bad for front end UI
   res.status(200).json({
     srv_: "User account and linked data completly deleted."
   })

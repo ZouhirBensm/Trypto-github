@@ -5,7 +5,7 @@ const utils = require('../../full-stack-libs/utils')
 
 module.exports = async (req,res, next) =>{
   console.log('in post paypal/unsubscribe req.body', req.body)
-  console.log({isSessionUserSubscriber: res.locals.isSessionUserSubscriber})
+  // console.log({isSessionUserSubscriber: res.locals.isSessionUserSubscriber})
 
 
   // Proceeding from this point session User has a subscription
