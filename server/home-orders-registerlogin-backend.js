@@ -293,6 +293,16 @@ homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', async (req,
       })
       console.log("response!!\n ", paypal_cancel_sub_response)
     }
+
+    // delete subscriber where userid = req.session.userId
+    let subscriber_deletion_response
+    try{
+      subscriber_deletion_response = await Subscriber.findOneAndDelete({userID: req.session.userId})
+    } catch(error){
+      return next(error)
+    }
+    console.log("\n\n_______subscriber deletion response: ", subscriber_deletion_response)
+
   }
     
 
