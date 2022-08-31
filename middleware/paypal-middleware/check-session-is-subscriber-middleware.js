@@ -4,11 +4,15 @@ const User = require("../../models/User")
 
 // Check if the User with posted userId has a subscription i.e. returns true/false
 module.exports = async (req, res, next)=>{
-
-  let isSessionUserSubscriber = await User.exists({
-    _id: req.session.userId,
-    subscriptionID: { $ne: null }
-  })
+  let isSessionUserSubscriber
+  try {
+    isSessionUserSubscriber = await User.exists({
+      _id: req.session.userId,
+      subscriptionID: { $ne: null }
+    })
+  } catch(error){
+    return next(error)
+  }
 
   console.log("\n\n/check-session-is-subscriber-middleware.js\n", {isSessionUserSubscriber})
 

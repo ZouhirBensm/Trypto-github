@@ -16,7 +16,14 @@ module.exports = async (req,res, next) =>{
   // }
 
   // Find Subscription information
-  let subscriptionInfo = await Subscriber.findOne({userID: req.session.userId}).select('plan subscriptionDateTime paypal_subscriptionID paypal_plan_id')
+
+  
+  let subscriptionInfo
+  try {
+    subscriptionInfo = await Subscriber.findOne({userID: req.session.userId}).select('plan subscriptionDateTime paypal_subscriptionID paypal_plan_id')
+  } catch(error){
+    return next(error)
+  }
 
   res.locals.subscriptionInfo = subscriptionInfo
   

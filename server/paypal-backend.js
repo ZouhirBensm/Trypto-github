@@ -57,7 +57,8 @@ const hasUnSubProcessStarted = require('../middleware/paypal-middleware/has-unsu
 // const IPNController = require('../controllers/paypal-controllers/ipn.ctrl')
 
 // Import paypalSubscriptionDeletionMiddleware
-const paypalSubscriptionDeletionMiddleware = require('../middleware/paypal-middleware/paypal-subscription-deletion-middleware')
+const paypalSubscriptionDeletionMiddleware = require('../middleware/paypal-middleware/paypal-subscription-deletion-middleware');
+
 
 
 
@@ -70,7 +71,7 @@ paypalBackend_app_router.get('/',   (req,res) =>{
 //_____________________________________________
 
 // TODO create a is logged in middleware and put in position: 1
-paypalBackend_app_router.post('/unsubscribe', checkPostedUserID_is_SessionUserIDMiddleware, checkSession_is_subscriberMiddleware, hasUnSubProcessStarted, paypalSubscriptionDeletionMiddleware, async (req,res) => {
+paypalBackend_app_router.post('/unsubscribe', checkPostedUserID_is_SessionUserIDMiddleware, checkSession_is_subscriberMiddleware, hasUnSubProcessStarted, paypalSubscriptionDeletionMiddleware, async (req,res,next) => {
 
   let paypal_cancel_sub_response_status = res.locals.paypalCancelSubResponseStatus
   let subscriptionInfo = res.locals.subscriptionInfo
@@ -82,8 +83,10 @@ paypalBackend_app_router.post('/unsubscribe', checkPostedUserID_is_SessionUserID
 
     console.log("\n\nSubscription date time: \n", subscriptionInfo.subscriptionDateTime, "\ntype:\n", typeof subscriptionInfo.subscriptionDateTime)
 
+    // current_billing_cycle_botom_datetime
+    let [, current_billing_cycle_top_datetime] = billing_utils.BillingDateTimeCalculator(subscriptionInfo.subscriptionDateTime)
 
-    let [current_billing_cycle_botom_datetime, current_billing_cycle_top_datetime] = billing_utils.BillingDateTimeCalculator(subscriptionInfo.subscriptionDateTime)
+    console.log("\n\n\n\n##_________________did we get what we need?", current_billing_cycle_top_datetime)
 
     
     unsubscriptionTakesEffectOnBidBlock = current_billing_cycle_top_datetime;
@@ -93,14 +96,20 @@ paypalBackend_app_router.post('/unsubscribe', checkPostedUserID_is_SessionUserID
     console.log({unsubscriptionTakesEffectOnBidBlock})
 
     // set the expiryAt field of the Subscriber entry at the unsubscriptionTakesEffectOnBidBlock date
-    const SubscriptionSetExpityReturn = await Subscriber.findOneAndUpdate({_id: subscriptionInfo._id}, {expireAt: unsubscriptionTakesEffectOnBidBlock})
+    let SubscriptionSetExpityReturn
+    try {
+      SubscriptionSetExpityReturn = await Subscriber.findOneAndUpdate({_id: subscriptionInfo._id}, {expireAt: unsubscriptionTakesEffectOnBidBlock})
+    } catch (error) {
+      return next(error)
+    }
 
     agenda.define(`Nullify particular User: ${req.session.userId} subscriptionID field`, async (job, done) => {
-      let userUnsubscribed = await User.updateOne({_id: req.session.userId}, {subscriptionID: null});
+      let userUnsubscribed
+      try {userUnsubscribed = await User.updateOne({_id: req.session.userId}, {subscriptionID: null});} catch(e) {return next(e)}
       console.log("executing the event: Nullify particular User subscriptionID field")
       done()
       const numRemoved = await agenda.cancel({ name: `Nullify particular User: ${req.session.userId} subscriptionID field`});
-      console.log("cancelled!")
+      console.log("cancelled!", `value: ${userUnsubscribed} & ${numRemoved}`)
     });
 
 
@@ -108,7 +117,7 @@ paypalBackend_app_router.post('/unsubscribe', checkPostedUserID_is_SessionUserID
 
     res.status(httpStatus.StatusCodes.OK).json({
       server: {
-        client_message: `You have successfully unsubscribed, your paid for subscription benefits will stay valid until: ${unsubscriptionTakesEffectOnBidBlock}, and recurring charges will seize as of today`,
+        client_message: `You have successfully unsubscribed, your paid for subscription benefits will stay valid until: ${unsubscriptionTakesEffectOnBidBlock}, at which point you will be set on the free plan, and recurring charges will seize as of today.`,
         admin_message: 'POST to /paypal/unsubscribe response when done, you should have the user unsubscribed now!'
       }
     });
