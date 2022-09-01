@@ -5,11 +5,16 @@ const Protagonist = require('../../models/messaging-models/Protagonist');
 module.exports = async (req,res,next)=>{
 
   // Gets all id's where protagonist is engaged in conversations [{_id:}, {_id:}, ...]
-  let array_of_protagonist_ids_where_user_is_engaged = await Protagonist.find({
-    protagonists: {
-      $elemMatch: {"$in": [req.session.userId]}
-    }
-  }, { _id: 1})
+  let array_of_protagonist_ids_where_user_is_engaged
+  try {
+    array_of_protagonist_ids_where_user_is_engaged = await Protagonist.find({
+      protagonists: {
+        $elemMatch: {"$in": [req.session.userId]}
+      }
+    }, { _id: 1})
+  } catch(e){
+    res.locals.notifications.push(e);
+  }
 
   res.locals.array_of_protagonist_ids_where_user_is_engaged = array_of_protagonist_ids_where_user_is_engaged
 
@@ -20,7 +25,7 @@ module.exports = async (req,res,next)=>{
       $elemMatch: {"$in": [req.session.userId]}
     }
   }, (error, response)=>{
-    if(error){return next(error)}
+    if(error){res.locals.notifications.push(error);}
     console.log("protagonist deletion response", response)
   })
 

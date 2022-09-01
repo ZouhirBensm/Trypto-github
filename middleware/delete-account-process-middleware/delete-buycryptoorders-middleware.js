@@ -9,7 +9,7 @@ module.exports = async (req,res,next)=>{
   console.log("Session:", req.session)
 
   await BuyCryptoOrder.deleteMany({userid: req.session.userId}, (error, response)=>{
-    if(error){return next(error)}
+    if(error){ res.locals.notifications.push(error);}
     console.log("buys deleted response", response)
   })
   

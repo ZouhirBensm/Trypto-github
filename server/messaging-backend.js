@@ -29,6 +29,9 @@ messagingBackend_app_router.get('/', checkIfUseridWithinDBmiddleware, (req,res)=
   // console.log("logged in user: ", req.session.userId)
   // console.log("orderId: ", req.query.orderId)
   // console.log("user B: ", req.query.userIdB)
+  res.locals.currentUserEmail = res.locals.user.email;
+  res.locals.userIdB = req.query.userIdB;
+  res.locals.orderId = req.query.orderId;
 
   var JSX_to_load = 'Messaging';
   res.render('generic-boilerplate-ejs-to-render-react-components', { 
@@ -43,6 +46,9 @@ messagingBackend_app_router.get('/', checkIfUseridWithinDBmiddleware, (req,res)=
 // Route is called upon as request from browser as '/messaging/'
 messagingBackend_app_router.get('/messages', checkIfUseridWithinDBmiddleware, (req,res)=>{
   
+  res.locals.currentUserEmail = res.locals.user.email;
+  res.locals.userIdB = req.query.userIdB;
+  res.locals.orderId = req.query.orderId;
   // res.send("HHEEELLOOO!!!")
 
   var JSX_to_load = 'Messaging';

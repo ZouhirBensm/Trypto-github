@@ -20,10 +20,15 @@ module.exports = async (req,res,next)=>{
   if(isSessionUserSubscriber){
 
     // If a subscriber check whether or not i'm required to unsubscribe from paypal i.e. does the Subscriber already engaged a expireAt
-    let hasUnSubProcessStarted = await Subscriber.exists({
-      userID: req.session.userId,
-      expireAt: { $ne: null }
-    })
+    let hasUnSubProcessStarted
+    try {
+      hasUnSubProcessStarted = await Subscriber.exists({
+        userID: req.session.userId,
+        expireAt: { $ne: null }
+      })
+    } catch(e){
+      res.locals.notifications.push(e);
+    }
   
     console.log("\n\n", {hasUnSubProcessStarted})
   
@@ -39,14 +44,19 @@ module.exports = async (req,res,next)=>{
       } catch (e) {
           console.log(2)
           // console.error(e);
-          return next(e)
+          res.locals.notifications.push(e);
       } finally {
         console.log(1)
         await mongodbClient.close();
       }
     } else { // If the unsub process not triggered their is no job to nullify, and  we have establised that the user is a subscriber, therefor we make a request to paypal to unsubscribe
-      let subscriptionInfo = await Subscriber.findOne({userID: req.session.userId}).select('-_id paypal_subscriptionID')
-      console.log("\nsubscriptionInfo___________1\n", subscriptionInfo)
+      let subscriptionInfo
+      try {
+        subscriptionInfo = await Subscriber.findOne({userID: req.session.userId}).select('-_id paypal_subscriptionID')
+        console.log("\nsubscriptionInfo___________1\n", subscriptionInfo)
+      } catch(e){
+        res.locals.notifications.push(e);
+      }
   
       let Authorization_header_value_4_fetch = utils.return_Authorization_header_value_4_fetch()
   
@@ -65,7 +75,8 @@ module.exports = async (req,res,next)=>{
 
       if(!(paypal_cancel_sub_response.status>199 && paypal_cancel_sub_response.status<301)){
         let error = new Error("Paypal did not successfully unsubscribe the user requesting a account deletion from it's server's")
-        return next(error)
+        res.locals.notifications.push(error);
+        // return next(error)
       }
     }
 
@@ -76,7 +87,7 @@ module.exports = async (req,res,next)=>{
     try{
       subscriber_deletion_response = await Subscriber.findOneAndDelete({userID: req.session.userId})
     } catch(error){
-      return next(error)
+      res.locals.notifications.push(error);
     }
     console.log("\n\n_______subscriber deletion response: ", subscriber_deletion_response)
 

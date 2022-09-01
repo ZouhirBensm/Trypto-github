@@ -9,7 +9,9 @@ class Profile extends React.Component {
   constructor(){
     super()
     this.state = {
-      unsub_popup: undefined
+      unsub_popup: undefined,
+      errors_popup: []
+
     }
     this.handleProfileDeletion = this.handleProfileDeletion.bind(this)
     this.paypalUnSub = this.paypalUnSub.bind(this)
@@ -65,12 +67,21 @@ class Profile extends React.Component {
       console.log("do we make it here?")
       window.location.href = `${process.env.ROOT}?popup=${srv_.srv_}`;
     } else {
-      throw new Error("Server was unable to delete the account.")
+      this.setState({
+        errors_popup: srv_.error.message.admin_message
+      })
     }
   }
 
 
   render() {
+    let error_div = null
+    if(this.state.errors_popup) {
+      error_div = this.state.errors_popup.map((error_msg, i) => {
+        return <div key={i} className="error-popup">{error_msg}</div>
+      })
+    }
+
     if(this.state.unsub_popup) {
       let unsub_popup = document.getElementsByClassName('unsub-popup')[0]
       unsub_popup.innerHTML = this.state.unsub_popup
@@ -137,6 +148,7 @@ class Profile extends React.Component {
         }
 
         <div className="unsub-popup"></div>
+        {error_div}
 
       </React.Fragment>
     );

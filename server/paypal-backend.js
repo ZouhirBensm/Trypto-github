@@ -47,7 +47,7 @@ const checkSession_is_subscriberMiddleware = require('../middleware/paypal-middl
 // Import checkPostedUserID_is_SessionUserIDMiddleware
 const checkPostedUserID_is_SessionUserIDMiddleware = require('../middleware/generic/check-posted-userid-is-session-userID-middleware')
 
-const hasUnSubProcessStarted = require('../middleware/paypal-middleware/has-unsub-process-started-middleware')
+const hasUnSubProcessStartedMiddleware = require('../middleware/paypal-middleware/has-unsub-process-started-middleware')
 
 
 
@@ -58,6 +58,9 @@ const hasUnSubProcessStarted = require('../middleware/paypal-middleware/has-unsu
 
 // Import paypalSubscriptionDeletionMiddleware
 const paypalSubscriptionDeletionMiddleware = require('../middleware/paypal-middleware/paypal-subscription-deletion-middleware');
+// Import checkIfUseridWithinDBmiddleware
+const checkIfUseridWithinDBmiddleware = require("../middleware/loggedin/checkIf-userid-withinDB-middleware")
+
 
 
 
@@ -68,10 +71,9 @@ paypalBackend_app_router.get('/',   (req,res) =>{
   res.end();
 })
 
-//_____________________________________________
 
-// TODO create a is logged in middleware and put in position: 1
-paypalBackend_app_router.post('/unsubscribe', checkPostedUserID_is_SessionUserIDMiddleware, checkSession_is_subscriberMiddleware, hasUnSubProcessStarted, paypalSubscriptionDeletionMiddleware, async (req,res,next) => {
+// Unsubscribe
+paypalBackend_app_router.post('/unsubscribe', checkIfUseridWithinDBmiddleware,checkPostedUserID_is_SessionUserIDMiddleware, checkSession_is_subscriberMiddleware, hasUnSubProcessStartedMiddleware, paypalSubscriptionDeletionMiddleware, async (req,res,next) => {
 
   let paypal_cancel_sub_response_status = res.locals.paypalCancelSubResponseStatus
   let subscriptionInfo = res.locals.subscriptionInfo

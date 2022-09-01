@@ -79,6 +79,9 @@ const Protagonist = require('../models/messaging-models/Protagonist')
 const Message = require('../models/messaging-models/Message')
 const Subscriber = require('../models/Subscriber')
 
+// Custom Error
+const { DeleteAccountProcessError } = require("../custom-errors/custom-errors")
+
 
 homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:userID?', paginatedDataAccessMiddleware, paginatingSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
 
@@ -204,149 +207,20 @@ homeOrdersBackend_app_router.get('/cryptoprice', async (req,res,next)=>{
 
 
 
-
-
-
-
-// TODO implement error handling in the chain of middleware and make sure it renders the errors on the front end!
 homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware, sessionSubscriberMiddleware, deleteSubscriber_unSub_deleteNullifyUserSubscriptionJobs_Middleware, deleteUserMiddleware, logoutMiddleware, (req,res,next)=>{
-  res.status(200).json({
-    srv_: "User account and linked data completly deleted."
-  })
+  console.log("Final point: ", res.locals.notifications.length, res.locals.notifications.length == 0, res.locals.notifications.length === 0)
+
+  if (res.locals.notifications.length === 0){
+    res.status(200).json({
+      srv_: "User account and linked data completly deleted."
+    })
+  } else {
+    let notifications_messages = res.locals.notifications.map(notification => notification.message);
+    let error = new DeleteAccountProcessError(notifications_messages)
+
+    return next(error)
+  }
 })
-
-
-
-
-// SPARE COPY OF DELETE ACCOUNT
-
-// homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', async (req,res,next)=>{
-//   console.log("\n\n\n\n____Process to delete user and all of his orders___")
-//   console.log(req.params.userId, " vs ", req.session.userId)
-
-//   console.log("Session:", req.session)
-
-//   await BuyCryptoOrder.deleteMany({userid: req.session.userId}, (error, response)=>{
-//     if(error){return next(error)}
-//     console.log("buys deleted response", response)
-//   })
-//   await SellCryptoOrder.deleteMany({userid: req.session.userId}, (error, response)=>{
-//     if(error){return next(error)}
-//     console.log("sells deleted response", response)
-//   })
-
-//   // Gets all id's where protagonist is engaged in conversations [{_id:}, {_id:}, ...]
-//   let array_of_protagonist_ids_where_user_is_engaged = await Protagonist.find({
-//     protagonists: {
-//       $elemMatch: {"$in": [req.session.userId]}
-//     }
-//   }, { _id: 1})
-
-//   console.log("icit array_of_protagonist_entries_need_tobe_deleted!", array_of_protagonist_ids_where_user_is_engaged)
-
-//   await Protagonist.deleteMany({
-//     protagonists: {
-//       $elemMatch: {"$in": [req.session.userId]}
-//     }
-//   }, (error, response)=>{
-//     if(error){return next(error)}
-//     console.log("protagonist deletion response", response)
-//   })
-
-//   // TODO #95 Instead of deleting the message streams one-by-one through each element of the protagonists ID array (i.e. array of reference ID's from the messages collection, that reference all the protagonist entries the logged in user was a protagonist). Feed the Message.deleteMany the array of protagonists ID references and delete all at once i.e. the method itself loops
-//   for (const obj_id of array_of_protagonist_ids_where_user_is_engaged) {
-//     console.log(obj_id)
-
-//     await Message.deleteOne({
-//       protagonists: obj_id._id
-//     }, (error, response)=>{
-//       if(error){return next(error)}
-//       console.log("One Message deletion response", response)
-//     })
-//   }
-
-//   let isSessionUserSubscriber = await User.exists({
-//     _id: req.session.userId,
-//     subscriptionID: { $ne: null }
-//   })
-
-
-//   if(isSessionUserSubscriber){
-//     // see if expireAt field exists on the subscribers where userId = req.session.userId
-//     let hasUnSubProcessStarted = await Subscriber.exists({
-//       userID: req.session.userId,
-//       expireAt: { $ne: null }
-//     })
-  
-//     console.log("\n\n", {hasUnSubProcessStarted})
-  
-//     if(hasUnSubProcessStarted){
-//       // let nullify_user_subscription_jobs
-//       try {
-//         await mongodbClient.connect();
-  
-//         let nullify_user_subscription_jobs_collection = mongodbClient.db(ENV.database_name).collection("NullifyUserSubscriptionJobs")
-//         nullify_user_subscription_jobs_deletion_response = await nullify_user_subscription_jobs_collection.findOneAndDelete({name: `Nullify particular User: ${req.session.userId} subscriptionID field`})
-  
-//         console.log("\n\nnullify_user_subscription_jobs_deletion_response:\n\n", nullify_user_subscription_jobs_deletion_response)
-        
-//         console.log(1)
-//       } catch (e) {
-//           console.log(2)
-//           console.error(e);
-//       } finally {
-//         console.log(1)
-//         await mongodbClient.close();
-//       }
-//     } else {
-//       // make api call to paypal to unsubscribe the the user that has not an expiration process under gone
-//       let subscriptionInfo = await Subscriber.findOne({userID: req.session.userId}).select('paypal_subscriptionID')
-  
-//       console.log("\nsubscriptionInfo___________1\n", subscriptionInfo)
-  
-//       let Authorization_header_value_4_fetch = utils.return_Authorization_header_value_4_fetch()
-  
-//       let paypal_cancel_sub_response = await fetch(`${ENV.paypal_api_root}/billing/subscriptions/${subscriptionInfo.paypal_subscriptionID}/cancel`, {
-//         body: JSON.stringify({
-//           reason: "reason not yet implemented in the BidBlock application",
-//         }),
-//         headers: {
-//           Authorization: `${Authorization_header_value_4_fetch}`,
-//           "Content-Type": "application/json"
-//         },
-//         method: "POST"
-//       })
-//       console.log("response!!\n ", paypal_cancel_sub_response)
-//     }
-
-//     // delete subscriber where userid = req.session.userId
-//     let subscriber_deletion_response
-//     try{
-//       subscriber_deletion_response = await Subscriber.findOneAndDelete({userID: req.session.userId})
-//     } catch(error){
-//       return next(error)
-//     }
-//     console.log("\n\n_______subscriber deletion response: ", subscriber_deletion_response)
-
-//   }
-    
-
-
-//   // TODO delete what it references
-//   // subscribers entry stays in scenario where subscriber and expiring subscriber
-//   await User.findByIdAndDelete(req.session.userId, (error, user) =>{ 
-//     if(error){return next(error)}
-//     console.log("user deleted", user)
-//   })
-
-//   req.session.destroy()
-
-//   // TODO if paypal_cancel_sub_response.status in 200s good, else bad for front end UI
-//   res.status(200).json({
-//     srv_: "User account and linked data completly deleted."
-//   })
-
-// })
 
 
 

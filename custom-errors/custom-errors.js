@@ -81,6 +81,15 @@ class UnsubscribeError extends CustomError {
   }
 }
 
+class DeleteAccountProcessError extends CustomError {
+  constructor(array_of_messages){
+    super()
+    this.type = this.constructor.name
+    this.client_message = "The deletion process was a failure"
+    this.admin_message= array_of_messages
+  }
+}
+
 module.exports = {
   // SubCustomError,
   MongoError,
@@ -89,5 +98,6 @@ module.exports = {
   LoggingInError,
   NoRefererError,
   FirstPathNotRegistered,
-  UnsubscribeError
+  UnsubscribeError,
+  DeleteAccountProcessError
 }

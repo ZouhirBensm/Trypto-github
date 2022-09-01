@@ -11,7 +11,7 @@ module.exports = async (req,res,next)=>{
     await Message.deleteOne({
       protagonists: obj_id._id
     }, (error, response)=>{
-      if(error){return next(error)}
+      if(error){res.locals.notifications.push(error);}
       console.log("One Message deletion response", response)
     })
   }
