@@ -61,7 +61,7 @@ const  deleteSellOrdersMiddleware = require('../middleware/delete-account-proces
 const  deleteProtagonistsMiddleware = require('../middleware/delete-account-process-middleware/delete-protagonists-middleware')
 const  deleteMessagesMiddleware = require('../middleware/delete-account-process-middleware/delete-messages-middleware')
 const  sessionSubscriberMiddleware = require('../middleware/paypal-middleware/session-subscriber-middleware')
-const  bigMiddleware = require('../middleware/delete-account-process-middleware/big-middleware')
+const  deleteSubscriber_unSub_deleteNullifyUserSubscriptionJobs_Middleware = require('../middleware/delete-account-process-middleware/delete-subscriber-unsub-delete-nullify-usersubscription-jobs-middleware')
 const  deleteUserMiddleware = require('../middleware/delete-account-process-middleware/delete-user-middleware')
 const  logoutMiddleware = require('../middleware/generic/logout-middleware')
 
@@ -207,8 +207,9 @@ homeOrdersBackend_app_router.get('/cryptoprice', async (req,res,next)=>{
 
 
 
+
 // TODO implement error handling in the chain of middleware and make sure it renders the errors on the front end!
-homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware, sessionSubscriberMiddleware, bigMiddleware, deleteUserMiddleware, logoutMiddleware, (req,res,next)=>{
+homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware, sessionSubscriberMiddleware, deleteSubscriber_unSub_deleteNullifyUserSubscriptionJobs_Middleware, deleteUserMiddleware, logoutMiddleware, (req,res,next)=>{
   res.status(200).json({
     srv_: "User account and linked data completly deleted."
   })

@@ -16,8 +16,10 @@ module.exports = async (req,res,next)=>{
   console.log("\n\n______make sure we retrieve isSessionUserSubscriber in the bigMiddleware: ", isSessionUserSubscriber)
 
 
+  // Was the user a subscriber i.e. if User with a subscriptionID
   if(isSessionUserSubscriber){
-    // see if expireAt field exists on the subscribers where userId = req.session.userId
+
+    // If a subscriber check whether or not i'm required to unsubscribe from paypal i.e. does the Subscriber already engaged a expireAt
     let hasUnSubProcessStarted = await Subscriber.exists({
       userID: req.session.userId,
       expireAt: { $ne: null }
@@ -25,28 +27,25 @@ module.exports = async (req,res,next)=>{
   
     console.log("\n\n", {hasUnSubProcessStarted})
   
+    // If unsub triggered get rid of the job that nullifies User.subscriptionId
     if(hasUnSubProcessStarted){
-      // let nullify_user_subscription_jobs
+      
       try {
         await mongodbClient.connect();
-  
         let nullify_user_subscription_jobs_collection = mongodbClient.db(ENV.database_name).collection("NullifyUserSubscriptionJobs")
         nullify_user_subscription_jobs_deletion_response = await nullify_user_subscription_jobs_collection.findOneAndDelete({name: `Nullify particular User: ${req.session.userId} subscriptionID field`})
-  
         console.log("\n\nnullify_user_subscription_jobs_deletion_response:\n\n", nullify_user_subscription_jobs_deletion_response)
-        
         console.log(1)
       } catch (e) {
           console.log(2)
-          console.error(e);
+          // console.error(e);
+          return next(e)
       } finally {
         console.log(1)
         await mongodbClient.close();
       }
-    } else {
-      // make api call to paypal to unsubscribe the the user that has not an expiration process under gone
-      let subscriptionInfo = await Subscriber.findOne({userID: req.session.userId}).select('paypal_subscriptionID')
-  
+    } else { // If the unsub process not triggered their is no job to nullify, and  we have establised that the user is a subscriber, therefor we make a request to paypal to unsubscribe
+      let subscriptionInfo = await Subscriber.findOne({userID: req.session.userId}).select('-_id paypal_subscriptionID')
       console.log("\nsubscriptionInfo___________1\n", subscriptionInfo)
   
       let Authorization_header_value_4_fetch = utils.return_Authorization_header_value_4_fetch()
@@ -61,12 +60,18 @@ module.exports = async (req,res,next)=>{
         },
         method: "POST"
       })
-      
-      // TODO if paypal_cancel_sub_response.status in 200s good, else bad for front end UI
       console.log("response!!\n ", paypal_cancel_sub_response)
+      
+
+      if(!(paypal_cancel_sub_response.status>199 && paypal_cancel_sub_response.status<301)){
+        let error = new Error("Paypal did not successfully unsubscribe the user requesting a account deletion from it's server's")
+        return next(error)
+      }
     }
 
-    // delete subscriber where userid = req.session.userId
+
+
+    // Delete Subscriber where userid = req.session.userId
     let subscriber_deletion_response
     try{
       subscriber_deletion_response = await Subscriber.findOneAndDelete({userID: req.session.userId})
