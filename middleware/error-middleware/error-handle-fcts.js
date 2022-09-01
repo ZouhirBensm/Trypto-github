@@ -3,7 +3,7 @@ const httpStatus = require("http-status-codes")
 const { MongoError } = require('../../custom-errors/custom-errors')
 const ENV = require('../../config/base')
 
-
+// TODO errorLogger keep in middleware, whereas the 2 other functions need to be put in the controllers folder
 // Other Error Handlers
 const errorLogger = (err, req ,res, next) => {
   // console.error(err.stack)
@@ -106,7 +106,7 @@ const errorResponder = (err, req ,res, next) => {
   let error_sent
 
   ENV.environment === "developement" ? 
-  error_sent = `\n\nOn errorResponder\n\nAn Error has occured on the server please have a look! Error: ${err}`: 
+  error_sent = `On errorResponder |\nAn Error has occured on the server please have a look!\n Error: ${err}`: 
   error_sent = `${errorStatus} | Sorry, our web server is Down!`;
 
 
