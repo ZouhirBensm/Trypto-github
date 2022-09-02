@@ -47,7 +47,7 @@ const paypalBackend_app_router = express.Router()
 // Import checkSession_is_subscriberMiddleware
 const checkSession_is_subscriberMiddleware = require('../middleware/paypal-middleware/check-session-is-subscriber-middleware')
 // Import checkPostedUserID_is_SessionUserIDMiddleware
-const checkPostedUserID_is_SessionUserIDMiddleware = require('../middleware/generic/check-posted-userid-is-session-userID-middleware')
+const checkPostedUserID_is_SessionUserIDMiddleware = require('../middleware/generic-middleware/check-posted-userid-is-session-userID-middleware')
 
 const hasUnSubProcessStartedMiddleware = require('../middleware/paypal-middleware/has-unsub-process-started-middleware')
 
@@ -61,7 +61,7 @@ const hasUnSubProcessStartedMiddleware = require('../middleware/paypal-middlewar
 // Import paypalSubscriptionDeletionMiddleware
 const paypalSubscriptionDeletionMiddleware = require('../middleware/paypal-middleware/paypal-subscription-deletion-middleware');
 // Import checkIfUseridWithinDBmiddleware
-const checkIfUseridWithinDBmiddleware = require("../middleware/loggedin/checkIf-userid-withinDB-middleware")
+const checkIfUseridWithinDBmiddleware = require("../middleware/loggedin-middleware/checkIf-userid-withinDB-middleware")
 
 
 

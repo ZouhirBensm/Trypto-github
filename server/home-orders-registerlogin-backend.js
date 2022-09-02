@@ -36,19 +36,19 @@ const isUpController = require("../controllers/generic-controllers/is-up-control
 
 
 // Import loggedInRedirectHomeMiddleware
-const loggedInRedirectHomeMiddleware = require('../middleware/loggedin/loggedIn-redirect-home-middleware')
+const loggedInRedirectHomeMiddleware = require('../middleware/loggedin-middleware/loggedIn-redirect-home-middleware')
 // Import checkIfUseridWithinDBmiddleware
-const checkIfUseridWithinDBmiddleware = require('../middleware/loggedin/checkIf-userid-withinDB-middleware')
+const checkIfUseridWithinDBmiddleware = require('../middleware/loggedin-middleware/checkIf-userid-withinDB-middleware')
 
 // Import paginatedDataAccessMiddleware
-const paginatedDataAccessMiddleware = require('../middleware/generic/paginated-data-access-middleware')
+const paginatedDataAccessMiddleware = require('../middleware/generic-middleware/paginated-data-access-middleware')
 
 // Import StopIfAlreadyLoggedInMiddleware
-const StopIfAlreadyLoggedInMiddleware = require('../middleware/loggedin/stop-if-already-loggedin-middleware')
+const StopIfAlreadyLoggedInMiddleware = require('../middleware/loggedin-middleware/stop-if-already-loggedin-middleware')
 // Import requireReferer
-const requireReferer = require('../middleware/generic/require-referer')
+const requireReferer = require('../middleware/generic-middleware/require-referer')
 // Import paginatingSetupMiddleware
-const paginatingSetupMiddleware = require('../middleware/generic/paginating-setup-middleware')
+const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
 // Import intermediateMiddlewareOrders
 const ordersRetrievalMiddleware = require('../middleware/home-orders-middleware/orders-retrieval-middleware')
 
@@ -63,7 +63,7 @@ const  deleteMessagesMiddleware = require('../middleware/delete-account-process-
 const  sessionSubscriberMiddleware = require('../middleware/paypal-middleware/session-subscriber-middleware')
 const  deleteSubscriber_unSub_deleteNullifyUserSubscriptionJobs_Middleware = require('../middleware/delete-account-process-middleware/delete-subscriber-unsub-delete-nullify-usersubscription-jobs-middleware')
 const  deleteUserMiddleware = require('../middleware/delete-account-process-middleware/delete-user-middleware')
-const  logoutMiddleware = require('../middleware/generic/logout-middleware')
+const  logoutMiddleware = require('../middleware/generic-middleware/logout-middleware')
 
 
 // We import the User model, the mongoose connection is already defined for all routers files
@@ -83,6 +83,7 @@ const Subscriber = require('../models/Subscriber')
 const { DeleteAccountProcessError } = require("../custom-errors/custom-errors")
 
 
+// TODO needs a guard
 homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:userID?', paginatedDataAccessMiddleware, paginatingSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
 
 
@@ -131,11 +132,7 @@ homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHomeMiddle
 })
 
 homeOrdersBackend_app_router.get('/subscription', loggedInRedirectHomeMiddleware, function(req,res,next) {
-
-
   console.log("/subscription: ", req.session.userId)
-
-
 
   var JSX_to_load = 'Subscription';
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
@@ -145,6 +142,7 @@ homeOrdersBackend_app_router.get('/subscription', loggedInRedirectHomeMiddleware
   })
 })
 
+// TODO Needs guard for only logged in users
 // makebuy, makesell, AllMyOrders, matches, buyordersdata, sellordersdata
 homeOrdersBackend_app_router.get(['/databases/:what_page?', '/make/:type'], checkIfUseridWithinDBmiddleware, (req,res)=>{
 
@@ -206,7 +204,7 @@ homeOrdersBackend_app_router.get('/cryptoprice', async (req,res,next)=>{
 })
 
 
-
+// TODO needs a guard to only allow proper user to delete his aacount
 homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware, sessionSubscriberMiddleware, deleteSubscriber_unSub_deleteNullifyUserSubscriptionJobs_Middleware, deleteUserMiddleware, logoutMiddleware, (req,res,next)=>{
   console.log("Final point: ", res.locals.notifications.length, res.locals.notifications.length == 0, res.locals.notifications.length === 0)
 
