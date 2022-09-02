@@ -34,7 +34,7 @@ messagingBackend_app_router.get('/', checkIfUseridWithinDBmiddleware, (req,res)=
   res.locals.orderId = req.query.orderId;
 
   var JSX_to_load = 'Messaging';
-  res.render('generic-boilerplate-ejs-to-render-react-components', { 
+  res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load, 
     // userId: req.session.userId,
     // userIdB: req.query.userIdB,
@@ -52,7 +52,7 @@ messagingBackend_app_router.get('/messages', checkIfUseridWithinDBmiddleware, (r
   // res.send("HHEEELLOOO!!!")
 
   var JSX_to_load = 'Messaging';
-  res.render('generic-boilerplate-ejs-to-render-react-components', { 
+  res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load, 
     // userId: req.session.userId,
     // userIdB: req.query.userIdB,

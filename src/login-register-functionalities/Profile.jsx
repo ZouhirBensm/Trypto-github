@@ -1,6 +1,6 @@
 // import React from 'react';
 import './styles/MgtUser.css' 
-import CardShell from './CardShell'
+import CardShell from '../generic-components/CardShell'
 import billing_utils from '../../full-stack-libs/utils.billing'
 
 

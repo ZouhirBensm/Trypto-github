@@ -1,8 +1,8 @@
 // import React, {lazy, Suspense} from 'react';
 // import ReactDOM from 'react-dom'
-import PricesComponent from './home-functionalities/PricesComponent.jsx';
+import PricesComponent from '../home-functionalities/PricesComponent.jsx';
 
-import Register from './login-register-functionalities/Register.jsx';
+import Register from '../login-register-functionalities/Register.jsx';
 import Subscription from './Subscription'
 
 

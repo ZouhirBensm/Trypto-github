@@ -2,6 +2,7 @@ const {verifyEmail, verifyPassword} = require('../../full-stack-libs/validations
 //We import the User model
 const User = require('../../models/User')
 const Subscriber = require('../../models/Subscriber')
+const ROLE = require('../../full-stack-libs/Types/Role')
 // const bcrypt = require('bcrypt')
 var bcrypt = require('bcryptjs');
 
@@ -68,7 +69,8 @@ module.exports = {
     console.log("in registerController", req.body)
 
     switch (req.body.plan) {
-      case "free":
+      case ROLE.USER.NOTSUBSCRIBER:
+        req.body.role = ROLE.USER.NOTSUBSCRIBER
         // Create User with a 
         await User.create(req.body,(err,user)=>{
           if(err){
@@ -84,7 +86,8 @@ module.exports = {
         })
         
         break;
-      case "basic":
+      case ROLE.USER.SUBSCRIBER.BASIC:
+        req.body.role = ROLE.USER.SUBSCRIBER.BASIC
         let subscriber_instance = new Subscriber({
           paypal_subscriptionID: req.body.paypal_subscriptionID,
           paypal_plan_id: req.body.paypal_plan_id,
@@ -95,6 +98,7 @@ module.exports = {
         let user_instance = new User({
           email: req.body.email,
           password: req.body.password,
+          role: req.body.role
         })
 
         subscriber_instance.userID = user_instance._id
@@ -146,11 +150,13 @@ module.exports = {
     //Try to find one user with the inputed email
     await User.findOne({email: email}, (error,user)=>{
       // console.log(email,user)
-      if (error) {return next(error)}
+      // FOR FORCE ERRORS TESTS
+      // error = new Error("test error1")
+      if (error) {notification.push(error.message); return}
       if(user){
         //Compare inputed password with database user.password
         bcrypt.compare(password, user.password, (error,same)=>{
-          if (error) {notification.push(error.message)}
+          if (error) {notification.push(error.message); return}
           if(same){
               //store
               //Sets up the Session object with cookie created and userId
@@ -158,19 +164,21 @@ module.exports = {
               console.log("\nin compare:\n", req.session.userId)
           //If password is wrong
           } else {
-            password? notification.push("Erroneous password submission for this email"): notification.push("Please enter a password")
+            password? notification.push("Erroneous password submission for this email"): notification.push("Please enter a password");
+            return;
           }
         })
         // If user email does not exist in database
       } else {
-        email? notification.push("This email was not found in our repertoire"): null
+        email? notification.push("This email was not found in our repertoire"): null;
+        return;
       }
     })
 
 
     console.log("\nnotification end:\n", notification)
     console.log("\nreq.session.userId end:\n", req.session.userId)
-    if(req.session.userId) {
+    if(req.session.userId && notification.length == 0) {
       // res.json({
       //   data: ['success']
       // })
@@ -186,7 +194,7 @@ module.exports = {
       console.log(err)
       return next(err)
 
-      // Example of Appending the notification array to the res object, in order to pass to next error middlware errorLogger
+      // Example of Appending the notification array to the res object, in order to pass to next error middlware errorLoggerMiddleware
       // const error = new LoggingInError()
       // res.locals.notification = notification
       // console.log(res.locals.notification)

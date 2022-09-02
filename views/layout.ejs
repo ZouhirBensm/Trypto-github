@@ -5,7 +5,12 @@
 <body>
   <!-- Navbar will adapt to whether logged in or not -->
   <!-- narbar -->
-  <%- include("partials/navbar") %>
+  <%if(navBars == "CLIENTS"){%>
+    <%- include("partials/navbar-clients") %>
+  <%}%>
+  <%if(navBars == "OPERATORS"){%>
+    <%- include("partials/navbar-operations") %>
+  <%}%>
   <!-- Body either server-side renders one of the react applications App or Databases, or a Login or Register form -->
   <%- body %>
 </body>

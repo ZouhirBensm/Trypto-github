@@ -1,6 +1,8 @@
 // Categorised as a global modal
 const mongoose = require('mongoose')
 
+const ROLE = require('../full-stack-libs/Types/Role')
+
 // Checking the connection
 const db = mongoose.connection
 db.once("open", () => {
@@ -34,6 +36,10 @@ const UserSchema = new Schema({
     registrationDateTime: {
         type: Date,
         default: new Date(),
+    },
+    role: {
+        type: String,
+        required: true
     }
 })
 

@@ -7,12 +7,12 @@ class CardInfoSubmission extends React.Component {
     this.state = {
       notification: [],
     }
-    this.basicPlanRegistrationProcess=this.basicPlanRegistrationProcess.bind(this)
+    this.BASICPlanRegistrationProcess=this.BASICPlanRegistrationProcess.bind(this)
     this.handleRegistrationCall=this.handleRegistrationCall.bind(this)
   }
 
-  async basicPlanRegistrationProcess(paypal_subscriptionID, paypal_plan_id, paypal_product_id){
-    console.log("basic registration")
+  async BASICPlanRegistrationProcess(paypal_subscriptionID, paypal_plan_id, paypal_product_id){
+    console.log("BASIC registration")
     let flag, notification
     console.log("actuallly register the user", this.props.email, this.props.password, this.props.plan);
     console.log("paypal_subscriptionID: ", paypal_subscriptionID)
@@ -77,7 +77,7 @@ class CardInfoSubmission extends React.Component {
 
   // componentDidMount(){
   //   const reference2 = document.getElementById("paypal-button-container")
-  //   if(this.props.plan == "basic"){
+  //   if(this.props.plan == "BASIC"){
   //     const reference = document.getElementsByClassName("payment-component-wrapper")[0]
   
   //     const script1 = document.createElement("script");
@@ -127,7 +127,7 @@ class CardInfoSubmission extends React.Component {
     // alert('You have successfully created subscription ' + data.subscriptionID); 
     // Optional message given to subscriber
     console.log("ACTIONS: ", actions, "SUBSCRIPTION ID", data.subscriptionID)
-    this.basicPlanRegistrationProcess(data.subscriptionID, process.env.paypal_plan_id, process.env.paypal_product_id)
+    this.BASICPlanRegistrationProcess(data.subscriptionID, process.env.paypal_plan_id, process.env.paypal_product_id)
   }
 
   render(){

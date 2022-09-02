@@ -7,13 +7,13 @@
 // import Profile from './login-register-functionalities/Profile'
 import loadable from "@loadable/component";
 // import Loading from "./Loading";
-import Loading from "./generic-components/Loading"
+import Loading from "../generic-components/Loading"
 
 
-const Login = loadable(() => import("./login-register-functionalities/Login"),{
+const Login = loadable(() => import("../login-register-functionalities/Login"),{
   fallback: <Loading/>
 });
-const Profile = loadable(() => import("./login-register-functionalities/Profile"),{
+const Profile = loadable(() => import("../login-register-functionalities/Profile"),{
   fallback: <Loading/>
 });
 
@@ -25,7 +25,9 @@ class MgtUser extends React.Component {
     return (
       <BrowserRouter> 
         <Switch> 
-          <Route path="/users/login" component={Login}/>
+          <Route path="/users/login" render={
+            (props) => <Login {...props} loginTo={"/users/login"}/>
+          }/> 
           <Route path="/users/profile" component={Profile}/>
         </Switch>     
       </BrowserRouter> 

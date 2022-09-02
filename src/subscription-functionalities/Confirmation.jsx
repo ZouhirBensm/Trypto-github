@@ -12,8 +12,8 @@ class Confirmation extends React.Component {
 
   render(){
     let msg
-    this.props.plan == "free"? msg = "users": null
-    this.props.plan == "basic"? msg = "subscribers": null
+    this.props.plan == "NOTSUBSCRIBER"? msg = "users": null
+    this.props.plan == "BASIC"? msg = "subscribers": null
 
     return (
       <div className="confirmation-wrapper">
@@ -22,8 +22,8 @@ class Confirmation extends React.Component {
         <p>Congrats {this.props.email}, you have successfully registered as one of our {msg}</p>
         {/* <button onClick={(e) => {
             console.log("what plan: ", this.props.plan)
-            if(this.props.plan == "free") this.props.setStateStep(3)
-            if(this.props.plan == "basic") this.props.previousStep(e)
+            if(this.props.plan == "NOTSUBSCRIBER") this.props.setStateStep(3)
+            if(this.props.plan == "BASIC") this.props.previousStep(e)
           }}> Previous </button> */}
         <button onClick={(e) => {
           window.location.href = `${domain}/users/login`

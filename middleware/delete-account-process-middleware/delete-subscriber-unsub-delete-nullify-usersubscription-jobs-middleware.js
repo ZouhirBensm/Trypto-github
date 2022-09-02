@@ -37,8 +37,8 @@ module.exports = async (req,res,next)=>{
       
       try {
         await mongodbClient.connect();
-        let nullify_user_subscription_jobs_collection = mongodbClient.db(ENV.database_name).collection("NullifyUserSubscriptionJobs")
-        nullify_user_subscription_jobs_deletion_response = await nullify_user_subscription_jobs_collection.findOneAndDelete({name: `Nullify particular User: ${req.session.userId} subscriptionID field`})
+        let nullify_user_subscription_jobs_collection = mongodbClient.db(ENV.database_name).collection("effect_users_to_unsubscribe_agendajobs")
+        nullify_user_subscription_jobs_deletion_response = await nullify_user_subscription_jobs_collection.findOneAndDelete({name: `Nullify particular User: ${req.session.userId} subscriptionID field and set role to UNSUBSCRIBER`})
         console.log("\n\nnullify_user_subscription_jobs_deletion_response:\n\n", nullify_user_subscription_jobs_deletion_response)
         console.log(1)
       } catch (e) {
@@ -49,7 +49,7 @@ module.exports = async (req,res,next)=>{
         console.log(1)
         await mongodbClient.close();
       }
-    } else { // If the unsub process not triggered their is no job to nullify, and  we have establised that the user is a subscriber, therefor we make a request to paypal to unsubscribe
+    } else { // If the unsub process not triggered their is no job to nullify, and  we have established that the user is a subscriber, therefor we make a request to paypal to unsubscribe
       let subscriptionInfo
       try {
         subscriptionInfo = await Subscriber.findOne({userID: req.session.userId}).select('-_id paypal_subscriptionID')

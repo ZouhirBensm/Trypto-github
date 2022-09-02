@@ -1,12 +1,12 @@
 import loadable from "@loadable/component";
 // import Loading from "./Loading";
-import Loading from "./generic-components/Loading";
+import Loading from "../generic-components/Loading";
 
-const Messages = loadable(() => import("./messenger-functionalities/Messages"),{
+const Messages = loadable(() => import("../messenger-functionalities/Messages"),{
   fallback: <Loading/>
 });
 
-const ChatContainer = loadable(() => import("./messenger-functionalities/ChatContainer"),{
+const ChatContainer = loadable(() => import("../messenger-functionalities/ChatContainer"),{
   fallback: <Loading/>
 });
 

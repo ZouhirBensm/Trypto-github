@@ -44,8 +44,8 @@ class ChoosePlan extends React.Component {
     return (
       <div>
         <h1>ChoosePlan</h1>
-        <button style={{ backgroundColor: this.state.plan == "free"? 'red': ""}} onClick={(e) => this.select(e)} value="free">Free</button>
-        <button style={{ backgroundColor: this.state.plan == "basic"? 'red': ""}} onClick={(e) => this.select(e)} value="basic">5$/month</button>
+        <button style={{ backgroundColor: this.state.plan == "NOTSUBSCRIBER"? 'red': ""}} onClick={(e) => this.select(e)} value="NOTSUBSCRIBER">NOTSUBSCRIBER Free</button>
+        <button style={{ backgroundColor: this.state.plan == "BASIC"? 'red': ""}} onClick={(e) => this.select(e)} value="BASIC">BASIC 5$/month</button>
         {/* <button onClick={(e) => this.props.nextStep(e)}>Next!</button> */}
         <button onClick={(e) => this.proceed(e)} value={this.state.plan}>Proceed</button>
       </div>

@@ -1,27 +1,27 @@
 import { Link, Switch, Route, BrowserRouter as Router } from "react-router-dom";
-import './style/reactDivMobile.css'
-import utils from "../full-stack-libs/utils"
+import '../style/reactDivMobile.css'
+import utils from "../../full-stack-libs/utils"
 
 import loadable from "@loadable/component";
-import Loading from "./generic-components/Loading"
+import Loading from "../generic-components/Loading"
 
-import SubscAlter from "./subscription-functionalities/SubscAlter"
-import { PureComponent } from "react";
+import SubscAlter from "../subscription-functionalities/SubscAlter"
+
 
 // import Register from "./login-register-functionalities/Register"
 // import ChoosePlan from "./subscription-functionalities/ChoosePlan"
 // import CardInfoSubmission from "./subscription-functionalities/CardInfoSubmission"
 
-const Register = loadable(() => import("./login-register-functionalities/Register"),{
+const Register = loadable(() => import("../login-register-functionalities/Register"),{
   fallback: <Loading/>
 });
-const ChoosePlan = loadable(() => import("./subscription-functionalities/ChoosePlan"),{
+const ChoosePlan = loadable(() => import("../subscription-functionalities/ChoosePlan"),{
   fallback: <Loading/>
 });
-const CardInfoSubmission = loadable(() => import("./subscription-functionalities/CardInfoSubmission"),{
+const CardInfoSubmission = loadable(() => import("../subscription-functionalities/CardInfoSubmission"),{
   fallback: <Loading/>
 });
-const Confirmation = loadable(() => import("./subscription-functionalities/Confirmation"),{
+const Confirmation = loadable(() => import("../subscription-functionalities/Confirmation"),{
   fallback: <Loading/>
 });
 

@@ -37,7 +37,7 @@ module.exports = (req,res,next)=>{
     } else {
       notification.push(`Something went wrong using this stop-if-already-loggedin.js middleware.\nreq.headers.referer: ${req.headers.referer} did not get parsed properly. parsedURL: ${parsedURL}`)
     }
-    next(new LoggingInError(notification))
+    return next(new LoggingInError(notification))
   } else {
     next()
   }

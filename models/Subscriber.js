@@ -32,7 +32,7 @@ const SubscriberSchema = new Schema({
       required: true
   },
   plan: {
-    // "basic" or non present i.e. meaning "free" on the front end
+    // "BASIC" or non present i.e. meaning "NOTSUBSCRIBER" on the front end
     type: String,
     required: true
   },

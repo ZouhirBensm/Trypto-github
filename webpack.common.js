@@ -39,11 +39,12 @@ var config = {
   },
   devtool : 'inline-source-map',
   entry: {
-    App: './src/App.jsx',
-    OrdersApp: './src/OrdersApp.jsx',
-    MgtUser: './src/MgtUser.jsx',
-    Messaging: './src/Messaging.jsx',
-    Subscription: './src/Subscription.jsx',
+    App: './src/root-spas/App.jsx',
+    OrdersApp: './src/root-spas/OrdersApp.jsx',
+    MgtUser: './src/root-spas/MgtUser.jsx',
+    Messaging: './src/root-spas/Messaging.jsx',
+    Subscription: './src/root-spas/Subscription.jsx',
+    Operations: './src/root-spas/Operations.jsx',
   },
   output: {
     filename: '[name].js',

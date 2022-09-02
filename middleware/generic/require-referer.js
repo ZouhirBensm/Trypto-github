@@ -9,7 +9,7 @@ module.exports = (req,res,next)=>{
     next()
   } else {
     let error = new NoRefererError("No req.headers.referer identified, a referer is needed to process the request.");
-    next(error)
+    return next(error)
   }
 
 }

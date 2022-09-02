@@ -16,10 +16,10 @@ class Register extends React.Component {
     this.handleValidation = this.handleValidation.bind(this)
     this.handleRegistrationCall = this.handleRegistrationCall.bind(this)
     console.log("step in register: ", this.props.step)
-    this.freePlanRegistrationProcess = this.freePlanRegistrationProcess.bind(this)
+    this.NOTSUBSCRIBERPlanRegistrationProcess = this.NOTSUBSCRIBERPlanRegistrationProcess.bind(this)
   }
 
-  async freePlanRegistrationProcess() {
+  async NOTSUBSCRIBERPlanRegistrationProcess() {
     console.log("heyy")
     let flag, notification
     console.log("actuallly register the user", this.props.email, this.props.password, this.props.plan);
@@ -204,10 +204,10 @@ class Register extends React.Component {
               // console.log("work with this!", this.props.plan)
               if (returnedValue.value.yield_level == 4){
                 // this.props.nextStep()
-                if(this.props.plan == "free") {
-                  await this.freePlanRegistrationProcess()
+                if(this.props.plan == "NOTSUBSCRIBER") {
+                  await this.NOTSUBSCRIBERPlanRegistrationProcess()
                 }
-                if(this.props.plan == "basic") {
+                if(this.props.plan == "BASIC") {
                   this.props.nextStep()
                 }
               } else {

@@ -1,18 +1,10 @@
 const httpStatus = require("http-status-codes")
-// No Custom Error needed at the moment
-const { MongoError } = require('../../custom-errors/custom-errors')
 const ENV = require('../../config/base')
 
-// TODO errorLogger keep in middleware, whereas the 2 other functions need to be put in the controllers folder
-// Other Error Handlers
-const errorLogger = (err, req ,res, next) => {
-  // console.error(err.stack)
-  console.error('\n\n\x1b[31;5mOn errorLogger\x1b[0m\n\n\x1b[37;41;1m', err, '\x1b[0m')
-  return next(err) // Sends the error to next middleware error handler function
-}
 
-const errorResponseDispatcher = async (err, req ,res, next) => {
-  console.log("\n\n\x1b[33;5mOn errorResponseDispatcher\x1b[0m\n\n\n\x1b[37;43;1mConstructor: ", err.constructor.name, '\x1b[0m')
+
+const errorResponseDispatcherController = async (err, req ,res, next) => {
+  console.log("\n\n\x1b[33;5mOn errorResponseDispatcherController\x1b[0m\n\n\n\x1b[37;43;1mConstructor: ", err.constructor.name, '\x1b[0m')
 
   switch (err.constructor.name) {
     // Used to experiment custom throw errors for mongo DB methods
@@ -89,8 +81,8 @@ const errorResponseDispatcher = async (err, req ,res, next) => {
   }
 }
 
-const errorResponder = (err, req ,res, next) => {
-  console.log("\n\n\n\x1b[38;5;130;5mOn errorResponder\x1b[0m")
+const errorResponderController = (err, req ,res, next) => {
+  console.log("\n\n\n\x1b[38;5;130;5mOn errorResponderController\x1b[0m")
 
 
   console.log("\n\x1b[37;48;5;172;1mEnvironment", ENV.environment , '\x1b[0m\n\n')
@@ -106,7 +98,7 @@ const errorResponder = (err, req ,res, next) => {
   let error_sent
 
   ENV.environment === "developement" ? 
-  error_sent = `On errorResponder |\nAn Error has occured on the server please have a look!\n Error: ${err}`: 
+  error_sent = `On errorResponderController |\nAn Error has occured on the server please have a look!\n Error: ${err}`: 
   error_sent = `${errorStatus} | Sorry, our web server is Down!`;
 
 
@@ -117,7 +109,6 @@ const errorResponder = (err, req ,res, next) => {
 }
 
 module.exports = {
-  errorLogger,
-  errorResponseDispatcher,
-  errorResponder
+  errorResponseDispatcherController,
+  errorResponderController
 }

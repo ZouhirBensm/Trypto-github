@@ -11,23 +11,23 @@
 
 import loadable from "@loadable/component";
 // import Loading from "./Loading";
-import Loading from "./generic-components/Loading";
+import Loading from "../generic-components/Loading";
 
 
-const Make = loadable(() => import("./orders-functionalities/Make"),{
+const Make = loadable(() => import("../orders-functionalities/Make"),{
   fallback: <Loading/>
 });
 
-const Orders = loadable(() => import("./orders-functionalities/Orders"),{
+const Orders = loadable(() => import("../orders-functionalities/Orders"),{
   fallback: <Loading/>
 });
-const MyOrders = loadable(() => import("./orders-functionalities/MyOrders"),{
+const MyOrders = loadable(() => import("../orders-functionalities/MyOrders"),{
   fallback: <Loading/>
 });
-const Navigation = loadable(() => import("./orders-functionalities/Navigation"),{
+const Navigation = loadable(() => import("../orders-functionalities/Navigation"),{
   fallback: <Loading/>
 });
-const Matches = loadable(() => import("./orders-functionalities/Matches"),{
+const Matches = loadable(() => import("../orders-functionalities/Matches"),{
   fallback: <Loading/>
 });
 

@@ -57,7 +57,7 @@ let chatControllers = (io) => {
 
       for(let session of sessions) {
         // Identification of my session, if any
-        // Identification comparision between the DB Collection & the socket session linkage made in the ioServer.js file 
+        // Identification comparision between the DB Collection & the socket session linkage made in the io-server-setup.js file 
         if (session.session.userId && session.session.userId.toString() == socket.request.session.userId) {
 
           // When my session is found, if any. Add the socket ID, and a appended user B the communications are attended to, to a socket field.

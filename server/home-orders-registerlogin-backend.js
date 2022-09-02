@@ -35,16 +35,16 @@ const distributePaginatedDataController = require("../controllers/generic-contro
 const isUpController = require("../controllers/generic-controllers/is-up-controller")
 
 
-// Import loggedInRedirectHome
-const loggedInRedirectHome = require('../middleware/loggedin/loggedIn-redirect-home')
+// Import loggedInRedirectHomeMiddleware
+const loggedInRedirectHomeMiddleware = require('../middleware/loggedin/loggedIn-redirect-home-middleware')
 // Import checkIfUseridWithinDBmiddleware
 const checkIfUseridWithinDBmiddleware = require('../middleware/loggedin/checkIf-userid-withinDB-middleware')
 
 // Import paginatedDataAccessMiddleware
 const paginatedDataAccessMiddleware = require('../middleware/generic/paginated-data-access-middleware')
 
-// Import StopIfAlreadyLoggedIn
-const StopIfAlreadyLoggedIn = require('../middleware/loggedin/stop-if-already-loggedin')
+// Import StopIfAlreadyLoggedInMiddleware
+const StopIfAlreadyLoggedInMiddleware = require('../middleware/loggedin/stop-if-already-loggedin-middleware')
 // Import requireReferer
 const requireReferer = require('../middleware/generic/require-referer')
 // Import paginatingSetupMiddleware
@@ -87,7 +87,7 @@ homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:userID?', pagi
 
 
 
-homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHome, checkSession_is_subscriberMiddleware ,async (req,res,next)=>{
+homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHomeMiddleware, checkSession_is_subscriberMiddleware ,async (req,res,next)=>{
   console.log("/users/:what_page: ", req.params.what_page, req.session.userId)
   console.log("/users/:what_page: ", res.locals.isSessionUserSubscriber)
   
@@ -122,7 +122,7 @@ homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHome, chec
   
   
   var JSX_to_load = 'MgtUser';
-  res.render('generic-boilerplate-ejs-to-render-react-components', { 
+  res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load, 
     // [sessionUser? "sessionUser": null]: sessionUser,
     sessionUser: sessionUser,
@@ -130,7 +130,7 @@ homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHome, chec
   })
 })
 
-homeOrdersBackend_app_router.get('/subscription', loggedInRedirectHome, function(req,res,next) {
+homeOrdersBackend_app_router.get('/subscription', loggedInRedirectHomeMiddleware, function(req,res,next) {
 
 
   console.log("/subscription: ", req.session.userId)
@@ -138,7 +138,7 @@ homeOrdersBackend_app_router.get('/subscription', loggedInRedirectHome, function
 
 
   var JSX_to_load = 'Subscription';
-  res.render('generic-boilerplate-ejs-to-render-react-components', { 
+  res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load, 
     isPaypalScriptNeeded: true
     // [req.params.what_page === "profile" ? "userId": null]: req.session.userId,
@@ -153,7 +153,7 @@ homeOrdersBackend_app_router.get(['/databases/:what_page?', '/make/:type'], chec
   
   var JSX_to_load = 'OrdersApp';
 
-  res.render('generic-boilerplate-ejs-to-render-react-components', { 
+  res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load, 
     // [req.params.what_page === "AllMyOrders" ? "userId": null]: req.session.userId,
   })
@@ -161,14 +161,14 @@ homeOrdersBackend_app_router.get(['/databases/:what_page?', '/make/:type'], chec
 
 
 // Login User
-homeOrdersBackend_app_router.post('/users/login', requireReferer, StopIfAlreadyLoggedIn, RegisterLoginController.loginController)
+homeOrdersBackend_app_router.post('/users/login', requireReferer, StopIfAlreadyLoggedInMiddleware, RegisterLoginController.loginController)
 
 
 // Register New User
-homeOrdersBackend_app_router.post('/users/register', requireReferer, StopIfAlreadyLoggedIn, RegisterLoginController.validateController, RegisterLoginController.registerController)
+homeOrdersBackend_app_router.post('/users/register', requireReferer, StopIfAlreadyLoggedInMiddleware, RegisterLoginController.validateController, RegisterLoginController.registerController)
 
 // Check if you can register
-homeOrdersBackend_app_router.post('/check/user/register', requireReferer, StopIfAlreadyLoggedIn, RegisterLoginController.checkRegisterController)
+homeOrdersBackend_app_router.post('/check/user/register', requireReferer, StopIfAlreadyLoggedInMiddleware, RegisterLoginController.checkRegisterController)
 
 
 
@@ -180,7 +180,7 @@ homeOrdersBackend_app_router.get('/',(req,res)=>{
   res.locals.popup = req.query.popup
 
   var JSX_to_load = 'App';
-  res.render('generic-boilerplate-ejs-to-render-react-components', { JSX_to_load : JSX_to_load })
+  res.render('generic-boilerplate-ejs-to-render-react-components-client', { JSX_to_load : JSX_to_load })
 })
 
 

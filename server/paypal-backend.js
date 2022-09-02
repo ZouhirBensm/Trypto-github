@@ -6,8 +6,10 @@ const httpStatus = require("http-status-codes")
 
 const Subscriber = require('../models/Subscriber');
 const User = require('../models/User');
+const ROLE = require('../full-stack-libs/Types/Role')
 const utils = require('../full-stack-libs/utils')
 const billing_utils = require('../full-stack-libs/utils.billing')
+
 
 // Setting up agenda for persistant jobs on each event when user unsubscribes to nullify their User subscriptionID field
 console.log("before agenda: ", db._connectionString)
@@ -16,7 +18,7 @@ const agenda = new Agenda({
     address: db._connectionString,
     maxConcurrency: 10, // not having wanted effect of having no more thant 10 jobs processes runing simultaneously total
     defaultConcurrency: 1, // not having wanted effect of 1 process per job
-    collection: "NullifyUserSubscriptionJobs"
+    collection: "effect_users_to_unsubscribe_agendajobs"
   },
 });
 
@@ -105,21 +107,21 @@ paypalBackend_app_router.post('/unsubscribe', checkIfUseridWithinDBmiddleware,ch
       return next(error)
     }
 
-    agenda.define(`Nullify particular User: ${req.session.userId} subscriptionID field`, async (job, done) => {
+    agenda.define(`Nullify particular User: ${req.session.userId} subscriptionID field and set role to UNSUBSCRIBER`, async (job, done) => {
       let userUnsubscribed
-      try {userUnsubscribed = await User.updateOne({_id: req.session.userId}, {subscriptionID: null});} catch(e) {return next(e)}
-      console.log("executing the event: Nullify particular User subscriptionID field")
+      try {userUnsubscribed = await User.updateOne({_id: req.session.userId}, {subscriptionID: null, role: ROLE.USER.NOTSUBSCRIBER});} catch(e) {return next(e)}
+      console.log("executing the event: Nullify particular User subscriptionID field and set role to UNSUBSCRIBER")
       done()
-      const numRemoved = await agenda.cancel({ name: `Nullify particular User: ${req.session.userId} subscriptionID field`});
+      const numRemoved = await agenda.cancel({ name: `Nullify particular User: ${req.session.userId} subscriptionID field and set role to UNSUBSCRIBER`});
       console.log("cancelled!", `value: ${userUnsubscribed} & ${numRemoved}`)
     });
 
 
-    await agenda.schedule(unsubscriptionTakesEffectOnBidBlock, `Nullify particular User: ${req.session.userId} subscriptionID field`);
+    await agenda.schedule(unsubscriptionTakesEffectOnBidBlock, `Nullify particular User: ${req.session.userId} subscriptionID field and set role to UNSUBSCRIBER`);
 
     res.status(httpStatus.StatusCodes.OK).json({
       server: {
-        client_message: `You have successfully unsubscribed, your paid for subscription benefits will stay valid until: ${unsubscriptionTakesEffectOnBidBlock}, at which point you will be set on the free plan, and recurring charges will seize as of today.`,
+        client_message: `You have successfully unsubscribed, your paid for subscription benefits will stay valid until: ${unsubscriptionTakesEffectOnBidBlock}, at which point you will be set on the NOTSUBSCRIBER plan, and recurring charges will seize as of today.`,
         admin_message: 'POST to /paypal/unsubscribe response when done, you should have the user unsubscribed now!'
       }
     });

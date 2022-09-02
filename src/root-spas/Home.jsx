@@ -1,7 +1,7 @@
 
 // import loadable from "@loadable/component";
 // // import Loading from "./Loading";
-// import Loading from "./generic-components/Loading";
+// import Loading from "../generic-components/Loading";
 
 
 

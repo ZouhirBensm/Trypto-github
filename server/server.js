@@ -1,10 +1,12 @@
 const ENV = require('../config/base')
 //Global variable loggedIn that will be accessible from all our ejs files
 global.loggedIn = null
+global.navBars = null
+
+const NAVBAR = require('../full-stack-libs/Types/Navbar')
 // console.log(process.env.ROOT)
 
 // TODO #98 Better organize server folder
-
 
 const mongoose = require('mongoose')
 
@@ -43,16 +45,16 @@ db.once("open", () => {
 const layouts = require("express-ejs-layouts")
 
 const express = require('express');
-const { createServer } = require("http");
-const { Server } = require("socket.io")
 
 
 const homeOrdersBackend_app_router = require('./home-orders-registerlogin-backend')
 const messagingBackend_app_router = require('./messaging-backend');
-
 const paypalBackend_app_router = require('./paypal-backend')
+const operationsBackend_app_router = require('./operations-backend')
 
-const { errorLogger, errorResponder, errorResponseDispatcher } = require('../middleware/error-middleware/error-handle-fcts')
+const { errorLoggerMiddleware } = require('../middleware/error-middleware/error-handle-fcts-middleware')
+
+const { errorResponderController, errorResponseDispatcherController } = require('../controllers/error-controllers/error-handle-fcts-controller')
 
 const { invalidPathHandler } = require("../controllers/register-login-controllers/register-login-controllers")
 
@@ -106,13 +108,6 @@ express_server_app_router.use(express.json())
 express_server_app_router.use(express.urlencoded({extended: true}))
 
 
-//Middleware executed for all requests
-// express_server_app_router.use('*', (req,res,next)=>{
-//   loggedIn = req.session.userId
-//   next()
-// })
-
-
 
 
 
@@ -128,6 +123,7 @@ express_server_app_router.use((req, res, next) => {
   res.locals.ENV = ENV;
   res.locals.userId = req.session.userId
   loggedIn = req.session.userId
+  navBars = NAVBAR.CLIENTS
   next()
 })
 
@@ -141,6 +137,9 @@ express_server_app_router.use('/messaging', messagingBackend_app_router)
 
 express_server_app_router.use('/paypal', paypalBackend_app_router)
 
+// TODO figure out how to set the /operations URL to the operations.bidblock.ca subdomain
+express_server_app_router.use('/operations', operationsBackend_app_router)
+
 
 // Fail-safe catch-all non registered routes to render error page 
 // if "earlier" endpoints does not exist 
@@ -152,19 +151,19 @@ express_server_app_router.use(invalidPathHandler)
 
 
 // Middleware error handlers that processes any thrown errors
-express_server_app_router.use(errorLogger)
-// Retrieves the error and either responds to client based on the nature of the error or redirects the error to the generic errorResponder middleware
-express_server_app_router.use(errorResponseDispatcher)
+express_server_app_router.use(errorLoggerMiddleware)
+// Retrieves the error and either responds to client based on the nature of the error or redirects the error to the generic errorResponderController middleware
+express_server_app_router.use(errorResponseDispatcherController)
 // Cuts off error handling from express' default error handler because the function responds to client
-express_server_app_router.use(errorResponder)
+express_server_app_router.use(errorResponderController)
 
 
-// Note: Errors thrown during the application (i.e. before express_server_app_router.use(errorLogger)) get dealt with the error function middlewares (the errorResponder always responds), and thus circumvent this express_server_app_router.use(invalidPathHandler) middleware
+// Note: Errors thrown during the application (i.e. before express_server_app_router.use(errorLoggerMiddleware)) get dealt with the error function middlewares (the errorResponderController always responds), and thus circumvent this express_server_app_router.use(invalidPathHandler) middleware
 
 
 // Upgrade the HTTP Express Server to a Socket IO Server
 module.exports = {express_server_app_router, sessionMiddleware}
-const server_instance = require("./ioServer")
+const server_instance = require("./io-server-setup")
 
 
 // .listen() Returns a Express.JS HTTP web server instance when express_server_app_router.listen()
