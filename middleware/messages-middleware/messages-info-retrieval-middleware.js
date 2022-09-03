@@ -1,6 +1,8 @@
 const Message = require('../../models/messaging-models/Message')
 
 module.exports = async (req,res,next)=>{
+
+  res.locals.path_param_userID = req.params.userId
   console.log("in intermediateMiddlewareMess: ",res.locals.page, res.locals.limit, res.locals.startIndex, res.locals.endIndex)
 
 

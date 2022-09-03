@@ -103,7 +103,7 @@ class Profile extends React.Component {
           title_card={
             [
               {tag: 'span', content: 'Logged in user: '},
-              {tag: 'img', content: 'SRC_LINK'},
+              {tag: 'img', content: '#'},
               {tag: 'span', content: `${userEmail}`},
             ]
           }
@@ -118,7 +118,6 @@ class Profile extends React.Component {
           wrapper_className="user-info"
           position={0}
         />
-
 
         { sessionUser.subscriptionID ? 
           <CardShell 

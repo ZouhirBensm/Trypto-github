@@ -97,9 +97,6 @@ express_server_app_router.set('view engine', 'ejs')
 // console.log(express_server_app_router.get("view engine"))
 
 
-const messengerControllers = require("../controllers/messenger-controllers/messenger-controllers")
-
-
 // Express.js know to use this package as an additional middleware layer
 express_server_app_router.use(layouts)
 // Parse incomming requests that have json payloads
@@ -123,6 +120,7 @@ express_server_app_router.use((req, res, next) => {
   res.locals.ENV = ENV;
   res.locals.userId = req.session.userId
   loggedIn = req.session.userId
+  // Default navbars unless overwritten
   navBars = NAVBAR.CLIENTS
   next()
 })
@@ -176,5 +174,5 @@ server_instance.listen(ENV.port, function () {
 
 
 /*
- Entire repository with the name of Trypto-gitlab on the Gitlab platform (URL: https://gitlab.com/Maestro07/trypto-gitlab) with a Project ID: 31112112 and accessed with user account: freelancebenz@gmail.com is regimented by the intellectual property laws of the Canadian Intellectual Property Office Canadian Copyright © issued by Innovation, Science and Economic Development Canada. Copyright registered the 12th of October 2021 under the registration number 1187187. Registerer name is Zouhir Mohamed Bachir Bensmaia, born the 26th January 1993. Copyright encompasses all future and past software edits, and also functional subtleties the project accomplishes.
+ Entire repository with the name of Trypto-gitlab on the Gitlab platform (URL: https://gitlab.com/Maestro07/trypto-gitlab) with a Project ID: 31112112 and accessed with user account: freelancebenz@gmail.com is regimented by the intellectual property laws of the Canadian Intellectual Property Office Canadian Copyright © issued by Innovation, Science and Economic Development Canada. Copyright registered the 12th of October 2021 under the registration number 1187187. Registerer name is Zouhir Mohamed Bachir Bensmaia, born the 26th January 1993. Copyright covers all future and past software edits, and also functional subtleties the project accomplishes.
 */

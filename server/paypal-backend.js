@@ -65,17 +65,37 @@ const checkIfUseridWithinDBmiddleware = require("../middleware/loggedin-middlewa
 
 
 
+// Use this to check the role, requires a res.locals.user.role
+const { set_user_if_any } =  require("../middleware/generic-middleware/set-user-if-any-middleware")
+
+// Use this to check the role, requires a res.locals.user.role
+// const { not_loggedin_for_pages, loggedin_for_pages, not_loggedin_for_data, loggedin_for_data } =  require("../middleware/generic-middleware/check-loggedin-middleware")
+const {require_loggedin_for_pages, require_loggedin_for_data} = require("../middleware/generic-middleware/check-loggedin-middleware")
+
+// Use this to check the role, requires a res.locals.user.role
+const { authenticate_role_for_pages, authenticate_role_for_data } =  require("../middleware/generic-middleware/authenticate-role-middleware")
 
 
-// Route is called upon as request from browser as '/paypal/'
-paypalBackend_app_router.get('/',   (req,res) =>{
-  res.status(200).send('paypal home');
-  res.end();
+
+
+paypalBackend_app_router.use(set_user_if_any, (req, res, next) => {
+  next()
 })
 
 
+
+
+// Route is called upon as request from browser as '/paypal/'
+// paypalBackend_app_router.get('/',   (req,res) =>{
+//   res.status(200).send('paypal home');
+//   res.end();
+// })
+
+
 // Unsubscribe
-paypalBackend_app_router.post('/unsubscribe', checkIfUseridWithinDBmiddleware,checkPostedUserID_is_SessionUserIDMiddleware, checkSession_is_subscriberMiddleware, hasUnSubProcessStartedMiddleware, paypalSubscriptionDeletionMiddleware, async (req,res,next) => {
+// checkIfUseridWithinDBmiddleware
+// checkSession_is_subscriberMiddleware
+paypalBackend_app_router.post('/unsubscribe', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.USER.SUBSCRIBER.BASIC]), checkPostedUserID_is_SessionUserIDMiddleware, hasUnSubProcessStartedMiddleware, paypalSubscriptionDeletionMiddleware, async (req,res,next) => {
 
   let paypal_cancel_sub_response_status = res.locals.paypalCancelSubResponseStatus
   let subscriptionInfo = res.locals.subscriptionInfo
@@ -125,7 +145,6 @@ paypalBackend_app_router.post('/unsubscribe', checkIfUseridWithinDBmiddleware,ch
         admin_message: 'POST to /paypal/unsubscribe response when done, you should have the user unsubscribed now!'
       }
     });
-    // res.end();
 
   } else {
 
@@ -135,7 +154,7 @@ paypalBackend_app_router.post('/unsubscribe', checkIfUseridWithinDBmiddleware,ch
         admin_message: 'POST to /paypal/unsubscribe response when done, subsciption is  still on BidBlock and Paypal files, please contact an admin to unsubscribe properly!'
       }
     });
-    // res.end();
+    
   }
 
 })

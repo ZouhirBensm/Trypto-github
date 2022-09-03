@@ -27,12 +27,12 @@ module.exports = {
       } else {
         console.log('Password failed to validate') 
         const error = new ValidationError(notification, "Password")
-        next(error) 
+        return next(error) 
       }
     } else {
       console.log('Email failed to validate')
       const error = new ValidationError(notification, "Email")
-      next(error)
+      return next(error)
     }
 
   },
@@ -139,46 +139,48 @@ module.exports = {
   },
   loginController: async (req,res,next)=>{
   
-    let notification = []
-    //Extract the email and password from the login form with req.body
+    // let notification = []
+    // //Extract the email and password from the login form with req.body
 
-    const {email, password} = req.body
-    console.log("\n\n\nBackend Reception:\n", req.body)
+    // const {email, password} = req.body
+    // console.log("\n\n\nBackend Reception:\n", req.body)
     
-    email? null: notification.push("Please enter an e-mail")
+    // email? null: notification.push("Please enter an e-mail")
 
-    //Try to find one user with the inputed email
-    await User.findOne({email: email}, (error,user)=>{
-      // console.log(email,user)
-      // FOR FORCE ERRORS TESTS
-      // error = new Error("test error1")
-      if (error) {notification.push(error.message); return}
-      if(user){
-        //Compare inputed password with database user.password
-        bcrypt.compare(password, user.password, (error,same)=>{
-          if (error) {notification.push(error.message); return}
-          if(same){
-              //store
-              //Sets up the Session object with cookie created and userId
-              req.session.userId = user._id
-              console.log("\nin compare:\n", req.session.userId)
-          //If password is wrong
-          } else {
-            password? notification.push("Erroneous password submission for this email"): notification.push("Please enter a password");
-            return;
-          }
-        })
-        // If user email does not exist in database
-      } else {
-        email? notification.push("This email was not found in our repertoire"): null;
-        return;
-      }
-    })
+    // //Try to find one user with the inputed email
+    // await User.findOne({email: email}, (error,user)=>{
+    //   // console.log(email,user)
+    //   // FOR FORCE ERRORS TESTS
+    //   // error = new Error("test error1")
+    //   if (error) {notification.push(error.message); return}
+    //   if(user){
+    //     //Compare inputed password with database user.password
+    //     bcrypt.compare(password, user.password, (error,same)=>{
+    //       if (error) {notification.push(error.message); return}
+    //       if(same){
+    //           //store
+    //           //Sets up the Session object with cookie created and userId
+    //           req.session.userId = user._id
+    //           console.log("\nin compare:\n", req.session.userId)
+    //       //If password is wrong
+    //       } else {
+    //         password? notification.push("Erroneous password submission for this email"): notification.push("Please enter a password");
+    //         return;
+    //       }
+    //     })
+    //     // If user email does not exist in database
+    //   } else {
+    //     email? notification.push("This email was not found in our repertoire"): null;
+    //     return;
+    //   }
+    // })
 
 
-    console.log("\nnotification end:\n", notification)
+    // put this in another next controller might fix the issue
+
+    console.log("\nnotification end:\n", res.locals.notification)
     console.log("\nreq.session.userId end:\n", req.session.userId)
-    if(req.session.userId && notification.length == 0) {
+    if(req.session.userId && res.locals.notification.length == 0) {
       // res.json({
       //   data: ['success']
       // })
@@ -189,16 +191,10 @@ module.exports = {
       })
     } else {
       // simple way
-      let err = new LoggingInError(notification)
-      // err.message = notification
+      let err = new LoggingInError(res.locals.notification)
+      // err.message = res.locals.notification
       console.log(err)
       return next(err)
-
-      // Example of Appending the notification array to the res object, in order to pass to next error middlware errorLoggerMiddleware
-      // const error = new LoggingInError()
-      // res.locals.notification = notification
-      // console.log(res.locals.notification)
-      // next(error)
 
     }
 

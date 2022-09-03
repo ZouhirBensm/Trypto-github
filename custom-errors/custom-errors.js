@@ -81,6 +81,14 @@ class UnsubscribeError extends CustomError {
   }
 }
 
+class RoleNotPermitedError extends CustomError {
+  constructor(current_role, permitted_roles){
+    super()
+    this.type = this.constructor.name
+    this.message = `You are logged in as a ${current_role} role, but the only permitted roles are the folowing: ${permitted_roles}`
+  }
+}
+
 class DeleteAccountProcessError extends CustomError {
   constructor(array_of_messages){
     super()
@@ -99,5 +107,6 @@ module.exports = {
   NoRefererError,
   FirstPathNotRegistered,
   UnsubscribeError,
-  DeleteAccountProcessError
+  DeleteAccountProcessError,
+  RoleNotPermitedError
 }

@@ -74,6 +74,17 @@ const errorResponseDispatcherController = async (err, req ,res, next) => {
         }
       })
     break;
+    case "RoleNotPermitedError":
+      return res.status(err.statusCode).json({
+        error: {
+          type: err.type,
+          message: {
+            client_message: err.message,
+            admin_message: err.message
+          }
+        }
+      })
+    break;
     default:
       console.log("switch end")
       return next(err)

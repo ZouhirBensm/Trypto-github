@@ -21,17 +21,37 @@ const paginatingSetupMiddleware = require('../middleware/generic-middleware/pagi
 // Import messagesRetrievalMiddleware
 const messagesInfoRetrievalMiddleware = require('../middleware/messages-middleware/messages-info-retrieval-middleware')
 
+const checkPathUserIdMiddleware = require('../middleware/generic-middleware/check-path-userId-middleware')
 
 
-// Route is called upon as request from browser as '/messaging/'
-messagingBackend_app_router.get('/', checkIfUseridWithinDBmiddleware, (req,res)=>{
-  
-  // console.log("logged in user: ", req.session.userId)
-  // console.log("orderId: ", req.query.orderId)
-  // console.log("user B: ", req.query.userIdB)
+// Use this to check the role, requires a res.locals.user.role
+const { set_user_if_any } =  require("../middleware/generic-middleware/set-user-if-any-middleware")
+
+// Use this to check the role, requires a res.locals.user.role
+// const { not_loggedin_for_pages, loggedin_for_pages, not_loggedin_for_data, loggedin_for_data } =  require("../middleware/generic-middleware/check-loggedin-middleware")
+const {require_loggedin_for_pages, require_loggedin_for_data} = require("../middleware/generic-middleware/check-loggedin-middleware")
+
+// Use this to check the role, requires a res.locals.user.role
+const { authenticate_role_for_pages, authenticate_role_for_data } =  require("../middleware/generic-middleware/authenticate-role-middleware")
+
+
+const ROLE = require("../full-stack-libs/Types/Role")
+
+
+messagingBackend_app_router.use(set_user_if_any, (req, res, next) => {
   res.locals.currentUserEmail = res.locals.user.email;
   res.locals.userIdB = req.query.userIdB;
   res.locals.orderId = req.query.orderId;
+  next()
+})
+
+
+// Route is called upon as request from browser as '/messaging/'
+messagingBackend_app_router.get('/', require_loggedin_for_pages(true), (req,res)=>{
+
+  console.log("\n\n________________res.locals.user.email:\n\n", res.locals.user.email,
+    "\n\nreq.query.userIdB:\n\n", req.query.userIdB,
+    "\n\nreq.query.orderId:\n\n", req.query.orderId)
 
   var JSX_to_load = 'Messaging';
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
@@ -44,12 +64,12 @@ messagingBackend_app_router.get('/', checkIfUseridWithinDBmiddleware, (req,res)=
 
 
 // Route is called upon as request from browser as '/messaging/'
-messagingBackend_app_router.get('/messages', checkIfUseridWithinDBmiddleware, (req,res)=>{
-  
-  res.locals.currentUserEmail = res.locals.user.email;
-  res.locals.userIdB = req.query.userIdB;
-  res.locals.orderId = req.query.orderId;
-  // res.send("HHEEELLOOO!!!")
+messagingBackend_app_router.get('/messages', require_loggedin_for_pages(true), (req,res)=>{
+
+  console.log("\n\n________________res.locals.user.email:\n\n", res.locals.user.email,
+  "\n\nreq.query.userIdB:\n\n", req.query.userIdB,
+  "\n\nreq.query.orderId:\n\n", req.query.orderId)
+
 
   var JSX_to_load = 'Messaging';
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
@@ -62,7 +82,10 @@ messagingBackend_app_router.get('/messages', checkIfUseridWithinDBmiddleware, (r
 
 })
 
-messagingBackend_app_router.get('/paginated-messages/:userID', checkURLuserIDMiddleware, paginatingSetupMiddleware, messagesInfoRetrievalMiddleware, distributePaginatedDataController)
+
+
+// checkURLuserIDMiddleware
+messagingBackend_app_router.get('/paginated-messages/:userId', checkPathUserIdMiddleware, require_loggedin_for_data(true), paginatingSetupMiddleware, messagesInfoRetrievalMiddleware, distributePaginatedDataController)
 
 
 module.exports = messagingBackend_app_router
