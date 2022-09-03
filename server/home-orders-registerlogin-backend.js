@@ -1,61 +1,52 @@
+// Libraries
 const express = require('express')
 const mongoose = require('mongoose')
 const fetch = require('node-fetch')
-
 const httpStatus = require("http-status-codes")
-const homeOrdersBackend_app_router = express.Router()
+const CoinGecko = require('coingecko-api');
 
+// Initializations
+const homeOrdersBackend_app_router = express.Router()
+const CoinGeckoClient = new CoinGecko();
+
+
+// ENV variables
 const ENV = require('../config/base')
 
-// Manually create a webhook
-// https://riptutorial.com/paypal/example/1867/testing-sandbox-webhooks-with-ngrok-and-express--node-
 
 
-// In case you need to connect to DB #@
+
+// In case you need to connect to DB directly
 const {MongoClient} = require('mongodb');
-// try replace with MogoClient.ObjectId
 var ObjectId = require('mongodb').ObjectId;
 const uri = ENV.database_link;
 const mongodbClient = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
+// Utils
 const utils = require('../full-stack-libs/utils')
+const ROLE = require("../full-stack-libs/Types/Role")
 
 
-const CoinGecko = require('coingecko-api');
-const CoinGeckoClient = new CoinGecko();
 
-// Import Long homeOrdersController functions
+// Custom Error
+const { CustomError } = require('../custom-errors/custom-errors');
+const { DeleteAccountProcessError } = require("../custom-errors/custom-errors")
+
+
+// Controllers
 const homeOrdersController = require("../controllers/home-orders-controllers/home-orders-controllers")
-// Import Long RegisterLoginController functions
 const RegisterLoginController = require("../controllers/register-login-controllers/register-login-controllers")
-// Import distributePaginatedDataController
 const distributePaginatedDataController = require("../controllers/generic-controllers/distribute-paginated-data-controller")
-// Import isUpController
 const isUpController = require("../controllers/generic-controllers/is-up-controller")
 
 
-// Import loggedInRedirectHomeMiddleware
-const loggedInRedirectHomeMiddleware = require('../middleware/loggedin-middleware/loggedIn-redirect-home-middleware')
-// Import checkIfUseridWithinDBmiddleware
-const checkIfUseridWithinDBmiddleware = require('../middleware/loggedin-middleware/checkIf-userid-withinDB-middleware')
-
-// Import paginatedDataAccessMiddleware
-const paginatedDataAccessMiddleware = require('../middleware/generic-middleware/paginated-data-access-middleware')
-
-// Import StopIfAlreadyLoggedInMiddleware
-const StopIfAlreadyLoggedInMiddleware = require('../middleware/loggedin-middleware/stop-if-already-loggedin-middleware')
-// Import requireReferer
-const requireReferer = require('../middleware/generic-middleware/require-referer')
-// Import paginatingSetupMiddleware
+// Middleware
+const requireRefererMiddleware = require('../middleware/generic-middleware/require-referer')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
-// Import intermediateMiddlewareOrders
 const ordersRetrievalMiddleware = require('../middleware/home-orders-middleware/orders-retrieval-middleware')
 
-// Import checkSession_is_subscriberMiddleware
-const checkSession_is_subscriberMiddleware = require('../middleware/paypal-middleware/check-session-is-subscriber-middleware')
 
-// Import account deletion process middleware:
 const  deleteBuyCryptoOrdersMiddleware = require('../middleware/delete-account-process-middleware/delete-buycryptoorders-middleware')
 const  deleteSellOrdersMiddleware = require('../middleware/delete-account-process-middleware/delete-sellcryptoorders-middleware')
 const  deleteProtagonistsMiddleware = require('../middleware/delete-account-process-middleware/delete-protagonists-middleware')
@@ -72,11 +63,8 @@ const verifyingPasswordMiddleware = require('../middleware/loggedin-middleware/v
 // Use this to check the role, requires a res.locals.user.role
 const { set_user_if_any } =  require("../middleware/generic-middleware/set-user-if-any-middleware")
 
-// Use this to check the role, requires a res.locals.user.role
-// const { not_loggedin_for_pages, loggedin_for_pages, not_loggedin_for_data, loggedin_for_data } =  require("../middleware/generic-middleware/check-loggedin-middleware")
 const {require_loggedin_for_pages, require_loggedin_for_data} = require("../middleware/generic-middleware/check-loggedin-middleware")
 
-// Use this to check the role, requires a res.locals.user.role
 const { authenticate_role_for_pages, authenticate_role_for_data } =  require("../middleware/generic-middleware/authenticate-role-middleware")
 
 
@@ -84,46 +72,25 @@ const { authenticate_role_for_pages, authenticate_role_for_data } =  require("..
 
 
 
-// We import the User model, the mongoose connection is already defined for all routers files
+// Database Models
 const User = require('../models/User')
-
-// No Custom Error needed at the moment
-const { CustomError } = require('../custom-errors/custom-errors');
-
-
 const BuyCryptoOrder = require('../models/home-orders-models/BuyCryptoOrder');
 const SellCryptoOrder = require('../models/home-orders-models/SellCryptoOrder');
 const Protagonist = require('../models/messaging-models/Protagonist')
 const Message = require('../models/messaging-models/Message')
 const Subscriber = require('../models/Subscriber')
 
-// Custom Error
-const { DeleteAccountProcessError } = require("../custom-errors/custom-errors")
-const { registerController } = require('../controllers/register-login-controllers/register-login-controllers')
 
-
-const ROLE = require("../full-stack-libs/Types/Role")
-
-
-
-
-
+// Start middleware for this homeOrdersBackend_app_router
 homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
   next()
 })
 
 
-
 homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:userID?', require_loggedin_for_data(true), paginatingSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
 
 
-
-
-
-// /users/login -> not logged in
-// /users/register
 homeOrdersBackend_app_router.get('/users/login', require_loggedin_for_pages(false), (req,res,next)=>{
-  
   var JSX_to_load = 'MgtUser';
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
@@ -131,7 +98,6 @@ homeOrdersBackend_app_router.get('/users/login', require_loggedin_for_pages(fals
 })
 
 
-// loggedInRedirectHomeMiddleware
 homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(false), function(req,res,next) {
   console.log("/subscription: ", req.session.userId)
 
@@ -139,13 +105,10 @@ homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(fal
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load, 
     isPaypalScriptNeeded: true
-    // [req.params.what_page === "profile" ? "userId": null]: req.session.userId,
   })
 })
 
 
-
-// /users/profile -> logged in
 homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER]) , async (req,res,next)=>{
 
   let sessionUser = null
@@ -176,57 +139,9 @@ homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(tr
   })
 })
 
-
-// KEPT AS REFERENCE
-// homeOrdersBackend_app_router.get('/users/:what_page', loggedInRedirectHomeMiddleware, checkSession_is_subscriberMiddleware ,async (req,res,next)=>{
-
-
-//   console.log("/users/:what_page: ", req.params.what_page, req.session.userId)
-//   console.log("/users/:what_page: ", res.locals.isSessionUserSubscriber)
-
-//   let sessionUser = null
-
-//   let query = User.findOne({
-//     _id: req.session.userId,
-//     // subscriptionID: { $ne: null }
-//   })
-//   .select('registrationDateTime email subscriptionID -_id')
-
-//   if (res.locals.isSessionUserSubscriber) {
-    
-//     query = query.populate({
-//       // Populate protagonists
-//       path: "subscriptionID", 
-//       // Fields allowed to populate with
-//       select: "-_id plan subscriptionDateTime paypal_subscriptionID paypal_plan_id expireAt",
-//     })
-
-//   }
-  
-//   sessionUser = await query.exec()
-//   console.log({sessionUser})
-  
-  
-//   var JSX_to_load = 'MgtUser';
-//   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
-//     JSX_to_load : JSX_to_load, 
-//     // [sessionUser? "sessionUser": null]: sessionUser,
-//     sessionUser: sessionUser,
-//     // [req.params.what_page === "profile" ? "userId": null]: req.session.userId,
-//   })
-// })
-
-
-
-
-
-
-
-
-
-// // TODO Needs guard for only logged in users
-// // makebuy, makesell, AllMyOrders, matches, buyordersdata, sellordersdata
-// checkIfUseridWithinDBmiddleware
+// Endpoints
+// /databases/AllMyOrders, /databases/matches, /databases/buyordersdata, /databases/sellordersdata
+// /make/makebuy, /make/makesell, 
 homeOrdersBackend_app_router.get(['/databases/:what_page?', '/make/:type'], require_loggedin_for_pages(true), (req,res)=>{
 
   console.log("what_page: ", req.params.what_page)
@@ -235,48 +150,29 @@ homeOrdersBackend_app_router.get(['/databases/:what_page?', '/make/:type'], requ
   var JSX_to_load = 'OrdersApp';
 
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
-    JSX_to_load : JSX_to_load, 
-    // [req.params.what_page === "AllMyOrders" ? "userId": null]: req.session.userId,
+    JSX_to_load : JSX_to_load,
   })
 })
 
 
+homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), verifyingPasswordMiddleware, RegisterLoginController.loginController)
 
 
-
-// TODO Arrived here
-
-// Login User
-// requireReferer = checks if referer otherwise => new NoRefererError("No req.headers.referer identified, a referer is needed to process the request.");
-// requireReferer
-// StopIfAlreadyLoggedInMiddleware
-homeOrdersBackend_app_router.post('/users/login', requireReferer, require_loggedin_for_data(false), verifyingPasswordMiddleware, RegisterLoginController.loginController)
+homeOrdersBackend_app_router.post('/users/register', requireRefererMiddleware, require_loggedin_for_data(false), RegisterLoginController.validateController, RegisterLoginController.registerController)
 
 
-// Register New User
-homeOrdersBackend_app_router.post('/users/register', requireReferer, require_loggedin_for_data(false), RegisterLoginController.validateController, RegisterLoginController.registerController)
-
-
-
-// Check if you can register
-// requireReferer
-homeOrdersBackend_app_router.post('/check/user/register', requireReferer, RegisterLoginController.checkRegisterController)
-
-
-
-
-
+homeOrdersBackend_app_router.post('/check/user/register', requireRefererMiddleware, RegisterLoginController.checkRegisterController)
 
 
 
 homeOrdersBackend_app_router.get('/',(req,res)=>{
-  console.log("\n\n\nBack in get '/' route\nAre we still logged in?\n", req.session.userId, "\nDo we have any pop-up messages:: \n", req.query.popup)
+  console.log("\n\n\nBack in get '/' route\nAre we still logged in?\n", req.session.userId, "\nDo we have any pop-up messages: \n", req.query.popup)
+
   res.locals.popup = req.query.popup
 
   var JSX_to_load = 'App';
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { JSX_to_load : JSX_to_load })
 })
-
 
 
 homeOrdersBackend_app_router.get('/isup', isUpController)
@@ -303,9 +199,6 @@ homeOrdersBackend_app_router.get('/cryptoprice', async (req,res,next)=>{
 })
 
 
-
-
-// TODO needs a guard to only allow proper user to delete his aacount
 homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', checkPathUserIdMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware, sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteUserMiddleware, logoutMiddleware, (req,res,next)=>{
   console.log("Final point: ", res.locals.notifications.length, res.locals.notifications.length == 0, res.locals.notifications.length === 0)
 
@@ -324,49 +217,10 @@ homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', checkPathUs
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 homeOrdersBackend_app_router.patch('/update', require_loggedin_for_data(true), homeOrdersController.updateOrderController)
 
 
 
-
-// checkIfUseridWithinDBmiddleware
 homeOrdersBackend_app_router.get('/current-user-ID', require_loggedin_for_data(true), (req,res)=>{
   console.log(req.session.userId)
 
@@ -375,12 +229,12 @@ homeOrdersBackend_app_router.get('/current-user-ID', require_loggedin_for_data(t
   })
 })
 
-// checkIfUseridWithinDBmiddleware
+
 homeOrdersBackend_app_router.delete('/delete-this-order', require_loggedin_for_data(true), homeOrdersController.deleteOrderController)
 
 
-
 homeOrdersBackend_app_router.post('/:type_order/save', require_loggedin_for_data(true), homeOrdersController.registerOrder)
+
 
 homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (req,res)=>{
   //Destroy the Session data, including the userId property
@@ -392,3 +246,7 @@ homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (re
 
 module.exports = homeOrdersBackend_app_router
 //router references the homeOrdersBackend const
+
+
+// Manually create a webhook
+// https://riptutorial.com/paypal/example/1867/testing-sandbox-webhooks-with-ngrok-and-express--node-

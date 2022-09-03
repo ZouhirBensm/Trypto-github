@@ -1,18 +1,26 @@
 const express = require('express')
 const fetch = require('node-fetch');
-const Agenda = require("agenda");
-const ENV = require('../config/base');
+const Agenda = require('agenda');
 const httpStatus = require("http-status-codes")
 
-const Subscriber = require('../models/Subscriber');
-const User = require('../models/User');
+// Initializations
+const paypalBackend_app_router = express.Router()
+
+// Environment variables
+const ENV = require('../config/base');
+
+// Types and utilities
 const ROLE = require('../full-stack-libs/Types/Role')
 const utils = require('../full-stack-libs/utils')
 const billing_utils = require('../full-stack-libs/utils.billing')
 
+// Models
+const Subscriber = require('../models/Subscriber');
+const User = require('../models/User');
 
-// Setting up agenda for persistant jobs on each event when user unsubscribes to nullify their User subscriptionID field
-console.log("before agenda: ", db._connectionString)
+
+// Setting up agenda for persistant jobs on each event when user unsubscribes to nullify their User subscriptionID field and change the user role from BASIC to NOTSUBSCRIBER
+// console.log("Before agenda: ", db._connectionString)
 const agenda = new Agenda({
   db: { 
     address: db._connectionString,
@@ -22,13 +30,9 @@ const agenda = new Agenda({
   },
 });
 
-
-
-
-
+// IIFE to start Agenda, and be able to forcefully and gracefully close it
 (async function () {
   await agenda.start()
-  // const numRemoved = await agenda.cancel({ name: "Nullify particular User subscriptionID field" });
 
   async function graceful() {
     await agenda.stop();
@@ -42,59 +46,33 @@ const agenda = new Agenda({
 })();
 
 
-const paypalBackend_app_router = express.Router()
-
-// Import checkSession_is_subscriberMiddleware
-const checkSession_is_subscriberMiddleware = require('../middleware/paypal-middleware/check-session-is-subscriber-middleware')
-// Import checkPostedUserID_is_SessionUserIDMiddleware
-const checkPostedUserID_is_SessionUserIDMiddleware = require('../middleware/generic-middleware/check-posted-userid-is-session-userID-middleware')
-
-const hasUnSubProcessStartedMiddleware = require('../middleware/paypal-middleware/has-unsub-process-started-middleware')
-
-
-
 // TODO: delete these folders/files
 // /Users/Zouhir/Documents/MERN/BlockchainMERN/controllers/paypal-controllers/ipn.ctrl.js
-
 // const IPNController = require('../controllers/paypal-controllers/ipn.ctrl')
 
-// Import paypalSubscriptionDeletionMiddleware
+
+
+// Middleware
+const checkPostedUserID_is_SessionUserIDMiddleware = require('../middleware/generic-middleware/check-posted-userid-is-session-userID-middleware')
+const hasUnSubProcessStartedMiddleware = require('../middleware/paypal-middleware/has-unsub-process-started-middleware')
+
 const paypalSubscriptionDeletionMiddleware = require('../middleware/paypal-middleware/paypal-subscription-deletion-middleware');
-// Import checkIfUseridWithinDBmiddleware
-const checkIfUseridWithinDBmiddleware = require("../middleware/loggedin-middleware/checkIf-userid-withinDB-middleware")
 
 
 
 // Use this to check the role, requires a res.locals.user.role
 const { set_user_if_any } =  require("../middleware/generic-middleware/set-user-if-any-middleware")
-
-// Use this to check the role, requires a res.locals.user.role
-// const { not_loggedin_for_pages, loggedin_for_pages, not_loggedin_for_data, loggedin_for_data } =  require("../middleware/generic-middleware/check-loggedin-middleware")
 const {require_loggedin_for_pages, require_loggedin_for_data} = require("../middleware/generic-middleware/check-loggedin-middleware")
-
-// Use this to check the role, requires a res.locals.user.role
 const { authenticate_role_for_pages, authenticate_role_for_data } =  require("../middleware/generic-middleware/authenticate-role-middleware")
 
 
-
-
+// Start middleware for this paypalBackend_app_router
+// Route is called upon as request from browser as '/paypal'
 paypalBackend_app_router.use(set_user_if_any, (req, res, next) => {
   next()
 })
 
 
-
-
-// Route is called upon as request from browser as '/paypal/'
-// paypalBackend_app_router.get('/',   (req,res) =>{
-//   res.status(200).send('paypal home');
-//   res.end();
-// })
-
-
-// Unsubscribe
-// checkIfUseridWithinDBmiddleware
-// checkSession_is_subscriberMiddleware
 paypalBackend_app_router.post('/unsubscribe', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.USER.SUBSCRIBER.BASIC]), checkPostedUserID_is_SessionUserIDMiddleware, hasUnSubProcessStartedMiddleware, paypalSubscriptionDeletionMiddleware, async (req,res,next) => {
 
   let paypal_cancel_sub_response_status = res.locals.paypalCancelSubResponseStatus
@@ -159,6 +137,7 @@ paypalBackend_app_router.post('/unsubscribe', require_loggedin_for_data(true), a
 
 })
 
+// Kept bacause might reimplement when app deployed on digital ocean
 // paypalBackend_app_router.post('/ipn', IPNController.index)
 
 
