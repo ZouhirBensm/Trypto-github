@@ -138,45 +138,6 @@ module.exports = {
     
   },
   loginController: async (req,res,next)=>{
-  
-    // let notification = []
-    // //Extract the email and password from the login form with req.body
-
-    // const {email, password} = req.body
-    // console.log("\n\n\nBackend Reception:\n", req.body)
-    
-    // email? null: notification.push("Please enter an e-mail")
-
-    // //Try to find one user with the inputed email
-    // await User.findOne({email: email}, (error,user)=>{
-    //   // console.log(email,user)
-    //   // FOR FORCE ERRORS TESTS
-    //   // error = new Error("test error1")
-    //   if (error) {notification.push(error.message); return}
-    //   if(user){
-    //     //Compare inputed password with database user.password
-    //     bcrypt.compare(password, user.password, (error,same)=>{
-    //       if (error) {notification.push(error.message); return}
-    //       if(same){
-    //           //store
-    //           //Sets up the Session object with cookie created and userId
-    //           req.session.userId = user._id
-    //           console.log("\nin compare:\n", req.session.userId)
-    //       //If password is wrong
-    //       } else {
-    //         password? notification.push("Erroneous password submission for this email"): notification.push("Please enter a password");
-    //         return;
-    //       }
-    //     })
-    //     // If user email does not exist in database
-    //   } else {
-    //     email? notification.push("This email was not found in our repertoire"): null;
-    //     return;
-    //   }
-    // })
-
-
-    // put this in another next controller might fix the issue
 
     console.log("\nnotification end:\n", res.locals.notification)
     console.log("\nreq.session.userId end:\n", req.session.userId)
@@ -195,7 +156,6 @@ module.exports = {
       // err.message = res.locals.notification
       console.log(err)
       return next(err)
-
     }
 
   },
