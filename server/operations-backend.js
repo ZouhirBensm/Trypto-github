@@ -22,15 +22,36 @@ operationsBackend_app_router.use(set_user_if_any, (req, res, next) => {
   next()
 })
 
-operationsBackend_app_router.get('/', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req,res)=>{
+operationsBackend_app_router.get('/:function?/:function2?', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req,res)=>{
 
-  console.log(req.session.userId)
-  var JSX_to_load = 'Operations';
+  console.log("\n\n\n_____________", req.session.userId)
+  console.log(req.params.function, req.params.function2)
+  
+  var JSX_to_load
+  
+  JSX_to_load = 'Operations';
   
   res.render('generic-boilerplate-ejs-to-render-react-components-operations', { 
     JSX_to_load : JSX_to_load, 
   })
+
+  res.end()
+
+
+
 })
+
+// operationsBackend_app_router.get('/articles-dashboard', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req,res)=>{
+
+//   console.log(req.session.userId)
+//   var JSX_to_load = 'Operations';
+  
+//   res.render('generic-boilerplate-ejs-to-render-react-components-operations', { 
+//     JSX_to_load : JSX_to_load, 
+//   })
+// })
+
+
 
 
 module.exports = operationsBackend_app_router

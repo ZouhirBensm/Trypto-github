@@ -38,7 +38,7 @@ const { LoggingInError } = require("../../custom-errors/custom-errors")
 
 function require_loggedin_for_pages(require_login){
   return (req, res, next) => {
-    console.log("are we logged in?", req.session.userId)
+    // console.log("are we logged in?", req.session.userId)
     if (require_login){
       if(!req.session.userId){
         return res.redirect('/')
@@ -55,7 +55,7 @@ function require_loggedin_for_pages(require_login){
 
 function require_loggedin_for_data(require_login){
   return (req, res, next) => {
-    console.log("are we logged in?", req.session.userId)
+    // console.log("are we logged in?", req.session.userId)
     if (require_login){
       if(!req.session.userId){
         return next(new LoggingInError(["Access denied. User must have a logged in session to HTTP get/post/patch/delete"]))

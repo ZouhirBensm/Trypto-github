@@ -45,6 +45,7 @@ var config = {
     Messaging: './src/root-spas/Messaging.jsx',
     Subscription: './src/root-spas/Subscription.jsx',
     Operations: './src/root-spas/Operations.jsx',
+    Articles: './src/root-spas/Articles.jsx',
   },
   output: {
     filename: '[name].js',

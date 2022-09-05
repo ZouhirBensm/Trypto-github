@@ -3,8 +3,8 @@ const {RoleNotPermitedError} = require('../../custom-errors/custom-errors')
 
 function authenticate_role_for_pages(reference_roles){
   return (req, res, next) => {
-    console.log("what is the role of the current user? ", res.locals.user)
-    console.log("what is the role of the current user? ", res.locals.user.role)
+    // console.log("\n\n\nwhat is the role of the current user? ", res.locals.user)
+    // console.log("what is the role of the current user? ", res.locals.user.role)
     // GUARD FOR USERS WITH THE ROLE OF MASTER
     if(reference_roles.includes(res.locals.user.role)){
       next()
@@ -16,7 +16,7 @@ function authenticate_role_for_pages(reference_roles){
 
 function authenticate_role_for_data(reference_roles){
   return (req, res, next) => {
-    console.log("what is the role of the current user? ", res.locals.user.role)
+    // console.log("what is the role of the current user? ", res.locals.user.role)
     // GUARD FOR USERS WITH THE ROLE OF MASTER
     if(reference_roles.includes(res.locals.user.role)){
       next()

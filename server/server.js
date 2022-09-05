@@ -51,6 +51,7 @@ const homeOrdersBackend_app_router = require('./home-orders-registerlogin-backen
 const messagingBackend_app_router = require('./messaging-backend');
 const paypalBackend_app_router = require('./paypal-backend')
 const operationsBackend_app_router = require('./operations-backend')
+const articlesBackend_app_router = require('./articles-backend')
 
 const { errorLoggerMiddleware } = require('../middleware/error-middleware/error-handle-fcts-middleware')
 
@@ -137,6 +138,10 @@ express_server_app_router.use('/paypal', paypalBackend_app_router)
 
 // TODO figure out how to set the /operations URL to the operations.bidblock.ca subdomain
 express_server_app_router.use('/operations', operationsBackend_app_router)
+
+
+express_server_app_router.use('/articles', articlesBackend_app_router)
+
 
 
 // Fail-safe catch-all non registered routes to render error page 
