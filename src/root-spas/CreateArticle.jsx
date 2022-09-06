@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import '../style/reactDivMobile.css'
 
 import { Link, BrowserRouter, Route, Switch} from 'react-router-dom';
@@ -15,11 +15,15 @@ class CreateArticle extends React.Component {
   render(){
     return (
       <React.Fragment>
-        <div>This is where we create articles... {this.props.test}</div>
-        {/* <Link to='/'>Back</Link> */}
+        <div>This is where we create articles... </div>
+        <a href="/operations/articles-dashboard">Back</a>
       </React.Fragment>
     )
   }
 }
+
+const element = <CreateArticle />;
+
+ReactDOM.render(element, document.getElementById('react-div'));
 
 export default CreateArticle

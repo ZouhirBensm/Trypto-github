@@ -9,9 +9,7 @@ import Loading from "../generic-components/Loading";
 // import UserSelect from '../operations-components/UserSelect';
 // import NotFound from '../generic-components/NotFound';
 // import ScrollToTop from '../generic-components/ScrollToTop';
-// import CreateArticle from '../operations-components/CreateArticle';
-// import ArticleSelector from '../generic-components/ArticleSelector';
-// import SomeTest from '../generic-components/SomeTest';
+
 
 import '../style/reactDivMobile.css'
 
@@ -32,9 +30,6 @@ const NotFound = loadable(() => import("../generic-components/NotFound"),{
   fallback: <Loading/>
 });
 const ScrollToTop = loadable(() => import("../generic-components/ScrollToTop"),{
-  fallback: <Loading/>
-});
-const SomeTest = loadable(() => import("../generic-components/SomeTest"),{
   fallback: <Loading/>
 });
 
@@ -78,8 +73,6 @@ class Operations extends React.Component {
             <Admin_Block className="articlesd" title="Articles dashbord" link="/operations/articles-dashboard"/>
           </Route>
 
-          {/* <Route exact path="/operations/some-test/bla" component={SomeTest}/>  */}
-
 
           {/* <Route path="/operations/help-for-orders" component={UserSelect}></Route> */}
           <Route path="/operations/help-for-orders" render={
@@ -99,6 +92,7 @@ class Operations extends React.Component {
           <Route path="/operations/articles-dashboard" render={
             (props) => <ArticlesDashboard {...props}/>
           }/> 
+
           
  
 
@@ -110,13 +104,16 @@ class Operations extends React.Component {
           </Switch>
         </BrowserRouter>
 
+        
       </React.Fragment>
     );
   }
 }
 
-const element = <Operations />;
 
+
+
+const element = <Operations />;
 
 ReactDOM.render(element, document.getElementById('react-div'));
 

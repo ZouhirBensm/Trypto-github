@@ -22,10 +22,10 @@ operationsBackend_app_router.use(set_user_if_any, (req, res, next) => {
   next()
 })
 
-operationsBackend_app_router.get('/:function?/:function2?', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req,res)=>{
+
+operationsBackend_app_router.get(['/','/articles-dashboard'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req,res)=>{
 
   console.log("\n\n\n_____________", req.session.userId)
-  console.log(req.params.function, req.params.function2)
   
   var JSX_to_load
   
@@ -35,21 +35,31 @@ operationsBackend_app_router.get('/:function?/:function2?', require_loggedin_for
     JSX_to_load : JSX_to_load, 
   })
 
-  res.end()
+  console.log("done")
 
 
 
 })
 
-// operationsBackend_app_router.get('/articles-dashboard', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req,res)=>{
+operationsBackend_app_router.get('/create-article', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req,res)=>{
 
-//   console.log(req.session.userId)
-//   var JSX_to_load = 'Operations';
+  var JSX_to_load
+  JSX_to_load = 'CreateArticle';
   
-//   res.render('generic-boilerplate-ejs-to-render-react-components-operations', { 
-//     JSX_to_load : JSX_to_load, 
-//   })
-// })
+  res.render('generic-boilerplate-ejs-to-render-react-components-operations', { 
+    JSX_to_load : JSX_to_load, 
+  })
+})
+
+operationsBackend_app_router.get('/article-selector', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req,res)=>{
+
+  var JSX_to_load
+  JSX_to_load = 'ArticleSelector';
+  
+  res.render('generic-boilerplate-ejs-to-render-react-components-operations', { 
+    JSX_to_load : JSX_to_load, 
+  })
+})
 
 
 
