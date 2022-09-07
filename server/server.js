@@ -120,6 +120,7 @@ express_server_app_router.use((req, res, next) => {
   // console.log("Testing!")
   res.locals.ENV = ENV;
   res.locals.userId = req.session.userId
+  // res.locals.CATEGORY = {};
   loggedIn = req.session.userId
   // Default navbars unless overwritten
   navBars = NAVBAR.CLIENTS
