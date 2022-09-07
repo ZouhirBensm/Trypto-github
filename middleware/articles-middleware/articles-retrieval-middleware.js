@@ -1,6 +1,6 @@
 const Article = require('../../models/articles-models/Article')
 
-const {filterObject2} = require('../../middleware/libs/match-maker-functions')
+const {filterObject} = require('../../middleware/libs/match-maker-functions')
 
 module.exports = async (req,res,next)=>{
   console.log("\n_______________\n")
@@ -8,8 +8,8 @@ module.exports = async (req,res,next)=>{
 
   console.log("CATEGORY ON THE SERVER BEFORE QUERY IS: ", req.query.category)
 
-  let filter_object = filterObject2(req.query.category)
-
+  let filter_object = filterObject(null, null, req.query.category)
+  console.log({filter_object})
   let articles = await Article.find(filter_object)
 
   // console.log({articles})
