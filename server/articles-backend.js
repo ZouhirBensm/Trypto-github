@@ -6,6 +6,7 @@ const articlesBackend_app_router = express.Router()
 const ENV = require('../config/base')
 const NAVBAR = require('../full-stack-libs/Types/Navbar')
 const ROLE = require('../full-stack-libs/Types/Role')
+const CATEGORY = require('../full-stack-libs/Types/ArticleCategories')
 
 
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
@@ -25,15 +26,16 @@ const { require_loggedin_for_pages, require_loggedin_for_data } =  require("../m
 // Start middleware for this articlesBackend_app_router
 // Route is called upon as request from browser as '/articles'
 articlesBackend_app_router.use(set_user_if_any, (req, res, next) => {
+  res.locals.CATEGORY = CATEGORY;
   next()
 })
 
-articlesBackend_app_router.get('/', (req,res)=>{
+articlesBackend_app_router.get('/:category?', (req,res)=>{
 
+  console.log("category:", req.params.category)
   // console.log({userId: req.session.userId})
 
-  var JSX_to_load = 'Articles';
-  
+  var JSX_to_load = 'ArticlesCategorySelector';
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load, 
   })
@@ -42,7 +44,7 @@ articlesBackend_app_router.get('/', (req,res)=>{
 
 // homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:userID?', require_loggedin_for_data(true), paginatingSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
 
-articlesBackend_app_router.get('/paginated-articles', paginatingSetupMiddleware, articlesRetrievalMiddleware, distributePaginatedDataController)
+articlesBackend_app_router.get('/data/paginated-articles', paginatingSetupMiddleware, articlesRetrievalMiddleware, distributePaginatedDataController)
 
 
 module.exports = articlesBackend_app_router

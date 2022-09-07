@@ -91,6 +91,7 @@ ul.sidenav {
 .disable {
   pointer-events: none;
   opacity: 0.4;
+  z-index: -1;
 }
 
 div[onclick="toogleSideNav()"] {

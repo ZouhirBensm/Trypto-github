@@ -23,16 +23,16 @@ class Orders extends React.Component {
     this.controls = this.controls.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.repairData = this.repairData.bind(this)
+    // this.repairData = this.repairData.bind(this)
     
     console.log("constructor url param: ", this.props.match.params.order_type)
   }
   
-  repairData(_objOrders){
-    let _repairedData = []
-    _repairedData = _objOrders.srv_.results
-    return _repairedData
-  }
+  // repairData(_objOrders){
+  //   let _repairedData = []
+  //   _repairedData = _objOrders.srv_.results
+  //   return _repairedData
+  // }
   
   handleSubmit(e){
     e.preventDefault()
@@ -103,7 +103,6 @@ class Orders extends React.Component {
             on_off_limit_previous: false
           })
         }
-  
       })
     // Custom Errors get spitted out here
     } else {

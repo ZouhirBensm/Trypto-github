@@ -56,7 +56,7 @@ class Operations extends React.Component {
       <React.Fragment>
         {/* forceRefresh = force refresh on route change */}
         {/* getUserConfirmation = gives a promp on the page when going to new route*/}
-        <BrowserRouter>
+        <BrowserRouter basename="/operations">
           <ScrollToTop/>
           {/* <Route exact path="/operations" render={
             (props) => <Admin_Block {...props} className="some-class" title="Some title"/>
@@ -66,39 +66,39 @@ class Operations extends React.Component {
             
           <Switch>
 
-          <Route exact path="/operations">
-            <Admin_Block className="horders" title="Help for Orders" link="/operations/help-for-orders"/>
-            <Admin_Block className="mmessages" title="Monitor Messages" link="/operations/monitor-messages"/>
-            <Admin_Block className="msubs" title="Manage Subscriptions" link="/operations/manage-subs"/>
-            <Admin_Block className="articlesd" title="Articles dashbord" link="/operations/articles-dashboard"/>
+          <Route exact path="/">
+            <Admin_Block className="horders" title="Help for Orders" link="/help-for-orders"/>
+            <Admin_Block className="mmessages" title="Monitor Messages" link="/monitor-messages"/>
+            <Admin_Block className="msubs" title="Manage Subscriptions" link="/manage-subs"/>
+            <Admin_Block className="articlesd" title="Articles dashbord" link="/articles-dashboard"/>
           </Route>
 
 
           {/* <Route path="/operations/help-for-orders" component={UserSelect}></Route> */}
-          <Route path="/operations/help-for-orders" render={
+          <Route path="/help-for-orders" render={
             (props) => <UserSelect {...props} test="test1"/>
           }/> 
           {/* <Route path="/operations/monitor-messages" component={UserSelect}></Route> */}
-          <Route path="/operations/monitor-messages" render={
+          <Route path="/monitor-messages" render={
             (props) => <UserSelect {...props} test="test2"/>
           }/> 
           {/* <Route path="/operations/manage-subs" component={UserSelect}></Route> */}
-          <Route path="/operations/manage-subs" render={
+          <Route path="/manage-subs" render={
             (props) => <UserSelect {...props} test="test3"/>
           }/> 
           {/* <Route path="/operations/articles-dashboard" component={ArticlesDashboard}></Route> */}
 
 
-          <Route path="/operations/articles-dashboard" render={
+          <Route path="/articles-dashboard" render={
             (props) => <ArticlesDashboard {...props}/>
           }/> 
 
           
  
 
-          <Route render={
+          {/* <Route render={
             (props) => <NotFound {...props}/>
-          }/> 
+          }/>  */}
 
 
           </Switch>

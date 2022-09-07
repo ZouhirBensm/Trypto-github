@@ -16,20 +16,23 @@ const Schema = mongoose.Schema
 const ArticleSchema = new Schema({
   title: String,
   content: String,
-  Author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
-  publishedDate: {
-    type: Date,
-    default: new Date(),
-    //expires: 5000
-  },
-  editedDate: {
-    type: Date,
-    default: null,
-  }
+  category: String,
+  // Author: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'User',
+  //   required: true
+  // },
+  // publishedDate: {
+  //   type: Date,
+  //   default: new Date(),
+  //   //expires: 5000
+  // },
+  // editedDate: {
+  //   type: Date,
+  //   default: null,
+  // },
+  // images_folder_path: String,
+  // videos_folder_path: String
 })
 
 

@@ -47,7 +47,8 @@ var config = {
     Operations: './src/root-spas/Operations.jsx',
     CreateArticle: './src/root-spas/CreateArticle.jsx',
     ArticleSelector: './src/root-spas/ArticleSelector.jsx',
-    Articles: './src/root-spas/Articles.jsx',
+    // Articles: './src/root-spas/Articles.jsx',
+    ArticlesCategorySelector: './src/root-spas/ArticlesCategorySelector.jsx',
   },
   output: {
     filename: '[name].js',

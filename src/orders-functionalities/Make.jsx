@@ -8,14 +8,14 @@ class Make extends React.Component {
     this.state = {
       popup_state: null,
     }
-    this.handleClick = this.handleClick.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.clickGetCryptoPrice = this.clickGetCryptoPrice.bind(this)
+    this.clickCreateOrder = this.clickCreateOrder.bind(this)
 
     console.log("constructor", this.props.match.params.type)
   }
 
 
-  async handleSubmit(e){
+  async clickCreateOrder(e){
     e.preventDefault()
     // console.log(e.target.parentNode)
     // console.log(document.getElementById("form_id").elements);
@@ -92,7 +92,7 @@ class Make extends React.Component {
 
   }
 
-  handleClick(e){
+  clickGetCryptoPrice(e){
     e.preventDefault()
     let crypto = document.getElementById('crypto-select').value
     // let amount = document.getElementById('amount-select').value
@@ -151,7 +151,7 @@ class Make extends React.Component {
 
           <label htmlFor="price-select">Price/Unit</label>
           <input type="number" id="price-select" name="price" step="0.01" required defaultValue='50000'/> 
-          <button onClick={this.handleClick}>Market</button>
+          <button onClick={this.clickGetCryptoPrice}>Market</button>
           <label htmlFor="expirydate-select">Order Expiry Date</label>
           <input id="expirydate-select" type="date" name="expirydate" required defaultValue='2022-09-15'/>
           <label htmlFor="expirytime-select">Order Expiry Time</label>
@@ -163,7 +163,7 @@ class Make extends React.Component {
               <option value="Cash">Cash</option>
           </select> 
           {/* <input type="hidden" name="iterator" value={this.state.iterator}/> */}
-          <button type="submit" onClick={(e) => this.handleSubmit(e)}>Submit</button>
+          <button type="submit" onClick={(e) => this.clickCreateOrder(e)}>Submit</button>
         </form>
 
         {this.state.popup_state?

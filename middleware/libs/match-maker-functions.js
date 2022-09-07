@@ -1,3 +1,4 @@
+// TODO put the filterObject functions in the full-stack-lib utils
 function filterObject(path_param_userID = null, crypto = null){
   // let filter_object = {}
   // filter_object = path_param_userID? (filter_object.userid = path_param_userID): null  
@@ -5,6 +6,14 @@ function filterObject(path_param_userID = null, crypto = null){
 
   // crypto? (filter_object = {...filter_object, crypto: crypto}): filter_object // Adding properties with destructuring
   crypto? (filter_object.crypto = crypto): null
+
+  return filter_object
+}
+
+function filterObject2(category){
+  // let filter_object = {}
+  // filter_object = path_param_userID? (filter_object.userid = path_param_userID): null  
+  let filter_object = category == "RECENT" ? {}: {category: category} // Adding properties with destructuring
 
   return filter_object
 }
@@ -85,4 +94,4 @@ function findSellMatches(_buy, sellOrders, id){
 }
 
 
-module.exports =  {filterObject, buyMatchesFinder, sellMatchesFinder}
+module.exports =  {filterObject, buyMatchesFinder, sellMatchesFinder, filterObject2}
