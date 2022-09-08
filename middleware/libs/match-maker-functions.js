@@ -91,4 +91,4 @@ function findSellMatches(_buy, sellOrders, id){
 }
 
 
-module.exports =  {filterObject, buyMatchesFinder, sellMatchesFinder, filterObject2}
+module.exports =  {filterObject, buyMatchesFinder, sellMatchesFinder}

@@ -47,4 +47,11 @@ articlesBackend_app_router.get('/:category?', (req,res)=>{
 articlesBackend_app_router.get('/data/paginated-articles', paginatingSetupMiddleware, articlesRetrievalMiddleware, distributePaginatedDataController)
 
 
+articlesBackend_app_router.get('/individual_article/:articleID', async (req, res) => {
+
+  console.log(req.params.articleID)
+  res.status(200).end()
+})
+
+
 module.exports = articlesBackend_app_router
