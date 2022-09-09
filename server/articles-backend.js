@@ -30,7 +30,7 @@ articlesBackend_app_router.use(set_user_if_any, (req, res, next) => {
   next()
 })
 
-articlesBackend_app_router.get('/:category?', (req,res)=>{
+articlesBackend_app_router.get(['/:category?', '/individual_article/:articleID'], (req,res)=>{
 
   console.log("category:", req.params.category)
   // console.log({userId: req.session.userId})
@@ -41,17 +41,7 @@ articlesBackend_app_router.get('/:category?', (req,res)=>{
   })
 })
 
-
-// homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:userID?', require_loggedin_for_data(true), paginatingSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
-
 articlesBackend_app_router.get('/data/paginated-articles', paginatingSetupMiddleware, articlesRetrievalMiddleware, distributePaginatedDataController)
-
-
-articlesBackend_app_router.get('/individual_article/:articleID', async (req, res) => {
-
-  console.log(req.params.articleID)
-  res.status(200).end()
-})
 
 
 module.exports = articlesBackend_app_router

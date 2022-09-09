@@ -1,3 +1,9 @@
+<!-- <script>
+  // Kept as reference
+  var role = ' locals.user?.role  %>< % ='
+  console.log("do we have a role? ", role)
+</script> -->
+
 <ul class="home">
   <li><a href="/">Home</a></li>
   <%if(loggedIn){%>
@@ -25,7 +31,7 @@
     <%if(loggedIn){%>
       <li><a href="/users/profile">Profile</a></li>
       <li><a href="/databases">OrdersApp</a></li>  
-    <%if(locals.user.role == "MASTER"){%>
+    <%if(locals.user?.role == "MASTER"){%>
       <li><a href="/operations">Operations</a></li>  
     <%}%>
     <%}%>
