@@ -49,6 +49,9 @@ module.exports = (req, res, next)=>{
     case "articles":
       data_pages_managed_obj.ARTICLES = res.locals.data_to_be_paginated_and_served.slice(res.locals.startIndex, res.locals.endIndex)
       break;
+    case "operations":
+      data_pages_managed_obj.USERS = res.locals.data_to_be_paginated_and_served.slice(res.locals.startIndex, res.locals.endIndex)
+      break;
     default:
       let error = new FirstPathNotRegistered(firstPath)
       return next(error)

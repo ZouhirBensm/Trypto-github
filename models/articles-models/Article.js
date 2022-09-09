@@ -22,11 +22,10 @@ const ArticleSchema = new Schema({
   //   ref: 'User',
   //   required: true
   // },
-  // publishedDate: {
-  //   type: Date,
-  //   default: new Date(),
-  //   //expires: 5000
-  // },
+  publishedDate: {
+    type: Date,
+    default: new Date(),
+  },
   // editedDate: {
   //   type: Date,
   //   default: null,

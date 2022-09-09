@@ -109,7 +109,7 @@ homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(fal
 })
 
 
-homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER]) , async (req,res,next)=>{
+homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]) , async (req,res,next)=>{
 
   let sessionUser = null
 

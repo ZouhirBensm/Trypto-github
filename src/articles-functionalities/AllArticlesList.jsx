@@ -14,9 +14,6 @@ class AllArticlesList extends React.Component {
     if (this.props.articles) {
       let AllArticlesElements = this.props.articles.map((article, i) => {
         return <ArticleElement
-          title={article.title}
-          content={article.content}
-          category={article.category}
           key={i}
           article={article}
         />
@@ -62,9 +59,9 @@ class ArticleElement extends React.Component {
           search: `?article=${JSON.stringify(this.props.article)}`,
         }}>
           <div>
-            <h4>{this.props.title}</h4>
-            <span>{this.props.category}</span>
-            <p>{this.props.content}</p>
+            <h4>{this.props.article.title}</h4>
+            <span>{this.props.article.publishedDate}</span> | <span>{this.props.article.category}</span>
+            <p>{this.props.article.content}</p>
           </div>
         </Link>
 

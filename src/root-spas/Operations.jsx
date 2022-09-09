@@ -76,15 +76,15 @@ class Operations extends React.Component {
 
           {/* <Route path="/operations/help-for-orders" component={UserSelect}></Route> */}
           <Route path="/help-for-orders" render={
-            (props) => <UserSelect {...props} test="test1"/>
+            (props) => <UserSelect {...props} mode="help-for-orders"/>
           }/> 
           {/* <Route path="/operations/monitor-messages" component={UserSelect}></Route> */}
           <Route path="/monitor-messages" render={
-            (props) => <UserSelect {...props} test="test2"/>
+            (props) => <UserSelect {...props} mode="monitor-messages"/>
           }/> 
           {/* <Route path="/operations/manage-subs" component={UserSelect}></Route> */}
           <Route path="/manage-subs" render={
-            (props) => <UserSelect {...props} test="test3"/>
+            (props) => <UserSelect {...props} mode="manage-subs"/>
           }/> 
           {/* <Route path="/operations/articles-dashboard" component={ArticlesDashboard}></Route> */}
 

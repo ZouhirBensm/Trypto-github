@@ -20,6 +20,8 @@ class Article extends React.Component {
         <p>{this.articleDataObj.title}</p>
         <h4>Category:</h4>
         <p>{this.articleDataObj.category}</p>
+        <h4>Published Date</h4>
+        <span>{this.articleDataObj.publishedDate}</span>
         <h5>content:</h5>
         <p>{this.articleDataObj.content}</p>
       </div>
