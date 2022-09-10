@@ -36,13 +36,22 @@ const Matches = loadable(() => import("../orders-functionalities/Matches"),{
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 
 class Databases extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+
+    }
+  }
   render() {
+    console.log(userId)
     return (
         <div>
         <BrowserRouter> 
           <Switch> 
             <Route exact path="/databases/" component={Navigation} />
-            <Route exact path="/databases/AllMyOrders" component={MyOrders} />
+            <Route exact path="/databases/AllMyOrders" render={
+              (props) => <MyOrders {...props} userID_toQueryWith={userId}/>
+            } />
             <Route exact path="/databases/matches" component={Matches} />
             <Route exact path="/databases/:order_type" component={Orders} />
             <Route exact path="/make/:type" component={Make} />

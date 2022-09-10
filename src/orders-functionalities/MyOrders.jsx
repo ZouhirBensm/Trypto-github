@@ -5,8 +5,8 @@ import OrderTable from './OrderTable';
 import PageSelector from '../generic-components/PageSelector';
 
 class MyOrders extends React.Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       userId: '',
       orderstype: 'buyordersdata',
@@ -28,6 +28,7 @@ class MyOrders extends React.Component {
     // this.displayDeleteMsg = this.handleClick.bind(this)
     this.loadData_andDisplayDltMsg = this.loadData_andDisplayDltMsg.bind(this)
     this.loadData = this.loadData.bind(this)
+    console.log("boom chakalaka", this.props.userID_toQueryWith)
   }
 
   displayDeleteMsg(){
@@ -112,15 +113,22 @@ class MyOrders extends React.Component {
 
   async loadData(_orderstype) {
     console.log("FUUCKK")
-    const _userID = document.getElementById("userId").innerHTML
+    // One way of getting userId
+    // const _userID = document.getElementById("userId").innerHTML
 
-    const response2 = await fetch(`${process.env.ROOT}/paginated-orders/${_orderstype}/${_userID}?page=${this.state.page}&limit=${this.state.limit}`)
+    
+    console.log(`${process.env.ROOT}/paginated-orders/${_orderstype}/${this.props.userID_toQueryWith}?page=${this.state.page}&limit=${this.state.limit}`)
+
+    const response2 = await fetch(`${process.env.ROOT}/paginated-orders/${_orderstype}/${this.props.userID_toQueryWith}?page=${this.state.page}&limit=${this.state.limit}`)
     
     const serverOBJ = await response2.json()
 
+    console.log("Do we get what is required from the backend??", serverOBJ)
+
     if(response2.ok){
+      // TODO figure out if required to keep track of the userId as state on this component
       this.setState({
-        userId: _userID,
+        userId: this.props.userID_toQueryWith,
         orders: serverOBJ.srv_.ORDERS,
         nextPage: serverOBJ.srv_.next,
         previousPage: serverOBJ.srv_.previous,
@@ -171,6 +179,7 @@ class MyOrders extends React.Component {
         </form>
 
         <OrderTable 
+        userID = {this.props.userID_toQueryWith}
         order_type={this.state.orderstype} 
         orders={this.state.orders}
         buttons='my'

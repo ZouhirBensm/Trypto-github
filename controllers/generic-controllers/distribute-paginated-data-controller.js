@@ -32,13 +32,18 @@ module.exports = (req, res, next)=>{
 
   const [all, protocol, fullhost, fullpath] = full_stack_utils.parseURL(req.headers.referer)
 
-  console.log("URL destructured: ", {all, protocol, fullhost, fullpath})
+
+
 
   const firstPath = full_stack_utils.parseFullPath4firstpath(fullpath)
-
   console.log("first path directory name: ", firstPath)
 
+  const decomposed_URL_Path = full_stack_utils.URLpathDecomposer(fullpath)
+  console.log("decomposed URL: ", decomposed_URL_Path)
 
+
+  // TODO needs major overhaul refactor to use the actual api call link req.url
+  // TODO add guards to paginated data for user to be logged in or a master user
   switch (firstPath) {
     case "messaging":
       data_pages_managed_obj.CONVOS = res.locals.data_to_be_paginated_and_served.slice(res.locals.startIndex, res.locals.endIndex)
@@ -50,7 +55,12 @@ module.exports = (req, res, next)=>{
       data_pages_managed_obj.ARTICLES = res.locals.data_to_be_paginated_and_served.slice(res.locals.startIndex, res.locals.endIndex)
       break;
     case "operations":
-      data_pages_managed_obj.USERS = res.locals.data_to_be_paginated_and_served.slice(res.locals.startIndex, res.locals.endIndex)
+      if(decomposed_URL_Path[2]) {
+        data_pages_managed_obj.ORDERS = res.locals.data_to_be_paginated_and_served.slice(res.locals.startIndex, res.locals.endIndex)
+      } else {
+        data_pages_managed_obj.USERS = res.locals.data_to_be_paginated_and_served.slice(res.locals.startIndex, res.locals.endIndex)
+
+      }
       break;
     default:
       let error = new FirstPathNotRegistered(firstPath)

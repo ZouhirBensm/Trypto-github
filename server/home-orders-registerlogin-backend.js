@@ -87,7 +87,8 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
-homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:userID?', require_loggedin_for_data(true), paginatingSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
+// require_loggedin_for_data(true)
+homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:userID?', paginatingSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
 
 
 homeOrdersBackend_app_router.get('/users/login', require_loggedin_for_pages(false), (req,res,next)=>{

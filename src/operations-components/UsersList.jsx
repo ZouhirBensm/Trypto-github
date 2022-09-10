@@ -38,10 +38,6 @@ class UsersList extends React.Component {
         </Link>
       )
     })
-    // if (this.users) {
-    // } else {
-    //   console.error(`this.users resolved to a false for some reason`)
-    // }
 
 
   }

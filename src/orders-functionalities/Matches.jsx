@@ -20,6 +20,7 @@ class Matches extends React.Component {
       on_off_limit_previous: true,
       number_of_pages: 1,
     }
+    this.userId = document.getElementById("userId").innerHTML
     this.controls = this.controls.bind(this);
     this.handleToogleFound = this.handleToogleFound.bind(this)
   }
@@ -103,6 +104,7 @@ class Matches extends React.Component {
         </form>
 
         <OrderTable 
+        userID = {this.userId}
         order_type={this.state.orderstype} 
         orders={this.state.orders}
         buttons='normal'

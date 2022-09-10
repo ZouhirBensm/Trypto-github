@@ -28,6 +28,7 @@ class OrderTable extends React.Component {
     if(this.props.orders){
       ordersRow = this.props.orders.map((order, i) => {
         return <OrderRow 
+        userID = {this.props.userID}
         handleClick={this.props.handleClick} 
         loadData={this.props.loadData}
         buttons={order._id === this.state.orderID_toToggle? this.state.buttons: this.props.buttons} 
@@ -74,7 +75,7 @@ class OrderRow extends React.Component {
     // }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.deal = this.deal.bind(this)
-    this.userId = document.getElementById("userId").innerHTML
+    this.userId = this.props.userID
   }
 
   deal(order, e){

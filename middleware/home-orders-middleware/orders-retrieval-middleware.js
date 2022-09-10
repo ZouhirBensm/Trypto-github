@@ -7,12 +7,13 @@ const ENV = require('../../config/base')
 const {filterObject, buyMatchesFinder, sellMatchesFinder} = require('../../middleware/libs/match-maker-functions')
 
 module.exports = async (req,res,next)=>{
-  console.log("\n\n\n______in intermediateMiddlewareOrders: \n\n",res.locals.page, res.locals.limit, res.locals.startIndex, res.locals.endIndex)
+  console.log("\n\n\n______in ordersRetrievalMiddleware: \n\n",res.locals.page, res.locals.limit, res.locals.startIndex, res.locals.endIndex)
 
 
   // URL path parameters
   let type_orders = req.params.type_orders
   let path_param_userID = req.params.userID
+
 
   // Query string parameters
   const crypto = req.query.crypto
@@ -36,26 +37,34 @@ module.exports = async (req,res,next)=>{
     return next(e)
   })
 
-  console.log("buys: ", buyOrders)
+  // console.log("\n\n\n\[buyOrders, sellOrders]!!\n\n", [buyOrders, sellOrders])
+  // console.log("buys: ", buyOrders)
 
-  console.log(req.session.userId)
+  // console.log({path_param_userID})
+
   let mybuyOrders = buyOrders.filter((order_entry) => {
-    // console.log(order_entry.userid._id, req.session.userId)
-    // console.log(order_entry.userid._id.toString() == req.session.userId)
-    return order_entry.userid._id.toString() == req.session.userId;
+    // console.log(order_entry.userid._id, path_param_userID)
+    // console.log(order_entry.userid._id.toString() == path_param_userID)
+    
+    // TODO temporary solution, in the match page it uses req.session.userId, because the call has no path parameter userID. This should change to integrate one for consistency
+    return order_entry.userid._id.toString() == path_param_userID || req.session.userId;
   })
   let mysellOrders = sellOrders.filter((order_entry) => {
-    // console.log(order_entry.userid._id, req.session.userId)
-    // console.log(order_entry.userid._id.toString() == req.session.userId)
-    return order_entry.userid._id.toString() == req.session.userId
+    // console.log(order_entry.userid._id, path_param_userID)
+    // console.log(order_entry.userid._id.toString() == path_param_userID)
+    return order_entry.userid._id.toString() == path_param_userID || req.session.userId
   })
 
-  console.log("my buys: ", mybuyOrders)
+  console.log("\n\n[mybuyOrders, mysellOrders]:\n\n ", [mybuyOrders, mysellOrders])
+
   //await Promise.all([sellMatchesFinder(), buyMatchesFinder()]).then(val => {console.log('sellMatchesFinder process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val[0], '\n', 'buyMatchesFinder process to receive array of matching buys for each sell:\n', 'Value from promise returned: ', val[1], '\n')})
   
 
   // console.log(req.headers.referer)
   // console.log("\n\n____________________________________")
+
+
+  // console.log("CHAKALAKA", {type_orders}, req.headers.referer, req.header('Referer'), req.url)
 
 
   switch(type_orders) {
@@ -103,7 +112,7 @@ module.exports = async (req,res,next)=>{
       break
   }
 
-  console.log("\n\n\n\n_______ORDERS!!______", orders)
+  console.log("\n\n\n\nORDERS!!\n\n", orders)
   
   // let descriptive = {
   //   type_orders: type_orders,

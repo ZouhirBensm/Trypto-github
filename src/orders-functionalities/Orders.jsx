@@ -23,6 +23,7 @@ class Orders extends React.Component {
     this.controls = this.controls.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.userId = document.getElementById("userId").innerHTML
     // this.repairData = this.repairData.bind(this)
     
     console.log("constructor url param: ", this.props.match.params.order_type)
@@ -121,6 +122,7 @@ class Orders extends React.Component {
         />
         <div className='wrapper'>
         <OrderTable 
+        userID = {this.userId}
         buttons='normal' 
         order_type={this.props.match.params.order_type} 
         orders={this.state.orders}

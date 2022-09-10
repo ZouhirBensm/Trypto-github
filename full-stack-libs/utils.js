@@ -55,5 +55,11 @@ module.exports = {
     console.log(`from: cURL -u "Authorization: ${ENV.paypal_client_id}:${ENV.paypal_secret}"` , " to ", `headers: { Authorization: "${Authorization_header_value_4_fetch}"} for fetch`)
 
     return Authorization_header_value_4_fetch
+  },
+  URLpathDecomposer(_path){
+    // Returns the path chopped up in array fashion
+    const regExChopper = /[^\/]+/g; 
+    const matchesReg = _path.match(regExChopper)
+    return matchesReg
   }
 }

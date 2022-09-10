@@ -10,7 +10,7 @@ function filterObject(path_param_userID = null, crypto = null, category = "RECEN
   // console.log((category == "RECENT") ? null: (filter_object.category = category));
   (category == "RECENT") ? null: (filter_object.category = category)
 
-  console.log(filter_object)
+  // console.log("filter_object:", filter_object)
 
   return filter_object
 }
@@ -75,7 +75,7 @@ function findSellMatches(_buy, sellOrders, id){
   let arrayofSellmatches = []
   let sell = sellOrders.filter(_sell => id != _sell.userid._id.toString()) //filter to not deal with current logged in user
   sell.forEach(sellorder => {
-    console.log("\n\n\n\n lala: ", parseInt(_buy.price,10) < parseInt(sellorder.price,10) * 1.10, parseInt(_buy.price,10) > parseInt(sellorder.price,10) * 0.9)
+    // console.log("\n\n\n\n lala: ", parseInt(_buy.price,10) < parseInt(sellorder.price,10) * 1.10, parseInt(_buy.price,10) > parseInt(sellorder.price,10) * 0.9)
     if (
       parseInt(_buy.price,10) < parseInt(sellorder.price,10) * 1.10 &&
       parseInt(_buy.price,10) > parseInt(sellorder.price,10) * 0.9 &&
