@@ -30,43 +30,27 @@ module.exports = (req, res, next)=>{
   }
 
 
-  const [all, protocol, fullhost, fullpath] = full_stack_utils.parseURL(req.headers.referer)
-
-
-
-
-  const firstPath = full_stack_utils.parseFullPath4firstpath(fullpath)
-  console.log("first path directory name: ", firstPath)
-
-  const decomposed_URL_Path = full_stack_utils.URLpathDecomposer(fullpath)
-  console.log("decomposed URL: ", decomposed_URL_Path)
-
-
-  // TODO needs major overhaul refactor to use the actual api call link req.url
-  // TODO add guards to paginated data for user to be logged in or a master user
-  switch (firstPath) {
-    case "messaging":
+  switch (res.locals.paths_URL_fromAPIcall[0]) {
+    case "paginated-messages":
       data_pages_managed_obj.CONVOS = res.locals.data_to_be_paginated_and_served.slice(res.locals.startIndex, res.locals.endIndex)
       break;
-    case "databases":
+    case "paginated-orders":
       data_pages_managed_obj.ORDERS = res.locals.data_to_be_paginated_and_served.slice(res.locals.startIndex, res.locals.endIndex)
       break;
-    case "articles":
-      data_pages_managed_obj.ARTICLES = res.locals.data_to_be_paginated_and_served.slice(res.locals.startIndex, res.locals.endIndex)
+    case "paginated-users":
+      data_pages_managed_obj.USERS = res.locals.data_to_be_paginated_and_served.slice(res.locals.startIndex, res.locals.endIndex)
       break;
-    case "operations":
-      if(decomposed_URL_Path[2]) {
-        data_pages_managed_obj.ORDERS = res.locals.data_to_be_paginated_and_served.slice(res.locals.startIndex, res.locals.endIndex)
-      } else {
-        data_pages_managed_obj.USERS = res.locals.data_to_be_paginated_and_served.slice(res.locals.startIndex, res.locals.endIndex)
-
-      }
+    case "paginated-articles":
+      data_pages_managed_obj.ARTICLES = res.locals.data_to_be_paginated_and_served.slice(res.locals.startIndex, res.locals.endIndex)
       break;
     default:
       let error = new FirstPathNotRegistered(firstPath)
       return next(error)
       break;
   }
+
+
+
 
   console.log("\n______________________________")
   res.json({

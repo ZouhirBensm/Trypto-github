@@ -14,6 +14,7 @@ const CATEGORY = require('../full-stack-libs/Types/ArticleCategories')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
 
 const usersRetrievalMiddleware = require('../middleware/operations-middleware/users-retrieval-middleware')
+const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 
 
 const distributePaginatedDataController = require('../controllers/generic-controllers/distribute-paginated-data-controller')
@@ -117,7 +118,7 @@ operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages
 
 
 // TODO add the require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]) and test out
-operationsBackend_app_router.get('/data/users-for-display', paginatingSetupMiddleware, usersRetrievalMiddleware, distributePaginatedDataController)
+operationsBackend_app_router.get('/paginated-users/users-for-display', paginatingSetupMiddleware, destructureURLandRefererMiddleware, usersRetrievalMiddleware, distributePaginatedDataController)
 
 
 

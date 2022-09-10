@@ -55,16 +55,9 @@ module.exports = async (req,res,next)=>{
     return order_entry.userid._id.toString() == path_param_userID || req.session.userId
   })
 
-  console.log("\n\n[mybuyOrders, mysellOrders]:\n\n ", [mybuyOrders, mysellOrders])
-
-  //await Promise.all([sellMatchesFinder(), buyMatchesFinder()]).then(val => {console.log('sellMatchesFinder process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', val[0], '\n', 'buyMatchesFinder process to receive array of matching buys for each sell:\n', 'Value from promise returned: ', val[1], '\n')})
-  
-
-  // console.log(req.headers.referer)
-  // console.log("\n\n____________________________________")
+  // console.log("\n\n[mybuyOrders, mysellOrders]:\n\n ", [mybuyOrders, mysellOrders])
 
 
-  // console.log("CHAKALAKA", {type_orders}, req.headers.referer, req.header('Referer'), req.url)
 
 
   switch(type_orders) {
@@ -112,7 +105,8 @@ module.exports = async (req,res,next)=>{
       break
   }
 
-  console.log("\n\n\n\nORDERS!!\n\n", orders)
+  // console.log("\n\n\n\nORDERS!!\n\n", orders)
+  
   
   // let descriptive = {
   //   type_orders: type_orders,

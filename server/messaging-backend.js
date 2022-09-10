@@ -20,6 +20,7 @@ const distributePaginatedDataController = require("../controllers/generic-contro
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
 const messagesInfoRetrievalMiddleware = require('../middleware/messages-middleware/messages-info-retrieval-middleware')
 const checkPathUserIdMiddleware = require('../middleware/generic-middleware/check-path-userId-middleware')
+const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 
 
 // Use this to check the role, requires a res.locals.user.role
@@ -70,7 +71,7 @@ messagingBackend_app_router.get('/messages', require_loggedin_for_pages(true), (
 })
 
 
-messagingBackend_app_router.get('/paginated-messages/:userId', checkPathUserIdMiddleware, require_loggedin_for_data(true), paginatingSetupMiddleware, messagesInfoRetrievalMiddleware, distributePaginatedDataController)
+messagingBackend_app_router.get('/paginated-messages/:userId', checkPathUserIdMiddleware, require_loggedin_for_data(true), paginatingSetupMiddleware, destructureURLandRefererMiddleware, messagesInfoRetrievalMiddleware, distributePaginatedDataController)
 
 
 module.exports = messagingBackend_app_router

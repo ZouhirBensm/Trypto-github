@@ -43,7 +43,7 @@ class Articles extends React.Component {
   }
 
   async loadData(){
-    let response = await fetch(`${process.env.ROOT}/articles/data/paginated-articles?page=${this.state.page}&limit=${this.state.limit}&category=${this.props.category}`)
+    let response = await fetch(`${process.env.ROOT}/articles/paginated-articles/data?page=${this.state.page}&limit=${this.state.limit}&category=${this.props.category}`)
     
     let serverOBJ = await response.json()
 

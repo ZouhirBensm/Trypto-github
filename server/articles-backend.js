@@ -13,8 +13,11 @@ const paginatingSetupMiddleware = require('../middleware/generic-middleware/pagi
 
 const articlesRetrievalMiddleware = require('../middleware/articles-middleware/articles-retrieval-middleware')
 
+const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
+
 
 const distributePaginatedDataController = require('../controllers/generic-controllers/distribute-paginated-data-controller')
+
 
 // Use this to check the role, requires a res.locals.user.role
 const { set_user_if_any } =  require("../middleware/generic-middleware/set-user-if-any-middleware")
@@ -43,7 +46,7 @@ articlesBackend_app_router.get(['/:category?', '/individual_article/:articleID']
 
 
 // TODO add the require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]) and test out
-articlesBackend_app_router.get('/data/paginated-articles', paginatingSetupMiddleware, articlesRetrievalMiddleware, distributePaginatedDataController)
+articlesBackend_app_router.get('/paginated-articles/data', paginatingSetupMiddleware, destructureURLandRefererMiddleware, articlesRetrievalMiddleware, distributePaginatedDataController)
 
 
 module.exports = articlesBackend_app_router
