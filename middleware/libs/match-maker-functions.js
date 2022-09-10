@@ -1,16 +1,16 @@
 // TODO put the filterObject functions in the full-stack-lib utils
-function filterObject(path_param_userID = null, crypto = null, category = "RECENT"){
+function filterObject(crypto = null, category = "RECENT"){
   // let filter_object = {}
   // filter_object = path_param_userID? (filter_object.userid = path_param_userID): null  
-  let filter_object = path_param_userID? {userid: path_param_userID}: {} // Adding properties with destructuring
+  let filter_object = crypto? {crypto: crypto}: {}; // Adding properties with destructuring
 
   // crypto? (filter_object = {...filter_object, crypto: crypto}): filter_object // Adding properties with destructuring
-  crypto? (filter_object.crypto = crypto): null;
+  // crypto? (filter_object.crypto = crypto): null;
 
   // console.log((category == "RECENT") ? null: (filter_object.category = category));
   (category == "RECENT") ? null: (filter_object.category = category)
 
-  // console.log("filter_object:", filter_object)
+  console.log("filter_object:", filter_object)
 
   return filter_object
 }
@@ -18,23 +18,27 @@ function filterObject(path_param_userID = null, crypto = null, category = "RECEN
 
 
 let buyMatchesFinder = function(_mysellOrders, buyOrders, id) {
+  // console.log("ingredients:", _mysellOrders, buyOrders, id)
   let _arrayOfarrayMatchesforEachSell = []
   return new Promise(function(resolve, reject) {
     try{
       _mysellOrders.forEach(sell => {
         // In the future we can define custom errors to be thrown in certain scenarios
+        console.log({id}, typeof id)
         let arrayofBuymatches = findBuyMatches(sell, buyOrders, id)
         _arrayOfarrayMatchesforEachSell.push(arrayofBuymatches)
       });
     } catch(err){
       reject(err)
     } 
+    console.log({_arrayOfarrayMatchesforEachSell})
     resolve(_arrayOfarrayMatchesforEachSell) //value of promise //You can return the actual array if you want
   });
 };
 
 function findBuyMatches(_sell, buyOrders, id){
   let arrayofBuymatches = []
+  console.log({id}, typeof id)
   let buy = buyOrders.filter(_buy => id != _buy.userid._id.toString()) //filter to not deal with current logged in user
   buy.forEach(buyorder => {
     if (
@@ -48,6 +52,7 @@ function findBuyMatches(_sell, buyOrders, id){
       arrayofBuymatches.push(buyorder)
     }
   });
+  console.log({arrayofBuymatches})
   return arrayofBuymatches
 }
 

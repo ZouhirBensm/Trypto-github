@@ -15,6 +15,8 @@ const articlesRetrievalMiddleware = require('../middleware/articles-middleware/a
 
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 
+const requireRefererMiddleware = require('../middleware/generic-middleware/require-referer')
+
 
 const distributePaginatedDataController = require('../controllers/generic-controllers/distribute-paginated-data-controller')
 
@@ -46,7 +48,7 @@ articlesBackend_app_router.get(['/:category?', '/individual_article/:articleID']
 
 
 // TODO add the require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]) and test out
-articlesBackend_app_router.get('/paginated-articles/data', paginatingSetupMiddleware, destructureURLandRefererMiddleware, articlesRetrievalMiddleware, distributePaginatedDataController)
+articlesBackend_app_router.get('/paginated-articles/data', requireRefererMiddleware, paginatingSetupMiddleware, destructureURLandRefererMiddleware, articlesRetrievalMiddleware, distributePaginatedDataController)
 
 
 module.exports = articlesBackend_app_router

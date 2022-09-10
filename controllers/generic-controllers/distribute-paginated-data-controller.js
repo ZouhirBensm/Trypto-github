@@ -53,7 +53,7 @@ module.exports = (req, res, next)=>{
 
 
   console.log("\n______________________________")
-  res.json({
+  res.status(200).json({
     srv_: data_pages_managed_obj,
   })
   

@@ -2,6 +2,8 @@ const BuyCryptoOrder = require('../../models/home-orders-models/BuyCryptoOrder')
 
 const SellCryptoOrder = require('../../models/home-orders-models/SellCryptoOrder')
 
+var ObjectId = require('mongodb').ObjectId; 
+
 const ENV = require('../../config/base')
 
 const {filterObject, buyMatchesFinder, sellMatchesFinder} = require('../../middleware/libs/match-maker-functions')
@@ -18,7 +20,7 @@ module.exports = async (req,res,next)=>{
   // Query string parameters
   const crypto = req.query.crypto
   
-  let filter_object = filterObject(path_param_userID, crypto)
+  let filter_object = filterObject(crypto)
   
   let orders
   // console.log("\nFind filter: \n", filter_object)
@@ -40,32 +42,44 @@ module.exports = async (req,res,next)=>{
   // console.log("\n\n\n\[buyOrders, sellOrders]!!\n\n", [buyOrders, sellOrders])
   // console.log("buys: ", buyOrders)
 
-  // console.log({path_param_userID})
+  console.log({path_param_userID}, {"sessionIserID": req.session.userId}, typeof path_param_userID, typeof ObjectId(path_param_userID), typeof req.session.userId)
 
   let mybuyOrders = buyOrders.filter((order_entry) => {
     // console.log(order_entry.userid._id, path_param_userID)
     // console.log(order_entry.userid._id.toString() == path_param_userID)
     
     // TODO temporary solution, in the match page it uses req.session.userId, because the call has no path parameter userID. This should change to integrate one for consistency
-    return order_entry.userid._id.toString() == path_param_userID || req.session.userId;
+
+    console.log(order_entry.userid._id.toString() == path_param_userID)
+    // console.log(order_entry.userid._id.toString() == req.session.userId)
+    return order_entry.userid._id.toString() == path_param_userID;
+    // path_param_userID 
+    // || req.session.userId;
   })
   let mysellOrders = sellOrders.filter((order_entry) => {
     // console.log(order_entry.userid._id, path_param_userID)
     // console.log(order_entry.userid._id.toString() == path_param_userID)
-    return order_entry.userid._id.toString() == path_param_userID || req.session.userId
+    console.log(order_entry.userid._id.toString() == path_param_userID)
+    return order_entry.userid._id.toString() == path_param_userID
+    // path_param_userID 
+    // || req.session.userId
   })
 
-  // console.log("\n\n[mybuyOrders, mysellOrders]:\n\n ", [mybuyOrders, mysellOrders])
+  console.log("\n\n[mybuyOrders, mysellOrders]:\n\n ", [mybuyOrders, mysellOrders])
 
 
+  console.log("REFERER", req.headers.referer)
 
 
+  
   switch(type_orders) {
 
     case 'buyordersdata':
+      console.log(req.headers.referer == ENV.domain + '/databases/matches')
       if(req.headers.referer == ENV.domain + '/databases/matches'){
+        console.log("MATCHES MODE")
         try {
-          orders = await buyMatchesFinder(mysellOrders, buyOrders, req.session.userId)
+          orders = await buyMatchesFinder(mysellOrders, buyOrders, path_param_userID)
           .then(
             arrayOfarrayMatchesforEachSell => {console.log('buyMatchesFinder process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', arrayOfarrayMatchesforEachSell, '\n'); orders = arrayOfarrayMatchesforEachSell; orders = orders.flat().filter((v, i, a) => a.indexOf(v) === i); return orders},
             rejected_err => {console.log("buyMatchesFinder reject function caught a rejected error: ", rejected_err); throw rejected_err}
@@ -74,8 +88,11 @@ module.exports = async (req,res,next)=>{
           return next(err)
         }
         // console.log("orders!!!!!:::::", orders)
-      } else {
-        // console.log("Normal Mode!") 
+      } else if (req.headers.referer == ENV.domain + '/databases/AllMyOrders' || req.headers.referer == ENV.domain + `/operations/help-for-orders/${path_param_userID}`) {
+        console.log("MY MODE -> from path param")
+        orders = mybuyOrders
+      } else {        
+        console.log("NORMAL MODE")
         orders = buyOrders
         // console.log("orders!!!!!:::::", orders)
       }
@@ -83,8 +100,9 @@ module.exports = async (req,res,next)=>{
 
     case 'sellordersdata':
       if(req.headers.referer == ENV.domain + '/databases/matches'){
+        console.log("MATCHES MODE")
         try {
-          orders = await sellMatchesFinder(mybuyOrders, sellOrders, req.session.userId)
+          orders = await sellMatchesFinder(mybuyOrders, sellOrders, path_param_userID)
           .then(
             arrayOfarrayMatchesforEachBuy => {console.log('sellMatchesFinder process to receive array of matching sells for each buy:\n', 'Value from promise returned: ', arrayOfarrayMatchesforEachBuy, '\n'); orders = arrayOfarrayMatchesforEachBuy; orders = orders.flat().filter((v, i, a) => a.indexOf(v) === i); return orders},
             rejected_err => {console.log("sellMatchesFinder reject function caught a rejected error: ", rejected_err); throw rejected_err}
@@ -93,8 +111,11 @@ module.exports = async (req,res,next)=>{
           return next(err)
         }
         // console.log("orders!!!!!:::::", orders)
-      } else {
-        // console.log("Normal Mode!") 
+      } else if (req.headers.referer == ENV.domain + '/databases/AllMyOrders' || req.headers.referer == ENV.domain + `/operations/help-for-orders/${path_param_userID}`) {
+        console.log("MY MODE -> from path param")
+        orders = mysellOrders
+      } else {        
+        console.log("NORMAL MODE")
         orders = sellOrders
         // console.log("orders!!!!!:::::", orders)
       }
@@ -105,7 +126,7 @@ module.exports = async (req,res,next)=>{
       break
   }
 
-  // console.log("\n\n\n\nORDERS!!\n\n", orders)
+  console.log("\n\n\n\nORDERS!!\n\n", orders)
   
   
   // let descriptive = {

@@ -41,6 +41,8 @@ operationsBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
+// for test 2@
+// , require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER])
 operationsBackend_app_router.get(['/','/articles-dashboard'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req,res)=>{
 
   console.log("\n\n\n_____________", req.session.userId)
@@ -94,8 +96,8 @@ operationsBackend_app_router.get('/article-selector', require_loggedin_for_pages
   })
 })
 
-
-
+// for test 3@
+// , authenticate_role_for_pages([ROLE.MASTER]),
 operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/manage-subs'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req,res)=>{
 
   var JSX_to_load
@@ -106,6 +108,8 @@ operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/man
   })
 })
 
+// for test 4@
+// , authenticate_role_for_pages([ROLE.MASTER])
 operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/manage-subs/:userID'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req,res)=>{
 
   var JSX_to_load
@@ -118,7 +122,7 @@ operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages
 
 
 // TODO add the require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]) and test out
-operationsBackend_app_router.get('/paginated-users/users-for-display', paginatingSetupMiddleware, destructureURLandRefererMiddleware, usersRetrievalMiddleware, distributePaginatedDataController)
+operationsBackend_app_router.get('/paginated-users/users-for-display', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), paginatingSetupMiddleware, destructureURLandRefererMiddleware, usersRetrievalMiddleware, distributePaginatedDataController)
 
 
 

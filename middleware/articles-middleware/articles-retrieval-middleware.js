@@ -8,7 +8,7 @@ module.exports = async (req,res,next)=>{
 
   console.log("CATEGORY ON THE SERVER BEFORE QUERY IS: ", req.query.category)
 
-  let filter_object = filterObject(null, null, req.query.category)
+  let filter_object = filterObject(null, req.query.category)
   console.log({filter_object})
   let articles = await Article.find(filter_object)
 
