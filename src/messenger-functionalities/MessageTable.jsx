@@ -17,6 +17,7 @@ class MessageTable extends React.Component {
         return <MessageRow 
         key={i} 
         keyy={i} 
+        userId={this.props.userId}
         convo={convo}
         />
       })
@@ -63,6 +64,7 @@ class MessageRow extends React.Component {
     // this.deal = this.deal.bind(this)
     // this.userId = document.getElementById("userId").innerHTML
     this.userId = this.props.userId
+    console.log("this.userId @@@", this.userId)
   }
 
   handleClick(communicating_with_ID, e){
@@ -82,7 +84,7 @@ class MessageRow extends React.Component {
     const convo = this.props.convo;
     console.log(`row ${this.props.keyy} executing: `, convo)
 
-    // console.log(convo.protagonists.protagonists)
+    console.log("convo.protagonists.protagonists", convo.protagonists.protagonists)
 
 
     const communicating_with = convo.protagonists.protagonists.filter(protagonist => {return protagonist._id != this.userId})
