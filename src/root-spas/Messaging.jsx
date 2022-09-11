@@ -18,6 +18,7 @@ class Messaging extends React.Component {
     this.state = {}
     console.log("THIS FUCKIN UID BEETTER", userId)
     console.log("THIS FUCKIN UID BEETTER", currentUserEmail)
+    console.log("THIS FUCKIN UID BEETTER", user)
   }
   render() {
     return (
@@ -25,7 +26,11 @@ class Messaging extends React.Component {
       <BrowserRouter> 
         <Switch> 
           <Route exact path="/messaging/messages" render={
-            (props) => <Messages {...props} userID_toQueryWith={userId} email_toQueryWith={currentUserEmail}/>
+            (props) => <Messages {...props} 
+            userID_toQueryWith={userId} 
+            email_toQueryWith={currentUserEmail}
+            loggedinUser={user}
+            />
           }/> 
           <Route exact path="/messaging" component={ChatContainer}/>
         </Switch>     

@@ -93,6 +93,11 @@ class Operations extends React.Component {
             (props) => <ArticlesDashboard {...props}/>
           }/> 
 
+          {/* WORKED TEST */}
+          {/* <Route path="/test">
+            Test component!
+          </Route>  */}
+
           
  
 

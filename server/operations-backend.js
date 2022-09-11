@@ -120,9 +120,52 @@ operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages
   })
 })
 
+operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', (req,res)=>{
+
+
+  var JSX_to_load
+  JSX_to_load = 'Operations';
+  
+  res.render('generic-boilerplate-ejs-to-render-react-components-operations', { 
+    JSX_to_load : JSX_to_load, 
+  })
+})
+
 
 // TODO add the require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]) and test out
 operationsBackend_app_router.get('/paginated-users/users-for-display', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), paginatingSetupMiddleware, destructureURLandRefererMiddleware, usersRetrievalMiddleware, distributePaginatedDataController)
+
+operationsBackend_app_router.get('/test', (req,res) => {
+  console.log("in the test endpoint")
+  var JSX_to_load
+  JSX_to_load = 'Operations';
+  
+  res.render('generic-boilerplate-ejs-to-render-react-components-operations', { 
+    JSX_to_load : JSX_to_load, 
+  })
+
+})
+
+
+operationsBackend_app_router.get('/paginated-messages/:userID', (req,res) => {
+
+  console.log("received!!!:", req.params.userID, req.query.page, req.query.limit, req.query.userIdB)
+
+  res.status(200).json({
+    worked: "hello"
+  })
+})
+
+operationsBackend_app_router.get('/test', (req,res) => {
+  console.log("in the test endpoint")
+  var JSX_to_load
+  JSX_to_load = 'Operations';
+  
+  res.render('generic-boilerplate-ejs-to-render-react-components-operations', { 
+    JSX_to_load : JSX_to_load, 
+  })
+
+})
 
 
 

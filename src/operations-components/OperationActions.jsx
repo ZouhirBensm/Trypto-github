@@ -10,6 +10,7 @@ class OperationActions extends React.Component {
     this.state = {
       mode: this.props.match.params.mode
     }
+    console.log("THIS FUCKIN UID BEETTER", user)
     const comprehensiveUserInfoDataJSON = queryParams.get("comprehensiveUserInfo")
     this.comprehensiveUserInfoDataObj = JSON.parse(comprehensiveUserInfoDataJSON)
     console.log("did we get what we need bazzoka: ", this.comprehensiveUserInfoDataObj)
@@ -27,9 +28,11 @@ class OperationActions extends React.Component {
         break;
       case "monitor-messages":
         // TODO refactor names
-        this.componentToRender = <MonitorForMessages 
+        this.componentToRender = <MonitorForMessages
+            comprehensiveUserInfoDataObj={this.comprehensiveUserInfoDataObj}
             userID={this.props.match.params.userID}
             email={this.comprehensiveUserInfoDataObj.email}
+            loggedinUser={user}
           />
         break;
       case "manage-subs":

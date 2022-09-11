@@ -1,4 +1,5 @@
 // import React from 'react';
+import utils from '../../full-stack-libs/utils'
 
 class MessageTable extends React.Component {
 
@@ -17,8 +18,10 @@ class MessageTable extends React.Component {
         return <MessageRow 
         key={i} 
         keyy={i} 
+        comprehensiveUserInfoDataObj={this.props.comprehensiveUserInfoDataObj}
         userId={this.props.userId}
         convo={convo}
+        loggedinUser={this.props.loggedinUser}
         />
       })
     } else {
@@ -65,12 +68,30 @@ class MessageRow extends React.Component {
     // this.userId = document.getElementById("userId").innerHTML
     this.userId = this.props.userId
     console.log("this.userId @@@", this.userId)
+    this.loggedinUser = this.props.loggedinUser
   }
 
-  handleClick(communicating_with_ID, e){
+  handleClick(comprehensiveUserInfoDataObj, communicating_with_ID, e){
     e.preventDefault()
-    console.log("Hello clicked! ", communicating_with_ID)
-    window.location.href = `/messaging?orderId=${undefined}&userIdB=${communicating_with_ID}`
+
+    const parsedURL = utils.parseURL(window.location.href)
+    const firstpath = utils.parseFullPath4firstpath(parsedURL[3])
+
+    if(this.loggedinUser.role == "MASTER" && firstpath == "operations"){
+      console.log("MAster JOB!")
+      console.log(comprehensiveUserInfoDataObj)
+
+      // WORKED TEST
+      // window.location.href = `/operations/test`
+
+      // WORKED MORE
+      // window.location.href = `/operations/monitor-messages/edit-see/more?comprehensiveUserInfo=${JSON.stringify(comprehensiveUserInfoDataObj)}`
+
+      window.location.href = `/operations/monitor-messages/${this.userId}/edit-see?comprehensiveUserInfo=${JSON.stringify(comprehensiveUserInfoDataObj)}&orderId=${undefined}&userIdB=${communicating_with_ID}`
+      // window.location.href = `/operations/monitor-messages/${this.userId}/edit-see`
+    } else {
+      window.location.href = `/messaging?orderId=${undefined}&userIdB=${communicating_with_ID}`
+    }
   }
 
   // deal(order, e){
@@ -101,7 +122,7 @@ class MessageRow extends React.Component {
 
     // console.log("Require Keys: ", display_editing)
     return(
-      <tr onClick={(e) => this.handleClick(communicating_with_ID, e)}>
+      <tr onClick={(e) => this.handleClick(this.props.comprehensiveUserInfoDataObj, communicating_with_ID, e)}>
         {/* TODO #85 Add Profile pictures to users */}
         <td id="img-profile">Com w\ email: {communicating_with_email}</td>
         <td id="comm-with-email" style={{"display": "none"}}>Com w\ email{communicating_with_email}</td>
