@@ -14,6 +14,8 @@ const CATEGORY = require('../full-stack-libs/Types/ArticleCategories')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
 
 const usersRetrievalMiddleware = require('../middleware/operations-middleware/users-retrieval-middleware')
+const messagesRetrievalMiddleware = require('../middleware/operations-middleware/messages-retrieval-middleware')
+
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 
 
@@ -147,25 +149,22 @@ operationsBackend_app_router.get('/test', (req,res) => {
 })
 
 
-operationsBackend_app_router.get('/paginated-messages/:userID', (req,res) => {
+operationsBackend_app_router.get('/paginated-messages/:userID', paginatingSetupMiddleware, destructureURLandRefererMiddleware, messagesRetrievalMiddleware, distributePaginatedDataController)
 
-  console.log("received!!!:", req.params.userID, req.query.page, req.query.limit, req.query.userIdB)
 
-  res.status(200).json({
-    worked: "hello"
-  })
-})
+// , paginatingSetupMiddleware, destructureURLandRefererMiddleware, usersRetrievalMiddleware, distributePaginatedDataController
 
-operationsBackend_app_router.get('/test', (req,res) => {
-  console.log("in the test endpoint")
-  var JSX_to_load
-  JSX_to_load = 'Operations';
+// TODO delete this
+// operationsBackend_app_router.get('/test', (req,res) => {
+//   console.log("in the test endpoint")
+//   var JSX_to_load
+//   JSX_to_load = 'Operations';
   
-  res.render('generic-boilerplate-ejs-to-render-react-components-operations', { 
-    JSX_to_load : JSX_to_load, 
-  })
+//   res.render('generic-boilerplate-ejs-to-render-react-components-operations', { 
+//     JSX_to_load : JSX_to_load, 
+//   })
 
-})
+// })
 
 
 
