@@ -112,7 +112,9 @@ class UserSelect extends React.Component {
               (props) => <Operations {...props} />
             } />
 
-            <Route path={`/operations/:mode/:userID`} component={OperationActions}/>
+            <Route path={`/operations/:mode/:userID`} render={
+              (props) => <OperationActions {...props}/>
+            }/> 
 
           </Switch>
         </BrowserRouter>

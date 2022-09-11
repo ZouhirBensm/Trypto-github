@@ -22,8 +22,10 @@ class Messages extends React.Component {
       on_off_limit_previous: true,
       number_of_pages: 1,
     }
-    this._userId = document.getElementById("userId").innerHTML
-    this._currentUserEmail = document.getElementById("currentUserEmail").innerHTML
+    // this._userId = document.getElementById("userId").innerHTML
+    this._userId = this.props.userID_toQueryWith
+    // this._currentUserEmail = document.getElementById("currentUserEmail").innerHTML
+    this._currentUserEmail = this.props.email_toQueryWith
     this.controls = this.controls.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this)
     // this.handleChange = this.handleChange.bind(this)
@@ -100,7 +102,9 @@ class Messages extends React.Component {
         <div className="wrapper">
           <h2>Messages Component</h2>
           <h4>Logged in as: {this._currentUserEmail}</h4>
+          {/* TODO rename uID to reflect stage passedo on to */}
           <MessageTable 
+          userId={this._userId}
           // buttons='normal' 
           // order_type={this.props.match.params.order_type} 
           convos={this.state.convos}

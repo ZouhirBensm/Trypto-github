@@ -70,8 +70,11 @@ messagingBackend_app_router.get('/messages', require_loggedin_for_pages(true), (
 
 })
 
+// TODO temporarily got rid
+// , checkPathUserIdMiddleware,
+// require_loggedin_for_data(true)
 
-messagingBackend_app_router.get('/paginated-messages/:userId', checkPathUserIdMiddleware, require_loggedin_for_data(true), paginatingSetupMiddleware, destructureURLandRefererMiddleware, messagesInfoRetrievalMiddleware, distributePaginatedDataController)
+messagingBackend_app_router.get('/paginated-messages/:userId', paginatingSetupMiddleware, destructureURLandRefererMiddleware, messagesInfoRetrievalMiddleware, distributePaginatedDataController)
 
 
 module.exports = messagingBackend_app_router

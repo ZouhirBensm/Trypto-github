@@ -24,7 +24,10 @@ class UsersList extends React.Component {
     this.userElements = this.users.users.map((userElement, i) => {
       return (
         // `/operations/${this.props.mode}/${userElement._id}`
-        <Link to={`/operations/${this.props.mode}/${userElement._id}`} key={i}>
+        <Link to={{
+          pathname: `/operations/${this.props.mode}/${userElement._id}`,
+          search: `?comprehensiveUserInfo=${JSON.stringify(userElement)}`
+          }} key={i}>
           <UserElement
             user={userElement}
           />

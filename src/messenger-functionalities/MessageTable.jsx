@@ -61,7 +61,8 @@ class MessageRow extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     
     // this.deal = this.deal.bind(this)
-    this.userId = document.getElementById("userId").innerHTML
+    // this.userId = document.getElementById("userId").innerHTML
+    this.userId = this.props.userId
   }
 
   handleClick(communicating_with_ID, e){
@@ -84,7 +85,7 @@ class MessageRow extends React.Component {
     // console.log(convo.protagonists.protagonists)
 
 
-    const communicating_with = convo.protagonists.protagonists.filter(protagonist => {return protagonist._id != userId})
+    const communicating_with = convo.protagonists.protagonists.filter(protagonist => {return protagonist._id != this.userId})
     console.log("this first: ", communicating_with[0])
 
     const {_id: communicating_with_ID, email: communicating_with_email} = communicating_with[0]

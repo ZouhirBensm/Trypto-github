@@ -6,9 +6,14 @@ import ManageSubscriptions from './ManageSubscriptions'
 class OperationActions extends React.Component {
   constructor(props){
     super(props)
+    const queryParams = new URLSearchParams(this.props.location.search)
     this.state = {
       mode: this.props.match.params.mode
     }
+    const comprehensiveUserInfoDataJSON = queryParams.get("comprehensiveUserInfo")
+    this.comprehensiveUserInfoDataObj = JSON.parse(comprehensiveUserInfoDataJSON)
+    console.log("did we get what we need bazzoka: ", this.comprehensiveUserInfoDataObj)
+
     this.componentToRender
     this.setupTheProperComponent = this.setupTheProperComponent.bind(this)
     this.setupTheProperComponent()
@@ -21,7 +26,11 @@ class OperationActions extends React.Component {
         this.componentToRender = <HelpForOrders userID={this.props.match.params.userID}/>
         break;
       case "monitor-messages":
-        this.componentToRender = <MonitorForMessages/>
+        // TODO refactor names
+        this.componentToRender = <MonitorForMessages 
+            userID={this.props.match.params.userID}
+            email={this.comprehensiveUserInfoDataObj.email}
+          />
         break;
       case "manage-subs":
       this.componentToRender = <ManageSubscriptions/>

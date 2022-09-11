@@ -13,12 +13,20 @@ const ChatContainer = loadable(() => import("../messenger-functionalities/ChatCo
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 
 class Messaging extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {}
+    console.log("THIS FUCKIN UID BEETTER", userId)
+    console.log("THIS FUCKIN UID BEETTER", currentUserEmail)
+  }
   render() {
     return (
       // <ChatContainer/>
       <BrowserRouter> 
         <Switch> 
-          <Route exact path="/messaging/messages" component={Messages}/>
+          <Route exact path="/messaging/messages" render={
+            (props) => <Messages {...props} userID_toQueryWith={userId} email_toQueryWith={currentUserEmail}/>
+          }/> 
           <Route exact path="/messaging" component={ChatContainer}/>
         </Switch>     
       </BrowserRouter> 
