@@ -9,9 +9,6 @@ module.exports = (req,res,next)=>{
   res.locals.endIndex = res.locals.page*res.locals.limit
   
   console.log("in paginatingSetupMiddleware: ",res.locals.page, res.locals.limit, res.locals.startIndex, res.locals.endIndex)
-
-
-  console.log(req.params.type_orders, req.params.userID)
   
   console.log("\n______________________________")
 

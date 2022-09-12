@@ -44,6 +44,7 @@ const isUpController = require("../controllers/generic-controllers/is-up-control
 // Middleware
 const requireRefererMiddleware = require('../middleware/generic-middleware/require-referer')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
+const paginatedOrdersSetupMiddleware = require('../middleware/home-orders-middleware/paginated-orders-setup-middleware')
 const ordersRetrievalMiddleware = require('../middleware/home-orders-middleware/orders-retrieval-middleware')
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 
@@ -91,7 +92,7 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 // require_loggedin_for_data(true)
 // for test 1@
 // requireRefererMiddleware
-homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:userID?', requireRefererMiddleware, require_loggedin_for_data(true), paginatingSetupMiddleware, destructureURLandRefererMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
+homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', requireRefererMiddleware, require_loggedin_for_data(true), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
 
 
 homeOrdersBackend_app_router.get('/users/login', require_loggedin_for_pages(false), (req,res,next)=>{
