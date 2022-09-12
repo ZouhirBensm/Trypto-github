@@ -26,7 +26,7 @@ module.exports = async (req,res,next)=>{
     // Populate protagonists
     path: "messages", 
     // Fields allowed to populate with
-    select: "-_id msg_stream",
+    select: "_id msg_stream",
     populate: {
       path: 'msg_stream.sender msg_stream.receiver',
       model: 'User',
@@ -41,6 +41,8 @@ module.exports = async (req,res,next)=>{
 
   let protagonists_communications = await query.exec()
 
+  console.log(protagonists_communications)
+  console.log("Messages ID of the conversation:", protagonists_communications[0].messages._id)
   console.log(protagonists_communications[0].messages.msg_stream)
   let msg_stream = protagonists_communications[0].messages.msg_stream
 
