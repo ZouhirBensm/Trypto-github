@@ -68,6 +68,7 @@ module.exports = async (req,res,next)=>{
   console.log("\n\n[mybuyOrders, mysellOrders]:\n\n ", [mybuyOrders, mysellOrders])
 
 
+  // TODO all URL params need to be setup prior, also path userID needs to be setup prior
   console.log("REFERER", req.headers.referer)
 
 
@@ -88,7 +89,7 @@ module.exports = async (req,res,next)=>{
           return next(err)
         }
         // console.log("orders!!!!!:::::", orders)
-      } else if (req.headers.referer == ENV.domain + '/databases/AllMyOrders' || req.headers.referer == ENV.domain + `/operations/help-for-orders/${path_param_userID}`) {
+      } else if (req.headers.referer == ENV.domain + '/databases/AllMyOrders' || req.headers.referer.split("?")[0] == ENV.domain + `/operations/help-for-orders/${path_param_userID}`) {
         console.log("MY MODE -> from path param")
         orders = mybuyOrders
       } else {        
@@ -111,7 +112,7 @@ module.exports = async (req,res,next)=>{
           return next(err)
         }
         // console.log("orders!!!!!:::::", orders)
-      } else if (req.headers.referer == ENV.domain + '/databases/AllMyOrders' || req.headers.referer == ENV.domain + `/operations/help-for-orders/${path_param_userID}`) {
+      } else if (req.headers.referer == ENV.domain + '/databases/AllMyOrders' || req.headers.referer.split("?")[0] == ENV.domain + `/operations/help-for-orders/${path_param_userID}`) {
         console.log("MY MODE -> from path param")
         orders = mysellOrders
       } else {        

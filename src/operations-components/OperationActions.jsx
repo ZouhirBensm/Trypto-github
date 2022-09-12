@@ -24,13 +24,13 @@ class OperationActions extends React.Component {
   setupTheProperComponent(){
     switch (this.state.mode) {
       case "help-for-orders":
-        this.componentToRender = <HelpForOrders userID={this.props.match.params.userID}/>
+        this.componentToRender = <HelpForOrders userID={this.props.match.params.selected_userID}/>
         break;
       case "monitor-messages":
         // TODO refactor names
         this.componentToRender = <MonitorForMessages
             comprehensiveUserInfoDataObj={this.comprehensiveUserInfoDataObj}
-            userID={this.props.match.params.userID}
+            userID={this.props.match.params.selected_userID}
             email={this.comprehensiveUserInfoDataObj.email}
             loggedinUser={user}
           />

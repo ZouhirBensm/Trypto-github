@@ -112,7 +112,7 @@ class UserSelect extends React.Component {
               (props) => <Operations {...props} />
             } />
 
-            <Route path={`/operations/:mode/:userID`} render={
+            <Route path={`/operations/:mode/:selected_userID`} render={
               (props) => <OperationActions {...props}/>
             }/> 
 
