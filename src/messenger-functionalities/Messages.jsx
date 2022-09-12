@@ -105,7 +105,7 @@ class Messages extends React.Component {
           <h4>Logged in as: {this._currentUserEmail}</h4>
           {/* TODO rename uID to reflect stage passedo on to */}
           <MessageTable 
-          comprehensiveUserInfoDataObj={this.props.comprehensiveUserInfoDataObj}
+          comprehensiveSelectedUserInfoDataObj={this.props.comprehensiveSelectedUserInfoDataObj}
           userId={this._userId}
           // buttons='normal' 
           // order_type={this.props.match.params.order_type} 

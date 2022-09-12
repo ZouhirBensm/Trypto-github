@@ -11,7 +11,7 @@ class MonitorForMessages extends React.Component {
         <Switch>
           <Route exact path="/operations/monitor-messages/:userId" render={
             (props) => <Messages {...props} 
-              comprehensiveUserInfoDataObj={this.props.comprehensiveUserInfoDataObj}
+            comprehensiveSelectedUserInfoDataObj={this.props.comprehensiveSelectedUserInfoDataObj}
               userID_toQueryWith={this.props.userID}
               email_toQueryWith={this.props.email}
               loggedinUser={this.props.loggedinUser}

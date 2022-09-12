@@ -29,7 +29,7 @@ class OperationActions extends React.Component {
       case "monitor-messages":
         // TODO refactor names
         this.componentToRender = <MonitorForMessages
-            comprehensiveUserInfoDataObj={this.comprehensiveSelectedUserInfoDataObj}
+        comprehensiveSelectedUserInfoDataObj={this.comprehensiveSelectedUserInfoDataObj}
             userID={this.props.match.params.selected_userID}
             email={this.comprehensiveSelectedUserInfoDataObj.email}
             loggedinUser={user}
