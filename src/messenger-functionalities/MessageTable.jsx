@@ -87,7 +87,7 @@ class MessageRow extends React.Component {
       // WORKED MORE
       // window.location.href = `/operations/monitor-messages/edit-see/more?comprehensiveUserInfo=${JSON.stringify(comprehensiveUserInfoDataObj)}`
 
-      window.location.href = `/operations/monitor-messages/${this.userId}/edit-see?comprehensiveUserInfo=${JSON.stringify(comprehensiveUserInfoDataObj)}&orderId=${undefined}&userIdB=${communicating_with_ID}`
+      window.location.href = `/operations/monitor-messages/${this.userId}/edit-see?comprehensiveSelectedUserInfo=${JSON.stringify(comprehensiveUserInfoDataObj)}&orderId=${undefined}&userIdB=${communicating_with_ID}`
       // window.location.href = `/operations/monitor-messages/${this.userId}/edit-see`
     } else {
       window.location.href = `/messaging?orderId=${undefined}&userIdB=${communicating_with_ID}`

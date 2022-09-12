@@ -11,9 +11,9 @@ class OperationActions extends React.Component {
       mode: this.props.match.params.mode
     }
     console.log("THIS FUCKIN UID BEETTER", user)
-    const comprehensiveUserInfoDataJSON = queryParams.get("comprehensiveUserInfo")
-    this.comprehensiveUserInfoDataObj = JSON.parse(comprehensiveUserInfoDataJSON)
-    console.log("did we get what we need bazzoka: ", this.comprehensiveUserInfoDataObj)
+    const comprehensiveSelectedUserInfoDataJSON = queryParams.get("comprehensiveSelectedUserInfo")
+    this.comprehensiveSelectedUserInfoDataObj = JSON.parse(comprehensiveSelectedUserInfoDataJSON)
+    console.log("did we get what we need bazzoka: ", this.comprehensiveSelectedUserInfoDataObj)
 
     this.componentToRender
     this.setupTheProperComponent = this.setupTheProperComponent.bind(this)
@@ -29,9 +29,9 @@ class OperationActions extends React.Component {
       case "monitor-messages":
         // TODO refactor names
         this.componentToRender = <MonitorForMessages
-            comprehensiveUserInfoDataObj={this.comprehensiveUserInfoDataObj}
+            comprehensiveUserInfoDataObj={this.comprehensiveSelectedUserInfoDataObj}
             userID={this.props.match.params.selected_userID}
-            email={this.comprehensiveUserInfoDataObj.email}
+            email={this.comprehensiveSelectedUserInfoDataObj.email}
             loggedinUser={user}
           />
         break;

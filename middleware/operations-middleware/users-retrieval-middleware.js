@@ -11,6 +11,7 @@ module.exports = async (req,res,next)=>{
   // console.log({user: res.locals.user})
 
 
+  // Get rid of logged in user, and no password field
   let users = await User.find({_id: {$ne: user._id}}).select('-password')
 
   // console.log({articles})

@@ -9,8 +9,8 @@ class UsersList extends React.Component {
     this.state = {
     }
     this.mode = parseFullPath4lastpath(window.location.href)
-    console.log("from path:", this.mode)
-    console.log("from props:", this.props.mode)
+    // console.log("from path:", this.mode)
+    // console.log("from props:", this.props.mode)
     this.users = []
     console.log("HERE!", this.props.users)
     console.log(this.props)
@@ -18,26 +18,18 @@ class UsersList extends React.Component {
   }
 
   componentWillReceiveProps(newProps, prevProps) {
-    console.log("what we got?", newProps)
+    // console.log("what we got?", newProps)
     this.users = newProps
-    console.log("this.users:", this.users)
+    // console.log("this.users:", this.users)
     this.userElements = this.users.users.map((userElement, i) => {
       return (
-        // `/operations/${this.props.mode}/${userElement._id}`
         <Link to={{
           pathname: `/operations/${this.props.mode}/${userElement._id}`,
-          search: `?comprehensiveUserInfo=${JSON.stringify(userElement)}`
+          search: `?comprehensiveSelectedUserInfo=${JSON.stringify(userElement)}`
           }} key={i}>
           <UserElement
             user={userElement}
           />
-          {/* <BrowserRouter>
-            <Switch>
-              <Route path={`/test`}>
-                OKKKK
-              </Route>
-            </Switch>
-          </BrowserRouter> */}
         </Link>
       )
     })

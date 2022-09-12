@@ -20,7 +20,7 @@ class CRUDMessages extends React.Component {
     this.loadData_andDisplayDltMsg = this.loadData_andDisplayDltMsg.bind(this)
     this.controls = this.controls.bind(this);
     // display all query string data
-    const comprehensiveUserInfoDataJSON = queryParams.get("comprehensiveUserInfo")
+    const comprehensiveUserInfoDataJSON = queryParams.get("comprehensiveSelectedUserInfo")
     this.userIdB = queryParams.get("userIdB")
 
     this.comprehensiveUserInfoDataObj = JSON.parse(comprehensiveUserInfoDataJSON)
