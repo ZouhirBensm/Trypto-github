@@ -122,7 +122,7 @@ class Orders extends React.Component {
         />
         <div className='wrapper'>
         <OrderTable 
-        userID = {this.userId}
+        selected_userID = {this.userId}
         buttons='normal' 
         order_type={this.props.match.params.order_type} 
         orders={this.state.orders}

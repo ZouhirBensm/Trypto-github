@@ -10,9 +10,9 @@ class HelpForOrders extends React.Component {
   render(){
     return (
       <React.Fragment>
-        <div>HelpForOrders...{this.props.userID}</div>
+        <div>HelpForOrders...{this.props.selected_userID}</div>
         <MyOrders 
-          userID_toQueryWith={this.props.userID}
+          userID_toQueryWith={this.props.selected_userID}
         />
       </React.Fragment>
     )

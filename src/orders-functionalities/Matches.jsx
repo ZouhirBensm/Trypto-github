@@ -107,7 +107,7 @@ class Matches extends React.Component {
         </form>
 
         <OrderTable 
-        userID = {this.userId}
+        selected_userID = {this.userId}
         order_type={this.state.orderstype} 
         orders={this.state.orders}
         buttons='normal'

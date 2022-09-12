@@ -28,7 +28,7 @@ class OrderTable extends React.Component {
     if(this.props.orders){
       ordersRow = this.props.orders.map((order, i) => {
         return <OrderRow 
-        userID = {this.props.userID}
+        selected_userID = {this.props.selected_userID}
         handleClick={this.props.handleClick} 
         loadData={this.props.loadData}
         buttons={order._id === this.state.orderID_toToggle? this.state.buttons: this.props.buttons} 
@@ -75,7 +75,7 @@ class OrderRow extends React.Component {
     // }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.deal = this.deal.bind(this)
-    this.userId = this.props.userID
+    this.selected_userID = this.props.selected_userID
   }
 
   deal(order, e){
@@ -201,7 +201,7 @@ class OrderRow extends React.Component {
       // console.log("\nloggedIn User:\n", this.userId, "\nuser id of the order\n", order.userid._id, "\nequality:\n", this.userId === order.userid._id)
 
       display_normal.push(<td id="deal1" key={`td-deal-key-order:${order._id}`}>
-        <button disabled={this.userId === order.userid._id} onClick={(e) => this.deal(order, e)}>Deal</button>
+        <button disabled={this.selected_userID === order.userid._id} onClick={(e) => this.deal(order, e)}>Deal</button>
         {/* <a href={`/messaging?orderId=${order._id}&userIdB=${order.userid._id}`}>Deal</a> */}
       </td>)
     }

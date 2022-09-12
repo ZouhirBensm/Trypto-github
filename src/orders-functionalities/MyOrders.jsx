@@ -8,7 +8,7 @@ class MyOrders extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      userId: '',
+      // userId: '',
       orderstype: 'buyordersdata',
       orders: [],
       page: 1,
@@ -128,7 +128,7 @@ class MyOrders extends React.Component {
     if(response2.ok){
       // TODO figure out if required to keep track of the userId as state on this component
       this.setState({
-        userId: this.props.userID_toQueryWith,
+        // userId: this.props.userID_toQueryWith,
         orders: serverOBJ.srv_.ORDERS,
         nextPage: serverOBJ.srv_.next,
         previousPage: serverOBJ.srv_.previous,
@@ -179,7 +179,7 @@ class MyOrders extends React.Component {
         </form>
 
         <OrderTable 
-        userID = {this.props.userID_toQueryWith}
+        selected_userID = {this.props.userID_toQueryWith}
         order_type={this.state.orderstype} 
         orders={this.state.orders}
         buttons='my'
