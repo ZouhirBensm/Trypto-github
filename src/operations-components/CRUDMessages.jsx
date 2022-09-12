@@ -15,6 +15,9 @@ class CRUDMessages extends React.Component {
       on_off_limit_previous: true,
       number_of_pages: 1,
     }
+    this.handleDelete = this.handleDelete.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.loadData_andDisplayDltMsg = this.loadData_andDisplayDltMsg.bind(this)
     this.controls = this.controls.bind(this);
     // display all query string data
     const comprehensiveUserInfoDataJSON = queryParams.get("comprehensiveUserInfo")
@@ -23,6 +26,26 @@ class CRUDMessages extends React.Component {
     this.comprehensiveUserInfoDataObj = JSON.parse(comprehensiveUserInfoDataJSON)
 
     console.log(this.comprehensiveUserInfoDataObj, this.userIdB, this.props)
+  }
+
+  displayDeleteMsg(){
+    console.log("ARE WE GOOD!")
+    const reactDiv = document.getElementById("react-div")
+    console.log(reactDiv)
+
+    let div = document.getElementById("popup");
+    
+    console.log(!!(div.innerHTML))
+    if (!!(div.innerHTML)) {
+      console.log("div is filled")
+      div.innerHTML = "Deletion successful!"
+    } else {
+      console.log("div is empty")
+      div.style.display = "block"
+      div.innerHTML = "Deletion successful!"
+      reactDiv.insertBefore(div, reactDiv.firstChild);
+    }
+
   }
 
   controls(_page) {
@@ -35,6 +58,64 @@ class CRUDMessages extends React.Component {
 
   componentDidMount(){
     this.loadData()
+  }
+
+  async deleteAMessage(msg, e){
+    e.preventDefault()
+    console.log(e)
+    // console.log("delete", msg)
+
+    const response = await fetch(`${process.env.ROOT}/operations/deletions/message/${this.props.msg.sender._id}/${this.props.msg.receiver._id}/${this.props.msg._id}`, {
+      method: 'DELETE',
+    })
+
+    let serverOBJ = await response.json()
+
+    console.log(response)
+    console.log(serverOBJ)
+  }
+
+  async handleClick(msg, e){
+    // console.log(e)
+
+    const response = await fetch(`${process.env.ROOT}/operations/deletions/message/${msg.sender._id}/${msg.receiver._id}/${msg._id}`, {
+      method: 'DELETE',
+    })
+
+    let serverOBJ = await response.json()
+    
+    if(response.ok){
+      // let OBJserv_ = await response.json()
+      console.log("deletion success", serverOBJ)
+
+      // TODO update the page
+      let elements_left_in_page = document.getElementsByClassName("a-single-msg-wrapper")
+      if(this.state.on_off_limit_next && elements_left_in_page.length === 1 && this.state.number_of_pages != 1){
+        this.handleDelete(true)
+      } else {
+        this.handleDelete()
+      }
+    } else {
+      console.error("deletion failed!", serverOBJ)
+    }
+
+  }
+
+  handleDelete(_signal = false){
+    console.log(_signal);
+
+    let number
+    (!_signal)? number = 0: number = 1
+
+    this.setState({
+      page: this.state.page-number,
+    }, this.loadData_andDisplayDltMsg)
+  }
+
+  async loadData_andDisplayDltMsg(){
+    console.log("add the delete successful message!")
+    this.displayDeleteMsg()
+    this.loadData();
   }
 
   async loadData(){
@@ -95,7 +176,7 @@ class CRUDMessages extends React.Component {
           // buttons='normal' 
           // order_type={this.props.match.params.order_type} 
           msg_stream={this.state.msg_stream}
-          // loadData={this.loadData}
+          handleClick={this.handleClick}
         />
         <PageSelector
           number_of_pages={this.state.number_of_pages} 

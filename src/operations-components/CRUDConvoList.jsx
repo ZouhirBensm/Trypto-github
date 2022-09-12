@@ -13,6 +13,7 @@ class CRUDConvoList extends React.Component {
         return <ConvoElement
           key={i}
           msg={msg}
+          handleClick={this.props.handleClick} 
         />
       })
       return PageConvoElements
@@ -41,29 +42,29 @@ class ConvoElement extends React.Component {
     }
   }
 
-  async deleteAMessage(msg, e){
-    e.preventDefault()
-    console.log(e)
-    // console.log("delete", msg)
+  // async deleteAMessage(msg, e){
+  //   e.preventDefault()
+  //   console.log(e)
+  //   // console.log("delete", msg)
 
-    const response = await fetch(`${process.env.ROOT}/operations/deletions/message/${this.props.msg.sender._id}/${this.props.msg.receiver._id}/${this.props.msg._id}`, {
-      method: 'DELETE',
-    })
+  //   const response = await fetch(`${process.env.ROOT}/operations/deletions/message/${this.props.msg.sender._id}/${this.props.msg.receiver._id}/${this.props.msg._id}`, {
+  //     method: 'DELETE',
+  //   })
 
-    let serverOBJ = await response.json()
+  //   let serverOBJ = await response.json()
 
-    console.log(response)
-    console.log(serverOBJ)
-  }
+  //   console.log(response)
+  //   console.log(serverOBJ)
+  // }
 
   render() {
     return (
       <React.Fragment>
 
-        <div>
+        <div className="a-single-msg-wrapper">
           {/* Need to add D */}
           {JSON.stringify(this.props.msg)}
-          <button onClick={(e) => this.deleteAMessage(this.props.msg, e)}>Delete</button>
+          <button onClick={(e) => this.props.handleClick(this.props.msg, e)}>Delete</button>
         </div>
 
       </React.Fragment>
