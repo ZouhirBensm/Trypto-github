@@ -19,9 +19,9 @@ class MessageTable extends React.Component {
         key={i} 
         keyy={i} 
         comprehensiveSelectedUserInfoDataObj={this.props.comprehensiveSelectedUserInfoDataObj}
-        userId={this.props.userId}
+        PassedUserID={this.props.PassedUserID}
         convo={convo}
-        loggedinUser={this.props.loggedinUser}
+        loggedinUserObjInfo={this.props.loggedinUserObjInfo}
         />
       })
     } else {
@@ -62,13 +62,14 @@ class MessageRow extends React.Component {
 
     // }
 
+    console.log(this.props.loggedinUserObjInfo)
     this.handleClick = this.handleClick.bind(this)
     
     // this.deal = this.deal.bind(this)
     // this.userId = document.getElementById("userId").innerHTML
-    this.userId = this.props.userId
-    console.log("this.userId @@@", this.userId)
-    this.loggedinUser = this.props.loggedinUser
+    this.PassedUserID = this.props.PassedUserID
+    console.log("this.PassedUserID @@@", this.PassedUserID)
+    this.loggedinUserObjInfo = this.props.loggedinUserObjInfo
   }
 
   handleClick(comprehensiveSelectedUserInfoDataObj, communicating_with_ID, e){
@@ -77,7 +78,7 @@ class MessageRow extends React.Component {
     const parsedURL = utils.parseURL(window.location.href)
     const firstpath = utils.parseFullPath4firstpath(parsedURL[3])
 
-    if(this.loggedinUser.role == "MASTER" && firstpath == "operations"){
+    if(this.loggedinUserObjInfo?.role == "MASTER" && firstpath == "operations"){
       console.log("MAster JOB!")
       console.log(comprehensiveSelectedUserInfoDataObj)
 
@@ -87,8 +88,8 @@ class MessageRow extends React.Component {
       // WORKED MORE
       // window.location.href = `/operations/monitor-messages/edit-see/more?comprehensiveUserInfo=${JSON.stringify(comprehensiveSelectedUserInfoDataObj)}`
 
-      window.location.href = `/operations/monitor-messages/${this.userId}/edit-see?comprehensiveSelectedUserInfo=${JSON.stringify(comprehensiveSelectedUserInfoDataObj)}&orderId=${undefined}&userIdB=${communicating_with_ID}`
-      // window.location.href = `/operations/monitor-messages/${this.userId}/edit-see`
+      window.location.href = `/operations/monitor-messages/${this.PassedUserID}/edit-see?comprehensiveSelectedUserInfo=${JSON.stringify(comprehensiveSelectedUserInfoDataObj)}&orderId=${undefined}&userIdB=${communicating_with_ID}`
+      // window.location.href = `/operations/monitor-messages/${this.PassedUserID}/edit-see`
     } else {
       window.location.href = `/messaging?orderId=${undefined}&userIdB=${communicating_with_ID}`
     }
@@ -108,7 +109,7 @@ class MessageRow extends React.Component {
     console.log("convo.protagonists.protagonists", convo.protagonists.protagonists)
 
 
-    const communicating_with = convo.protagonists.protagonists.filter(protagonist => {return protagonist._id != this.userId})
+    const communicating_with = convo.protagonists.protagonists.filter(protagonist => {return protagonist._id != this.PassedUserID})
     console.log("this first: ", communicating_with[0])
 
     const {_id: communicating_with_ID, email: communicating_with_email} = communicating_with[0]

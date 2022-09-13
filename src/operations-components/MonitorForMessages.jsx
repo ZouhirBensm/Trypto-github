@@ -6,15 +6,16 @@ class MonitorForMessages extends React.Component {
   render(){
     return (
       <React.Fragment>
-        <div>MonitorForMessages...{this.props.userID}</div>
+        <div>MonitorForMessages...{this.props.selected_userID}</div>
         <BrowserRouter>
         <Switch>
           <Route exact path="/operations/monitor-messages/:userId" render={
             (props) => <Messages {...props} 
             comprehensiveSelectedUserInfoDataObj={this.props.comprehensiveSelectedUserInfoDataObj}
-              userID_toQueryWith={this.props.userID}
-              email_toQueryWith={this.props.email}
-              loggedinUser={this.props.loggedinUser}
+              userID_toQueryWith={this.props.selected_userID}
+              PassedUserEmail={this.props.selected_user_email}
+              // passed the entire user object but in reality just needed the role field
+              loggedinUserObjInfo={this.props.loggedinUserObjInfo}
             />
           } />
           {/* WORKED MORE */}

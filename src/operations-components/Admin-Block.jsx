@@ -15,7 +15,7 @@ class Admin_Block extends React.Component {
   render(){
     return (
       <Link to={this.props.link}>
-        <div className={`${this.props.className} wrapper`}>
+        <div className={`${this.props.className}`}>
           <h1>{this.props.title}</h1>
         </div>
       </Link>

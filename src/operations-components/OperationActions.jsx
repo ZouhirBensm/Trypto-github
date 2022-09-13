@@ -27,13 +27,12 @@ class OperationActions extends React.Component {
         this.componentToRender = <HelpForOrders selected_userID={this.props.match.params.selected_userID}/>
         break;
       case "monitor-messages":
-        // TODO refactor names
         this.componentToRender = <MonitorForMessages
-        comprehensiveSelectedUserInfoDataObj={this.comprehensiveSelectedUserInfoDataObj}
-            userID={this.props.match.params.selected_userID}
-            email={this.comprehensiveSelectedUserInfoDataObj.email}
-            loggedinUser={user}
-          />
+          comprehensiveSelectedUserInfoDataObj={this.comprehensiveSelectedUserInfoDataObj}
+          selected_userID={this.props.match.params.selected_userID}
+          selected_user_email={this.comprehensiveSelectedUserInfoDataObj.selected_user_email}
+          loggedinUserObjInfo={user}
+        />
         break;
       case "manage-subs":
       this.componentToRender = <ManageSubscriptions/>

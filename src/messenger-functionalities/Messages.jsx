@@ -23,14 +23,15 @@ class Messages extends React.Component {
       number_of_pages: 1,
     }
     // this._userId = document.getElementById("userId").innerHTML
-    this._userId = this.props.userID_toQueryWith
+    this._PassedUserID = this.props.userID_toQueryWith
     // this._currentUserEmail = document.getElementById("currentUserEmail").innerHTML
-    this._currentUserEmail = this.props.email_toQueryWith
+    // TODO refactor name_
+    this._PassedUserEmail = this.props.PassedUserEmail
     this.controls = this.controls.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this)
     // this.handleChange = this.handleChange.bind(this)
     // this.repairData = this.repairData.bind(this)
-    this.loggedinUser = this.props.loggedinUser
+    this.loggedinUserObjInfo = this.props.loggedinUserObjInfo
     
   }
 
@@ -45,7 +46,7 @@ class Messages extends React.Component {
   }
 
   async loadData(){
-    let response = await fetch(`${process.env.ROOT}/messaging/paginated-messages/${this._userId}?page=${this.state.page}&limit=${this.state.limit}`)
+    let response = await fetch(`${process.env.ROOT}/messaging/paginated-messages/${this._PassedUserID}?page=${this.state.page}&limit=${this.state.limit}`)
     
     // console.log("response: ", response)
     
@@ -102,15 +103,15 @@ class Messages extends React.Component {
       <React.Fragment>
         <div className="wrapper">
           <h2>Messages Component</h2>
-          <h4>Logged in as: {this._currentUserEmail}</h4>
+          <h4>Logged in as: {this._PassedUserEmail}</h4>
           {/* TODO rename uID to reflect stage passedo on to */}
           <MessageTable 
           comprehensiveSelectedUserInfoDataObj={this.props.comprehensiveSelectedUserInfoDataObj}
-          userId={this._userId}
+          PassedUserID={this._PassedUserID}
           // buttons='normal' 
           // order_type={this.props.match.params.order_type} 
           convos={this.state.convos}
-          loggedinUser={this.loggedinUser}
+          loggedinUserObjInfo={this.loggedinUserObjInfo}
           />
           <PageSelector 
           number_of_pages={this.state.number_of_pages} 
