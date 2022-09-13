@@ -191,11 +191,11 @@ operationsBackend_app_router.delete('/deletions/message/:userA/:userB/:msg_strea
 
   if(originalMsg_StreamLength>afterMsg_StreamLength){
     res.status(200).json({
-      SERVER: "deletion mock delete!"
+      SERVER: "Deletion success!"
     })
   } else {
-    res.status(500).json({
-      SERVER: "no deletion took place!"
+    res.status(202).json({
+      SERVER: "No deletion took place!"
     })
   }
 })

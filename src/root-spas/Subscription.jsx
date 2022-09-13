@@ -5,8 +5,6 @@ import utils from "../../full-stack-libs/utils"
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading"
 
-import SubscAlter from "../subscription-functionalities/SubscAlter"
-
 
 // import Register from "./login-register-functionalities/Register"
 // import ChoosePlan from "./subscription-functionalities/ChoosePlan"
