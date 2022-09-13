@@ -31,6 +31,8 @@ class Messages extends React.Component {
     // this.handleChange = this.handleChange.bind(this)
     // this.repairData = this.repairData.bind(this)
     this.loggedinUserObjInfo = this.props.loggedinUserObjInfo
+
+    console.log("WTFFFFFFFFF: ", this._PassedUserID, this._PassedUserEmail)
     
   }
 

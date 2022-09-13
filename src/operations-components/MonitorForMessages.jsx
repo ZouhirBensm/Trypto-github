@@ -3,6 +3,11 @@ import Messages from '../messenger-functionalities/Messages'
 import CRUDMessages from './CRUDMessages'
 import { Link, BrowserRouter, Route, Switch } from 'react-router-dom';
 class MonitorForMessages extends React.Component {
+  constructor(props){
+    super(props)
+    this.state={}
+    console.log("VVVVVVVVVVVV:", this.props.selected_userID, this.props.selected_user_email)
+  }
   render(){
     return (
       <React.Fragment>

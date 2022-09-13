@@ -28,7 +28,7 @@ class Messaging extends React.Component {
           <Route exact path="/messaging/messages" render={
             (props) => <Messages {...props} 
             userID_toQueryWith={userId} 
-            email_toQueryWith={currentUserEmail}
+            PassedUserEmail={currentUserEmail}
             loggedinUser={user}
             />
           }/> 

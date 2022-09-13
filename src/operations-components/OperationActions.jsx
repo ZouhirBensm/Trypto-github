@@ -30,7 +30,7 @@ class OperationActions extends React.Component {
         this.componentToRender = <MonitorForMessages
           comprehensiveSelectedUserInfoDataObj={this.comprehensiveSelectedUserInfoDataObj}
           selected_userID={this.props.match.params.selected_userID}
-          selected_user_email={this.comprehensiveSelectedUserInfoDataObj.selected_user_email}
+          selected_user_email={this.comprehensiveSelectedUserInfoDataObj.email}
           loggedinUserObjInfo={user}
         />
         break;
