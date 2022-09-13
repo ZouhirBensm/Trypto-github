@@ -71,7 +71,7 @@ messagingBackend_app_router.get('/messages', require_loggedin_for_pages(true), (
 })
 
 
-messagingBackend_app_router.get('/paginated-messages/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), paginatingSetupMiddleware, destructureURLandRefererMiddleware, messagesInfoRetrievalMiddleware, distributePaginatedDataController)
+messagingBackend_app_router.get('/paginated-messages/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), paginatingSetupMiddleware, destructureURLandRefererMiddleware, messagesInfoRetrievalMiddleware, distributePaginatedDataController)
 
 
 module.exports = messagingBackend_app_router

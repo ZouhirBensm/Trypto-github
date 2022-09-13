@@ -5,7 +5,7 @@ const User = require('../../models/User')
 module.exports = async (req,res,next)=>{
   
   try{
-    await User.findByIdAndDelete(req.session.userId, (error, user) =>{ 
+    await User.findByIdAndDelete(req.params.userId, (error, user) =>{ 
       if(error){res.locals.notifications.push(error);}
       console.log("user deleted", user)
     })

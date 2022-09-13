@@ -10,27 +10,36 @@ import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading"
 
 
-const Login = loadable(() => import("../login-register-functionalities/Login"),{
-  fallback: <Loading/>
+const Login = loadable(() => import("../login-register-functionalities/Login"), {
+  fallback: <Loading />
 });
-const Profile = loadable(() => import("../login-register-functionalities/Profile"),{
-  fallback: <Loading/>
+const Profile = loadable(() => import("../login-register-functionalities/Profile"), {
+  fallback: <Loading />
 });
 
 
-import { BrowserRouter, Route, Switch} from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 class MgtUser extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+    console.log("userId:", userId)
+    // this.sessionUser = sessionUser
+    // console.log("sessionUser: ", sessionUser)
+  }
   render() {
     return (
-      <BrowserRouter> 
-        <Switch> 
+      <BrowserRouter>
+        <Switch>
           <Route path="/users/login" render={
-            (props) => <Login {...props} loginTo={"/users/login"}/>
-          }/> 
-          <Route path="/users/profile" component={Profile}/>
-        </Switch>     
-      </BrowserRouter> 
+            (props) => <Login {...props} loginTo={"/users/login"} />
+          } />
+          <Route path="/users/profile" render={
+            (props) => <Profile {...props} usedUserID={userId} sessionUser={sessionUser}/>
+          } />
+        </Switch>
+      </BrowserRouter>
     )
   }
 }

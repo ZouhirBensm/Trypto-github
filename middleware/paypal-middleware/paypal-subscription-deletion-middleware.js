@@ -10,7 +10,7 @@ module.exports = async (req,res, next) =>{
   // Find Subscription information
   let subscriptionInfo
   try {
-    subscriptionInfo = await Subscriber.findOne({userID: req.session.userId}).select('plan subscriptionDateTime paypal_subscriptionID paypal_plan_id')
+    subscriptionInfo = await Subscriber.findOne({userID: req.body.userId}).select('plan subscriptionDateTime paypal_subscriptionID paypal_plan_id')
   } catch(error){
     return next(error)
   }
@@ -25,7 +25,7 @@ module.exports = async (req,res, next) =>{
   // let sessionUser = null
 
   // let query = User.findOne({
-  //   _id: req.session.userId,
+  //   _id: req.body.userId,
   //   subscriptionID: subscriptionInfo._id
   // })
   // .select('subscriptionID -_id')

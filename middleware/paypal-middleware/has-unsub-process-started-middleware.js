@@ -7,7 +7,7 @@ module.exports = async (req, res, next)=>{
   let hasUnSubProcessStarted
   try {
     hasUnSubProcessStarted = await Subscriber.exists({
-      userID: req.session.userId,
+      userID: req.body.userId,
       expireAt: { $ne: null }
     })
   } catch(error){

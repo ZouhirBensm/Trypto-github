@@ -7,10 +7,14 @@ const BuyCryptoOrder = require('../../models/home-orders-models/BuyCryptoOrder')
 module.exports = (req,res,next)=>{
 
   res.locals.notifications = []
+
   console.log("\n\n\n\n____Process to delete user and all of his orders___")
+
   console.log(req.params.userId, " vs ", req.session.userId)
   console.log("Session:", req.session)
+
   console.log("\n\nwhat does this resolve to?", !req.session.userId, req.params.userId != req.session.userId)
+  
   // && !req.session.userId
   if((req.params.userId != req.session.userId) || (!req.session.userId)) {
   // if(true) {

@@ -23,7 +23,7 @@ module.exports = async (req,res,next)=>{
     let hasUnSubProcessStarted
     try {
       hasUnSubProcessStarted = await Subscriber.exists({
-        userID: req.session.userId,
+        userID: req.params.userId,
         expireAt: { $ne: null }
       })
     } catch(e){
@@ -38,7 +38,7 @@ module.exports = async (req,res,next)=>{
       try {
         await mongodbClient.connect();
         let nullify_user_subscription_jobs_collection = mongodbClient.db(ENV.database_name).collection("effect_users_to_unsubscribe_agendajobs")
-        nullify_user_subscription_jobs_deletion_response = await nullify_user_subscription_jobs_collection.findOneAndDelete({name: `Nullify particular User: ${req.session.userId} subscriptionID field and set role to UNSUBSCRIBER`})
+        nullify_user_subscription_jobs_deletion_response = await nullify_user_subscription_jobs_collection.findOneAndDelete({name: `Nullify particular User: ${req.params.userId} subscriptionID field and set role to UNSUBSCRIBER`})
         console.log("\n\nnullify_user_subscription_jobs_deletion_response:\n\n", nullify_user_subscription_jobs_deletion_response)
         console.log(1)
       } catch (e) {
@@ -52,7 +52,7 @@ module.exports = async (req,res,next)=>{
     } else { // If the unsub process not triggered their is no job to nullify, and  we have established that the user is a subscriber, therefor we make a request to paypal to unsubscribe
       let subscriptionInfo
       try {
-        subscriptionInfo = await Subscriber.findOne({userID: req.session.userId}).select('-_id paypal_subscriptionID')
+        subscriptionInfo = await Subscriber.findOne({userID: req.params.userId}).select('-_id paypal_subscriptionID')
         console.log("\nsubscriptionInfo___________1\n", subscriptionInfo)
       } catch(e){
         res.locals.notifications.push(e);
@@ -82,10 +82,10 @@ module.exports = async (req,res,next)=>{
 
 
 
-    // Delete Subscriber where userid = req.session.userId
+    // Delete Subscriber where userid = req.params.userId
     let subscriber_deletion_response
     try{
-      subscriber_deletion_response = await Subscriber.findOneAndDelete({userID: req.session.userId})
+      subscriber_deletion_response = await Subscriber.findOneAndDelete({userID: req.params.userId})
     } catch(error){
       res.locals.notifications.push(error);
     }

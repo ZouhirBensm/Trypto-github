@@ -99,6 +99,7 @@ homeOrdersBackend_app_router.get('/users/login', require_loggedin_for_pages(fals
   var JSX_to_load = 'MgtUser';
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
+    sessionUser: undefined
   })
 })
 
@@ -113,9 +114,11 @@ homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(fal
   })
 })
 
+// TODO to add later
+// require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER])
+homeOrdersBackend_app_router.get('/users/profile', async (req,res,next)=>{
 
-homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]) , async (req,res,next)=>{
-
+  // TODO put this in a middleware
   let sessionUser = null
 
   let query = User.findOne({
@@ -203,8 +206,10 @@ homeOrdersBackend_app_router.get('/cryptoprice', async (req,res,next)=>{
   //console.log(typeof data.data, typeof JSON.stringify(data.data))
 })
 
+// TODO put back needed middlewares
+// checkPathUserIdMiddleware
 
-homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', checkPathUserIdMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware, sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteUserMiddleware, logoutMiddleware, (req,res,next)=>{
+homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware, sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteUserMiddleware, logoutMiddleware, (req,res,next)=>{
   console.log("Final point: ", res.locals.notifications.length, res.locals.notifications.length == 0, res.locals.notifications.length === 0)
 
   if (res.locals.notifications.length === 0){

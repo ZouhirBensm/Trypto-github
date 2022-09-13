@@ -73,7 +73,9 @@ paypalBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
-paypalBackend_app_router.post('/unsubscribe', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.USER.SUBSCRIBER.BASIC]), checkPostedUserID_is_SessionUserIDMiddleware, hasUnSubProcessStartedMiddleware, paypalSubscriptionDeletionMiddleware, async (req,res,next) => {
+// TODO to be put back! Add guards
+// require_loggedin_for_data(true), authenticate_role_for_data([ROLE.USER.SUBSCRIBER.BASIC]), checkPostedUserID_is_SessionUserIDMiddleware
+paypalBackend_app_router.post('/unsubscribe', hasUnSubProcessStartedMiddleware, paypalSubscriptionDeletionMiddleware, async (req,res,next) => {
 
   let paypal_cancel_sub_response_status = res.locals.paypalCancelSubResponseStatus
   let subscriptionInfo = res.locals.subscriptionInfo
@@ -105,17 +107,17 @@ paypalBackend_app_router.post('/unsubscribe', require_loggedin_for_data(true), a
       return next(error)
     }
 
-    agenda.define(`Nullify particular User: ${req.session.userId} subscriptionID field and set role to UNSUBSCRIBER`, async (job, done) => {
+    agenda.define(`Nullify particular User: ${req.body.userId} subscriptionID field and set role to UNSUBSCRIBER`, async (job, done) => {
       let userUnsubscribed
-      try {userUnsubscribed = await User.updateOne({_id: req.session.userId}, {subscriptionID: null, role: ROLE.USER.NOTSUBSCRIBER});} catch(e) {return next(e)}
+      try {userUnsubscribed = await User.updateOne({_id: req.body.userId}, {subscriptionID: null, role: ROLE.USER.NOTSUBSCRIBER});} catch(e) {return next(e)}
       console.log("executing the event: Nullify particular User subscriptionID field and set role to UNSUBSCRIBER")
       done()
-      const numRemoved = await agenda.cancel({ name: `Nullify particular User: ${req.session.userId} subscriptionID field and set role to UNSUBSCRIBER`});
+      const numRemoved = await agenda.cancel({ name: `Nullify particular User: ${req.body.userId} subscriptionID field and set role to UNSUBSCRIBER`});
       console.log("cancelled!", `value: ${userUnsubscribed} & ${numRemoved}`)
     });
 
 
-    await agenda.schedule(unsubscriptionTakesEffectOnBidBlock, `Nullify particular User: ${req.session.userId} subscriptionID field and set role to UNSUBSCRIBER`);
+    await agenda.schedule(unsubscriptionTakesEffectOnBidBlock, `Nullify particular User: ${req.body.userId} subscriptionID field and set role to UNSUBSCRIBER`);
 
     res.status(httpStatus.StatusCodes.OK).json({
       server: {

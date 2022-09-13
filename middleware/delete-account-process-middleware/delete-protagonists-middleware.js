@@ -9,7 +9,7 @@ module.exports = async (req,res,next)=>{
   try {
     array_of_protagonist_ids_where_user_is_engaged = await Protagonist.find({
       protagonists: {
-        $elemMatch: {"$in": [req.session.userId]}
+        $elemMatch: {"$in": [req.params.userId]}
       }
     }, { _id: 1})
   } catch(e){
@@ -22,7 +22,7 @@ module.exports = async (req,res,next)=>{
 
   await Protagonist.deleteMany({
     protagonists: {
-      $elemMatch: {"$in": [req.session.userId]}
+      $elemMatch: {"$in": [req.params.userId]}
     }
   }, (error, response)=>{
     if(error){res.locals.notifications.push(error);}

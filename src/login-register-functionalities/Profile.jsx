@@ -6,18 +6,22 @@ import billing_utils from '../../full-stack-libs/utils.billing'
 
 class Profile extends React.Component {
 
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       unsub_popup: undefined,
       errors_popup: []
 
     }
+    console.log("usedUserID: ", this.props.usedUserID)
+    // console.log("sessionUser: ", this.props.sessionUser)
+
     this.handleProfileDeletion = this.handleProfileDeletion.bind(this)
     this.paypalUnSub = this.paypalUnSub.bind(this)
   }
 
   async paypalUnSub(e){
+    e.preventDefault()
     console.log("paypal unsub!")
     let response
     response = await fetch(`${process.env.ROOT}/paypal/unsubscribe`, {
@@ -27,7 +31,7 @@ class Profile extends React.Component {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        userId: userId,
+        userId: this.props.usedUserID,
         reason: "test_reason",
       })
     })
@@ -52,20 +56,26 @@ class Profile extends React.Component {
 
   async handleProfileDeletion(e){
     e.preventDefault()
-    const userId = document.getElementById("userId").innerHTML
-    console.log("in handleProfileDeletion(), userId?", userId)
+    console.log("deletion proper uid?", this.props.usedUserID)
+    const userId = this.props.usedUserID
 
     const response = await fetch(`${process.env.ROOT}/users/profile/delete/${userId}`, {
       method: 'DELETE',
     })
     console.log(response)
+    //__________________________
     
     const srv_ = await response.json()
     console.log(srv_)
 
     if(response.status === 200){
       console.log("do we make it here?")
+      // TODO
+      // Here depending on the page
+      // if user account:
       window.location.href = `${process.env.ROOT}?popup=${srv_.srv_}`;
+      // if operations
+      // display pop up or go to other page with pop up
     } else {
       this.setState({
         errors_popup: srv_.error.message.admin_message
@@ -87,8 +97,12 @@ class Profile extends React.Component {
       unsub_popup.innerHTML = this.state.unsub_popup
     }
 
+
+
     // console.log("sessionUser!!!! ", sessionUser, userId)
     // User card information
+    let sessionUser = this.props.sessionUser
+
     let userEmail = sessionUser.email
     let registrationTimeDate = sessionUser.registrationDateTime
     // Subscription card information
@@ -109,7 +123,7 @@ class Profile extends React.Component {
           }
           section={
             [
-              {prepend: 'userId:', value: `${userId}`},
+              {prepend: 'userId:', value: `${this.props.usedUserID}`},
               {prepend: 'registrationDatetime:', value: `${registrationTimeDate}`},
             ]
           }

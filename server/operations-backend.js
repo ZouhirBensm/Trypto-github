@@ -12,6 +12,7 @@ const CATEGORY = require('../full-stack-libs/Types/ArticleCategories')
 const Message = require('../models/messaging-models/Message')
 const Protagonist = require('../models/messaging-models/Protagonist')
 const Article = require('../models/articles-models/Article')
+const User = require('../models/User')
 
 
 
@@ -115,9 +116,11 @@ operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/man
   })
 })
 
+// TODO put back
+// , require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER])
 // for test 4@
 // , authenticate_role_for_pages([ROLE.MASTER])
-operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/manage-subs/:userID'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
+operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/manage-subs/:userID'], (req, res) => {
 
   var JSX_to_load
   JSX_to_load = 'Operations';
@@ -126,6 +129,38 @@ operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages
     JSX_to_load: JSX_to_load,
   })
 })
+
+// TODO add guards
+operationsBackend_app_router.get('/detailed-user-information/:userID', async (req, res) => {
+  // TODO put this in a middleware
+  // TODO refactor session user name 
+  let sessionUser = null
+
+  let query = User.findOne({
+    _id: req.params.userID,
+    // subscriptionID: { $ne: null }
+  })
+    .select('registrationDateTime email subscriptionID -_id')
+
+  query = query.populate({
+    // Populate protagonists
+    path: "subscriptionID",
+    // Fields allowed to populate with
+    select: "-_id plan subscriptionDateTime paypal_subscriptionID paypal_plan_id expireAt",
+  })
+
+  sessionUser = await query.exec()
+  console.log({ sessionUser })
+
+  res.status(200).json({
+    sessionUser
+  })
+
+})
+
+
+
+
 
 operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', (req, res) => {
 
@@ -178,7 +213,7 @@ operationsBackend_app_router.delete('/deletions/message/:userA/:userB/:msg_strea
 
 
   let deleteMessageReturn
-  let query = Message.findOneAndUpdate({ protagonists: identifyProtagonistIDoftheConvo_ID[0]._id }, { $pull: { msg_stream: { _id: req.params.msg_stream_element_id } } }, {rawResult:true, strict:false, new:true})
+  let query = Message.findOneAndUpdate({ protagonists: identifyProtagonistIDoftheConvo_ID[0]._id }, { $pull: { msg_stream: { _id: req.params.msg_stream_element_id } } }, { rawResult: true, strict: false, new: true })
 
 
   deleteMessageReturn = await query.exec()
@@ -189,7 +224,7 @@ operationsBackend_app_router.delete('/deletions/message/:userA/:userB/:msg_strea
 
 
 
-  if(originalMsg_StreamLength>afterMsg_StreamLength){
+  if (originalMsg_StreamLength > afterMsg_StreamLength) {
     res.status(200).json({
       SERVER: "Deletion success!"
     })
