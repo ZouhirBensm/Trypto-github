@@ -1,4 +1,5 @@
 const {RoleNotPermitedError} = require('../../custom-errors/custom-errors')
+const httpStatus = require("http-status-codes")
 
 
 function authenticate_role_for_pages(reference_roles){
@@ -12,7 +13,7 @@ function authenticate_role_for_pages(reference_roles){
     if(reference_roles.includes(res.locals.user?.role)){
       next()
     } else {
-      return res.redirect('/')
+      return res.status(httpStatus.StatusCodes.PERMANENT_REDIRECT).redirect('/')
     }
   }
 }

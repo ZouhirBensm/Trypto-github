@@ -47,8 +47,6 @@ module.exports = async (req,res,next)=>{
   let mybuyOrders = buyOrders.filter((order_entry) => {
     // console.log(order_entry.userid._id, path_param_userID)
     // console.log(order_entry.userid._id.toString() == path_param_userID)
-    
-    // TODO temporary solution, in the match page it uses req.session.userId, because the call has no path parameter userID. This should change to integrate one for consistency
 
     console.log(order_entry.userid._id.toString() == res.locals.path_param_userID)
     // console.log(order_entry.userid._id.toString() == req.session.userId)

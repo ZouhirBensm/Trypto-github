@@ -47,7 +47,6 @@ articlesBackend_app_router.get(['/:category?', '/individual_article/:articleID']
 })
 
 
-// TODO add the require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]) and test out
 articlesBackend_app_router.get('/paginated-articles/data', requireRefererMiddleware, paginatingSetupMiddleware, destructureURLandRefererMiddleware, articlesRetrievalMiddleware, distributePaginatedDataController)
 
 

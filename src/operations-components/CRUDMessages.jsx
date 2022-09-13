@@ -88,7 +88,6 @@ class CRUDMessages extends React.Component {
       // let OBJserv_ = await response.json()
       console.log("deletion success", serverOBJ)
 
-      // TODO update the page
       let elements_left_in_page = document.getElementsByClassName("a-single-msg-wrapper")
       if(this.state.on_off_limit_next && elements_left_in_page.length === 1 && this.state.number_of_pages != 1){
         this.handleDelete(true)
@@ -162,10 +161,6 @@ class CRUDMessages extends React.Component {
 
   }
 
-
-
-  
-  // TODO comprehensiveUserInfo is using the password in the object need to get rid of that
   render(){
 
     return (

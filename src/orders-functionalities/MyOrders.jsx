@@ -126,7 +126,6 @@ class MyOrders extends React.Component {
     console.log("Do we get what is required from the backend??", serverOBJ)
 
     if(response2.ok){
-      // TODO figure out if required to keep track of the userId as state on this component
       this.setState({
         // userId: this.props.userID_toQueryWith,
         orders: serverOBJ.srv_.ORDERS,

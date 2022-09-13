@@ -25,7 +25,6 @@ class Messages extends React.Component {
     // this._userId = document.getElementById("userId").innerHTML
     this._PassedUserID = this.props.userID_toQueryWith
     // this._currentUserEmail = document.getElementById("currentUserEmail").innerHTML
-    // TODO refactor name_
     this._PassedUserEmail = this.props.PassedUserEmail
     this.controls = this.controls.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this)
@@ -104,7 +103,6 @@ class Messages extends React.Component {
         <div className="wrapper">
           <h2>Messages Component</h2>
           <h4>Logged in as: {this._PassedUserEmail}</h4>
-          {/* TODO rename uID to reflect stage passedo on to */}
           <MessageTable 
           comprehensiveSelectedUserInfoDataObj={this.props.comprehensiveSelectedUserInfoDataObj}
           PassedUserID={this._PassedUserID}

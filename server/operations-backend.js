@@ -138,8 +138,6 @@ operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', (req, res
   })
 })
 
-
-// TODO add the require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]) and test out
 operationsBackend_app_router.get('/paginated-users/users-for-display', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), paginatingSetupMiddleware, destructureURLandRefererMiddleware, usersRetrievalMiddleware, distributePaginatedDataController)
 
 operationsBackend_app_router.get('/test', (req, res) => {
@@ -153,14 +151,10 @@ operationsBackend_app_router.get('/test', (req, res) => {
 
 })
 
-
-// TODO add guards to be logged in and master
-operationsBackend_app_router.get('/paginated-messages/:userID', paginatingSetupMiddleware, destructureURLandRefererMiddleware, messagesRetrievalMiddleware, distributePaginatedDataController)
+operationsBackend_app_router.get('/paginated-messages/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), paginatingSetupMiddleware, destructureURLandRefererMiddleware, messagesRetrievalMiddleware, distributePaginatedDataController)
 
 
-// TODO add guards to be logged in and master
-// , require_loggedin_for_data(true)
-operationsBackend_app_router.delete('/deletions/message/:userA/:userB/:msg_stream_element_id', async (req, res, next) => {
+operationsBackend_app_router.delete('/deletions/message/:userA/:userB/:msg_stream_element_id', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), async (req, res, next) => {
   console.log("we got on the server: ", req.params.userA, req.params.userB, req.params.msg_stream_element_id)
 
   // Do the deletion
@@ -205,21 +199,6 @@ operationsBackend_app_router.delete('/deletions/message/:userA/:userB/:msg_strea
     })
   }
 })
-
-
-// , paginatingSetupMiddleware, destructureURLandRefererMiddleware, usersRetrievalMiddleware, distributePaginatedDataController
-
-// TODO delete this
-// operationsBackend_app_router.get('/test', (req,res) => {
-//   console.log("in the test endpoint")
-//   var JSX_to_load
-//   JSX_to_load = 'Operations';
-
-//   res.render('generic-boilerplate-ejs-to-render-react-components-operations', { 
-//     JSX_to_load : JSX_to_load, 
-//   })
-
-// })
 
 
 

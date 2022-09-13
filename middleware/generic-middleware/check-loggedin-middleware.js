@@ -1,4 +1,5 @@
 const { LoggingInError } = require("../../custom-errors/custom-errors")
+const httpStatus = require("http-status-codes")
 
 // module.exports = {
 //   not_loggedin_for_pages: (req, res, next) => {
@@ -43,12 +44,12 @@ function require_loggedin_for_pages(require_login){
       console.log("ok")
       if(!req.session.userId){
         console.log("ici")
-        return res.redirect('/')
+        return res.status(httpStatus.StatusCodes.PERMANENT_REDIRECT).redirect('/')
       }
       next()
     } else {
       if(req.session.userId){
-        return res.redirect('/')
+        return res.status(httpStatus.StatusCodes.PERMANENT_REDIRECT).redirect('/')
       }
       next()
     }

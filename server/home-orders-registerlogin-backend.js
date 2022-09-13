@@ -244,7 +244,7 @@ homeOrdersBackend_app_router.post('/:type_order/save', require_loggedin_for_data
 homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (req,res)=>{
   //Destroy the Session data, including the userId property
   req.session.destroy(()=>{
-      res.redirect('/?popup=You have successfully logged out')
+      res.status(httpStatus.StatusCodes.PERMANENT_REDIRECT).redirect('/?popup=You have successfully logged out')
   })
 })
 

@@ -1,4 +1,3 @@
-// TODO put the filterObject functions in the full-stack-lib utils
 function filterObject(crypto = null, category = "RECENT"){
   // let filter_object = {}
   // filter_object = path_param_userID? (filter_object.userid = path_param_userID): null  
