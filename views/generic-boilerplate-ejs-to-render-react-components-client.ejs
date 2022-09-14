@@ -24,12 +24,16 @@
 <%}%>
 
 <!-- V1 -->
-<%if(locals.sessionUser){%>
+<%if(locals.selectedUser){%>
 <script type='text/javascript'>
-  let sessionUser =  <%-JSON.stringify(sessionUser)%>;
+  let selectedUser =  <%-JSON.stringify(selectedUser)%>;
   // console.log(sessionUser) 
 </script>
-<%}%>
+<%} else { %>
+  <script type='text/javascript'>
+    let selectedUser =  undefined;
+  </script>
+<% } %>
 
 <!-- Capable from server send data to determine what React base component to render: Either App.js or Databases.js -->
 <script type="text/javascript" src="/dist/<%= JSX_to_load %>.js"></script>

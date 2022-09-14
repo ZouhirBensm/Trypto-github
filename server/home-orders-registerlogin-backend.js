@@ -99,7 +99,7 @@ homeOrdersBackend_app_router.get('/users/login', require_loggedin_for_pages(fals
   var JSX_to_load = 'MgtUser';
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
-    sessionUser: undefined
+    selectedUser: undefined
   })
 })
 
@@ -119,7 +119,7 @@ homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(fal
 homeOrdersBackend_app_router.get('/users/profile', async (req,res,next)=>{
 
   // TODO put this in a middleware
-  let sessionUser = null
+  let selectedUser = null
 
   let query = User.findOne({
     _id: req.session.userId,
@@ -134,15 +134,15 @@ homeOrdersBackend_app_router.get('/users/profile', async (req,res,next)=>{
     select: "-_id plan subscriptionDateTime paypal_subscriptionID paypal_plan_id expireAt",
   })
   
-  sessionUser = await query.exec()
-  console.log({sessionUser})
+  selectedUser = await query.exec()
+  console.log({selectedUser})
   
 
   var JSX_to_load = 'MgtUser';
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load, 
     // [sessionUser? "sessionUser": null]: sessionUser,
-    sessionUser: sessionUser,
+    selectedUser: selectedUser,
     // [req.params.what_page === "profile" ? "userId": null]: req.session.userId,
   })
 })
@@ -209,7 +209,8 @@ homeOrdersBackend_app_router.get('/cryptoprice', async (req,res,next)=>{
 // TODO put back needed middlewares
 // checkPathUserIdMiddleware
 
-homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware, sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteUserMiddleware, logoutMiddleware, (req,res,next)=>{
+homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware,
+sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteUserMiddleware, logoutMiddleware, (req,res,next)=>{
   console.log("Final point: ", res.locals.notifications.length, res.locals.notifications.length == 0, res.locals.notifications.length === 0)
 
   if (res.locals.notifications.length === 0){

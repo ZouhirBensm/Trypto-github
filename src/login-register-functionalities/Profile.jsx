@@ -14,7 +14,7 @@ class Profile extends React.Component {
 
     }
     console.log("usedUserID: ", this.props.usedUserID)
-    // console.log("sessionUser: ", this.props.sessionUser)
+    console.log("selectedUser: ", this.props.selectedUser)
 
     this.handleProfileDeletion = this.handleProfileDeletion.bind(this)
     this.paypalUnSub = this.paypalUnSub.bind(this)
@@ -70,12 +70,9 @@ class Profile extends React.Component {
 
     if(response.status === 200){
       console.log("do we make it here?")
-      // TODO
-      // Here depending on the page
-      // if user account:
+      // TODO Here depending on the page if user account:
       window.location.href = `${process.env.ROOT}?popup=${srv_.srv_}`;
-      // if operations
-      // display pop up or go to other page with pop up
+      // if /operations display pop up or go to other page with pop up
     } else {
       this.setState({
         errors_popup: srv_.error.message.admin_message
@@ -99,16 +96,16 @@ class Profile extends React.Component {
 
 
 
-    // console.log("sessionUser!!!! ", sessionUser, userId)
+    // console.log("selectedUser!!!! ", selectedUser, userId)
     // User card information
-    let sessionUser = this.props.sessionUser
+    let selectedUser = this.props.selectedUser
 
-    let userEmail = sessionUser.email
-    let registrationTimeDate = sessionUser.registrationDateTime
+    let userEmail = selectedUser.email
+    let registrationTimeDate = selectedUser.registrationDateTime
     // Subscription card information
-    let plan = sessionUser.subscriptionID?.plan
-    let subscriptionDateTime = sessionUser.subscriptionID?.subscriptionDateTime
-    let [current_billing_cycle_botom_datetime, current_billing_cycle_top_datetime] = billing_utils.BillingDateTimeCalculator(sessionUser.subscriptionID?.subscriptionDateTime)
+    let plan = selectedUser.subscriptionID?.plan
+    let subscriptionDateTime = selectedUser.subscriptionID?.subscriptionDateTime
+    let [current_billing_cycle_botom_datetime, current_billing_cycle_top_datetime] = billing_utils.BillingDateTimeCalculator(selectedUser.subscriptionID?.subscriptionDateTime)
 
     return (
       <React.Fragment>
@@ -133,7 +130,7 @@ class Profile extends React.Component {
           position={0}
         />
 
-        { sessionUser.subscriptionID ? 
+        { selectedUser.subscriptionID ? 
           <CardShell 
             colapsable={false}
             title_card={
@@ -148,7 +145,7 @@ class Profile extends React.Component {
                 {prepend: 'subscription date time:', value: `${subscriptionDateTime}`},
                 {prepend: 'next billing dateTime:', value: `${current_billing_cycle_top_datetime}`},
                 {prepend: 'paid for current billing cycle:', value: `FROM: ${current_billing_cycle_botom_datetime} TO: ${current_billing_cycle_top_datetime}`},
-                ...(sessionUser.subscriptionID?.expireAt ? [{prepend: 'requested subscription termination dateTime:', value: `${sessionUser.subscriptionID.expireAt}`}] : []),
+                ...(selectedUser.subscriptionID?.expireAt ? [{prepend: 'requested subscription termination dateTime:', value: `${selectedUser.subscriptionID.expireAt}`}] : []),
               ]
             }
             section_btn={this.paypalUnSub}

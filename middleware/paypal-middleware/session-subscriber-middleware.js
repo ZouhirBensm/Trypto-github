@@ -3,10 +3,10 @@ const User = require('../../models/User');
 
 module.exports = async (req,res,next)=>{
 
-  // TODO: rename this varible to something with more sense
-  let isSessionUserSubscriber
+  
+  let isSelectedUserSubscriber
   try {
-    isSessionUserSubscriber = await User.exists({
+    isSelectedUserSubscriber = await User.exists({
       _id: req.params.userId,
       subscriptionID: { $ne: null }
     })
@@ -14,6 +14,6 @@ module.exports = async (req,res,next)=>{
     res.locals.notifications.push(e);
   }
 
-  res.locals.isSessionUserSubscriber = isSessionUserSubscriber
+  res.locals.isSelectedUserSubscriber = isSelectedUserSubscriber
   next()
 }

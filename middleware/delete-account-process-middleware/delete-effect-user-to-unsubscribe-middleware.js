@@ -11,13 +11,13 @@ const Subscriber = require('../../models/Subscriber');
 
 
 module.exports = async (req,res,next)=>{
-  let isSessionUserSubscriber = res.locals.isSessionUserSubscriber
+  let isSelectedUserSubscriber = res.locals.isSelectedUserSubscriber
 
-  console.log("\n\n______make sure we retrieve isSessionUserSubscriber in the bigMiddleware: ", isSessionUserSubscriber)
+  console.log("\n\n______make sure we retrieve isSelectedUserSubscriber in the bigMiddleware: ", isSelectedUserSubscriber)
 
 
   // Was the user a subscriber i.e. if User with a subscriptionID
-  if(isSessionUserSubscriber){
+  if(isSelectedUserSubscriber){
 
     // If a subscriber check whether or not i'm required to unsubscribe from paypal i.e. does the Subscriber already engaged a expireAt
     let hasUnSubProcessStarted

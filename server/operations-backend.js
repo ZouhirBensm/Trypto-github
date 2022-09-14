@@ -133,8 +133,7 @@ operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages
 // TODO add guards
 operationsBackend_app_router.get('/detailed-user-information/:userID', async (req, res) => {
   // TODO put this in a middleware
-  // TODO refactor session user name 
-  let sessionUser = null
+  let selectedUser = null
 
   let query = User.findOne({
     _id: req.params.userID,
@@ -149,11 +148,11 @@ operationsBackend_app_router.get('/detailed-user-information/:userID', async (re
     select: "-_id plan subscriptionDateTime paypal_subscriptionID paypal_plan_id expireAt",
   })
 
-  sessionUser = await query.exec()
-  console.log({ sessionUser })
+  selectedUser = await query.exec()
+  console.log({ selectedUser })
 
   res.status(200).json({
-    sessionUser
+    selectedUser
   })
 
 })

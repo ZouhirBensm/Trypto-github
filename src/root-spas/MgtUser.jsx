@@ -25,8 +25,8 @@ class MgtUser extends React.Component {
     super(props)
     this.state = {}
     console.log("userId:", userId)
-    // this.sessionUser = sessionUser
-    // console.log("sessionUser: ", sessionUser)
+    // this.selectedUser = selectedUser
+    console.log("selectedUser: ", selectedUser)
   }
   render() {
     return (
@@ -36,7 +36,7 @@ class MgtUser extends React.Component {
             (props) => <Login {...props} loginTo={"/users/login"} />
           } />
           <Route path="/users/profile" render={
-            (props) => <Profile {...props} usedUserID={userId} sessionUser={sessionUser}/>
+            (props) => <Profile {...props} usedUserID={userId} selectedUser={selectedUser}/>
           } />
         </Switch>
       </BrowserRouter>

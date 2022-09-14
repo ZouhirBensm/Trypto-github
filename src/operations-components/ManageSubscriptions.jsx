@@ -3,8 +3,7 @@ class ManageSubscriptions extends React.Component {
   constructor(props){
     super(props)
     this.state={
-      // TODO rename this variable
-      sessionUser: undefined
+      selectedUser: undefined
     }
     console.log("userId: ", this.props.selected_userID)
     this.loadData = this.loadData.bind(this)
@@ -29,7 +28,7 @@ class ManageSubscriptions extends React.Component {
       console.log(serverOBJ)
   
       this.setState({
-        sessionUser: serverOBJ.sessionUser
+        selectedUser: serverOBJ.selectedUser
       })
 
     } else {
@@ -40,14 +39,14 @@ class ManageSubscriptions extends React.Component {
 
   render(){
 
-    console.log("This is goin in the Profile component", this.state.sessionUser)
+    console.log("This is goin in the Profile component", this.state.selectedUser)
 
     return (
       <React.Fragment>
         <div>ManageSubscriptions...</div>
-        {this.state.sessionUser?
+        {this.state.selectedUser?
           // <h1>Bam</h1>
-          <Profile usedUserID={this.props.selected_userID} sessionUser={this.state.sessionUser}/>
+          <Profile usedUserID={this.props.selected_userID} selectedUser={this.state.selectedUser}/>
           :
           null
         }
