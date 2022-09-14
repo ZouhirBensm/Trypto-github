@@ -21,6 +21,7 @@ const paginatingSetupMiddleware = require('../middleware/generic-middleware/pagi
 const messagesInfoRetrievalMiddleware = require('../middleware/messages-middleware/messages-info-retrieval-middleware')
 const checkPathUserIdMiddleware = require('../middleware/generic-middleware/check-path-userId-middleware')
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
+const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
 
 
 // Use this to check the role, requires a res.locals.user.role
@@ -70,8 +71,8 @@ messagingBackend_app_router.get('/messages', require_loggedin_for_pages(true), (
 
 })
 
-
-messagingBackend_app_router.get('/paginated-messages/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), paginatingSetupMiddleware, destructureURLandRefererMiddleware, messagesInfoRetrievalMiddleware, distributePaginatedDataController)
+// require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]),
+messagingBackend_app_router.get('/paginated-messages/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), paginatingSetupMiddleware, destructureURLandRefererMiddleware, messagesInfoRetrievalMiddleware, distributePaginatedDataController)
 
 
 module.exports = messagingBackend_app_router

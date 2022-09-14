@@ -53,10 +53,11 @@ const agenda = new Agenda({
 
 
 // Middleware
-const checkPostedUserID_is_SessionUserIDMiddleware = require('../middleware/generic-middleware/check-posted-userid-is-session-userID-middleware')
+const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
 const hasUnSubProcessStartedMiddleware = require('../middleware/paypal-middleware/has-unsub-process-started-middleware')
 
-const paypalSubscriptionDeletionMiddleware = require('../middleware/paypal-middleware/paypal-subscription-deletion-middleware');
+const getRequestedSubscriptionInfoMiddleware = require('../middleware/paypal-middleware/get-requested-subscription-info-middleware');
+const paypalUnsubscribeMiddleware = require('../middleware/paypal-middleware/paypal-unsubscribe-middleware');
 
 
 
@@ -73,9 +74,7 @@ paypalBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
-// TODO to be put back! Add guards
-// require_loggedin_for_data(true), authenticate_role_for_data([ROLE.USER.SUBSCRIBER.BASIC]), checkPostedUserID_is_SessionUserIDMiddleware
-paypalBackend_app_router.post('/unsubscribe', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.USER.SUBSCRIBER.BASIC, ROLE.MASTER]),hasUnSubProcessStartedMiddleware, paypalSubscriptionDeletionMiddleware, async (req,res,next) => {
+paypalBackend_app_router.post('/unsubscribe', require_loggedin_for_data(true),  authenticate_role_for_data([ROLE.USER.SUBSCRIBER.BASIC, ROLE.MASTER]), requester_auth_middleware(1), hasUnSubProcessStartedMiddleware, getRequestedSubscriptionInfoMiddleware, paypalUnsubscribeMiddleware, async (req,res,next) => {
 
   let paypal_cancel_sub_response_status = res.locals.paypalCancelSubResponseStatus
   let subscriptionInfo = res.locals.subscriptionInfo

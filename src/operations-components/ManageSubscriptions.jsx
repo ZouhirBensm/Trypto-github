@@ -3,7 +3,8 @@ class ManageSubscriptions extends React.Component {
   constructor(props){
     super(props)
     this.state={
-      selectedUser: undefined
+      selectedUser: undefined,
+      error_popup: undefined
     }
     console.log("userId: ", this.props.selected_userID)
     this.loadData = this.loadData.bind(this)
@@ -22,28 +23,36 @@ class ManageSubscriptions extends React.Component {
 
     console.log(response)
 
+    let serverOBJ
+    serverOBJ = await response.json()
+    console.log(serverOBJ)
+
     if(response.ok) {
-      let serverOBJ
-      serverOBJ = await response.json()
-      console.log(serverOBJ)
   
       this.setState({
         selectedUser: serverOBJ.selectedUser
       })
 
     } else {
-
+      this.setState({
+        error_popup: serverOBJ.error.message.admin_message || serverOBJ.error.message.join(", ")
+      })
     }
 
   }
 
   render(){
+    let error_div = null
+    if(this.state.error_popup) {
+      error_div = <div className="error-popup">{this.state.error_popup}</div>
+    }
 
-    console.log("This is goin in the Profile component", this.state.selectedUser)
+    console.log("This is goin in the Profile component", this.state.selectedUser, this.state.error_popup, error_div)
 
     return (
       <React.Fragment>
         <div>ManageSubscriptions...</div>
+        {error_div}
         {this.state.selectedUser?
           // <h1>Bam</h1>
           <Profile usedUserID={this.props.selected_userID} selectedUser={this.state.selectedUser}/>

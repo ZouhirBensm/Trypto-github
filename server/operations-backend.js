@@ -16,7 +16,7 @@ const User = require('../models/User')
 
 
 
-
+const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
 
 const usersRetrievalMiddleware = require('../middleware/operations-middleware/users-retrieval-middleware')
@@ -116,11 +116,15 @@ operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/man
   })
 })
 
-// TODO put back
-// , require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER])
+
+
+
+
+
+
 // for test 4@
 // , authenticate_role_for_pages([ROLE.MASTER])
-operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/manage-subs/:userID'], (req, res) => {
+operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/manage-subs/:userID'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
 
   var JSX_to_load
   JSX_to_load = 'Operations';
@@ -130,8 +134,9 @@ operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages
   })
 })
 
-// TODO add guards
-operationsBackend_app_router.get('/detailed-user-information/:userID', async (req, res) => {
+
+
+operationsBackend_app_router.get('/detailed-user-information/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2) ,async (req, res) => {
   // TODO put this in a middleware
   let selectedUser = null
 
@@ -160,9 +165,8 @@ operationsBackend_app_router.get('/detailed-user-information/:userID', async (re
 
 
 
-
-operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', (req, res) => {
-
+// , require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2)
+operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2), (req, res) => {
 
   var JSX_to_load
   JSX_to_load = 'Operations';
@@ -171,6 +175,8 @@ operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', (req, res
     JSX_to_load: JSX_to_load,
   })
 })
+
+
 
 operationsBackend_app_router.get('/paginated-users/users-for-display', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), paginatingSetupMiddleware, destructureURLandRefererMiddleware, usersRetrievalMiddleware, distributePaginatedDataController)
 
@@ -185,7 +191,13 @@ operationsBackend_app_router.get('/test', (req, res) => {
 
 })
 
-operationsBackend_app_router.get('/paginated-messages/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), paginatingSetupMiddleware, destructureURLandRefererMiddleware, messagesRetrievalMiddleware, distributePaginatedDataController)
+operationsBackend_app_router.get('/paginated-messages/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2), paginatingSetupMiddleware, destructureURLandRefererMiddleware, messagesRetrievalMiddleware, distributePaginatedDataController)
+
+
+
+
+
+
 
 
 operationsBackend_app_router.delete('/deletions/message/:userA/:userB/:msg_stream_element_id', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), async (req, res, next) => {

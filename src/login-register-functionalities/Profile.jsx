@@ -31,6 +31,7 @@ class Profile extends React.Component {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
+        // userId: "WRONG",
         userId: this.props.usedUserID,
         reason: "test_reason",
       })
@@ -84,9 +85,9 @@ class Profile extends React.Component {
   render() {
     let error_div = null
     if(this.state.errors_popup) {
-      error_div = this.state.errors_popup.map((error_msg, i) => {
+      Array.isArray(this.state.errors_popup) ? error_div = (this.state.errors_popup.map((error_msg, i) => {
         return <div key={i} className="error-popup">{error_msg}</div>
-      })
+      })) : error_div = <div className="error-popup">{this.state.errors_popup}</div>
     }
 
     if(this.state.unsub_popup) {

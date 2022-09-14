@@ -47,6 +47,7 @@ const paginatingSetupMiddleware = require('../middleware/generic-middleware/pagi
 const paginatedOrdersSetupMiddleware = require('../middleware/home-orders-middleware/paginated-orders-setup-middleware')
 const ordersRetrievalMiddleware = require('../middleware/home-orders-middleware/orders-retrieval-middleware')
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
+const startEmptyNotificationsMiddleware = require('../middleware/generic-middleware/start-empty-notifications-middleware')
 
 
 const  deleteBuyCryptoOrdersMiddleware = require('../middleware/delete-account-process-middleware/delete-buycryptoorders-middleware')
@@ -57,7 +58,8 @@ const  sessionSubscriberMiddleware = require('../middleware/paypal-middleware/se
 const  deleteEffectUserToUnsubscribeMiddleware = require('../middleware/delete-account-process-middleware/delete-effect-user-to-unsubscribe-middleware')
 const  deleteUserMiddleware = require('../middleware/delete-account-process-middleware/delete-user-middleware')
 const  logoutMiddleware = require('../middleware/generic-middleware/logout-middleware')
-const checkPathUserIdMiddleware = require('../middleware/generic-middleware/check-path-userId-middleware')
+// const checkPathUserIdMiddleware = require('../middleware/generic-middleware/check-path-userId-middleware')
+const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
 
 const verifyingPasswordMiddleware = require('../middleware/loggedin-middleware/verifying-password-middleware')
 
@@ -91,8 +93,7 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 // require_loggedin_for_data(true)
 // for test 1@
-// requireRefererMiddleware
-homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', requireRefererMiddleware, require_loggedin_for_data(true), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
+homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', requireRefererMiddleware, require_loggedin_for_data(true), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
 
 
 homeOrdersBackend_app_router.get('/users/login', require_loggedin_for_pages(false), (req,res,next)=>{
@@ -114,9 +115,8 @@ homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(fal
   })
 })
 
-// TODO to add later
-// require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER])
-homeOrdersBackend_app_router.get('/users/profile', async (req,res,next)=>{
+
+homeOrdersBackend_app_router.get('/users/profile',require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), async (req,res,next)=>{
 
   // TODO put this in a middleware
   let selectedUser = null
@@ -206,10 +206,8 @@ homeOrdersBackend_app_router.get('/cryptoprice', async (req,res,next)=>{
   //console.log(typeof data.data, typeof JSON.stringify(data.data))
 })
 
-// TODO put back needed middlewares
-// checkPathUserIdMiddleware
 
-homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware,
+homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware,
 sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteUserMiddleware, logoutMiddleware, (req,res,next)=>{
   console.log("Final point: ", res.locals.notifications.length, res.locals.notifications.length == 0, res.locals.notifications.length === 0)
 

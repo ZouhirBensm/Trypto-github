@@ -76,6 +76,7 @@ class UnsubscribeError extends CustomError {
   constructor(client_message, admin_message){
     super()
     this.type = this.constructor.name
+    this.message = admin_message
     this.client_message = client_message
     this.admin_message= admin_message
   }
@@ -93,8 +94,19 @@ class DeleteAccountProcessError extends CustomError {
   constructor(array_of_messages){
     super()
     this.type = this.constructor.name
+    this.message = array_of_messages
     this.client_message = "The deletion process was a failure"
     this.admin_message= array_of_messages
+  }
+}
+
+class SessionRoleOrSentUIDnotAllowed extends CustomError {
+  constructor(client_message, admin_message){
+    super()
+    this.type = this.constructor.name
+    this.message = admin_message
+    this.client_message = client_message
+    this.admin_message= admin_message
   }
 }
 
@@ -108,5 +120,6 @@ module.exports = {
   FirstPathNotRegistered,
   UnsubscribeError,
   DeleteAccountProcessError,
-  RoleNotPermitedError
+  RoleNotPermitedError,
+  SessionRoleOrSentUIDnotAllowed
 }
