@@ -4,7 +4,7 @@ const {FirstPathNotRegistered} = require("../../custom-errors/custom-errors")
 const full_stack_utils = require('../../full-stack-libs/utils')
 
 module.exports = (req, res, next)=>{
-  console.log("\n_______________\n")
+  // console.log("\n_______________\n")
 
   // console.log("in distribute-paginated-data-controller.js: ", res.locals.data_to_be_paginated_and_served)
 
@@ -52,7 +52,7 @@ module.exports = (req, res, next)=>{
 
 
 
-  console.log("\n______________________________")
+  // console.log("\n______________________________")
   res.status(200).json({
     srv_: data_pages_managed_obj,
   })

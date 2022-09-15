@@ -1,5 +1,7 @@
 import React from "react"
 import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
+import {THIRD_PARTY_CATEGORIES, EXTERNAL_READS_CATEGORIES} from '../../full-stack-libs/utils.arrays'
+import './style/AllArticlesList.css'
 
 class AllArticlesList extends React.Component {
   constructor(props) {
@@ -49,21 +51,58 @@ class ArticleElement extends React.Component {
     }
   }
 
+  componentDidMount(){
+    console.log("ELEMENT CATEGORY!", this.props.article.category)
+  }
+
   render() {
+
+    console.log(this.props.article)
+    let stringy = JSON.stringify(this.props.article)
+    console.log(stringy)
+
+    console.log(!EXTERNAL_READS_CATEGORIES.includes(this.props.article.category))
+
     return (
       <React.Fragment>
-
-
-        <Link to={{
+        {/* <Link className='link' to={{
           pathname: `/articles/individual_article/${this.props.article._id}`,
           search: `?article=${JSON.stringify(this.props.article)}`,
         }}>
           <div>
+            <hr/>
             <h4>{this.props.article.title}</h4>
             <span>{this.props.article.publishedDate}</span> | <span>{this.props.article.category}</span>
-            <p>{this.props.article.content}</p>
+            <p>{this.props.article.excerpt}</p>
+            <hr/>
+          </div>
+        </Link> */}
+
+        {!EXTERNAL_READS_CATEGORIES.includes(this.props.article.category)? 
+        <Link className='link' to={{
+          pathname: `/articles/individual_article/${this.props.article._id}`,
+          search: `?article=${JSON.stringify(this.props.article)}`,
+        }}>
+          <div>
+            <hr/>
+            <h4>{this.props.article.title}</h4>
+            <span>{this.props.article.publishedDate}</span> | <span>{this.props.article.category}</span>
+            <p>{this.props.article.excerpt}</p>
+            <hr/>
           </div>
         </Link>
+        :
+        <a className='alink' href={this.props.article.link} target="_blank">
+          <div>
+            <hr/>
+            <h4>{this.props.article.title}</h4>
+            <span>{this.props.article.publishedDate}</span> | <span>{this.props.article.category}</span>
+            <p>{this.props.article.excerpt}</p>
+            <hr/>
+          </div>
+        </a>
+        }
+
 
         {/* <Route path={`/articles/individual_article/${this.props.article._id}`} component={Article}/> */}
       </React.Fragment>

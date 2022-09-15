@@ -17,6 +17,8 @@ const ArticleSchema = new Schema({
   title: String,
   content: String,
   category: String,
+  excerpt: String,
+  link: String,
   // Author: {
   //   type: mongoose.Schema.Types.ObjectId,
   //   ref: 'User',

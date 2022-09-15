@@ -9,6 +9,7 @@ class Article extends React.Component {
     }
 
     const articleDataJSON = queryParams.get("article")
+    console.log(articleDataJSON)
 
     this.articleDataObj = JSON.parse(articleDataJSON)
     console.log(this.articleDataObj)
