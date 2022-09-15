@@ -27,6 +27,8 @@ const destructureURLandRefererMiddleware = require('../middleware/generic-middle
 
 const distributePaginatedDataController = require('../controllers/generic-controllers/distribute-paginated-data-controller')
 
+const {getDetailedUserSubscriptionInfo} = require('../middleware/generic-middleware/get-detailed-user-subsciption-information-middleware')
+
 
 
 // Use this to check the role, requires a res.locals.user.role
@@ -135,29 +137,37 @@ operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages
 })
 
 
+// Kept temporarly to make sure changes work
+// operationsBackend_app_router.get('/detailed-user-information/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2), async (req, res) => {
+//   let selectedUser = null
 
-operationsBackend_app_router.get('/detailed-user-information/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2) ,async (req, res) => {
-  // TODO put this in a middleware
-  let selectedUser = null
+//   let query = User.findOne({
+//     _id: req.params.userID,
+//     // subscriptionID: { $ne: null }
+//   })
+//     .select('registrationDateTime email subscriptionID -_id')
 
-  let query = User.findOne({
-    _id: req.params.userID,
-    // subscriptionID: { $ne: null }
-  })
-    .select('registrationDateTime email subscriptionID -_id')
+//   query = query.populate({
+//     // Populate protagonists
+//     path: "subscriptionID",
+//     // Fields allowed to populate with
+//     select: "-_id plan subscriptionDateTime paypal_subscriptionID paypal_plan_id expireAt",
+//   })
 
-  query = query.populate({
-    // Populate protagonists
-    path: "subscriptionID",
-    // Fields allowed to populate with
-    select: "-_id plan subscriptionDateTime paypal_subscriptionID paypal_plan_id expireAt",
-  })
+//   selectedUser = await query.exec()
+//   console.log({ selectedUser })
 
-  selectedUser = await query.exec()
-  console.log({ selectedUser })
+//   res.status(200).json({
+//     selectedUser
+//   })
+
+// })
+
+
+operationsBackend_app_router.get('/detailed-user-information/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2), getDetailedUserSubscriptionInfo("PATHPARAM"), (req,res) => {
 
   res.status(200).json({
-    selectedUser
+    selectedUser: res.locals.selectedUser
   })
 
 })
