@@ -1,5 +1,6 @@
 const {functionBitcoinMagazineArticles} = require('../third-party-rss-articles/bitcoin-magazine-rss-articles')
 const {functionCoinDeskArticles} = require('../third-party-rss-articles/coindesk-rss-articles')
+const {functionCoinJournalArticles} = require('../third-party-rss-articles/coinjournal-rss-articles')
 const CATEGORY = require('../../../../full-stack-libs/Types/ArticleCategories')
 
 async function functionArticleAggregator(ARRAY_OF_NEEDED){
@@ -8,8 +9,9 @@ async function functionArticleAggregator(ARRAY_OF_NEEDED){
 
   let articlesFromBitcoinMagazine  = await functionBitcoinMagazineArticles()
   let articlesFromCoinDesk  = await functionCoinDeskArticles()
+  let articlesFromCoinJournal  = await functionCoinJournalArticles()
   
-  // let articlesFromBitcoinMagazine  = await functionBitcoinMagazineArticles()
+
 
 
   ARRAY_OF_NEEDED.forEach(third_party_category => {
@@ -19,6 +21,9 @@ async function functionArticleAggregator(ARRAY_OF_NEEDED){
         break;
       case CATEGORY.COINDESK:
         aggregated_array_of_all_articles = [...aggregated_array_of_all_articles, ...articlesFromCoinDesk]
+        break;
+      case CATEGORY.COINJOURNAL:
+        aggregated_array_of_all_articles = [...aggregated_array_of_all_articles, ...articlesFromCoinJournal]
         break;
       default:
         break;
