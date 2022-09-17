@@ -191,6 +191,8 @@ homeOrdersBackend_app_router.post('/check/user/register', requireRefererMiddlewa
 homeOrdersBackend_app_router.get('/',(req,res)=>{
   console.log("\n\n\nBack in get '/' route\nAre we still logged in?\n", req.session.userId, "\nDo we have any pop-up messages: \n", req.query.popup)
 
+  console.log("process.env.NODE_ENV", process.env.NODE_ENV)
+
   res.locals.popup = req.query.popup
 
   var JSX_to_load = 'App';

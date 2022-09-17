@@ -1,3 +1,10 @@
+// If the environment variable is not already set to remote, then set NODE_ENV=development
+if (process.env.NODE_ENV !== 'remote') {
+  require('dotenv').config()
+}
+
+console.log(`Server starting with NODE_ENV=${process.env.NODE_ENV}`);
+
 const ENV = require('../config/base')
 //Global variable loggedIn that will be accessible from all our ejs files
 global.loggedIn = null
@@ -113,6 +120,10 @@ express_server_app_router.use(express.urlencoded({extended: true}))
 
 // Enablig ressources on our public directory to be served by the web server on HTTP requests, therefor accessible to servered HTML, EJS files when public ressources referenced within.
 express_server_app_router.use(express.static('public'));
+
+
+
+
 
 
 

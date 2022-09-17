@@ -12,7 +12,9 @@
     "start": "nodemon -w server server/server.js",
     "build:dev": "webpack --config webpack.dev.js",
     "build:prod": "webpack --config webpack.prod.js",
-    "build": "webpack --config webpack.stag.js"
+    "build": "webpack --config webpack.stag.js",
+    "set:env:dev": "set NODE_ENV=develpment",
+    "set:env:remo": "set NODE_ENV=remote"
   },
   "author": "Zouhir Bensmaia",
   "license": "ISC",
@@ -25,7 +27,7 @@
     "bluebird": "^3.7.2",
     "coingecko-api": "^1.0.10",
     "connect-mongo": "^4.4.1",
-    "dotenv": "^16.0.0",
+    "dotenv": "^16.0.2",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.1",
