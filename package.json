@@ -11,6 +11,7 @@
     "server": "nodemon -w server server/server.js",
     "start": "nodemon -w server server/server.js",
     "build:dev": "webpack --config webpack.dev.js",
+    "build:prod": "webpack --config webpack.prod.js",
     "build": "webpack --config webpack.stag.js"
   },
   "author": "Zouhir Bensmaia",

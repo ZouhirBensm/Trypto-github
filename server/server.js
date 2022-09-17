@@ -173,7 +173,7 @@ const server_instance = require("./io-server-setup")
 // .listen() Returns a Express.JS HTTP web server instance when express_server_app_router.listen()
 // listening on the server_instance also listens on the express_server_app_router?
 server_instance.listen(ENV.port, function () {
-  console.log(`Express web server has started and is listening for requests on port ${ENV.port}`);
+  console.log(`Express web server has started and is listening for requests on port ${ENV.port}, ${process.env.NODE_ENV}`);
 });
 
 
