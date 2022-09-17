@@ -1,5 +1,10 @@
 // If the environment variable is not already set to remote, then set NODE_ENV=development
-if (process.env.NODE_ENV !== 'remote') {
+if (process.env.NODE_ENV == 'remote') {
+  // for staging
+  require('dotenv').config({ path: `.env.${process.env.NODE_ENV}.stag` })
+  // for prod
+  // require('dotenv').config({ path: `.env.${process.env.NODE_ENV}.prod` })
+} else {
   require('dotenv').config()
 }
 
