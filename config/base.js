@@ -1,7 +1,7 @@
 switch (process.env.NODE_ENV) {
-  case 'staging':
-    console.log("Exporting Staging variables")
-    module.exports = require('./stag')
+  case 'remote':
+    console.log("Exporting Remote variables")
+    module.exports = require('./remote')
     break;
   // case 'production':
   //   console.log("Exporting Production variables")
