@@ -192,6 +192,7 @@ homeOrdersBackend_app_router.get('/',(req,res)=>{
   console.log("\n\n\nBack in get '/' route\nAre we still logged in?\n", req.session.userId, "\nDo we have any pop-up messages: \n", req.query.popup)
 
   console.log("process.env.NODE_ENV", process.env.NODE_ENV)
+  console.log("process.env.PAYPAL_API_ROOT", process.env.PAYPAL_API_ROOT)
 
   res.locals.popup = req.query.popup
 
