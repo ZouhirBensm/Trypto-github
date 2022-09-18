@@ -79,7 +79,9 @@ module.exports = async (req,res,next)=>{
   switch(res.locals.type_orders) {
 
     case 'buyordersdata':
-      console.log(res.locals.URL_fromReferer == ENV.domain + '/databases/matches')
+      console.log(req.headers.referer == ENV.domain + '/databases/matches')
+      console.log(res.locals.URL_fromReferer == ENV.domain + '/databases/AllMyOrders' || res.locals.URL_fromReferer == ENV.domain + `/operations/help-for-orders/${res.locals.path_param_userID}`)
+
       if(req.headers.referer == ENV.domain + '/databases/matches'){
         console.log("MATCHES MODE")
         try {
@@ -92,6 +94,7 @@ module.exports = async (req,res,next)=>{
           return next(err)
         }
         // console.log("orders!!!!!:::::", orders)
+
       } else if (res.locals.URL_fromReferer == ENV.domain + '/databases/AllMyOrders' || res.locals.URL_fromReferer == ENV.domain + `/operations/help-for-orders/${res.locals.path_param_userID}`) {
         console.log("MY MODE -> from path param")
         orders = mybuyOrders
@@ -103,6 +106,10 @@ module.exports = async (req,res,next)=>{
       break
 
     case 'sellordersdata':
+      console.log(res.locals.URL_fromReferer == ENV.domain + '/databases/matches')
+      console.log(res.locals.URL_fromReferer == ENV.domain + '/databases/AllMyOrders' || res.locals.URL_fromReferer == ENV.domain + `/operations/help-for-orders/${res.locals.path_param_userID}`)
+
+      
       if(res.locals.URL_fromReferer == ENV.domain + '/databases/matches'){
         console.log("MATCHES MODE")
         try {
@@ -114,7 +121,6 @@ module.exports = async (req,res,next)=>{
         } catch(err){
           return next(err)
         }
-        // console.log("orders!!!!!:::::", orders)
       } else if (res.locals.URL_fromReferer == ENV.domain + '/databases/AllMyOrders' || res.locals.URL_fromReferer == ENV.domain + `/operations/help-for-orders/${res.locals.path_param_userID}`) {
         console.log("MY MODE -> from path param")
         orders = mysellOrders
