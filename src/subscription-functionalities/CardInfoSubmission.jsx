@@ -108,7 +108,7 @@ class CardInfoSubmission extends React.Component {
   // React way
   async createSubscription(data, actions) {
     // check server is up
-    let response = await fetch(`${domain}/isup`)
+    let response = await fetch(`/isup`)
     let srv_data = await response.json()
     console.log("RESPONSE", response)
     console.log("DATA", srv_data)
