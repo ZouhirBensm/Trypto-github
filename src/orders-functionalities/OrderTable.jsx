@@ -143,7 +143,7 @@ class OrderRow extends React.Component {
     console.log("payload: ", payload)
 
     if (response.status === 200) {
-      // window.location.href = `${process.env.ROOT}?popup=${payload.srv_}`;
+      // window.location.href = `/?popup=${payload.srv_}`;
       this.displayEditPopUp()
 
       // Reset page display after the edit
