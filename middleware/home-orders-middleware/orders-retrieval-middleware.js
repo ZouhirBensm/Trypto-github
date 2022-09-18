@@ -66,7 +66,13 @@ module.exports = async (req,res,next)=>{
   console.log("\n\n[mybuyOrders, mysellOrders]:\n\n ", [mybuyOrders, mysellOrders])
 
 
-  console.log("REFERER", req.headers.referer, res.locals.URL_fromReferer, ENV.domain + `/operations/help-for-orders/${res.locals.path_param_userID}`)
+  console.log("\n\n_______________\n\n")
+  console.log("res.locals.type_orders: ", res.locals.type_orders)
+  console.log("ENV.domain: ", ENV.domain)
+  console.log("res.locals.URL_fromReferer: ", res.locals.URL_fromReferer)
+  console.log(": ", )
+  console.log(": ", )
+  console.log("\n\n_______________\n\n")
 
 
   

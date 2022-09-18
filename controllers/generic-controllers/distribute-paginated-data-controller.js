@@ -30,6 +30,7 @@ module.exports = (req, res, next)=>{
   }
 
 
+  console.log("res.locals.paths_URL_fromAPIcall[0]: ", res.locals.paths_URL_fromAPIcall[0])
   switch (res.locals.paths_URL_fromAPIcall[0]) {
     case "paginated-messages":
       data_pages_managed_obj.CONVOS = res.locals.data_to_be_paginated_and_served.slice(res.locals.startIndex, res.locals.endIndex)
