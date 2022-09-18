@@ -1,4 +1,6 @@
+const {parseURL} = require('../../full-stack-libs/utils')
 console.log("socketio in the house!")
+
 
 // $(document).ready(() => {
 // })
@@ -10,11 +12,14 @@ var orderId = document.getElementById("orderId").innerHTML
 
 // Imporatant information to work with
 // userId is pre loaded and retreived from the backend /Users/Zouhir/Documents/MERN/BlockchainMERN/server/server.js line 115: res.locals.userId = req.session.userId
-console.log("EJS page preloaded information: ", {domain, userId, userIdB, orderId})
+
+const parsedURL = parseURL(window.location.href)
+
+console.log("EJS page preloaded information: ", `domain: ${parsedURL[1]}://${domain}`, {userId, userIdB, orderId})
 
 
 // Instantiating a socket connection using TCP to the domain i.e. http://localhost:3000, with query params
-const socket = io(`${domain}`, { query: `userAId=${userId}&userBId=${userIdB}&orderId=${orderId}` });
+const socket = io(`${parsedURL[1]}://${domain}`, { query: `userAId=${userId}&userBId=${userIdB}&orderId=${orderId}` });
 
 // Retrieving HTML Elements needed
 var msgBox = document.getElementById("msg-box")

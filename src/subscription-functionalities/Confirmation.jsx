@@ -26,7 +26,7 @@ class Confirmation extends React.Component {
             if(this.props.plan == "BASIC") this.props.previousStep(e)
           }}> Previous </button> */}
         <button onClick={(e) => {
-          window.location.href = `${domain}/users/login`
+          window.location.href = `/users/login`
         }}> Go to login page </button>
       </div>
     )

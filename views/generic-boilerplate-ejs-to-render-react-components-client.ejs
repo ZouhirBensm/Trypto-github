@@ -4,7 +4,7 @@
 
   var currentUserEmail = '<%= locals.currentUserEmail  %>'
   var userId = '<%= locals.userId  %>'
-  var domain = '<%-locals.ENV.domain%>'
+  var domain = '<%-locals.ENV.domain_without_protocol%>'
   let CATEGORY = <%-(JSON.stringify(locals.CATEGORY)|| JSON.stringify({}))%>;
   let ENV = <%-JSON.stringify(locals.ENV)%>;
   // console.log("header script: ", userId, domain, window.location.href, ENV)
