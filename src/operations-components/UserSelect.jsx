@@ -35,7 +35,7 @@ class UserSelect extends React.Component {
   }
 
   async loadData() {
-    let response = await fetch(`${process.env.ROOT}/operations/paginated-users/users-for-display?page=${this.state.page}&limit=${this.state.limit}`)
+    let response = await fetch(`/operations/paginated-users/users-for-display?page=${this.state.page}&limit=${this.state.limit}`)
 
     let serverOBJ = await response.json()
 

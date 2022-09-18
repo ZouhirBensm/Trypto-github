@@ -24,7 +24,7 @@ class Profile extends React.Component {
     e.preventDefault()
     console.log("paypal unsub!")
     let response
-    response = await fetch(`${process.env.ROOT}/paypal/unsubscribe`, {
+    response = await fetch(`/paypal/unsubscribe`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ class Profile extends React.Component {
     console.log("deletion proper uid?", this.props.usedUserID)
     const userId = this.props.usedUserID
 
-    const response = await fetch(`${process.env.ROOT}/users/profile/delete/${userId}`, {
+    const response = await fetch(`/users/profile/delete/${userId}`, {
       method: 'DELETE',
     })
     console.log(response)

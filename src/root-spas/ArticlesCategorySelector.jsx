@@ -65,7 +65,7 @@ class ArticlesCategorySelector extends React.Component {
 
     console.log(categoryClicked)
 
-    console.log(`${process.env.ROOT}/articles${categoryClicked ? `/${categoryClicked}` : ''}`)
+    console.log(`/articles${categoryClicked ? `/${categoryClicked}` : ''}`)
 
     window.location.href = `${process.env.ROOT}/articles${categoryClicked ? `/${categoryClicked}` : ''}`
 

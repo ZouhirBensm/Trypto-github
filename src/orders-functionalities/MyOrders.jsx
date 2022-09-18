@@ -53,7 +53,7 @@ class MyOrders extends React.Component {
 
   async handleClick(valuetype, valueid, e){
     // console.log(e)
-    let response = await fetch(`${process.env.ROOT}/delete-this-order`, {
+    let response = await fetch(`/delete-this-order`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -117,9 +117,9 @@ class MyOrders extends React.Component {
     // const _userID = document.getElementById("userId").innerHTML
 
     
-    console.log(`${process.env.ROOT}/paginated-orders/${_orderstype}/${this.props.userID_toQueryWith}?page=${this.state.page}&limit=${this.state.limit}`)
+    console.log(`/paginated-orders/${_orderstype}/${this.props.userID_toQueryWith}?page=${this.state.page}&limit=${this.state.limit}`)
 
-    const response2 = await fetch(`${process.env.ROOT}/paginated-orders/${_orderstype}/${this.props.userID_toQueryWith}?page=${this.state.page}&limit=${this.state.limit}`)
+    const response2 = await fetch(`/paginated-orders/${_orderstype}/${this.props.userID_toQueryWith}?page=${this.state.page}&limit=${this.state.limit}`)
     
     const serverOBJ = await response2.json()
 

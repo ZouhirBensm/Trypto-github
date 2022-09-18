@@ -40,10 +40,10 @@ class Matches extends React.Component {
   
   async loadData(_orderstype){
     
-    console.log(`${process.env.ROOT}/paginated-orders/${_orderstype}/${this.userId}?page=${this.state.page}&limit=${this.state.limit}`)
+    console.log(`/paginated-orders/${_orderstype}/${this.userId}?page=${this.state.page}&limit=${this.state.limit}`)
 
     // /${this.userId}
-    let response = await fetch(`${process.env.ROOT}/paginated-orders/${_orderstype}/${this.userId}?page=${this.state.page}&limit=${this.state.limit}`)
+    let response = await fetch(`/paginated-orders/${_orderstype}/${this.userId}?page=${this.state.page}&limit=${this.state.limit}`)
     
     let serverOBJ = await response.json()
 

@@ -45,7 +45,7 @@ class Make extends React.Component {
     //   // iterator: document.getElementById("form_id").elements[7].value,
     // }, url_param_order_type_to_save)
 
-    let response = await fetch(`${process.env.ROOT}/${url_param_order_type_to_save}/save`, {
+    let response = await fetch(`/${url_param_order_type_to_save}/save`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ class Make extends React.Component {
     let value
     //console.log(crypto, amount)
     
-    fetch(`${process.env.ROOT}/cryptoprice`)
+    fetch(`/cryptoprice`)
     
     .then(res => res.json())
     .then(data => {

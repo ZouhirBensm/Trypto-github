@@ -36,7 +36,7 @@ class CardInfoSubmission extends React.Component {
   async handleRegistrationCall (_email, _password, _plan, _paypal_subscriptionID, _paypal_plan_id, _paypal_product_id){
     console.log("Making API call!")
     
-    const response = await fetch(`${process.env.ROOT}/users/register`, {
+    const response = await fetch(`/users/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

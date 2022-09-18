@@ -65,7 +65,7 @@ class CRUDMessages extends React.Component {
     console.log(e)
     // console.log("delete", msg)
 
-    const response = await fetch(`${process.env.ROOT}/operations/deletions/message/${this.props.msg.sender._id}/${this.props.msg.receiver._id}/${this.props.msg._id}`, {
+    const response = await fetch(`/operations/deletions/message/${this.props.msg.sender._id}/${this.props.msg.receiver._id}/${this.props.msg._id}`, {
       method: 'DELETE',
     })
 
@@ -78,7 +78,7 @@ class CRUDMessages extends React.Component {
   async handleClick(msg, e){
     // console.log(e)
 
-    const response = await fetch(`${process.env.ROOT}/operations/deletions/message/${msg.sender._id}/${msg.receiver._id}/${msg._id}`, {
+    const response = await fetch(`/operations/deletions/message/${msg.sender._id}/${msg.receiver._id}/${msg._id}`, {
       method: 'DELETE',
     })
 
@@ -119,7 +119,7 @@ class CRUDMessages extends React.Component {
 
   async loadData(){
     console.log(this.props.match.params.userId)
-    let response = await fetch(`${process.env.ROOT}/operations/paginated-messages/${this.props.match.params.userId}?page=${this.state.page}&limit=${this.state.limit}&userIdB=${this.userIdB}`)
+    let response = await fetch(`/operations/paginated-messages/${this.props.match.params.userId}?page=${this.state.page}&limit=${this.state.limit}&userIdB=${this.userIdB}`)
 
     console.log(response)
 

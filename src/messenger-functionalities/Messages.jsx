@@ -47,7 +47,7 @@ class Messages extends React.Component {
   }
 
   async loadData(){
-    let response = await fetch(`${process.env.ROOT}/messaging/paginated-messages/${this._PassedUserID}?page=${this.state.page}&limit=${this.state.limit}`)
+    let response = await fetch(`/messaging/paginated-messages/${this._PassedUserID}?page=${this.state.page}&limit=${this.state.limit}`)
     
     // console.log("response: ", response)
     

@@ -37,7 +37,7 @@ class Register extends React.Component {
   async handleRegistrationCall (_email, _password, _plan){
     console.log("Making API call!")
     
-    const response = await fetch(`${process.env.ROOT}/users/register`, {
+    const response = await fetch(`/users/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -141,7 +141,7 @@ class Register extends React.Component {
     let response
     let data
 
-    response = await fetch(`${process.env.ROOT}/check/user/register`, {
+    response = await fetch(`/check/user/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

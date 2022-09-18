@@ -42,9 +42,9 @@ class CreateArticle extends React.Component {
     console.log("content:", document.getElementById("form_id").elements["content"].value)
     console.log("category:", document.getElementById("form_id").elements["category"].value)
 
-    console.log("posting to: ", `${process.env.ROOT}/operations/create-article`)
+    console.log("posting to: ", `/operations/create-article`)
 
-    let response = await fetch(`${process.env.ROOT}/operations/create-article`, {
+    let response = await fetch(`/operations/create-article`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

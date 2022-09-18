@@ -32,7 +32,7 @@ class Login extends React.Component {
     // console.log(document.getElementById("loginregister").elements[0].value)
     // console.log(document.getElementById("loginregister").elements[1].value)
 
-    let response = await fetch(`${process.env.ROOT}${this.props.loginTo}`, {
+    let response = await fetch(`${this.props.loginTo}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

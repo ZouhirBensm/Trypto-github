@@ -47,7 +47,7 @@ class ConvoElement extends React.Component {
   //   console.log(e)
   //   // console.log("delete", msg)
 
-  //   const response = await fetch(`${process.env.ROOT}/operations/deletions/message/${this.props.msg.sender._id}/${this.props.msg.receiver._id}/${this.props.msg._id}`, {
+  //   const response = await fetch(`/operations/deletions/message/${this.props.msg.sender._id}/${this.props.msg.receiver._id}/${this.props.msg._id}`, {
   //     method: 'DELETE',
   //   })
 

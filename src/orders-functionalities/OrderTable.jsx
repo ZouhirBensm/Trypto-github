@@ -118,7 +118,7 @@ class OrderRow extends React.Component {
       amount = undefined
     }
     console.log(amount, minamount, maxamount)
-    const response = await fetch(`${process.env.ROOT}/update`, {
+    const response = await fetch(`/update`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
