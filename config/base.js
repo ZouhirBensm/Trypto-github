@@ -11,6 +11,7 @@ switch (process.env.NODE_ENV) {
     break;
   default:
     console.log("Exporting Default variables")
+    // module.exports = require('./dev')
     break;
 }
 
