@@ -11,7 +11,7 @@ let prod_config = merge(config, {
   mode: 'production',
   plugins: [
     new EnvironmentPlugin({
-      ROOT: "https://bidblock.ca",
+      ROOT: "http://bidblock.ca",
       paypal_plan_id: "P-8K2448559P9609535MMAPYHA", // Product linked to sb-mzq9r20359069@business.example.com, throught to the BidBlock Development Staging created app, requires a product ID
       paypal_product_id: "PROD-6NP19803R0467982A", // Product linked to sb-mzq9r20359069@business.example.com, throught to the BidBlock Development Staging created app
       paypal_api_root: "https://api-m.sandbox.paypal.com/v1",
