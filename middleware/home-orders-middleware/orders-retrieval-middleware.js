@@ -80,15 +80,15 @@ module.exports = async (req,res,next)=>{
 
     case 'buyordersdata':
       console.log(res.locals.URL_fromReferer)
-      console.log(`${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`)
-      console.log(`${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/AllMyOrders`)
-      console.log(`${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`)
+      console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`)
+      console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/AllMyOrders`)
+      console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`)
 
-      
-      console.log(res.locals.URL_fromReferer == `${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`)
-      console.log(res.locals.URL_fromReferer == `${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/AllMyOrders` || res.locals.URL_fromReferer == `${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}` )
 
-      if(res.locals.URL_fromReferer == `${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`){
+      console.log(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`)
+      console.log(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/AllMyOrders` || res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}` )
+
+      if(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`){
         console.log("MATCHES MODE")
         try {
           orders = await buyMatchesFinder(mysellOrders, buyOrders, res.locals.path_param_userID)
@@ -101,7 +101,7 @@ module.exports = async (req,res,next)=>{
         }
         // console.log("orders!!!!!:::::", orders)
 
-      } else if (res.locals.URL_fromReferer == ENV.domain + '/databases/AllMyOrders' || res.locals.URL_fromReferer == ENV.domain + `/operations/help-for-orders/${res.locals.path_param_userID}`) {
+      } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/AllMyOrders` || res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`) {
         console.log("MY MODE -> from path param")
         orders = mybuyOrders
       } else {        
@@ -113,15 +113,15 @@ module.exports = async (req,res,next)=>{
 
     case 'sellordersdata':
       console.log(res.locals.URL_fromReferer)
-      console.log(`${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`)
-      console.log(`${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/AllMyOrders`)
-      console.log(`${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`)
+      console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`)
+      console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/AllMyOrders`)
+      console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`)
 
-      console.log(res.locals.URL_fromReferer == `${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`)
-      console.log(res.locals.URL_fromReferer == `${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/AllMyOrders` || res.locals.URL_fromReferer == `${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}` )
+      console.log(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`)
+      console.log(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/AllMyOrders` || res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}` )
 
 
-      if(res.locals.URL_fromReferer == `${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`){
+      if(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`){
         console.log("MATCHES MODE")
         try {
           orders = await sellMatchesFinder(mybuyOrders, sellOrders, res.locals.path_param_userID)
@@ -132,7 +132,7 @@ module.exports = async (req,res,next)=>{
         } catch(err){
           return next(err)
         }
-      } else if (res.locals.URL_fromReferer == `${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/AllMyOrders` || res.locals.URL_fromReferer == `${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`) {
+      } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/AllMyOrders` || res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`) {
         console.log("MY MODE -> from path param")
         orders = mysellOrders
       } else {        
