@@ -79,6 +79,12 @@ module.exports = async (req,res,next)=>{
   switch(res.locals.type_orders) {
 
     case 'buyordersdata':
+      console.log(res.locals.URL_fromReferer)
+      console.log(`${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`)
+      console.log(`${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/AllMyOrders`)
+      console.log(`${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`)
+
+      
       console.log(res.locals.URL_fromReferer == `${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`)
       console.log(res.locals.URL_fromReferer == `${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/AllMyOrders` || res.locals.URL_fromReferer == `${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}` )
 
@@ -106,6 +112,11 @@ module.exports = async (req,res,next)=>{
       break
 
     case 'sellordersdata':
+      console.log(res.locals.URL_fromReferer)
+      console.log(`${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`)
+      console.log(`${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/AllMyOrders`)
+      console.log(`${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`)
+
       console.log(res.locals.URL_fromReferer == `${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`)
       console.log(res.locals.URL_fromReferer == `${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/AllMyOrders` || res.locals.URL_fromReferer == `${res.locals.URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}` )
 
