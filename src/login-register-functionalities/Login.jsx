@@ -50,7 +50,7 @@ class Login extends React.Component {
 
 
     if (response.status == 200) {
-      window.location.href = `${process.env.ROOT}/?popup=You have successfully logged in!`;
+      window.location.href = `/?popup=You have successfully logged in!`;
     } else {
       if(data.error){
         this.setState({
