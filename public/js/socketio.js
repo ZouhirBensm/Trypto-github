@@ -12,11 +12,11 @@ var orderId = document.getElementById("orderId").innerHTML
 // Imporatant information to work with
 // userId is pre loaded and retreived from the backend /Users/Zouhir/Documents/MERN/BlockchainMERN/server/server.js line 115: res.locals.userId = req.session.userId
 
-console.log("EJS page preloaded information: ", `domain: ${window.location.protocol}://${domain}`, {userId, userIdB, orderId})
+console.log("EJS page preloaded information: ", `domain: ${window.location.protocol}//${domain}`, {userId, userIdB, orderId})
 
 
 // Instantiating a socket connection using TCP to the domain i.e. http://localhost:3000, with query params
-const socket = io(`${window.location.protocol}://${domain}`, { query: `userAId=${userId}&userBId=${userIdB}&orderId=${orderId}` });
+const socket = io(`${window.location.protocol}//${domain}`, { query: `userAId=${userId}&userBId=${userIdB}&orderId=${orderId}` });
 
 // Retrieving HTML Elements needed
 var msgBox = document.getElementById("msg-box")
