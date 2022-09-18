@@ -68,7 +68,7 @@ module.exports = async (req,res,next)=>{
 
   console.log("\n\n_______________\n\n")
   console.log("res.locals.type_orders: ", res.locals.type_orders)
-  console.log("ENV.domain: ", ENV.domain)
+  console.log("ENV.domain_without_protocol: ", ENV.domain_without_protocol)
   console.log("res.locals.URL_fromReferer: ", res.locals.URL_fromReferer)
   console.log(": ", )
   console.log(": ", )
