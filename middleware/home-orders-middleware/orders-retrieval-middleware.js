@@ -79,10 +79,10 @@ module.exports = async (req,res,next)=>{
   switch(res.locals.type_orders) {
 
     case 'buyordersdata':
-      console.log(req.headers.referer == ENV.domain + '/databases/matches')
-      console.log(res.locals.URL_fromReferer == ENV.domain + '/databases/AllMyOrders' || res.locals.URL_fromReferer == ENV.domain + `/operations/help-for-orders/${res.locals.path_param_userID}`)
+      console.log(res.locals.URL_fromReferer == `${parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`)
+      console.log(res.locals.URL_fromReferer == `${parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/AllMyOrders` || res.locals.URL_fromReferer == `${parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}` )
 
-      if(req.headers.referer == ENV.domain + '/databases/matches'){
+      if(res.locals.URL_fromReferer == `${parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`){
         console.log("MATCHES MODE")
         try {
           orders = await buyMatchesFinder(mysellOrders, buyOrders, res.locals.path_param_userID)
@@ -106,11 +106,11 @@ module.exports = async (req,res,next)=>{
       break
 
     case 'sellordersdata':
-      console.log(res.locals.URL_fromReferer == ENV.domain + '/databases/matches')
-      console.log(res.locals.URL_fromReferer == ENV.domain + '/databases/AllMyOrders' || res.locals.URL_fromReferer == ENV.domain + `/operations/help-for-orders/${res.locals.path_param_userID}`)
+      console.log(res.locals.URL_fromReferer == `${parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`)
+      console.log(res.locals.URL_fromReferer == `${parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/AllMyOrders` || res.locals.URL_fromReferer == `${parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}` )
 
-      
-      if(res.locals.URL_fromReferer == ENV.domain + '/databases/matches'){
+
+      if(res.locals.URL_fromReferer == `${parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/matches`){
         console.log("MATCHES MODE")
         try {
           orders = await sellMatchesFinder(mybuyOrders, sellOrders, res.locals.path_param_userID)
@@ -121,7 +121,7 @@ module.exports = async (req,res,next)=>{
         } catch(err){
           return next(err)
         }
-      } else if (res.locals.URL_fromReferer == ENV.domain + '/databases/AllMyOrders' || res.locals.URL_fromReferer == ENV.domain + `/operations/help-for-orders/${res.locals.path_param_userID}`) {
+      } else if (res.locals.URL_fromReferer == `${parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/databases/AllMyOrders` || res.locals.URL_fromReferer == `${parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`) {
         console.log("MY MODE -> from path param")
         orders = mysellOrders
       } else {        
