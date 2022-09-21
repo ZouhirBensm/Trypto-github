@@ -11,10 +11,18 @@ class ChatContainer extends React.Component {
     super()
     this.state = {
     }
-    this._userID = document.getElementById("userId").innerHTML
-    this._currentUserEmail = document.getElementById("currentUserEmail").innerHTML
-    this._userIDB = document.getElementById("userIdB").innerHTML
-    this._orderID = document.getElementById("orderId").innerHTML
+    // this._userID = document.getElementById("userId").innerHTML
+    this._userID = userId
+    // console.log('compare uid', document.getElementById("userId").innerHTML, userId)
+    // this._currentUserEmail = document.getElementById("currentUserEmail").innerHTML
+    this._currentUserEmail = currentUserEmail
+    // console.log('compare currentUserEmail', document.getElementById("currentUserEmail").innerHTML, currentUserEmail)
+    // this._userIDB = document.getElementById("userIdB").innerHTML
+    this._userIDB = userIdB
+    // console.log('compare userIdB', document.getElementById("userIdB").innerHTML, userIdB)
+    // this._orderID = document.getElementById("orderId").innerHTML
+    this._orderID = orderId
+    // console.log('compare orderId', document.getElementById("orderId").innerHTML, orderId)
   }
   
   componentDidMount(){

@@ -50,10 +50,16 @@ messagingBackend_app_router.get('/', require_loggedin_for_pages(true), (req,res)
     "\n\nreq.query.orderId:\n\n", req.query.orderId)
 
   var JSX_to_load = 'Messaging';
+
+  console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
   })
 })
+
+
+
+
 
 
 messagingBackend_app_router.get('/messages', require_loggedin_for_pages(true), (req,res)=>{
@@ -63,13 +69,17 @@ messagingBackend_app_router.get('/messages', require_loggedin_for_pages(true), (
   "\n\nreq.query.orderId:\n\n", req.query.orderId)
 
 
+
   var JSX_to_load = 'Messaging';
+  console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
   })
 
 
 })
+
+
 
 // require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]),
 messagingBackend_app_router.get('/paginated-messages/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), paginatingSetupMiddleware, destructureURLandRefererMiddleware, messagesInfoRetrievalMiddleware, distributePaginatedDataController)

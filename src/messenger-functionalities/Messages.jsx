@@ -30,9 +30,10 @@ class Messages extends React.Component {
     // this.handleSubmit = this.handleSubmit.bind(this)
     // this.handleChange = this.handleChange.bind(this)
     // this.repairData = this.repairData.bind(this)
-    this.loggedinUserObjInfo = this.props.loggedinUserObjInfo
 
-    console.log("WTFFFFFFFFF: ", this._PassedUserID, this._PassedUserEmail)
+
+    this.loggedinUserObjInfo = this.props.loggedinUserObjInfo
+    console.log("loggedinUserObjInfo: ", this.props.loggedinUserObjInfo)
     
   }
 
@@ -107,11 +108,11 @@ class Messages extends React.Component {
           <h4>Logged in as: {this._PassedUserEmail}</h4>
           <MessageTable 
           comprehensiveSelectedUserInfoDataObj={this.props.comprehensiveSelectedUserInfoDataObj}
+          loggedinUserObjInfo={this.loggedinUserObjInfo}
           PassedUserID={this._PassedUserID}
           // buttons='normal' 
           // order_type={this.props.match.params.order_type} 
           convos={this.state.convos}
-          loggedinUserObjInfo={this.loggedinUserObjInfo}
           />
           <PageSelector 
           number_of_pages={this.state.number_of_pages} 

@@ -35,12 +35,16 @@ articlesBackend_app_router.use(set_user_if_any, (req, res, next) => {
   next()
 })
 
+
+
 articlesBackend_app_router.get(['/:category?', '/individual_article/:articleID'], (req,res)=>{
 
   console.log("category:", req.params.category)
   // console.log({userId: req.session.userId})
 
   var JSX_to_load = 'ArticlesCategorySelector';
+
+  console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load, 
   })

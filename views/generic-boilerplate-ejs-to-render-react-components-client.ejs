@@ -4,10 +4,15 @@
 
   var currentUserEmail = '<%= locals.currentUserEmail  %>'
   var userId = '<%= locals.userId  %>'
+  var userIdB = '<%= locals.userIdB  %>'
+  var orderId = '<%= locals.orderId  %>'
+
+
   var domain = '<%-locals.ENV.domain_without_protocol%>'
   let CATEGORY = <%-(JSON.stringify(locals.CATEGORY)|| JSON.stringify({}))%>;
   let ENV = <%-JSON.stringify(locals.ENV)%>;
-  // console.log("header script: ", userId, domain, window.location.href, ENV)
+  
+  console.log("needed?: ", "user:", user, "currentUserEmail", currentUserEmail, "domain", domain, "CATEGORY:",  CATEGORY, "ENV", ENV, "userIdB", userIdB, "orderId", orderId)
 </script>
 
 

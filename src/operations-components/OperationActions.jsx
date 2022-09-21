@@ -31,6 +31,7 @@ class OperationActions extends React.Component {
           comprehensiveSelectedUserInfoDataObj={this.comprehensiveSelectedUserInfoDataObj}
           selected_userID={this.props.match.params.selected_userID}
           selected_user_email={this.comprehensiveSelectedUserInfoDataObj.email}
+          // needed in the operations route
           loggedinUserObjInfo={user}
         />
         break;
@@ -39,6 +40,7 @@ class OperationActions extends React.Component {
       comprehensiveSelectedUserInfoDataObj={this.comprehensiveSelectedUserInfoDataObj}
       selected_userID={this.props.match.params.selected_userID}
       selected_user_email={this.comprehensiveSelectedUserInfoDataObj.selected_user_email}
+      // not needed
       loggedinUserObjInfo={user}
       />
         break;

@@ -99,6 +99,8 @@ homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID
 
 homeOrdersBackend_app_router.get('/users/login', require_loggedin_for_pages(false), (req,res,next)=>{
   var JSX_to_load = 'MgtUser';
+
+  console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
     selectedUser: undefined
@@ -110,6 +112,7 @@ homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(fal
   console.log("/subscription: ", req.session.userId)
 
   var JSX_to_load = 'Subscription';
+  console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load, 
     isPaypalScriptNeeded: true
@@ -150,9 +153,9 @@ homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(fal
 
 
 homeOrdersBackend_app_router.get('/users/profile',require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), getDetailedUserSubscriptionInfo("SESSION"), (req,res)=>{
-  
-
   var JSX_to_load = 'MgtUser';
+
+  console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load, 
     // [sessionUser? "sessionUser": null]: sessionUser,
@@ -161,6 +164,10 @@ homeOrdersBackend_app_router.get('/users/profile',require_loggedin_for_pages(tru
     // [req.params.what_page === "profile" ? "userId": null]: req.session.userId,
   })
 })
+
+
+
+
 
 // Endpoints
 // /databases/AllMyOrders, /databases/matches, /databases/buyordersdata, /databases/sellordersdata
@@ -172,10 +179,12 @@ homeOrdersBackend_app_router.get(['/databases/:what_page?', '/make/:type'], requ
   
   var JSX_to_load = 'OrdersApp';
 
+  console.log("\n\nResponse locals: ___________________/n", res.locals, "\n\n____________________\n\n")
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
   })
 })
+
 
 
 homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), verifyingPasswordMiddleware, RegisterLoginController.loginController)
@@ -188,20 +197,31 @@ homeOrdersBackend_app_router.post('/check/user/register', requireRefererMiddlewa
 
 
 
+
+
 homeOrdersBackend_app_router.get('/',(req,res)=>{
   console.log("\n\n\nBack in get '/' route\nAre we still logged in?\n", req.session.userId, "\nDo we have any pop-up messages: \n", req.query.popup)
-
-  console.log("process.env.NODE_ENV", process.env.NODE_ENV)
-  console.log("process.env.PAYPAL_API_ROOT", process.env.PAYPAL_API_ROOT)
 
   res.locals.popup = req.query.popup
 
   var JSX_to_load = 'App';
+  console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { JSX_to_load : JSX_to_load })
 })
 
 
+
+
+
+
+
+
+
+
+
 homeOrdersBackend_app_router.get('/isup', isUpController)
+
+
 
 
 
@@ -225,6 +245,56 @@ homeOrdersBackend_app_router.get('/cryptoprice', async (req,res,next)=>{
 })
 
 
+
+
+
+
+
+
+
+
+
+
+
+homeOrdersBackend_app_router.patch('/update', require_loggedin_for_data(true), homeOrdersController.updateOrderController)
+
+
+
+
+homeOrdersBackend_app_router.get('/current-user-ID', require_loggedin_for_data(true), (req,res)=>{
+  console.log(req.session.userId)
+
+  res.json({
+    srv_usr_ID: req.session.userId
+  })
+})
+
+
+
+
+
+
+homeOrdersBackend_app_router.delete('/delete-this-order', require_loggedin_for_data(true), homeOrdersController.deleteOrderController)
+
+
+
+homeOrdersBackend_app_router.post('/:type_order/save', require_loggedin_for_data(true), homeOrdersController.registerOrder)
+
+
+
+
+
+homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (req,res)=>{
+  //Destroy the Session data, including the userId property
+  req.session.destroy(()=>{
+      res.status(httpStatus.StatusCodes.PERMANENT_REDIRECT).redirect('/?popup=You have successfully logged out')
+  })
+})
+
+
+
+
+
 homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware,
 sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteUserMiddleware, logoutMiddleware, (req,res,next)=>{
   console.log("Final point: ", res.locals.notifications.length, res.locals.notifications.length == 0, res.locals.notifications.length === 0)
@@ -242,33 +312,6 @@ sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteUser
   }
 })
 
-
-
-homeOrdersBackend_app_router.patch('/update', require_loggedin_for_data(true), homeOrdersController.updateOrderController)
-
-
-
-homeOrdersBackend_app_router.get('/current-user-ID', require_loggedin_for_data(true), (req,res)=>{
-  console.log(req.session.userId)
-
-  res.json({
-    srv_usr_ID: req.session.userId
-  })
-})
-
-
-homeOrdersBackend_app_router.delete('/delete-this-order', require_loggedin_for_data(true), homeOrdersController.deleteOrderController)
-
-
-homeOrdersBackend_app_router.post('/:type_order/save', require_loggedin_for_data(true), homeOrdersController.registerOrder)
-
-
-homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (req,res)=>{
-  //Destroy the Session data, including the userId property
-  req.session.destroy(()=>{
-      res.status(httpStatus.StatusCodes.PERMANENT_REDIRECT).redirect('/?popup=You have successfully logged out')
-  })
-})
 
 
 module.exports = homeOrdersBackend_app_router

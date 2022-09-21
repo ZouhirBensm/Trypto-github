@@ -4,6 +4,7 @@ const ENV = require('../config/base')
 //Global variable loggedIn that will be accessible from all our ejs files
 global.loggedIn = null
 global.navBars = null
+global.URL_ = null
 
 const NAVBAR = require('../full-stack-libs/Types/Navbar')
 // console.log(process.env.ROOT)
@@ -123,6 +124,7 @@ express_server_app_router.use(express.static('public'));
 
 
 express_server_app_router.use((req, res, next) => {
+  URL_ = req.url
   // console.log("Testing!")
   res.locals.ENV = ENV;
   res.locals.userId = req.session.userId

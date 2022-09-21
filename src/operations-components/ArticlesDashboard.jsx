@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, BrowserRouter, Route, Switch, useRouteMatch} from 'react-router-dom';
+import { Link, BrowserRouter, Route, Switch} from 'react-router-dom';
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
 

@@ -61,6 +61,8 @@ operationsBackend_app_router.get(['/', '/articles-dashboard'], require_loggedin_
   var JSX_to_load
   JSX_to_load = 'Operations';
 
+  console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
+  
   res.render('generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
   })
@@ -68,28 +70,29 @@ operationsBackend_app_router.get(['/', '/articles-dashboard'], require_loggedin_
   console.log("done")
 })
 
+
+
+
+
 operationsBackend_app_router.get('/create-article', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
 
   var JSX_to_load
   JSX_to_load = 'CreateArticle';
 
+  console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
   res.render('generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
   })
 })
 
+
+
+
+
+
 operationsBackend_app_router.post('/create-article', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), setTheExcerptMiddleware , async (req, res, next) => {
 
-  
   console.log("\n\nin POST /operations/create-article: ", req.body)
-
-  // let saveArticleRes
-  // try {
-  //   saveArticleRes = await Article.create(req.body)
-  // } catch (e) {
-  //   return next(e)
-  // }
-  // console.log(saveArticleRes)
 
   Article.create(req.body, (e, saveArticleRes) => {
     if(e) return next(e)
@@ -100,12 +103,11 @@ operationsBackend_app_router.post('/create-article', require_loggedin_for_pages(
     });
   })
 
-
-
-
-
+  console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
   res.status(200).end()
 })
+
+
 
 
 operationsBackend_app_router.get('/article-selector', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
@@ -113,10 +115,17 @@ operationsBackend_app_router.get('/article-selector', require_loggedin_for_pages
   var JSX_to_load
   JSX_to_load = 'ArticleSelector';
 
+  console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
+
   res.render('generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
   })
 })
+
+
+
+
+
 
 // for test 3@
 // , authenticate_role_for_pages([ROLE.MASTER]),
@@ -125,6 +134,7 @@ operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/man
   var JSX_to_load
   JSX_to_load = 'Operations';
 
+  // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
   res.render('generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
   })
@@ -143,6 +153,7 @@ operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages
   var JSX_to_load
   JSX_to_load = 'Operations';
 
+  console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
   res.render('generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
   })
@@ -193,25 +204,18 @@ operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', require_l
   var JSX_to_load
   JSX_to_load = 'Operations';
 
+  
+  console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
   res.render('generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
   })
 })
+
 
 
 
 operationsBackend_app_router.get('/paginated-users/users-for-display', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), paginatingSetupMiddleware, destructureURLandRefererMiddleware, usersRetrievalMiddleware, distributePaginatedDataController)
 
-operationsBackend_app_router.get('/test', (req, res) => {
-  console.log("in the test endpoint")
-  var JSX_to_load
-  JSX_to_load = 'Operations';
-
-  res.render('generic-boilerplate-ejs-to-render-react-components-operations', {
-    JSX_to_load: JSX_to_load,
-  })
-
-})
 
 operationsBackend_app_router.get('/paginated-messages/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2), paginatingSetupMiddleware, destructureURLandRefererMiddleware, messagesRetrievalMiddleware, distributePaginatedDataController)
 

@@ -6,8 +6,9 @@ console.log("socketio in the house!")
 
 // Get information from ejs pre-loaded template page
 // var userIdA = document.getElementById("userId").innerHTML
-var userIdB = document.getElementById("userIdB").innerHTML
-var orderId = document.getElementById("orderId").innerHTML
+
+
+console.log("we got!", userIdB, orderId)
 
 // Imporatant information to work with
 // userId is pre loaded and retreived from the backend /Users/Zouhir/Documents/MERN/BlockchainMERN/server/server.js line 115: res.locals.userId = req.session.userId
@@ -22,7 +23,9 @@ const socket = io(`${window.location.protocol}//${domain}`, { query: `userAId=${
 var msgBox = document.getElementById("msg-box")
 var chatForm = document.getElementById("chatForm")
 var chatInput = document.getElementById("chat-input")
-var loggedInEmail = document.getElementById("currentUserEmail").innerHTML
+
+var loggedInEmail = currentUserEmail
+
 
 console.log("User that is currently logged in used for message author when submition of a new message: ", userId)
 
@@ -59,7 +62,7 @@ socket.on("broadcast", (SentObjectPackaged) => {
 
   // Undefined for first load
   // Display message only if message destined to myself or if the message is authored as userIdB on the page
-  // Double checking on the front end, emit is already filters on the backend.
+  // Double checking on the front end, emit is already filtered on the backend.
   if (SentObjectPackaged.msgAuthorId == userId | SentObjectPackaged.msgAuthorId == userIdB | SentObjectPackaged.msgAuthorId == undefined){
     // New message item
     var item = document.createElement("li")
