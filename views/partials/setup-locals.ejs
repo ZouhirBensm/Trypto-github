@@ -1,70 +1,25 @@
+<!-- get rid of this -->
+<%- include("preconfigsURL") %>
+<!-- get rid of this -->
+<%- include("chopURL") %>
+<%- include("declarePathParams") %>
+
+<%if(locals.paths_URL!=null && locals.paths_URL[0] == 'articles'){%>
+  <%- include("setupPathParams4articles") %>
+<%}%>
+<%if(locals.paths_URL!=null && locals.paths_URL[0] == 'operations'){%>
+  <%- include("setupPathParams4operations") %>
+<%}%>
+<%if(locals.paths_URL!=null && locals.paths_URL[0] == 'databases'){%>
+  <%- include("setupPathParams4databases") %>
+<%}%>
+<%if(locals.paths_URL!=null && locals.paths_URL[0] == 'make'){%>
+  <%- include("setupPathParams4make") %>
+<%}%>
+
+
+
 <script>
-  // Kept just as references
-  var URL_ = '<%= URL_  %>'
-  URL_ = URL_.split("?")[0]
-  console.log("URL_", URL_)
-
-
-
-
-
-  const regExChopper = /[^\/]+/g; 
-  const matchesReg = URL_.match(regExChopper)
-
-  console.log(matchesReg)
-
-  let caseCategory
-  let caseArticleID
-
-  if(matchesReg!=null && matchesReg[0] == 'articles') {
-    if(matchesReg[1] && matchesReg[1] == 'individual_article'){
-      if(matchesReg[2]) {
-        console.log("set id article")
-        caseArticleID = matchesReg[2]
-      }
-    }
-    if(matchesReg[1]){
-      caseCategory = matchesReg[1]
-    }
-  }
-
-  let caseOperationsTask
-  let caseUserID
-
-  if(matchesReg!=null && matchesReg[0] == 'operations') {
-    if(matchesReg[1]){
-      switch (matchesReg[1]) {
-        case 'create-article':
-          caseOperationsTask = 'create-article'
-          break;
-        case 'article-selector':
-          caseOperationsTask = 'article-selector'
-          break;
-
-        case 'help-for-orders':
-          caseOperationsTask = 'help-for-orders'
-          break;
-        case 'monitor-messages':
-          caseOperationsTask = 'monitor-messages'
-          break;
-        case 'manage-subs':
-          caseOperationsTask = 'manage-subs'
-          break;
-      
-        default:
-          break;
-      }
-
-      if(matchesReg[2]){
-        caseUserID = matchesReg[2]
-      }
-    }
-  }
-
-  console.log(caseCategory, caseArticleID)
-
-
-
 
 
   let OBJLOCALS = {}
@@ -82,241 +37,88 @@
   var selectedUser2
   var CATEGORY2
 
+
+
+  environment = '<%= locals.ENV.environment %>'
+  navBars = '<%= navBars %>'
+  loggedIn = '<%= loggedIn %>'
+
+
   switch (URL_) {
     case '/':
-      environment = '<%= locals.ENV.environment %>'
-      navBars = '<%= navBars %>'
-      loggedIn = '<%= loggedIn %>'
       userId = '<%= locals.userId %>'
       popup = '<%= locals.popup %>'
 
       if(`<%=locals.selectedUser%>`){
-        console.log("true")
-      } else {
-        console.log("false")
+        selectedUser2 = <%-JSON.stringify(locals.selectedUser)%>
       }
 
-      OBJLOCALS = {
-        environment,
-        navBars,
-        loggedIn,
-        userId,
-        popup
-      }
+      console.log(userId, popup, selectedUser2)
 
-      console.log(OBJLOCALS)
-
-      console.log("ok", <%-JSON.stringify(locals.selectedUser)%>)
-      break;
-    case '/users/login':
-      console.log("LOOOGGGINNNNNNN")
-      environment = '<%= locals.ENV.environment %>'
-      navBars = '<%= navBars %>'
-      loggedIn = '<%= loggedIn %>'
-      
-
-      OBJLOCALS = {
-        environment,
-        navBars,
-        loggedIn,
-      }
-      console.log(OBJLOCALS)
       break;
     case '/subscription':
-      console.log("SUBBBSSS")
-      environment = '<%= locals.ENV.environment %>'
-      navBars = '<%= navBars %>'
-      loggedIn = '<%= loggedIn %>'
       isPaypalScriptNeeded = <%= locals.isPaypalScriptNeeded %>
       paypal_client_id = '<%= locals.ENV.paypal_client_id %>'
 
-      OBJLOCALS = {
-        environment,
-        navBars,
-        loggedIn,
-        isPaypalScriptNeeded,
-        paypal_client_id
-      }
-
-      console.log(OBJLOCALS)
+      console.log(isPaypalScriptNeeded, paypal_client_id)
       break;
     case '/users/profile':
-      environment = '<%= locals.ENV.environment %>'
-      navBars = '<%= navBars %>'
-      loggedIn = '<%= loggedIn %>'
       userId = '<%= locals.userId %>'
 
       if(`<%=locals.selectedUser%>`){
-        console.log("true")
         selectedUser2 = <%-JSON.stringify(locals.selectedUser || {})%> 
-      } else {
-        console.log("false")
-      }
-      
-
-      OBJLOCALS = {
-        environment,
-        navBars,
-        loggedIn,
-        userId,
-        selectedUser2,
       }
 
-      console.log(OBJLOCALS)
+      console.log(selectedUser2, userId)
       
       break;
+
+    case `/articles/individual_article/${caseArticleID}`:
+    case `/articles/${caseCategory}`:
+    case '/users/login':
     case '/databases':
-    case '/make/makebuy':
-    case '/make/makesell':
-      environment = '<%= locals.ENV.environment %>'
-      navBars = '<%= navBars %>'
-      loggedIn = '<%= loggedIn %>'
-      
-      OBJLOCALS = {
-        environment,
-        navBars,
-        loggedIn,
-      }
-
-      console.log(OBJLOCALS)
-      
+    case `/make/${caseOptionMakes}`:
       break;
-    case '/databases/sellordersdata':
-    case '/databases/buyordersdata':
-    case '/databases/AllMyOrders':
-    case '/databases/matches':
-      environment = '<%= locals.ENV.environment %>'
-      navBars = '<%= navBars %>'
-      loggedIn = '<%= loggedIn %>'
-      userId = '<%= locals.userId %>'
-      
-      OBJLOCALS = {
-        environment,
-        navBars,
-        loggedIn,
-        userId
-      }
 
-      console.log(OBJLOCALS)
-      
+    case `/databases/${caseOptionDatabases}`:
+      userId = '<%= locals.userId %>'
+      console.log(userId)
       break;
     case '/articles':
-      environment = '<%= locals.ENV.environment %>'
-      navBars = '<%= navBars %>'
-      loggedIn = '<%= loggedIn %>'
       CATEGORY2 = <%-JSON.stringify(locals.CATEGORY || {})%> 
-      
-      OBJLOCALS = {
-        environment,
-        navBars,
-        loggedIn,
-        CATEGORY2,
-      }
-
-      console.log(OBJLOCALS)
-      
+      console.log(CATEGORY2)
       break;
-    case `/articles/${caseCategory}`:
     
-      environment = '<%= locals.ENV.environment %>'
-      navBars = '<%= navBars %>'
-      loggedIn = '<%= loggedIn %>'
-      
-      
-      OBJLOCALS = {
-        environment,
-        navBars,
-        loggedIn,
-      }
-
-      console.log("with CATEGORY: ", OBJLOCALS)
-    
-      break;
-    case `/articles/individual_article/${caseArticleID}`:
-      environment = '<%= locals.ENV.environment %>'
-      navBars = '<%= navBars %>'
-      loggedIn = '<%= loggedIn %>'
-      
-      
-      OBJLOCALS = {
-        environment,
-        navBars,
-        loggedIn,
-      }
-
-      console.log("with article id: ", OBJLOCALS)
-      break;
     case '/messaging':
-      environment = '<%= locals.ENV.environment %>'
-      navBars = '<%= navBars %>'
-      loggedIn = '<%= loggedIn %>'
       userId = '<%= locals.userId %>'
       currentUserEmail = '<%= locals.currentUserEmail  %>'
       userIdB = '<%= locals.userIdB  %>'
       orderId = '<%= locals.orderId  %>'
       user = <%-JSON.stringify(locals.user || {})%> 
       
-      
-      OBJLOCALS = {
-        environment,
-        navBars,
-        loggedIn,
-        userId,
-        currentUserEmail,
-        userIdB,
-        orderId,
-        user
-      }
 
-      console.log(OBJLOCALS)
+      console.log(userId, currentUserEmail, userIdB, orderId, user)
       break;
     case '/messaging/messages':
-      environment = '<%= locals.ENV.environment %>'
-      navBars = '<%= navBars %>'
-      loggedIn = '<%= loggedIn %>'
       userId = '<%= locals.userId %>'
       currentUserEmail = '<%= locals.currentUserEmail  %>'
       user = <%-JSON.stringify(locals.user || {})%> 
       
-      OBJLOCALS = {
-        environment,
-        navBars,
-        loggedIn,
-        userId,
-        currentUserEmail,
-        user
-      }
-
-      console.log(OBJLOCALS)
+      console.log(userId, currentUserEmail, user)
       break;
     case '/operations':
     case '/operations/articles-dashboard':
-      environment = '<%= locals.ENV.environment %>'
-      navBars = '<%= navBars %>'
-      loggedIn = '<%= loggedIn %>'
       // not needed
       CATEGORY2 = <%-JSON.stringify(locals.CATEGORY || {})%> 
       // not needed
       user = <%-JSON.stringify(locals.user || {})%> 
 
 
-      OBJLOCALS = {
-        environment,
-        navBars,
-        loggedIn,
-        CATEGORY2,
-        user
-      }
-
-      console.log(OBJLOCALS)
+      console.log(CATEGORY2, user)
 
       // console.log("operations")
       break;
     case `/operations/${caseOperationsTask}`:
-
-      environment = '<%= locals.ENV.environment %>'
-      navBars = '<%= navBars %>'
-      loggedIn = '<%= loggedIn %>'
 
       // used only on the 
       // create-article 
@@ -324,59 +126,26 @@
       // not needed
       user = <%-JSON.stringify(locals.user || {})%> 
 
-      console.log("in the create article route")
-
-      OBJLOCALS = {
-        environment,
-        navBars,
-        loggedIn,
-        CATEGORY2,
-        user
-      }
-
-      console.log(OBJLOCALS)
+      console.log(CATEGORY2, user)
       break;
 
-
     case `/operations/${caseOperationsTask}/${caseUserID}`:
-
-      environment = '<%= locals.ENV.environment %>'
-      navBars = '<%= navBars %>'
-      loggedIn = '<%= loggedIn %>'
       // not needed except -> monitor-messages in the operations route
       user = <%-JSON.stringify(locals.user || {})%> 
       // not needed
       CATEGORY2 = <%-JSON.stringify(locals.CATEGORY || {})%> 
 
-      OBJLOCALS = {
-        environment,
-        navBars,
-        loggedIn,
-        CATEGORY2,
-        user
-      }
-
-      console.log(OBJLOCALS)
+      console.log(user, CATEGORY2)
       break;
     case `/operations/monitor-messages/${caseUserID}/edit-see`:
 
-      environment = '<%= locals.ENV.environment %>'
-      navBars = '<%= navBars %>'
-      loggedIn = '<%= loggedIn %>'
       // not needed
       user = <%-JSON.stringify(locals.user || {})%> 
       // not needed
       CATEGORY2 = <%-JSON.stringify(locals.CATEGORY || {})%> 
 
-      OBJLOCALS = {
-        environment,
-        navBars,
-        loggedIn,
-        CATEGORY2,
-        user
-      }
 
-      console.log("BAAAMM", OBJLOCALS)
+      console.log(user, CATEGORY2)
       break;
 
 

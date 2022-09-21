@@ -1,0 +1,27 @@
+<script>
+
+  console.log("-------------------->")
+  
+  if (paths_URL[1]) {
+    switch (paths_URL[1]) {
+      case 'sellordersdata':
+        caseOptionDatabases = 'sellordersdata'
+        break;
+      case 'buyordersdata':
+        caseOptionDatabases = 'buyordersdata'
+        break;
+      case 'AllMyOrders':
+        caseOptionDatabases = 'AllMyOrders'
+        break;
+      case 'matches':
+        caseOptionDatabases = 'matches'
+        break;
+      default:
+        break;
+    }
+  }
+
+
+  console.log("caseOptionDatabases", caseOptionDatabases)
+
+</script>

@@ -1,0 +1,33 @@
+<script>
+
+  if(paths_URL[1]){
+    switch (paths_URL[1]) {
+      case 'create-article':
+        caseOperationsTask = 'create-article'
+        break;
+      case 'article-selector':
+        caseOperationsTask = 'article-selector'
+        break;
+
+      case 'help-for-orders':
+        caseOperationsTask = 'help-for-orders'
+        break;
+      case 'monitor-messages':
+        caseOperationsTask = 'monitor-messages'
+        break;
+      case 'manage-subs':
+        caseOperationsTask = 'manage-subs'
+        break;
+    
+      default:
+        break;
+    }
+
+    if(paths_URL[2]){
+      caseUserID = paths_URL[2]
+    }
+  }
+
+
+  console.log(caseCategory, caseArticleID)
+</script>
