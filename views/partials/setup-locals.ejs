@@ -21,110 +21,113 @@
 
 <script>
 
-
-  let OBJLOCALS = {}
-
-  var environment
-  var navBars
-  var loggedIn
-  var isPaypalScriptNeeded
-  var paypal_client_id
   var userId
+
   var popup
   var currentUserEmail
   var userIdB
   var orderId
-  var selectedUser2
-  var CATEGORY2
+  var selectedUser
+  var CATEGORY
+  var domain
+  var user
 
 
-
-  environment = '<%= locals.ENV.environment %>'
-  navBars = '<%= navBars %>'
-  loggedIn = '<%= loggedIn %>'
 
 
   switch (URL_) {
-    case '/operations':
+    case '/subscription':
     case '/operations/articles-dashboard':
     case `/operations/monitor-messages/${caseUserID}/edit-see`:
-    case `/articles/individual_article/${caseArticleID}`:
-    case `/articles/${caseCategory}`:
     case '/users/login':
     case '/databases':
     case `/make/${caseOptionMakes}`:
       break;
+
 
     case '/':
       userId = '<%= locals.userId %>'
       popup = '<%= locals.popup %>'
 
       if(`<%=locals.selectedUser%>`){
-        selectedUser2 = <%-JSON.stringify(locals.selectedUser || {})%> 
+        selectedUser = <%-JSON.stringify(locals.selectedUser || {})%> 
       }
-
-      console.log(userId, popup, selectedUser2)
-
+      console.log(userId, selectedUser)
       break;
-    case '/subscription':
-      isPaypalScriptNeeded = <%= locals.isPaypalScriptNeeded %>
-      paypal_client_id = '<%= locals.ENV.paypal_client_id %>'
 
-      console.log(isPaypalScriptNeeded, paypal_client_id)
-      break;
+
+
     case '/users/profile':
       userId = '<%= locals.userId %>'
-
       if(`<%=locals.selectedUser%>`){
-        selectedUser2 = <%-JSON.stringify(locals.selectedUser || {})%> 
+        selectedUser = <%-JSON.stringify(locals.selectedUser || {})%> 
       }
-
-      console.log(selectedUser2, userId)
-      
+      console.log(selectedUser, userId)
       break;
+
+
     case `/databases/${caseOptionDatabases}`:
       userId = '<%= locals.userId %>'
-
       console.log(userId)
       break;
-    case '/articles':
-      CATEGORY2 = <%-JSON.stringify(locals.CATEGORY || {})%> 
 
-      console.log(CATEGORY2)
+
+    case '/articles':
+      CATEGORY = <%-JSON.stringify(locals.CATEGORY || {})%> 
+      console.log(CATEGORY)
+      break;
+    case `/articles/${caseCategory}`:
+      CATEGORY = <%-JSON.stringify(locals.CATEGORY || {})%> 
+      console.log(CATEGORY)
+      break;
+    case `/articles/individual_article/${caseArticleID}`:
+      CATEGORY = <%-JSON.stringify(locals.CATEGORY || {})%> 
+      console.log(CATEGORY)
       break;
     
+
+
+
     case '/messaging':
       userId = '<%= locals.userId %>'
       currentUserEmail = '<%= locals.currentUserEmail  %>'
       userIdB = '<%= locals.userIdB  %>'
       orderId = '<%= locals.orderId  %>'
       user = <%-JSON.stringify(locals.user || {})%> 
-      
-      console.log(userId, currentUserEmail, userIdB, orderId, user)
+      domain = '<%-locals.ENV.domain_without_protocol%>'
+
+      console.log("--------------->>>>>>", userId, currentUserEmail, userIdB, orderId, user, domain)
       break;
     case '/messaging/messages':
       userId = '<%= locals.userId %>'
       currentUserEmail = '<%= locals.currentUserEmail  %>'
       user = <%-JSON.stringify(locals.user || {})%> 
-      
-      console.log(userId, currentUserEmail, user)
+      console.log("--------------->>>>>>", userId, currentUserEmail, user)
+      break;
+
+
+
+    case '/operations':
+      CATEGORY = <%-JSON.stringify(locals.CATEGORY || {})%> 
+      user = <%-JSON.stringify(locals.user || {})%> 
+      console.log("--------------->>>>>>", user, CATEGORY)
       break;
     case `/operations/${caseOperationsTask}`:
       if (caseOperationsTask == "create-article") {
-        CATEGORY2 = <%-JSON.stringify(locals.CATEGORY || {})%> 
+        CATEGORY = <%-JSON.stringify(locals.CATEGORY || {})%> 
+        console.log(CATEGORY)
       }
-
-      console.log(CATEGORY2)
+      if (caseOperationsTask == "monitor-messages") {
+        user = <%-JSON.stringify(locals.user || {})%> 
+        console.log("--------->>>>", user)
+      }
       break;
-
     case `/operations/${caseOperationsTask}/${caseUserID}`:
       if (caseOperationsTask == "monitor-messages") {
         user = <%-JSON.stringify(locals.user || {})%> 
+        console.log("--------------->>>>>>", user)
       }
-
-      console.log(user)
       break;
-
     default:
       break;
   }

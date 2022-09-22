@@ -1,44 +1,50 @@
 <script>
-  // Kept just as references
-  var user = <%-(JSON.stringify(locals.user)|| JSON.stringify({}))%>;
+  console.log("WHERE THINGS NEED TO BE: ", user, currentUserEmail, userIdB, orderId, domain, CATEGORY, selectedUser, userId, popup)
+</script>
 
-  var currentUserEmail = '<%= locals.currentUserEmail  %>'
-  var userId = '<%= locals.userId  %>'
-  var userIdB = '<%= locals.userIdB  %>'
-  var orderId = '<%= locals.orderId  %>'
+<script>
+  // var user = < %-(JSON.stringify(locals.user)|| JSON.stringify({}))%>;
+
+  // var currentUserEmail = '< %= locals.currentUserEmail  %>'
+  // var userId = '< %= locals.userId  %>'
+  // var userIdB = '< %= locals.userIdB  %>'
+  // var orderId = '< %= locals.orderId  %>'
 
 
-  var domain = '<%-locals.ENV.domain_without_protocol%>'
-  let CATEGORY = <%-(JSON.stringify(locals.CATEGORY)|| JSON.stringify({}))%>;
-  let ENV = <%-JSON.stringify(locals.ENV)%>;
+  // var domain = '< %-locals.ENV.domain_without_protocol%>'
+  // let CATEGORY = < %-(JSON.stringify(locals.CATEGORY)|| JSON.stringify({}))%>;
+  // let ENV = < %-JSON.stringify(locals.ENV)%>;
   
-  console.log("needed?: ", "user:", user, "currentUserEmail", currentUserEmail, "domain", domain, "CATEGORY:",  CATEGORY, "ENV", ENV, "userIdB", userIdB, "orderId", orderId)
+  // console.log("needed?: ", "user:", user, "currentUserEmail", currentUserEmail, "domain", domain, "CATEGORY:",  CATEGORY, "ENV", ENV, "userIdB", userIdB, "orderId", orderId)
 </script>
 
 
 
 <div id='react-div'></div>
-<div id="userId" style="display: none;"><%if(locals.userId){%><%=userId%><%}%></div>
-<div id="currentUserEmail" style="display: none;"><%if(locals.currentUserEmail){%><%=currentUserEmail%><%}%></div>
-<div id="userIdB" style="display: none;"><%if(locals.userIdB){%><%=userIdB%><%}%></div>
-<div id="orderId" style="display: none;"><%if(locals.orderId){%><%=orderId%><%}%></div>
-<div id="popup" style="display: none;"><%if(locals.popup){%><%=popup%><%}%></div>
+
+
+<!-- <div id="userId" style="display: none;">< %if(locals.userId){%>< %=userId%>< %}%></div>
+<div id="currentUserEmail" style="display: none;">< %if(locals.currentUserEmail){%>< %=currentUserEmail%>< %}%></div>
+<div id="userIdB" style="display: none;">< %if(locals.userIdB){%>< %=userIdB%>< %}%></div>
+<div id="orderId" style="display: none;">< %if(locals.orderId){%>< %=orderId%>< %}%></div> -->
+<div id="popup" style="display: none;"><%if(locals.popup){%><%=popup%><%}%></div> 
 
 <%if(locals.isPaypalScriptNeeded){%>
   <script src="https://www.paypal.com/sdk/js?client-id=<%-locals.ENV.paypal_client_id%>&vault=true&intent=subscription"></script>
 <%}%>
 
-<!-- V1 -->
-<%if(locals.selectedUser){%>
+
+
+
+<!-- < %if(locals.selectedUser){%>
 <script type='text/javascript'>
-  let selectedUser =  <%-JSON.stringify(selectedUser)%>;
-  // console.log(sessionUser) 
+  let selectedUser =  < %-JSON.stringify(selectedUser)%>;
 </script>
-<%} else { %>
+< %} else { %>
   <script type='text/javascript'>
     let selectedUser =  undefined;
   </script>
-<% } %>
+< % } %> -->
 
 <!-- Capable from server send data to determine what React base component to render: Either App.js or Databases.js -->
 <script type="text/javascript" src="/dist/<%= JSX_to_load %>.js"></script>

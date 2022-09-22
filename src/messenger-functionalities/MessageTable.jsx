@@ -7,6 +7,7 @@ class MessageTable extends React.Component {
     super(props)
     this.state = {
     }
+    console.log("QWQEWEREWGRGRGRGTGTGHT____", this.props.loggedinUserObjInfo)
   }
 
   render(){
@@ -78,15 +79,12 @@ class MessageRow extends React.Component {
     const parsedURL = utils.parseURL(window.location.href)
     const firstpath = utils.parseFullPath4firstpath(parsedURL[3])
 
+
+    console.log("BAM", this.loggedinUserObjInfo?.role, firstpath, "BAM")
+
     if(this.loggedinUserObjInfo?.role == "MASTER" && firstpath == "operations"){
       console.log("MAster JOB!")
-      console.log(comprehensiveSelectedUserInfoDataObj)
-
-      // WORKED TEST
-      // window.location.href = `/operations/test`
-
-      // WORKED MORE
-      // window.location.href = `/operations/monitor-messages/edit-see/more?comprehensiveUserInfo=${JSON.stringify(comprehensiveSelectedUserInfoDataObj)}`
+      // console.log(comprehensiveSelectedUserInfoDataObj)
 
       window.location.href = `/operations/monitor-messages/${this.PassedUserID}/edit-see?comprehensiveSelectedUserInfo=${JSON.stringify(comprehensiveSelectedUserInfoDataObj)}&orderId=${undefined}&userIdB=${communicating_with_ID}`
       // window.location.href = `/operations/monitor-messages/${this.PassedUserID}/edit-see`

@@ -51,15 +51,12 @@ class Subscription extends React.Component {
     this.setState({
       step: ++this.state.step
     })
-    // window.history.replaceState(null, null, `${domain}/subscription/${this.state.step}`)
-    // window.location.href= `${domain}/subscription/${++this.state.step}`
   }
   previousStep(e){
     console.log("parent!")
     this.setState({
       step: --this.state.step
     })
-    // window.location.href= `${domain}/subscription/${--this.state.step}`
   }
 
   handleChange(input, e){

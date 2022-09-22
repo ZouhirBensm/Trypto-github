@@ -119,37 +119,6 @@ homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(fal
   })
 })
 
-// Kept temporarly to make sure changes work
-// homeOrdersBackend_app_router.get('/users/profile',require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), async (req,res,next)=>{
-
-//   let selectedUser = null
-
-//   let query = User.findOne({
-//     _id: req.session.userId,
-//     // subscriptionID: { $ne: null }
-//   })
-//   .select('registrationDateTime email subscriptionID -_id')
-
-//   query = query.populate({
-//     // Populate protagonists
-//     path: "subscriptionID", 
-//     // Fields allowed to populate with
-//     select: "-_id plan subscriptionDateTime paypal_subscriptionID paypal_plan_id expireAt",
-//   })
-  
-//   selectedUser = await query.exec()
-//   console.log({selectedUser})
-  
-
-//   var JSX_to_load = 'MgtUser';
-//   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
-//     JSX_to_load : JSX_to_load, 
-//     // [sessionUser? "sessionUser": null]: sessionUser,
-//     selectedUser: selectedUser,
-//     // [req.params.what_page === "profile" ? "userId": null]: req.session.userId,
-//   })
-// })
-
 
 
 homeOrdersBackend_app_router.get('/users/profile',require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), getDetailedUserSubscriptionInfo("SESSION"), (req,res)=>{
@@ -157,11 +126,7 @@ homeOrdersBackend_app_router.get('/users/profile',require_loggedin_for_pages(tru
 
   console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
-    JSX_to_load : JSX_to_load, 
-    // [sessionUser? "sessionUser": null]: sessionUser,
-    // Kept as reference can be deleted eventually
-    // selectedUser: res.locals.selectedUser,
-    // [req.params.what_page === "profile" ? "userId": null]: req.session.userId,
+    JSX_to_load : JSX_to_load,
   })
 })
 

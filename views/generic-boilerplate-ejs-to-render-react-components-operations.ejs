@@ -1,8 +1,10 @@
 <script>
-  // Kept just as references
-  let CATEGORY = <%-JSON.stringify(locals.CATEGORY)%>;
-  // console.log("header script: ", userId, domain, window.location.href, ENV)
-  var user = <%-(JSON.stringify(locals.user)|| JSON.stringify({}))%>;
+  // let CATEGORY = < %-JSON.stringify(locals.CATEGORY)%>;
+  // var user = < %-(JSON.stringify(locals.user)|| JSON.stringify({}))%>;
+</script>
+
+<script>
+  console.log("WHERE THINGS NEED TO BE: ", CATEGORY, user)
 </script>
 
 
@@ -13,13 +15,12 @@
 <!-- ../dist /dist reference the same page, not sure thought, potential source of errors -->
 
 
-<!-- V1 -->
-<%if(locals.sessionUser){%>
+<!-- Not Needed -->
+<!-- < %if(locals.sessionUser){%>
   <script type='text/javascript'>
-    let sessionUser =  <%-JSON.stringify(sessionUser)%>;
-    // console.log(sessionUser) 
+    let sessionUser =  < %-JSON.stringify(sessionUser)%>;
   </script>
-<%}%>
+< %}%> -->
 
 
 <script type="text/javascript" src="/dist/<%= JSX_to_load %>.js"></script>

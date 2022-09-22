@@ -8,7 +8,7 @@ class PricesComponent extends React.Component {
       country: 'Canada'
     }
     this.handleClick = this.handleClick.bind(this)
-    this.popup = document.getElementById("popup").innerHTML
+    this.popup = popup
   }
 
   handleClick(e){

@@ -6,6 +6,7 @@ class MonitorForMessages extends React.Component {
   constructor(props){
     super(props)
     this.state={}
+    console.log("AAAAAAAAAAAAAA: ", this.props.loggedinUserObjInfo)
     console.log("VVVVVVVVVVVV:", this.props.selected_userID, this.props.selected_user_email)
   }
   render(){
