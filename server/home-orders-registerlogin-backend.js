@@ -26,7 +26,7 @@ const mongodbClient = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTo
 // Utils
 const utils = require('../full-stack-libs/utils')
 const ROLE = require("../full-stack-libs/Types/Role")
-
+const NAVBAR = require('../full-stack-libs/Types/Navbar')
 
 
 // Custom Error
@@ -88,12 +88,13 @@ const Subscriber = require('../models/Subscriber')
 
 // Start middleware for this homeOrdersBackend_app_router
 homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
+  res.locals.userId = req.session.userId
+  navBars = NAVBAR.CLIENTS
   next()
 })
 
 
-// require_loggedin_for_data(true)
-// for test 1@
+
 homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', requireRefererMiddleware, require_loggedin_for_data(true), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
 
 
@@ -103,7 +104,7 @@ homeOrdersBackend_app_router.get('/users/login', require_loggedin_for_pages(fals
   console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
-    selectedUser: undefined
+    // selectedUser: undefined
   })
 })
 
@@ -112,10 +113,12 @@ homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(fal
   console.log("/subscription: ", req.session.userId)
 
   var JSX_to_load = 'Subscription';
+  res.locals.isPaypalScriptNeeded = true
+
   console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load, 
-    isPaypalScriptNeeded: true
+    // isPaypalScriptNeeded: true
   })
 })
 
@@ -225,14 +228,14 @@ homeOrdersBackend_app_router.patch('/update', require_loggedin_for_data(true), h
 
 
 
+// Might be needed!
+// homeOrdersBackend_app_router.get('/current-user-ID', require_loggedin_for_data(true), (req,res)=>{
+//   console.log(req.session.userId)
 
-homeOrdersBackend_app_router.get('/current-user-ID', require_loggedin_for_data(true), (req,res)=>{
-  console.log(req.session.userId)
-
-  res.json({
-    srv_usr_ID: req.session.userId
-  })
-})
+//   res.json({
+//     srv_usr_ID: req.session.userId
+//   })
+// })
 
 
 

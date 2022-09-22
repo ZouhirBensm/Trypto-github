@@ -9,7 +9,7 @@ const CATEGORY = require('../../../../full-stack-libs/Types/ArticleCategories');
 async function functionCoinJournalArticles(){
   feed = await parser.parseURL('https://coinjournal.net/news/tag/bitcoin/feed/');
 
-  let MostRecentItems = feed.items.slice(0,1)
+  let MostRecentItems = feed.items.slice(0,5)
 
   // console.log("\n\n\MostRecentItems", MostRecentItems);
   let articlesFromCoinJournal = articalizeForBidBlock(MostRecentItems)

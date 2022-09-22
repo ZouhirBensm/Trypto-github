@@ -17,7 +17,7 @@ const CATEGORY = require('../../../../full-stack-libs/Types/ArticleCategories');
 async function functionBitcoinMagazineArticles(){
   feed = await parser.parseURL('https://bitcoinmagazine.com/.rss/full/');
 
-  let MostRecentItems = feed.items.slice(0,1)
+  let MostRecentItems = feed.items.slice(0,5)
 
   // console.log("\n\n\MostRecentItems", MostRecentItems);
   let articlesFromBitcoinMagazine = articalizeForBidBlock(MostRecentItems)

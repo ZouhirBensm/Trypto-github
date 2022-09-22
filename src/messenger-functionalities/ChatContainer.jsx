@@ -23,6 +23,8 @@ class ChatContainer extends React.Component {
     // this._orderID = document.getElementById("orderId").innerHTML
     this._orderID = orderId
     // console.log('compare orderId', document.getElementById("orderId").innerHTML, orderId)
+
+    console.log("we got these, they are in the endpoint where they are served", userIdB, orderId)
   }
   
   componentDidMount(){

@@ -32,6 +32,7 @@ const { require_loggedin_for_pages, require_loggedin_for_data } =  require("../m
 // Route is called upon as request from browser as '/articles'
 articlesBackend_app_router.use(set_user_if_any, (req, res, next) => {
   res.locals.CATEGORY = CATEGORY;
+  navBars = NAVBAR.CLIENTS;
   next()
 })
 

@@ -9,7 +9,7 @@ const CATEGORY = require('../../../../full-stack-libs/Types/ArticleCategories');
 async function functionCoinDeskArticles(){
   feed = await parser.parseURL('https://www.coindesk.com/arc/outboundfeeds/rss/');
 
-  let MostRecentItems = feed.items.slice(0,1)
+  let MostRecentItems = feed.items.slice(0,5)
 
   // console.log("\n\n\MostRecentItems", MostRecentItems);
   let articlesFromCoinDesk = articalizeForBidBlock(MostRecentItems)

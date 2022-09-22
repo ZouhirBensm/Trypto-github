@@ -49,10 +49,11 @@
       userId = '<%= locals.userId %>'
       popup = '<%= locals.popup %>'
 
-      if(`<%=locals.selectedUser%>`){
-        selectedUser = <%-JSON.stringify(locals.selectedUser || {})%> 
-      }
-      console.log(userId, selectedUser)
+      // if(`< %=locals.selectedUser%>`){
+      //   selectedUser = < %-JSON.stringify(locals.selectedUser || {})%> 
+      // }
+      // selectedUser
+      console.log("------------->>>>>>", userId)
       break;
 
 
@@ -62,7 +63,7 @@
       if(`<%=locals.selectedUser%>`){
         selectedUser = <%-JSON.stringify(locals.selectedUser || {})%> 
       }
-      console.log(selectedUser, userId)
+      console.log("------------->>>>>>", userId, selectedUser)
       break;
 
 
@@ -72,14 +73,12 @@
       break;
 
 
+
+
+
+
     case '/articles':
-      CATEGORY = <%-JSON.stringify(locals.CATEGORY || {})%> 
-      console.log(CATEGORY)
-      break;
     case `/articles/${caseCategory}`:
-      CATEGORY = <%-JSON.stringify(locals.CATEGORY || {})%> 
-      console.log(CATEGORY)
-      break;
     case `/articles/individual_article/${caseArticleID}`:
       CATEGORY = <%-JSON.stringify(locals.CATEGORY || {})%> 
       console.log(CATEGORY)
@@ -91,17 +90,21 @@
     case '/messaging':
       userId = '<%= locals.userId %>'
       currentUserEmail = '<%= locals.currentUserEmail  %>'
-      userIdB = '<%= locals.userIdB  %>'
-      orderId = '<%= locals.orderId  %>'
       user = <%-JSON.stringify(locals.user || {})%> 
       domain = '<%-locals.ENV.domain_without_protocol%>'
 
+
+      userIdB = '<%= locals.userIdB  %>'
+      orderId = '<%= locals.orderId  %>'
+
       console.log("--------------->>>>>>", userId, currentUserEmail, userIdB, orderId, user, domain)
+      
       break;
     case '/messaging/messages':
       userId = '<%= locals.userId %>'
       currentUserEmail = '<%= locals.currentUserEmail  %>'
       user = <%-JSON.stringify(locals.user || {})%> 
+
       console.log("--------------->>>>>>", userId, currentUserEmail, user)
       break;
 

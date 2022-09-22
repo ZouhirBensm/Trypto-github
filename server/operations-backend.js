@@ -53,8 +53,6 @@ operationsBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
-// for test 2@
-// , require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER])
 operationsBackend_app_router.get(['/', '/articles-dashboard'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
 
   console.log("\n\n\n_____________", req.session.userId)
@@ -125,10 +123,6 @@ operationsBackend_app_router.get('/article-selector', require_loggedin_for_pages
 
 
 
-
-
-// for test 3@
-// , authenticate_role_for_pages([ROLE.MASTER]),
 operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/manage-subs'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
 
   var JSX_to_load
@@ -142,12 +136,6 @@ operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/man
 
 
 
-
-
-
-
-// for test 4@
-// , authenticate_role_for_pages([ROLE.MASTER])
 operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/manage-subs/:userID'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
 
   var JSX_to_load
@@ -158,33 +146,6 @@ operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages
     JSX_to_load: JSX_to_load,
   })
 })
-
-
-// Kept temporarly to make sure changes work
-// operationsBackend_app_router.get('/detailed-user-information/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2), async (req, res) => {
-//   let selectedUser = null
-
-//   let query = User.findOne({
-//     _id: req.params.userID,
-//     // subscriptionID: { $ne: null }
-//   })
-//     .select('registrationDateTime email subscriptionID -_id')
-
-//   query = query.populate({
-//     // Populate protagonists
-//     path: "subscriptionID",
-//     // Fields allowed to populate with
-//     select: "-_id plan subscriptionDateTime paypal_subscriptionID paypal_plan_id expireAt",
-//   })
-
-//   selectedUser = await query.exec()
-//   console.log({ selectedUser })
-
-//   res.status(200).json({
-//     selectedUser
-//   })
-
-// })
 
 
 operationsBackend_app_router.get('/detailed-user-information/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2), getDetailedUserSubscriptionInfo("PATHPARAM"), (req,res) => {
