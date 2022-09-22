@@ -45,12 +45,22 @@
 
 
   switch (URL_) {
+    case '/operations':
+    case '/operations/articles-dashboard':
+    case `/operations/monitor-messages/${caseUserID}/edit-see`:
+    case `/articles/individual_article/${caseArticleID}`:
+    case `/articles/${caseCategory}`:
+    case '/users/login':
+    case '/databases':
+    case `/make/${caseOptionMakes}`:
+      break;
+
     case '/':
       userId = '<%= locals.userId %>'
       popup = '<%= locals.popup %>'
 
       if(`<%=locals.selectedUser%>`){
-        selectedUser2 = <%-JSON.stringify(locals.selectedUser)%>
+        selectedUser2 = <%-JSON.stringify(locals.selectedUser || {})%> 
       }
 
       console.log(userId, popup, selectedUser2)
@@ -72,20 +82,14 @@
       console.log(selectedUser2, userId)
       
       break;
-
-    case `/articles/individual_article/${caseArticleID}`:
-    case `/articles/${caseCategory}`:
-    case '/users/login':
-    case '/databases':
-    case `/make/${caseOptionMakes}`:
-      break;
-
     case `/databases/${caseOptionDatabases}`:
       userId = '<%= locals.userId %>'
+
       console.log(userId)
       break;
     case '/articles':
       CATEGORY2 = <%-JSON.stringify(locals.CATEGORY || {})%> 
+
       console.log(CATEGORY2)
       break;
     
@@ -96,7 +100,6 @@
       orderId = '<%= locals.orderId  %>'
       user = <%-JSON.stringify(locals.user || {})%> 
       
-
       console.log(userId, currentUserEmail, userIdB, orderId, user)
       break;
     case '/messaging/messages':
@@ -106,50 +109,21 @@
       
       console.log(userId, currentUserEmail, user)
       break;
-    case '/operations':
-    case '/operations/articles-dashboard':
-      // not needed
-      CATEGORY2 = <%-JSON.stringify(locals.CATEGORY || {})%> 
-      // not needed
-      user = <%-JSON.stringify(locals.user || {})%> 
-
-
-      console.log(CATEGORY2, user)
-
-      // console.log("operations")
-      break;
     case `/operations/${caseOperationsTask}`:
+      if (caseOperationsTask == "create-article") {
+        CATEGORY2 = <%-JSON.stringify(locals.CATEGORY || {})%> 
+      }
 
-      // used only on the 
-      // create-article 
-      CATEGORY2 = <%-JSON.stringify(locals.CATEGORY || {})%> 
-      // not needed
-      user = <%-JSON.stringify(locals.user || {})%> 
-
-      console.log(CATEGORY2, user)
+      console.log(CATEGORY2)
       break;
 
     case `/operations/${caseOperationsTask}/${caseUserID}`:
-      // not needed except -> monitor-messages in the operations route
-      user = <%-JSON.stringify(locals.user || {})%> 
-      // not needed
-      CATEGORY2 = <%-JSON.stringify(locals.CATEGORY || {})%> 
+      if (caseOperationsTask == "monitor-messages") {
+        user = <%-JSON.stringify(locals.user || {})%> 
+      }
 
-      console.log(user, CATEGORY2)
+      console.log(user)
       break;
-    case `/operations/monitor-messages/${caseUserID}/edit-see`:
-
-      // not needed
-      user = <%-JSON.stringify(locals.user || {})%> 
-      // not needed
-      CATEGORY2 = <%-JSON.stringify(locals.CATEGORY || {})%> 
-
-
-      console.log(user, CATEGORY2)
-      break;
-
-
-
 
     default:
       break;
