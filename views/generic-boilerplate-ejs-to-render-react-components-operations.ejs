@@ -1,9 +1,4 @@
 <script>
-  // let CATEGORY = < %-JSON.stringify(locals.CATEGORY)%>;
-  // var user = < %-(JSON.stringify(locals.user)|| JSON.stringify({}))%>;
-</script>
-
-<script>
   console.log("WHERE THINGS NEED TO BE: ", CATEGORY, user)
 </script>
 
@@ -13,14 +8,6 @@
 
 <div id="popup" style="display: none;"></div>
 <!-- ../dist /dist reference the same page, not sure thought, potential source of errors -->
-
-
-<!-- Not Needed -->
-<!-- < %if(locals.sessionUser){%>
-  <script type='text/javascript'>
-    let sessionUser =  < %-JSON.stringify(sessionUser)%>;
-  </script>
-< %}%> -->
 
 
 <script type="text/javascript" src="/dist/<%= JSX_to_load %>.js"></script>
