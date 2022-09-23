@@ -77,14 +77,7 @@ class App extends React.Component {
     return (
     
       <React.Fragment>
-        {/* <p>{process.env.REACT_APP_DOMAIN}</p> */}
-        {/* <PricesComponent countries={countries.third}/> */}
-        {/* <Suspense fallback={<div style={{color: "red", position: "absolute", top: "200px"}}>Loading...</div>}>
-          <PricesComponent countries={countries.west} prices={this.state.prices}/>
-        </Suspense> */}
         <PricesComponent countries={countries.west} prices={this.state.prices}/>
-
-        {/* {userId? null:<Subscription/>} */}
         
 
       </React.Fragment> 

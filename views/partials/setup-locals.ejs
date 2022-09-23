@@ -29,7 +29,7 @@
   var orderId
   var selectedUser
   var CATEGORY
-  var domain
+  var domain_without_protocol
   var user
 
 
@@ -91,13 +91,13 @@
       userId = '<%= locals.userId %>'
       currentUserEmail = '<%= locals.currentUserEmail  %>'
       user = <%-JSON.stringify(locals.user || {})%> 
-      domain = '<%-locals.ENV.domain_without_protocol%>'
+      domain_without_protocol = '<%-locals.ENV.domain_without_protocol%>'
 
 
       userIdB = '<%= locals.userIdB  %>'
       orderId = '<%= locals.orderId  %>'
 
-      console.log("--------------->>>>>>", userId, currentUserEmail, userIdB, orderId, user, domain)
+      console.log("--------------->>>>>>", userId, currentUserEmail, userIdB, orderId, user, domain_without_protocol)
 
       break;
     case '/messaging/messages':
