@@ -2,7 +2,7 @@ module.exports = {
   database_link: process.env.DATABASE_LINK,
   express_session_secret: process.env.EXPRESS_SECRET,
   port: process.env.PORT,
-  domain: process.env.REACT_APP_DOMAIN,
+  // domain: process.env.REACT_APP_DOMAIN,
   database_name: process.env.DATABASE_NAME,
   environment: process.env.ENVIRONMENT,
   // All credentials generated through the https://developer.paypal.com/ URL, logged in as businessZBRS@gmail.com, in a sandbox context
