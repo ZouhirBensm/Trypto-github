@@ -31,7 +31,8 @@ const { require_loggedin_for_pages, require_loggedin_for_data } =  require("../m
 // Start middleware for this articlesBackend_app_router
 // Route is called upon as request from browser as '/articles'
 articlesBackend_app_router.use(set_user_if_any, (req, res, next) => {
-  res.locals.CATEGORY = CATEGORY;
+  // Might need this as a "script endpoint global" variable!
+  // res.locals.CATEGORY = CATEGORY;
   navBars = NAVBAR.CLIENTS;
   next()
 })
@@ -39,6 +40,8 @@ articlesBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 articlesBackend_app_router.get(['/:category?', '/individual_article/:articleID'], (req,res)=>{
+
+  res.locals.CATEGORY = CATEGORY;
 
   console.log("category:", req.params.category)
   // console.log({userId: req.session.userId})
@@ -50,6 +53,9 @@ articlesBackend_app_router.get(['/:category?', '/individual_article/:articleID']
     JSX_to_load : JSX_to_load, 
   })
 })
+
+
+
 
 
 articlesBackend_app_router.get('/paginated-articles/data', requireRefererMiddleware, paginatingSetupMiddleware, destructureURLandRefererMiddleware, articlesRetrievalMiddleware, distributePaginatedDataController)

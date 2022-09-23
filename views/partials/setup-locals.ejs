@@ -98,7 +98,7 @@
       orderId = '<%= locals.orderId  %>'
 
       console.log("--------------->>>>>>", userId, currentUserEmail, userIdB, orderId, user, domain)
-      
+
       break;
     case '/messaging/messages':
       userId = '<%= locals.userId %>'
@@ -110,8 +110,11 @@
 
 
 
+
+
     case '/operations':
-      CATEGORY = <%-JSON.stringify(locals.CATEGORY || {})%> 
+      // CATEGORY = < %-JSON.stringify(locals.CATEGORY || {})%> 
+
       user = <%-JSON.stringify(locals.user || {})%> 
       console.log("--------------->>>>>>", user, CATEGORY)
       break;

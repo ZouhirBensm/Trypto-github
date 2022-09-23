@@ -86,16 +86,31 @@ const Message = require('../models/messaging-models/Message')
 const Subscriber = require('../models/Subscriber')
 
 
+
+
+
 // Start middleware for this homeOrdersBackend_app_router
 homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
-  res.locals.userId = req.session.userId
+  // Might need this as a "script endpoint global" variable!
+  // res.locals.userId = req.session.userId
   navBars = NAVBAR.CLIENTS
   next()
 })
 
 
+homeOrdersBackend_app_router.get('/',(req,res)=>{
 
-homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', requireRefererMiddleware, require_loggedin_for_data(true), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
+  res.locals.userId = req.session.userId
+  res.locals.popup = req.query.popup
+
+
+  console.log("\n\n\nBack in get '/' route\nAre we still logged in?\n", req.session.userId, "\nDo we have any pop-up messages: \n", req.query.popup)
+
+
+  var JSX_to_load = 'App';
+  console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
+  res.render('generic-boilerplate-ejs-to-render-react-components-client', { JSX_to_load : JSX_to_load })
+})
 
 
 homeOrdersBackend_app_router.get('/users/login', require_loggedin_for_pages(false), (req,res,next)=>{
@@ -123,17 +138,19 @@ homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(fal
 })
 
 
+homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), getDetailedUserSubscriptionInfo("SESSION"), (req,res)=>{
 
-homeOrdersBackend_app_router.get('/users/profile',require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), getDetailedUserSubscriptionInfo("SESSION"), (req,res)=>{
+  res.locals.userId = req.session.userId
+
+
   var JSX_to_load = 'MgtUser';
 
   console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
+
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
   })
 })
-
-
 
 
 
@@ -142,12 +159,16 @@ homeOrdersBackend_app_router.get('/users/profile',require_loggedin_for_pages(tru
 // /make/makebuy, /make/makesell, 
 homeOrdersBackend_app_router.get(['/databases/:what_page?', '/make/:type'], require_loggedin_for_pages(true), (req,res)=>{
 
-  console.log("what_page: ", req.params.what_page)
-  console.log("what_type: ", req.params.type)
+  // console.log("what_page: ", req.params.what_page)
+  // console.log("what_type: ", req.params.type)
+
+  console.log("paths:", res.locals.paths_URL)
+  
+  res.locals.paths_URL[0] == "databases"? res.locals.userId = req.session.userId: null
   
   var JSX_to_load = 'OrdersApp';
 
-  console.log("\n\nResponse locals: ___________________/n", res.locals, "\n\n____________________\n\n")
+  // console.log("\n\nResponse locals: ___________________/n", res.locals, "\n\n____________________\n\n")
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
   })
@@ -155,7 +176,14 @@ homeOrdersBackend_app_router.get(['/databases/:what_page?', '/make/:type'], requ
 
 
 
-homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), verifyingPasswordMiddleware, RegisterLoginController.loginController)
+
+
+
+
+
+
+
+
 
 
 homeOrdersBackend_app_router.post('/users/register', requireRefererMiddleware, require_loggedin_for_data(false), RegisterLoginController.validateController, RegisterLoginController.registerController)
@@ -164,32 +192,7 @@ homeOrdersBackend_app_router.post('/users/register', requireRefererMiddleware, r
 homeOrdersBackend_app_router.post('/check/user/register', requireRefererMiddleware, RegisterLoginController.checkRegisterController)
 
 
-
-
-
-homeOrdersBackend_app_router.get('/',(req,res)=>{
-  console.log("\n\n\nBack in get '/' route\nAre we still logged in?\n", req.session.userId, "\nDo we have any pop-up messages: \n", req.query.popup)
-
-  res.locals.popup = req.query.popup
-
-  var JSX_to_load = 'App';
-  console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
-  res.render('generic-boilerplate-ejs-to-render-react-components-client', { JSX_to_load : JSX_to_load })
-})
-
-
-
-
-
-
-
-
-
-
-
 homeOrdersBackend_app_router.get('/isup', isUpController)
-
-
 
 
 
@@ -214,19 +217,7 @@ homeOrdersBackend_app_router.get('/cryptoprice', async (req,res,next)=>{
 
 
 
-
-
-
-
-
-
-
-
-
-
 homeOrdersBackend_app_router.patch('/update', require_loggedin_for_data(true), homeOrdersController.updateOrderController)
-
-
 
 // Might be needed!
 // homeOrdersBackend_app_router.get('/current-user-ID', require_loggedin_for_data(true), (req,res)=>{
@@ -238,19 +229,9 @@ homeOrdersBackend_app_router.patch('/update', require_loggedin_for_data(true), h
 // })
 
 
-
-
-
-
 homeOrdersBackend_app_router.delete('/delete-this-order', require_loggedin_for_data(true), homeOrdersController.deleteOrderController)
 
-
-
 homeOrdersBackend_app_router.post('/:type_order/save', require_loggedin_for_data(true), homeOrdersController.registerOrder)
-
-
-
-
 
 homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (req,res)=>{
   //Destroy the Session data, including the userId property
@@ -258,9 +239,6 @@ homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (re
       res.status(httpStatus.StatusCodes.PERMANENT_REDIRECT).redirect('/?popup=You have successfully logged out')
   })
 })
-
-
-
 
 
 homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware,
@@ -281,6 +259,11 @@ sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteUser
 })
 
 
+
+
+homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', requireRefererMiddleware, require_loggedin_for_data(true), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
+
+homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), verifyingPasswordMiddleware, RegisterLoginController.loginController)
 
 module.exports = homeOrdersBackend_app_router
 //router references the homeOrdersBackend const
