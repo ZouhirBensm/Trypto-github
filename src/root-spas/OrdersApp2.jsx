@@ -29,13 +29,13 @@ const Make2 = loadable(() => import("../marketplace-functionalities/Make2"),{
 // });
 
 
-// const Orders2 = loadable(() => import("../marketplace-functionalities/Orders2"),{
-//   fallback: <Loading/>
-// });
-
-const Orders = loadable(() => import("../orders-functionalities/Orders"),{
+const Orders2 = loadable(() => import("../marketplace-functionalities/Orders2"),{
   fallback: <Loading/>
 });
+
+// const Orders = loadable(() => import("../orders-functionalities/Orders"),{
+//   fallback: <Loading/>
+// });
 
 
 // const MyOrders2 = loadable(() => import("../marketplace-functionalities/MyOrders2"),{
@@ -86,7 +86,7 @@ class Databases extends React.Component {
               (props) => <MyOrders {...props} userID_toQueryWith={userId}/>
             } />
             <Route exact path="/marketplace/databases/matches" component={Matches} />
-            <Route exact path="/marketplace/databases/:order_type" component={Orders} />
+            <Route exact path="/marketplace/databases/:order_type" component={Orders2} />
             <Route exact path="/marketplace/make/:type" component={Make2} />
           </Switch>     
         </BrowserRouter> 

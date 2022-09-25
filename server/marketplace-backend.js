@@ -35,7 +35,9 @@ const distributePaginatedDataController = require("../controllers/generic-contro
 const requireRefererMiddleware = require('../middleware/generic-middleware/require-referer')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
 const paginatedOrdersSetupMiddleware = require('../middleware/home-orders-middleware/paginated-orders-setup-middleware')
-const ordersRetrievalMiddleware = require('../middleware/home-orders-middleware/orders-retrieval-middleware')
+// const ordersRetrievalMiddleware = require('../middleware/home-orders-middleware/orders-retrieval-middleware')
+
+const ordersRetrievalMiddleware = require('../middleware/marketplace-middleware/orders-retrieval-middleware')
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 const startEmptyNotificationsMiddleware = require('../middleware/generic-middleware/start-empty-notifications-middleware')
 const {getDetailedUserSubscriptionInfo} = require('../middleware/generic-middleware/get-detailed-user-subsciption-information-middleware')
@@ -90,7 +92,7 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 marketplaceBackend_app_router.get(['/', '/databases/:what_page?', '/make/:type'], require_loggedin_for_pages(true), (req,res)=>{
 
-  console.log("paths:", res.locals.paths_URL)
+  // console.log("paths:", res.locals.paths_URL)
   
   res.locals.paths_URL[1] == "databases"? res.locals.userId = req.session.userId: null
   
@@ -133,6 +135,7 @@ marketplaceBackend_app_router.get(['/', '/databases/:what_page?', '/make/:type']
 
 
 
+// TODO add the require login middleware
 // require_loggedin_for_data(true), homeOrdersController.registerOrder
 marketplaceBackend_app_router.post('/:type_order/save', marketplaceController.registerOrder)
 
@@ -140,8 +143,9 @@ marketplaceBackend_app_router.post('/:type_order/save', marketplaceController.re
 
 
 
+// requireRefererMiddleware, require_loggedin_for_data(true), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController
 
-// marketplaceBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', requireRefererMiddleware, require_loggedin_for_data(true), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
+marketplaceBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
 
 
 

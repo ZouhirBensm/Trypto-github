@@ -131,7 +131,7 @@ express_server_app_router.use((req, res, next) => {
   URL_ = req.url.split("?")[0]
   res.locals.paths_URL = utils.URLpathDecomposer(URL_)
 
-  console.log(URL_, res.locals.paths_URL)
+  // console.log(URL_, res.locals.paths_URL)
 
   res.locals.ENV = ENV;
   loggedIn = req.session.userId

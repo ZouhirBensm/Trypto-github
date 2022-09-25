@@ -8,7 +8,9 @@ module.exports = (req,res,next)=>{
   res.locals.startIndex = (res.locals.page - 1)*res.locals.limit
   res.locals.endIndex = res.locals.page*res.locals.limit
   
-  // console.log("in paginatingSetupMiddleware: ",res.locals.page, res.locals.limit, res.locals.startIndex, res.locals.endIndex)
+  // console.log("in paginatingSetupMiddleware: locals:\n", `page: ${res.locals.page}\n`, `limit: ${res.locals.limit}\n`, `startIndex: ${res.locals.startIndex}\n`, `endIndex: ${res.locals.endIndex}\n`)
+
+
   
   // console.log("\n______________________________")
 
