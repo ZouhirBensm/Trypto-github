@@ -43,6 +43,7 @@ var config = {
   entry: {
     App: './src/root-spas/App.jsx',
     OrdersApp: './src/root-spas/OrdersApp.jsx',
+    OrdersApp2: './src/root-spas/OrdersApp2.jsx',
     MgtUser: './src/root-spas/MgtUser.jsx',
     Messaging: './src/root-spas/Messaging.jsx',
     Subscription: './src/root-spas/Subscription.jsx',

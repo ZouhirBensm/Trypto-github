@@ -16,6 +16,9 @@
 <%if(locals.paths_URL!=null && locals.paths_URL[0] == 'make'){%>
   <%- include("setupPathParams4make") %>
 <%}%>
+<%if(locals.paths_URL!=null && locals.paths_URL[0] == 'marketplace'){%>
+  <%- include("setupPathParams4marketplace") %>
+<%}%>
 
 
 
@@ -69,9 +72,16 @@
 
     case `/databases/${caseOptionDatabases}`:
       userId = '<%= locals.userId %>'
-      console.log(userId)
+      console.log("------------->>>>>>", userId)
       break;
 
+
+
+
+    case `/marketplace/databases/${caseOptionMarketplace}`:
+      userId = '<%= locals.userId %>'
+      console.log("------------->>>>>>", userId)
+      break;
 
 
 

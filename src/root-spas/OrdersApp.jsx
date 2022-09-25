@@ -48,7 +48,10 @@ class Databases extends React.Component {
         <div>
         <BrowserRouter> 
           <Switch> 
-            <Route exact path="/databases/" component={Navigation} />
+            {/* <Route exact path="/databases/" component={Navigation} /> */}
+            <Route exact path="/databases" render={
+              (props) => <Navigation {...props} mode="orders"/>
+            } />
             <Route exact path="/databases/AllMyOrders" render={
               (props) => <MyOrders {...props} userID_toQueryWith={userId}/>
             } />

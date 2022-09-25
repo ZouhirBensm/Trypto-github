@@ -1,0 +1,27 @@
+<script>
+
+  console.log("paths_URL", paths_URL)
+  
+  if (paths_URL[2]) {
+    switch (paths_URL[2]) {
+      case 'sellordersdata':
+        caseOptionMarketplace = 'sellordersdata'
+        break;
+      case 'buyordersdata':
+        caseOptionMarketplace = 'buyordersdata'
+        break;
+      case 'AllMyOrders':
+        caseOptionMarketplace = 'AllMyOrders'
+        break;
+      case 'matches':
+        caseOptionMarketplace = 'matches'
+        break;
+      default:
+        break;
+    }
+  }
+
+
+  console.log("caseOptionMarketplace", caseOptionMarketplace)
+
+</script>

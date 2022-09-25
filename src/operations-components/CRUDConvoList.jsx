@@ -61,6 +61,7 @@ class ConvoElement extends React.Component {
     return (
       <React.Fragment>
 
+        {/* TODO use the card shell to display each message */}
         <div className="a-single-msg-wrapper">
           {/* Need to add D */}
           {JSON.stringify(this.props.msg)}
