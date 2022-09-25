@@ -12,7 +12,7 @@ class Make2 extends React.Component {
     this.state = {
       unit: "BTC",
       popup_state: null,
-      amountsToMsg: undefined,
+      // amountsToMsg: undefined,
       amountsTo_inBTC: undefined,
       amountsTo_inSAT: undefined,
       denomination: undefined,
@@ -22,13 +22,14 @@ class Make2 extends React.Component {
     this.clickCreateOrder = this.clickCreateOrder.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.change = this.change.bind(this)
+    this.validateInputs = this.validateInputs.bind(this)
 
     console.log("constructor", this.props.match.params.type)
   }
 
 
   componentDidMount() {
-    this.handleChange()
+    this.clickGetCryptoPrice()
   }
 
 
@@ -41,8 +42,8 @@ class Make2 extends React.Component {
     })
   }
 
-  async clickGetCryptoPrice(e) {
-    e.preventDefault()
+  async clickGetCryptoPrice(e = null) {
+    e?.preventDefault()
     let crypto = document.getElementById('crypto-select').value
     // let amount = document.getElementById('amount-select').value
     let value
@@ -148,12 +149,55 @@ class Make2 extends React.Component {
 
   }
 
+  validateInputs(_packagedObjectToSendinFetch) {
+    console.log("validating inputs", _packagedObjectToSendinFetch)
+
+    let error
+    const preventInjectionsRegEx = /[<>;}{]/; 
+
+    for (const property in _packagedObjectToSendinFetch) {
+      console.log(`${property}: ${_packagedObjectToSendinFetch[property]}`);
+
+      if (_packagedObjectToSendinFetch[property] == '' || preventInjectionsRegEx.test(_packagedObjectToSendinFetch[property])) {
+        error = `This field: ${property}, inputed value is not proper. Please modify`
+        break
+      }
+
+    }
+
+
+    // console.log("------>>>", parseInt(_packagedObjectToSendinFetch.minprice), parseInt(_packagedObjectToSendinFetch.maxprice), parseInt(_packagedObjectToSendinFetch.minprice) > parseInt(_packagedObjectToSendinFetch.maxprice))
+    if(parseInt(_packagedObjectToSendinFetch.minprice) > parseInt(_packagedObjectToSendinFetch.maxprice) && !error){
+      error = `minprice field cannot be superior to maxprice. Please modify`
+    }
+
+
+    let expireAt = new Date(_packagedObjectToSendinFetch.expirydate.slice(0,4), _packagedObjectToSendinFetch.expirydate.slice(5,7)-1, _packagedObjectToSendinFetch.expirydate.slice(8,10), _packagedObjectToSendinFetch.expirytime.slice(0,2), _packagedObjectToSendinFetch.expirytime.slice(3,5))
+
+
+    
+    if(expireAt < new Date() && !error){
+      error = `Expiry date & time cannot set before now. Please modify`
+    }
+
+
+
+    if (error) {    
+      this.setState({
+      popup_state: error
+    })
+    } else {return true}
+
+  }
 
   async clickCreateOrder(e) {
     e.preventDefault()
     // console.log(e.target.parentNode)
     // console.log(document.getElementById("form_id").elements);
     // console.log(document.getElementById("form_id").elements[6].value)
+
+
+
 
     let _denomination, crypto_sel, _crypto
 
@@ -166,8 +210,7 @@ class Make2 extends React.Component {
     console.log(this.props.match.params.type)
 
     this.props.match.params.type === "makebuy" ? [url_param_order_type_to_save, price_s] = ["buyorders", ["minprice", "maxprice"]] :
-      this.props.match.params.type === "makesell" ? [url_param_order_type_to_save, price_s] = ["sellorders", ["price"]] :
-        null
+    this.props.match.params.type === "makesell" ? [url_param_order_type_to_save, price_s] = ["sellorders", ["price"]] : null
 
 
 
@@ -179,7 +222,7 @@ class Make2 extends React.Component {
 
     console.log(price_fields_obj)
 
-    console.log({
+    let packagedObjectToSendinFetch = {
       title: document.getElementById("form_id").elements["title"].value,
       category: document.getElementById("form_id").elements["category"].value,
       ...price_fields_obj,
@@ -190,52 +233,64 @@ class Make2 extends React.Component {
       expirytime: document.getElementById("form_id").elements["expirytime"].value,
       payment: document.getElementById("form_id").elements["payment"].value,
       chain: _denomination,
-      // iterator: document.getElementById("form_id").elements[7].value,
-    }, url_param_order_type_to_save)
+    }
+
+    // console.log(packagedObjectToSendinFetch, url_param_order_type_to_save)
+
+    let validated = this.validateInputs(packagedObjectToSendinFetch)
+    if(!validated) return
 
 
-    console.log(`/${url_param_order_type_to_save}/save`)
-    // let response = await fetch(`/${url_param_order_type_to_save}/save`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     crypto: document.getElementById("form_id").elements["crypto"].value,
-    //     ...amount_fields_obj,
-    //     price: document.getElementById("form_id").elements["price"].value,
-    //     expirydate: document.getElementById("form_id").elements["expirydate"].value,
-    //     expirytime: document.getElementById("form_id").elements["expirytime"].value,
-    //     payment: document.getElementById("form_id").elements["payment"].value,
-    //   })
-    // })
+    console.log(`/marketplace/${url_param_order_type_to_save}/save`)
 
-    // console.log("server response status:", response.status)
+    let response = await fetch(`/marketplace/${url_param_order_type_to_save}/save`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        title: document.getElementById("form_id").elements["title"].value,
+        category: document.getElementById("form_id").elements["category"].value,
+        ...price_fields_obj,
+        crypto: document.getElementById("form_id").elements["crypto"].value,
+        conversion: document.getElementById("form_id").elements["conversion"].value,
+        conversion: document.getElementById("form_id").elements["conversion"].value,
+        expirydate: document.getElementById("form_id").elements["expirydate"].value,
+        expirytime: document.getElementById("form_id").elements["expirytime"].value,
+        payment: document.getElementById("form_id").elements["payment"].value,
+        chain: _denomination,
+      })
+    })
 
-    // switch (response.status) {
-    //   case 200:
-    //     console.log(200)
-    //     this.setState({
-    //       popup_state: "You have successfully made an order"
-    //     })
-    //     break;
-    //   case 400:
-    //     console.log(400)
-    //     this.setState({
-    //       popup_state: "Expiry time and date field cannot be before present, please modify, and retry submission."
-    //     })
-    //     break;
-    //   case 500:
-    //     console.log(500)
-    //     this.setState({
-    //       popup_state: "An issue has occured, please try again later. A website maintainer is looking into the mater."
-    //     })
-    //     break;
+    console.log("server response status:", response.status)
 
-    //   default:
-    //     break;
-    // }
+    switch (response.status) {
+      case 200:
+        console.log(200)
+        this.setState({
+          popup_state: "You have successfully made an order"
+        })
+        break;
+      case 400:
+        console.log(400)
+        this.setState({
+          popup_state: "Expiry time and date field cannot be before present, please modify, and retry submission."
+        })
+        break;
+      case 500:
+        console.log(500)
+        this.setState({
+          popup_state: "An issue has occured, please try again later. A website maintainer is looking into the mater."
+        })
+        break;
+
+      default:
+        this.setState({
+          popup_state: "Server did not respond as expected. A error was probably thrown on the server. Please have a look!"
+        })
+        break;
+    }
 
     // let json_SRV = await response.json()
     // console.log("server response json:", json_SRV)
@@ -247,20 +302,20 @@ class Make2 extends React.Component {
     let options
     let tag_options_arr_data = []
 
-    if(_denomination == "Bitcoin Base Chain") {
+    if (_denomination == "Bitcoin Base Chain") {
       tag_options_arr_data = ["Wallet1", "Wallet2", "Wallet3", "Wallet4"]
       options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
       // options = <option value="BaseWallet">BaseWallet</option>
     }
-    else if(_denomination == "Bitcoin Lightning") {
+    else if (_denomination == "Bitcoin Lightning") {
       tag_options_arr_data = ["Wallet5", "Wallet6", "Wallet7", "Wallet8"]
       options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
     }
-    else if(_denomination == "Bitcoin Liquid") {
+    else if (_denomination == "Bitcoin Liquid") {
       tag_options_arr_data = ["Wallet9", "Wallet10", "Wallet11", "Wallet12"]
       options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
     }
-    else {}
+    else { }
 
     // let selector = document.getElementById('payment-select')
     // console.log(document.getElementById('payment-select'));
@@ -268,7 +323,7 @@ class Make2 extends React.Component {
 
     console.log("SELECT:", document.getElementById('payment-select')?.options[0].selected)
 
-    
+
 
     return options
   }
@@ -287,7 +342,7 @@ class Make2 extends React.Component {
   render() {
     let price_field
 
-    let amountsToMsg = this.state.amountsToMsg
+    // let amountsToMsg = this.state.amountsToMsg
 
 
     console.log("----------->>>>", this.state.denomination)
@@ -327,17 +382,17 @@ class Make2 extends React.Component {
 
 
           <label htmlFor="title-select">Title</label>
-          <input type="text" id="title-select" defaultValue='SomeObject' name="title" required /><br />
+          <input type="text" id="title-select" defaultValue='SomeObject' name="title" required/><br />
 
           <label htmlFor="category-select">Category</label>
           <select name="category" id="category-select" required>
-            <option value="Kitchen" defaultValue>Kitchen</option>
+            <option value="Other" defaultValue>Other</option>
+            <option value="Kitchen">Kitchen</option>
             <option value="Clothes">Clothes</option>
             <option value="Electronics">Electronics</option>
             <option value="Automobile">Automobile</option>
             <option value="Camping">Camping</option>
             <option value="Furniture">Furniture</option>
-            <option value="Other">Other</option>
           </select><br />
 
 
