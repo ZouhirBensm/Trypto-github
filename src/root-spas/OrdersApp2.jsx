@@ -38,20 +38,20 @@ const Orders2 = loadable(() => import("../marketplace-functionalities/Orders2"),
 // });
 
 
-// const MyOrders2 = loadable(() => import("../marketplace-functionalities/MyOrders2"),{
-//   fallback: <Loading/>
-// });
-const MyOrders = loadable(() => import("../orders-functionalities/MyOrders"),{
+const MyOrders2 = loadable(() => import("../marketplace-functionalities/MyOrders2"),{
   fallback: <Loading/>
 });
-
-
-// const Matches2 = loadable(() => import("../marketplace-functionalities/Matches2"),{
+// const MyOrders = loadable(() => import("../orders-functionalities/MyOrders"),{
 //   fallback: <Loading/>
 // });
-const Matches = loadable(() => import("../orders-functionalities/Matches"),{
+
+
+const Matches2 = loadable(() => import("../marketplace-functionalities/Matches2"),{
   fallback: <Loading/>
 });
+// const Matches = loadable(() => import("../orders-functionalities/Matches"),{
+//   fallback: <Loading/>
+// });
 
 
 
@@ -83,9 +83,9 @@ class Databases extends React.Component {
             } />
 
             <Route exact path="/marketplace/databases/AllMyOrders" render={
-              (props) => <MyOrders {...props} userID_toQueryWith={userId}/>
+              (props) => <MyOrders2 {...props} userID_toQueryWith={userId}/>
             } />
-            <Route exact path="/marketplace/databases/matches" component={Matches} />
+            <Route exact path="/marketplace/databases/matches" component={Matches2} />
             <Route exact path="/marketplace/databases/:order_type" component={Orders2} />
             <Route exact path="/marketplace/make/:type" component={Make2} />
           </Switch>     

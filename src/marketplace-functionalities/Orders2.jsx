@@ -142,8 +142,8 @@ class Orders2 extends React.Component {
         <OrderTable2
           selected_userID = {this.userId}
           orders={this.state.orders}
-          // loadData={this.loadData}
           order_type={this.props.match.params.order_type} 
+          // loadData={this.loadData}
         />
         {/* <OrderTable 
         selected_userID = {this.userId}

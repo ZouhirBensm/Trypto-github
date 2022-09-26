@@ -10,7 +10,7 @@ module.exports = (req,res,next)=>{
   res.locals.type_orders = req.params.type_orders
   res.locals.path_param_userID = req.params.data_of_userID
 
-  // console.log("\nparams:\n", `type_orders: ${req.params.type_orders}\n`, `data_of_userID: ${req.params.data_of_userID}\n`)
+  console.log("\nparams:\n", `type_orders: ${req.params.type_orders}\n`, `data_of_userID: ${req.params.data_of_userID}\n`)
   
   // console.log("\n______________________________")
 

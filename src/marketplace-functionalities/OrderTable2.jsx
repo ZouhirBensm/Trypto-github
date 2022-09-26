@@ -167,7 +167,9 @@ class OrderRow extends React.Component {
 
   render(){
     // console.log("state buttons child", this.props.buttons)
-    const order = this.props.order;
+    let order = this.props.order;
+
+    console.log(order.price)
 
 
     // console.log(`row ${this.props.keyy} executing: `, order)
@@ -178,12 +180,17 @@ class OrderRow extends React.Component {
 
     // console.log(this.props.buttons)
     
+    let price
     let amount_normal;
     let amount_editing;
     let wantsTO;
 
 
+
+
     if (this.props.order_type == "buyordersdata") {
+      price = <div>Price between: {order.minprice} - {order.maxprice}</div>
+
       // wantsTO = "wants to buy"
       // amount_normal = <td id="amount1" key={`td-amount-key-order:${order._id}`}>{'Amount: ' + order.amount}</td>
       // amount_editing =      
@@ -193,6 +200,8 @@ class OrderRow extends React.Component {
     }
 
     if (this.props.order_type == "sellordersdata") {
+      price = <div>Price: {order.price}</div>
+
       // wantsTO = "wants to sell"
       // amount_normal = <td id="amount1" key={`td-amount-key-order:${order._id}`}>{'Amount Range: ' +  order.minamount}-{order.maxamount}</td>
       // amount_editing =
@@ -258,9 +267,17 @@ class OrderRow extends React.Component {
     // }
 
     // console.log("Require Keys: ", display_editing)
+    console.log(price)
     return(
 
-      <span>{JSON.stringify(order)}</span>
+      
+      <React.Fragment>
+        <div>
+          <img src="#"></img>
+          <div>Title: {order.title}</div>
+          {price}
+        </div>
+      </React.Fragment>
 
       // <tr>
       //   <td id="id1">{order._id}</td>
