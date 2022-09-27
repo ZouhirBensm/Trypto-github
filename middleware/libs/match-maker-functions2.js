@@ -52,14 +52,12 @@ function findBuyMatches(_sell, buyOrders, id){
   
   buy.forEach(buyorder => {
     if (
-      // TODO need optimization on what to match
-      _sell.title == buyorder.title
-      // parseInt(_sell.price,10) < parseInt(buyorder.price,10) * 1.10 &&
-      // parseInt(_sell.price,10) > parseInt(buyorder.price,10) * 0.9 &&
-      // _sell.crypto === buyorder.crypto && 
-      // parseInt(_sell.minamount,10) < buyorder.amount && 
-      // parseInt(_sell.maxamount,10) > buyorder.amount  && 
-      // _sell.payment === buyorder.payment
+      regexTitleMatch(_sell.title, buyorder.title) &&
+      parseInt(_sell.price,10) < parseInt(buyorder.maxprice,10) * 1.10 &&
+      parseInt(_sell.price,10) > parseInt(buyorder.minprice,10) * 0.9 &&
+      parseInt(_sell.conversion,10) < parseInt(buyorder.conversion,10) * 1.10 &&
+      parseInt(_sell.conversion,10) > parseInt(buyorder.conversion,10) * 0.9 &&
+      _sell.chain === buyorder.chain
     ) {
       arrayofBuymatches.push(buyorder)
     }
@@ -115,20 +113,49 @@ function findSellMatches(_buy, sellOrders, id){
   sell.forEach(sellorder => {
     // console.log("\n\n\n\n lala: ", parseInt(_buy.price,10) < parseInt(sellorder.price,10) * 1.10, parseInt(_buy.price,10) > parseInt(sellorder.price,10) * 0.9)
     if (
-      // TODO need optimization on what to match
-      _buy.title == sellorder.title
-      // parseInt(_buy.price,10) < parseInt(sellorder.price,10) * 1.10 &&
-      // parseInt(_buy.price,10) > parseInt(sellorder.price,10) * 0.9 &&
-      // _buy.crypto === sellorder.crypto && 
-      // parseInt(_buy.amount,10) > parseInt(sellorder.minamount, 10) && 
-      // parseInt(_buy.amount,10) < parseInt(sellorder.maxamount, 10)  && 
-      // _buy.payment === sellorder.payment
+      regexTitleMatch(_buy.title, sellorder.title) &&
+      parseInt(_buy.maxprice,10) * 1.10 > parseInt(sellorder.price,10)  &&
+      parseInt(_buy.minprice,10) * 0.9 < parseInt(sellorder.price,10)  &&
+      parseInt(_buy.conversion,10) * 1.10 > parseInt(sellorder.conversion,10)  &&
+      parseInt(_buy.conversion,10) * 0.9 < parseInt(sellorder.conversion,10)  &&
+      _buy.chain === sellorder.chain
     ) {
       arrayofSellmatches.push(sellorder)
     }
   });
 
   return arrayofSellmatches
+}
+
+
+
+
+
+
+
+
+
+function regexTitleMatch(_title1, _title2){
+  let arrayToTest1 = _title1.split(" ")
+  console.log("arrayToTest", arrayToTest1, typeof arrayToTest1)
+
+
+  for (let i = 0; i < arrayToTest1.length; i++) {
+    const ele1 = arrayToTest1[i];
+
+    const reg01 = new RegExp(`${ele1}`, 'i');
+    // const reg01 = /bla/i; 
+    if (reg01.test(_title2) ) {
+      console.log("match: ", ele1)
+      return true
+    } else {
+      console.log("no match: ", ele1)
+    } 
+  }
+
+  console.log("this")
+  return false
+
 }
 
 
