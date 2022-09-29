@@ -21,6 +21,8 @@ class OrderDetails2 extends React.Component {
 
     console.log("mode:", this.state.mode)
 
+    console.log("props:", "order_type: ",  this.props.match.params.order_type, "orderID: ", this.props.match.params.orderID)
+
   }
 
   handleToogleEdit() {
@@ -80,13 +82,15 @@ class OrderDetails2 extends React.Component {
 
   async loadData() {
 
-    // console.log(`/marketplace/order/${userId}/${this.props.match.params.order_type}/${this.props.match.params.orderID}`)
+    // console.log("this.props.match.params.order_type", this.props.match.params.order_type)
+
+    console.log(`/marketplace/order/${userId}/${this.props.match.params.order_type}/${this.props.match.params.orderID}`)
 
     let response = await fetch(`/marketplace/order/${userId}/${this.props.match.params.order_type}/${this.props.match.params.orderID}`)
 
 
 
-    // console.log(response)
+    console.log(response)
 
     if (response.ok) {
       let order = await response.json()

@@ -4,6 +4,7 @@ import { ThemeProvider } from 'react-bootstrap'
 import '../orders-functionalities/styles/Make.css'
 
 // TODO refactor naming in this component
+// TODO add location fields google maps
 
 
 class Make2 extends React.Component {
@@ -12,7 +13,6 @@ class Make2 extends React.Component {
     this.state = {
       unit: "BTC",
       popup_state: null,
-      // amountsToMsg: undefined,
       amountsTo_inBTC: undefined,
       amountsTo_inSAT: undefined,
       denomination: undefined,
@@ -45,9 +45,7 @@ class Make2 extends React.Component {
   async clickGetCryptoPrice(e = null) {
     e?.preventDefault()
     let crypto = document.getElementById('crypto-select').value
-    // let amount = document.getElementById('amount-select').value
     let value
-    //console.log(crypto, amount)
     let response
     let data
 
@@ -76,7 +74,7 @@ class Make2 extends React.Component {
     console.log("changing....")
 
 
-    let _price, _conversionRate, _crypto, _denomination, _minprice, _maxprice, amountsToRaw, amountsToRawMin, amountsToRawMax, _unit, amountsToBTC, amountsToSAT, amountsToBTC_bottom, amountsToSAT_bottom, amountsToBTC_top, amountsToSAT_top, amountsToDisplay, amountsToDisplayRange
+    let _price, _conversionRate, _crypto, _denomination,amountsToBTC, amountsToSAT, amountsToRaw
 
 
     _conversionRate = document.getElementById("form_id").elements["conversion"].value
@@ -87,65 +85,25 @@ class Make2 extends React.Component {
     _denomination = crypto_sel.options[crypto_sel.selectedIndex].text;
     _crypto = crypto_sel.value
 
-    if (this.props.match.params.type == "makebuy") {
-      _minprice = document.getElementById("form_id").elements["minprice"].value
-      _maxprice = document.getElementById("form_id").elements["maxprice"].value
 
-      amountsToRawMin = _minprice / _conversionRate
-      amountsToRawMax = _maxprice / _conversionRate
+    _price = document.getElementById("form_id").elements["price"].value
+    amountsToRaw = _price / _conversionRate
 
-      amountsToBTC_bottom = amountsToRawMin.toFixed(9)
-      amountsToBTC_top = amountsToRawMax.toFixed(9)
-      amountsToSAT_bottom = Math.trunc(amountsToRawMin * 1000000000)
-      amountsToSAT_top = Math.trunc(amountsToRawMax * 1000000000)
-
-    }
-    if (this.props.match.params.type == "makesell") {
-      _price = document.getElementById("form_id").elements["price"].value
-      amountsToRaw = _price / _conversionRate
-
-      amountsToBTC = amountsToRaw.toFixed(9)
-      amountsToSAT = Math.trunc(amountsToRaw * 1000000000)
-    }
+    amountsToBTC = amountsToRaw.toFixed(9)
+    amountsToSAT = Math.trunc(amountsToRaw * 1000000000)
 
 
-
-    console.log(_price, _minprice, _maxprice, _conversionRate, _crypto, _denomination)
+    console.log(_price, _conversionRate, _crypto, _denomination)
 
 
 
     this.setState({
-      amountsTo_inBTC: amountsToBTC || [amountsToBTC_bottom, amountsToBTC_top],
-      amountsTo_inSAT: amountsToSAT || [amountsToSAT_bottom, amountsToSAT_top],
+      amountsTo_inBTC: amountsToBTC,
+      amountsTo_inSAT: amountsToSAT,
       denomination: _denomination,
     })
 
-    // if(_denomination == "Bitcoin Base Chain") {
-    //   _unit = "BTC"
-    //   amountsToDisplay = amountsToBTC
-    //   amountsToDisplayRange = `${amountsToBTC_bottom} to ${amountsToBTC_top}`
-    // }
-    // else if(_denomination == "Bitcoin Lightning") {
-    //   _unit = "SATs"
-    //   amountsToDisplay = amountsToSAT
-    //   amountsToDisplayRange = `${amountsToSAT_bottom} to ${amountsToSAT_top}`
-    // }
-    // else if(_denomination == "Bitcoin Liquid") {
-    //   _unit = "SATs"
-    //   amountsToDisplay = amountsToSAT
-    //   amountsToDisplayRange = `${amountsToSAT_bottom} to ${amountsToSAT_top}`
-    // }
-    // else {}
-
-    // let amounts_to_final_display = amountsToDisplay || amountsToDisplayRange
-
-
-
-    // // console.log(amountsToRaw)
-
-    // this.setState({
-    //   amountsToMsg: `${amounts_to_final_display} ${_unit}`
-    // })
+    
 
   }
 
@@ -153,7 +111,7 @@ class Make2 extends React.Component {
     console.log("validating inputs", _packagedObjectToSendinFetch)
 
     let error
-    const preventInjectionsRegEx = /[<>;}{]/; 
+    const preventInjectionsRegEx = /[<>;}{\&]/;
 
     for (const property in _packagedObjectToSendinFetch) {
       console.log(`${property}: ${_packagedObjectToSendinFetch[property]}`);
@@ -167,65 +125,44 @@ class Make2 extends React.Component {
 
 
     // console.log("------>>>", parseInt(_packagedObjectToSendinFetch.minprice), parseInt(_packagedObjectToSendinFetch.maxprice), parseInt(_packagedObjectToSendinFetch.minprice) > parseInt(_packagedObjectToSendinFetch.maxprice))
-    if(parseInt(_packagedObjectToSendinFetch.minprice) > parseInt(_packagedObjectToSendinFetch.maxprice) && !error){
-      error = `minprice field cannot be superior to maxprice. Please modify`
-    }
 
 
-    let expireAt = new Date(_packagedObjectToSendinFetch.expirydate.slice(0,4), _packagedObjectToSendinFetch.expirydate.slice(5,7)-1, _packagedObjectToSendinFetch.expirydate.slice(8,10), _packagedObjectToSendinFetch.expirytime.slice(0,2), _packagedObjectToSendinFetch.expirytime.slice(3,5))
+
+    let expireAt = new Date(_packagedObjectToSendinFetch.expirydate.slice(0, 4), _packagedObjectToSendinFetch.expirydate.slice(5, 7) - 1, _packagedObjectToSendinFetch.expirydate.slice(8, 10), _packagedObjectToSendinFetch.expirytime.slice(0, 2), _packagedObjectToSendinFetch.expirytime.slice(3, 5))
 
 
-    
-    if(expireAt < new Date() && !error){
+
+    if (expireAt < new Date() && !error) {
       error = `Expiry date & time cannot set before now. Please modify`
     }
 
 
 
-    if (error) {    
+    if (error) {
       this.setState({
-      popup_state: error
-    })
-    } else {return true}
+        popup_state: error
+      })
+    } else { return true }
 
   }
 
   async clickCreateOrder(e) {
     e.preventDefault()
-    // console.log(e.target.parentNode)
-    // console.log(document.getElementById("form_id").elements);
-    // console.log(document.getElementById("form_id").elements[6].value)
-
-
-
 
     let _denomination, crypto_sel, _crypto
 
     crypto_sel = document.getElementById("form_id").elements["crypto"];
     _denomination = crypto_sel.options[crypto_sel.selectedIndex].text;
 
-    let [url_param_order_type_to_save, price_s] = []
+
+    console.log("this.props.match.params.type", this.props.match.params.type)
 
 
-    console.log(this.props.match.params.type)
-
-    this.props.match.params.type === "makebuy" ? [url_param_order_type_to_save, price_s] = ["buyorders", ["minprice", "maxprice"]] :
-    this.props.match.params.type === "makesell" ? [url_param_order_type_to_save, price_s] = ["sellorders", ["price"]] : null
-
-
-
-    let price_fields_obj = {}
-
-    for (const field of price_s) {
-      price_fields_obj[field] = document.getElementById("form_id").elements[field].value
-    }
-
-    console.log(price_fields_obj)
 
     let packagedObjectToSendinFetch = {
       title: document.getElementById("form_id").elements["title"].value,
       category: document.getElementById("form_id").elements["category"].value,
-      ...price_fields_obj,
+      price: document.getElementById("form_id").elements["price"].value,
       crypto: document.getElementById("form_id").elements["crypto"].value,
       conversion: document.getElementById("form_id").elements["conversion"].value,
       conversion: document.getElementById("form_id").elements["conversion"].value,
@@ -235,32 +172,21 @@ class Make2 extends React.Component {
       chain: _denomination,
     }
 
-    // console.log(packagedObjectToSendinFetch, url_param_order_type_to_save)
+    // console.log(packagedObjectToSendinFetch, "sellorders")
 
     let validated = this.validateInputs(packagedObjectToSendinFetch)
-    if(!validated) return
+    if (!validated) return
 
 
-    console.log(`/marketplace/${url_param_order_type_to_save}/save`)
+    console.log(`/marketplace/sellorders/save`)
 
-    let response = await fetch(`/marketplace/${url_param_order_type_to_save}/save`, {
+    let response = await fetch(`/marketplace/sellorders/save`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify({
-        title: document.getElementById("form_id").elements["title"].value,
-        category: document.getElementById("form_id").elements["category"].value,
-        ...price_fields_obj,
-        crypto: document.getElementById("form_id").elements["crypto"].value,
-        conversion: document.getElementById("form_id").elements["conversion"].value,
-        conversion: document.getElementById("form_id").elements["conversion"].value,
-        expirydate: document.getElementById("form_id").elements["expirydate"].value,
-        expirytime: document.getElementById("form_id").elements["expirytime"].value,
-        payment: document.getElementById("form_id").elements["payment"].value,
-        chain: _denomination,
-      })
+      body: JSON.stringify(packagedObjectToSendinFetch)
     })
 
     console.log("server response status:", response.status)
@@ -305,7 +231,6 @@ class Make2 extends React.Component {
     if (_denomination == "Bitcoin Base Chain") {
       tag_options_arr_data = ["Wallet1", "Wallet2", "Wallet3", "Wallet4"]
       options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
-      // options = <option value="BaseWallet">BaseWallet</option>
     }
     else if (_denomination == "Bitcoin Lightning") {
       tag_options_arr_data = ["Wallet5", "Wallet6", "Wallet7", "Wallet8"]
@@ -317,13 +242,7 @@ class Make2 extends React.Component {
     }
     else { }
 
-    // let selector = document.getElementById('payment-select')
-    // console.log(document.getElementById('payment-select'));
-    // selector.options[0].selected = true;
-
     console.log("SELECT:", document.getElementById('payment-select')?.options[0].selected)
-
-
 
     return options
   }
@@ -340,9 +259,6 @@ class Make2 extends React.Component {
 
 
   render() {
-    let price_field
-
-    // let amountsToMsg = this.state.amountsToMsg
 
 
     console.log("----------->>>>", this.state.denomination)
@@ -351,27 +267,8 @@ class Make2 extends React.Component {
 
     console.log(this.state.unit)
 
-    let amountsTo_inBTC = Array.isArray(this.state.amountsTo_inBTC) ? `${this.state.amountsTo_inBTC[0]} - ${this.state.amountsTo_inBTC[1]} BTC` : `${this.state.amountsTo_inBTC} BTC`
-    let amountsTo_inSAT = Array.isArray(this.state.amountsTo_inSAT) ? `${this.state.amountsTo_inSAT[0]} - ${this.state.amountsTo_inSAT[1]} SATs` : `${this.state.amountsTo_inSAT} SATs`
-
-    if (this.props.match.params.type == "makebuy") {
-      price_field =
-        <React.Fragment>
-          <label htmlFor="min-price-select">Min Price (CAD)</label>
-          <input onChange={(e) => this.handleChange(e)} type="number" id="min-price-select" name="minprice" required defaultValue='500' />
-
-          <label htmlFor="max-price-select">Max Price (CAD)</label>
-          <input onChange={(e) => this.handleChange(e)} type="number" id="max-price-select" name="maxprice" required defaultValue='1000' />
-        </React.Fragment>
-    }
-
-    if (this.props.match.params.type == "makesell") {
-      price_field =
-        <React.Fragment>
-          <label htmlFor="price-select">Price in CAD</label>
-          <input onChange={(e) => this.handleChange(e)} type="number" id="price-select" name="price" step="0.01" required defaultValue='135' /><br />
-        </React.Fragment>
-    }
+    let amountsTo_inBTC = `${this.state.amountsTo_inBTC} BTC`
+    let amountsTo_inSAT = `${this.state.amountsTo_inSAT} SATs`
 
     return (
       <div className="make-container">
@@ -382,7 +279,7 @@ class Make2 extends React.Component {
 
 
           <label htmlFor="title-select">Title</label>
-          <input type="text" id="title-select" defaultValue='SomeObject' name="title" required/><br />
+          <input type="text" id="title-select" defaultValue='SomeObject' name="title" required /><br />
 
           <label htmlFor="category-select">Category</label>
           <select name="category" id="category-select" required>
@@ -396,7 +293,10 @@ class Make2 extends React.Component {
           </select><br />
 
 
-          {price_field}
+          
+
+          <label htmlFor="price-select">Price in CAD</label>
+          <input onChange={(e) => this.handleChange(e)} type="number" id="price-select" name="price" step="0.01" required defaultValue='135' /><br />
 
 
 
@@ -440,7 +340,6 @@ class Make2 extends React.Component {
               <option value="Wallet5">Wallet5</option> */}
           </select> <br />
 
-          {/* <input type="hidden" name="iterator" value={this.state.iterator}/> */}
           <button type="submit" onClick={(e) => this.clickCreateOrder(e)}>Submit</button>
         </form><br />
 

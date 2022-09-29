@@ -27,24 +27,25 @@ class Navigation extends React.Component {
         case null:
           return (
             <div className="default">
-              <button id="MarketMake" onClick={this.handleClick}>Make a Market post</button>
+              {/* <button id="MarketMake" onClick={this.handleClick}>Make a Market post</button> */}
+              <a href="/marketplace/make/makesell">Make Sell request</a>
               <button id="MarketSee" onClick={this.handleClick}>See Existing Maket posts</button>
             </div> 
           )
-        case "MarketMake":
-          return (
-            <div className="make">
-              <a href="/marketplace/make/makebuy">Make Buying request</a>
-              <a href="/marketplace/make/makesell">Make Sell request</a>
-            </div>
-          )
+        // case "MarketMake":
+        //   return (
+        //     <div className="make">
+        //       <a href="/marketplace/make/makebuy">Make Buying request</a>
+        //       <a href="/marketplace/make/makesell">Make Sell request</a>
+        //     </div>
+        //   )
         case "MarketSee":
           return (
             <div className="see"> 
-              <a href={`/marketplace/databases/buyordersdata`}>Market buy posts</a>
+              {/* <a href={`/marketplace/databases/buyordersdata`}>Market buy posts</a> */}
               <a href={`/marketplace/databases/sellordersdata`}>Market sell posts</a>
               <a href="/marketplace/databases/AllMyOrders">All my market posts</a>
-              <a href="/marketplace/databases/matches">Matches</a>
+              {/* <a href="/marketplace/databases/matches">Matches</a> */}
             </div>
           )
         default:

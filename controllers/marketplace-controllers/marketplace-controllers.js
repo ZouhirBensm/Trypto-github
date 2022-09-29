@@ -1,7 +1,6 @@
 // When required for the first time runs the entire script, then subsequent times only retrieces the Model
 
 
-const BuyMarketOrder = require('../../models/market-orders-models/BuyMarketOrder')
 const SellMarketOrder = require('../../models/market-orders-models/SellMarketOrder')
 const httpStatus = require("http-status-codes")
 
@@ -85,7 +84,6 @@ module.exports = {
 
 
   registerOrder:  (req,res,next)=>{
-    console.log("register order: req.params.type_order: \n", req.params.type_order)
     
     console.log("\n\nexpiration:\n", req.body.expirydate)
 
@@ -103,29 +101,17 @@ module.exports = {
 
     // ________________________________________
   
-    let TypeMarketOrder = undefined
-    switch (req.params.type_order) {
-      case "buyorders":
-        TypeMarketOrder = BuyMarketOrder
-        break;
-      case "sellorders":
-        TypeMarketOrder = SellMarketOrder
-        break;
-      default:
-        console.log(`Target "${TypeMarketOrder}" not reconized`)
-        break;
-    }
 
-    console.log("TypeMarketOrder", TypeMarketOrder)
+
+
+    console.log("SellMarketOrder", SellMarketOrder)
   
     
     if(req.body.expireAt > new Date()){
-      TypeMarketOrder.create({
+      SellMarketOrder.create({
         title: req.body.title,
         category: req.body.category,
-        [req.body.price ? "price": null]: req.body.price,
-        [req.body.minprice ? "minprice": null]: req.body.minprice,
-        [req.body.maxprice ? "maxprice": null]: req.body.maxprice,
+        price: req.body.price,
         crypto: req.body.crypto,
         conversion: req.body.conversion,
         payment: req.body.payment,
@@ -150,5 +136,34 @@ module.exports = {
     }
 
 
+  },
+
+  getOrderController: async (req,res,next) => {
+    let order
+
+    try {
+      order = await SellMarketOrder.findById({_id: req.params.orderID})
+      .populate({
+        // Populate protagonists
+        path: "userid",
+        // Fields allowed to populate with
+        select: "_id email",
+      })
+    } catch (e) {
+      return next(e)
+    }
+
+
+    console.log("---------->>>>", order)
+
+
+    if (order) {
+      console.log("Found!!!!")
+      res.status(200).json(order)
+    } else {
+      // TODO deal with the UI when no order under these circumstances is the case
+      const e = new Error("No order found by that ID")
+      return next(e)
+    }
   }
 }

@@ -176,12 +176,12 @@ class OrderRow extends React.Component {
     // console.log(`row ${this.props.keyy} executing: `, order)
 
 
+    // TODO not needed
     let display_normal = [];
     let display_editing = [];
 
     // console.log(this.props.buttons)
 
-    let price
     let amount_normal;
     let amount_editing;
     let wantsTO;
@@ -189,19 +189,9 @@ class OrderRow extends React.Component {
 
 
 
-    if (this.props.order_type == "buyordersdata") {
-      price = <div>Price between: {order.minprice} - {order.maxprice}</div>
 
-      // wantsTO = "wants to buy"
-      // amount_normal = <td id="amount1" key={`td-amount-key-order:${order._id}`}>{'Amount: ' + order.amount}</td>
-      // amount_editing =      
-      // <td id="amount1" key={`td-edit-amount-key-order:${order._id}`}>
-      //   <BuyAmount amount = {order.amount} />
-      // </td>   
-    }
-
+    // TODO not needed
     if (this.props.order_type == "sellordersdata") {
-      price = <div>Price: {order.price}</div>
 
       // wantsTO = "wants to sell"
       // amount_normal = <td id="amount1" key={`td-amount-key-order:${order._id}`}>{'Amount Range: ' +  order.minamount}-{order.maxamount}</td>
@@ -271,6 +261,7 @@ class OrderRow extends React.Component {
 
 
     // console.log(price)
+    console.log("this.props.order_type", this.props.order_type)
     return (
 
 
@@ -280,12 +271,11 @@ class OrderRow extends React.Component {
           pathname: `/marketplace/databases/${this.props.order_type}/${order._id}`, 
           // search: `?order=${JSON.stringify(order)}`,
         }}
-        state={{order: order}}
         >
         <div>
           <img src="#"></img>
           <div>Title: {order.title}</div>
-          {price}
+          <div>Price: {order.price}</div>
         </div>
         </Link>
 

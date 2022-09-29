@@ -32,7 +32,6 @@ class Orders2 extends React.Component {
     this.userId = userId
 
     console.log("---------->>>>>!!!", userId)
-    console.log("constructor url param: ", this.props.match.params.order_type)
   }
   
   
@@ -81,7 +80,7 @@ class Orders2 extends React.Component {
   async loadData(){
     // let response = await fetch(`/paginated-orders/${this.props.match.params.order_type}?page=${this.state.page}&limit=${this.state.limit}${this.state.crypto ? `&crypto=${this.state.crypto}`: "" }`)
 
-    let response = await fetch(`/marketplace/paginated-orders/${this.props.match.params.order_type}?page=${this.state.page}&limit=${this.state.limit}`)
+    let response = await fetch(`/marketplace/paginated-orders/sellordersdata?page=${this.state.page}&limit=${this.state.limit}`)
     
     let serverOBJ = await response.json()
 
@@ -139,19 +138,14 @@ class Orders2 extends React.Component {
 
         <div className='wrapper'>
         Orders2
+
         <OrderTable2
           selected_userID = {this.userId}
           orders={this.state.orders}
-          order_type={this.props.match.params.order_type} 
+          order_type="sellordersdata"
           // loadData={this.loadData}
         />
-        {/* <OrderTable 
-        selected_userID = {this.userId}
-        buttons='normal' 
-        order_type={this.props.match.params.order_type} 
-        orders={this.state.orders}
-        loadData={this.loadData}
-        /> */}
+
         <PageSelector 
         number_of_pages={this.state.number_of_pages} 
         page={this.state.page} 

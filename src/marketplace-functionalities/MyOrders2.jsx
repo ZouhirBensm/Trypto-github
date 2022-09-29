@@ -12,7 +12,7 @@ class MyOrders2 extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      orderstype: 'buyordersdata',
+      // orderstype: 'sellordersdata',
       orders: [],
       page: 1,
       limit: 2, //Limit per page defined here!
@@ -25,7 +25,7 @@ class MyOrders2 extends React.Component {
     }
 
     this.controls = this.controls.bind(this);
-    this.handleOrderTypeToogle = this.handleOrderTypeToogle.bind(this)
+    // this.handleOrderTypeToogle = this.handleOrderTypeToogle.bind(this)
     // this.handleDelete = this.handleDelete.bind(this)
     // this.handleClick = this.handleClick.bind(this)
 
@@ -105,21 +105,21 @@ class MyOrders2 extends React.Component {
     this.setState({
       page: _page
     }, () => {
-      this.loadData(this.state.orderstype)
+      this.loadData()
     })
   }
 
   componentDidMount(){
     //DOM is ready
-    this.loadData(this.state.orderstype)
+    this.loadData()
   }
 
-  async loadData(_orderstype) {
-    console.log("loadData: _orderstype: ", _orderstype)
+  async loadData() {
+    // console.log("loadData: _orderstype: ", _orderstype)
     
-    console.log(`/marketplace/paginated-orders/${_orderstype}/${this.props.userID_toQueryWith}?page=${this.state.page}&limit=${this.state.limit}`)
+    console.log(`/marketplace/paginated-orders/sellordersdata/${this.props.userID_toQueryWith}?page=${this.state.page}&limit=${this.state.limit}`)
 
-    const response2 = await fetch(`/marketplace/paginated-orders/${_orderstype}/${this.props.userID_toQueryWith}?page=${this.state.page}&limit=${this.state.limit}`)
+    const response2 = await fetch(`/marketplace/paginated-orders/sellordersdata/${this.props.userID_toQueryWith}?page=${this.state.page}&limit=${this.state.limit}`)
     
 
     console.log(response2)
@@ -160,28 +160,30 @@ class MyOrders2 extends React.Component {
     }
   }
 
-  handleOrderTypeToogle(e){
-    //e.preventDefault()
-    this.setState({
-      orderstype: e.target.value,
-      page: 1,
-    }, () => {
-      this.loadData(this.state.orderstype);
-    })
-  }
+
+
+  // handleOrderTypeToogle(e){
+  //   //e.preventDefault()
+  //   this.setState({
+  //     orderstype: e.target.value,
+  //     page: 1,
+  //   }, () => {
+  //     this.loadData(this.state.orderstype);
+  //   })
+  // }
   
   render() {
     // console.log("ordertype!!! ", this.state.orderstype)
     return (
       <div className='wrapper2'>
-        <form name="toogle">
+        {/* <form name="toogle">
           <label><input type="radio" id="Buy" name="radio" value='buyordersdata' defaultChecked onClick={this.handleOrderTypeToogle}/>Buy</label>
           <label><input type="radio" id="Sell" name="radio" value='sellordersdata' onClick={this.handleOrderTypeToogle}/>Sell</label>  
-        </form>
+        </form> */}
 
         <OrderTable2 
         selected_userID = {this.props.userID_toQueryWith}
-        order_type={this.state.orderstype} 
+        order_type="AllMyOrders" 
         orders={this.state.orders}
         // buttons='my'
         // handleClick={this.handleClick}

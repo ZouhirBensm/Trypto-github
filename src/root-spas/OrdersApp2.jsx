@@ -90,9 +90,14 @@ class Databases extends React.Component {
             <Route exact path="/marketplace/databases/AllMyOrders" render={
               (props) => <MyOrders2 {...props} userID_toQueryWith={userId}/>
             } />
-            <Route exact path="/marketplace/databases/matches" component={Matches2} />
-            <Route exact path="/marketplace/databases/:order_type" component={Orders2} />
-            <Route exact path="/marketplace/make/:type" component={Make2} />
+
+            {/* <Route exact path="/marketplace/databases/matches" component={Matches2} /> */}
+
+            <Route exact path="/marketplace/databases/sellordersdata" component={Orders2} />
+
+            <Route exact path="/marketplace/make/makesell" component={Make2} />
+
+
 
 
             <Route path="/marketplace/databases/:order_type/:orderID" render={

@@ -37,8 +37,6 @@ const paginatingSetupMiddleware = require('../middleware/generic-middleware/pagi
 const paginatedOrdersSetupMiddleware = require('../middleware/home-orders-middleware/paginated-orders-setup-middleware')
 // const ordersRetrievalMiddleware = require('../middleware/home-orders-middleware/orders-retrieval-middleware')
 
-const getOrderMiddleware = require('../middleware/marketplace-middleware/get-order-middleware')
-
 
 
 const ordersRetrievalMiddleware = require('../middleware/marketplace-middleware/orders-retrieval-middleware')
@@ -95,7 +93,7 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
-marketplaceBackend_app_router.get(['/', '/databases/:what_page?', '/make/:type'], require_loggedin_for_pages(true), (req,res)=>{
+marketplaceBackend_app_router.get(['/', '/databases', '/databases/AllMyOrders' , '/databases/sellordersdata', '/make/makesell'], require_loggedin_for_pages(true), (req,res)=>{
 
   // console.log("paths:", res.locals.paths_URL)
   
@@ -113,6 +111,8 @@ marketplaceBackend_app_router.get(['/', '/databases/:what_page?', '/make/:type']
 
 // TODO to be added after
 // require_loggedin_for_pages(true)
+// TODO replace endpoint with
+// ['/databases/sellordersdata/:orderID', '/databases/AllMyOrders/:orderID']
 marketplaceBackend_app_router.get(['/databases/:what_page/:orderID'], (req,res)=>{
 
   console.log("paths:", res.locals.paths_URL)
@@ -128,14 +128,10 @@ marketplaceBackend_app_router.get(['/databases/:what_page/:orderID'], (req,res)=
 
 
 
+marketplaceBackend_app_router.get(['/order/:userId/sellordersdata/:orderID', '/order/:userId/AllMyOrders/:orderID'], marketplaceController.getOrderController)
 
-marketplaceBackend_app_router.get('/order/:userId/:type_order/:orderID', getOrderMiddleware,(req,res)=>{
+// marketplaceBackend_app_router.get('/order/:userId/:type_order/:orderID', marketplaceController.getOrderController)
 
-  console.log(req.params)
-
-  res.status(200).end()
-
-})
 
 
 // // Endpoints
@@ -171,7 +167,7 @@ marketplaceBackend_app_router.get('/order/:userId/:type_order/:orderID', getOrde
 
 // TODO add the require login middleware
 // require_loggedin_for_data(true), homeOrdersController.registerOrder
-marketplaceBackend_app_router.post('/:type_order/save', marketplaceController.registerOrder)
+marketplaceBackend_app_router.post('/sellorders/save', marketplaceController.registerOrder)
 
 
 
@@ -184,7 +180,7 @@ marketplaceBackend_app_router.post('/:type_order/save', marketplaceController.re
 
 
 
-marketplaceBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
+marketplaceBackend_app_router.get(['/paginated-orders/sellordersdata/:data_of_userID?', '/paginated-orders/AllMyOrders/:data_of_userID?'], paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
 
 
 
