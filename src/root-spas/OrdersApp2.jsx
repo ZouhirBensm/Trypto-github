@@ -54,6 +54,11 @@ const Matches2 = loadable(() => import("../marketplace-functionalities/Matches2"
 // });
 
 
+const OrderDetails2 = loadable(() => import("../marketplace-functionalities/OrderDetails2"),{
+  fallback: <Loading/>
+});
+
+
 
 
 
@@ -71,7 +76,7 @@ class Databases extends React.Component {
     }
   }
   render() {
-    console.log("UID????", userId)
+    // console.log("UID????", userId)
     return (
         <div>
         OrdersApp2
@@ -88,6 +93,12 @@ class Databases extends React.Component {
             <Route exact path="/marketplace/databases/matches" component={Matches2} />
             <Route exact path="/marketplace/databases/:order_type" component={Orders2} />
             <Route exact path="/marketplace/make/:type" component={Make2} />
+
+
+            <Route path="/marketplace/databases/:order_type/:orderID" render={
+              (props) => <OrderDetails2 {...props}/>
+            }/> 
+
           </Switch>     
         </BrowserRouter> 
         </div>

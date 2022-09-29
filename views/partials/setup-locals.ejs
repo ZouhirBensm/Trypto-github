@@ -34,6 +34,7 @@
   var CATEGORY
   var domain_without_protocol
   var user
+  var orderId
 
 
 
@@ -75,11 +76,18 @@
       console.log("------------->>>>>>", userId)
       break;
 
-
+      
+      
+      
 
 
     case `/marketplace/databases/${caseOptionMarketplace}`:
       userId = '<%= locals.userId %>'
+      console.log("------------->>>>>>", userId)
+      break;
+    case `/marketplace/databases/${caseOptionMarketplace}/${caseOptionMarketplace2}`:
+      userId = '<%= locals.userId %>'
+      // orderId = '< %= locals.userId %>'
       console.log("------------->>>>>>", userId)
       break;
 

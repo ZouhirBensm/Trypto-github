@@ -37,6 +37,8 @@ const paginatingSetupMiddleware = require('../middleware/generic-middleware/pagi
 const paginatedOrdersSetupMiddleware = require('../middleware/home-orders-middleware/paginated-orders-setup-middleware')
 // const ordersRetrievalMiddleware = require('../middleware/home-orders-middleware/orders-retrieval-middleware')
 
+const getOrderMiddleware = require('../middleware/marketplace-middleware/get-order-middleware')
+
 
 
 const ordersRetrievalMiddleware = require('../middleware/marketplace-middleware/orders-retrieval-middleware')
@@ -104,6 +106,35 @@ marketplaceBackend_app_router.get(['/', '/databases/:what_page?', '/make/:type']
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
   })
+})
+
+
+
+
+// TODO to be added after
+// require_loggedin_for_pages(true)
+marketplaceBackend_app_router.get(['/databases/:what_page/:orderID'], (req,res)=>{
+
+  console.log("paths:", res.locals.paths_URL)
+  
+  res.locals.paths_URL[1] == "databases"? res.locals.userId = req.session.userId: null
+  
+  var JSX_to_load = 'OrdersApp2';
+
+  res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
+    JSX_to_load : JSX_to_load,
+  })
+})
+
+
+
+
+marketplaceBackend_app_router.get('/order/:userId/:type_order/:orderID', getOrderMiddleware,(req,res)=>{
+
+  console.log(req.params)
+
+  res.status(200).end()
+
 })
 
 
