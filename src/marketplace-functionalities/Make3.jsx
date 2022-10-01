@@ -1,16 +1,18 @@
 // import React from 'react';
 // TODO Make styles need to be put in a common folder
 import '../orders-functionalities/styles/Make.css'
-import './style/googlemaps.css'
+import LocationSelector from './LocationSelector'
+
+
+
+
 
 // TODO refactor naming in this component
 // TODO add location fields google maps
 
-let map
-var autocomplete
-var marker
 
-class Make2 extends React.Component {
+
+class Make3 extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -20,47 +22,42 @@ class Make2 extends React.Component {
       amountsTo_inSAT: undefined,
       denomination: undefined,
       value: "N/A",
-      lat: undefined,
-      lng: undefined
+      location: { lat: 45.41, lng: -75.70 }
     }
     this.clickGetCryptoPrice = this.clickGetCryptoPrice.bind(this)
     this.clickCreateOrder = this.clickCreateOrder.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.change = this.change.bind(this)
     this.validateInputs = this.validateInputs.bind(this)
+    this.changeStateLocationParent = this.changeStateLocationParent.bind(this)
+
+    // console.log("constructor", this.props.match.params.type)
 
 
-    this.onPlacedChanged = this.onPlacedChanged.bind(this)
-
-    console.log("constructor", this.props.match.params.type)
+    
 
   }
 
 
-  
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.lat !== this.state.lat && prevState.lng !== this.state.lng) {
-  //     console.log('pokemons state has changed.')
+  changeStateLocationParent(obj){
+    this.setState({
+      location: obj
+    })
+  }
 
-  //     marker = new google.maps.Marker({
-  //       position: { lat: this.state.lat, lng: this.state.lng },
-  //       map,
-  //       title: "Your location!",
-  //     });
-  
-  //   }
-  // }
-
-
-  componentDidMount() {
+  componentDidMount(){
+    //DOM is ready
     this.clickGetCryptoPrice()
-    this.loadLocation()
   }
 
+
+
+
+  
 
   toogleUnits(e) {
     e.preventDefault()
-    console.log("toogle...")
+    // console.log("toogle...")
 
     this.setState({
       unit: this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null
@@ -83,10 +80,10 @@ class Make2 extends React.Component {
 
     if (response.ok) {
       data = await response.json()
-      console.log("data", data)
+      // console.log("data", data)
       // console.log(crypto.toLowerCase())
       value = data.data[crypto.toLowerCase()]?.cad
-      console.log("value", value)
+      // console.log("value", value)
       document.getElementById('conversion-select').value = value
     } else {
       console.error(`Error on the clickGetCryptoPrice() function response.status: ${response.status}`)
@@ -96,7 +93,7 @@ class Make2 extends React.Component {
   }
 
   async handleChange() {
-    console.log("changing....")
+    // console.log("changing....")
 
 
     let _price, _conversionRate, _crypto, _denomination, amountsToBTC, amountsToSAT, amountsToRaw
@@ -118,7 +115,7 @@ class Make2 extends React.Component {
     amountsToSAT = Math.trunc(amountsToRaw * 1000000000)
 
 
-    console.log(_price, _conversionRate, _crypto, _denomination)
+    // console.log(_price, _conversionRate, _crypto, _denomination)
 
 
 
@@ -133,13 +130,13 @@ class Make2 extends React.Component {
   }
 
   validateInputs(_packagedObjectToSendinFetch) {
-    console.log("validating inputs", _packagedObjectToSendinFetch)
+    // console.log("validating inputs", _packagedObjectToSendinFetch)
 
     let error
     const preventInjectionsRegEx = /[<>;}{\&]/;
 
     for (const property in _packagedObjectToSendinFetch) {
-      console.log(`${property}: ${_packagedObjectToSendinFetch[property]}`);
+      // console.log(`${property}: ${_packagedObjectToSendinFetch[property]}`);
 
       if (_packagedObjectToSendinFetch[property] == '' || preventInjectionsRegEx.test(_packagedObjectToSendinFetch[property])) {
         error = `This field: ${property}, inputed value is not proper. Please modify`
@@ -180,7 +177,7 @@ class Make2 extends React.Component {
     _denomination = crypto_sel.options[crypto_sel.selectedIndex].text;
 
 
-    console.log("this.props.match.params.type", this.props.match.params.type)
+    // console.log("this.props.match.params.type", this.props.match.params.type)
 
 
 
@@ -203,7 +200,7 @@ class Make2 extends React.Component {
     if (!validated) return
 
 
-    console.log(`/marketplace/sellorders/save`)
+    // console.log(`/marketplace/sellorders/save`)
 
     let response = await fetch(`/marketplace/sellorders/save`, {
       method: 'POST',
@@ -214,23 +211,23 @@ class Make2 extends React.Component {
       body: JSON.stringify(packagedObjectToSendinFetch)
     })
 
-    console.log("server response status:", response.status)
+    // console.log("server response status:", response.status)
 
     switch (response.status) {
       case 200:
-        console.log(200)
+        // console.log(200)
         this.setState({
           popup_state: "You have successfully made an order"
         })
         break;
       case 400:
-        console.log(400)
+        // console.log(400)
         this.setState({
           popup_state: "Expiry time and date field cannot be before present, please modify, and retry submission."
         })
         break;
       case 500:
-        console.log(500)
+        // console.log(500)
         this.setState({
           popup_state: "An issue has occured, please try again later. A website maintainer is looking into the mater."
         })
@@ -267,7 +264,7 @@ class Make2 extends React.Component {
     }
     else { }
 
-    console.log("SELECT:", document.getElementById('payment-select')?.options[0].selected)
+    // console.log("SELECT:", document.getElementById('payment-select')?.options[0].selected)
 
     return options
   }
@@ -285,12 +282,15 @@ class Make2 extends React.Component {
 
   render() {
 
+    
+  
 
-    console.log("----------->>>>", this.state)
+    // console.log("----------->>>>", this.state.location)
+
     let options = this.setOptions(this.state.denomination)
 
 
-    console.log(this.state.unit)
+    // console.log(this.state.unit)
 
     let amountsTo_inBTC = `${this.state.amountsTo_inBTC} BTC`
     let amountsTo_inSAT = `${this.state.amountsTo_inSAT} SATs`
@@ -365,153 +365,36 @@ class Make2 extends React.Component {
               <option value="Wallet5">Wallet5</option> */}
           </select> <br />
 
-          <label htmlFor="location-select">Trade Location</label>
-          <input id="autocomplete" placeholder='Enter a place' type='text' /><br />
+          {/* <LocationSelector /> */}
 
+
+          <LocationSelector
+            changeStateLocationParent={this.changeStateLocationParent}
+            newLocation={this.state.location}
+          />
 
 
           <button type="submit" onClick={(e) => this.clickCreateOrder(e)}>Submit</button>
 
         </form><br />
 
-        <div id="map"></div>
+
+
+
 
         {this.state.popup_state ?
           <p>{this.state.popup_state}</p>
           : null}
 
+
       </div>
 
     );
   }
-
-  async loadLocation() {
-    let PromisifyGetCurrentPositionFunc = function () {
-      return new Promise(function (resolve, reject) {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition((position) => {
-            // console.log("position: ", position, position.coords.latitude, position.coords.longitude)
-            resolve(position)
-          })
-        } else {
-          reject(new Error("Geolocation is not supported by this browser."))
-        }
-      })
-    }
-
-    let _position
-    try {
-      _position = await PromisifyGetCurrentPositionFunc()
-    } catch (e) {
-      console.error(e)
-    }
-
-    console.log("position: \n")
-    console.log(_position, '\n')
-    console.log(_position.coords.latitude, _position.coords.longitude)
-
-    console.log("waits on the get current location")
-
-    let geocoder = new google.maps.Geocoder()
-    console.log("google.maps.Geocoder", geocoder)
-
-    const latlng = {
-      lat: parseFloat(_position.coords.latitude),
-      lng: parseFloat(_position.coords.longitude),
-    };
-
-    let response
-    try {
-      response = await geocoder.geocode({ location: latlng })
-    } catch (e) {
-      console.error("Geocoder failed due to: " + e)
-    }
-  
-    
-    if (response.results[0]) {
-      console.log("dope!!!!!!!!!!!!!!!!!", response.results[0].formatted_address)
-      document.getElementById("autocomplete").value = response.results[0].formatted_address;
-
-    } else {
-      window.alert("No results found");
-    }
-    
-
-
-    map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: _position.coords.latitude, lng: _position.coords.longitude },
-      zoom: 15,
-    });
-
-
-
-    console.log("KHRAAAAA")
-
-    marker = new google.maps.Marker({
-      position: { lat: _position.coords.latitude, lng: _position.coords.longitude },
-      map,
-      title: "Your location!",
-    });
-
-
-    let options = {
-      componentRestrictions: { country: ["us", "ca"] },
-      // "geometry", "icon", "name", "formatted_address"
-      fields: ["address_components", "geometry"],
-      strictBounds: false,
-      types: ["address"],
-      position: { lat: _position.coords.latitude, lng: _position.coords.longitude },
-    };
-
-    autocomplete = new google.maps.places.Autocomplete(document.getElementById("autocomplete"), options);
-
-    console.log("autocomplete--->>>>", autocomplete, '\n')
-
-
-    this.setState({
-      lat: _position.coords.latitude, 
-      lng: _position.coords.longitude
-    })
-    
-    autocomplete.addListener('place_changed', this.onPlacedChanged)
-
-
-
-
-    
-  }
-  
-  onPlacedChanged(){
-    console.log("place changed!!!!", autocomplete)
-
-    var place = autocomplete.getPlace()
-
-    console.log(place.geometry)
-    if(!place.geometry){
-      document.getElementById("autocomplete").placeholder = "Enter a place"
-    } else {
-      marker.setPosition({
-        lat: place.geometry.location.lat(), 
-        lng: place.geometry.location.lng()
-      })
-      // map.setCenter(place.geometry.location.lng(), place.geometry.location.lat(), 15)
-  
-      console.log("map--->>>", map)
-
-      map.setCenter(new google.maps.LatLng(place.geometry.location.lng(),place.geometry.location.lat()));
-
-      console.log(place.geometry.location.lat(), place.geometry.location.lng())
-
-      this.setState({
-        lat: place.geometry.location.lat(), 
-        lng: place.geometry.location.lng()
-      })
-    }
-  }
-
-
 }
 
 
 
-export default Make2
+export default Make3
+
+

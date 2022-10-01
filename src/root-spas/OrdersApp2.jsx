@@ -12,7 +12,6 @@
 
 
 import loadable from "@loadable/component";
-// import Loading from "./Loading";
 import Loading from "../generic-components/Loading";
 
 
@@ -21,9 +20,14 @@ const Navigation = loadable(() => import("../orders-functionalities/Navigation")
 });
 
 
-const Make2 = loadable(() => import("../marketplace-functionalities/Make2"),{
+// const Make2 = loadable(() => import("../marketplace-functionalities/Make2"),{
+//   fallback: <Loading/>
+// });
+
+const Make3 = loadable(() => import("../marketplace-functionalities/Make3"),{
   fallback: <Loading/>
 });
+
 // const Make = loadable(() => import("../orders-functionalities/Make"),{
 //   fallback: <Loading/>
 // });
@@ -95,7 +99,7 @@ class Databases extends React.Component {
 
             <Route exact path="/marketplace/databases/sellordersdata" component={Orders2} />
 
-            <Route exact path="/marketplace/make/makesell" component={Make2} />
+            <Route exact path="/marketplace/make/makesell" component={Make3} />
 
 
 

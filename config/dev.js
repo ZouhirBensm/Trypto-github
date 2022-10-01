@@ -12,4 +12,5 @@ module.exports = {
   paypal_secret: 'EMCZmiBejeSf5Hkik7HrtjZewPE3-5JCrjwkzWVZOEUw1jvzfg-3gBS6XKeg_vVhuIA00OEuLBvId8of',  // BidBlock Development Staging created app secret linked to sb-mzq9r20359069@business.example.com
   paypal_api_root: 'https://api-m.sandbox.paypal.com/v1',
   domain_without_protocol: 'localhost:3000',
+  console_cloud_google_api_key: 'AIzaSyBIOZMezc-bUpTqR7yRRxcv2Lynb49CFCM'
 }

@@ -10,6 +10,13 @@ import Subscription from './Subscription'
 
 // let PricesComponent = lazy(()=>{ return import('./home-functionalities/PricesComponent.jsx')})
 
+require('react-dom');
+window.React2 = require('react');
+console.log("same---->>>", window.React1 === window.React2);
+console.log(window.React1)
+console.log(window.React2)
+
+
 class App extends React.Component {
   constructor(props){
     super(props)
