@@ -12,16 +12,17 @@ class Autocomplete extends React.Component {
   }
 
   componentDidUpdate(prevProp){
-    console.log("old new location", prevProp.newLocation)
-    console.log("new new location", this.props.newLocation)
+    // console.log("old new location", prevProp.newLocation)
+    // console.log("new new location", this.props.newLocation)
 
     // console.log(this.props.newLocation.lat===prevProp.newLocation.lat && this.props.newLocation.lng===prevProp.newLocation.lng)
 
 
 
     if(this.props.newLocation.lat===prevProp.newLocation.lat && this.props.newLocation.lng===prevProp.newLocation.lng){
-      console.log("Don't update Input field!")
+      // console.log("Don't update Input field!")
     }else{
+      // set this as a parent function that retrieves the locality and state updates, and up updates the input
       this.updateInputField()
     }
     
@@ -30,7 +31,7 @@ class Autocomplete extends React.Component {
 
 
   async updateInputField(){
-    console.log("Update Input field")
+    // console.log("Update Input field")
 
     let geocoder = new google.maps.Geocoder()
     // console.log("google.maps.Geocoder", geocoder)
@@ -101,7 +102,7 @@ class Autocomplete extends React.Component {
     return (
       <React.Fragment>
         <label htmlFor="autocomplete-select">Trade Location</label>
-        <input id="autocomplete-select" type="text" name="autocomplete" required/><br />
+        <input id="autocomplete-select" type="text" name="autocomplete" required/><br id="location-dom-identifier"/>
       </React.Fragment>
     )
   }

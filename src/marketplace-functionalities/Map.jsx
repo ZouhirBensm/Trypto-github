@@ -13,7 +13,7 @@ class Map extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div>Map!</div>
+        {/* <div>Map!</div> */}
         {/* <div id="the-map"></div> */}
         
 

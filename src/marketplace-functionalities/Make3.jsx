@@ -22,7 +22,17 @@ class Make3 extends React.Component {
       amountsTo_inSAT: undefined,
       denomination: undefined,
       value: "N/A",
-      location: { lat: 45.41, lng: -75.70 }
+      location: { 
+        lat: undefined, lng: undefined,
+        location: {
+          st_number: undefined,
+          st: undefined,
+          area: undefined,
+          town: undefined,
+          province_state: undefined,
+          country: undefined,
+        }
+      }
     }
     this.clickGetCryptoPrice = this.clickGetCryptoPrice.bind(this)
     this.clickCreateOrder = this.clickCreateOrder.bind(this)
@@ -34,26 +44,35 @@ class Make3 extends React.Component {
     // console.log("constructor", this.props.match.params.type)
 
 
-    
+
 
   }
 
 
-  changeStateLocationParent(obj){
+  changeStateLocationParent(obj) {
     this.setState({
       location: obj
     })
   }
 
-  componentDidMount(){
+  componentDidMount() {
     //DOM is ready
     this.clickGetCryptoPrice()
+    this.rePlaceMap()
+
+  }
+
+  rePlaceMap() {
+    function insertAfter(newNode, existingNode) {
+      existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+    }
+    let br = document.getElementById('location-dom-identifier');
+    let the_map = document.getElementById('the-map');
+    insertAfter(the_map, br);
   }
 
 
 
-
-  
 
   toogleUnits(e) {
     e.preventDefault()
@@ -282,8 +301,8 @@ class Make3 extends React.Component {
 
   render() {
 
-    
-  
+
+    console.log("Where to update information:", this.state.location)
 
     // console.log("----------->>>>", this.state.location)
 

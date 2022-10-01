@@ -34,12 +34,6 @@ class LocationSelector extends React.Component {
         <DragableMarker changeStateLocationParent={this.props.changeStateLocationParent} newLocation={this.props.newLocation}/>
         <CenterMap newLocation={this.props.newLocation}/>
 
-        <div onClick={(e) => {
-          this.props.changeStateLocationParent({
-            lat: 1,
-            lng: 1,
-          })
-        }}>LocationSelector...</div>
 
       </React.Fragment>
     )

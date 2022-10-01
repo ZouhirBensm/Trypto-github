@@ -8,18 +8,18 @@ class CenterMap extends React.Component {
     this.state = {}
     // console.log("(3)", window.map)
 
-    console.log("interet", this.props.newLocation)
+    // console.log("interet", this.props.newLocation)
     
   }
 
 
   
   componentDidUpdate(prevProp){
-    console.log("old new location", prevProp.newLocation)
-    console.log("new new location", this.props.newLocation)
+    // console.log("old new location", prevProp.newLocation)
+    // console.log("new new location", this.props.newLocation)
 
     if(this.props.newLocation.lat===prevProp.newLocation.lat && this.props.newLocation.lng===prevProp.newLocation.lng){
-      console.log("Don't recenter map")
+      // console.log("Don't recenter map")
     }else{
       this.reCenterMap()
     }
@@ -30,11 +30,11 @@ class CenterMap extends React.Component {
   }
 
   reCenterMap(){
-    console.log("centering map!")
+    // console.log("centering map!")
 
     
     let map = window.map
-    console.log(this.props.newLocation, map)
+    // console.log(this.props.newLocation, map)
 
     var latlng = new google.maps.LatLng(parseFloat(this.props.newLocation.lat), parseFloat(this.props.newLocation.lng));
     
@@ -50,7 +50,6 @@ class CenterMap extends React.Component {
   render(){
     return (
       <React.Fragment>
-        CenterMap
 
       </React.Fragment>
     )

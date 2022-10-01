@@ -8,18 +8,18 @@ class DragableMarker extends React.Component {
     this.state = {}
     // console.log("(3)", window.map)
 
-    console.log("interet", this.props.newLocation)
+    // console.log("interet", this.props.newLocation)
     this.setMarker()
   }
 
 
   
   componentDidUpdate(prevProp){
-    console.log("old new location", prevProp.newLocation)
-    console.log("new new location", this.props.newLocation)
+    // console.log("old new location", prevProp.newLocation)
+    // console.log("new new location", this.props.newLocation)
 
     if(this.props.newLocation.lat===prevProp.newLocation.lat && this.props.newLocation.lng===prevProp.newLocation.lng){
-      console.log("Don't recenter marker")
+      // console.log("Don't recenter marker")
     }else{
       this.setNewMarker()
     }
@@ -30,23 +30,42 @@ class DragableMarker extends React.Component {
   }
 
   setNewMarker(){
-    console.log("centering marker!")
+    // console.log("centering marker!")
+    // if(this.props.newLocation.lat==undefined || this.props.newLocation.lng==undefined) return
 
-    marker.setPosition({
-      lat: this.props.newLocation.lat, 
-      lng: this.props.newLocation.lng
+    let lat, lng
+    if(this.props.newLocation.lat==undefined || this.props.newLocation.lng==undefined) {
+      lat = 45.41
+      lng = -75.70
+    } else {
+      lat = this.props.newLocation.lat
+      lng = this.props.newLocation.lng
+    }
+
+    marker?.setPosition({
+      lat: lat, 
+      lng: lng
     })
 
 
   }
 
   setMarker(){
-    console.log("setMarker")
+    // console.log("setMarker")
 
     let map = window.map
 
+    let lat, lng
+    if(this.props.newLocation.lat==undefined || this.props.newLocation.lng==undefined) {
+      lat = 45.41
+      lng = -75.70
+    } else {
+      lat = this.props.newLocation.lat
+      lng = this.props.newLocation.lng
+    }
+    
     marker =new google.maps.Marker({
-      position: { lat: this.props.newLocation.lat, lng: this.props.newLocation.lng },
+      position: { lat: lat, lng: lng },
       map,
       title: "Hello World!",
       draggable:true,
@@ -72,7 +91,6 @@ class DragableMarker extends React.Component {
   render(){
     return (
       <React.Fragment>
-        DragableMarker
 
       </React.Fragment>
     )
