@@ -34,6 +34,7 @@ class Make3 extends React.Component {
         address: undefined,
         st_number: undefined,
         st: undefined,
+        neigh: undefined,
         province_state: undefined,
         city: undefined,
         country: undefined,
@@ -70,19 +71,14 @@ class Make3 extends React.Component {
             
             let st_number = utils.getStreetNumber(addressArray),
             st = utils.getStreet(addressArray),
+            neigh = utils.getNeighborhood(addressArray),
             province_state = utils.getProvinceState(addressArray),
             city = utils.getCity(addressArray),
-            country = utils.getCountry(addressArray);
-
-
-            // st_number = this.getCity( st_number ),
-            // st = this.getArea( st ),
-            // province_state = this.getState( province_state );
-            // city = this.getState( city );
-            // country = this.getState( country );
+            country = utils.getCountry(addressArray)
             
             st_number = (st_number) ? st_number : undefined
             st = (st) ? st : undefined
+            neigh = (neigh) ? neigh : undefined
             province_state = (province_state) ? province_state : undefined
             city = (city) ? city : undefined
             country = (country) ? country : undefined
@@ -91,11 +87,12 @@ class Make3 extends React.Component {
           this.setState({
             human_location: {
               address: (address) ? address : undefined,
-              st_number: (st_number) ? st_number : undefined,
-              st: (st) ? st : undefined,
-              province_state: (province_state) ? province_state : undefined,
-              city: (city) ? city : undefined,
-              country: (country) ? country : undefined,
+              st_number: st_number,
+              st: st,
+              neigh: neigh,
+              province_state: province_state,
+              city: city,
+              country: country,
             }
           })
         },
