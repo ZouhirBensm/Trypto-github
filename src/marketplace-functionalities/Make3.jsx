@@ -2,6 +2,11 @@
 // TODO Make styles need to be put in a common folder
 import '../orders-functionalities/styles/Make.css'
 import LocationSelector from './LocationSelector'
+import {utils} from '../../full-stack-libs/utils.address'
+
+import Geocode from "react-geocode";
+Geocode.setApiKey("AIzaSyBIOZMezc-bUpTqR7yRRxcv2Lynb49CFCM");
+Geocode.enableDebug();
 
 
 
@@ -22,16 +27,16 @@ class Make3 extends React.Component {
       amountsTo_inSAT: undefined,
       denomination: undefined,
       value: "N/A",
-      location: { 
+      location: {
         lat: undefined, lng: undefined,
-        location: {
-          st_number: undefined,
-          st: undefined,
-          area: undefined,
-          town: undefined,
-          province_state: undefined,
-          country: undefined,
-        }
+      },
+      human_location: {
+        address: undefined,
+        st_number: undefined,
+        st: undefined,
+        province_state: undefined,
+        city: undefined,
+        country: undefined,
       }
     }
     this.clickGetCryptoPrice = this.clickGetCryptoPrice.bind(this)
@@ -47,6 +52,63 @@ class Make3 extends React.Component {
 
 
   }
+
+
+  componentDidUpdate(prevProp, prevState) {
+    if (this.state.location.lat !== prevState.location.lat ||
+      this.state.location.lng !== prevState.location.lng) {
+      console.log("yep")
+
+      Geocode.fromLatLng(this.state.location.lat, this.state.location.lng).then(
+        response => {
+
+          console.log(response)
+          const address = response.results[0].formatted_address,
+
+            addressArray = response.results[0].address_components;
+
+            
+            let st_number = utils.getStreetNumber(addressArray),
+            st = utils.getStreet(addressArray),
+            province_state = utils.getProvinceState(addressArray),
+            city = utils.getCity(addressArray),
+            country = utils.getCountry(addressArray);
+
+
+            // st_number = this.getCity( st_number ),
+            // st = this.getArea( st ),
+            // province_state = this.getState( province_state );
+            // city = this.getState( city );
+            // country = this.getState( country );
+            
+            st_number = (st_number) ? st_number : undefined
+            st = (st) ? st : undefined
+            province_state = (province_state) ? province_state : undefined
+            city = (city) ? city : undefined
+            country = (country) ? country : undefined
+
+
+          this.setState({
+            human_location: {
+              address: (address) ? address : undefined,
+              st_number: (st_number) ? st_number : undefined,
+              st: (st) ? st : undefined,
+              province_state: (province_state) ? province_state : undefined,
+              city: (city) ? city : undefined,
+              country: (country) ? country : undefined,
+            }
+          })
+        },
+        error => {
+          console.error(error);
+        }
+      );
+
+    }
+  }
+
+
+
 
 
   changeStateLocationParent(obj) {
@@ -302,7 +364,8 @@ class Make3 extends React.Component {
   render() {
 
 
-    console.log("Where to update information:", this.state.location)
+    console.log("Where to update information: location: ", this.state.location)
+    console.log("human_location:", this.state.human_location)
 
     // console.log("----------->>>>", this.state.location)
 

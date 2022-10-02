@@ -53,6 +53,9 @@ class Autocomplete extends React.Component {
       // console.log("Detailed address response from reverse geocoding", response.results)
       document.getElementById("autocomplete-select").value = response.results[0].formatted_address;
 
+      console.log("KABOUNGA!!!!!")
+      
+
     } else {
       window.alert("No results found");
     }

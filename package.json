@@ -39,6 +39,7 @@
     "paypal-rest-sdk": "^1.8.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-geocode": "^0.2.3",
     "react-places-autocomplete": "^7.3.0",
     "react-router-dom": "^5.3.3",
     "request": "^2.88.2",
