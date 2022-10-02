@@ -105,7 +105,8 @@ class Autocomplete extends React.Component {
     return (
       <React.Fragment>
         <label htmlFor="autocomplete-select">Trade Location</label>
-        <input id="autocomplete-select" type="text" name="autocomplete" required/><br id="location-dom-identifier"/>
+        <input id="autocomplete-select" type="text" name="autocomplete" required/><span>📍 is DRAG-ABLE!</span>
+        <br id="location-dom-identifier"/>
       </React.Fragment>
     )
   }

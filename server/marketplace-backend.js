@@ -167,7 +167,13 @@ marketplaceBackend_app_router.get(['/order/:userId/sellordersdata/:orderID', '/o
 
 // TODO add the require login middleware
 // require_loggedin_for_data(true), homeOrdersController.registerOrder
-marketplaceBackend_app_router.post('/sellorders/save', marketplaceController.registerOrder)
+
+// marketplaceController.registerOrder
+marketplaceBackend_app_router.post('/sellorders/save', marketplaceController.registerOrder2)
+
+
+// JUST IN CASE, KEPT AS REFERENCE TODO TO DELETE
+// marketplaceBackend_app_router.post('/sellorders/save', marketplaceController.registerOrder)
 
 
 

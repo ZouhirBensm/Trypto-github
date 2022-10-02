@@ -5,9 +5,17 @@ import LocationSelector from './LocationSelector'
 import {utils} from '../../full-stack-libs/utils.address'
 
 import Geocode from "react-geocode";
+// TODO put the API key in a environment variable, this is the same in a development and remote environment for the moment, might change to have their own API keys
 Geocode.setApiKey("AIzaSyBIOZMezc-bUpTqR7yRRxcv2Lynb49CFCM");
 Geocode.enableDebug();
 
+
+//Legend:
+// pk: packaged
+// ob: object
+// mOR: market order
+// 4ft: for fetch
+// 2sd: to send
 
 
 
@@ -58,12 +66,12 @@ class Make3 extends React.Component {
   componentDidUpdate(prevProp, prevState) {
     if (this.state.location.lat !== prevState.location.lat ||
       this.state.location.lng !== prevState.location.lng) {
-      console.log("yep")
+      // console.log("yep")
 
       Geocode.fromLatLng(this.state.location.lat, this.state.location.lng).then(
         response => {
 
-          console.log(response)
+          // console.log(response)
           const address = response.results[0].formatted_address,
 
             addressArray = response.results[0].address_components;
@@ -207,28 +215,23 @@ class Make3 extends React.Component {
 
   }
 
-  validateInputs(_packagedObjectToSendinFetch) {
-    // console.log("validating inputs", _packagedObjectToSendinFetch)
+  validateInputs(_pkobmOr_basicData, _pkobmOr_LocationData) {
+    // console.log("validating inputs", _pkobmOr_basicData)
 
     let error
     const preventInjectionsRegEx = /[<>;}{\&]/;
 
-    for (const property in _packagedObjectToSendinFetch) {
-      // console.log(`${property}: ${_packagedObjectToSendinFetch[property]}`);
+    for (const property in _pkobmOr_basicData) {
+      // console.log(`${property}: ${_pkobmOr_basicData[property]}`);
 
-      if (_packagedObjectToSendinFetch[property] == '' || preventInjectionsRegEx.test(_packagedObjectToSendinFetch[property])) {
+      if (_pkobmOr_basicData[property] == '' || preventInjectionsRegEx.test(_pkobmOr_basicData[property])) {
         error = `This field: ${property}, inputed value is not proper. Please modify`
         break
       }
 
     }
 
-
-    // console.log("------>>>", parseInt(_packagedObjectToSendinFetch.minprice), parseInt(_packagedObjectToSendinFetch.maxprice), parseInt(_packagedObjectToSendinFetch.minprice) > parseInt(_packagedObjectToSendinFetch.maxprice))
-
-
-
-    let expireAt = new Date(_packagedObjectToSendinFetch.expirydate.slice(0, 4), _packagedObjectToSendinFetch.expirydate.slice(5, 7) - 1, _packagedObjectToSendinFetch.expirydate.slice(8, 10), _packagedObjectToSendinFetch.expirytime.slice(0, 2), _packagedObjectToSendinFetch.expirytime.slice(3, 5))
+    let expireAt = new Date(_pkobmOr_basicData.expirydate.slice(0, 4), _pkobmOr_basicData.expirydate.slice(5, 7) - 1, _pkobmOr_basicData.expirydate.slice(8, 10), _pkobmOr_basicData.expirytime.slice(0, 2), _pkobmOr_basicData.expirytime.slice(3, 5))
 
 
 
@@ -236,8 +239,15 @@ class Make3 extends React.Component {
       error = `Expiry date & time cannot set before now. Please modify`
     }
 
+    const isUndefined = (currentValue) => currentValue == undefined;
+
+    if (Object.values(_pkobmOr_LocationData.location).every(isUndefined) && !error) {
+      error = `Please, pick a location before submitting an order.`
+    }
 
 
+
+    console.log(error)
     if (error) {
       this.setState({
         popup_state: error
@@ -259,7 +269,7 @@ class Make3 extends React.Component {
 
 
 
-    let packagedObjectToSendinFetch = {
+    let pkobmOr_basicData = {
       title: document.getElementById("form_id").elements["title"].value,
       category: document.getElementById("form_id").elements["category"].value,
       price: document.getElementById("form_id").elements["price"].value,
@@ -272,13 +282,27 @@ class Make3 extends React.Component {
       chain: _denomination,
     }
 
-    // console.log(packagedObjectToSendinFetch, "sellorders")
+    let pkobmOr_LocationData = {
+      location: this.state.location,
+      human_location: this.state.human_location
+    }
 
-    let validated = this.validateInputs(packagedObjectToSendinFetch)
+    // TODO refactor names: 1: MarketOrderBasicData, 2: OrderTradeLocationSpecifics for example
+    // console.log(pkobmOr_basicData, pkobmOr_LocationData)
+
+
+
+
+    let validated = this.validateInputs(pkobmOr_basicData, pkobmOr_LocationData)
     if (!validated) return
 
+    let pk_4ft_2sd_body = {
+      pkobmOr_basicData,
+      pkobmOr_LocationData
+    }
 
-    // console.log(`/marketplace/sellorders/save`)
+    console.log(pk_4ft_2sd_body)
+
 
     let response = await fetch(`/marketplace/sellorders/save`, {
       method: 'POST',
@@ -286,7 +310,7 @@ class Make3 extends React.Component {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify(packagedObjectToSendinFetch)
+      body: JSON.stringify(pk_4ft_2sd_body)
     })
 
     // console.log("server response status:", response.status)
@@ -317,10 +341,8 @@ class Make3 extends React.Component {
         })
         break;
     }
-
-    // let json_SRV = await response.json()
-    // console.log("server response json:", json_SRV)
-
+// TODO scroll down after submission to see pop up
+// TODO add image upload, and operations U,D, and account delete associated images capabilities
 
   }
 
@@ -361,8 +383,8 @@ class Make3 extends React.Component {
   render() {
 
 
-    console.log("Where to update information: location: ", this.state.location)
-    console.log("human_location:", this.state.human_location)
+    // console.log("Where to update information: location: ", this.state.location)
+    // console.log("human_location:", this.state.human_location)
 
     // console.log("----------->>>>", this.state.location)
 

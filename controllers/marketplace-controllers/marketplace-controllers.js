@@ -2,6 +2,8 @@
 
 
 const SellMarketOrder = require('../../models/market-orders-models/SellMarketOrder')
+const SellMarketOrderLocation = require('../../models/market-orders-models/SellMarketOrderLocation')
+
 const httpStatus = require("http-status-codes")
 
 
@@ -81,6 +83,96 @@ module.exports = {
   //   }
   // },
 
+  registerOrder2: async (req,res,next)=>{
+    console.log(req.body)
+
+
+    let body_mOR_basic_data = req.body.pkobmOr_basicData
+    let body_mOR_location_data = req.body.pkobmOr_LocationData
+
+
+    console.log("\n\expirydate:\n", body_mOR_basic_data.expirydate)
+
+    body_mOR_basic_data.expireAt = new Date(body_mOR_basic_data.expirydate.slice(0,4), body_mOR_basic_data.expirydate.slice(5,7)-1, body_mOR_basic_data.expirydate.slice(8,10), body_mOR_basic_data.expirytime.slice(0,2), body_mOR_basic_data.expirytime.slice(3,5))
+
+    console.log("\n\expireAt:\n", body_mOR_basic_data.expireAt)
+
+
+    let create_res_sellmarketorderlocation
+
+
+    try {
+      create_res_sellmarketorderlocation = await SellMarketOrderLocation.create({
+        // TODO refactor location to geometry
+        location: {
+          lat: body_mOR_location_data.location.lat,
+          lng: body_mOR_location_data.location.lng,
+        },
+        // TODO refactor human location to location
+        human_location: {
+          address: body_mOR_location_data.human_location.address,
+          st_number: body_mOR_location_data.human_location.st_number,
+          st: body_mOR_location_data.human_location.st,
+          neigh: body_mOR_location_data.human_location.neigh,
+          province_state: body_mOR_location_data.human_location.province_state,
+          city: body_mOR_location_data.human_location.city,
+          country: body_mOR_location_data.human_location.country
+        },
+        expireAt: body_mOR_basic_data.expireAt,
+      })
+      
+    } catch (e) {
+      e = new Error(`Unable to create the SellMarketOrderLocation entry ${e.message}`)
+      return next(e)
+    }
+
+    console.log("create_res_sellmarketorderlocation", create_res_sellmarketorderlocation._id)
+
+
+    let create_res_sellmarketorder
+
+    if(body_mOR_basic_data.expireAt > new Date() && create_res_sellmarketorderlocation) {
+      try {
+        create_res_sellmarketorder = await SellMarketOrder.create({
+          title: body_mOR_basic_data.title,
+          category: body_mOR_basic_data.category,
+          price: body_mOR_basic_data.price,
+          crypto: body_mOR_basic_data.crypto,
+          conversion: body_mOR_basic_data.conversion,
+          payment: body_mOR_basic_data.payment,
+          chain: body_mOR_basic_data.chain,
+          expireAt: body_mOR_basic_data.expireAt,
+          expirydate: body_mOR_basic_data.expirydate,
+          expirytime: body_mOR_basic_data.expirytime,
+          userid: req.session.userId,
+          sellmarketorderlocationID: create_res_sellmarketorderlocation._id
+        })
+      } catch (e) {
+        e = new Error(`Unable to create the SellMarketOrder entry ${e.message}`)
+        return next(e)
+      }
+
+      
+    } else {
+      res.status(httpStatus.StatusCodes.BAD_REQUEST).json({
+        saved: "Not saved, because either date expiry before now, or saving the SellMarketOrderLocation entry defined but falsy"
+      })
+    }
+    
+    console.log("create_res_sellmarketorder", create_res_sellmarketorder)
+
+    if (create_res_sellmarketorder) {
+      res.status(200).end()
+    } else {
+      let e = new Error(`SellMarketOrder defined but falsy`)
+      return next(e)
+    }
+
+  },
+
+  // TODO when delete account, delete market, and location entries
+  // TODO operations access to market order data and U,D capabilities
+
 
 
   registerOrder:  (req,res,next)=>{
@@ -103,8 +195,6 @@ module.exports = {
   
 
 
-
-    console.log("SellMarketOrder", SellMarketOrder)
   
     
     if(req.body.expireAt > new Date()){

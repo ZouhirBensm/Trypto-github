@@ -30,6 +30,11 @@ const SellMarketOrderSchema = new Schema({
         ref: 'User',
         required: true
     },
+    sellmarketorderlocationID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'SellMarketOrderLocation',
+        required: true
+    },
     postedDate: {
         type: Date,
         default: new Date(),
