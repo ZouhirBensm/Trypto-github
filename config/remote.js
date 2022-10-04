@@ -12,4 +12,8 @@ module.exports = {
   paypal_api_root: process.env.PAYPAL_API_ROOT,
   domain_without_protocol: process.env.DOMAIN_WITHOUT_PROTOCOL,
   console_cloud_google_api_key: process.env.CONSOLE_CLOUD_GOOGLE_API_KEY,
+  // API key in prod:
+  // AIzaSyDllB4lbeiJVZeI2VGW_p21-Hj7FrC1idM
+  // API key in staging:
+  // AIzaSyBIOZMezc-bUpTqR7yRRxcv2Lynb49CFCM
 }

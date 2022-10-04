@@ -6,7 +6,8 @@ import {utils} from '../../full-stack-libs/utils.address'
 
 import Geocode from "react-geocode";
 // TODO put the API key in a environment variable, this is the same in a development and remote environment for the moment, might change to have their own API keys
-Geocode.setApiKey("AIzaSyBIOZMezc-bUpTqR7yRRxcv2Lynb49CFCM");
+// console.log("console_cloud_google_api_key", process.env.console_cloud_google_api_key)
+Geocode.setApiKey(process.env.console_cloud_google_api_key);
 Geocode.enableDebug();
 
 

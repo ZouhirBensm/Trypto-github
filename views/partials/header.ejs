@@ -27,7 +27,11 @@
   <!-- TODO template this depending on environment variables -->
   <!-- TODO load only on make market order page -->
   <!-- &callback=initMap&v=weekly -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIOZMezc-bUpTqR7yRRxcv2Lynb49CFCM&libraries=places"></script>
+
+  
+  <!-- < %locals.ENV.console_cloud_google_api_key%> -->
+  <!-- AIzaSyBIOZMezc-bUpTqR7yRRxcv2Lynb49CFCM -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%=locals.ENV.console_cloud_google_api_key%>&libraries=places"></script>
   
 
 

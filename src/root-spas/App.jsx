@@ -53,6 +53,7 @@ class App extends React.Component {
   }
   
   async loadData(){
+    // TODO uncomment all the loadData code, commented to avoid error temporarily
     let objPrices = {}
     const response = await fetch(`/cryptoprice`)
     const data = await response.json()
