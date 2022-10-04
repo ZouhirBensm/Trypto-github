@@ -4,6 +4,10 @@
 const SellMarketOrder = require('../../models/market-orders-models/SellMarketOrder')
 const SellMarketOrderLocation = require('../../models/market-orders-models/SellMarketOrderLocation')
 
+
+const {MongoError} = require('../../custom-errors/custom-errors')
+const {ValidationError} = require('../../custom-errors/custom-errors')
+
 const httpStatus = require("http-status-codes")
 
 
@@ -122,7 +126,7 @@ module.exports = {
       })
       
     } catch (e) {
-      e = new Error(`Unable to create the SellMarketOrderLocation entry ${e.message}`)
+      e = new MongoError(`Unable to create the SellMarketOrderLocation entry ${e.message}`)
       return next(e)
     }
 
@@ -132,6 +136,7 @@ module.exports = {
     let create_res_sellmarketorder
 
     if(body_mOR_basic_data.expireAt > new Date() && create_res_sellmarketorderlocation) {
+      
       try {
         create_res_sellmarketorder = await SellMarketOrder.create({
           title: body_mOR_basic_data.title,
@@ -148,25 +153,19 @@ module.exports = {
           sellmarketorderlocationID: create_res_sellmarketorderlocation._id
         })
       } catch (e) {
-        e = new Error(`Unable to create the SellMarketOrder entry ${e.message}`)
+        e = new MongoError(`Unable to create the SellMarketOrder entry ${e.message}`)
+
         return next(e)
       }
 
       
     } else {
-      res.status(httpStatus.StatusCodes.BAD_REQUEST).json({
-        saved: "Not saved, because either date expiry before now, or saving the SellMarketOrderLocation entry defined but falsy"
-      })
-    }
-    
-    console.log("create_res_sellmarketorder", create_res_sellmarketorder)
-
-    if (create_res_sellmarketorder) {
-      res.status(200).end()
-    } else {
-      let e = new Error(`SellMarketOrder defined but falsy`)
+      e = new ValidationError(`Not saved, because date expiry before now, or create location failed`, "body_mOR_basic_data.expireAt | create_res_sellmarketorderlocation", httpStatus.StatusCodes.BAD_REQUEST)
       return next(e)
     }
+    
+
+    res.status(200).end()
 
   },
 

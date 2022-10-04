@@ -325,7 +325,7 @@ class Make3 extends React.Component {
       case 400:
         // console.log(400)
         this.setState({
-          popup_state: "Expiry time and date field cannot be before present, please modify, and retry submission."
+          popup_state: "Not saved, because date expiry before now, or create location failed. A website maintainer is looking into the mater."
         })
         break;
       case 500:
@@ -343,6 +343,7 @@ class Make3 extends React.Component {
     }
 // TODO scroll down after submission to see pop up
 // TODO add image upload, and operations U,D, and account delete associated images capabilities
+// TODO optimize ordersapp to be satochi centric, and ressemble the market app
 
   }
 

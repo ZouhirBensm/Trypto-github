@@ -37,11 +37,12 @@ class MongoError extends CustomError {
 
 
 class ValidationError extends CustomError {
-  constructor(notification, validatee){
+  constructor(notification, validatee, overwriteStatus = undefined){
     super()
     this.type = this.constructor.name
     this.message = notification
     this.validatee = validatee
+    overwriteStatus? this.statusCode = overwriteStatus: null
   }
 }
 
