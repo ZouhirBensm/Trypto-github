@@ -3,6 +3,7 @@
 import '../orders-functionalities/styles/Make.css'
 import LocationSelector from './LocationSelector'
 import {utils} from '../../full-stack-libs/utils.address'
+import {validateInputs_pkobmOr_basicData, validateInputs_pkobmOr_LocationData} from '../../full-stack-libs/validations'
 
 import Geocode from "react-geocode";
 // TODO put the API key in a environment variable, this is the same in a development and remote environment for the moment, might change to have their own API keys
@@ -14,7 +15,7 @@ Geocode.enableDebug();
 //Legend:
 // pk: packaged
 // ob: object
-// mOR: market order
+// mOr: market order
 // 4ft: for fetch
 // 2sd: to send
 
@@ -219,43 +220,63 @@ class Make3 extends React.Component {
   validateInputs(_pkobmOr_basicData, _pkobmOr_LocationData) {
     // console.log("validating inputs", _pkobmOr_basicData)
 
-    let error
-    const preventInjectionsRegEx = /[<>;}{\&]/;
-
-    for (const property in _pkobmOr_basicData) {
-      // console.log(`${property}: ${_pkobmOr_basicData[property]}`);
-
-      if (_pkobmOr_basicData[property] == '' || preventInjectionsRegEx.test(_pkobmOr_basicData[property])) {
-        error = `This field: ${property}, inputed value is not proper. Please modify`
-        break
-      }
-
-    }
-
-    let expireAt = new Date(_pkobmOr_basicData.expirydate.slice(0, 4), _pkobmOr_basicData.expirydate.slice(5, 7) - 1, _pkobmOr_basicData.expirydate.slice(8, 10), _pkobmOr_basicData.expirytime.slice(0, 2), _pkobmOr_basicData.expirytime.slice(3, 5))
+    let error_msg_retrieved_if_any
+    error_msg_retrieved_if_any = validateInputs_pkobmOr_basicData(_pkobmOr_basicData, error_msg_retrieved_if_any)
+    error_msg_retrieved_if_any = validateInputs_pkobmOr_LocationData(_pkobmOr_LocationData, error_msg_retrieved_if_any)
 
 
-
-    if (expireAt < new Date() && !error) {
-      error = `Expiry date & time cannot set before now. Please modify`
-    }
-
-    const isUndefined = (currentValue) => currentValue == undefined;
-
-    if (Object.values(_pkobmOr_LocationData.location).every(isUndefined) && !error) {
-      error = `Please, pick a location before submitting an order.`
-    }
-
-
-
-    console.log(error)
-    if (error) {
+    if (error_msg_retrieved_if_any) {
       this.setState({
-        popup_state: error
+        popup_state: error_msg_retrieved_if_any
       })
     } else { return true }
 
   }
+
+
+
+  // validateInputs(_pkobmOr_basicData, _pkobmOr_LocationData) {
+  //   // console.log("validating inputs", _pkobmOr_basicData)
+
+  //   let error
+  //   const preventInjectionsRegEx = /[<>;}{\&]/;
+
+  //   for (const property in _pkobmOr_basicData) {
+  //     // console.log(`${property}: ${_pkobmOr_basicData[property]}`);
+
+  //     if (_pkobmOr_basicData[property] == '' || preventInjectionsRegEx.test(_pkobmOr_basicData[property])) {
+  //       error = `This field: ${property}, inputed value is not proper. Please modify`
+  //       break
+  //     }
+
+  //   }
+
+  //   let expireAt = new Date(_pkobmOr_basicData.expirydate.slice(0, 4), _pkobmOr_basicData.expirydate.slice(5, 7) - 1, _pkobmOr_basicData.expirydate.slice(8, 10), _pkobmOr_basicData.expirytime.slice(0, 2), _pkobmOr_basicData.expirytime.slice(3, 5))
+
+
+
+  //   if (expireAt < new Date() && !error) {
+  //     error = `Expiry date & time cannot set before now. Please modify`
+  //   }
+
+  //   const isUndefined = (currentValue) => currentValue == undefined;
+
+  //   if (Object.values(_pkobmOr_LocationData.location).every(isUndefined) && !error) {
+  //     error = `Please, pick a location before submitting an order.`
+  //   }
+
+
+
+  //   console.log(error)
+
+
+  //   if (error) {
+  //     this.setState({
+  //       popup_state: error
+  //     })
+  //   } else { return true }
+
+  // }
 
   async clickCreateOrder(e) {
     e.preventDefault()

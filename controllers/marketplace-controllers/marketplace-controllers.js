@@ -63,29 +63,78 @@ module.exports = {
   
   // },
 
+  updateOrderController: async (req,res, next)=>{
 
-  // deleteOrderController: (req,res,next)=>{
-  //   // console.log("req body on /delete-this-order: ", req.body) 
-  //   var id = req.body.OrderID
+    console.log("new DATA:", req.body)
+    
+    console.log('Current User: ' + req.session.userId + ' and Order asked to update: ' + req.body.pkobmOr_4ft2sd._id)
+    
+    // If upsert is true then if the row trying to be updated does not exist then a new row is inserted instead , if false then it does not do anything .
+
+    // If new is true then the modified document is returned after the update rather than the original , if false then the original document is returned
+
+
+    let updatedMarketOrder_ifAny
+
+    try{
+      updatedMarketOrder_ifAny = await SellMarketOrder.findByIdAndUpdate(req.body.pkobmOr_4ft2sd._id, { $set: req.body.pkobmOr_4ft2sd }, { upsert: false, new: true });
+    } catch(e){
+      let error = new MongoError(e.message)
+      return next(error)
+    }
+
+
+    if (updatedMarketOrder_ifAny){
+      res.status(200).json({
+        srv_: "Successfully updated"
+      })
+    }
+
+    // res.redirect('/databases/AllMyOrders') 
   
-  //   if (req.body.OrderType === 'buyordersdata') {
-  //     //console.log('Order type is a buy type')
-  //     BuyCryptoOrder.findByIdAndDelete(id, (error, buyorder) =>{ 
-  //       if(error){return next(error)}
-  //     })
-  //     res.json({
-  //       memorized_order_type: req.body.OrderType
-  //     })
-  //   } else if (req.body.OrderType === 'sellordersdata') {
-  //     //console.log('Order type is a sell type')
-  //     SellCryptoOrder.findByIdAndDelete(id, (error, sellorder) =>{ 
-  //       if(error){return next(error)}
-  //     })
-  //     res.json({
-  //       memorized_order_type: req.body.OrderType
-  //     })
-  //   }
-  // },
+  },
+
+
+  deleteOrderController: async (req,res,next)=>{
+    // console.log("req body on /delete-this-order: ", req.body) 
+    console.log(req.body.market_orderID)
+
+
+    let getSellMarketOrderLocationID_todelete
+    try {
+      getSellMarketOrderLocationID_todelete = await SellMarketOrder.findById(req.body.market_orderID)
+      .select('sellmarketorderlocationID -_id')
+    } catch (e) {
+      let error = new MongoError(`Failed to delete: Error: ${e.message} Level: getSellMarketOrderLocationID_todelete`)
+      return next(error)
+    }
+
+
+    
+    let market_Order_deletetionReturn
+    try {
+      market_Order_deletetionReturn = await SellMarketOrder.findByIdAndDelete(req.body.market_orderID)
+    } catch (e) {
+      let error = new MongoError(`Failed to delete: Error: ${e.message} Level: market_Order_deletetionReturn`)
+      return next(error)
+    }
+
+    let location_market_Order_deletetionReturn 
+    try {
+      location_market_Order_deletetionReturn = await SellMarketOrderLocation.findByIdAndDelete(getSellMarketOrderLocationID_todelete?.sellmarketorderlocationID)
+    } catch (e) {
+      let error = new MongoError(`Failed to delete: Error: ${e.message} Level: location_market_Order_deletetionReturn`)
+      return next(error)
+    }
+
+    res.status(200).json({
+      srv_: "Successfully deleted"
+    })
+
+  },
+
+
+
 
   registerOrder2: async (req,res,next)=>{
     console.log(req.body)

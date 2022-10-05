@@ -82,8 +82,8 @@ class Databases extends React.Component {
   render() {
     // console.log("UID????", userId)
     return (
-        <div>
-        OrdersApp2
+        <div className="wrapper">
+        {/* OrdersApp2 */}
         <BrowserRouter> 
           <Switch> 
             {/* <Route exact path="/marketplace" component={Navigation} /> */}

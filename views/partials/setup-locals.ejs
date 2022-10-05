@@ -82,7 +82,8 @@
     // TODO update the front end variables for the marketplace
     case `/marketplace/databases/${caseOptionMarketplace}`:
       userId = '<%= locals.userId %>'
-      console.log("------------->>>>>>", userId)
+      popup = '<%= locals.popup %>'
+      console.log("------------->>>>>>", userId, popup)
       break;
     case `/marketplace/databases/${caseOptionMarketplace}/${caseOptionMarketplace2}`:
       userId = '<%= locals.userId %>'

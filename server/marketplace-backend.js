@@ -95,6 +95,10 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 marketplaceBackend_app_router.get(['/', '/databases', '/databases/AllMyOrders' , '/databases/sellordersdata', '/make/makesell'], require_loggedin_for_pages(true), (req,res)=>{
 
+  res.locals.popup = req.query.popup
+
+  console.log("\nDo we have any pop-up messages: \n", req.query.popup)
+
   // console.log("paths:", res.locals.paths_URL)
   
   res.locals.paths_URL[1] == "databases"? res.locals.userId = req.session.userId: null
@@ -160,8 +164,9 @@ marketplaceBackend_app_router.get(['/order/:userId/sellordersdata/:orderID', '/o
 // marketplaceBackend_app_router.patch('/update', require_loggedin_for_data(true), homeOrdersController.updateOrderController)
 
 
-
-// marketplaceBackend_app_router.delete('/delete-this-order', require_loggedin_for_data(true), homeOrdersController.deleteOrderController)
+// TODO add require loggin
+// require_loggedin_for_data(true), homeOrdersController.deleteOrderController
+marketplaceBackend_app_router.delete('/delete-this-order', marketplaceController.deleteOrderController)
 
 
 
@@ -170,6 +175,17 @@ marketplaceBackend_app_router.get(['/order/:userId/sellordersdata/:orderID', '/o
 
 // marketplaceController.registerOrder
 marketplaceBackend_app_router.post('/sellorders/save', marketplaceController.registerOrder2)
+
+
+// TODO add require loggin
+// require_loggedin_for_data(true), homeOrdersController.updateOrderController
+
+// marketplaceBackend_app_router.patch('/update', (req, res) => {
+//   console.log(req.body)
+//   res.status(200).end()
+// })
+
+marketplaceBackend_app_router.patch('/update', marketplaceController.updateOrderController)
 
 
 // JUST IN CASE, KEPT AS REFERENCE TODO TO DELETE

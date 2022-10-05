@@ -36,4 +36,56 @@ function verifyPassword(_password){
 
 }
 
-module.exports =  {verifyEmail, verifyPassword}
+
+
+function validateInputs_pkobmOr_basicData(_pkobmOr, err_msg = undefined) {
+
+    const preventInjectionsRegEx = /[<>;}{\&]/;
+
+    for (const property in _pkobmOr) {
+      // console.log(`${property}: ${_pkobmOr[property]}`);
+
+      if (_pkobmOr[property] == '' || preventInjectionsRegEx.test(_pkobmOr[property])) {
+        err_msg = `This field: ${property}, inputed value is not proper. Please modify`
+        break
+      }
+
+    }
+
+    let expireAt = new Date(_pkobmOr.expirydate?.slice(0, 4), _pkobmOr.expirydate?.slice(5, 7) - 1, _pkobmOr.expirydate?.slice(8, 10), _pkobmOr.expirytime?.slice(0, 2), _pkobmOr.expirytime?.slice(3, 5))
+
+
+    if (expireAt < new Date() && !err_msg) {
+      err_msg = `Expiry date & time cannot set before now. Please modify`
+    }
+
+
+
+    if(err_msg) {
+      return err_msg
+    } else {
+      return undefined
+    }
+  }
+
+
+function validateInputs_pkobmOr_LocationData(_pkobmOr_LocationData, err_msg = undefined) {
+
+    const isUndefined = (currentValue) => currentValue == undefined;
+
+    if (Object.values(_pkobmOr_LocationData.location).every(isUndefined) && !err_msg) {
+      err_msg = `Please, pick a location before submitting an order.`
+    }
+
+    console.log(err_msg)
+
+    if (err_msg){
+      return err_msg
+    } else {
+      return undefined
+    }
+}
+
+
+
+module.exports =  {verifyEmail, verifyPassword, validateInputs_pkobmOr_basicData, validateInputs_pkobmOr_LocationData}

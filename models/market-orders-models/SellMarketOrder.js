@@ -20,6 +20,8 @@ const SellMarketOrderSchema = new Schema({
     conversion: String,
     payment: String,
     chain: String,
+    expirydate: String,
+    expirytime: String,
     expireAt: {
         type: Date,
         //default: Date.now,

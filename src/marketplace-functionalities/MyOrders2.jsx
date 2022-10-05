@@ -1,6 +1,10 @@
 // import React from 'react';
 // import './styles/MyOrders.css'
-import '../orders-functionalities/styles/MyOrders.css'
+
+import '../style/reactDivMobile.css'
+// import '../orders-functionalities/styles/MyOrders.css'
+
+
 // import OrderTable from './OrderTable';
 // import OrderTable from '../orders-functionalities/OrderTable';
 import OrderTable2 from './OrderTable2';
@@ -9,7 +13,7 @@ import OrderTable2 from './OrderTable2';
 import PageSelector from '../generic-components/PageSelector';
 
 class MyOrders2 extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       // orderstype: 'sellordersdata',
@@ -25,6 +29,7 @@ class MyOrders2 extends React.Component {
     }
 
     this.controls = this.controls.bind(this);
+    this.popup = popup
     // this.handleOrderTypeToogle = this.handleOrderTypeToogle.bind(this)
     // this.handleDelete = this.handleDelete.bind(this)
     // this.handleClick = this.handleClick.bind(this)
@@ -41,7 +46,7 @@ class MyOrders2 extends React.Component {
   //   console.log(wrapper2)
 
   //   let div = document.getElementById("popup");
-    
+
   //   console.log(!!(div.innerHTML))
   //   if (!!(div.innerHTML)) {
   //     console.log("div is filled")
@@ -71,7 +76,7 @@ class MyOrders2 extends React.Component {
   //   if(response.ok){
   //     let OBJserv_ = await response.json()
   //     let elements_left_in_page = document.getElementsByTagName("tr")
-  
+
   //     if(this.state.on_off_limit_next && elements_left_in_page.length === 1 && this.state.number_of_pages != 1){
   //       this.handleDelete(OBJserv_.memorized_order_type, true)
   //     } else {
@@ -109,25 +114,25 @@ class MyOrders2 extends React.Component {
     })
   }
 
-  componentDidMount(){
+  componentDidMount() {
     //DOM is ready
     this.loadData()
   }
 
   async loadData() {
     // console.log("loadData: _orderstype: ", _orderstype)
-    
+
     console.log(`/marketplace/paginated-orders/sellordersdata/${this.props.userID_toQueryWith}?page=${this.state.page}&limit=${this.state.limit}`)
 
     const response2 = await fetch(`/marketplace/paginated-orders/sellordersdata/${this.props.userID_toQueryWith}?page=${this.state.page}&limit=${this.state.limit}`)
-    
+
 
     console.log(response2)
     const serverOBJ = await response2.json()
 
     console.log("serverOBJ: ", serverOBJ)
 
-    if(response2.ok){
+    if (response2.ok) {
       this.setState({
         // userId: this.props.userID_toQueryWith,
         orders: serverOBJ.srv_.ORDERS,
@@ -135,7 +140,7 @@ class MyOrders2 extends React.Component {
         previousPage: serverOBJ.srv_.previous,
         number_of_pages: serverOBJ.srv_.number_of_pages.number
       }, () => {
-        if(this.state.nextPage==undefined){
+        if (this.state.nextPage == undefined) {
           this.setState({
             on_off_limit_next: true
           })
@@ -144,7 +149,7 @@ class MyOrders2 extends React.Component {
             on_off_limit_next: false
           })
         }
-        if(this.state.previousPage==undefined){
+        if (this.state.previousPage == undefined) {
           this.setState({
             on_off_limit_previous: true
           })
@@ -154,7 +159,7 @@ class MyOrders2 extends React.Component {
           })
         }
       })
-    // Custom Errors get spitted out here
+      // Custom Errors get spitted out here
     } else {
       console.error("Error: ", serverOBJ)
     }
@@ -171,33 +176,37 @@ class MyOrders2 extends React.Component {
   //     this.loadData(this.state.orderstype);
   //   })
   // }
-  
+
   render() {
+    console.log("popup:", this.popup)
     // console.log("ordertype!!! ", this.state.orderstype)
     return (
-      <div className='wrapper2'>
+      <div className='wrapper5'>
+        {this.popup ?
+          <p>{this.popup}</p>
+          : null}
         {/* <form name="toogle">
           <label><input type="radio" id="Buy" name="radio" value='buyordersdata' defaultChecked onClick={this.handleOrderTypeToogle}/>Buy</label>
           <label><input type="radio" id="Sell" name="radio" value='sellordersdata' onClick={this.handleOrderTypeToogle}/>Sell</label>  
         </form> */}
 
-        <OrderTable2 
-        selected_userID = {this.props.userID_toQueryWith}
-        order_type="AllMyOrders" 
-        orders={this.state.orders}
+        <OrderTable2
+          selected_userID={this.props.userID_toQueryWith}
+          order_type="AllMyOrders"
+          orders={this.state.orders}
         // buttons='my'
         // handleClick={this.handleClick}
         // loadData={this.loadData}
-        /> 
-        
-        <PageSelector 
-        number_of_pages={this.state.number_of_pages} 
-        page={this.state.page} 
-        on_off_limit_previous={this.state.on_off_limit_previous} 
-        on_off_limit_next={this.state.on_off_limit_next} 
-        previousPage={this.state.previousPage} 
-        nextPage={this.state.nextPage} 
-        controls={this.controls}/>  
+        />
+
+        <PageSelector
+          number_of_pages={this.state.number_of_pages}
+          page={this.state.page}
+          on_off_limit_previous={this.state.on_off_limit_previous}
+          on_off_limit_next={this.state.on_off_limit_next}
+          previousPage={this.state.previousPage}
+          nextPage={this.state.nextPage}
+          controls={this.controls} />
       </div>
     );
   }
