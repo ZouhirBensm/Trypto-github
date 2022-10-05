@@ -27,7 +27,7 @@ Geocode.enableDebug();
 
 
 
-class Make3 extends React.Component {
+class MakeMarketOrder extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -519,6 +519,6 @@ class Make3 extends React.Component {
 
 
 
-export default Make3
+export default MakeMarketOrder
 
 

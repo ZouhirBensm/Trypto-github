@@ -103,7 +103,7 @@ marketplaceBackend_app_router.get(['/', '/databases', '/databases/AllMyOrders' ,
   
   res.locals.paths_URL[1] == "databases"? res.locals.userId = req.session.userId: null
   
-  var JSX_to_load = 'OrdersApp2';
+  var JSX_to_load = 'MarketPlace';
 
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
@@ -123,7 +123,7 @@ marketplaceBackend_app_router.get(['/databases/:what_page/:orderID'], (req,res)=
   
   res.locals.paths_URL[1] == "databases"? res.locals.userId = req.session.userId: null
   
-  var JSX_to_load = 'OrdersApp2';
+  var JSX_to_load = 'MarketPlace';
 
   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
@@ -150,7 +150,7 @@ marketplaceBackend_app_router.get(['/order/:userId/sellordersdata/:orderID', '/o
   
 //   res.locals.paths_URL[0] == "databases"? res.locals.userId = req.session.userId: null
   
-//   var JSX_to_load = 'OrdersApp2';
+//   var JSX_to_load = 'MarketPlace';
 
 //   // console.log("\n\nResponse locals: ___________________/n", res.locals, "\n\n____________________\n\n")
 //   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 

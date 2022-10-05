@@ -12,7 +12,7 @@ import OrderTable2 from './OrderTable2';
 // import PageSelector from './PageSelector';
 import PageSelector from '../generic-components/PageSelector';
 
-class MyOrders2 extends React.Component {
+class MyMarketOrders extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -212,4 +212,4 @@ class MyOrders2 extends React.Component {
   }
 }
 
-export default MyOrders2
+export default MyMarketOrders

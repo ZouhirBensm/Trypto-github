@@ -6,7 +6,7 @@ import {validateInputs_pkobmOr_basicData} from '../../full-stack-libs/validation
 // TODO add location to the entries as a field, think of integrating google maps
 // Fix to ordersapp to be bitcoin focused like the market
 
-class OrderDetails2 extends React.Component {
+class MarketOrderDetails extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -307,7 +307,7 @@ class OrderDetails2 extends React.Component {
     console.log(this.state.mode)
     return (
       <React.Fragment>
-        {/* <div>OrderDetails2...</div> */}
+        {/* <div>MarketOrderDetails...</div> */}
         {/* <div>{JSON.stringify(this.state.order)}</div> */}
 
         <table>
@@ -599,7 +599,7 @@ class OrderDetails2 extends React.Component {
 
 
 
-export default OrderDetails2
+export default MarketOrderDetails
 
 
 

@@ -12,7 +12,7 @@ import PageSelector from '../generic-components/PageSelector';
 // import SearchEngine from './SearchEngine';
 // import SearchEngine from '../orders-functionalities/SearchEngine';
 
-class Orders2 extends React.Component {
+class MarketOrders extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -167,4 +167,4 @@ class Orders2 extends React.Component {
   }
 }
 
-export default Orders2
+export default MarketOrders

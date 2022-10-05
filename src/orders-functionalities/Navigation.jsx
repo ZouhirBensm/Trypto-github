@@ -22,6 +22,7 @@ class Navigation extends React.Component {
   switchResult(_state, _mode){
     console.log(_state, _mode)
     // TODO template the navigation
+
     if (_mode == "marketplace") {
       switch(_state) {
         case null:
@@ -87,6 +88,7 @@ class Navigation extends React.Component {
   
   render(){
     let component = this.switchResult(this.state.state, this.props.mode);
+    
     console.log(this.state.state)
     return(
       <div className="databases-wrapper">
