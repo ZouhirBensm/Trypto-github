@@ -9,8 +9,6 @@
 // import Matches from './orders-functionalities/Matches';
 
 // TODO refactor component names and endpoint names for market place
-
-
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
 

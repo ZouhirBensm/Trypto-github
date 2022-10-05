@@ -1,7 +1,5 @@
 const path = require('path')
 
-// TODO in gitignore get rid of the yml file
-
 var config = {
   // Deletable externals:
   // externals: {

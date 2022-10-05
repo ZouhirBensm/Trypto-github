@@ -10,8 +10,8 @@
   <script src="https://unpkg.com/react@16.6/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@16.6/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/polyfill@7/dist/polyfill.min.js"></script>
-  <!-- TODO might not be needed -->
-  <!-- TODO load only on make market order page -->
+  
+  <!-- Kept just in case, not sure if needed -->
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
   <link defer rel="stylesheet" href='/css/header.ejs.css'></style>
@@ -24,17 +24,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap" rel="stylesheet">
 
-  <!-- TODO template this depending on environment variables -->
-  <!-- TODO load only on make market order page -->
-  <!-- &callback=initMap&v=weekly -->
-
   
-  <!-- < %locals.ENV.console_cloud_google_api_key%> -->
-  <!-- AIzaSyBIOZMezc-bUpTqR7yRRxcv2Lynb49CFCM -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=<%=locals.ENV.console_cloud_google_api_key%>&libraries=places"></script>
-  
-
-
-  
+  <%if(URL_ == "/marketplace/make/makesell"){%>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%=locals.ENV.console_cloud_google_api_key%>&libraries=places"></script>
+  <%}%>
   
 </head>
