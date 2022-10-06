@@ -7,7 +7,7 @@ import '../style/reactDivMobile.css'
 
 // import OrderTable from './OrderTable';
 // import OrderTable from '../orders-functionalities/OrderTable';
-import OrderTable2 from './OrderTable2';
+import MarketOrderTable from './MarketOrderTable';
 
 // import PageSelector from './PageSelector';
 import PageSelector from '../generic-components/PageSelector';
@@ -190,7 +190,7 @@ class MyMarketOrders extends React.Component {
           <label><input type="radio" id="Sell" name="radio" value='sellordersdata' onClick={this.handleOrderTypeToogle}/>Sell</label>  
         </form> */}
 
-        <OrderTable2
+        <MarketOrderTable
           selected_userID={this.props.userID_toQueryWith}
           order_type="AllMyOrders"
           orders={this.state.orders}

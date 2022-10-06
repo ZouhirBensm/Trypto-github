@@ -293,7 +293,7 @@ class MarketOrderDetails extends React.Component {
 
     if(response.ok){
 
-      window.location.href = `/marketplace/databases/${this.props.match.params.order_type}?popup=${srv_.srv_}`
+      window.location.href = `/marketplace/${this.props.match.params.order_type}?popup=${srv_.srv_}`
 
     } else {
 

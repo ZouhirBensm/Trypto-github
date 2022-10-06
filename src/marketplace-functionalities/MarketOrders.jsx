@@ -5,7 +5,7 @@ import '../style/reactDivMobile.css'
 // import OrderTable from './OrderTable';
 
 // import OrderTable from '../orders-functionalities/OrderTable';
-import OrderTable2 from './OrderTable2';
+import MarketOrderTable from './MarketOrderTable';
 
 // import PageSelector from '../generic-components/PageSelector';
 import PageSelector from '../generic-components/PageSelector';
@@ -144,7 +144,7 @@ class MarketOrders extends React.Component {
             <p>{this.popup}</p>
             : null}
 
-          <OrderTable2
+          <MarketOrderTable
             selected_userID={this.userId}
             orders={this.state.orders}
             order_type="sellordersdata"

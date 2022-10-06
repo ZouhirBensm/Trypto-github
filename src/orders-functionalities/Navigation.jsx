@@ -35,10 +35,10 @@ class Navigation extends React.Component {
         case "MarketSee":
           return (
             <div className="see"> 
-              {/* <a href={`/marketplace/databases/buyordersdata`}>Market buy posts</a> */}
-              <a href={`/marketplace/databases/sellordersdata`}>Market sell posts</a>
-              <a href="/marketplace/databases/AllMyOrders">All my market posts</a>
-              {/* <a href="/marketplace/databases/matches">Matches</a> */}
+              {/* <a href={`/marketplace/buyordersdata`}>Market buy posts</a> */}
+              <a href={`/marketplace/sellordersdata`}>Market sell posts</a>
+              <a href="/marketplace/AllMyOrders">All my market posts</a>
+              {/* <a href="/marketplace/matches">Matches</a> */}
             </div>
           )
         default:

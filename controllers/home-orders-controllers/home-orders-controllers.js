@@ -50,7 +50,7 @@ module.exports = {
     res.json({
       srv_: "successfully updated"
     })
-    // res.redirect('/databases/AllMyOrders') 
+    // res.redirect('/databases/allmyorders') 
   
   },
   deleteOrderController: (req,res,next)=>{

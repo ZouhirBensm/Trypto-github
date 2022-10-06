@@ -2,26 +2,26 @@
 
   console.log("paths_URL", paths_URL)
   
-  if (paths_URL[2]) {
-    switch (paths_URL[2]) {
+  if (paths_URL[1]) {
+    switch (paths_URL[1]) {
       case 'sellordersdata':
         caseOptionMarketplace = 'sellordersdata'
         break;
-      case 'buyordersdata':
-        caseOptionMarketplace = 'buyordersdata'
-        break;
+      // case 'buyordersdata':
+      //   caseOptionMarketplace = 'buyordersdata'
+      //   break;
       case 'AllMyOrders':
         caseOptionMarketplace = 'AllMyOrders'
         break;
-      case 'matches':
-        caseOptionMarketplace = 'matches'
-        break;
+      // case 'matches':
+      //   caseOptionMarketplace = 'matches'
+      //   break;
       default:
         break;
     }
 
-    if (paths_URL[3]) {
-      caseOptionMarketplace2 = paths_URL[3]
+    if (paths_URL[2]) {
+      caseOptionMarketplace2 = paths_URL[2]
     }
   }
 

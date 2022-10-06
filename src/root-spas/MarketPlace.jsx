@@ -64,19 +64,19 @@ class MarketPlace extends React.Component {
               (props) => <Navigation {...props} mode="marketplace"/>
             } />
 
-            <Route exact path="/marketplace/databases/AllMyOrders" render={
+            <Route exact path="/marketplace/AllMyOrders" render={
               (props) => <MyMarketOrders {...props} userID_toQueryWith={userId}/>
             } />
 
 
-            <Route exact path="/marketplace/databases/sellordersdata" component={MarketOrders} />
+            <Route exact path="/marketplace/sellordersdata" component={MarketOrders} />
 
             <Route exact path="/marketplace/make/makesell" component={MakeMarketOrder} />
 
 
 
 
-            <Route path="/marketplace/databases/:order_type/:orderID" render={
+            <Route path="/marketplace/:order_type/:orderID" render={
               (props) => <MarketOrderDetails {...props}/>
             }/> 
 

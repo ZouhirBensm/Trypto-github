@@ -1,6 +1,6 @@
 // import React from 'react';
 import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
-class OrderTable2 extends React.Component {
+class MarketOrderTable extends React.Component {
 
   constructor(props) {
     super(props)
@@ -268,7 +268,7 @@ class OrderRow extends React.Component {
       <React.Fragment>
 
         <Link className='link' to={{
-          pathname: `/marketplace/databases/${this.props.order_type}/${order._id}`, 
+          pathname: `/marketplace/${this.props.order_type}/${order._id}`, 
           // search: `?order=${JSON.stringify(order)}`,
         }}
         >
@@ -355,4 +355,4 @@ function TheSelectPayment(props) {
   )
 }
 
-export default OrderTable2
+export default MarketOrderTable

@@ -62,10 +62,10 @@ module.exports = async (req,res,next)=>{
 
   
 
-    if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/marketplace/databases/AllMyOrders`) {
+    if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/marketplace/AllMyOrders`) {
       console.log("MY MODE -> from path param")
       orders = mysellOrders
-    } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/marketplace/databases/sellordersdata`) {        
+    } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/marketplace/sellordersdata`) {        
       console.log("NORMAL MODE")
       orders = sellOrders
     } else {

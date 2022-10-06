@@ -93,15 +93,16 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
-marketplaceBackend_app_router.get(['/', '/databases', '/databases/AllMyOrders' , '/databases/sellordersdata', '/make/makesell'], require_loggedin_for_pages(true), (req,res)=>{
+marketplaceBackend_app_router.get(['/', '/AllMyOrders' , '/sellordersdata', '/make/makesell'], require_loggedin_for_pages(true), (req,res)=>{
 
   res.locals.popup = req.query.popup
 
-  console.log("\nDo we have any pop-up messages: \n", req.query.popup)
+  console.log("\nDo we have any pop-up messages: \n", req.query.popup);
 
   // console.log("paths:", res.locals.paths_URL)
   
-  res.locals.paths_URL[1] == "databases"? res.locals.userId = req.session.userId: null
+  (res.locals.paths_URL[1] == "AllMyOrders" || res.locals.paths_URL[1] == "sellordersdata") ? res.locals.userId = req.session.userId: null
+
   
   var JSX_to_load = 'MarketPlace';
 
@@ -112,11 +113,11 @@ marketplaceBackend_app_router.get(['/', '/databases', '/databases/AllMyOrders' ,
 
 
 
-marketplaceBackend_app_router.get(['/databases/sellordersdata/:orderID', '/databases/AllMyOrders/:orderID'], require_loggedin_for_pages(true), (req,res)=>{
+marketplaceBackend_app_router.get(['/sellordersdata/:orderID', '/AllMyOrders/:orderID'], require_loggedin_for_pages(true), (req,res)=>{
 
-  console.log("paths:", res.locals.paths_URL)
+  console.log("paths:", res.locals.paths_URL);
   
-  res.locals.paths_URL[1] == "databases"? res.locals.userId = req.session.userId: null
+  (res.locals.paths_URL[1] == "AllMyOrders" || res.locals.paths_URL[1] == "sellordersdata") ? res.locals.userId = req.session.userId: null
   
   var JSX_to_load = 'MarketPlace';
 
@@ -124,6 +125,12 @@ marketplaceBackend_app_router.get(['/databases/sellordersdata/:orderID', '/datab
     JSX_to_load : JSX_to_load,
   })
 })
+
+
+
+
+
+
 
 
 marketplaceBackend_app_router.get(['/order/:userId/sellordersdata/:orderID', '/order/:userId/AllMyOrders/:orderID'], require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), marketplaceController.getOrderController)
