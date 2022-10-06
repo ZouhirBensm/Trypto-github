@@ -58,7 +58,7 @@ messagingBackend_app_router.get('/', require_loggedin_for_pages(true), (req,res)
   var JSX_to_load = 'Messaging';
 
   console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
-  res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
   })
 })
@@ -72,7 +72,7 @@ messagingBackend_app_router.get('/messages', require_loggedin_for_pages(true), (
 
   var JSX_to_load = 'Messaging';
   console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
-  res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
   })
 

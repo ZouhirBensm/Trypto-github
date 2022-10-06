@@ -105,19 +105,14 @@ marketplaceBackend_app_router.get(['/', '/databases', '/databases/AllMyOrders' ,
   
   var JSX_to_load = 'MarketPlace';
 
-  res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
   })
 })
 
 
 
-
-// TODO to be added after
-// require_loggedin_for_pages(true)
-// TODO replace endpoint with
-// ['/databases/sellordersdata/:orderID', '/databases/AllMyOrders/:orderID']
-marketplaceBackend_app_router.get(['/databases/:what_page/:orderID'], (req,res)=>{
+marketplaceBackend_app_router.get(['/databases/sellordersdata/:orderID', '/databases/AllMyOrders/:orderID'], require_loggedin_for_pages(true), (req,res)=>{
 
   console.log("paths:", res.locals.paths_URL)
   
@@ -125,83 +120,34 @@ marketplaceBackend_app_router.get(['/databases/:what_page/:orderID'], (req,res)=
   
   var JSX_to_load = 'MarketPlace';
 
-  res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
   })
 })
 
 
-
-marketplaceBackend_app_router.get(['/order/:userId/sellordersdata/:orderID', '/order/:userId/AllMyOrders/:orderID'], marketplaceController.getOrderController)
-
-// marketplaceBackend_app_router.get('/order/:userId/:type_order/:orderID', marketplaceController.getOrderController)
-
-
-
-// // Endpoints
-// // /databases/AllMyOrders, /databases/matches, /databases/buyordersdata, /databases/sellordersdata
-// // /make/makebuy, /make/makesell, 
-// marketplaceBackend_app_router.get(['/databases/:what_page?', '/make/:type'], require_loggedin_for_pages(true), (req,res)=>{
-
-//   // console.log("what_page: ", req.params.what_page)
-//   // console.log("what_type: ", req.params.type)
-
-//   console.log("paths:", res.locals.paths_URL)
-  
-//   res.locals.paths_URL[0] == "databases"? res.locals.userId = req.session.userId: null
-  
-//   var JSX_to_load = 'MarketPlace';
-
-//   // console.log("\n\nResponse locals: ___________________/n", res.locals, "\n\n____________________\n\n")
-//   res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
-//     JSX_to_load : JSX_to_load,
-//   })
-// })
-
-
-
-
-// marketplaceBackend_app_router.patch('/update', require_loggedin_for_data(true), homeOrdersController.updateOrderController)
-
-
-// TODO add require loggin
-// require_loggedin_for_data(true), homeOrdersController.deleteOrderController
-marketplaceBackend_app_router.delete('/delete-this-order', marketplaceController.deleteOrderController)
-
-
-
-// TODO add the require login middleware
-// require_loggedin_for_data(true), homeOrdersController.registerOrder
-// marketplaceController.registerOrder
-marketplaceBackend_app_router.post('/sellorders/save', marketplaceController.registerMarketOrder)
-
-
-// TODO add require loggin
-// require_loggedin_for_data(true), homeOrdersController.updateOrderController
-
-// marketplaceBackend_app_router.patch('/update', (req, res) => {
-//   console.log(req.body)
-//   res.status(200).end()
-// })
-
-marketplaceBackend_app_router.patch('/update', marketplaceController.updateOrderController)
-
-
-// JUST IN CASE, KEPT AS REFERENCE TODO TO DELETE
-// marketplaceBackend_app_router.post('/sellorders/save', marketplaceController.registerOrder)
+marketplaceBackend_app_router.get(['/order/:userId/sellordersdata/:orderID', '/order/:userId/AllMyOrders/:orderID'], require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), marketplaceController.getOrderController)
 
 
 
 
 
-// requireRefererMiddleware, require_loggedin_for_data(true), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController
+marketplaceBackend_app_router.delete('/:userId/delete-this-order', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), marketplaceController.deleteOrderController)
+
+
+marketplaceBackend_app_router.post('/sellorders/save', require_loggedin_for_data(true), marketplaceController.registerMarketOrder)
+
+
+
+marketplaceBackend_app_router.patch('/:userId/update', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), marketplaceController.updateOrderController)
 
 
 
 
 
+// '/paginated-orders/AllMyOrders/:data_of_userID?'
+marketplaceBackend_app_router.get(['/paginated-orders/sellordersdata/:data_of_userID?'], require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
 
-marketplaceBackend_app_router.get(['/paginated-orders/sellordersdata/:data_of_userID?', '/paginated-orders/AllMyOrders/:data_of_userID?'], paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
 
 
 

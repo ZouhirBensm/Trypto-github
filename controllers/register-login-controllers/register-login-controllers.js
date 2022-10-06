@@ -165,7 +165,7 @@ module.exports = {
     if(req.method === "GET") {
       let errorCode = httpStatus.StatusCodes.NOT_FOUND
       res.status(errorCode)
-      res.render('error')
+      res.render('bodies/error')
     }
     next()
   }

@@ -110,7 +110,7 @@ homeOrdersBackend_app_router.get('/',(req,res)=>{
   var JSX_to_load = 'App';
   console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
   
-  res.render('generic-boilerplate-ejs-to-render-react-components-client', { JSX_to_load : JSX_to_load })
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { JSX_to_load : JSX_to_load })
 })
 
 
@@ -118,7 +118,7 @@ homeOrdersBackend_app_router.get('/users/login', require_loggedin_for_pages(fals
   var JSX_to_load = 'MgtUser';
 
   console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
-  res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
     // selectedUser: undefined
   })
@@ -132,7 +132,7 @@ homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(fal
   res.locals.isPaypalScriptNeeded = true
 
   console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
-  res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load, 
     // isPaypalScriptNeeded: true
   })
@@ -148,7 +148,7 @@ homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(tr
 
   console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
 
-  res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
   })
 })
@@ -170,7 +170,7 @@ homeOrdersBackend_app_router.get(['/databases/:what_page?', '/make/:type'], requ
   var JSX_to_load = 'OrdersApp';
 
   // console.log("\n\nResponse locals: ___________________/n", res.locals, "\n\n____________________\n\n")
-  res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
   })
 })

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- header -->
-<%- include("partials/setup-locals") %>
-<%- include("partials/header") %>
+<%- include("partials/header-setup-locals/setup-locals") %>
+<%- include("partials/header-setup-locals/header") %>
 <body>
   <!-- Navbar will adapt to whether logged in or not -->
   <!-- narbar -->
   <%if(navBars == "CLIENTS"){%>
-    <%- include("partials/navbar-clients") %>
+    <%- include("partials/navigation/navbar-clients") %>
   <%}%>
   <%if(navBars == "OPERATORS"){%>
-    <%- include("partials/navbar-operations") %>
+    <%- include("partials/navigation/navbar-operations") %>
   <%}%>
   <!-- Body either server-side renders one of the react applications App or Databases, or a Login or Register form -->
   <%- body %>

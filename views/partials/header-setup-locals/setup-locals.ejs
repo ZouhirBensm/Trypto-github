@@ -1,23 +1,23 @@
 <!-- get rid of this -->
-<%- include("preconfigsURL") %>
+<%- include("setup-locals-dependencies/pre-configurations/preconfigsURL") %>
 <!-- get rid of this -->
-<%- include("chopURL") %>
-<%- include("declarePathParams") %>
+<%- include("setup-locals-dependencies/pre-configurations/chopURL") %>
+<%- include("setup-locals-dependencies/pre-configurations/declarePathParams") %>
 
 <%if(locals.paths_URL!=null && locals.paths_URL[0] == 'articles'){%>
-  <%- include("setupPathParams4articles") %>
+  <%- include("setup-locals-dependencies/setup-path-params/setupPathParams4articles") %> 
 <%}%>
 <%if(locals.paths_URL!=null && locals.paths_URL[0] == 'operations'){%>
-  <%- include("setupPathParams4operations") %>
+  <%- include("setup-locals-dependencies/setup-path-params/setupPathParams4operations") %>
 <%}%>
 <%if(locals.paths_URL!=null && locals.paths_URL[0] == 'databases'){%>
-  <%- include("setupPathParams4databases") %>
+  <%- include("setup-locals-dependencies/setup-path-params/setupPathParams4databases") %>
 <%}%>
 <%if(locals.paths_URL!=null && locals.paths_URL[0] == 'make'){%>
-  <%- include("setupPathParams4make") %>
+  <%- include("setup-locals-dependencies/setup-path-params/setupPathParams4make") %>
 <%}%>
 <%if(locals.paths_URL!=null && locals.paths_URL[0] == 'marketplace'){%>
-  <%- include("setupPathParams4marketplace") %>
+  <%- include("setup-locals-dependencies/setup-path-params/setupPathParams4marketplace") %>
 <%}%>
 
 
@@ -78,8 +78,7 @@
 
       
       
-      
-    // TODO update the front end variables for the marketplace
+
     case `/marketplace/databases/${caseOptionMarketplace}`:
       userId = '<%= locals.userId %>'
       popup = '<%= locals.popup %>'

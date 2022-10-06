@@ -11,31 +11,18 @@ module.exports = async (req,res,next)=>{
   console.log("\n\n\n_________________________________in ordersRetrievalMiddleware: \n\n\n\n")
 
 
-  // TODO crypto not sent from the front end, there for not needed! so delete or change!
-  const crypto = req.query.crypto
-  
-  let filter_object = filterObject(crypto)
+  // const crypto = req.query.crypto
+  // let filter_object = filterObject(crypto)
+  // console.log(filter_object)
   
   let orders
-
-  console.log(filter_object)
-
-
-
-
-
-
-
-
-
-
 
 
 
   let sellOrders
 
   try {
-    sellOrders = await SellMarketOrder.find(filter_object).populate('userid')
+    sellOrders = await SellMarketOrder.find().populate('userid')
   } catch (e) {
     return next(e)
   }
@@ -68,10 +55,10 @@ module.exports = async (req,res,next)=>{
   
   
 
-  
+  console.log("\n\n_______________\n\n")
   console.log(res.locals.URL_fromReferer)
   console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}`)
-
+  console.log("\n\n_______________\n\n")
 
   
 

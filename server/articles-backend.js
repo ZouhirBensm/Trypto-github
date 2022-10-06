@@ -49,7 +49,7 @@ articlesBackend_app_router.get(['/:category?', '/individual_article/:articleID']
   var JSX_to_load = 'ArticlesCategorySelector';
 
   console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
-  res.render('generic-boilerplate-ejs-to-render-react-components-client', { 
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load, 
   })
 })

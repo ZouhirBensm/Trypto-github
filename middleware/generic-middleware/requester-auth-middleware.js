@@ -34,9 +34,10 @@ function requester_auth_middleware(which_request_UID_source){
     canProceed(res.locals.user, request_UID)
     // console.log("canProceed: ", canProceed(res.locals.user, request_UID))
 
-    if (canProceed(res.locals.user, request_UID)) return next()
-    // if (false) console.log("deecd")
-    else {
+    if (canProceed(res.locals.user, request_UID)) {
+      console.log("CAN PROCEED ZZZZ")
+      return next()
+    } else {
       // let error = new UnsubscribeError(`Requester is not allowed to request for this resource`, `Logged in user not in the MASTER role or the resource requested does not match the logged in user ID`)
       let error = new SessionRoleOrSentUIDnotAllowed(`Role or request UID inadequate.`, `Role or request UID inadequate.`)
       return next(error)

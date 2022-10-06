@@ -11,6 +11,9 @@ const {ValidationError} = require('../../custom-errors/custom-errors')
 const httpStatus = require("http-status-codes")
 
 
+var ObjectId = require('mongodb').ObjectId; 
+
+
 
 module.exports = {
   // updateOrderController: async (req,res, next)=>{
@@ -65,9 +68,10 @@ module.exports = {
 
   updateOrderController: async (req,res, next)=>{
 
-    console.log("new DATA:", req.body)
-    
-    console.log('Current User: ' + req.session.userId + ' and Order asked to update: ' + req.body.pkobmOr_4ft2sd._id)
+
+    // console.log("userId=====> ", req.params.userId)
+    // console.log("new DATA:", req.body)
+    // console.log('Current User: ' + req.session.userId + ' and Order asked to update: ' + req.body.pkobmOr_4ft2sd._id)
     
     // If upsert is true then if the row trying to be updated does not exist then a new row is inserted instead , if false then it does not do anything .
 
@@ -90,14 +94,18 @@ module.exports = {
       })
     }
 
-    // res.redirect('/databases/AllMyOrders') 
+    // res.status(200).end
   
   },
 
 
   deleteOrderController: async (req,res,next)=>{
     // console.log("req body on /delete-this-order: ", req.body) 
-    console.log(req.body.market_orderID)
+
+    // console.log("user fuckin ID!!!!!", req.params.userId)
+
+
+    // console.log(req.body.market_orderID)
 
 
     let getSellMarketOrderLocationID_todelete
@@ -216,7 +224,7 @@ module.exports = {
 
   },
 
-  // TODO when delete account, delete market, and location entries
+
   // TODO operations access to market order data and U,D capabilities
 
 
@@ -224,7 +232,7 @@ module.exports = {
     let order
 
     try {
-      order = await SellMarketOrder.findById({_id: req.params.orderID})
+      order = await SellMarketOrder.findById({_id: ObjectId(req.params.orderID)})
       .populate({
         // Populate protagonists
         path: "userid",
@@ -232,20 +240,15 @@ module.exports = {
         select: "_id email",
       })
     } catch (e) {
-      return next(e)
+      let error = new MongoError(`No order found by that ID: ${e.message}`)
+      return next(error)
     }
 
 
     console.log("---------->>>>", order)
 
+    console.log("Found!!!!")
+    res.status(200).json(order)
 
-    if (order) {
-      console.log("Found!!!!")
-      res.status(200).json(order)
-    } else {
-      // TODO deal with the UI when no order under these circumstances is the case
-      const e = new Error("No order found by that ID")
-      return next(e)
-    }
   }
 }

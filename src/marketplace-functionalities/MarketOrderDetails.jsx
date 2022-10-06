@@ -19,7 +19,8 @@ class MarketOrderDetails extends React.Component {
     this.handleToogleEdit = this.handleToogleEdit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.EditOrder = this.EditOrder.bind(this)
-    // console.log("UID????", userId)
+
+    // console.log("UID????----->>>>>", userId)
     // console.log("OID????", this.props.match.params.orderID)
     // console.log("what_page????", this.props.match.params.order_type)
 
@@ -80,7 +81,7 @@ class MarketOrderDetails extends React.Component {
 
 
 
-    const response = await fetch(`/marketplace/update`, {
+    const response = await fetch(`/marketplace/${userId}/update`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -242,25 +243,27 @@ class MarketOrderDetails extends React.Component {
 
     console.log(response)
 
-    if (response.ok) {
-      let order = await response.json()
-      // console.log("order detailes: ", order)
+    let order_or_error = await response.json()
 
-      let rows = this.setTableRows(order)
+    if (response.ok) {
+      // console.log("order detailes: ", order_or_error)
+
+      let rows = this.setTableRows(order_or_error)
 
       this.setState({
         rows: rows,
-        order: order
+        order: order_or_error
       })
 
       // this.setState({
-      //   order: order,
+      //   order: order_or_error,
       // })
 
 
 
     } else {
-      console.error("Error: ", order)
+      console.error("Error: ", order_or_error)
+      this.displayPopUp(order_or_error.error.message)
     }
 
     console.log("end load data")
@@ -271,7 +274,9 @@ class MarketOrderDetails extends React.Component {
   async DeleteClick(_orderID, e){
     e.preventDefault()
 
-    let response = await fetch(`/marketplace/delete-this-order`, {
+    console.log("------------------->>>>>>", userId)
+
+    let response = await fetch(`/marketplace/${userId}/delete-this-order`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

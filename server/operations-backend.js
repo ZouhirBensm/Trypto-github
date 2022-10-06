@@ -66,7 +66,7 @@ operationsBackend_app_router.get(['/', '/articles-dashboard'], require_loggedin_
 
   console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
   
-  res.render('generic-boilerplate-ejs-to-render-react-components-operations', {
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
   })
 
@@ -83,7 +83,7 @@ operationsBackend_app_router.get('/create-article', require_loggedin_for_pages(t
   JSX_to_load = 'CreateArticle';
 
   console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
-  res.render('generic-boilerplate-ejs-to-render-react-components-operations', {
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
   })
 })
@@ -97,7 +97,7 @@ operationsBackend_app_router.get('/article-selector', require_loggedin_for_pages
 
   console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
 
-  res.render('generic-boilerplate-ejs-to-render-react-components-operations', {
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
   })
 })
@@ -113,7 +113,7 @@ operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/man
   JSX_to_load = 'Operations';
 
   // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
-  res.render('generic-boilerplate-ejs-to-render-react-components-operations', {
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
   })
 })
@@ -127,7 +127,7 @@ operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages
   JSX_to_load = 'Operations';
 
   console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
-  res.render('generic-boilerplate-ejs-to-render-react-components-operations', {
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
   })
 })
@@ -141,7 +141,7 @@ operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', require_l
 
   
   console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
-  res.render('generic-boilerplate-ejs-to-render-react-components-operations', {
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
   })
 })
