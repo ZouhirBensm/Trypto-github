@@ -13,13 +13,13 @@ import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
 
 
-// const Navigation = loadable(() => import("../orders-functionalities/Navigation"),{
-//   fallback: <Loading/>
-// });
-
-const Navigation2 = loadable(() => import("../generic-components/Navigation2"),{
+const Navigation = loadable(() => import("../orders-functionalities/Navigation"),{
   fallback: <Loading/>
 });
+
+// const Navigation2 = loadable(() => import("../generic-components/Navigation2"),{
+//   fallback: <Loading/>
+// });
 
 const MakeMarketOrder = loadable(() => import("../marketplace-functionalities/MakeMarketOrder"),{
   fallback: <Loading/>
@@ -61,7 +61,7 @@ class MarketPlace extends React.Component {
           <Switch> 
             {/* <Route exact path="/marketplace" component={Navigation} /> */}
             <Route exact path="/marketplace" render={
-              (props) => <Navigation2 {...props} mode="marketplace"/>
+              (props) => <Navigation {...props} mode="marketplace"/>
             } />
 
             <Route exact path="/marketplace/databases/AllMyOrders" render={

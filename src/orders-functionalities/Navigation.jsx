@@ -21,7 +21,6 @@ class Navigation extends React.Component {
 
   switchResult(_state, _mode){
     console.log(_state, _mode)
-    // TODO template the navigation
 
     if (_mode == "marketplace") {
       switch(_state) {
@@ -33,13 +32,6 @@ class Navigation extends React.Component {
               <button id="MarketSee" onClick={this.handleClick}>See Existing Maket posts</button>
             </div> 
           )
-        // case "MarketMake":
-        //   return (
-        //     <div className="make">
-        //       <a href="/marketplace/make/makebuy">Make Buying request</a>
-        //       <a href="/marketplace/make/makesell">Make Sell request</a>
-        //     </div>
-        //   )
         case "MarketSee":
           return (
             <div className="see"> 
@@ -88,7 +80,7 @@ class Navigation extends React.Component {
   
   render(){
     let component = this.switchResult(this.state.state, this.props.mode);
-    
+
     console.log(this.state.state)
     return(
       <div className="databases-wrapper">
