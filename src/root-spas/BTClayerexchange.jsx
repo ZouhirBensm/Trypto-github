@@ -35,7 +35,7 @@ const Matches = loadable(() => import("../orders-functionalities/Matches"),{
 
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 
-class Databases extends React.Component {
+class BTClayerexchange extends React.Component {
   constructor(props){
     super(props)
     this.state = {
@@ -43,20 +43,20 @@ class Databases extends React.Component {
     }
   }
   render() {
-    console.log(userId)
+    console.log("----->>>>>> ici", userId)
     return (
         <div>
         <BrowserRouter> 
           <Switch> 
             {/* <Route exact path="/databases/" component={Navigation} /> */}
-            <Route exact path="/databases" render={
+            <Route exact path="/btclayerexchange" render={
               (props) => <Navigation {...props} mode="orders"/>
             } />
-            <Route exact path="/databases/AllMyOrders" render={
+            <Route exact path="/btclayerexchange/allmyorders" render={
               (props) => <MyOrders {...props} userID_toQueryWith={userId}/>
             } />
-            <Route exact path="/databases/matches" component={Matches} />
-            <Route exact path="/databases/:order_type" component={Orders} />
+            <Route exact path="/btclayerexchange/matches" component={Matches} />
+            <Route exact path="/btclayerexchange/:order_type" component={Orders} />
             <Route exact path="/make/:type" component={Make} />
           </Switch>     
         </BrowserRouter> 
@@ -65,7 +65,7 @@ class Databases extends React.Component {
   }
 }
 
-const element = <Databases />;
+const element = <BTClayerexchange />;
 
 ReactDOM.render(element, document.getElementById('react-div'));
 

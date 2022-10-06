@@ -64,10 +64,10 @@ class Navigation extends React.Component {
         case "See":
           return (
             <div className="see"> 
-              <a href={`/databases/buyordersdata`}>People Buying</a>
-              <a href={`/databases/sellordersdata`}>People Selling</a>
-              <a href="/databases/AllMyOrders">All my Orders</a>
-              <a href="/databases/matches">Matches</a>
+              <a href={`/btclayerexchange/buyordersdata`}>People Buying</a>
+              <a href={`/btclayerexchange/sellordersdata`}>People Selling</a>
+              <a href="/btclayerexchange/allmyorders">All my Orders</a>
+              <a href="/btclayerexchange/matches">Matches</a>
             </div>
           )
         default:

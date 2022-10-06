@@ -53,7 +53,7 @@ class MarketPlace extends React.Component {
     }
   }
   render() {
-    // console.log("UID????", userId)
+    console.log("UID????", userId)
     return (
         <div className="wrapper">
         {/* OrdersApp2 */}

@@ -154,20 +154,22 @@ homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(tr
 })
 
 
+// TODO add the subscription ID in the profile page if needed
+
 
 // Endpoints
-// /databases/AllMyOrders, /databases/matches, /databases/buyordersdata, /databases/sellordersdata
+// /btclayerexchange/allmyorders, /btclayerexchange/matches, /btclayerexchange/buyordersdata, /btclayerexchange/sellordersdata
 // /make/makebuy, /make/makesell, 
-homeOrdersBackend_app_router.get(['/databases/:what_page?', '/make/:type'], require_loggedin_for_pages(true), (req,res)=>{
+homeOrdersBackend_app_router.get(['/btclayerexchange/:what_page?', '/make/:type'], require_loggedin_for_pages(true), (req,res)=>{
 
   // console.log("what_page: ", req.params.what_page)
   // console.log("what_type: ", req.params.type)
 
   console.log("paths:", res.locals.paths_URL)
   
-  res.locals.paths_URL[0] == "databases"? res.locals.userId = req.session.userId: null
+  res.locals.paths_URL[0] == "btclayerexchange"? res.locals.userId = req.session.userId: null
   
-  var JSX_to_load = 'OrdersApp';
+  var JSX_to_load = 'BTClayerexchange';
 
   // console.log("\n\nResponse locals: ___________________/n", res.locals, "\n\n____________________\n\n")
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
