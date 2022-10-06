@@ -23,7 +23,7 @@ Geocode.enableDebug();
 
 
 // TODO refactor naming in this component
-// TODO add location fields google maps
+// TODO add geometry fields google maps
 
 
 
@@ -37,10 +37,10 @@ class MakeMarketOrder extends React.Component {
       amountsTo_inSAT: undefined,
       denomination: undefined,
       value: "N/A",
-      location: {
+      geometry: {
         lat: undefined, lng: undefined,
       },
-      human_location: {
+      location: {
         address: undefined,
         st_number: undefined,
         st: undefined,
@@ -66,11 +66,11 @@ class MakeMarketOrder extends React.Component {
 
 
   componentDidUpdate(prevProp, prevState) {
-    if (this.state.location.lat !== prevState.location.lat ||
-      this.state.location.lng !== prevState.location.lng) {
+    if (this.state.geometry.lat !== prevState.geometry.lat ||
+      this.state.geometry.lng !== prevState.geometry.lng) {
       // console.log("yep")
 
-      Geocode.fromLatLng(this.state.location.lat, this.state.location.lng).then(
+      Geocode.fromLatLng(this.state.geometry.lat, this.state.geometry.lng).then(
         response => {
 
           // console.log(response)
@@ -95,7 +95,7 @@ class MakeMarketOrder extends React.Component {
 
 
           this.setState({
-            human_location: {
+            location: {
               address: (address) ? address : undefined,
               st_number: st_number,
               st: st,
@@ -120,7 +120,7 @@ class MakeMarketOrder extends React.Component {
 
   changeStateLocationParent(obj) {
     this.setState({
-      location: obj
+      geometry: obj
     })
   }
 
@@ -261,8 +261,8 @@ class MakeMarketOrder extends React.Component {
 
   //   const isUndefined = (currentValue) => currentValue == undefined;
 
-  //   if (Object.values(_pkobmOr_LocationData.location).every(isUndefined) && !error) {
-  //     error = `Please, pick a location before submitting an order.`
+  //   if (Object.values(_pkobmOr_LocationData.geometry).every(isUndefined) && !error) {
+  //     error = `Please, pick a geometry before submitting an order.`
   //   }
 
 
@@ -305,8 +305,8 @@ class MakeMarketOrder extends React.Component {
     }
 
     let pkobmOr_LocationData = {
-      location: this.state.location,
-      human_location: this.state.human_location
+      geometry: this.state.geometry,
+      location: this.state.location
     }
 
     // TODO refactor names: 1: MarketOrderBasicData, 2: OrderTradeLocationSpecifics for example
@@ -406,10 +406,10 @@ class MakeMarketOrder extends React.Component {
   render() {
 
 
-    // console.log("Where to update information: location: ", this.state.location)
-    // console.log("human_location:", this.state.human_location)
+    // console.log("Where to update information: geometry: ", this.state.geometry)
+    // console.log("location:", this.state.location)
 
-    // console.log("----------->>>>", this.state.location)
+    // console.log("----------->>>>", this.state.geometry)
 
     let options = this.setOptions(this.state.denomination)
 
@@ -494,7 +494,7 @@ class MakeMarketOrder extends React.Component {
 
           <LocationSelector
             changeStateLocationParent={this.changeStateLocationParent}
-            newLocation={this.state.location}
+            newLocation={this.state.geometry}
           />
 
 

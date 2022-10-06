@@ -172,9 +172,8 @@ marketplaceBackend_app_router.delete('/delete-this-order', marketplaceController
 
 // TODO add the require login middleware
 // require_loggedin_for_data(true), homeOrdersController.registerOrder
-
 // marketplaceController.registerOrder
-marketplaceBackend_app_router.post('/sellorders/save', marketplaceController.registerOrder2)
+marketplaceBackend_app_router.post('/sellorders/save', marketplaceController.registerMarketOrder)
 
 
 // TODO add require loggin

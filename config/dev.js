@@ -2,8 +2,6 @@ module.exports = {
   database_link: 'mongodb://localhost:27017/mern_database',
   express_session_secret: 'keyboard cat',
   port: 3000,
-  // TODO get rid of this and all references to it
-  // domain: 'http://localhost:3000',
   database_name: 'mern_database',
   environment: 'developement',
   // All credentials generated through the https://developer.paypal.com/ URL, logged in as businessZBRS@gmail.com, in a sandbox context

@@ -50,7 +50,7 @@ const destructureURLandRefererMiddleware = require('../middleware/generic-middle
 const startEmptyNotificationsMiddleware = require('../middleware/generic-middleware/start-empty-notifications-middleware')
 const {getDetailedUserSubscriptionInfo} = require('../middleware/generic-middleware/get-detailed-user-subsciption-information-middleware')
 
-
+const deleteMarketOrderMiddleware = require('../middleware/delete-account-process-middleware/delete-market-order-middleware.js')
 const  deleteBuyCryptoOrdersMiddleware = require('../middleware/delete-account-process-middleware/delete-buycryptoorders-middleware')
 const  deleteSellOrdersMiddleware = require('../middleware/delete-account-process-middleware/delete-sellcryptoorders-middleware')
 const  deleteProtagonistsMiddleware = require('../middleware/delete-account-process-middleware/delete-protagonists-middleware')
@@ -246,9 +246,12 @@ homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (re
   })
 })
 
-
-homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware,
+// TODO add description for market orders
+// TODO add the deal button for the particular market orders
+// TODO add userID for articles
+homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteMarketOrderMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware,
 sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteUserMiddleware, logoutMiddleware, (req,res,next)=>{
+  
   console.log("Final point: ", res.locals.notifications.length, res.locals.notifications.length == 0, res.locals.notifications.length === 0)
 
   if (res.locals.notifications.length === 0){
@@ -258,11 +261,37 @@ sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteUser
   } else {
     console.log("WTFFF")
     let notifications_messages = res.locals.notifications.map(notification => notification.message);
-    let error = new DeleteAccountProcessError(notifications_messages)
+    let e = new DeleteAccountProcessError(notifications_messages)
 
-    return next(error)
+    return next(e)
   }
 })
+
+
+// homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteMarketOrderMiddleware, logoutMiddleware, (req,res,next)=>{
+
+//   console.log("Final point: ", res.locals.notifications.length, res.locals.notifications.length == 0, res.locals.notifications.length === 0)
+
+//   if (res.locals.notifications.length === 0){
+//     res.status(200).json({
+//       srv_: "User account and linked data completly deleted."
+//     })
+//   } else {
+//     console.log("WTFFF")
+//     let notifications_messages = res.locals.notifications.map(notification => notification.message);
+//     let error = new DeleteAccountProcessError(notifications_messages)
+
+//     return next(error)
+//   }
+// })
+
+
+
+
+
+
+
+
 
 
 

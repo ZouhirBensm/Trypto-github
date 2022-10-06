@@ -74,9 +74,9 @@ module.exports = async (req,res,next)=>{
       
 
       if(!(paypal_cancel_sub_response.status>199 && paypal_cancel_sub_response.status<301)){
-        let error = new Error("Paypal did not successfully unsubscribe the user requesting a account deletion from it's server's")
-        res.locals.notifications.push(error);
-        // return next(error)
+        let e = new Error("Paypal did not successfully unsubscribe the user requesting a account deletion from it's server's")
+        res.locals.notifications.push(e);
+        // return next(e)
       }
     }
 
@@ -86,8 +86,8 @@ module.exports = async (req,res,next)=>{
     let subscriber_deletion_response
     try{
       subscriber_deletion_response = await Subscriber.findOneAndDelete({userID: req.params.userId})
-    } catch(error){
-      res.locals.notifications.push(error);
+    } catch(e){
+      res.locals.notifications.push(e);
     }
     console.log("\n\n_______subscriber deletion response: ", subscriber_deletion_response)
 

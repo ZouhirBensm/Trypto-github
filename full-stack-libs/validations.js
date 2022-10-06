@@ -73,7 +73,7 @@ function validateInputs_pkobmOr_LocationData(_pkobmOr_LocationData, err_msg = un
 
     const isUndefined = (currentValue) => currentValue == undefined;
 
-    if (Object.values(_pkobmOr_LocationData.location).every(isUndefined) && !err_msg) {
+    if (Object.values(_pkobmOr_LocationData.geometry).every(isUndefined) && !err_msg) {
       err_msg = `Please, pick a location before submitting an order.`
     }
 

@@ -29,11 +29,18 @@ const HumanLocationSchema = new Schema({
 //Models are defined through the Schema interface
 //Models define collections
 const SellMarketOrderLocationSchema = new Schema({
-    location: {
+    // location: {
+    //   type: LocationSchema,
+    //   required: true
+    // },
+    // human_location: {
+    //   type: HumanLocationSchema
+    // },
+    geometry: {
       type: LocationSchema,
       required: true
     },
-    human_location: {
+    location: {
       type: HumanLocationSchema
     },
     expireAt: {

@@ -8,12 +8,14 @@ module.exports = async (req,res,next)=>{
   for (const obj_id of res.locals.array_of_protagonist_ids_where_user_is_engaged) {
     console.log(obj_id)
 
-    await Message.deleteOne({
-      protagonists: obj_id._id
-    }, (error, response)=>{
-      if(error){res.locals.notifications.push(error);}
-      console.log("One Message deletion response", response)
-    })
+    let messageDeletionRet
+    try {
+      messageDeletionRet = await Message.deleteOne({protagonists: obj_id._id})
+    } catch (e) {
+      res.locals.notifications.push(e);
+      break
+    }
+
   }
 
   next()

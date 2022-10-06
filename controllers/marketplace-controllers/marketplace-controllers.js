@@ -136,7 +136,7 @@ module.exports = {
 
 
 
-  registerOrder2: async (req,res,next)=>{
+  registerMarketOrder: async (req,res,next)=>{
     console.log(req.body)
 
 
@@ -156,20 +156,18 @@ module.exports = {
 
     try {
       create_res_sellmarketorderlocation = await SellMarketOrderLocation.create({
-        // TODO refactor location to geometry
-        location: {
-          lat: body_mOR_location_data.location.lat,
-          lng: body_mOR_location_data.location.lng,
+        geometry: {
+          lat: body_mOR_location_data.geometry.lat,
+          lng: body_mOR_location_data.geometry.lng,
         },
-        // TODO refactor human location to location
-        human_location: {
-          address: body_mOR_location_data.human_location.address,
-          st_number: body_mOR_location_data.human_location.st_number,
-          st: body_mOR_location_data.human_location.st,
-          neigh: body_mOR_location_data.human_location.neigh,
-          province_state: body_mOR_location_data.human_location.province_state,
-          city: body_mOR_location_data.human_location.city,
-          country: body_mOR_location_data.human_location.country
+        location: {
+          address: body_mOR_location_data.location.address,
+          st_number: body_mOR_location_data.location.st_number,
+          st: body_mOR_location_data.location.st,
+          neigh: body_mOR_location_data.location.neigh,
+          province_state: body_mOR_location_data.location.province_state,
+          city: body_mOR_location_data.location.city,
+          country: body_mOR_location_data.location.country
         },
         expireAt: body_mOR_basic_data.expireAt,
       })
@@ -221,60 +219,6 @@ module.exports = {
   // TODO when delete account, delete market, and location entries
   // TODO operations access to market order data and U,D capabilities
 
-
-
-  registerOrder:  (req,res,next)=>{
-    
-    console.log("\n\nexpiration:\n", req.body.expirydate)
-
-    req.body.expireAt = new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
-
-
-    // ________________________________________NOT NEEDED!
-
-    //console.log(new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5)))
-    // console.log(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
-    
-    //console.log('typeof: ', typeof req.body.expireAt + '\n','req.body.expireAt: '+ req.body.expireAt+ '\n','Current Date: '+ new Date()+ '\n')
-    //console.log(new Date('July 22, 2013 14:00:00'))
-
-
-    // ________________________________________
-  
-
-
-  
-    
-    if(req.body.expireAt > new Date()){
-      SellMarketOrder.create({
-        title: req.body.title,
-        category: req.body.category,
-        price: req.body.price,
-        crypto: req.body.crypto,
-        conversion: req.body.conversion,
-        payment: req.body.payment,
-        chain: req.body.chain,
-        expireAt: req.body.expireAt,
-        expirydate: req.body.expirydate,
-        expirytime: req.body.expirytime,
-        userid: req.session.userId,
-      }, (error, typemarketorder) => {
-        // error = new Error("create failed")
-        // return next(error)
-        console.log("error", error)
-        if(error){return next(error)}
-        res.status(httpStatus.StatusCodes.OK).json({
-          saved: "success"
-        })
-      })
-    } else {
-      res.status(httpStatus.StatusCodes.BAD_REQUEST).json({
-        saved: "No"
-      })
-    }
-
-
-  },
 
   getOrderController: async (req,res,next) => {
     let order

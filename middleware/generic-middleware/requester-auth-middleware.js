@@ -3,7 +3,7 @@ const {canProceed} = require('./helper-functions-middleware')
 
 function requester_auth_middleware(which_request_UID_source){
   return (req,res,next) => {
-    console.log("!!!!!!!!!!!", req.params.data_of_userID)
+    // console.log("!!!!!!!!!!!", req.params.data_of_userID)
     let request_UID
 
     switch (which_request_UID_source) {
@@ -32,7 +32,7 @@ function requester_auth_middleware(which_request_UID_source){
     }
 
     canProceed(res.locals.user, request_UID)
-    console.log("canProceed: ", canProceed(res.locals.user, request_UID))
+    // console.log("canProceed: ", canProceed(res.locals.user, request_UID))
 
     if (canProceed(res.locals.user, request_UID)) return next()
     // if (false) console.log("deecd")

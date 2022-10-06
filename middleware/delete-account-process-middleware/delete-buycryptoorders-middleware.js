@@ -3,10 +3,16 @@ const BuyCryptoOrder = require('../../models/home-orders-models/BuyCryptoOrder')
 
 module.exports = async (req,res,next)=>{
 
-  await BuyCryptoOrder.deleteMany({userid: req.params.userId}, (error, response)=>{
-    if(error){ res.locals.notifications.push(error);}
-    console.log("buys deleted response", response)
-  })
+  let buyOrdersDeletionRet
+  try {
+    buyOrdersDeletionRet = await BuyCryptoOrder.deleteMany({userid: req.params.userId})
+  } catch (e) {
+    res.locals.notifications.push(e);
+  }
   
   next()
+
+
+
+
 }
