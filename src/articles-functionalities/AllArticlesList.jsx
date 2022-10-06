@@ -3,6 +3,8 @@ import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
 import {THIRD_PARTY_CATEGORIES, EXTERNAL_READS_CATEGORIES} from '../../full-stack-libs/utils.arrays'
 import './style/AllArticlesList.css'
 
+
+// TODO While articles are loading load the loaging component in the meantime
 class AllArticlesList extends React.Component {
   constructor(props) {
     super(props)

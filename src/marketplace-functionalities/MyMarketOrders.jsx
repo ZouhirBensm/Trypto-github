@@ -192,7 +192,7 @@ class MyMarketOrders extends React.Component {
 
         <MarketOrderTable
           selected_userID={this.props.userID_toQueryWith}
-          order_type="AllMyOrders"
+          order_type="allmyorders"
           orders={this.state.orders}
         // buttons='my'
         // handleClick={this.handleClick}

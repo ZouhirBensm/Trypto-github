@@ -37,7 +37,7 @@ class Navigation extends React.Component {
             <div className="see"> 
               {/* <a href={`/marketplace/buyordersdata`}>Market buy posts</a> */}
               <a href={`/marketplace/sellordersdata`}>Market sell posts</a>
-              <a href="/marketplace/AllMyOrders">All my market posts</a>
+              <a href="/marketplace/allmyorders">All my market posts</a>
               {/* <a href="/marketplace/matches">Matches</a> */}
             </div>
           )

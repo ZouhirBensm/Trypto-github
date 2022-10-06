@@ -64,7 +64,7 @@ class MarketPlace extends React.Component {
               (props) => <Navigation {...props} mode="marketplace"/>
             } />
 
-            <Route exact path="/marketplace/AllMyOrders" render={
+            <Route exact path="/marketplace/allmyorders" render={
               (props) => <MyMarketOrders {...props} userID_toQueryWith={userId}/>
             } />
 
