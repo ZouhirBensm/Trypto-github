@@ -1,6 +1,6 @@
 // import React from 'react';
 // TODO Make styles need to be put in a common folder
-import '../btclayerexchange-functionalities/styles/Make.css'
+import '../btclayerexchange-functionalities/styles/MakeCurrencyOrder.css'
 import LocationSelector from './LocationSelector'
 import {utils} from '../../full-stack-libs/utils.address'
 import {validateInputs_pkobmOr_basicData, validateInputs_pkobmOr_LocationData} from '../../full-stack-libs/validations'

@@ -14,7 +14,7 @@ import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
 
 
-const Make = loadable(() => import("../btclayerexchange-functionalities/Make"),{
+const MakeCurrencyOrder = loadable(() => import("../btclayerexchange-functionalities/MakeCurrencyOrder"),{
   fallback: <Loading/>
 });
 
@@ -52,8 +52,8 @@ class BTClayerexchange extends React.Component {
             <Route exact path="/btclayerexchange" render={
               (props) => <Navigation {...props} mode="orders"/>
             } />
-            <Route exact path="/btclayerexchange/makebuy" component={Make} />
-            <Route exact path="/btclayerexchange/makesell" component={Make} />
+            <Route exact path="/btclayerexchange/makebuy" component={MakeCurrencyOrder} />
+            <Route exact path="/btclayerexchange/makesell" component={MakeCurrencyOrder} />
 
             <Route exact path="/btclayerexchange/allmyorders" render={
               (props) => <MyOrders {...props} userID_toQueryWith={userId}/>

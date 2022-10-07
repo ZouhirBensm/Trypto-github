@@ -1,9 +1,9 @@
 // import React from 'react';
-import './styles/Make.css'
+import './styles/MakeCurrencyOrder.css'
 import utils from '../../full-stack-libs/utils'
 
 
-class Make extends React.Component {
+class MakeCurrencyOrder extends React.Component {
   constructor(props){
     super(props)
     this.state = {
@@ -177,4 +177,4 @@ class Make extends React.Component {
   }
 }
 
-export default Make
+export default MakeCurrencyOrder
