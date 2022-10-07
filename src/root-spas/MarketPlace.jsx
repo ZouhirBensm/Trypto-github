@@ -71,7 +71,7 @@ class MarketPlace extends React.Component {
 
             <Route exact path="/marketplace/sellordersdata" component={MarketOrders} />
 
-            <Route exact path="/marketplace/make/makesell" component={MakeMarketOrder} />
+            <Route exact path="/marketplace/makesell" component={MakeMarketOrder} />
 
 
 

@@ -93,7 +93,7 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
-marketplaceBackend_app_router.get(['/', '/allmyorders' , '/sellordersdata', '/make/makesell'], require_loggedin_for_pages(true), (req,res)=>{
+marketplaceBackend_app_router.get(['/', '/allmyorders' , '/sellordersdata', '/makesell'], require_loggedin_for_pages(true), (req,res)=>{
 
   res.locals.popup = req.query.popup
 
