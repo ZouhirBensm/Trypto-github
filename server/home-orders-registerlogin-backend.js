@@ -159,15 +159,16 @@ homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(tr
 
 // Endpoints
 // /btclayerexchange/allmyorders, /btclayerexchange/matches, /btclayerexchange/buyordersdata, /btclayerexchange/sellordersdata
-// /make/makebuy, /make/makesell, 
-homeOrdersBackend_app_router.get(['/btclayerexchange/:what_page?', '/make/:type'], require_loggedin_for_pages(true), (req,res)=>{
+// /btclayerexchange/makebuy, /btclayerexchange/makesell, 
+homeOrdersBackend_app_router.get(['/btclayerexchange/:page?'], require_loggedin_for_pages(true), (req,res)=>{
 
-  // console.log("what_page: ", req.params.what_page)
-  // console.log("what_type: ", req.params.type)
+  // console.log("page: ", req.params.page)
 
   console.log("paths:", res.locals.paths_URL)
   
-  res.locals.paths_URL[0] == "btclayerexchange"? res.locals.userId = req.session.userId: null
+  // res.locals.paths_URL[0] == "btclayerexchange"? res.locals.userId = req.session.userId: null
+
+  res.locals.userId = req.session.userId
   
   var JSX_to_load = 'BTClayerexchange';
 

@@ -4,16 +4,22 @@
   if (paths_URL[1]) {
     switch (paths_URL[1]) {
       case 'sellordersdata':
-        caseOptionDatabases = 'sellordersdata'
+        caseOptionBTClayerexchange = 'sellordersdata'
         break;
       case 'buyordersdata':
-        caseOptionDatabases = 'buyordersdata'
+        caseOptionBTClayerexchange = 'buyordersdata'
         break;
       case 'allmyorders':
-        caseOptionDatabases = 'allmyorders'
+        caseOptionBTClayerexchange = 'allmyorders'
         break;
       case 'matches':
-        caseOptionDatabases = 'matches'
+        caseOptionBTClayerexchange = 'matches'
+        break;
+      case 'makebuy':
+        caseOptionBTClayerexchange = 'makebuy'
+        break;
+      case 'makesell':
+        caseOptionBTClayerexchange = 'makesell'
         break;
       default:
         break;
@@ -21,6 +27,6 @@
   }
 
 
-  console.log("caseOptionDatabases", caseOptionDatabases)
+  console.log("caseOptionBTClayerexchange", caseOptionBTClayerexchange)
 
 </script>

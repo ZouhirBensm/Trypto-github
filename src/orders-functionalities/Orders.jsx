@@ -27,7 +27,7 @@ class Orders extends React.Component {
     this.userId = userId
     // this.repairData = this.repairData.bind(this)
     
-    console.log("constructor url param: ", this.props.match.params.order_type)
+    console.log("order_type------->>>>", this.props.match.params.order_type)
   }
   
   // repairData(_objOrders){

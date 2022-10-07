@@ -1,5 +1,6 @@
 // import React from 'react';
 import './styles/Make.css'
+import utils from '../../full-stack-libs/utils'
 
 
 class Make extends React.Component {
@@ -11,7 +12,7 @@ class Make extends React.Component {
     this.clickGetCryptoPrice = this.clickGetCryptoPrice.bind(this)
     this.clickCreateOrder = this.clickCreateOrder.bind(this)
 
-    console.log("constructor", this.props.match.params.type)
+    console.log("this.props.match.params.type------>>>>>", this.props.match.params.type, caseOptionBTClayerexchange, paths_URL, URL_)
   }
 
 
@@ -23,8 +24,8 @@ class Make extends React.Component {
 
     let [url_param_order_type_to_save, amount_s] = []
 
-    this.props.match.params.type === "makebuy"? [url_param_order_type_to_save, amount_s] = ["buyorders", ["amount"]]:
-    this.props.match.params.type === "makesell"? [url_param_order_type_to_save, amount_s] = ["sellorders", ["minamount", "maxamount"]]:
+    caseOptionBTClayerexchange === "makebuy"? [url_param_order_type_to_save, amount_s] = ["buyorders", ["amount"]]:
+    caseOptionBTClayerexchange === "makesell"? [url_param_order_type_to_save, amount_s] = ["sellorders", ["minamount", "maxamount"]]:
     null
 
     let amount_fields_obj = {}
@@ -112,7 +113,7 @@ class Make extends React.Component {
   render() {
     
     let amount_field
-    if (this.props.match.params.type == "makebuy") {
+    if (caseOptionBTClayerexchange == "makebuy") {
       amount_field = 
       <React.Fragment>
         <label htmlFor="amount-select">Amount (CAD)</label>
@@ -120,7 +121,7 @@ class Make extends React.Component {
       </React.Fragment>
     }
 
-    if (this.props.match.params.type == "makesell") {
+    if (caseOptionBTClayerexchange == "makesell") {
       amount_field = 
       <React.Fragment>
         <label htmlFor="min-amount-select">Min Amount (CAD)</label>
@@ -134,7 +135,7 @@ class Make extends React.Component {
     return (
       <div className="make-container">
         <form className="form" id="form_id">
-          <h3>Making a {this.props.match.params.type} order...</h3>
+          <h3>Making a {caseOptionBTClayerexchange} order...</h3>
           <label htmlFor="crypto-select">Crypto</label>
           <select name="crypto" id="crypto-select" required>
               <option value="Bitcoin" defaultValue>Bitcoin</option>

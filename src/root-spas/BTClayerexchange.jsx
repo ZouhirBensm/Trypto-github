@@ -52,12 +52,14 @@ class BTClayerexchange extends React.Component {
             <Route exact path="/btclayerexchange" render={
               (props) => <Navigation {...props} mode="orders"/>
             } />
+            <Route exact path="/btclayerexchange/makebuy" component={Make} />
+            <Route exact path="/btclayerexchange/makesell" component={Make} />
+            
             <Route exact path="/btclayerexchange/allmyorders" render={
               (props) => <MyOrders {...props} userID_toQueryWith={userId}/>
             } />
             <Route exact path="/btclayerexchange/matches" component={Matches} />
-            <Route exact path="/btclayerexchange/:order_type" component={Orders} />
-            <Route exact path="/make/:type" component={Make} />
+            <Route path="/btclayerexchange/:order_type" component={Orders} />
           </Switch>     
         </BrowserRouter> 
         </div>
