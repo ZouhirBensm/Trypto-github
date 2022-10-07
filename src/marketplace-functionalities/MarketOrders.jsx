@@ -1,16 +1,16 @@
 
 // import './styles/Orders.css'
-// import '../orders-functionalities/styles/Orders.css'
+// import '../btclayerexchange-functionalities/styles/Orders.css'
 import '../style/reactDivMobile.css'
 // import OrderTable from './OrderTable';
 
-// import OrderTable from '../orders-functionalities/OrderTable';
+// import OrderTable from '../btclayerexchange-functionalities/OrderTable';
 import MarketOrderTable from './MarketOrderTable';
 
 // import PageSelector from '../generic-components/PageSelector';
 import PageSelector from '../generic-components/PageSelector';
 // import SearchEngine from './SearchEngine';
-// import SearchEngine from '../orders-functionalities/SearchEngine';
+// import SearchEngine from '../btclayerexchange-functionalities/SearchEngine';
 
 class MarketOrders extends React.Component {
   constructor(props) {

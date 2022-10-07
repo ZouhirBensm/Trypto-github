@@ -1,12 +1,12 @@
 
 // import React from 'react';
 // import ReactDOM from 'react-dom'
-// import MakeBuy from './orders-functionalities/MakeBuy';
-// import MakeSell from './orders-functionalities/MakeSell';
-// import Orders from './orders-functionalities/Orders';
-// import MyOrders from './orders-functionalities/MyOrders';
-// import Navigation from './orders-functionalities/Navigation';
-// import Matches from './orders-functionalities/Matches';
+// import MakeBuy from './btclayerexchange-functionalities/MakeBuy';
+// import MakeSell from './btclayerexchange-functionalities/MakeSell';
+// import Orders from './btclayerexchange-functionalities/Orders';
+// import MyOrders from './btclayerexchange-functionalities/MyOrders';
+// import Navigation from './btclayerexchange-functionalities/Navigation';
+// import Matches from './btclayerexchange-functionalities/Matches';
 
 
 import loadable from "@loadable/component";
@@ -14,20 +14,20 @@ import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
 
 
-const Make = loadable(() => import("../orders-functionalities/Make"),{
+const Make = loadable(() => import("../btclayerexchange-functionalities/Make"),{
   fallback: <Loading/>
 });
 
-const Orders = loadable(() => import("../orders-functionalities/Orders"),{
+const Orders = loadable(() => import("../btclayerexchange-functionalities/Orders"),{
   fallback: <Loading/>
 });
-const MyOrders = loadable(() => import("../orders-functionalities/MyOrders"),{
+const MyOrders = loadable(() => import("../btclayerexchange-functionalities/MyOrders"),{
   fallback: <Loading/>
 });
-const Navigation = loadable(() => import("../orders-functionalities/Navigation"),{
+const Navigation = loadable(() => import("../btclayerexchange-functionalities/Navigation"),{
   fallback: <Loading/>
 });
-const Matches = loadable(() => import("../orders-functionalities/Matches"),{
+const Matches = loadable(() => import("../btclayerexchange-functionalities/Matches"),{
   fallback: <Loading/>
 });
 
@@ -54,7 +54,7 @@ class BTClayerexchange extends React.Component {
             } />
             <Route exact path="/btclayerexchange/makebuy" component={Make} />
             <Route exact path="/btclayerexchange/makesell" component={Make} />
-            
+
             <Route exact path="/btclayerexchange/allmyorders" render={
               (props) => <MyOrders {...props} userID_toQueryWith={userId}/>
             } />

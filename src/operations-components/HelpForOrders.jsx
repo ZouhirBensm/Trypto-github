@@ -1,4 +1,4 @@
-import MyOrders from "../orders-functionalities/MyOrders"
+import MyOrders from "../btclayerexchange-functionalities/MyOrders"
 
 
 class HelpForOrders extends React.Component {

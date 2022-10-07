@@ -1,19 +1,19 @@
 
 // import React from 'react';
 // import ReactDOM from 'react-dom'
-// import MakeBuy from './orders-functionalities/MakeBuy';
-// import MakeSell from './orders-functionalities/MakeSell';
-// import Orders from './orders-functionalities/Orders';
-// import MyOrders from './orders-functionalities/MyOrders';
-// import Navigation from './orders-functionalities/Navigation';
-// import Matches from './orders-functionalities/Matches';
+// import MakeBuy from './btclayerexchange-functionalities/MakeBuy';
+// import MakeSell from './btclayerexchange-functionalities/MakeSell';
+// import Orders from './btclayerexchange-functionalities/Orders';
+// import MyOrders from './btclayerexchange-functionalities/MyOrders';
+// import Navigation from './btclayerexchange-functionalities/Navigation';
+// import Matches from './btclayerexchange-functionalities/Matches';
 
 // TODO refactor component names and endpoint names for market place
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
 
 
-const Navigation = loadable(() => import("../orders-functionalities/Navigation"),{
+const Navigation = loadable(() => import("../btclayerexchange-functionalities/Navigation"),{
   fallback: <Loading/>
 });
 
