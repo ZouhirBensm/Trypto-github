@@ -116,7 +116,7 @@ class CardInfoSubmission extends React.Component {
     // check database is up
     if(response.status === 200){
       return actions.subscription.create({
-        'plan_id': process.env.paypal_plan_id
+        'plan_id': process.env.PAYPAL_PLAN_ID
       });
     } else {
       this.setState({notification: srv_data.error.message})
@@ -127,7 +127,7 @@ class CardInfoSubmission extends React.Component {
     // alert('You have successfully created subscription ' + data.subscriptionID); 
     // Optional message given to subscriber
     console.log("ACTIONS: ", actions, "SUBSCRIPTION ID", data.subscriptionID)
-    this.BASICPlanRegistrationProcess(data.subscriptionID, process.env.paypal_plan_id, process.env.paypal_product_id)
+    this.BASICPlanRegistrationProcess(data.subscriptionID, process.env.PAYPAL_PLAN_ID, process.env.PAYPAL_PRODUCT_ID)
   }
 
   render(){

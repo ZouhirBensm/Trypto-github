@@ -60,7 +60,7 @@ module.exports = async (req,res,next)=>{
   
       let Authorization_header_value_4_fetch = utils.return_Authorization_header_value_4_fetch()
   
-      let paypal_cancel_sub_response = await fetch(`${ENV.paypal_api_root}/billing/subscriptions/${subscriptionInfo.paypal_subscriptionID}/cancel`, {
+      let paypal_cancel_sub_response = await fetch(`${process.env.PAYPAL_API_ROOT}/billing/subscriptions/${subscriptionInfo.paypal_subscriptionID}/cancel`, {
         body: JSON.stringify({
           reason: "reason not yet implemented in the BidBlock application",
         }),

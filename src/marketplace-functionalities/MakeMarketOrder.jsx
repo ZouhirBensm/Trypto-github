@@ -8,8 +8,8 @@ import {validateInputs_marketOrderBasicData, validateInputs_marketOrderTradeLoca
 
 import Geocode from "react-geocode";
 // API key in a environment variable, in Staging and Dev they are the same, in Prod it is different
-// console.log("console_cloud_google_api_key", process.env.console_cloud_google_api_key)
-Geocode.setApiKey(process.env.console_cloud_google_api_key);
+console.log("console_cloud_google_api_key", process.env.CONSOLE_CLOUD_GOOGLE_API_KEY, process.env)
+Geocode.setApiKey(process.env.CONSOLE_CLOUD_GOOGLE_API_KEY);
 Geocode.enableDebug();
 
 

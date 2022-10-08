@@ -9,7 +9,7 @@ module.exports = async (req,res, next) =>{
 
 
   // TODO Fetch is soon to be implemented in node: Node v17, in the meantime use other api
-  let paypal_cancel_sub_response = await fetch(`${ENV.paypal_api_root}/billing/subscriptions/${res.locals.subscriptionInfo.paypal_subscriptionID}/cancel`, {
+  let paypal_cancel_sub_response = await fetch(`${process.env.PAYPAL_API_ROOT}/billing/subscriptions/${res.locals.subscriptionInfo.paypal_subscriptionID}/cancel`, {
     body: JSON.stringify({
       reason: "reason not yet implemented in the BidBlock application",
     }),

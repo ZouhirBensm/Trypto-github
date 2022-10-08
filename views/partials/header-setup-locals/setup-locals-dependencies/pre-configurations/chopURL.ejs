@@ -2,4 +2,8 @@
   var paths_URL = <%- JSON.stringify(locals.paths_URL) %>;
   // URL_ = URL_.split("?")[0]
   console.log("paths_URL", paths_URL)
+
+  // env info: In EJS you have access to all the global variables from your server, you just require to define them, so all env variables can be access, and do not require to be passed as locals
+  // var processenv = < %- JSON.stringify(process.env) %>;
+  // console.log("process.env---------->>>>>", processenv)
 </script>
