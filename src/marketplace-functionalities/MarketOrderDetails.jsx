@@ -25,9 +25,9 @@ class MarketOrderDetails extends React.Component {
     // console.log("what_page????", this.props.match.params.order_type)
 
 
-    console.log("mode:", this.state.mode)
+    // console.log("mode:", this.state.mode)
 
-    console.log("props:", "order_type: ", this.props.match.params.order_type, "orderID: ", this.props.match.params.orderID)
+    // console.log("props:", "order_type: ", this.props.match.params.order_type, "orderID: ", this.props.match.params.orderID)
 
   }
 
@@ -37,6 +37,7 @@ class MarketOrderDetails extends React.Component {
     let pkobmOr_4ft2sd = {
       _id: _order._id,
       title: document.getElementById("my_form").elements["title"].value,
+      description: document.getElementById("my_form").elements["description"].value,
       category: document.getElementById("my_form").elements["category"].value,
       price: document.getElementById("my_form").elements["price"].value,
       conversion: document.getElementById("my_form").elements["conversion"].value,
@@ -56,7 +57,7 @@ class MarketOrderDetails extends React.Component {
 
     let first_msg_if_any = "Inputs haven't changed, therefor nothing to update!"
 
-    console.log(isNotEdited)
+    // console.log(isNotEdited)
 
     if (isNotEdited) return first_msg_if_any
 
@@ -75,9 +76,9 @@ class MarketOrderDetails extends React.Component {
 
 
 
-    console.log(
-      pkobmOr_4ft2sd, "VS", _order
-    )
+    // console.log(
+    //   pkobmOr_4ft2sd, "VS", _order
+    // )
 
 
 
@@ -118,7 +119,7 @@ class MarketOrderDetails extends React.Component {
   }
 
   setOptions(_denomination) {
-    console.log(_denomination)
+    // console.log(_denomination)
     let options
     let tag_options_arr_data = []
 
@@ -138,12 +139,12 @@ class MarketOrderDetails extends React.Component {
 
     // console.log("SELECT:", document.getElementById('payment-select')?.options[0].selected)
 
-    console.log("----------======>>>>", options)
+    // console.log("----------======>>>>", options)
     return options
   }
 
   async handleChange() {
-    console.log("changing....")
+    // console.log("changing....")
 
     let _denomination
 
@@ -154,7 +155,7 @@ class MarketOrderDetails extends React.Component {
     // console.log(crypto_sel)
 
     _denomination = crypto_sel.value;
-    console.log(_denomination)
+    // console.log(_denomination)
     // // _crypto = crypto_sel.value
 
 
@@ -199,7 +200,7 @@ class MarketOrderDetails extends React.Component {
   // }
 
   setTableRows(_order) {
-    console.log("setTable")
+    // console.log("setTable")
 
 
     // console.log(_order.userid._id, userId)
@@ -227,7 +228,7 @@ class MarketOrderDetails extends React.Component {
 
   componentDidMount() {
     this.loadData()
-    console.log("end component did mount")
+    // console.log("end component did mount")
   }
 
 
@@ -235,13 +236,13 @@ class MarketOrderDetails extends React.Component {
 
     // console.log("this.props.match.params.order_type", this.props.match.params.order_type)
 
-    console.log(`/marketplace/order/${userId}/${this.props.match.params.order_type}/${this.props.match.params.orderID}`)
+    // console.log(`/marketplace/order/${userId}/${this.props.match.params.order_type}/${this.props.match.params.orderID}`)
 
     let response = await fetch(`/marketplace/order/${userId}/${this.props.match.params.order_type}/${this.props.match.params.orderID}`)
 
 
 
-    console.log(response)
+    // console.log(response)
 
     let order_or_error = await response.json()
 
@@ -266,7 +267,7 @@ class MarketOrderDetails extends React.Component {
       this.displayPopUp(order_or_error.error.message)
     }
 
-    console.log("end load data")
+    // console.log("end load data")
 
   }
 
@@ -274,7 +275,7 @@ class MarketOrderDetails extends React.Component {
   async DeleteClick(_orderID, e) {
     e.preventDefault()
 
-    console.log("------------------->>>>>>", userId)
+    // console.log("------------------->>>>>>", userId)
 
     let response = await fetch(`/marketplace/${userId}/delete-this-order`, {
       method: 'DELETE',
@@ -287,9 +288,9 @@ class MarketOrderDetails extends React.Component {
       })
     })
 
-    console.log(response)
+    // console.log(response)
     let srv_ = await response.json()
-    console.log(srv_)
+    // console.log(srv_)
 
     if (response.ok) {
 
@@ -308,7 +309,7 @@ class MarketOrderDetails extends React.Component {
 
   // ___________________________________________________________
   render() {
-    console.log(this.state.mode)
+    // console.log(this.state.mode)
     return (
       <React.Fragment>
         {/* <div>MarketOrderDetails...</div> */}
@@ -345,7 +346,7 @@ class MarketOrderDetails extends React.Component {
 
     for (const property in _order) {
       var i = Object.keys(_order).indexOf(property);
-      console.log(`${property}: ${_order[property]}: ${i}`);
+      // console.log(`${property}: ${_order[property]}: ${i}`);
 
       switch (property) {
         case "_id":
@@ -353,12 +354,12 @@ class MarketOrderDetails extends React.Component {
         case "expireAt":
           break;
         case "sellmarketorderlocationID":
-          console.log("order.location: ", Object.keys(_order[property].location), _order[property].location['st'])
+          // console.log("order.location: ", Object.keys(_order[property].location), _order[property].location['st'])
           for (const [index, iterator] of Object.keys(_order[property].location).entries()) {
-            console.log(iterator, index)
+            // console.log(iterator, index)
             rows.push(<tr key={`Location-key-${index}`}>
               <td>{iterator}</td>
-              <td>{ _order[property].location[iterator]}</td>
+              <td>{_order[property].location[iterator]}</td>
             </tr>)
           }
 
@@ -385,14 +386,14 @@ class MarketOrderDetails extends React.Component {
           // )
           break
         case "userid":
-          console.log(i)
+          // console.log(i)
           rows.push(<tr key={i}>
             <td>{Object.keys(_order[property])[1]}</td>
             <td>{_order[property].email}</td>
           </tr>)
           break;
         default:
-          console.log(i)
+          // console.log(i)
           rows.push(<tr key={i}>
             <td>{property}</td>
             <td>{_order[property]}</td>
@@ -427,12 +428,12 @@ class MarketOrderDetails extends React.Component {
     return rows
   }
 
-  deal(order, e){
+  deal(order, e) {
     e.preventDefault()
 
-    console.log(order)
+    // console.log(order)
 
-    console.log(`/messaging?orderId=${order._id}&userIdB=${order.userid._id}`)
+    // console.log(`/messaging?orderId=${order._id}&userIdB=${order.userid._id}`)
 
     window.location.href = `/messaging?orderId=${order._id}&userIdB=${order.userid._id}`
   }
@@ -443,10 +444,10 @@ class MarketOrderDetails extends React.Component {
   seEditRows(_order) {
     let rows = []
     let myorder = (_order.userid._id == userId)
-    console.log("this.state.denomination || _order.chain", this.state.denomination || _order.chain)
+    // console.log("this.state.denomination || _order.chain", this.state.denomination || _order.chain)
 
     let options = this.setOptions(this.state.denomination || _order.chain)
-    console.log("-------->>>!!!!", this.state.denomination, _order.chain)
+    // console.log("-------->>>!!!!", this.state.denomination, _order.chain)
 
 
 
@@ -469,25 +470,25 @@ class MarketOrderDetails extends React.Component {
         case "expireAt":
           break;
         case "sellmarketorderlocationID":
-          console.log("order.location: ", Object.keys(_order[property].location), _order[property].location['st'])
+          // console.log("order.location: ", Object.keys(_order[property].location), _order[property].location['st'])
 
           for (const [index, iterator] of Object.keys(_order[property].location).entries()) {
-            console.log(iterator, index)
+            // console.log(iterator, index)
             rows.push(<tr key={`Location-key-${index}`}>
               <td>{iterator}</td>
-              <td>{ _order[property].location[iterator]}</td>
+              <td>{_order[property].location[iterator]}</td>
             </tr>)
           }
           break;
         case "userid":
-          console.log(i)
+          // console.log(i)
           rows.push(<tr key={i}>
             <td>{Object.keys(_order[property])[1]}</td>
             <td>{_order[property].email}</td>
           </tr>)
           break;
         case "title":
-          console.log(i)
+          // console.log(i)
           rows.push(<tr key={i}>
             <td>
               <label htmlFor="title-select">{property}</label>
@@ -498,10 +499,22 @@ class MarketOrderDetails extends React.Component {
               />
             </td>
           </tr>)
-
+          break;
+        case "description":
+          // console.log(i)
+          rows.push(<tr key={i}>
+            <td>
+              <label htmlFor="description-select">{property}</label>
+            </td>
+            <td>
+              <EditDescription
+                curentValue={_order.description}
+              />
+            </td>
+          </tr>)
           break;
         case "category":
-          console.log(i)
+          // console.log(i)
           rows.push(<tr key={i}>
             <td>
               <label htmlFor="category-select">{property}</label>
@@ -514,7 +527,7 @@ class MarketOrderDetails extends React.Component {
           </tr>)
           break;
         case "price":
-          console.log(i)
+          // console.log(i)
           rows.push(<tr key={i}>
             <td>
               <label htmlFor="price-select">{property}</label>
@@ -532,7 +545,7 @@ class MarketOrderDetails extends React.Component {
 
 
         case "conversion":
-          console.log(i)
+          // console.log(i)
           rows.push(<tr key={i}>
             <td>
               <label htmlFor="conversion-select">{property}</label>
@@ -545,7 +558,7 @@ class MarketOrderDetails extends React.Component {
           </tr>)
           break;
         case "payment":
-          console.log(i)
+          // console.log(i)
           rows.push(<tr key={i}>
             <td>
               <label htmlFor="payment-select">{property}</label>
@@ -560,7 +573,7 @@ class MarketOrderDetails extends React.Component {
 
           break;
         case "chain":
-          console.log(i)
+          // console.log(i)
           // <label htmlFor="crypto-select">Chain Network</label>
           rows.push(<tr key={i}>
             <td>
@@ -578,7 +591,7 @@ class MarketOrderDetails extends React.Component {
 
 
         case "expirytime":
-          console.log(i)
+          // console.log(i)
           rows.push(<tr key={i}>
             <td>
               <label htmlFor="expirytime-select">{property}</label>
@@ -591,7 +604,7 @@ class MarketOrderDetails extends React.Component {
           </tr>)
           break;
         case "expirydate":
-          console.log(i)
+          // console.log(i)
           rows.push(<tr key={i}>
             <td>
               <label htmlFor="expirydate-select">{property}</label>
@@ -605,7 +618,7 @@ class MarketOrderDetails extends React.Component {
           break;
 
         default:
-          console.log(i)
+          // console.log(i)
           rows.push(<tr key={i}>
             <td>{property}</td>
             <td>{_order[property]}</td>
@@ -630,7 +643,7 @@ class MarketOrderDetails extends React.Component {
             let Edit_return_str = await this.EditOrder(_order, e);
             console.log("Edit_return_str", Edit_return_str);
             let ReactDiv = document.getElementById("react-div")
-            console.log("wrapper", ReactDiv)
+            // console.log("wrapper", ReactDiv)
             this.displayPopUp(Edit_return_str);
             ReactDiv.scrollTo(0, 0);
           }}>Save</button>
@@ -643,21 +656,21 @@ class MarketOrderDetails extends React.Component {
   }
 
   displayPopUp(_Edit_return_str) {
-    console.log("ARE WE GOOD!")
+    // console.log("ARE WE GOOD!")
 
     const wrapper = document.getElementsByClassName("wrapper")[0]
 
-    console.log(wrapper)
+    // console.log(wrapper)
 
     let div = document.getElementById("popup");
 
 
     div.style.display = "block"
 
-    console.log(!(div.innerHTML))
+    // console.log(!(div.innerHTML))
 
     if (!(div.innerHTML)) {
-      console.log("set up pop up")
+      // console.log("set up pop up")
       wrapper.insertBefore(div, wrapper.firstChild);
     }
 
@@ -742,8 +755,8 @@ function EditPayment(props) {
   let currentValue = props.curentValue;
 
   let options = props.options
-  console.log(options)
-  console.log("--------->>>>", currentValue)
+  // console.log(options)
+  // console.log("--------->>>>", currentValue)
   return (
     // onChange={this.change}
     <select form="my_form" name="payment" id="payment-select" required defaultValue={currentValue}>
@@ -758,7 +771,7 @@ function EditPayment(props) {
 
 function EditChain(props) {
   let currentValue = props.curentValue;
-  console.log("--------->>>>", currentValue)
+  // console.log("--------->>>>", currentValue)
 
   return (
     // onChange={(e) => this.handleChange(e)}
@@ -773,7 +786,7 @@ function EditChain(props) {
 
 function EditExpiryTime(props) {
   let currentValue = props.curentValue;
-  console.log("--------->>>>", currentValue)
+  // console.log("--------->>>>", currentValue)
 
   return (
     <React.Fragment>
@@ -787,7 +800,7 @@ function EditExpiryTime(props) {
 
 function EditExpiryDate(props) {
   let currentValue = props.curentValue;
-  console.log("--------->>>>", currentValue)
+  // console.log("--------->>>>", currentValue)
 
   return (
     <React.Fragment>
@@ -795,3 +808,15 @@ function EditExpiryDate(props) {
     </React.Fragment>
   )
 }
+
+
+
+
+function EditDescription(props) {
+  let currentValue = props.curentValue;
+  // console.log(currentValue)
+  return (
+    <textarea form="my_form" name="description" id="description-select" defaultValue={currentValue} cols="30" rows="3" required></textarea>
+  )
+}
+

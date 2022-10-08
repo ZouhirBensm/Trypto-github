@@ -287,6 +287,7 @@ class MakeMarketOrder extends React.Component {
 
     let marketOrderBasicData = {
       title: document.getElementById("form_id").elements["title"].value,
+      description: document.getElementById("form_id").elements["description"].value,
       category: document.getElementById("form_id").elements["category"].value,
       price: document.getElementById("form_id").elements["price"].value,
       crypto: document.getElementById("form_id").elements["crypto"].value,
@@ -305,6 +306,7 @@ class MakeMarketOrder extends React.Component {
 
 
 
+    console.log(marketOrderBasicData)
 
     let validated = this.validateInputs(marketOrderBasicData, marketOrderTradeLocationSpecifics)
     if (!validated) return
@@ -314,7 +316,7 @@ class MakeMarketOrder extends React.Component {
       marketOrderTradeLocationSpecifics
     }
 
-    console.log(pk_4ft_2sd_body)
+    // console.log(pk_4ft_2sd_body)
 
 
     let response = await fetch(`/marketplace/sellorders/save`, {
@@ -436,6 +438,10 @@ class MakeMarketOrder extends React.Component {
 
           <label htmlFor="title-select">Title</label>
           <input type="text" id="title-select" defaultValue='SomeObject' name="title" required /><br />
+
+          <label htmlFor="description-select">Description</label>
+          {/* <input type="textarea" id="description-select" placeholder='item description...' name="description" required /><br /> */}
+          <textarea name="description" id="description-select"  defaultValue='Some description' placeholder='item description...' cols="30" rows="3" required></textarea><br />
 
           <label htmlFor="category-select">Category</label>
           <select name="category" id="category-select" required>

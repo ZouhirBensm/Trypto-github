@@ -14,6 +14,7 @@ const Schema = mongoose.Schema
 //Models define collections
 const SellMarketOrderSchema = new Schema({
     title: String,
+    description: String,
     category: String,
     price: String,
     crypto: String,

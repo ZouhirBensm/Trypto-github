@@ -78,6 +78,13 @@ module.exports = {
     // If new is true then the modified document is returned after the update rather than the original , if false then the original document is returned
 
 
+
+
+
+    console.log("chakalaka----->>>>", req.body.pkobmOr_4ft2sd)
+
+
+
     let updatedMarketOrder_ifAny
 
     try{
@@ -195,6 +202,7 @@ module.exports = {
       try {
         create_res_sellmarketorder = await SellMarketOrder.create({
           title: body_marketOR_basic_data.title,
+          description: body_marketOR_basic_data.description,
           category: body_marketOR_basic_data.category,
           price: body_marketOR_basic_data.price,
           crypto: body_marketOR_basic_data.crypto,
