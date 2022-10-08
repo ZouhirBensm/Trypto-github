@@ -6,10 +6,6 @@ import Register from '../login-register-functionalities/Register.jsx';
 import Subscription from './Subscription'
 
 
-// TODO #97 Put root files in src in their own folder, adjust webpack configs accordingly. Name the folder: "root SPAs"
-
-// let PricesComponent = lazy(()=>{ return import('./home-functionalities/PricesComponent.jsx')})
-
 require('react-dom');
 window.React2 = require('react');
 console.log("same---->>>", window.React1 === window.React2);
@@ -53,7 +49,6 @@ class App extends React.Component {
   }
   
   async loadData(){
-    // TODO uncomment all the loadData code, commented to avoid error temporarily
     let objPrices = {}
     const response = await fetch(`/cryptoprice`)
     const data = await response.json()

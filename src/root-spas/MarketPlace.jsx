@@ -8,7 +8,6 @@
 // import Navigation from './btclayerexchange-functionalities/Navigation';
 // import CurrencyOrderMatches from './btclayerexchange-functionalities/CurrencyOrderMatches';
 
-// TODO refactor component names and endpoint names for market place
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
 
