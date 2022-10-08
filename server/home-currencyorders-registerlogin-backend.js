@@ -154,9 +154,6 @@ homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(tr
 })
 
 
-// TODO add the subscription ID in the profile page if needed
-
-
 // Endpoints
 // /btclayerexchange/allmyorders, /btclayerexchange/matches, /btclayerexchange/buyordersdata, /btclayerexchange/sellordersdata
 // /btclayerexchange/makebuy, /btclayerexchange/makesell, 
@@ -249,8 +246,7 @@ homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (re
   })
 })
 
-// TODO add description for market orders
-// TODO add the deal button for the particular market orders
+// TODO ! add description for market orders
 // TODO add userID for articles
 homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteMarketOrderMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware,
 sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteUserMiddleware, logoutMiddleware, (req,res,next)=>{

@@ -61,6 +61,11 @@ class MarketOrders extends React.Component {
   //   })
   // }
 
+
+  // TODO ! implement input sanitization in all fields (<>;{})
+  // TODO ! email confirmation process to implement (real email check)
+  // TODO ! implement rate on inputs to avoid getting spammed from bots
+
   controls(_page) {
     this.setState({
       page: _page

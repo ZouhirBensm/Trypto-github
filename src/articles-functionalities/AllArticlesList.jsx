@@ -5,6 +5,7 @@ import './style/AllArticlesList.css'
 
 
 // TODO While articles are loading load the loading component in the meantime
+
 // TODO BTC currency orders require to show up from most recent to oldest
 class AllArticlesList extends React.Component {
   constructor(props) {

@@ -106,6 +106,7 @@ class Profile extends React.Component {
     // Subscription card information
     let plan = selectedUser.subscriptionID?.plan
     let subscriptionDateTime = selectedUser.subscriptionID?.subscriptionDateTime
+    let paypalsubscriptionID = selectedUser.subscriptionID?.paypal_subscriptionID
     let [current_billing_cycle_botom_datetime, current_billing_cycle_top_datetime] = billing_utils.BillingDateTimeCalculator(selectedUser.subscriptionID?.subscriptionDateTime)
 
     return (
@@ -142,10 +143,11 @@ class Profile extends React.Component {
             }
             section={
               [
-                {prepend: 'plan:', value: `${plan}`},
-                {prepend: 'subscription date time:', value: `${subscriptionDateTime}`},
-                {prepend: 'next billing dateTime:', value: `${current_billing_cycle_top_datetime}`},
-                {prepend: 'paid for current billing cycle:', value: `FROM: ${current_billing_cycle_botom_datetime} TO: ${current_billing_cycle_top_datetime}`},
+                {prepend: `On BidBlock, ${userEmail}'s plan:`, value: `${plan}`},
+                {prepend: "On Paypal, Subscription ID:", value: `${paypalsubscriptionID}`},
+                {prepend: 'Subscription date time:', value: `${subscriptionDateTime}`},
+                {prepend: 'Next billing dateTime:', value: `${current_billing_cycle_top_datetime}`},
+                {prepend: 'Paid for current billing cycle:', value: `FROM: ${current_billing_cycle_botom_datetime} TO: ${current_billing_cycle_top_datetime}`},
                 ...(selectedUser.subscriptionID?.expireAt ? [{prepend: 'requested subscription termination dateTime:', value: `${selectedUser.subscriptionID.expireAt}`}] : []),
               ]
             }

@@ -24,9 +24,9 @@ class MgtUser extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
-    console.log("userId:", userId)
+    // console.log("userId:", userId)
     // this.selectedUser = selectedUser
-    console.log("selectedUser: ", selectedUser)
+    // console.log("selectedUser: ", selectedUser)
   }
   render() {
     return (
