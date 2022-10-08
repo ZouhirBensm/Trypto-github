@@ -76,29 +76,29 @@ class CRUDMessages extends React.Component {
   }
 
   async handleClick(msg, e){
-    e.preventDefault()
+    e?.preventDefault()
+    // console.log(!!e)
     // console.log("click!!!!", msg)
-    // console.log(e)
 
-    // const response = await fetch(`/operations/deletions/message/${msg.sender._id}/${msg.receiver._id}/${msg._id}`, {
-    //   method: 'DELETE',
-    // })
+    const response = await fetch(`/operations/deletions/message/${msg.sender._id}/${msg.receiver._id}/${msg._id}`, {
+      method: 'DELETE',
+    })
 
-    // let serverOBJ = await response.json()
+    let serverOBJ = await response.json()
     
-    // if(response.ok){
-    //   // let OBJserv_ = await response.json()
-    //   console.log("deletion success", serverOBJ)
+    if(response.ok){
+      // let OBJserv_ = await response.json()
+      console.log("deletion success", serverOBJ)
 
-    //   let elements_left_in_page = document.getElementsByClassName("a-single-msg-wrapper")
-    //   if(this.state.on_off_limit_next && elements_left_in_page.length === 1 && this.state.number_of_pages != 1){
-    //     this.handleDelete(true)
-    //   } else {
-    //     this.handleDelete()
-    //   }
-    // } else {
-    //   console.error("deletion failed!", serverOBJ)
-    // }
+      let elements_left_in_page = document.getElementsByClassName("a-single-msg-wrapper")
+      if(this.state.on_off_limit_next && elements_left_in_page.length === 1 && this.state.number_of_pages != 1){
+        this.handleDelete(true)
+      } else {
+        this.handleDelete()
+      }
+    } else {
+      console.error("deletion failed!", serverOBJ)
+    }
 
   }
 

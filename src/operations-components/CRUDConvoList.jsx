@@ -9,15 +9,15 @@ class CRUDConvoList extends React.Component {
     // console.log("constructor: ", this.props)
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log("shouldComponentUpdate: ", nextProps.msg_stream)
-    if (nextProps.msg_stream) {
-      console.log("shouldComponentUpdate: true", nextProps.msg_stream)
-      return true
-    } else {
-      return false
-    }
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log("shouldComponentUpdate: ", nextProps.msg_stream)
+  //   if (nextProps.msg_stream) {
+  //     console.log("shouldComponentUpdate: true", nextProps.msg_stream)
+  //     return true
+  //   } else {
+  //     return false
+  //   }
+  // }
 
 
 
@@ -99,6 +99,7 @@ class ConvoElement extends React.Component {
         <TheMsgCard
           msg={this.props.msg}
           position={this.props.position}
+          handleClick={this.props.handleClick}
         />
 
 
