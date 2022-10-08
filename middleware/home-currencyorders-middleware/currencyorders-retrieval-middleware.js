@@ -1,6 +1,6 @@
-const BuyCryptoOrder = require('../../models/home-orders-models/BuyCryptoOrder')
+const BuyCryptoOrder = require('../../models/home-currencyorders-models/BuyCryptoOrder')
 
-const SellCryptoOrder = require('../../models/home-orders-models/SellCryptoOrder')
+const SellCryptoOrder = require('../../models/home-currencyorders-models/SellCryptoOrder')
 
 var ObjectId = require('mongodb').ObjectId; 
 

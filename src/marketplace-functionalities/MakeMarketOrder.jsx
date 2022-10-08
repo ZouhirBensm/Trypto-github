@@ -5,6 +5,11 @@ import LocationSelector from './LocationSelector'
 import {utils} from '../../full-stack-libs/utils.address'
 import {validateInputs_pkobmOr_basicData, validateInputs_pkobmOr_LocationData} from '../../full-stack-libs/validations'
 
+
+// TODO add locality to market orders single pages
+// TODO Put msg in operations in a card component
+// TODO add deal in a single market oprder page
+
 import Geocode from "react-geocode";
 // TODO put the API key in a environment variable, this is the same in a development and remote environment for the moment, might change to have their own API keys
 // console.log("console_cloud_google_api_key", process.env.console_cloud_google_api_key)

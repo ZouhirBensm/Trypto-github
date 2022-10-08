@@ -35,7 +35,7 @@ const { DeleteAccountProcessError } = require("../custom-errors/custom-errors")
 
 
 // Controllers
-const homeOrdersController = require("../controllers/home-orders-controllers/home-orders-controllers")
+const homeCurrencyOrdersController = require("../controllers/home-currencyorders-controllers/home-currencyorders-controllers")
 const RegisterLoginController = require("../controllers/register-login-controllers/register-login-controllers")
 const distributePaginatedDataController = require("../controllers/generic-controllers/distribute-paginated-data-controller")
 const isUpController = require("../controllers/generic-controllers/is-up-controller")
@@ -44,8 +44,8 @@ const isUpController = require("../controllers/generic-controllers/is-up-control
 // Middleware
 const requireRefererMiddleware = require('../middleware/generic-middleware/require-referer')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
-const paginatedOrdersSetupMiddleware = require('../middleware/home-orders-middleware/paginated-orders-setup-middleware')
-const ordersRetrievalMiddleware = require('../middleware/home-orders-middleware/orders-retrieval-middleware')
+const paginatedOrdersSetupMiddleware = require('../middleware/home-currencyorders-middleware/paginated-orders-setup-middleware')
+const currencyordersRetrievalMiddleware = require('../middleware/home-currencyorders-middleware/currencyorders-retrieval-middleware')
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 const startEmptyNotificationsMiddleware = require('../middleware/generic-middleware/start-empty-notifications-middleware')
 const {getDetailedUserSubscriptionInfo} = require('../middleware/generic-middleware/get-detailed-user-subsciption-information-middleware')
@@ -79,8 +79,8 @@ const { authenticate_role_for_pages, authenticate_role_for_data } =  require("..
 
 // Database Models
 const User = require('../models/User')
-const BuyCryptoOrder = require('../models/home-orders-models/BuyCryptoOrder');
-const SellCryptoOrder = require('../models/home-orders-models/SellCryptoOrder');
+const BuyCryptoOrder = require('../models/home-currencyorders-models/BuyCryptoOrder');
+const SellCryptoOrder = require('../models/home-currencyorders-models/SellCryptoOrder');
 const Protagonist = require('../models/messaging-models/Protagonist')
 const Message = require('../models/messaging-models/Message')
 const Subscriber = require('../models/Subscriber')
@@ -221,7 +221,7 @@ homeOrdersBackend_app_router.get('/cryptoprice', async (req,res,next)=>{
 
 
 
-homeOrdersBackend_app_router.patch('/update', require_loggedin_for_data(true), homeOrdersController.updateOrderController)
+homeOrdersBackend_app_router.patch('/update', require_loggedin_for_data(true), homeCurrencyOrdersController.updateOrderController)
 
 // Might be needed!
 // homeOrdersBackend_app_router.get('/current-user-ID', require_loggedin_for_data(true), (req,res)=>{
@@ -233,13 +233,13 @@ homeOrdersBackend_app_router.patch('/update', require_loggedin_for_data(true), h
 // })
 
 
-homeOrdersBackend_app_router.delete('/delete-this-order', require_loggedin_for_data(true), homeOrdersController.deleteOrderController)
+homeOrdersBackend_app_router.delete('/delete-this-order', require_loggedin_for_data(true), homeCurrencyOrdersController.deleteOrderController)
 
 
 
 
 
-homeOrdersBackend_app_router.post('/:type_order/save', require_loggedin_for_data(true), homeOrdersController.registerOrder)
+homeOrdersBackend_app_router.post('/:type_order/save', require_loggedin_for_data(true), homeCurrencyOrdersController.registerOrder)
 
 
 homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (req,res)=>{
@@ -299,7 +299,7 @@ sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteUser
 
 
 
-homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', requireRefererMiddleware, require_loggedin_for_data(true), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
+homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', requireRefererMiddleware, require_loggedin_for_data(true), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, currencyordersRetrievalMiddleware, distributePaginatedDataController)
 
 homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), verifyingPasswordMiddleware, RegisterLoginController.loginController)
 

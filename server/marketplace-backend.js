@@ -24,7 +24,7 @@ const { DeleteAccountProcessError } = require("../custom-errors/custom-errors")
 
 
 // Controllers
-const homeOrdersController = require("../controllers/home-orders-controllers/home-orders-controllers")
+const homeCurrencyOrdersController = require("../controllers/home-currencyorders-controllers/home-currencyorders-controllers")
 
 const marketplaceController = require("../controllers/marketplace-controllers/marketplace-controllers")
 
@@ -34,8 +34,8 @@ const distributePaginatedDataController = require("../controllers/generic-contro
 // Middleware
 const requireRefererMiddleware = require('../middleware/generic-middleware/require-referer')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
-const paginatedOrdersSetupMiddleware = require('../middleware/home-orders-middleware/paginated-orders-setup-middleware')
-// const ordersRetrievalMiddleware = require('../middleware/home-orders-middleware/orders-retrieval-middleware')
+const paginatedOrdersSetupMiddleware = require('../middleware/home-currencyorders-middleware/paginated-orders-setup-middleware')
+
 
 
 
@@ -63,8 +63,8 @@ const { authenticate_role_for_pages, authenticate_role_for_data } =  require("..
 
 // Database Models
 const User = require('../models/User')
-const BuyCryptoOrder = require('../models/home-orders-models/BuyCryptoOrder');
-const SellCryptoOrder = require('../models/home-orders-models/SellCryptoOrder');
+const BuyCryptoOrder = require('../models/home-currencyorders-models/BuyCryptoOrder');
+const SellCryptoOrder = require('../models/home-currencyorders-models/SellCryptoOrder');
 const Protagonist = require('../models/messaging-models/Protagonist')
 const Message = require('../models/messaging-models/Message')
 const Subscriber = require('../models/Subscriber')

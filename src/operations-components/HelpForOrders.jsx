@@ -1,4 +1,4 @@
-import MyOrders from "../btclayerexchange-functionalities/MyOrders"
+import MyCurrencyOrders from "../btclayerexchange-functionalities/MyCurrencyOrders"
 
 
 class HelpForOrders extends React.Component {
@@ -11,7 +11,7 @@ class HelpForOrders extends React.Component {
     return (
       <React.Fragment>
         <div>HelpForOrders...{this.props.selected_userID}</div>
-        <MyOrders 
+        <MyCurrencyOrders 
           userID_toQueryWith={this.props.selected_userID}
         />
       </React.Fragment>

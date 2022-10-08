@@ -1,6 +1,6 @@
 // When required for the first time runs the entire script, then subsequent times only retrieces the Model
-const BuyCryptoOrder = require('../../models/home-orders-models/BuyCryptoOrder')
-const SellCryptoOrder = require('../../models/home-orders-models/SellCryptoOrder')
+const BuyCryptoOrder = require('../../models/home-currencyorders-models/BuyCryptoOrder')
+const SellCryptoOrder = require('../../models/home-currencyorders-models/SellCryptoOrder')
 const httpStatus = require("http-status-codes")
 
 module.exports = {

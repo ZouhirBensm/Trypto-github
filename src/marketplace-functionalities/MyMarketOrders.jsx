@@ -1,12 +1,8 @@
 // import React from 'react';
-// import './styles/MyOrders.css'
+// import './styles/MyCurrencyOrders.css'
 
 import '../style/reactDivMobile.css'
-// import '../btclayerexchange-functionalities/styles/MyOrders.css'
-
-
-// import OrderTable from './OrderTable';
-// import OrderTable from '../btclayerexchange-functionalities/OrderTable';
+// import '../btclayerexchange-functionalities/styles/MyCurrencyOrders.css'
 import MarketOrderTable from './MarketOrderTable';
 
 // import PageSelector from './PageSelector';

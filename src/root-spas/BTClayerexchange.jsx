@@ -3,10 +3,10 @@
 // import ReactDOM from 'react-dom'
 // import MakeBuy from './btclayerexchange-functionalities/MakeBuy';
 // import MakeSell from './btclayerexchange-functionalities/MakeSell';
-// import Orders from './btclayerexchange-functionalities/Orders';
-// import MyOrders from './btclayerexchange-functionalities/MyOrders';
+// import CurrencyOrders from './btclayerexchange-functionalities/CurrencyOrders';
+// import MyCurrencyOrders from './btclayerexchange-functionalities/MyCurrencyOrders';
 // import Navigation from './btclayerexchange-functionalities/Navigation';
-// import Matches from './btclayerexchange-functionalities/Matches';
+// import CurrencyOrderMatches from './btclayerexchange-functionalities/CurrencyOrderMatches';
 
 
 import loadable from "@loadable/component";
@@ -18,16 +18,16 @@ const MakeCurrencyOrder = loadable(() => import("../btclayerexchange-functionali
   fallback: <Loading/>
 });
 
-const Orders = loadable(() => import("../btclayerexchange-functionalities/Orders"),{
+const CurrencyOrders = loadable(() => import("../btclayerexchange-functionalities/CurrencyOrders"),{
   fallback: <Loading/>
 });
-const MyOrders = loadable(() => import("../btclayerexchange-functionalities/MyOrders"),{
+const MyCurrencyOrders = loadable(() => import("../btclayerexchange-functionalities/MyCurrencyOrders"),{
   fallback: <Loading/>
 });
 const Navigation = loadable(() => import("../btclayerexchange-functionalities/Navigation"),{
   fallback: <Loading/>
 });
-const Matches = loadable(() => import("../btclayerexchange-functionalities/Matches"),{
+const CurrencyOrderMatches = loadable(() => import("../btclayerexchange-functionalities/CurrencyOrderMatches"),{
   fallback: <Loading/>
 });
 
@@ -56,10 +56,10 @@ class BTClayerexchange extends React.Component {
             <Route exact path="/btclayerexchange/makesell" component={MakeCurrencyOrder} />
 
             <Route exact path="/btclayerexchange/allmyorders" render={
-              (props) => <MyOrders {...props} userID_toQueryWith={userId}/>
+              (props) => <MyCurrencyOrders {...props} userID_toQueryWith={userId}/>
             } />
-            <Route exact path="/btclayerexchange/matches" component={Matches} />
-            <Route path="/btclayerexchange/:order_type" component={Orders} />
+            <Route exact path="/btclayerexchange/matches" component={CurrencyOrderMatches} />
+            <Route path="/btclayerexchange/:order_type" component={CurrencyOrders} />
           </Switch>     
         </BrowserRouter> 
         </div>

@@ -1,5 +1,5 @@
 // import React from 'react';
-class OrderTable extends React.Component {
+class CurrencyOrderTable extends React.Component {
 
   constructor(props){
     super(props)
@@ -314,4 +314,4 @@ function TheSelectPayment(props){
  )
 }
 
-export default OrderTable
+export default CurrencyOrderTable

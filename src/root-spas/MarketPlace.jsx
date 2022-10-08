@@ -3,10 +3,10 @@
 // import ReactDOM from 'react-dom'
 // import MakeBuy from './btclayerexchange-functionalities/MakeBuy';
 // import MakeSell from './btclayerexchange-functionalities/MakeSell';
-// import Orders from './btclayerexchange-functionalities/Orders';
-// import MyOrders from './btclayerexchange-functionalities/MyOrders';
+// import CurrencyOrders from './btclayerexchange-functionalities/CurrencyOrders';
+// import MyCurrencyOrders from './btclayerexchange-functionalities/MyCurrencyOrders';
 // import Navigation from './btclayerexchange-functionalities/Navigation';
-// import Matches from './btclayerexchange-functionalities/Matches';
+// import CurrencyOrderMatches from './btclayerexchange-functionalities/CurrencyOrderMatches';
 
 // TODO refactor component names and endpoint names for market place
 import loadable from "@loadable/component";

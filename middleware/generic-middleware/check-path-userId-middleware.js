@@ -1,7 +1,7 @@
 
 
 const {DeleteAccountProcessError} = require('../../custom-errors/custom-errors')
-const BuyCryptoOrder = require('../../models/home-orders-models/BuyCryptoOrder');
+const BuyCryptoOrder = require('../../models/home-currencyorders-models/BuyCryptoOrder');
 
 
 module.exports = (req,res,next)=>{

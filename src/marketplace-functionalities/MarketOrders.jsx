@@ -1,10 +1,5 @@
 
-// import './styles/Orders.css'
-// import '../btclayerexchange-functionalities/styles/Orders.css'
 import '../style/reactDivMobile.css'
-// import OrderTable from './OrderTable';
-
-// import OrderTable from '../btclayerexchange-functionalities/OrderTable';
 import MarketOrderTable from './MarketOrderTable';
 
 // import PageSelector from '../generic-components/PageSelector';

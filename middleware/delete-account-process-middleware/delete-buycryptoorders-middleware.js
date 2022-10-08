@@ -1,4 +1,4 @@
-const BuyCryptoOrder = require('../../models/home-orders-models/BuyCryptoOrder');
+const BuyCryptoOrder = require('../../models/home-currencyorders-models/BuyCryptoOrder');
 
 
 module.exports = async (req,res,next)=>{

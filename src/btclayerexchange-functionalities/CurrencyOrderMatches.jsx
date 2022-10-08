@@ -1,12 +1,8 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom'
-import './styles/MyOrders.css'
-import OrderTable from './OrderTable';
-// import PageSelector from './PageSelector';
+import './styles/MyCurrencyOrders.css'
+import CurrencyOrderTable from './CurrencyOrderTable';
 import PageSelector from '../generic-components/PageSelector';
-// import axios from 'axios';
 
-class Matches extends React.Component {
+class CurrencyOrderMatches extends React.Component {
   constructor(){
     super()
     this.state = {
@@ -107,7 +103,7 @@ class Matches extends React.Component {
           <label><input type="radio" id="matchessell" name="radio" value='buyordersdata' onClick={this.handleToogleFound}/>Buy orders that match my sells</label> 
         </form>
 
-        <OrderTable 
+        <CurrencyOrderTable 
         selected_userID = {this.userId}
         order_type={this.state.orderstype} 
         orders={this.state.orders}
@@ -132,4 +128,4 @@ class Matches extends React.Component {
 
 // ReactDOM.render(element, document.getElementById('react-div'));
 
-export default Matches
+export default CurrencyOrderMatches

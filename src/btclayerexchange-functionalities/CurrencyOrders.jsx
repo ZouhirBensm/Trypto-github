@@ -1,11 +1,11 @@
 // import React from 'react';
-import './styles/Orders.css'
-import OrderTable from './OrderTable';
+import './styles/CurrencyOrders.css'
+import CurrencyOrderTable from './CurrencyOrderTable';
 // import PageSelector from './PageSelector';
 import PageSelector from '../generic-components/PageSelector';
 import SearchEngine from './SearchEngine';
 
-class Orders extends React.Component {
+class CurrencyOrders extends React.Component {
   constructor(props){
     super(props)
     this.state = {
@@ -122,7 +122,7 @@ class Orders extends React.Component {
         searchTerm={this.state.searchTerm} handleSubmit={this.handleSubmit} handleChange={this.handleChange}
         />
         <div className='wrapper'>
-        <OrderTable 
+        <CurrencyOrderTable 
         selected_userID = {this.userId}
         buttons='normal' 
         order_type={this.props.match.params.order_type} 
@@ -144,4 +144,4 @@ class Orders extends React.Component {
   }
 }
 
-export default Orders
+export default CurrencyOrders
