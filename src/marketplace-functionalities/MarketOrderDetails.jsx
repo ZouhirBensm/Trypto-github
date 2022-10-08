@@ -18,6 +18,7 @@ class MarketOrderDetails extends React.Component {
     this.handleToogleEdit = this.handleToogleEdit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.EditOrder = this.EditOrder.bind(this)
+    this.deal = this.deal.bind(this)
 
     // console.log("UID????----->>>>>", userId)
     // console.log("OID????", this.props.match.params.orderID)
@@ -415,8 +416,25 @@ class MarketOrderDetails extends React.Component {
           <button onClick={(e) => this.DeleteClick(_order._id, e)}>Delete</button>
         </td>
       </tr>)
+    } else {
+      rows.push(<tr key={789}>
+        <td>Deal</td>
+        <td>
+          <button onClick={(e) => this.deal(_order, e)}>Deal</button>
+        </td>
+      </tr>)
     }
     return rows
+  }
+
+  deal(order, e){
+    e.preventDefault()
+
+    console.log(order)
+
+    console.log(`/messaging?orderId=${order._id}&userIdB=${order.userid._id}`)
+
+    window.location.href = `/messaging?orderId=${order._id}&userIdB=${order.userid._id}`
   }
 
 
@@ -452,7 +470,7 @@ class MarketOrderDetails extends React.Component {
           break;
         case "sellmarketorderlocationID":
           console.log("order.location: ", Object.keys(_order[property].location), _order[property].location['st'])
-          
+
           for (const [index, iterator] of Object.keys(_order[property].location).entries()) {
             console.log(iterator, index)
             rows.push(<tr key={`Location-key-${index}`}>
