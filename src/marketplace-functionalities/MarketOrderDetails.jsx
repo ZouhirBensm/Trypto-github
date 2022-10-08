@@ -629,7 +629,10 @@ class MarketOrderDetails extends React.Component {
           <button onClick={async (e) => {
             let Edit_return_str = await this.EditOrder(_order, e);
             console.log("Edit_return_str", Edit_return_str);
-            this.displayPopUp(Edit_return_str)
+            let ReactDiv = document.getElementById("react-div")
+            console.log("wrapper", ReactDiv)
+            this.displayPopUp(Edit_return_str);
+            ReactDiv.scrollTo(0, 0);
           }}>Save</button>
         </td>
       </tr>)

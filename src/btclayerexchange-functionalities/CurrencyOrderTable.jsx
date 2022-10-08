@@ -67,7 +67,6 @@ class CurrencyOrderTable extends React.Component {
   }
 }
 
-// TODO fix ability to edit orders and successfully giving them expiry date before today
 class OrderRow extends React.Component {
   constructor(props){
     super(props)

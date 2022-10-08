@@ -1,6 +1,5 @@
 // import React from 'react';
-// TODO Make styles need to be put in a common folder
-import '../btclayerexchange-functionalities/styles/MakeCurrencyOrder.css'
+import '../style/MakeCurrencyOrder.css'
 import LocationSelector from './LocationSelector'
 import {utils} from '../../full-stack-libs/utils.address'
 import {validateInputs_marketOrderBasicData, validateInputs_marketOrderTradeLocationSpecifics} from '../../full-stack-libs/validations'
@@ -8,23 +7,12 @@ import {validateInputs_marketOrderBasicData, validateInputs_marketOrderTradeLoca
 
 
 import Geocode from "react-geocode";
-// TODO put the API key in a environment variable, this is the same in a development and remote environment for the moment, might change to have their own API keys
+// API key in a environment variable, in Staging and Dev they are the same, in Prod it is different
 // console.log("console_cloud_google_api_key", process.env.console_cloud_google_api_key)
 Geocode.setApiKey(process.env.console_cloud_google_api_key);
 Geocode.enableDebug();
 
 
-//Legend:
-// pk: packaged
-// ob: object
-// mOr: market order
-// 4ft: for fetch
-// 2sd: to send
-
-
-
-
-// TODO refactor naming in this component
 
 
 
