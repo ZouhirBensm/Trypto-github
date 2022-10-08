@@ -175,8 +175,6 @@ class OrderRow extends React.Component {
 
     // console.log(`row ${this.props.keyy} executing: `, order)
 
-
-    // TODO not needed
     let display_normal = [];
     let display_editing = [];
 
@@ -190,7 +188,7 @@ class OrderRow extends React.Component {
 
 
 
-    // TODO not needed
+    
     if (this.props.order_type == "sellordersdata") {
 
       // wantsTO = "wants to sell"

@@ -1,10 +1,9 @@
 import React from 'react'
 import '../style/reactDivMobile.css'
 
-import {validateInputs_pkobmOr_basicData} from '../../full-stack-libs/validations'
+import { validateInputs_pkobmOr_basicData } from '../../full-stack-libs/validations'
 
-// TODO add location to the entries as a field, think of integrating google maps
-// Fix to ordersapp to be bitcoin focused like the market
+// TODO Fix to ordersapp to be bitcoin focused like the market
 
 class MarketOrderDetails extends React.Component {
   constructor(props) {
@@ -60,19 +59,19 @@ class MarketOrderDetails extends React.Component {
 
     if (isNotEdited) return first_msg_if_any
 
-    
 
 
-    
+
+
     let error_msg_retrieved_if_any
     error_msg_retrieved_if_any = validateInputs_pkobmOr_basicData(pkobmOr_4ft2sd, error_msg_retrieved_if_any)
-    
+
     console.log("error_msg_retrieved_if_any", error_msg_retrieved_if_any)
-    
+
     if (error_msg_retrieved_if_any) return error_msg_retrieved_if_any
-    
+
     console.log("Edit request!!!!")
-    
+
 
 
     console.log(
@@ -95,16 +94,16 @@ class MarketOrderDetails extends React.Component {
     console.log("api ress: ", response);
 
 
-    
+
     if (response.status === 200) {
-      
+
       const payload = await response.json()
       console.log("payload: ", payload)
-      
+
       this.handleToogleEdit()
       // window.location.href = `/?popup=${payload.srv_}`;
       return payload.srv_
-      
+
     } else {
       return "Server failed to edit/update for some reason!"
     }
@@ -271,7 +270,7 @@ class MarketOrderDetails extends React.Component {
   }
 
 
-  async DeleteClick(_orderID, e){
+  async DeleteClick(_orderID, e) {
     e.preventDefault()
 
     console.log("------------------->>>>>>", userId)
@@ -291,13 +290,12 @@ class MarketOrderDetails extends React.Component {
     let srv_ = await response.json()
     console.log(srv_)
 
-    if(response.ok){
+    if (response.ok) {
 
       window.location.href = `/marketplace/${this.props.match.params.order_type}?popup=${srv_.srv_}`
 
     } else {
 
-      // TODO make a generic name out of this function
       this.displayPopUp(srv_.error.message)
       // console.error("deletion failed!")
     }
@@ -351,16 +349,49 @@ class MarketOrderDetails extends React.Component {
       switch (property) {
         case "_id":
         case "__v":
-        case "sellmarketorderlocationID":
         case "expireAt":
           break;
+        case "sellmarketorderlocationID":
+          console.log("order.location: ", Object.keys(_order[property].location), _order[property].location['st'])
+          for (const [index, iterator] of Object.keys(_order[property].location).entries()) {
+            console.log(iterator, index)
+            rows.push(<tr key={`Location-key-${index}`}>
+              <td>{iterator}</td>
+              <td>{ _order[property].location[iterator]}</td>
+            </tr>)
+          }
+
+          // rows.push(<tr key={99}>
+          //   <td>{Object.keys(_order[property])[0]}</td>
+          //   <td>{_order[property].st}</td>
+          // </tr>,
+          //   <tr key={98}>
+          //     <td>{Object.keys(_order[property])[1]}</td>
+          //     <td>{_order[property].neigh}</td>
+          //   </tr>,
+          //   <tr key={97}>
+          //     <td>{Object.keys(_order[property])[2]}</td>
+          //     <td>{_order[property].province_state}</td>
+          //   </tr>,
+          //   <tr key={96}>
+          //     <td>{Object.keys(_order[property])[3]}</td>
+          //     <td>{_order[property].city}</td>
+          //   </tr>,
+          //   <tr key={95}>
+          //     <td>{Object.keys(_order[property])[4]}</td>
+          //     <td>{_order[property].country}</td>
+          //   </tr>
+          // )
+          break
         case "userid":
+          console.log(i)
           rows.push(<tr key={i}>
             <td>{Object.keys(_order[property])[1]}</td>
             <td>{_order[property].email}</td>
           </tr>)
           break;
         default:
+          console.log(i)
           rows.push(<tr key={i}>
             <td>{property}</td>
             <td>{_order[property]}</td>
@@ -417,16 +448,28 @@ class MarketOrderDetails extends React.Component {
       switch (property) {
         case "_id":
         case "__v":
-        case "sellmarketorderlocationID":
         case "expireAt":
           break;
+        case "sellmarketorderlocationID":
+          console.log("order.location: ", Object.keys(_order[property].location), _order[property].location['st'])
+          
+          for (const [index, iterator] of Object.keys(_order[property].location).entries()) {
+            console.log(iterator, index)
+            rows.push(<tr key={`Location-key-${index}`}>
+              <td>{iterator}</td>
+              <td>{ _order[property].location[iterator]}</td>
+            </tr>)
+          }
+          break;
         case "userid":
+          console.log(i)
           rows.push(<tr key={i}>
             <td>{Object.keys(_order[property])[1]}</td>
             <td>{_order[property].email}</td>
           </tr>)
           break;
         case "title":
+          console.log(i)
           rows.push(<tr key={i}>
             <td>
               <label htmlFor="title-select">{property}</label>
@@ -440,6 +483,7 @@ class MarketOrderDetails extends React.Component {
 
           break;
         case "category":
+          console.log(i)
           rows.push(<tr key={i}>
             <td>
               <label htmlFor="category-select">{property}</label>
@@ -452,7 +496,7 @@ class MarketOrderDetails extends React.Component {
           </tr>)
           break;
         case "price":
-
+          console.log(i)
           rows.push(<tr key={i}>
             <td>
               <label htmlFor="price-select">{property}</label>
@@ -470,6 +514,7 @@ class MarketOrderDetails extends React.Component {
 
 
         case "conversion":
+          console.log(i)
           rows.push(<tr key={i}>
             <td>
               <label htmlFor="conversion-select">{property}</label>
@@ -482,7 +527,7 @@ class MarketOrderDetails extends React.Component {
           </tr>)
           break;
         case "payment":
-
+          console.log(i)
           rows.push(<tr key={i}>
             <td>
               <label htmlFor="payment-select">{property}</label>
@@ -497,7 +542,8 @@ class MarketOrderDetails extends React.Component {
 
           break;
         case "chain":
-          <label htmlFor="crypto-select">Chain Network</label>
+          console.log(i)
+          // <label htmlFor="crypto-select">Chain Network</label>
           rows.push(<tr key={i}>
             <td>
               <label htmlFor="crypto-select">{property}</label>
@@ -514,6 +560,7 @@ class MarketOrderDetails extends React.Component {
 
 
         case "expirytime":
+          console.log(i)
           rows.push(<tr key={i}>
             <td>
               <label htmlFor="expirytime-select">{property}</label>
@@ -526,6 +573,7 @@ class MarketOrderDetails extends React.Component {
           </tr>)
           break;
         case "expirydate":
+          console.log(i)
           rows.push(<tr key={i}>
             <td>
               <label htmlFor="expirydate-select">{property}</label>
@@ -539,6 +587,7 @@ class MarketOrderDetails extends React.Component {
           break;
 
         default:
+          console.log(i)
           rows.push(<tr key={i}>
             <td>{property}</td>
             <td>{_order[property]}</td>
@@ -563,7 +612,7 @@ class MarketOrderDetails extends React.Component {
             let Edit_return_str = await this.EditOrder(_order, e);
             console.log("Edit_return_str", Edit_return_str);
             this.displayPopUp(Edit_return_str)
-            }}>Save</button>
+          }}>Save</button>
         </td>
       </tr>)
     }
@@ -572,7 +621,7 @@ class MarketOrderDetails extends React.Component {
 
   }
 
-  displayPopUp(_Edit_return_str){
+  displayPopUp(_Edit_return_str) {
     console.log("ARE WE GOOD!")
 
     const wrapper = document.getElementsByClassName("wrapper")[0]
@@ -581,9 +630,9 @@ class MarketOrderDetails extends React.Component {
 
     let div = document.getElementById("popup");
 
-    
+
     div.style.display = "block"
-    
+
     console.log(!(div.innerHTML))
 
     if (!(div.innerHTML)) {
@@ -595,7 +644,7 @@ class MarketOrderDetails extends React.Component {
 
 
   }
-  
+
 
 
 

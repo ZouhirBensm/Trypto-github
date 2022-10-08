@@ -239,15 +239,25 @@ module.exports = {
         // Fields allowed to populate with
         select: "_id email",
       })
+      .populate({
+        // Populate protagonists
+        path: "sellmarketorderlocationID",
+        // Fields allowed to populate with
+        select: "location.st location.neigh location.province_state location.city location.country -_id",
+      })
+
     } catch (e) {
       let error = new MongoError(`No order found by that ID: ${e.message}`)
       return next(error)
     }
 
 
+
     console.log("---------->>>>", order)
 
     console.log("Found!!!!")
+
+
     res.status(200).json(order)
 
   }

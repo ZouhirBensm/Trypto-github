@@ -32,7 +32,7 @@ class MarketOrders extends React.Component {
   }
 
 
-  // TODO NEEDED for Rearch engine
+  // TODO NEEDED for Search engine
   // handleSubmit(e){
   //   e.preventDefault()
   //   this.setState({
@@ -54,7 +54,7 @@ class MarketOrders extends React.Component {
   //   }
   // }
 
-  // TODO NEEDED for Rearch engine
+  // TODO NEEDED for Search engine
   // handleChange(e){
   //   this.setState({
   //     searchTerm: e.target.value
