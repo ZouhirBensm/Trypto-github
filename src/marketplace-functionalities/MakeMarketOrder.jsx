@@ -372,7 +372,7 @@ class MakeMarketOrder extends React.Component {
     }
 
 // TODO add image upload, and operations U,D, and account delete associated images capabilities
-// TODO optimize ordersapp to be satochi centric, and ressemble the market app
+// TODO optimize ordersapp to be satoshi centric, and ressemble the market app
 
   }
 
