@@ -8,7 +8,7 @@ class CRUDMessages extends React.Component {
     this.state = {
       msg_stream: [],
       page: 1,
-      limit: 2, //Limit per page defined here!
+      limit: 5, //Limit per page defined here!
       nextPage: 2,
       previousPage: undefined,
       on_off_limit_next: false,
@@ -25,22 +25,22 @@ class CRUDMessages extends React.Component {
 
     this.comprehensiveUserInfoDataObj = JSON.parse(comprehensiveUserInfoDataJSON)
 
-    console.log(this.comprehensiveUserInfoDataObj, this.userIdB, this.props)
+    // console.log(this.comprehensiveUserInfoDataObj, this.userIdB, this.props)
   }
 
   displayDeleteMsg(){
-    console.log("ARE WE GOOD!")
+    // console.log("ARE WE GOOD!")
     const reactDiv = document.getElementById("react-div")
-    console.log(reactDiv)
+    // console.log(reactDiv)
 
     let div = document.getElementById("popup");
     
-    console.log(!!(div.innerHTML))
+    // console.log(!!(div.innerHTML))
     if (!!(div.innerHTML)) {
-      console.log("div is filled")
+      // console.log("div is filled")
       div.innerHTML = "Deletion successful!"
     } else {
-      console.log("div is empty")
+      // console.log("div is empty")
       div.style.display = "block"
       div.innerHTML = "Deletion successful!"
       reactDiv.insertBefore(div, reactDiv.firstChild);
@@ -62,7 +62,7 @@ class CRUDMessages extends React.Component {
 
   async deleteAMessage(msg, e){
     e.preventDefault()
-    console.log(e)
+    // console.log(e)
     // console.log("delete", msg)
 
     const response = await fetch(`/operations/deletions/message/${this.props.msg.sender._id}/${this.props.msg.receiver._id}/${this.props.msg._id}`, {
@@ -71,37 +71,39 @@ class CRUDMessages extends React.Component {
 
     let serverOBJ = await response.json()
 
-    console.log(response)
-    console.log(serverOBJ)
+    // console.log(response)
+    // console.log(serverOBJ)
   }
 
   async handleClick(msg, e){
+    e.preventDefault()
+    // console.log("click!!!!", msg)
     // console.log(e)
 
-    const response = await fetch(`/operations/deletions/message/${msg.sender._id}/${msg.receiver._id}/${msg._id}`, {
-      method: 'DELETE',
-    })
+    // const response = await fetch(`/operations/deletions/message/${msg.sender._id}/${msg.receiver._id}/${msg._id}`, {
+    //   method: 'DELETE',
+    // })
 
-    let serverOBJ = await response.json()
+    // let serverOBJ = await response.json()
     
-    if(response.ok){
-      // let OBJserv_ = await response.json()
-      console.log("deletion success", serverOBJ)
+    // if(response.ok){
+    //   // let OBJserv_ = await response.json()
+    //   console.log("deletion success", serverOBJ)
 
-      let elements_left_in_page = document.getElementsByClassName("a-single-msg-wrapper")
-      if(this.state.on_off_limit_next && elements_left_in_page.length === 1 && this.state.number_of_pages != 1){
-        this.handleDelete(true)
-      } else {
-        this.handleDelete()
-      }
-    } else {
-      console.error("deletion failed!", serverOBJ)
-    }
+    //   let elements_left_in_page = document.getElementsByClassName("a-single-msg-wrapper")
+    //   if(this.state.on_off_limit_next && elements_left_in_page.length === 1 && this.state.number_of_pages != 1){
+    //     this.handleDelete(true)
+    //   } else {
+    //     this.handleDelete()
+    //   }
+    // } else {
+    //   console.error("deletion failed!", serverOBJ)
+    // }
 
   }
 
   handleDelete(_signal = false){
-    console.log(_signal);
+    // console.log(_signal);
 
     let number
     (!_signal)? number = 0: number = 1
@@ -112,22 +114,22 @@ class CRUDMessages extends React.Component {
   }
 
   async loadData_andDisplayDltMsg(){
-    console.log("add the delete successful message!")
+    // console.log("add the delete successful message!")
     this.displayDeleteMsg()
     this.loadData();
   }
 
   async loadData(){
-    console.log(this.props.match.params.userId)
+    // console.log(this.props.match.params.userId)
     let response = await fetch(`/operations/paginated-messages/${this.props.match.params.userId}?page=${this.state.page}&limit=${this.state.limit}&userIdB=${this.userIdB}`)
 
-    console.log(response)
+    // console.log(response)
 
     let serverOBJ = await response.json()
 
     if(response.ok){
 
-      console.log("serverOBJ: ", serverOBJ)
+      // console.log("serverOBJ: ", serverOBJ)
 
       this.setState({
         msg_stream: serverOBJ.srv_.CONVOS,
@@ -162,7 +164,7 @@ class CRUDMessages extends React.Component {
   }
 
   render(){
-
+    console.log("parent render: ", this.state.msg_stream)
     return (
       <React.Fragment>
         <div >CRUDMessages...</div>
@@ -173,6 +175,8 @@ class CRUDMessages extends React.Component {
           msg_stream={this.state.msg_stream}
           handleClick={this.handleClick}
         />
+
+
         <PageSelector
           number_of_pages={this.state.number_of_pages} 
           page={this.state.page} 

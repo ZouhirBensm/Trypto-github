@@ -45,8 +45,7 @@ class Operations extends React.Component {
     super(props)
     this.state = {
     }
-    console.log(`you are in: ${window.location.href}`)
-    console.log()
+    // console.log(`you are in: ${window.location.href}`)
 
   }
 

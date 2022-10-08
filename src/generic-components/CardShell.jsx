@@ -6,11 +6,15 @@ class CardShell extends React.Component {
     super(props)
     this.state = {
     }
-    // this.buildMainCardChilden()
-    // console.log("props", props)
+
     this.initCardHTML()
     this.collapsableSetup()
+    // console.log(this.props)
   }
+
+
+
+  
   
   initCardHTML(){
     this.buildSqueleton()
@@ -23,6 +27,7 @@ class CardShell extends React.Component {
     if (this.props.colapsable) {
       let TitleCard = document.getElementsByClassName("title-card")[this.props.position]
       let Section = document.getElementsByClassName("section")[this.props.position]
+      
       TitleCard.onclick = function() {
         if (Section.style.display === "none") {
           Section.style.display = "block";

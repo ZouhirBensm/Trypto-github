@@ -12,7 +12,7 @@ class PageSelector extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.paginatorSetter = this.paginatorSetter.bind(this);
     //this.handleClick = this.handleChange.bind(this);
-    console.log("props", props)
+    // console.log("props", props)
     this.numbered_list = this.paginatorSetter(props)
   }
 

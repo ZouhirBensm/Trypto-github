@@ -11,7 +11,7 @@ class UserSelect extends React.Component {
     this.state = {
       users: [],
       page: 1,
-      limit: 1, //Limit per page defined here!
+      limit: 3, //Limit per page defined here!
       nextPage: 2,
       previousPage: undefined,
       on_off_limit_next: false,
@@ -39,11 +39,11 @@ class UserSelect extends React.Component {
 
     let serverOBJ = await response.json()
 
-    console.log(serverOBJ)
+    // console.log(serverOBJ)
 
     if (response.ok) {
 
-      console.log("serverOBJ: ", serverOBJ)
+      // console.log("serverOBJ: ", serverOBJ)
 
       this.setState({
         users: serverOBJ.srv_.USERS,
@@ -78,7 +78,7 @@ class UserSelect extends React.Component {
   }
 
   render() {
-    console.log("BEFORE", this.state.users)
+    // console.log("BEFORE", this.state.users)
     return (
 
       <React.Fragment>

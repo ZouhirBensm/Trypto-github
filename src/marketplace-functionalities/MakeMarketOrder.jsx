@@ -7,7 +7,6 @@ import {validateInputs_pkobmOr_basicData, validateInputs_pkobmOr_LocationData} f
 
 
 // TODO add locality to market orders single pages
-// TODO Put msg in operations in a card component
 // TODO add deal in a single market oprder page
 
 import Geocode from "react-geocode";
@@ -28,7 +27,6 @@ Geocode.enableDebug();
 
 
 // TODO refactor naming in this component
-// TODO add geometry fields google maps
 
 
 

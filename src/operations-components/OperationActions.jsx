@@ -10,15 +10,15 @@ class OperationActions extends React.Component {
     this.state = {
       mode: this.props.match.params.mode
     }
-    console.log("THIS FUCKIN UID BEETTER", user)
+    // console.log("THIS FUCKIN UID BEETTER", user)
     const comprehensiveSelectedUserInfoDataJSON = queryParams.get("comprehensiveSelectedUserInfo")
     this.comprehensiveSelectedUserInfoDataObj = JSON.parse(comprehensiveSelectedUserInfoDataJSON)
-    console.log("did we get what we need bazzoka: ", this.comprehensiveSelectedUserInfoDataObj)
+    // console.log("did we get what we need bazzoka: ", this.comprehensiveSelectedUserInfoDataObj)
 
     this.componentToRender
     this.setupTheProperComponent = this.setupTheProperComponent.bind(this)
     this.setupTheProperComponent()
-    console.log("props in OperationActions: ", this.props)
+    // console.log("props in OperationActions: ", this.props)
   }
 
   setupTheProperComponent(){
