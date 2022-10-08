@@ -3,11 +3,9 @@
 import '../btclayerexchange-functionalities/styles/MakeCurrencyOrder.css'
 import LocationSelector from './LocationSelector'
 import {utils} from '../../full-stack-libs/utils.address'
-import {validateInputs_pkobmOr_basicData, validateInputs_pkobmOr_LocationData} from '../../full-stack-libs/validations'
+import {validateInputs_marketOrderBasicData, validateInputs_marketOrderTradeLocationSpecifics} from '../../full-stack-libs/validations'
 
 
-// TODO add locality to market orders single pages
-// TODO add deal in a single market oprder page
 
 import Geocode from "react-geocode";
 // TODO put the API key in a environment variable, this is the same in a development and remote environment for the moment, might change to have their own API keys
@@ -220,17 +218,22 @@ class MakeMarketOrder extends React.Component {
 
   }
 
-  validateInputs(_pkobmOr_basicData, _pkobmOr_LocationData) {
-    // console.log("validating inputs", _pkobmOr_basicData)
+  validateInputs(_marketOrderBasicData, _marketOrderTradeLocationSpecifics) {
+    // console.log("validating inputs", _marketOrderBasicData)
 
     let error_msg_retrieved_if_any
-    error_msg_retrieved_if_any = validateInputs_pkobmOr_basicData(_pkobmOr_basicData, error_msg_retrieved_if_any)
-    error_msg_retrieved_if_any = validateInputs_pkobmOr_LocationData(_pkobmOr_LocationData, error_msg_retrieved_if_any)
+    error_msg_retrieved_if_any = validateInputs_marketOrderBasicData(_marketOrderBasicData, error_msg_retrieved_if_any)
+    error_msg_retrieved_if_any = validateInputs_marketOrderTradeLocationSpecifics(_marketOrderTradeLocationSpecifics, error_msg_retrieved_if_any)
 
 
     if (error_msg_retrieved_if_any) {
       this.setState({
         popup_state: error_msg_retrieved_if_any
+      }, ()=>{
+        console.log("scroll down")
+        let container = document.getElementsByClassName("make-container")[0]
+        console.log('container', container)
+        container.scrollTo(0, container.scrollHeight);
       })
     } else { return true }
 
@@ -238,23 +241,23 @@ class MakeMarketOrder extends React.Component {
 
 
 
-  // validateInputs(_pkobmOr_basicData, _pkobmOr_LocationData) {
-  //   // console.log("validating inputs", _pkobmOr_basicData)
+  // validateInputs(_marketOrderBasicData, _marketOrderTradeLocationSpecifics) {
+  //   // console.log("validating inputs", _marketOrderBasicData)
 
   //   let error
   //   const preventInjectionsRegEx = /[<>;}{\&]/;
 
-  //   for (const property in _pkobmOr_basicData) {
-  //     // console.log(`${property}: ${_pkobmOr_basicData[property]}`);
+  //   for (const property in _marketOrderBasicData) {
+  //     // console.log(`${property}: ${_marketOrderBasicData[property]}`);
 
-  //     if (_pkobmOr_basicData[property] == '' || preventInjectionsRegEx.test(_pkobmOr_basicData[property])) {
+  //     if (_marketOrderBasicData[property] == '' || preventInjectionsRegEx.test(_marketOrderBasicData[property])) {
   //       error = `This field: ${property}, inputed value is not proper. Please modify`
   //       break
   //     }
 
   //   }
 
-  //   let expireAt = new Date(_pkobmOr_basicData.expirydate.slice(0, 4), _pkobmOr_basicData.expirydate.slice(5, 7) - 1, _pkobmOr_basicData.expirydate.slice(8, 10), _pkobmOr_basicData.expirytime.slice(0, 2), _pkobmOr_basicData.expirytime.slice(3, 5))
+  //   let expireAt = new Date(_marketOrderBasicData.expirydate.slice(0, 4), _marketOrderBasicData.expirydate.slice(5, 7) - 1, _marketOrderBasicData.expirydate.slice(8, 10), _marketOrderBasicData.expirytime.slice(0, 2), _marketOrderBasicData.expirytime.slice(3, 5))
 
 
 
@@ -264,7 +267,7 @@ class MakeMarketOrder extends React.Component {
 
   //   const isUndefined = (currentValue) => currentValue == undefined;
 
-  //   if (Object.values(_pkobmOr_LocationData.geometry).every(isUndefined) && !error) {
+  //   if (Object.values(_marketOrderTradeLocationSpecifics.geometry).every(isUndefined) && !error) {
   //     error = `Please, pick a geometry before submitting an order.`
   //   }
 
@@ -294,7 +297,7 @@ class MakeMarketOrder extends React.Component {
 
 
 
-    let pkobmOr_basicData = {
+    let marketOrderBasicData = {
       title: document.getElementById("form_id").elements["title"].value,
       category: document.getElementById("form_id").elements["category"].value,
       price: document.getElementById("form_id").elements["price"].value,
@@ -307,23 +310,20 @@ class MakeMarketOrder extends React.Component {
       chain: _denomination,
     }
 
-    let pkobmOr_LocationData = {
+    let marketOrderTradeLocationSpecifics = {
       geometry: this.state.geometry,
       location: this.state.location
     }
 
-    // TODO refactor names: 1: MarketOrderBasicData, 2: OrderTradeLocationSpecifics for example
-    // console.log(pkobmOr_basicData, pkobmOr_LocationData)
 
 
 
-
-    let validated = this.validateInputs(pkobmOr_basicData, pkobmOr_LocationData)
+    let validated = this.validateInputs(marketOrderBasicData, marketOrderTradeLocationSpecifics)
     if (!validated) return
 
     let pk_4ft_2sd_body = {
-      pkobmOr_basicData,
-      pkobmOr_LocationData
+      marketOrderBasicData,
+      marketOrderTradeLocationSpecifics
     }
 
     console.log(pk_4ft_2sd_body)
@@ -345,28 +345,44 @@ class MakeMarketOrder extends React.Component {
         // console.log(200)
         this.setState({
           popup_state: "You have successfully made an order"
+        }, ()=>{
+          console.log("scroll down")
+          let container = document.getElementsByClassName("make-container")[0]
+          container.scrollTo(0, container.scrollHeight);
         })
         break;
       case 400:
         // console.log(400)
         this.setState({
           popup_state: "Not saved, because date expiry before now, or create location failed. A website maintainer is looking into the mater."
+        }, ()=>{
+          console.log("scroll down")
+          let container = document.getElementsByClassName("make-container")[0]
+          container.scrollTo(0, container.scrollHeight);
         })
         break;
       case 500:
         // console.log(500)
         this.setState({
           popup_state: "An issue has occured, please try again later. A website maintainer is looking into the mater."
+        }, ()=>{
+          console.log("scroll down")
+          let container = document.getElementsByClassName("make-container")[0]
+          container.scrollTo(0, container.scrollHeight);
         })
         break;
 
       default:
         this.setState({
           popup_state: "Server did not respond as expected. A error was probably thrown on the server. Please have a look!"
+        }, ()=>{
+          console.log("scroll down")
+          let container = document.getElementsByClassName("make-container")[0]
+          container.scrollTo(0, container.scrollHeight);
         })
         break;
     }
-// TODO scroll down after submission to see pop up
+
 // TODO add image upload, and operations U,D, and account delete associated images capabilities
 // TODO optimize ordersapp to be satochi centric, and ressemble the market app
 

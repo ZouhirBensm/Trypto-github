@@ -148,15 +148,15 @@ module.exports = {
     console.log(req.body)
 
 
-    let body_mOR_basic_data = req.body.pkobmOr_basicData
-    let body_mOR_location_data = req.body.pkobmOr_LocationData
+    let body_marketOR_basic_data = req.body.marketOrderBasicData
+    let body_marketOR_location_data = req.body.marketOrderTradeLocationSpecifics
 
 
-    console.log("\n\expirydate:\n", body_mOR_basic_data.expirydate)
+    console.log("\n\expirydate:\n", body_marketOR_basic_data.expirydate)
 
-    body_mOR_basic_data.expireAt = new Date(body_mOR_basic_data.expirydate.slice(0,4), body_mOR_basic_data.expirydate.slice(5,7)-1, body_mOR_basic_data.expirydate.slice(8,10), body_mOR_basic_data.expirytime.slice(0,2), body_mOR_basic_data.expirytime.slice(3,5))
+    body_marketOR_basic_data.expireAt = new Date(body_marketOR_basic_data.expirydate.slice(0,4), body_marketOR_basic_data.expirydate.slice(5,7)-1, body_marketOR_basic_data.expirydate.slice(8,10), body_marketOR_basic_data.expirytime.slice(0,2), body_marketOR_basic_data.expirytime.slice(3,5))
 
-    console.log("\n\expireAt:\n", body_mOR_basic_data.expireAt)
+    console.log("\n\expireAt:\n", body_marketOR_basic_data.expireAt)
 
 
     let create_res_sellmarketorderlocation
@@ -165,19 +165,19 @@ module.exports = {
     try {
       create_res_sellmarketorderlocation = await SellMarketOrderLocation.create({
         geometry: {
-          lat: body_mOR_location_data.geometry.lat,
-          lng: body_mOR_location_data.geometry.lng,
+          lat: body_marketOR_location_data.geometry.lat,
+          lng: body_marketOR_location_data.geometry.lng,
         },
         location: {
-          address: body_mOR_location_data.location.address,
-          st_number: body_mOR_location_data.location.st_number,
-          st: body_mOR_location_data.location.st,
-          neigh: body_mOR_location_data.location.neigh,
-          province_state: body_mOR_location_data.location.province_state,
-          city: body_mOR_location_data.location.city,
-          country: body_mOR_location_data.location.country
+          address: body_marketOR_location_data.location.address,
+          st_number: body_marketOR_location_data.location.st_number,
+          st: body_marketOR_location_data.location.st,
+          neigh: body_marketOR_location_data.location.neigh,
+          province_state: body_marketOR_location_data.location.province_state,
+          city: body_marketOR_location_data.location.city,
+          country: body_marketOR_location_data.location.country
         },
-        expireAt: body_mOR_basic_data.expireAt,
+        expireAt: body_marketOR_basic_data.expireAt,
       })
       
     } catch (e) {
@@ -190,20 +190,20 @@ module.exports = {
 
     let create_res_sellmarketorder
 
-    if(body_mOR_basic_data.expireAt > new Date() && create_res_sellmarketorderlocation) {
+    if(body_marketOR_basic_data.expireAt > new Date() && create_res_sellmarketorderlocation) {
       
       try {
         create_res_sellmarketorder = await SellMarketOrder.create({
-          title: body_mOR_basic_data.title,
-          category: body_mOR_basic_data.category,
-          price: body_mOR_basic_data.price,
-          crypto: body_mOR_basic_data.crypto,
-          conversion: body_mOR_basic_data.conversion,
-          payment: body_mOR_basic_data.payment,
-          chain: body_mOR_basic_data.chain,
-          expireAt: body_mOR_basic_data.expireAt,
-          expirydate: body_mOR_basic_data.expirydate,
-          expirytime: body_mOR_basic_data.expirytime,
+          title: body_marketOR_basic_data.title,
+          category: body_marketOR_basic_data.category,
+          price: body_marketOR_basic_data.price,
+          crypto: body_marketOR_basic_data.crypto,
+          conversion: body_marketOR_basic_data.conversion,
+          payment: body_marketOR_basic_data.payment,
+          chain: body_marketOR_basic_data.chain,
+          expireAt: body_marketOR_basic_data.expireAt,
+          expirydate: body_marketOR_basic_data.expirydate,
+          expirytime: body_marketOR_basic_data.expirytime,
           userid: req.session.userId,
           sellmarketorderlocationID: create_res_sellmarketorderlocation._id
         })
@@ -215,7 +215,7 @@ module.exports = {
 
       
     } else {
-      e = new ValidationError(`Not saved, because date expiry before now, or create location failed`, "body_mOR_basic_data.expireAt | create_res_sellmarketorderlocation", httpStatus.StatusCodes.BAD_REQUEST)
+      e = new ValidationError(`Not saved, because date expiry before now, or create location failed`, "body_marketOR_basic_data.expireAt | create_res_sellmarketorderlocation", httpStatus.StatusCodes.BAD_REQUEST)
       return next(e)
     }
     

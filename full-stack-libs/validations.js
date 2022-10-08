@@ -38,7 +38,7 @@ function verifyPassword(_password){
 
 
 
-function validateInputs_pkobmOr_basicData(_pkobmOr, err_msg = undefined) {
+function validateInputs_marketOrderBasicData(_pkobmOr, err_msg = undefined) {
 
     const preventInjectionsRegEx = /[<>;}{\&]/;
 
@@ -69,7 +69,7 @@ function validateInputs_pkobmOr_basicData(_pkobmOr, err_msg = undefined) {
   }
 
 
-function validateInputs_pkobmOr_LocationData(_pkobmOr_LocationData, err_msg = undefined) {
+function validateInputs_marketOrderTradeLocationSpecifics(_pkobmOr_LocationData, err_msg = undefined) {
 
     const isUndefined = (currentValue) => currentValue == undefined;
 
@@ -88,4 +88,4 @@ function validateInputs_pkobmOr_LocationData(_pkobmOr_LocationData, err_msg = un
 
 
 
-module.exports =  {verifyEmail, verifyPassword, validateInputs_pkobmOr_basicData, validateInputs_pkobmOr_LocationData}
+module.exports =  {verifyEmail, verifyPassword, validateInputs_marketOrderBasicData, validateInputs_marketOrderTradeLocationSpecifics}

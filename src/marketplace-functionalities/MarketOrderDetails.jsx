@@ -1,7 +1,7 @@
 import React from 'react'
 import '../style/reactDivMobile.css'
 
-import { validateInputs_pkobmOr_basicData } from '../../full-stack-libs/validations'
+import { validateInputs_marketOrderBasicData } from '../../full-stack-libs/validations'
 
 // TODO Fix to ordersapp to be bitcoin focused like the market
 
@@ -65,7 +65,7 @@ class MarketOrderDetails extends React.Component {
 
 
     let error_msg_retrieved_if_any
-    error_msg_retrieved_if_any = validateInputs_pkobmOr_basicData(pkobmOr_4ft2sd, error_msg_retrieved_if_any)
+    error_msg_retrieved_if_any = validateInputs_marketOrderBasicData(pkobmOr_4ft2sd, error_msg_retrieved_if_any)
 
     console.log("error_msg_retrieved_if_any", error_msg_retrieved_if_any)
 
