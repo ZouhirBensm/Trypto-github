@@ -1,6 +1,6 @@
 
 
-if(process.env.NODE_ENV == 'remote' || process.env.NODE_ENV == 'development') {
+if(process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'development') {
   module.exports = require('./env')
 } else {
   console.log(`Environment is not as wanted: ${process.env.NODE_ENV}`)
