@@ -23,3 +23,5 @@ if(process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'development'
 //     break;
 // }
 
+
+// TODO setup production real paypal plan, and change env variables accordingly
