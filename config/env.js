@@ -11,5 +11,6 @@ module.exports = {
   paypal_secret: process.env.PAYPAL_SECRET, // BidBlock Development Staging created app secret linked to sb-mzq9r20359069@business.example.com
   paypal_api_root: process.env.PAYPAL_API_ROOT,
   domain_without_protocol: process.env.DOMAIN_WITHOUT_PROTOCOL,
+  paypal_plan_id: process.env.PAYPAL_PLAN_ID,
   console_cloud_google_api_key: process.env.CONSOLE_CLOUD_GOOGLE_API_KEY,
 }
