@@ -10,7 +10,6 @@ const { EnvironmentPlugin, ProvidePlugin, DefinePlugin } = require("webpack")
 let prod_config = merge(config, {
   mode: 'production',
   // plugins: [
-  //   // TODO in git ignore add the dev webpack file and the dev config file
   //   // TODO real way to use:
   //   // env info: GIVES ACCESS TO REACT CODE TO BACKEND process.env variables
   //   new DefinePlugin({
