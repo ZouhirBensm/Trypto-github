@@ -2,6 +2,7 @@
 const BuyCryptoOrder = require('../../models/home-currencyorders-models/BuyCryptoOrder')
 const SellCryptoOrder = require('../../models/home-currencyorders-models/SellCryptoOrder')
 const httpStatus = require("http-status-codes")
+const { MongoError } = require('../../custom-errors/custom-errors')
 
 module.exports = {
   updateOrderController: async (req, res, next) => {
@@ -13,6 +14,7 @@ module.exports = {
 
 
     let TypeCryptoOrder = undefined
+    // switch ("wrong") {
     switch (req.body.OrderType) {
       case "buyordersdata":
         TypeCryptoOrder = BuyCryptoOrder
@@ -21,8 +23,8 @@ module.exports = {
         TypeCryptoOrder = SellCryptoOrder
         break;
       default:
-        console.log(`Target "${TypeCryptoOrder}" not reconized`)
-        break;
+        let error = new MongoError(`Target TypeCryptoOrder: "${TypeCryptoOrder}" not reconized in switch statement`)
+        return next(error)
     }
 
 
@@ -33,9 +35,10 @@ module.exports = {
     let patchRet
 
     try {
+      // throw new Error()
       patchRet = await TypeCryptoOrder.findByIdAndUpdate(req.body.OrderID, { $set: req.body }, { upsert: true, new: false });
     } catch (error) {
-      // TODO make sure error integrates with front end UI
+      error = new MongoError("Could not find by ID and update")
       return next(error)
     }
 
@@ -43,7 +46,7 @@ module.exports = {
     console.log(patchRet)
 
 
-    res.json({
+    res.status(200).json({
       srv_: "Successfully updated"
     })
 

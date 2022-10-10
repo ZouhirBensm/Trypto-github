@@ -226,7 +226,10 @@ class OrderRow extends React.Component {
       this.props.handleToogleEdit("my", orderIDjust_clicked, e)
     } else {
       // For server errors
-      this.displayEditPopUp(payload.error.message.client_message)
+
+      let default_error_msg = "Something went wrong on the server, hence this message."
+
+      this.displayEditPopUp((payload.error?.message?.client_message || payload.error?.message)|| default_error_msg)
     }
 
   }
