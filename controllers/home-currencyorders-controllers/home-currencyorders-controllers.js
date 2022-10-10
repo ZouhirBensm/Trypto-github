@@ -78,7 +78,10 @@ module.exports = {
 
 
 
-  registerOrder:  (req,res,next)=>{
+  registerOrder:  async (req,res,next)=>{
+
+    console.log("body: \n", req.body)
+
     console.log("register order: req.params.type_order: \n", req.params.type_order)
     
     console.log("\n\nexpiration:\n", req.body.expirydate)
@@ -102,32 +105,43 @@ module.exports = {
         console.log(`Target "${TypeCryptoOrder}" not reconized`)
         break;
     }
+
+
+    console.log(TypeCryptoOrder)
   
-    
-    if(req.body.expireAt > new Date()){
-      TypeCryptoOrder.create({
-        crypto: req.body.crypto,
+    let createOrderRet
+    try {
+      createOrderRet = await TypeCryptoOrder.create({
+        crypto: "Bitcoin",
+        chain: req.body.chain,
         [req.body.amount ? "amount": null]: req.body.amount,
         [req.body.minamount ? "maxamount": null]: req.body.maxamount,
         [req.body.minamount ? "minamount": null]: req.body.minamount,
-        price: req.body.price,
+        rate: req.body.rate,
         expirydate: req.body.expirydate,
         expirytime: req.body.expirytime,
         payment: req.body.payment,
         userid: req.session.userId,
         expireAt: req.body.expireAt
-      }, (error, typecryptoorder) => {
-        // error = new Error("create failed")
-        // return next(error)
-        if(error){return next(error)}
-        res.status(httpStatus.StatusCodes.OK).json({
-          saved: "success"
-        })
       })
-    } else {
-      res.status(httpStatus.StatusCodes.BAD_REQUEST).json({
-        saved: "No"
-      })
+    } catch (error) {
+      return next(error)
     }
+
+
+    res.status(httpStatus.StatusCodes.OK).json({
+      saved: "success"
+    })
+    
+
+
+
+    // if(req.body.expireAt > new Date()){
+    // } else {
+    //   res.status(httpStatus.StatusCodes.BAD_REQUEST).json({
+    //     saved: "No"
+    //   })
+    // }
+
   }
 }

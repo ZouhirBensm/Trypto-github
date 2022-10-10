@@ -14,9 +14,10 @@ const Schema = mongoose.Schema
 //Models define collections
 const SellCryptoOrderSchema = new Schema({
     crypto: String,
+    chain: String,
     minamount: String,
     maxamount: String,
-    price: String,
+    rate: String,
     expirydate: String,
     expirytime: String,
     payment: String,

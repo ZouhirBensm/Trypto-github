@@ -61,5 +61,5 @@ module.exports = {
     const regExChopper = /[^\/]+/g; 
     const matchesReg = _path.match(regExChopper)
     return matchesReg
-  }
+  },
 }

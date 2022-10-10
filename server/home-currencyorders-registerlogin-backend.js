@@ -236,7 +236,22 @@ homeOrdersBackend_app_router.delete('/delete-this-order', require_loggedin_for_d
 
 
 
-homeOrdersBackend_app_router.post('/:type_order/save', require_loggedin_for_data(true), homeCurrencyOrdersController.registerOrder)
+
+// homeOrdersBackend_app_router.post('/:type_order/save', require_loggedin_for_data(true), homeCurrencyOrdersController.registerOrder)
+
+
+// KEPT JUST IN CASE
+// require_loggedin_for_data(true), homeCurrencyOrdersController.registerOrder
+// homeOrdersBackend_app_router.post('/:type_order/save', (req,res)=>{
+//   console.log(req.body, req.params.type_order)
+//   res.status(200).end()
+// })
+
+
+homeOrdersBackend_app_router.post('/:type_order/save', homeCurrencyOrdersController.registerOrder)
+
+
+
 
 
 homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (req,res)=>{

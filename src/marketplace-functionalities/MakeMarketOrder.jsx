@@ -2,7 +2,7 @@
 import '../style/MakeCurrencyOrder.css'
 import LocationSelector from './LocationSelector'
 import {utils} from '../../full-stack-libs/utils.address'
-import {validateInputs_marketOrderBasicData, validateInputs_marketOrderTradeLocationSpecifics} from '../../full-stack-libs/validations'
+import {validateOrderInputs, validateInputs_marketOrderTradeLocationSpecifics} from '../../full-stack-libs/validations'
 
 
 
@@ -117,7 +117,6 @@ class MakeMarketOrder extends React.Component {
     //DOM is ready
     this.clickGetCryptoPrice()
     this.rePlaceMap()
-
   }
 
   rePlaceMap() {
@@ -182,6 +181,7 @@ class MakeMarketOrder extends React.Component {
     var crypto_sel = document.getElementById("form_id").elements["crypto"];
 
     _denomination = crypto_sel.options[crypto_sel.selectedIndex].text;
+    console.log("_denomination---->>>", _denomination)
     _crypto = crypto_sel.value
 
 
@@ -210,7 +210,7 @@ class MakeMarketOrder extends React.Component {
     // console.log("validating inputs", _marketOrderBasicData)
 
     let error_msg_retrieved_if_any
-    error_msg_retrieved_if_any = validateInputs_marketOrderBasicData(_marketOrderBasicData, error_msg_retrieved_if_any)
+    error_msg_retrieved_if_any = validateOrderInputs(_marketOrderBasicData, error_msg_retrieved_if_any)
     error_msg_retrieved_if_any = validateInputs_marketOrderTradeLocationSpecifics(_marketOrderTradeLocationSpecifics, error_msg_retrieved_if_any)
 
 
