@@ -43,7 +43,7 @@ class BTClayerexchange extends React.Component {
     }
   }
   render() {
-    console.log("----->>>>>> ici", userId)
+    // console.log("----->>>>>> ici", userId)
     return (
         <div>
         <BrowserRouter> 

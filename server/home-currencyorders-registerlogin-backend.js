@@ -235,20 +235,7 @@ homeOrdersBackend_app_router.delete('/delete-this-order', require_loggedin_for_d
 
 
 
-
-
-// homeOrdersBackend_app_router.post('/:type_order/save', require_loggedin_for_data(true), homeCurrencyOrdersController.registerOrder)
-
-
-// KEPT JUST IN CASE
-// require_loggedin_for_data(true), homeCurrencyOrdersController.registerOrder
-// homeOrdersBackend_app_router.post('/:type_order/save', (req,res)=>{
-//   console.log(req.body, req.params.type_order)
-//   res.status(200).end()
-// })
-
-
-homeOrdersBackend_app_router.post('/:type_order/save', homeCurrencyOrdersController.registerOrder)
+homeOrdersBackend_app_router.post('/:type_order/save', require_loggedin_for_data(true), homeCurrencyOrdersController.registerOrder)
 
 
 
@@ -310,7 +297,21 @@ sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteUser
 
 
 
-homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', requireRefererMiddleware, require_loggedin_for_data(true), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, currencyordersRetrievalMiddleware, distributePaginatedDataController)
+// homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', requireRefererMiddleware, require_loggedin_for_data(true), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, currencyordersRetrievalMiddleware, distributePaginatedDataController)
+
+
+
+
+
+// TODO reput these guards
+// requireRefererMiddleware, require_loggedin_for_data(true), requester_auth_middleware(5)
+homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, currencyordersRetrievalMiddleware, distributePaginatedDataController)
+
+
+
+
+
+
 
 homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), verifyingPasswordMiddleware, RegisterLoginController.loginController)
 

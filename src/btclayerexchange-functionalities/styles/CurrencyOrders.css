@@ -23,28 +23,31 @@ div.wrapper {
   right: 3%;
 }
 tr > td#id1 {
-  grid-area: one;
-}
-tr > td#email1 {
-  grid-area: two;
+  display: none;
 }
 tr > td#posteddate1 {
-  grid-area: eight;
+  grid-area: one;
 }
 tr > td#crypto1 {
-  grid-area: three;
+  grid-area: two;
 }
 tr > td#amount1 {
+  grid-area: three;
+}
+tr > td#email1 {
   grid-area: four;
 }
-tr > td#price1 {
+tr > td#chain1 {
+  grid-area: five;
+}
+tr > td#rate1 {
   grid-area: six;
 }
-tr > td#expiry1 {
+tr > td#payment1 {
   grid-area: seven;
 }
-tr > td#payment1 {
-  grid-area: five;
+tr > td#expiry1 {
+  grid-area: eight;
 }
 tr > td#deal1 {
   grid-area: nine;

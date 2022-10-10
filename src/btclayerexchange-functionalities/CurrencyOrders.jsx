@@ -79,7 +79,7 @@ class CurrencyOrders extends React.Component {
 
     if(response.ok){
 
-      console.log("serverOBJ: ", serverOBJ)
+      // console.log("serverOBJ: ", serverOBJ)
 
       this.setState({
         orders: serverOBJ.srv_.ORDERS,

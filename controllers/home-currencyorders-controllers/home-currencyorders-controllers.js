@@ -4,71 +4,66 @@ const SellCryptoOrder = require('../../models/home-currencyorders-models/SellCry
 const httpStatus = require("http-status-codes")
 
 module.exports = {
-  updateOrderController: async (req,res, next)=>{
+  updateOrderController: async (req, res, next) => {
 
     console.log("new DATA:", req.body)
-    
+
     console.log('Current User: ' + req.session.userId + ' and Order asked to update: ' + req.body.OrderID + ' order to update type: ' + req.body.OrderType)
-    
-    if(req.body.OrderType === 'buyordersdata'){
-    //   old_buycryptoOrder = await BuyCryptoOrder.findById(req.body.OrderID) #@
-    //   console.log("\n\n\n\n___________________________old crypto order:", old_buycryptoOrder)
-    //   BuyCryptoOrder.findByIdAndUpdate(req.body.OrderID, {
-    //     // crypto: req.body.NewCrypto,
-    //     [old_buycryptoOrder.crypto != req.body.NewCrypto ? "crypto": null]: req.body.NewCrypto,
-    //     // amount: req.body.NewAmount,
-    //     [old_buycryptoOrder.amount != req.body.NewAmount ? "amount": null]: req.body.NewAmount,
-    //     // price: req.body.NewPrice,
-    //     [old_buycryptoOrder.price != req.body.NewPrice ? "price": null]: req.body.NewPrice,
-    //     // expirydate: req.body.NewExpiryDate,
-    //     [old_buycryptoOrder.expirydate != req.body.NewExpiryDate ? "expirydate": null]: req.body.NewExpiryDate,
-    //     // expirytime: req.body.NewExpiryTime,
-    //     [old_buycryptoOrder.expirytime != req.body.NewExpiryTime ? "expirytime": null]: req.body.NewExpiryTime,
-    //     // payment: req.body.NewPayment,
-    //     [old_buycryptoOrder.payment != req.body.NewPayment ? "payment": null]: req.body.NewPayment,
-    //     }, (error, old_order) => {
-    //     if(error){return next(error)}
-    //     console.log("Update Callback: ", old_order) 
-    //   })
+
+
+    let TypeCryptoOrder = undefined
+    switch (req.body.OrderType) {
+      case "buyordersdata":
+        TypeCryptoOrder = BuyCryptoOrder
+        break;
+      case "sellordersdata":
+        TypeCryptoOrder = SellCryptoOrder
+        break;
+      default:
+        console.log(`Target "${TypeCryptoOrder}" not reconized`)
+        break;
+    }
+
 
     // If upsert is true then if the row trying to be updated does not exist then a new row is inserted instead , if false then it does not do anything .
 
     // If new is true then the modified document is returned after the update rather than the original , if false then the original document is returned
-    BuyCryptoOrder.findByIdAndUpdate(req.body.OrderID, { $set: req.body }, { upsert: true, new: true }, (error, order) => {
-      if(error){return next(error)}
-      console.log("Update Callback: ", order) 
-    });
 
+    let patchRet
 
-    } else if (req.body.OrderType === 'sellordersdata'){
-      SellCryptoOrder.findByIdAndUpdate(req.body.OrderID, { $set: req.body }, { upsert: true, new: true }, (error, order) => {
-        if(error){return next(error)}
-        console.log("Update Callback: ", order) 
-      });
+    try {
+      patchRet = await TypeCryptoOrder.findByIdAndUpdate(req.body.OrderID, { $set: req.body }, { upsert: true, new: false });
+    } catch (error) {
+      return next(error)
     }
-  
+
+
+    console.log(patchRet)
+
+
     res.json({
-      srv_: "successfully updated"
+      srv_: "Successfully updated"
     })
-    // res.redirect('/databases/allmyorders') 
-  
+
   },
-  deleteOrderController: (req,res,next)=>{
+
+
+  deleteOrderController: (req, res, next) => {
     // console.log("req body on /delete-this-order: ", req.body) 
     var id = req.body.OrderID
-  
+
     if (req.body.OrderType === 'buyordersdata') {
       //console.log('Order type is a buy type')
-      BuyCryptoOrder.findByIdAndDelete(id, (error, buyorder) =>{ 
-        if(error){return next(error)}
+      BuyCryptoOrder.findByIdAndDelete(id, (error, buyorder) => {
+        if (error) { return next(error) }
       })
       res.json({
         memorized_order_type: req.body.OrderType
       })
     } else if (req.body.OrderType === 'sellordersdata') {
       //console.log('Order type is a sell type')
-      SellCryptoOrder.findByIdAndDelete(id, (error, sellorder) =>{ 
-        if(error){return next(error)}
+      SellCryptoOrder.findByIdAndDelete(id, (error, sellorder) => {
+        if (error) { return next(error) }
       })
       res.json({
         memorized_order_type: req.body.OrderType
@@ -78,21 +73,21 @@ module.exports = {
 
 
 
-  registerOrder:  async (req,res,next)=>{
+  registerOrder: async (req, res, next) => {
 
     console.log("body: \n", req.body)
 
     console.log("register order: req.params.type_order: \n", req.params.type_order)
-    
+
     console.log("\n\nexpiration:\n", req.body.expirydate)
 
-    req.body.expireAt = new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
+    req.body.expireAt = new Date(req.body.expirydate.slice(0, 4), req.body.expirydate.slice(5, 7) - 1, req.body.expirydate.slice(8, 10), req.body.expirytime.slice(0, 2), req.body.expirytime.slice(3, 5))
     //console.log(new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5)))
     // console.log(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
-    
+
     //console.log('typeof: ', typeof req.body.expireAt + '\n','req.body.expireAt: '+ req.body.expireAt+ '\n','Current Date: '+ new Date()+ '\n')
     //console.log(new Date('July 22, 2013 14:00:00'))
-  
+
     let TypeCryptoOrder = undefined
     switch (req.params.type_order) {
       case "buyorders":
@@ -108,15 +103,15 @@ module.exports = {
 
 
     console.log(TypeCryptoOrder)
-  
+
     let createOrderRet
     try {
       createOrderRet = await TypeCryptoOrder.create({
         crypto: "Bitcoin",
         chain: req.body.chain,
-        [req.body.amount ? "amount": null]: req.body.amount,
-        [req.body.minamount ? "maxamount": null]: req.body.maxamount,
-        [req.body.minamount ? "minamount": null]: req.body.minamount,
+        [req.body.amount ? "amount" : null]: req.body.amount,
+        [req.body.minamount ? "maxamount" : null]: req.body.maxamount,
+        [req.body.minamount ? "minamount" : null]: req.body.minamount,
         rate: req.body.rate,
         expirydate: req.body.expirydate,
         expirytime: req.body.expirytime,
@@ -132,7 +127,7 @@ module.exports = {
     res.status(httpStatus.StatusCodes.OK).json({
       saved: "success"
     })
-    
+
 
 
 

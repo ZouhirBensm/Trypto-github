@@ -28,7 +28,7 @@ class MyCurrencyOrders extends React.Component {
     // this.displayDeleteMsg = this.handleClick.bind(this)
     this.loadData_andDisplayDltMsg = this.loadData_andDisplayDltMsg.bind(this)
     this.loadData = this.loadData.bind(this)
-    console.log("boom chakalaka", this.props.userID_toQueryWith)
+    // console.log("boom chakalaka", this.props.userID_toQueryWith)
   }
 
   displayDeleteMsg(){
@@ -112,18 +112,18 @@ class MyCurrencyOrders extends React.Component {
   }
 
   async loadData(_orderstype) {
-    console.log("FUUCKK")
+    // console.log("FUUCKK")
     // One way of getting userId
     // const _userID = document.getElementById("userId").innerHTML
 
     
-    console.log(`/paginated-orders/${_orderstype}/${this.props.userID_toQueryWith}?page=${this.state.page}&limit=${this.state.limit}`)
+    // console.log(`/paginated-orders/${_orderstype}/${this.props.userID_toQueryWith}?page=${this.state.page}&limit=${this.state.limit}`)
 
     const response2 = await fetch(`/paginated-orders/${_orderstype}/${this.props.userID_toQueryWith}?page=${this.state.page}&limit=${this.state.limit}`)
     
     const serverOBJ = await response2.json()
 
-    console.log("Do we get what is required from the backend??", serverOBJ)
+    // console.log("Do we get what is required from the backend??", serverOBJ)
 
     if(response2.ok){
       this.setState({
@@ -165,6 +165,8 @@ class MyCurrencyOrders extends React.Component {
       page: 1,
     }, () => {
       this.loadData(this.state.orderstype);
+      let div = document.getElementById("popup");
+      div.innerHTML = ''
     })
   }
   
