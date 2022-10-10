@@ -1,5 +1,8 @@
 // import React from 'react';
 import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
+
+
+// TODO get rid of uneeded commented code in this file
 class MarketOrderTable extends React.Component {
 
   constructor(props) {

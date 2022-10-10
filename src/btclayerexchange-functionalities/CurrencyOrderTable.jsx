@@ -121,7 +121,9 @@ class OrderRow extends React.Component {
     }
   }
 
-  async handleSubmit(e) {
+
+
+  async handleSubmit(_order, e) {
     e.preventDefault()
     console.log("Testing handle submit")
 
@@ -144,11 +146,13 @@ class OrderRow extends React.Component {
     console.log(amount_fields_obj)
 
 
-    // TODO add the userID 
-    // TODO add validation
-    let objectToPatchWith = {
+
+    let hiddenFieldsNeededWhenPatchRequest = {
       OrderType: document.getElementById("my_form").elements["OrderType"].value,
       OrderID: document.getElementById("my_form").elements["OrderID"].value,
+    }
+
+    let objectToPatchWith = {
       // crypto: document.getElementById("my_form").elements["crypto"].value,
       chain: document.getElementById("my_form").elements["chain"].value,
       ...amount_fields_obj,
@@ -159,7 +163,30 @@ class OrderRow extends React.Component {
     }
 
 
-    console.log("working with object to patch with:", objectToPatchWith)
+
+
+    // console.log("working with object to patch with:", objectToPatchWith, {userId})
+
+    // console.log(objectToPatchWith)
+    // console.log(_order)
+
+
+    const isEqual = (key) => objectToPatchWith[key] == _order[key];
+    const isNotEdited = Object.keys(objectToPatchWith).every(isEqual)
+    let first_msg_if_any = "Inputs haven't changed, therefor nothing to update!"
+    // console.log(isNotEdited)
+    if (isNotEdited) return this.displayEditPopUp(first_msg_if_any)
+
+
+
+    objectToPatchWith = {
+      ...hiddenFieldsNeededWhenPatchRequest,
+      ...objectToPatchWith,
+    }
+
+
+    // console.log(objectToPatchWith)
+
 
 
 
@@ -171,7 +198,7 @@ class OrderRow extends React.Component {
 
 
 
-    const response = await fetch(`/update`, {
+    const response = await fetch(`/update/${userId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -197,6 +224,9 @@ class OrderRow extends React.Component {
       console.log(orderIDjust_clicked)
       // Toogle back to default table
       this.props.handleToogleEdit("my", orderIDjust_clicked, e)
+    } else {
+      // For server errors
+      this.displayEditPopUp(payload.error.message.client_message)
     }
 
   }
@@ -304,7 +334,7 @@ class OrderRow extends React.Component {
           <button onClick={(e) => this.props.handleToogleEdit("my", order._id, e)}>Done</button>
         </td>,
         <td id="button2" key={`td-edit-button1-key-order:${order._id}`}>
-          <button type="submit" onClick={(e) => this.handleSubmit(e)}>Save</button>
+          <button type="submit" onClick={(e) => this.handleSubmit(order, e)}>Save</button>
         </td>
       )
     }

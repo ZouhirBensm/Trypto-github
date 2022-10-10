@@ -218,7 +218,16 @@ homeOrdersBackend_app_router.get('/cryptoprice', async (req,res,next)=>{
 
 
 
-homeOrdersBackend_app_router.patch('/update', require_loggedin_for_data(true), homeCurrencyOrdersController.updateOrderController)
+
+
+
+
+
+
+
+
+
+homeOrdersBackend_app_router.patch('/update/:userID', require_loggedin_for_data(true), requester_auth_middleware(2),homeCurrencyOrdersController.updateOrderController)
 
 // Might be needed!
 // homeOrdersBackend_app_router.get('/current-user-ID', require_loggedin_for_data(true), (req,res)=>{

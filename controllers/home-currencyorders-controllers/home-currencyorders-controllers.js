@@ -7,6 +7,7 @@ module.exports = {
   updateOrderController: async (req, res, next) => {
 
     console.log("new DATA:", req.body)
+    console.log("path UID:", req.params.userID)
 
     console.log('Current User: ' + req.session.userId + ' and Order asked to update: ' + req.body.OrderID + ' order to update type: ' + req.body.OrderType)
 

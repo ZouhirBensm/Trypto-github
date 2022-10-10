@@ -51,10 +51,7 @@ class MarketOrderDetails extends React.Component {
 
 
     const isEqual = (key) => pkobmOr_4ft2sd[key] == _order[key];
-
-
     const isNotEdited = Object.keys(pkobmOr_4ft2sd).every(isEqual)
-
     let first_msg_if_any = "Inputs haven't changed, therefor nothing to update!"
 
     // console.log(isNotEdited)
