@@ -303,7 +303,7 @@ sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteUser
 
 
 
-// TODO reput these guards
+// TODO re-put these guards
 // requireRefererMiddleware, require_loggedin_for_data(true), requester_auth_middleware(5)
 homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, currencyordersRetrievalMiddleware, distributePaginatedDataController)
 

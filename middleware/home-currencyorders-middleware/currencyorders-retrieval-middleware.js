@@ -42,13 +42,13 @@ module.exports = async (req,res,next)=>{
   // console.log("\n\n\n\[buyOrders, sellOrders]!!\n\n", [buyOrders, sellOrders])
   // console.log("buys: ", buyOrders)
 
-  console.log({path_param_userID: res.locals.path_param_userID}, typeof res.locals.path_param_userID, typeof ObjectId(res.locals.path_param_userID))
+  console.log('\n', {path_param_userID: res.locals.path_param_userID})
 
   let mybuyOrders = buyOrders.filter((order_entry) => {
     // console.log(order_entry.userid._id, path_param_userID)
     // console.log(order_entry.userid._id.toString() == path_param_userID)
 
-    console.log(order_entry.userid._id.toString() == res.locals.path_param_userID)
+    // console.log(order_entry.userid._id.toString() == res.locals.path_param_userID)
     // console.log(order_entry.userid._id.toString() == req.session.userId)
     return order_entry.userid._id.toString() == res.locals.path_param_userID;
     // path_param_userID 
@@ -57,7 +57,7 @@ module.exports = async (req,res,next)=>{
   let mysellOrders = sellOrders.filter((order_entry) => {
     // console.log(order_entry.userid._id, path_param_userID)
     // console.log(order_entry.userid._id.toString() == path_param_userID)
-    console.log(order_entry.userid._id.toString() == res.locals.path_param_userID)
+    // console.log(order_entry.userid._id.toString() == res.locals.path_param_userID)
     return order_entry.userid._id.toString() == res.locals.path_param_userID
     // path_param_userID 
     // || req.session.userId
@@ -104,10 +104,12 @@ module.exports = async (req,res,next)=>{
       } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/allmyorders` || res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`) {
         console.log("MY MODE -> from path param")
         orders = mybuyOrders
-      } else {        
+      } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/buyordersdata`) {        
         console.log("NORMAL MODE")
         orders = buyOrders
         // console.log("orders!!!!!:::::", orders)
+      } else {
+        console.log("NOT RECOGNIZED MODE")
       }
       break
 
@@ -122,7 +124,8 @@ module.exports = async (req,res,next)=>{
 
 
       if(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/matches`){
-        console.log("MATCHES MODE")
+        console.log("\n MATCHES MODE:\n")
+
         try {
           orders = await sellMatchesFinder(mybuyOrders, sellOrders, res.locals.path_param_userID)
           .then(
@@ -132,13 +135,16 @@ module.exports = async (req,res,next)=>{
         } catch(err){
           return next(err)
         }
+
       } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/allmyorders` || res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`) {
         console.log("MY MODE -> from path param")
         orders = mysellOrders
-      } else {        
+      } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/sellordersdata`) {        
         console.log("NORMAL MODE")
         orders = sellOrders
         // console.log("orders!!!!!:::::", orders)
+      } else {
+        console.log("NOT RECOGNIZED MODE")
       }
       break
 

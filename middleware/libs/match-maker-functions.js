@@ -41,9 +41,10 @@ function findBuyMatches(_sell, buyOrders, id){
   let buy = buyOrders.filter(_buy => id != _buy.userid._id.toString()) //filter to not deal with current logged in user
   buy.forEach(buyorder => {
     if (
-      parseInt(_sell.price,10) < parseInt(buyorder.price,10) * 1.10 &&
-      parseInt(_sell.price,10) > parseInt(buyorder.price,10) * 0.9 &&
+      parseInt(_sell.rate,10) < parseInt(buyorder.rate,10) * 1.10 &&
+      parseInt(_sell.rate,10) > parseInt(buyorder.rate,10) * 0.9 &&
       _sell.crypto === buyorder.crypto && 
+      _sell.chain === buyorder.chain && 
       parseInt(_sell.minamount,10) < buyorder.amount && 
       parseInt(_sell.maxamount,10) > buyorder.amount  && 
       _sell.payment === buyorder.payment
@@ -81,9 +82,10 @@ function findSellMatches(_buy, sellOrders, id){
   sell.forEach(sellorder => {
     // console.log("\n\n\n\n lala: ", parseInt(_buy.price,10) < parseInt(sellorder.price,10) * 1.10, parseInt(_buy.price,10) > parseInt(sellorder.price,10) * 0.9)
     if (
-      parseInt(_buy.price,10) < parseInt(sellorder.price,10) * 1.10 &&
-      parseInt(_buy.price,10) > parseInt(sellorder.price,10) * 0.9 &&
+      parseInt(_buy.rate,10) < parseInt(sellorder.rate,10) * 1.10 &&
+      parseInt(_buy.rate,10) > parseInt(sellorder.rate,10) * 0.9 &&
       _buy.crypto === sellorder.crypto && 
+      _buy.chain === sellorder.chain && 
       parseInt(_buy.amount,10) > parseInt(sellorder.minamount, 10) && 
       parseInt(_buy.amount,10) < parseInt(sellorder.maxamount, 10)  && 
       _buy.payment === sellorder.payment

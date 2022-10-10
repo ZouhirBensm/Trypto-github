@@ -34,6 +34,7 @@ module.exports = {
     try {
       patchRet = await TypeCryptoOrder.findByIdAndUpdate(req.body.OrderID, { $set: req.body }, { upsert: true, new: false });
     } catch (error) {
+      // TODO make sure error integrates with front end UI
       return next(error)
     }
 
