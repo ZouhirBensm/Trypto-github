@@ -1,6 +1,7 @@
 function verifyEmail(_emailstr) {
   console.log("verifying this email: ", _emailstr);
-  const emailRegularExpression = /(^[^@.]+)@([^@.]+)\.{1}(\w{1,6}$)/;
+
+  const emailRegularExpression = /(^[^@]+)@([^@.]+)\.{1}(\w{1,6}$)/;
   const EmailVerif_status = emailRegularExpression.test(_emailstr)
   // const arrayReg = emailRegularExpression.exec(_emailstr)
 

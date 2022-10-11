@@ -183,11 +183,12 @@ homeOrdersBackend_app_router.get(['/btclayerexchange/:page?'], require_loggedin_
 
 
 
-
-
-
-
 homeOrdersBackend_app_router.post('/users/register', requireRefererMiddleware, require_loggedin_for_data(false), RegisterLoginController.validateController, RegisterLoginController.registerController)
+
+
+
+
+
 
 
 homeOrdersBackend_app_router.post('/check/user/register', requireRefererMiddleware, RegisterLoginController.checkRegisterController)

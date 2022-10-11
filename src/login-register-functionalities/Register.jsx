@@ -34,6 +34,8 @@ class Register extends React.Component {
     }
   }
 
+
+
   async handleRegistrationCall (_email, _password, _plan){
     console.log("Making API call!")
     
@@ -187,6 +189,9 @@ class Register extends React.Component {
 
     console.log(notifyDisplays)
     
+
+
+    // ___________________________________________________
     return (
       // Template out this code
       <div id="container-log-reg">
@@ -196,6 +201,7 @@ class Register extends React.Component {
           <input type="text" name="email" value={this.props.email} onChange={(e) => this.props.handleChange("email", e)}/>
           <label>Password</label>
           <input type="password" name="password" value={this.props.password} onChange={(e) => this.props.handleChange("password", e)}/> 
+          
           <button 
           onClick={
             async (e) => {
@@ -224,6 +230,7 @@ class Register extends React.Component {
       </div>
     );
   }
+  // ___________________________________________________
 }
 
 export default Register
