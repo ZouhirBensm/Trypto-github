@@ -26,9 +26,9 @@ const ArticlesDashboard = loadable(() => import("../operations-components/Articl
 const UserSelect = loadable(() => import("../operations-components/UserSelect"),{
   fallback: <Loading/>
 });
-const NotFound = loadable(() => import("../generic-components/NotFound"),{
-  fallback: <Loading/>
-});
+// const NotFound = loadable(() => import("../generic-components/NotFound"),{
+//   fallback: <Loading/>
+// });
 const ScrollToTop = loadable(() => import("../generic-components/ScrollToTop"),{
   fallback: <Loading/>
 });
@@ -100,6 +100,7 @@ class Operations extends React.Component {
           
  
 
+          {/* Fallback */}
           {/* <Route render={
             (props) => <NotFound {...props}/>
           }/>  */}

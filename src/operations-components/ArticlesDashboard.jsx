@@ -3,13 +3,6 @@ import { Link, BrowserRouter, Route, Switch} from 'react-router-dom';
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
 
-// import NotFound from '../generic-components/NotFound';
-import Operations from '../root-spas/Operations';
-
-const NotFound = loadable(() => import("../generic-components/NotFound"),{
-  fallback: <Loading/>
-});
-
 
 class ArticlesDashboard extends React.Component {
   constructor(props){
