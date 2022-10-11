@@ -6,7 +6,7 @@ var ObjectId = require('mongodb').ObjectId;
 
 const ENV = require('../../config/base')
 
-const {filterObject, buyMatchesFinder, sellMatchesFinder} = require('../../middleware/libs/match-maker-functions')
+const {filterObject, filterObject2, buyMatchesFinder, sellMatchesFinder} = require('../../middleware/libs/match-maker-functions')
 
 module.exports = async (req,res,next)=>{
   console.log("\n\n\n______in ordersRetrievalMiddleware: \n\n")
@@ -18,22 +18,34 @@ module.exports = async (req,res,next)=>{
 
 
   // Query string parameters
-  const crypto = req.query.crypto
+  let searchEngineTerms = req.query.search
+  searchEngineTerms = searchEngineTerms ? JSON.parse(searchEngineTerms) : undefined
+  console.log(searchEngineTerms)
+
+
   
-  let filter_object = filterObject(crypto)
+  let findObject = filterObject2(searchEngineTerms)
   
+  console.log(findObject)
   let orders
-  // console.log("\nFind filter: \n", filter_object)
+
+
+
+  // res.status(200).end()
+
+
+
+  // console.log("\nFind filter: \n", findObject)
 
   // console.log("\n\norders_user: ", path_param_userID)
   // console.log("page: ", res.locals.page)
   // console.log("limit: ", res.locals.limit)
   // console.log("startIndex: ", res.locals.startIndex)
   // console.log("endIndex: ", res.locals.endIndex)
-  // console.log("\nFind filter: \n", filter_object)
+  // console.log("\nFind filter: \n", findObject)
 
-  let bOrders = BuyCryptoOrder.find(filter_object).populate('userid')
-  let sOrders = SellCryptoOrder.find(filter_object).populate('userid')
+  let bOrders = BuyCryptoOrder.find(findObject).populate('userid')
+  let sOrders = SellCryptoOrder.find(findObject).populate('userid')
 
   let [buyOrders, sellOrders] = await Promise.all([bOrders, sOrders]).catch(e => {
     return next(e)
@@ -42,7 +54,7 @@ module.exports = async (req,res,next)=>{
   // console.log("\n\n\n\[buyOrders, sellOrders]!!\n\n", [buyOrders, sellOrders])
   // console.log("buys: ", buyOrders)
 
-  console.log('\n', {path_param_userID: res.locals.path_param_userID})
+  // console.log('\n', {path_param_userID: res.locals.path_param_userID})
 
   let mybuyOrders = buyOrders.filter((order_entry) => {
     // console.log(order_entry.userid._id, path_param_userID)
@@ -63,30 +75,30 @@ module.exports = async (req,res,next)=>{
     // || req.session.userId
   })
 
-  console.log("\n\n[mybuyOrders, mysellOrders]:\n\n ", [mybuyOrders, mysellOrders])
+  // console.log("\n\n[mybuyOrders, mysellOrders]:\n\n ", [mybuyOrders, mysellOrders])
 
 
-  console.log("\n\n_______________\n\n")
-  console.log("res.locals.type_orders: ", res.locals.type_orders)
-  console.log("ENV.domain_without_protocol: ", ENV.domain_without_protocol)
-  console.log("res.locals.URL_fromReferer: ", res.locals.URL_fromReferer)
-  console.log(": ", )
-  console.log(": ", )
-  console.log("\n\n_______________\n\n")
+  // console.log("\n\n_______________\n\n")
+  // console.log("res.locals.type_orders: ", res.locals.type_orders)
+  // console.log("ENV.domain_without_protocol: ", ENV.domain_without_protocol)
+  // console.log("res.locals.URL_fromReferer: ", res.locals.URL_fromReferer)
+  // console.log(": ", )
+  // console.log(": ", )
+  // console.log("\n\n_______________\n\n")
 
 
   
   switch(res.locals.type_orders) {
 
     case 'buyordersdata':
-      console.log(res.locals.URL_fromReferer)
-      console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/matches`)
-      console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/allmyorders`)
-      console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`)
+      // console.log(res.locals.URL_fromReferer)
+      // console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/matches`)
+      // console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/allmyorders`)
+      // console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`)
 
 
-      console.log(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/matches`)
-      console.log(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/allmyorders` || res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}` )
+      // console.log(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/matches`)
+      // console.log(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/allmyorders` || res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}` )
 
       if(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/matches`){
         console.log("MATCHES MODE")
@@ -114,13 +126,13 @@ module.exports = async (req,res,next)=>{
       break
 
     case 'sellordersdata':
-      console.log(res.locals.URL_fromReferer)
-      console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/matches`)
-      console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/allmyorders`)
-      console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`)
+      // console.log(res.locals.URL_fromReferer)
+      // console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/matches`)
+      // console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/allmyorders`)
+      // console.log(`${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`)
 
-      console.log(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/matches`)
-      console.log(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/allmyorders` || res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}` )
+      // console.log(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/matches`)
+      // console.log(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/allmyorders` || res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}` )
 
 
       if(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/matches`){

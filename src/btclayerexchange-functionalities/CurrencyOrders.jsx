@@ -17,7 +17,10 @@ class CurrencyOrders extends React.Component {
       on_off_limit_next: false,
       on_off_limit_previous: true,
       crypto: undefined,
-      searchTerm: '',
+      // searchTerm: '',
+      searchEngineState: {
+        chainTerm: undefined,
+      },
       number_of_pages: 1,
     }
     this.controls = this.controls.bind(this);
@@ -36,28 +39,7 @@ class CurrencyOrders extends React.Component {
   //   return _repairedData
   // }
   
-  handleSubmit(e){
-    e.preventDefault()
-    this.setState({
-      crypto: this.state.searchTerm,
-      page: 1
-    }, () => {
-      this.loadData()
-    })
-    if(this.state.searchTerm == "All"){
-      this.setState({
-        crypto: undefined
-      }, () => {
-        this.loadData()
-      })
-    }
-  }
-
-  handleChange(e){
-    this.setState({
-      searchTerm: e.target.value
-    })
-  }
+  
 
   controls(_page) {
     this.setState({
@@ -73,9 +55,20 @@ class CurrencyOrders extends React.Component {
   }
 
   async loadData(){
-    let response = await fetch(`/paginated-orders/${this.props.match.params.order_type}?page=${this.state.page}&limit=${this.state.limit}${this.state.crypto ? `&crypto=${this.state.crypto}`: "" }`)
-    
+    // `${this.state.crypto ? `&crypto=${this.state.crypto}`: "" }`
+
+    let theUtilizedSearchQuery = this.setuptheSeachQuery(this.state.searchEngineState)
+    console.log("theUtilizedSearchQuery:", theUtilizedSearchQuery)
+
+
+    console.log(`/paginated-orders/${this.props.match.params.order_type}?page=${this.state.page}&limit=${this.state.limit}${theUtilizedSearchQuery ? theUtilizedSearchQuery : "" }`)
+
+
+    let response = await fetch(`/paginated-orders/${this.props.match.params.order_type}?page=${this.state.page}&limit=${this.state.limit}${theUtilizedSearchQuery ? theUtilizedSearchQuery : "" }`)
+
     let serverOBJ = await response.json()
+
+    console.log(response)
 
     if(response.ok){
 
@@ -114,12 +107,16 @@ class CurrencyOrders extends React.Component {
   }
   
   render() {
-    console.log("Here orders!: ", this.state.orders)
+    // console.log("Here orders!: ", this.state.orders)
     return (
       <React.Fragment>
         {/* TODO #102 Add touch event to slide search engine */}
+        
         <SearchEngine 
-        searchTerm={this.state.searchTerm} handleSubmit={this.handleSubmit} handleChange={this.handleChange}
+          searchEngineState={this.state.searchEngineState} 
+          handleSubmit={this.handleSubmit} 
+          handleChange={this.handleChange}
+          order_type={this.props.match.params.order_type}
         />
         <div className='wrapper'>
         <CurrencyOrderTable 
@@ -142,6 +139,74 @@ class CurrencyOrders extends React.Component {
       </React.Fragment>
     );
   }
+
+
+
+  handleChange(e){
+    console.log("The form is changing....")
+
+    // console.log(e.target.value)
+
+    let chainTerm_value = document.getElementById("my_form").elements["chain"].value
+    // console.log({chainTerm_value})
+
+
+    this.setState({
+      searchEngineState: {
+        chainTerm: chainTerm_value == '' ? undefined : chainTerm_value
+      }
+    })
+  }
+
+
+  handleSubmit(e = undefined){
+    e?.preventDefault()
+
+    console.log("submission...")
+
+    this.setState({
+      page: 1
+    }, () => {
+      this.loadData()
+    })
+
+
+
+  }
+
+
+
+  setuptheSeachQuery(_searchEngineState){
+    console.log("------------->>>> IN setuptheSeachQuery:::", _searchEngineState)
+    // let searchObjectFilteredFromUndefined = {}
+
+    for (const key in _searchEngineState) {
+      // console.log("key", key)
+      if (Object.hasOwnProperty.call(_searchEngineState, key)) {
+        const value = _searchEngineState[key];
+        if (value==undefined){
+          delete _searchEngineState[key]
+        }
+      }
+    }
+
+    console.log("------------->>>> IN setuptheSeachQuery:::", _searchEngineState)
+
+    let _theUtilizedSearchQuery
+
+    if (_searchEngineState
+    && Object.keys(_searchEngineState).length === 0
+    && Object.getPrototypeOf(_searchEngineState) === Object.prototype) {
+      _theUtilizedSearchQuery = undefined
+    } else {
+      _theUtilizedSearchQuery = `&search=${JSON.stringify(_searchEngineState)}`
+    }
+
+    console.log(_theUtilizedSearchQuery)
+    return _theUtilizedSearchQuery
+  }
+
+
 }
 
 export default CurrencyOrders

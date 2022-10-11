@@ -15,6 +15,35 @@ function filterObject(crypto = null, category = "RECENT"){
 }
 
 
+function filterObject2(searchEngineTerms = undefined){
+  let findObject = {}
+
+  if(searchEngineTerms){
+    for (const key in searchEngineTerms) {
+      // console.log("key", key)
+      if (Object.hasOwnProperty.call(searchEngineTerms, key)) {
+        const value = searchEngineTerms[key];
+        switch (key) {
+          case "chainTerm":
+            findObject = {
+              ...findObject,
+              chain: value,
+            }
+            break;
+        
+          default:
+            break;
+        }
+
+      }
+    }
+  }
+
+  return findObject
+
+}
+
+
 
 let buyMatchesFinder = function(_mysellOrders, buyOrders, id) {
   // console.log("ingredients:", _mysellOrders, buyOrders, id)
@@ -97,4 +126,4 @@ function findSellMatches(_buy, sellOrders, id){
 }
 
 
-module.exports =  {filterObject, buyMatchesFinder, sellMatchesFinder}
+module.exports =  {filterObject, filterObject2, buyMatchesFinder, sellMatchesFinder}
