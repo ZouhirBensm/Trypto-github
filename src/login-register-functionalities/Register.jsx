@@ -19,6 +19,8 @@ class Register extends React.Component {
     this.NOTSUBSCRIBERPlanRegistrationProcess = this.NOTSUBSCRIBERPlanRegistrationProcess.bind(this)
   }
 
+  
+
   async NOTSUBSCRIBERPlanRegistrationProcess() {
     console.log("heyy")
     let flag, notification
@@ -74,6 +76,66 @@ class Register extends React.Component {
     }
 
   }
+
+
+
+
+  
+
+
+
+  render() {
+    console.log(typeof this.state.notification)
+    let notifyDisplays
+    notifyDisplays = this.state.notification?.map((notification, index) => {
+      return <div key={index}>{notification}</div>
+    })
+
+    console.log(notifyDisplays)
+    
+
+
+    // ___________________________________________________
+    return (
+      // Template out this code
+      <div id="container-log-reg">
+        <form id="loginregister" className="form">
+          <h3>Register React</h3>
+          <label>Email</label>
+          <input type="text" name="email" value={this.props.email} onChange={(e) => this.props.handleChange("email", e)}/>
+          <label>Password</label>
+          <input type="password" name="password" value={this.props.password} onChange={(e) => this.props.handleChange("password", e)}/> 
+
+          <button 
+          onClick={
+            async (e) => {
+              e.preventDefault()
+              let returnedValue = await this.asyncFunctionToreturnValidation()
+              // console.log("work with this!", this.props.plan)
+              if (returnedValue.value.yield_level == 4){
+                // this.props.nextStep()
+                if(this.props.plan == "NOTSUBSCRIBER") {
+                  await this.NOTSUBSCRIBERPlanRegistrationProcess()
+                }
+                if(this.props.plan == "BASIC") {
+                  this.props.nextStep()
+                }
+              } else {
+                console.log("arrived until: ", returnedValue.value.yield_level)
+              }
+            }
+          }>Register</button>
+          
+        </form>
+        {/* display the notification from the server here! */}
+        { notifyDisplays }
+        <button onClick={(e) => this.props.setStateStep(1)}> Previous </button>
+        {/* <button onClick={(e) => this.props.setStateStep('3')}> Next </button> */}
+      </div>
+    );
+  }
+  // ___________________________________________________
+
 
 
 
@@ -180,57 +242,6 @@ class Register extends React.Component {
 
 
 
-  render() {
-    console.log(typeof this.state.notification)
-    let notifyDisplays
-    notifyDisplays = this.state.notification?.map((notification, index) => {
-      return <div key={index}>{notification}</div>
-    })
-
-    console.log(notifyDisplays)
-    
-
-
-    // ___________________________________________________
-    return (
-      // Template out this code
-      <div id="container-log-reg">
-        <form id="loginregister" className="form">
-          <h3>Register React</h3>
-          <label>Email</label>
-          <input type="text" name="email" value={this.props.email} onChange={(e) => this.props.handleChange("email", e)}/>
-          <label>Password</label>
-          <input type="password" name="password" value={this.props.password} onChange={(e) => this.props.handleChange("password", e)}/> 
-          
-          <button 
-          onClick={
-            async (e) => {
-              e.preventDefault()
-              let returnedValue = await this.asyncFunctionToreturnValidation()
-              // console.log("work with this!", this.props.plan)
-              if (returnedValue.value.yield_level == 4){
-                // this.props.nextStep()
-                if(this.props.plan == "NOTSUBSCRIBER") {
-                  await this.NOTSUBSCRIBERPlanRegistrationProcess()
-                }
-                if(this.props.plan == "BASIC") {
-                  this.props.nextStep()
-                }
-              } else {
-                console.log("arrived until: ", returnedValue.value.yield_level)
-              }
-            }
-          }>Register</button>
-          
-        </form>
-        {/* display the notification from the server here! */}
-        { notifyDisplays }
-        <button onClick={(e) => this.props.setStateStep(1)}> Previous </button>
-        {/* <button onClick={(e) => this.props.setStateStep('3')}> Next </button> */}
-      </div>
-    );
-  }
-  // ___________________________________________________
 }
 
 export default Register
