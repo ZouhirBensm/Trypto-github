@@ -3,7 +3,7 @@ import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
 import {THIRD_PARTY_CATEGORIES, EXTERNAL_READS_CATEGORIES} from '../../full-stack-libs/utils.arrays'
 import './style/AllArticlesList.css'
 
-
+// TODO ! make loading a spinner at the center of the application or reactdiv div
 // TODO While articles are loading load the loading component in the meantime
 
 // TODO BTC currency orders require to show up from most recent to oldest

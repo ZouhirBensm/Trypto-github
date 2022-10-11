@@ -131,7 +131,7 @@ class MarketOrders extends React.Component {
     return (
       <React.Fragment>
         {/* TODO #102 Add touch event to slide search engine */}
-        {/* TODO return the search engine */}
+        {/* TODO ! return the search engine, and add search engine validation on inputs */}
         {/* <SearchEngine 
         searchTerm={this.state.searchTerm} handleSubmit={this.handleSubmit} handleChange={this.handleChange}
         /> */}

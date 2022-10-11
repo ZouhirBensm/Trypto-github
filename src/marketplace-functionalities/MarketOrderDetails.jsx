@@ -3,7 +3,6 @@ import '../style/reactDivMobile.css'
 
 import { validateOrderInputs } from '../../full-stack-libs/validations'
 
-// TODO Fix to ordersapp to be bitcoin focused like the market
 
 class MarketOrderDetails extends React.Component {
   constructor(props) {

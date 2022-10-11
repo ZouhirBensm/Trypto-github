@@ -197,35 +197,34 @@ module.exports = {
 
     let create_res_sellmarketorder
 
-    if(body_marketOR_basic_data.expireAt > new Date() && create_res_sellmarketorderlocation) {
-      
-      try {
-        create_res_sellmarketorder = await SellMarketOrder.create({
-          title: body_marketOR_basic_data.title,
-          description: body_marketOR_basic_data.description,
-          category: body_marketOR_basic_data.category,
-          price: body_marketOR_basic_data.price,
-          crypto: body_marketOR_basic_data.crypto,
-          conversion: body_marketOR_basic_data.conversion,
-          payment: body_marketOR_basic_data.payment,
-          chain: body_marketOR_basic_data.chain,
-          expireAt: body_marketOR_basic_data.expireAt,
-          expirydate: body_marketOR_basic_data.expirydate,
-          expirytime: body_marketOR_basic_data.expirytime,
-          userid: req.session.userId,
-          sellmarketorderlocationID: create_res_sellmarketorderlocation._id
-        })
-      } catch (e) {
-        e = new MongoError(`Unable to create the SellMarketOrder entry ${e.message}`)
-
-        return next(e)
-      }
-
-      
-    } else {
-      e = new ValidationError(`Not saved, because date expiry before now, or create location failed`, "body_marketOR_basic_data.expireAt | create_res_sellmarketorderlocation", httpStatus.StatusCodes.BAD_REQUEST)
+    // TODO add backend validation for this create, in case of api calls trying to create orders with erroneous data
+    try {
+      create_res_sellmarketorder = await SellMarketOrder.create({
+        title: body_marketOR_basic_data.title,
+        description: body_marketOR_basic_data.description,
+        category: body_marketOR_basic_data.category,
+        price: body_marketOR_basic_data.price,
+        crypto: body_marketOR_basic_data.crypto,
+        conversion: body_marketOR_basic_data.conversion,
+        payment: body_marketOR_basic_data.payment,
+        chain: body_marketOR_basic_data.chain,
+        expireAt: body_marketOR_basic_data.expireAt,
+        expirydate: body_marketOR_basic_data.expirydate,
+        expirytime: body_marketOR_basic_data.expirytime,
+        userid: req.session.userId,
+        sellmarketorderlocationID: create_res_sellmarketorderlocation._id
+      })
+    } catch (e) {
+      e = new MongoError(`Unable to create the SellMarketOrder entry ${e.message}`)
       return next(e)
     }
+
+    // KEPT AS REFERENCE FOR EXPIRY DATE CHECK VALIDATION FOR SellMarketOrder
+    // if(body_marketOR_basic_data.expireAt > new Date() && create_res_sellmarketorderlocation) { 
+    // } else {
+    //   e = new ValidationError(`Not saved, because date expiry before now, or create location failed`, "body_marketOR_basic_data.expireAt | create_res_sellmarketorderlocation", httpStatus.StatusCodes.BAD_REQUEST)
+    //   return next(e)
+    // }
     
 
     res.status(200).end()
