@@ -36,6 +36,7 @@
     "mongodb": "^4.8.0",
     "mongoose": "^5.13.0",
     "node-fetch": "^2.6.7",
+    "nodemailer": "^6.8.0",
     "nodemon": "^1.19.4",
     "paypal-rest-sdk": "^1.8.1",
     "react": "^16.13.0",

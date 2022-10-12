@@ -43,7 +43,7 @@ function require_loggedin_for_pages(require_login){
     if (require_login){
       // console.log("ok")
       if(!req.session.userId){
-        console.log("ici")
+        // console.log("ici")
         return res.status(httpStatus.StatusCodes.PERMANENT_REDIRECT).redirect('/')
       }
       next()

@@ -40,7 +40,16 @@ const UserSchema = new Schema({
     role: {
         type: String,
         required: true
-    }
+    },
+    active: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    hashforunactiveuserID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'HashForUnactiveUser'
+    },
 })
 
 //Before save any records into users collection, execute the 

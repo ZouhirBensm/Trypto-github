@@ -1,5 +1,5 @@
 function verifyEmail(_emailstr) {
-  console.log("verifying this email: ", _emailstr);
+  // console.log("verifying this email: ", _emailstr);
 
   const emailRegularExpression = /(^[^@]+)@([^@.]+)\.{1}(\w{1,6}$)/;
   const EmailVerif_status = emailRegularExpression.test(_emailstr)
@@ -19,7 +19,7 @@ function verifyEmail(_emailstr) {
 }
 
 function verifyPassword(_password) {
-  console.log("\n\nverifying this password: ", _password)
+  // console.log("\n\nverifying this password: ", _password)
   let flag = undefined, notification = [];
 
   (/\d/g).test(_password) ? null : notification = notification.concat("Your password must contain at least a digit [0-9]");

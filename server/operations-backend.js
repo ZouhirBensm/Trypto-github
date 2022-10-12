@@ -64,7 +64,7 @@ operationsBackend_app_router.get(['/', '/articles-dashboard'], require_loggedin_
   var JSX_to_load
   JSX_to_load = 'Operations';
 
-  console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
+  // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
   
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
@@ -82,7 +82,7 @@ operationsBackend_app_router.get('/create-article', require_loggedin_for_pages(t
   var JSX_to_load
   JSX_to_load = 'CreateArticle';
 
-  console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
+  // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
   })
@@ -95,7 +95,7 @@ operationsBackend_app_router.get('/article-selector', require_loggedin_for_pages
   var JSX_to_load
   JSX_to_load = 'ArticleSelector';
 
-  console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
+  // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
 
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
@@ -126,7 +126,7 @@ operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages
   var JSX_to_load
   JSX_to_load = 'Operations';
 
-  console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
+  // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
   })
@@ -140,7 +140,7 @@ operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', require_l
   JSX_to_load = 'Operations';
 
   
-  console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
+  // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
   })
@@ -170,7 +170,7 @@ operationsBackend_app_router.post('/create-article', require_loggedin_for_pages(
     });
   })
 
-  console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
+  // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
   res.status(200).end()
 })
 

@@ -108,7 +108,7 @@ homeOrdersBackend_app_router.get('/',(req,res)=>{
 
 
   var JSX_to_load = 'App';
-  console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
+  // console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
   
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { JSX_to_load : JSX_to_load })
 })
@@ -117,7 +117,7 @@ homeOrdersBackend_app_router.get('/',(req,res)=>{
 homeOrdersBackend_app_router.get('/users/login', require_loggedin_for_pages(false), (req,res,next)=>{
   var JSX_to_load = 'MgtUser';
 
-  console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
+  // console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
     // selectedUser: undefined
@@ -131,7 +131,7 @@ homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(fal
   var JSX_to_load = 'Subscription';
   res.locals.isPaypalScriptNeeded = true
 
-  console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
+  // console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load, 
     // isPaypalScriptNeeded: true
@@ -146,7 +146,7 @@ homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(tr
 
   var JSX_to_load = 'MgtUser';
 
-  console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
+  // console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
 
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load,
