@@ -1,10 +1,15 @@
 const { verifyEmail, verifyPassword } = require('../../full-stack-libs/validations')
 //We import the User model
 const User = require('../../models/User')
-const HashForUnactiveUser = require('../../models/HashForUnactiveUser')
+const HexForUnactiveUser = require('../../models/HexForUnactiveUser')
 const Subscriber = require('../../models/Subscriber')
 const ROLE = require('../../full-stack-libs/Types/Role')
 // const bcrypt = require('bcrypt')
+
+
+
+
+const ENV = require('../../config/base')
 
 var nodemailer = require('nodemailer');
 
@@ -13,6 +18,7 @@ const httpStatus = require("http-status-codes")
 const { ValidationError, LoggingInError, MongoError } = require('../../custom-errors/custom-errors')
 
 
+// TODO have these functions in their thing and not in a object that is exported
 module.exports = {
   validateController: (req, res, next) => {
     let flag, notification = [];
@@ -79,16 +85,17 @@ module.exports = {
 
 
 
-        let hash_for_unactive_user_instance = new HashForUnactiveUser()
+        let hex_for_unactive_user_instance = new HexForUnactiveUser()
 
         user_instance = new User(req.body)
 
-        user_instance.hashforunactiveuserID = hash_for_unactive_user_instance._id
-        hash_for_unactive_user_instance.userID = user_instance._id
+        user_instance.hexforunactiveuserID = hex_for_unactive_user_instance._id
+        hex_for_unactive_user_instance.userID = user_instance._id
 
 
+        let ret_hex_for_unactive_user_save, ret_user_save
         try {
-          await hash_for_unactive_user_instance.save()
+          ret_hex_for_unactive_user_save = await hex_for_unactive_user_instance.save()
           console.log("ok")
         } catch (err) {
           err = new MongoError(`some bla bla: ${err.message}`, err.code)
@@ -96,21 +103,29 @@ module.exports = {
         }
 
         try {
-          await user_instance.save()
+          ret_user_save = await user_instance.save()
         } catch (err) {
           err = new MongoError(`some bla bla: ${err.message}`, err.code)
           return next(err)
         }
 
         console.log(1)
+        console.log("\n\nret_user_save.email", ret_user_save.email)
+        console.log("\n\nret_hex_for_unactive_user_save.hexfield", ret_hex_for_unactive_user_save.hexfield)
+        // console.log("\n\nURL_fromReferer", res.locals.URL_fromReferer)
+        // console.log("\n\nURL_fromAPIcall", res.locals.URL_fromAPIcall)
+        console.log("\n\nparsed_URL_fromReferer[1]", res.locals.parsed_URL_fromReferer[1])
 
 
-        // Google manage account > Security > Signing in to google
         // TODO ! refactor code to middleware system (1)
         // Following the reasoning in: https://stackoverflow.com/questions/39092822/how-to-confirm-email-address-using-express-node
-        // TODO swap email for a real bidblock email, so generate a bidblock email
-        // Disable 2 factor authentication on the businessZBRS@gmail.com account
-        // TODO rid of the app password namespace nodemailer bidblock on link:
+
+
+        // bidblockcanada@gmail.com is gonna be used for production
+        // businessZBRS@gmail.com is used for development and staging
+        
+        // Google manage account > Security > Signing in to google
+        // Setup 2 F auth and pass code
         // https://myaccount.google.com/u/6/apppasswords?rapt=AEjHL4PCBycA8osD1m9mqOgtUgpo8AU48Y4RZ4hsYS9SBSpj_xc5vYMWQf3-88xs7ZEgXUZbM8DPBtVbFMmSfQqzn3-2x7xHLA
         
         // Resources:
@@ -124,13 +139,22 @@ module.exports = {
         // When click confirming redirect to login page if no bidblock window open, or replace most recent bidblock page with login page
         // TODO When done registered go to the confirm email page.
 
+        if (!(ret_hex_for_unactive_user_save && ret_user_save)) {
+          // TODO integrate error with UI
+          let e = new Error("The user or hex save f'ed up!")
+          return next(e)
+        }
+
+
+        console.log(`Welcome ${ret_user_save.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user_save._id}/${ret_hex_for_unactive_user_save.hexfield}\n\nThank you!`)
+        // TODO send the email
+
+
         const transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
-            // TODO put this in a environment variable
-            user: 'businessZBRS@gmail.com',
-            // TODO put this in a environment variable
-            pass: 'shcazquolqxlfyge'
+            user: ENV.bidblock_email,
+            pass: ENV.bidblock_email_app_pass_code
           }
         });
 
@@ -140,11 +164,11 @@ module.exports = {
 
         let info
         var mailOptions = {
-          from: 'businessZBRS@gmail.com',
+          from: ENV.bidblock_email,
           to: req.body.email,
-          subject: 'Sending Email using Node.js First Fn Test!!!',
-          // TODO send email with a link to the server with the hash mounted on to activate the user
-          text: 'That was easy! Zozo'
+          subject: 'Confirm your BidBlock Account Now!',
+          // TODO send email with a link to the server with the hex mounted on to activate the user
+          text: `Welcome ${ret_user_save.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user_save._id}/${ret_hex_for_unactive_user_save.hexfield}\n\nThank you!`
         };
         
         try {

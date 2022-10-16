@@ -183,7 +183,14 @@ homeOrdersBackend_app_router.get(['/btclayerexchange/:page?'], require_loggedin_
 
 
 
-homeOrdersBackend_app_router.post('/users/register', requireRefererMiddleware, require_loggedin_for_data(false), RegisterLoginController.validateController, RegisterLoginController.registerController)
+homeOrdersBackend_app_router.post('/users/register', requireRefererMiddleware, require_loggedin_for_data(false), destructureURLandRefererMiddleware, RegisterLoginController.validateController, RegisterLoginController.registerController)
+
+
+
+homeOrdersBackend_app_router.get('/confirm-user-email/:userID/:hexfield', (req,res)=>{
+  console.log(req.params)
+  res.status(200).end()
+})
 
 
 

@@ -13,4 +13,6 @@ module.exports = {
   domain_without_protocol: process.env.DOMAIN_WITHOUT_PROTOCOL,
   paypal_plan_id: process.env.PAYPAL_PLAN_ID,
   console_cloud_google_api_key: process.env.CONSOLE_CLOUD_GOOGLE_API_KEY,
+  bidblock_email: process.env.BIDBLOCK_EMAIL,
+  bidblock_email_app_pass_code: process.env.BIDBLOCK_EMAIL_APP_PASS_CODE,
 }

@@ -46,9 +46,9 @@ const UserSchema = new Schema({
         default: false,
         required: true
     },
-    hashforunactiveuserID: {
+    hexforunactiveuserID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'HashForUnactiveUser'
+        ref: 'HexForUnactiveUser'
     },
 })
 

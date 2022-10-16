@@ -6,7 +6,7 @@ const crypto = require('crypto')
 // Checking the connection
 const db = mongoose.connection
 db.once("open", () => {
-  console.log(`Successfully connected to MongoDB using Mongoose from HashForUnactiveUser.js the readyState is ${db.readyState}, and the connection string is ${db._connectionString}`)
+  console.log(`Successfully connected to MongoDB using Mongoose from HexForUnactiveUser.js the readyState is ${db.readyState}, and the connection string is ${db._connectionString}`)
 })
 
 
@@ -17,8 +17,8 @@ const Schema = mongoose.Schema
 
 //Models are defined through the Schema interface
 //Models define collections
-const HashForUnactiveUserSchema = new Schema({
-  hashfield: {
+const HexForUnactiveUserSchema = new Schema({
+  hexfield: {
     type: String,
     // required: true,
   },
@@ -35,7 +35,7 @@ const HashForUnactiveUserSchema = new Schema({
 //Before save any records into users collection, execute the 
 //function passed into the second argument
 //Allows to change user data before saving it into the database
-HashForUnactiveUserSchema.pre('save', function(next) {
+HexForUnactiveUserSchema.pre('save', function(next) {
   //Get the entry being saved
   const element = this
 
@@ -43,17 +43,17 @@ HashForUnactiveUserSchema.pre('save', function(next) {
     var hex = buffer.toString('hex');
     console.log("Test--->!!!!", hex)
 
-    element.hashfield = hex
+    element.hexfield = hex
     next()
   })
 
 
-  // console.log("hex", entry.hashfield)
+  // console.log("hex", entry.hexfield)
 })
 
 //Access the database my_database via mongoose.model.
 //The first argument: The name of the collection the model is for.
 //Apply the model to the collection?
-const HashForUnactiveUser = mongoose.model('HashForUnactiveUser', HashForUnactiveUserSchema)
+const HexForUnactiveUser = mongoose.model('HexForUnactiveUser', HexForUnactiveUserSchema)
 //Export User variable to other files
-module.exports = HashForUnactiveUser
+module.exports = HexForUnactiveUser
