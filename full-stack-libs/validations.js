@@ -24,6 +24,7 @@ function verifyPassword(_password) {
 
   (/\d/g).test(_password) ? null : notification = notification.concat("Your password must contain at least a digit [0-9]");
   (/[A-Za-z]/g).test(_password) ? null : notification = notification.concat("Your password must contain at least an alphabet character [A-Za-z]");
+  // TODO get rid of {} >< & and ; in the must at least
   (/[\[\]\+?.,|=`~!@:#";/$'>%<^&*(){_}-]/g).test(_password) ? null : notification = notification.concat("Your password must contain at least a special character: [@#!$%^&*()[]{}-_+/<'>;\":?.,|=`~]");
   !(/\s/g).test(_password) ? null : notification = notification.concat("Your password cannot contain any spaces at any point");
   !(_password.length < 8) ? null : notification = notification.concat("Your password's length insufficient. Passwords require at least 7 characters");
@@ -37,10 +38,36 @@ function verifyPassword(_password) {
 
 }
 
+function validateInputs(obj_input, err_msg = undefined) {
+
+  // TODO make sure validation is catching & in inputs
+  const preventInjectionsRegEx = /[<>;}{\&]/;
+
+  for (const property in obj_input) {
+    // console.log(`${property}: ${_pkobmOr[property]}`);
+
+    if (obj_input[property] == '' || preventInjectionsRegEx.test(obj_input[property])) {
+      err_msg = `This field: ${property}, inputed value is not proper. Please modify`
+      break
+    }
+
+  }
+
+  if (err_msg) {
+    return err_msg
+  } else {
+    return undefined
+  }
+}
 
 
+
+// TODO seperate both validations and use the proper ones in the proper files
+// give first half a generic name
+// Market and curency orders validation use both halfs
 function validateOrderInputs(_pkobmOr, err_msg = undefined) {
 
+  // TODO make sure validation is catching & in inputs
   const preventInjectionsRegEx = /[<>;}{\&]/;
 
   for (const property in _pkobmOr) {
@@ -89,4 +116,4 @@ function validateInputs_marketOrderTradeLocationSpecifics(_pkobmOr_LocationData,
 
 
 
-module.exports = { verifyEmail, verifyPassword, validateOrderInputs, validateInputs_marketOrderTradeLocationSpecifics }
+module.exports = { verifyEmail, verifyPassword, validateInputs, validateOrderInputs, validateInputs_marketOrderTradeLocationSpecifics }

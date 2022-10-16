@@ -1,19 +1,68 @@
 // import React from 'react';
 import './styles/MgtUser.css' 
+import {verifyEmail, validateInputs} from '../../full-stack-libs/validations'
 
 class Login extends React.Component {
 
   constructor(props){
     super(props)
     this.state = {
-      notification: [],
+      notification: '',
     }
     // this.functionneed = this.functionneed.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.popup = null
+    this.validateInputs = this.validateInputs.bind(this)
+    // this.popup = null
     console.log(this.props.loginTo)
     // this.functionneed()
   }
+
+  validateInputs(creds){
+    let flag = true, notification;
+    ({flag,notification} = verifyEmail(creds.email));
+    console.log(flag, notification)
+
+    if(!flag) {
+      return this.setState({
+        notification: notification[0]
+      })  
+    }
+
+    let err_msg
+    err_msg = validateInputs(creds);
+
+    if(err_msg) {
+      flag = false
+      return this.setState({
+        notification: err_msg
+      })  
+    }
+
+    console.log({flag})
+    return flag
+
+  }
+
+  // validateInputs(_marketOrderBasicData, _marketOrderTradeLocationSpecifics) {
+  //   // console.log("validating inputs", _marketOrderBasicData)
+
+  //   let error_msg_retrieved_if_any
+  //   error_msg_retrieved_if_any = validateOrderInputs(_marketOrderBasicData, error_msg_retrieved_if_any)
+  //   error_msg_retrieved_if_any = validateInputs_marketOrderTradeLocationSpecifics(_marketOrderTradeLocationSpecifics, error_msg_retrieved_if_any)
+
+
+  //   if (error_msg_retrieved_if_any) {
+  //     this.setState({
+  //       popup_state: error_msg_retrieved_if_any
+  //     }, ()=>{
+  //       console.log("scroll down")
+  //       let container = document.getElementsByClassName("make-container")[0]
+  //       console.log('container', container)
+  //       container.scrollTo(0, container.scrollHeight);
+  //     })
+  //   } else { return true }
+
+  // }
   
   // functionneed(){
   //   const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -27,10 +76,20 @@ class Login extends React.Component {
 
   async handleSubmit(e){
     e.preventDefault()
-    // console.log(e.target.parentNode)
-    // console.log(document.getElementById("loginregister").elements);
-    // console.log(document.getElementById("loginregister").elements[0].value)
-    // console.log(document.getElementById("loginregister").elements[1].value)
+
+    let email = document.getElementById("loginregister").elements[0].value
+    let password = document.getElementById("loginregister").elements[1].value
+
+
+    let validated = this.validateInputs({email, password})
+    console.log({validated})
+    if (!validated) return
+
+
+    // TODO when registering need t input for the password (or not)
+    // TODO change password when forgotten process
+    
+    console.log("FETCH")
 
     let response = await fetch(`${this.props.loginTo}`, {
       method: 'POST',
@@ -39,8 +98,8 @@ class Login extends React.Component {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        email: document.getElementById("loginregister").elements[0].value,
-        password: document.getElementById("loginregister").elements[1].value,
+        email: email,
+        password: password,
       })
     })
 
@@ -64,10 +123,9 @@ class Login extends React.Component {
 
   render() {
 
-    console.log(this.popup)
-    const notifyDisplays = this.state.notification.map((notification, index) => {
-      return <div key={index}>{notification}</div>
-    })
+    // console.log(this.popup)
+    const notifyDisplays = <div>{this.state.notification}</div>
+  
 
     // console.log(notifyDisplays)
     
@@ -84,9 +142,9 @@ class Login extends React.Component {
         {/* display the notification from the server here! */}
         { notifyDisplays }
 
-        {this.popup?
+        {/* {this.popup?
         <p>{this.popup}</p>
-        :null}
+        :null} */}
 
       </div>
     );

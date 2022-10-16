@@ -223,6 +223,8 @@ class MakeMarketOrder extends React.Component {
         console.log('container', container)
         container.scrollTo(0, container.scrollHeight);
       })
+      // TODO check if needed
+      // return false
     } else { return true }
 
   }

@@ -48,10 +48,10 @@ class ValidationError extends CustomError {
 
 
 class LoggingInError extends CustomError {
-  constructor(msgs_array){
+  constructor(msg){
     super()
     this.type = this.constructor.name
-    this.message = msgs_array
+    this.message = msg
   }
 }
 

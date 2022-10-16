@@ -21,8 +21,8 @@ const errorResponseDispatcherController = async (err, req ,res, next) => {
       return res.status(err.statusCode).send({
         error: {
           type: err.type,
-          message: err.message, // Array<string> format
-          // message: res.locals.notification, // Array<string> format
+          message: err.message, 
+          // message: res.locals.notification,
         }
       })
       break;
@@ -123,6 +123,7 @@ const errorResponderController = (err, req ,res, next) => {
   error_sent = `${errorStatus} | Sorry, our web server is Down!`;
 
 
+  // return res.status(errorStatus).send({message: error_sent}) 
   return res.status(errorStatus).send(error_sent) 
   
   // Personal note: err is an object and JSON.stringify(err,null,4) is a string

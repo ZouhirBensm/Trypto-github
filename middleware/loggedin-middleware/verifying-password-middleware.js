@@ -4,7 +4,7 @@ var bcrypt = require('bcryptjs');
 
 module.exports = async (req,res,next)=>{
   // let notification = []
-  res.locals.notification = []
+  // res.locals.notification = []
   //Extract the email and password from the login form with req.body
   
   const {email, password} = req.body

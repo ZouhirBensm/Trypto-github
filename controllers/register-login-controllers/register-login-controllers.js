@@ -145,11 +145,12 @@ module.exports = {
           return next(e)
         }
 
+        let now = new Date()
+        
+        console.log(`Date: ${now},\n\nWelcome ${ret_user_save.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user_save._id}/${ret_hex_for_unactive_user_save.hexfield}\n\nThank you!`)
+        
 
-        console.log(`Welcome ${ret_user_save.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user_save._id}/${ret_hex_for_unactive_user_save.hexfield}\n\nThank you!`)
-        // TODO send the email
-
-
+        // TODO should be send mail middleware
         const transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
@@ -168,7 +169,7 @@ module.exports = {
           to: req.body.email,
           subject: 'Confirm your BidBlock Account Now!',
           // TODO send email with a link to the server with the hex mounted on to activate the user
-          text: `Welcome ${ret_user_save.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user_save._id}/${ret_hex_for_unactive_user_save.hexfield}\n\nThank you!`
+          text: `Date: ${now},\n\nWelcome ${ret_user_save.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user_save._id}/${ret_hex_for_unactive_user_save.hexfield}\n\nThank you!`
         };
         
         try {
@@ -183,7 +184,7 @@ module.exports = {
 
         res.status(200).json({
           server: {
-            message: [`User ${req.body.email} successfully created`]
+            message: [`User ${ret_user_save.email} successfully created`],
           }
         })
         console.log(4)
@@ -252,24 +253,14 @@ module.exports = {
   },
   loginController: async (req, res, next) => {
 
-    console.log("\nnotification end:\n", res.locals.notification)
     console.log("\nreq.session.userId end:\n", req.session.userId)
-    if (req.session.userId && res.locals.notification.length == 0) {
-      // res.json({
-      //   data: ['success']
-      // })
-      res.status(200).json({
-        server: {
-          message: ["User successfully logged in"]
-        }
-      })
-    } else {
-      // simple way
-      let err = new LoggingInError(res.locals.notification)
-      // err.message = res.locals.notification
-      console.log(err)
-      return next(err)
-    }
+
+    res.status(200).json({
+      server: {
+        message: ["User successfully logged in"]
+      }
+    })
+
 
   },
 
