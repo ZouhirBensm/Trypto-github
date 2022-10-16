@@ -35,12 +35,12 @@
   var domain_without_protocol
   var user
   var orderId
+  var bidblock_email
 
 
 
 
   switch (URL_) {
-    case '/subscription':
     case '/operations/articles-dashboard':
     case `/operations/monitor-messages/${caseUserID}/edit-see`:
     case '/users/login':
@@ -48,6 +48,10 @@
     // case `/make/${caseOptionMakes}`:
       break;
 
+    case '/subscription':
+      bidblock_email = '<%-locals.ENV.bidblock_email%>'
+      console.log("------------->>>>", bidblock_email)
+      break
 
     case '/':
       userId = '<%= locals.userId %>'
