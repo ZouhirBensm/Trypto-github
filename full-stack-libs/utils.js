@@ -62,4 +62,8 @@ module.exports = {
     const matchesReg = _path.match(regExChopper)
     return matchesReg
   },
+  redBkLog(e){
+    console.error('\n\n\n\x1b[37;41;1m', e, '\x1b[0m\n\n')
+    return
+  }
 }

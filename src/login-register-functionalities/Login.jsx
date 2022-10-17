@@ -7,7 +7,8 @@ class Login extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      notification: '',
+      // notification: '',
+      notification: popup,
     }
     // this.functionneed = this.functionneed.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)

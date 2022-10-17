@@ -120,6 +120,8 @@ homeOrdersBackend_app_router.get('/', (req, res) => {
 
 
 homeOrdersBackend_app_router.get('/users/login', require_loggedin_for_pages(false), (req, res, next) => {
+  res.locals.popup = req.query.popup
+
   var JSX_to_load = 'MgtUser';
 
   // console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
@@ -196,7 +198,7 @@ homeOrdersBackend_app_router.post('/users/register', requireRefererMiddleware, r
 
 
 
-homeOrdersBackend_app_router.get('/confirm-user-email/:userID/:hexfield', (req, res) => {
+homeOrdersBackend_app_router.get('/confirm-user-email/:userID/:hexfield', async (req, res, next) => {
   // TODO check if user exists -> error
   // check if active -> error
   // only not active pull his hex -> error
@@ -204,24 +206,116 @@ homeOrdersBackend_app_router.get('/confirm-user-email/:userID/:hexfield', (req, 
   // change status to active: true
   // json success message
 
-  // is success response go to login
+  // CHECK IF USER
+  let ret_user
+  try {
+    ret_user = await User.findOne({ _id: req.params.userID })
+  } catch (e) {
+    utils.redBkLog(e)
+    return res.render('bodies/error')
+  }
 
-  console.log(req.params)
-  res.status(200).end()
+  if(!ret_user) {
+  // if(true) {
+    let e = new Error("No found user under that UID")
+    utils.redBkLog(e)
+    return res.render('bodies/error')
+  }
+
+  console.log(ret_user)
+
+  // CHECK IF ACTIVE OR NOT
+  if(ret_user.active) {
+  // if(true) {
+    let e = new Error("Account already active")
+    utils.redBkLog(e)
+    return res.redirect(`/users/login?popup=${e.message}`)
+  }
+
+  // NOT ACTIVE
+  // PULL IN HEX
+
+  let ret_user_hex
+  try {
+    ret_user_hex = await HexForUnactiveUser.findOne({ userID: ret_user._id })
+  } catch (e) {
+    utils.redBkLog(e)
+    return res.render('bodies/error')
+  }
+
+  if(ret_user_hex.hexfield != req.params.hexfield) {
+    utils.redBkLog(e)
+    return res.render('bodies/error')
+  }
+
+  let updated_user_ret
+  // HEXs ARE EQUAL
+  try {
+    updated_user_ret = await User.updateOne({_id: req.params.userID}, {active: true, $unset: {hexforunactiveuserID: 1}}, { upsert: false, new: true });
+  } catch(e) {
+    utils.redBkLog(e)
+    return res.render('bodies/error')
+  }
+
+
+
+  console.log(updated_user_ret)
+  
+  if(updated_user_ret.nModified == 0) {
+    let e = new Error("Was unable to upadate the users active to true, and unset the hexforunactiveuserID field")
+    utils.redBkLog(e)
+    return res.render('bodies/error')
+  }
+
+  
+  
+  // RID OF THE HEX ENTRY
+  let ret_delete_hex
+  try {
+    ret_delete_hex = await HexForUnactiveUser.deleteOne({_id: ret_user.hexforunactiveuserID})
+  } catch (e) {
+    utils.redBkLog(e)
+    return res.render('bodies/error')
+  }
+
+  console.log("ret_delete_hex--->", ret_delete_hex)
+
+
+  let sucess_message = `Congrats you have successfully confirmed your account!`
+
+  res.redirect(`/users/login?popup=${sucess_message}`)
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // TODO add guards
 // TODO middleware this code
 homeOrdersBackend_app_router.get('/resend-user-email/:userEmail', destructureURLandRefererMiddleware, async (req, res, next) => {
 
   // TODO refactor errors, and integrate to UI
+
   console.log(req.params)
+
 
   let ret_user
   try {
     ret_user = await User.findOne({ email: req.params.userEmail })
   } catch (e) {
-    consol.error(e)
+    return next(e)
   }
 
   if(!ret_user) {

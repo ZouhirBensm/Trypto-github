@@ -36,7 +36,7 @@ module.exports = {
 
     try {
       // throw new Error()
-      patchRet = await TypeCryptoOrder.findByIdAndUpdate(req.body.OrderID, { $set: req.body }, { upsert: true, new: false });
+      patchRet = await TypeCryptoOrder.findByIdAndUpdate(req.body.OrderID, { $set: req.body }, { upsert: false, new: true });
     } catch (error) {
       error = new MongoError("Could not find by ID and update")
       return next(error)

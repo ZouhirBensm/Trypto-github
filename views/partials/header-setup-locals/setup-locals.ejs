@@ -43,9 +43,13 @@
   switch (URL_) {
     case '/operations/articles-dashboard':
     case `/operations/monitor-messages/${caseUserID}/edit-see`:
-    case '/users/login':
     case '/btclayerexchange':
+    // case '/users/login':
     // case `/make/${caseOptionMakes}`:
+      break;
+
+    case '/users/login':
+      popup = '<%= locals.popup %>'
       break;
 
     case '/subscription':
