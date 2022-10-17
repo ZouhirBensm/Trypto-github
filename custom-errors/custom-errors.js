@@ -15,7 +15,7 @@ class CustomError extends Error {
 //   }
 // }
 
-// Used to test errorResponseDispatcherController when the error is thrown at register-login-controllers.js in registerController function, when User.create errors' out
+// Used to test errorResponseDispatcherController when the error is thrown at login-controllers.js in registerController function, when User.create errors' out
 class MongoError extends CustomError {
   constructor(message, code){
     super()

@@ -37,7 +37,8 @@ const { DeleteAccountProcessError } = require("../custom-errors/custom-errors")
 
 // Controllers
 const homeCurrencyOrdersController = require("../controllers/home-currencyorders-controllers/home-currencyorders-controllers")
-const RegisterLoginController = require("../controllers/register-login-controllers/register-login-controllers")
+const RegisterLoginController = require("../controllers/register-login-controllers/login-controllers")
+const {registerController} = require("../controllers/register-login-controllers/register")
 const distributePaginatedDataController = require("../controllers/generic-controllers/distribute-paginated-data-controller")
 const isUpController = require("../controllers/generic-controllers/is-up-controller")
 
@@ -190,7 +191,7 @@ homeOrdersBackend_app_router.get(['/btclayerexchange/:page?'], require_loggedin_
 
 
 
-homeOrdersBackend_app_router.post('/users/register', requireRefererMiddleware, require_loggedin_for_data(false), destructureURLandRefererMiddleware, RegisterLoginController.validateController, RegisterLoginController.registerController)
+homeOrdersBackend_app_router.post('/users/register', requireRefererMiddleware, require_loggedin_for_data(false), destructureURLandRefererMiddleware, RegisterLoginController.validateController, registerController)
 
 
 // TODO when a account is created and not confirmed for a month, delete the acount automatically
