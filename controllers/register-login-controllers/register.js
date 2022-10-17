@@ -15,7 +15,6 @@ const { ValidationError, LoggingInError, MongoError } = require('../../custom-er
 
 
 
-// TODO rector this code
 async function registerController(req, res, next) {
 
   console.log("\nin registerController:\n__________________________\n\n", req.body)
@@ -107,7 +106,7 @@ async function registerController(req, res, next) {
   )
 
   if (!(double_check_expression)) {
-    // TODO integrate error with UI
+    // TODO !! integrate error with UI
     let e = new Error(`The user,${req.body.plan == ROLE.USER.SUBSCRIBER.BASIC? ' sub info': null} or hex save f'ed up!`)
     return next(e)
   }
@@ -118,7 +117,7 @@ async function registerController(req, res, next) {
   // console.log(`Date: ${now},\n\nWelcome ${ret_user_save.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user_save._id}/${ret_hex_for_unactive_user_save.hexfield}\n\nThank you!`)
 
 
-  // TODO should be send mail middleware
+  // TODO !! should be send mail middleware
   transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -135,7 +134,6 @@ async function registerController(req, res, next) {
     from: ENV.bidblock_email,
     to: req.body.email,
     subject: 'Confirm your BidBlock Account Now!',
-    // TODO send email with a link to the server with the hex mounted on to activate the user
     text: `Date: ${now},\n\nWelcome ${ret_user_save.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user_save._id}/${ret_hex_for_unactive_user_save.hexfield}\n\nThank you!`
   };
 

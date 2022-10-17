@@ -2,8 +2,6 @@ const User = require("../../models/User")
 var bcrypt = require('bcryptjs');
 const { LoggingInError } = require('../../custom-errors/custom-errors')
 
-// TODO resend email link
-
 module.exports = async (req,res,next)=>{
 
 

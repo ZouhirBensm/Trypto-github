@@ -27,7 +27,7 @@ class SearchEngine extends React.Component {
 
     // ______________________________________________________
 
-    // TODO add location to the currency app, and save it in db per orders, then complete search engine capabilities in the currency app after locality is integrated
+    // TODO ! add location to the currency app, and save it in db per orders, then complete search engine capabilities in the currency app after locality is integrated
 
     return (
       <React.Fragment>

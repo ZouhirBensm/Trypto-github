@@ -223,8 +223,7 @@ class MakeMarketOrder extends React.Component {
         console.log('container', container)
         container.scrollTo(0, container.scrollHeight);
       })
-      // TODO check if needed
-      // return false
+      return false
     } else { return true }
 
   }
@@ -311,8 +310,10 @@ class MakeMarketOrder extends React.Component {
     console.log(marketOrderBasicData)
 
     let validated = this.validateInputs(marketOrderBasicData, marketOrderTradeLocationSpecifics)
+    
     if (!validated) return
 
+    
     let pk_4ft_2sd_body = {
       marketOrderBasicData,
       marketOrderTradeLocationSpecifics
@@ -364,6 +365,7 @@ class MakeMarketOrder extends React.Component {
         })
         break;
     }
+
 
 // TODO ! add image upload, and operations U,D, and account delete associated images capabilities
 

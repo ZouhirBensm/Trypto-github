@@ -277,6 +277,7 @@ class OrderRow extends React.Component {
           <img src="#"></img>
           <div>Title: {order.title}</div>
           <div>Price: {order.price}</div>
+          {/* TODO add location and condition */}
         </div>
         </Link>
 

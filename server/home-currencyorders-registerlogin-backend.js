@@ -194,18 +194,11 @@ homeOrdersBackend_app_router.get(['/btclayerexchange/:page?'], require_loggedin_
 homeOrdersBackend_app_router.post('/users/register', requireRefererMiddleware, require_loggedin_for_data(false), destructureURLandRefererMiddleware, RegisterLoginController.validateController, registerController)
 
 
-// TODO when a account is created and not confirmed for a month, delete the acount automatically
 
 
 
 
 homeOrdersBackend_app_router.get('/confirm-user-email/:userID/:hexfield', async (req, res, next) => {
-  // TODO check if user exists -> error
-  // check if active -> error
-  // only not active pull his hex -> error
-  // compare hex -> error
-  // change status to active: true
-  // json success message
 
   // CHECK IF USER
   let ret_user
@@ -303,11 +296,11 @@ homeOrdersBackend_app_router.get('/confirm-user-email/:userID/:hexfield', async 
 
 
 
-// TODO add guards
-// TODO middleware this code
+// TODO !! add guards
+// TODO !! middleware this code
 homeOrdersBackend_app_router.get('/resend-user-email/:userEmail', destructureURLandRefererMiddleware, async (req, res, next) => {
 
-  // TODO refactor errors, and integrate to UI
+  // TODO !! refactor errors, and integrate to UI
 
   console.log(req.params)
 
@@ -343,7 +336,7 @@ homeOrdersBackend_app_router.get('/resend-user-email/:userEmail', destructureURL
   let now = new Date()
   // console.log(`Date: ${now},\n\nWelcome ${ret_user.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user._id}/${ret_user_hex.hexfield}\n\nThank you!`)
 
-  // TODO should be send mail middleware
+  // TODO !! should be send mail middleware
   // ___________________________________________
 
   const transporter = nodemailer.createTransport({
@@ -363,7 +356,6 @@ homeOrdersBackend_app_router.get('/resend-user-email/:userEmail', destructureURL
     from: ENV.bidblock_email,
     to: ret_user.email,
     subject: 'Confirm your BidBlock Account Now!',
-    // TODO send email with a link to the server with the hex mounted on to activate the user
     text: `Date: ${now},\n\nWelcome ${ret_user.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user._id}/${ret_user_hex.hexfield}\n\nThank you!`
   };
   
@@ -517,9 +509,7 @@ homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_log
 
 
 
-// TODO re-put these guards
-// requireRefererMiddleware, require_loggedin_for_data(true), requester_auth_middleware(5)
-homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, currencyordersRetrievalMiddleware, distributePaginatedDataController)
+homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', requireRefererMiddleware, require_loggedin_for_data(true), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, currencyordersRetrievalMiddleware, distributePaginatedDataController)
 
 
 

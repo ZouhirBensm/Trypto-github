@@ -18,7 +18,7 @@ const httpStatus = require("http-status-codes")
 const { ValidationError, LoggingInError, MongoError } = require('../../custom-errors/custom-errors')
 
 
-// TODO have these functions in their thing and not in a object that is exported
+// TODO !! have these functions in their thing and not in a object that is exported
 module.exports = {
   validateController: (req, res, next) => {
     let flag, notification = [];

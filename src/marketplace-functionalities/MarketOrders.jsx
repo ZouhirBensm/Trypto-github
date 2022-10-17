@@ -41,8 +41,6 @@ class MarketOrders extends React.Component {
   //   }, () => {
   //     this.loadData()
   //   })
-
-
   //   console.log("this.state.searchTerm", this.state.searchTerm)
 
   //   if(this.state.searchTerm == "All"){
@@ -62,7 +60,8 @@ class MarketOrders extends React.Component {
   // }
 
 
-  // TODO ! email confirmation process to implement (real email check)
+  // TODO !! if regitered user does not activate acount within 2 months, delete account, i.e. if not subed delete user and hex, if subed, then unsub, delete user and hex
+  // TODO ! delete hex when deleting an account for api delete account calls? might not need?
   // TODO ! implement input sanitization in all fields (<>;{})
   // TODO ! implement rate on inputs to avoid getting spammed from bots
 

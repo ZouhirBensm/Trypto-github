@@ -87,8 +87,8 @@ class Login extends React.Component {
     if (!validated) return
 
 
-    // TODO when registering need t input for the password (or not)
-    // TODO change password when forgotten process
+    // TODO when registering need two inputs for the password (or not)
+    // TODO ! change password when forgotten process
     
     console.log("FETCH")
 
