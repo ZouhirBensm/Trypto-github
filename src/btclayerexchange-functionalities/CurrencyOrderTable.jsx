@@ -1,4 +1,4 @@
-import {validateOrderInputs} from '../../full-stack-libs/validations'
+import {validateInputs, validateExpiry} from '../../full-stack-libs/validations'
 // import React from 'react';
 class CurrencyOrderTable extends React.Component {
 
@@ -189,8 +189,11 @@ class OrderRow extends React.Component {
 
 
 
+    let error = validateInputs(objectToPatchWith) || validateExpiry(objectToPatchWith)
 
-    let error = validateOrderInputs(objectToPatchWith)
+    console.log("error======>>>>>>>", error)
+
+
     // console.log("error", error)
     error = parseInt(objectToPatchWith.minamount)>parseInt(objectToPatchWith.maxamount) && !error ? "Min Amount Cannot be superior than Max Amount, please edit, and resubmit.": error
 

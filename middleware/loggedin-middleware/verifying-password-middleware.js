@@ -1,43 +1,49 @@
 const User = require("../../models/User")
 var bcrypt = require('bcryptjs');
-
+const { LoggingInError } = require('../../custom-errors/custom-errors')
 
 module.exports = async (req,res,next)=>{
-  // let notification = []
-  // res.locals.notification = []
-  //Extract the email and password from the login form with req.body
-  
-  const {email, password} = req.body
-
-  console.log("\n\n\nreq.body:\n", req.body)
-  
-  email? null: res.locals.notification.push("Please enter an e-mail")
-  
-
-  let foundUserIfAny = await User.findOne({email: email})
 
 
+  let foundUserIfAny = await User.findOne({email: req.body.email}).select("active password _id")
   console.log({foundUserIfAny})
 
-  if(foundUserIfAny){
-    let bcryptCompareRet
+  if(!foundUserIfAny) {
+    let e = new LoggingInError("This email was not found in our repertoire"); return next(e);
+  } 
 
-    try {
-      bcryptCompareRet = await bcrypt.compare(password, foundUserIfAny.password)
-    } catch (error) {
-      res.locals.notification.push(error.message)
-    }
+  console.log("foundUserIfAny", foundUserIfAny)
 
-    console.log({bcryptCompareRet})
 
-    if(bcryptCompareRet) {
-      req.session.userId = foundUserIfAny._id
-    } else {
-      password? res.locals.notification.push("Erroneous password submission for this email"): res.locals.notification.push("Please enter a password");
-    }
-  } else {
-    res.locals.notification.push("This email was not found in our repertoire")
+
+
+  if (!foundUserIfAny.active) {
+  // if (false) {
+    let e = new LoggingInError(`This account ${req.body.email} has not yet been confirmed, please confirm by clicking link sent to email, when registering!`); return next(e);
+  } 
+
+  
+
+  console.log(req.body)
+
+  // Compare the passwords
+  let bcryptCompareRet
+
+  try {
+    bcryptCompareRet = await bcrypt.compare(req.body.password, foundUserIfAny.password)
+  } catch (error) {
+    console.error(`---> Error in: bcrypt.compare,\n${error}`);
+    let e = new LoggingInError(error.message); return next(e);
   }
+
+  console.log({bcryptCompareRet})
+
+  if(bcryptCompareRet) {
+    req.session.userId = foundUserIfAny._id
+  } else {
+    let e = new LoggingInError("Erroneous password submission for this email"); return next(e);
+  }
+
 
   return next()
 }

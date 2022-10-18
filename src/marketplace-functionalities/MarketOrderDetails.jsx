@@ -1,7 +1,7 @@
 import React from 'react'
 import '../style/reactDivMobile.css'
 
-import { validateOrderInputs } from '../../full-stack-libs/validations'
+import { validateInputs, validateExpiry } from '../../full-stack-libs/validations'
 
 
 class MarketOrderDetails extends React.Component {
@@ -59,12 +59,14 @@ class MarketOrderDetails extends React.Component {
 
 
 
+    console.log("pkobmOr_4ft2sd inputs=====> ", pkobmOr_4ft2sd)
 
 
     let error_msg_retrieved_if_any
-    error_msg_retrieved_if_any = validateOrderInputs(pkobmOr_4ft2sd, error_msg_retrieved_if_any)
+    error_msg_retrieved_if_any = validateInputs(pkobmOr_4ft2sd) || validateExpiry(pkobmOr_4ft2sd)
 
-    console.log("error_msg_retrieved_if_any", error_msg_retrieved_if_any)
+    
+    console.log("error_msg_retrieved_if_any======>>>>>>> ", error_msg_retrieved_if_any)
 
     if (error_msg_retrieved_if_any) return error_msg_retrieved_if_any
 

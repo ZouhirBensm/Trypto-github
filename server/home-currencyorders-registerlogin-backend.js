@@ -41,6 +41,9 @@ const RegisterLoginController = require("../controllers/register-login-controlle
 const {registerController} = require("../controllers/register-login-controllers/register")
 const distributePaginatedDataController = require("../controllers/generic-controllers/distribute-paginated-data-controller")
 const isUpController = require("../controllers/generic-controllers/is-up-controller")
+// TODO keep the -2.js rename
+const {resendConfirmationController} = require("../controllers/register-login-controllers/resend-confirmation-controller")
+
 
 
 // Middleware
@@ -64,8 +67,8 @@ const logoutMiddleware = require('../middleware/generic-middleware/logout-middle
 // const checkPathUserIdMiddleware = require('../middleware/generic-middleware/check-path-userId-middleware')
 const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
 
-// const verifyingPasswordMiddleware = require('../middleware/loggedin-middleware/verifying-password-middleware')
-const verifyingPasswordMiddleware2 = require('../middleware/loggedin-middleware/verifying-password-middleware2')
+
+const verifyingPasswordMiddleware = require('../middleware/loggedin-middleware/verifying-password-middleware')
 
 const verifyingAccountActiveMiddleware = require('../middleware/loggedin-middleware/verifying-account-active-middleware')
 
@@ -296,90 +299,12 @@ homeOrdersBackend_app_router.get('/confirm-user-email/:userID/:hexfield', async 
 
 
 
-// TODO !! add guards
-// TODO !! middleware this code
-homeOrdersBackend_app_router.get('/resend-user-email/:userEmail', destructureURLandRefererMiddleware, async (req, res, next) => {
-
-  // TODO !! refactor errors, and integrate to UI
-
-  console.log(req.params)
 
 
-  let ret_user
-  try {
-    ret_user = await User.findOne({ email: req.params.userEmail })
-  } catch (e) {
-    return next(e)
-  }
-
-  if(!ret_user) {
-  // if(true) {
-    let e = new Error("No found user under that email")
-    return next(e)
-  }
-
-  if(ret_user.active) {
-    let e = new Error("Account already active")
-    return next(e)
-  }
+homeOrdersBackend_app_router.get('/resend-user-email/:userEmail', destructureURLandRefererMiddleware, resendConfirmationController)
 
 
-  let ret_user_hex
-  try {
-    ret_user_hex = await HexForUnactiveUser.findOne({ userID: ret_user._id })
-  } catch (e) {
-    return next(e)
-  }
 
-  console.log(ret_user)
-
-  let now = new Date()
-  // console.log(`Date: ${now},\n\nWelcome ${ret_user.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user._id}/${ret_user_hex.hexfield}\n\nThank you!`)
-
-  // TODO !! should be send mail middleware
-  // ___________________________________________
-
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: ENV.bidblock_email,
-      pass: ENV.bidblock_email_app_pass_code
-    }
-  });
-
-
-  console.log("transporter::::\n\n", transporter)
-  console.log(2)
-
-  let info
-  var mailOptions = {
-    from: ENV.bidblock_email,
-    to: ret_user.email,
-    subject: 'Confirm your BidBlock Account Now!',
-    text: `Date: ${now},\n\nWelcome ${ret_user.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user._id}/${ret_user_hex.hexfield}\n\nThank you!`
-  };
-  
-  try {
-    info = await transporter.sendMail(mailOptions);
-  } catch (e) {
-    return next(e)
-  }
-
-  console.log("returned info::::::\n\n\n", info);
-  console.log(3)
-
-  // ___________________________________________
-
-  if(info) {
-    res.status(200).json({
-      message: `Resent the confirmation message @ ${now}`
-    })
-  } else {
-    let e = new Error("Message not sent")
-    return next(e)
-  }
-
-})
 
 
 
@@ -520,7 +445,7 @@ homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID
 
 
 
-homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), verifyingAccountActiveMiddleware, verifyingPasswordMiddleware2, RegisterLoginController.loginController)
+homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), verifyingAccountActiveMiddleware, verifyingPasswordMiddleware, RegisterLoginController.loginController)
 
 module.exports = homeOrdersBackend_app_router
 //router references the homeOrdersBackend const

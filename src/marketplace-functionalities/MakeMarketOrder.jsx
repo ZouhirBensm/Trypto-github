@@ -2,7 +2,7 @@
 import '../style/MakeCurrencyOrder.css'
 import LocationSelector from './LocationSelector'
 import {utils} from '../../full-stack-libs/utils.address'
-import {validateOrderInputs, validateInputs_marketOrderTradeLocationSpecifics} from '../../full-stack-libs/validations'
+import {validateInputs, validateExpiry, validateInputs_marketOrderTradeLocationSpecifics} from '../../full-stack-libs/validations'
 
 
 
@@ -207,10 +207,14 @@ class MakeMarketOrder extends React.Component {
   }
 
   validateInputs(_marketOrderBasicData, _marketOrderTradeLocationSpecifics) {
-    // console.log("validating inputs", _marketOrderBasicData)
+    console.log("validating inputs=====> ", _marketOrderBasicData)
 
     let error_msg_retrieved_if_any
-    error_msg_retrieved_if_any = validateOrderInputs(_marketOrderBasicData, error_msg_retrieved_if_any)
+    error_msg_retrieved_if_any = validateInputs(_marketOrderBasicData) || validateExpiry(_marketOrderBasicData)
+
+    console.log("error======>>>>>>> ", error_msg_retrieved_if_any)
+
+
     error_msg_retrieved_if_any = validateInputs_marketOrderTradeLocationSpecifics(_marketOrderTradeLocationSpecifics, error_msg_retrieved_if_any)
 
 

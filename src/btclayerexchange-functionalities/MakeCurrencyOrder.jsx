@@ -1,7 +1,7 @@
 // import React from 'react';
 import '../style/MakeCurrencyOrder.css'
 import utils from '../../full-stack-libs/utils'
-import {validateOrderInputs} from '../../full-stack-libs/validations'
+import {validateInputs, validateExpiry} from '../../full-stack-libs/validations'
 
 
 class MakeCurrencyOrder extends React.Component {
@@ -80,8 +80,9 @@ class MakeCurrencyOrder extends React.Component {
     console.log(btc_orderinfo, url_param_order_type_to_save)
 
 
-    let error = validateOrderInputs(btc_orderinfo)
+    let error = validateInputs(btc_orderinfo) || validateExpiry(btc_orderinfo)
 
+    console.log("error======>>>>>>>", error)
     // console.log("error1  ", error)
 
     error = parseInt(btc_orderinfo.minamount)>parseInt(btc_orderinfo.maxamount) && !error ? "Min Amount Cannot be superior than Max Amount, please edit, and resubmit.": error

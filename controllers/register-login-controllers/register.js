@@ -139,13 +139,16 @@ async function registerController(req, res, next) {
 
   try {
     info = await transporter.sendMail(mailOptions);
-  } catch (error) {
-    return next(error)
+  } catch (e) {
+    return next(e)
   }
 
   // console.log("\n\n\nInfo:\n\n\n", info);
 
-
+  if(!info) {
+    let e = new Error("Message not sent")
+    return next(e)
+  }
 
   let success_msg = (
     req.body.plan == ROLE.USER.SUBSCRIBER.BASIC? `Subscriber ${req.body.email} successfully created, with the paypal subscriber ID: ${req.body.paypal_subscriptionID}`: 

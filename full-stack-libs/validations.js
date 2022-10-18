@@ -38,14 +38,19 @@ function verifyPassword(_password) {
 
 }
 
+
+
+
+
+
+
 function validateInputs(obj_input, err_msg = undefined) {
 
-  // TODO make sure validation is catching & in inputs
   // TODO !! make sure validation is catching & in inputs
   const preventInjectionsRegEx = /[<>;}{\&]/;
 
   for (const property in obj_input) {
-    // console.log(`${property}: ${_pkobmOr[property]}`);
+    // console.log(`${property}: ${obj_input[property]}`);
 
     if (obj_input[property] == '' || preventInjectionsRegEx.test(obj_input[property])) {
       err_msg = `This field: ${property}, inputed value is not proper. Please modify`
@@ -61,32 +66,15 @@ function validateInputs(obj_input, err_msg = undefined) {
   }
 }
 
+function validateExpiry(obj_input, err_msg = undefined) {
 
 
-// TODO !! identify where validateOrderInputs is used and split it to use validateInputs && create a expireAtValidation function and use
-function validateOrderInputs(_pkobmOr, err_msg = undefined) {
-
-  // TODO !! make sure validation is catching & in inputs
-  const preventInjectionsRegEx = /[<>;}{\&]/;
-
-  for (const property in _pkobmOr) {
-    // console.log(`${property}: ${_pkobmOr[property]}`);
-
-    if (_pkobmOr[property] == '' || preventInjectionsRegEx.test(_pkobmOr[property])) {
-      err_msg = `This field: ${property}, inputed value is not proper. Please modify`
-      break
-    }
-
-  }
-
-  let expireAt = new Date(_pkobmOr.expirydate?.slice(0, 4), _pkobmOr.expirydate?.slice(5, 7) - 1, _pkobmOr.expirydate?.slice(8, 10), _pkobmOr.expirytime?.slice(0, 2), _pkobmOr.expirytime?.slice(3, 5))
+  let expireAt = new Date(obj_input.expirydate?.slice(0, 4), obj_input.expirydate?.slice(5, 7) - 1, obj_input.expirydate?.slice(8, 10), obj_input.expirytime?.slice(0, 2), obj_input.expirytime?.slice(3, 5))
 
 
   if (expireAt < new Date() && !err_msg) {
     err_msg = `Expiry date & time cannot set before now. Please modify`
   }
-
-
 
   if (err_msg) {
     return err_msg
@@ -94,6 +82,9 @@ function validateOrderInputs(_pkobmOr, err_msg = undefined) {
     return undefined
   }
 }
+
+
+
 
 
 function validateInputs_marketOrderTradeLocationSpecifics(_pkobmOr_LocationData, err_msg = undefined) {
@@ -115,4 +106,4 @@ function validateInputs_marketOrderTradeLocationSpecifics(_pkobmOr_LocationData,
 
 
 
-module.exports = { verifyEmail, verifyPassword, validateInputs, validateOrderInputs, validateInputs_marketOrderTradeLocationSpecifics }
+module.exports = { verifyEmail, verifyPassword, validateInputs, validateExpiry, validateInputs_marketOrderTradeLocationSpecifics }
