@@ -70,6 +70,7 @@ const deleteMessagesMiddleware = require('../middleware/delete-account-process-m
 const sessionSubscriberMiddleware = require('../middleware/paypal-middleware/session-subscriber-middleware')
 const deleteEffectUserToUnsubscribeMiddleware = require('../middleware/delete-account-process-middleware/delete-effect-user-to-unsubscribe-middleware')
 const deleteUserMiddleware = require('../middleware/delete-account-process-middleware/delete-user-middleware')
+const deleteHexMiddleware = require('../middleware/delete-account-process-middleware/delete-hex-middleware')
 const logoutMiddleware = require('../middleware/generic-middleware/logout-middleware')
 // const checkPathUserIdMiddleware = require('../middleware/generic-middleware/check-path-userId-middleware')
 const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
@@ -397,7 +398,9 @@ homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (re
 
 // TODO add userID for articles
 homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteMarketOrderMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware,
-  sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteUserMiddleware, logoutMiddleware, (req, res, next) => {
+  sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteHexMiddleware, deleteUserMiddleware, logoutMiddleware, 
+  
+  (req, res, next) => {
 
     console.log("Final point: ", res.locals.notifications.length, res.locals.notifications.length == 0, res.locals.notifications.length === 0)
 
