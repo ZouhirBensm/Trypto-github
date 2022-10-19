@@ -116,7 +116,7 @@ async function registerController(req, res, next) {
   // console.log(`Date: ${now},\n\nWelcome ${ret_user_save.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user_save._id}/${ret_hex_for_unactive_user_save.hexfield}\n\nThank you!`)
 
 
-  // TODO !! transporter can be global and instanciated once to a common denominator of where it is used
+
   transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {

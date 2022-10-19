@@ -52,8 +52,8 @@ async function resendConfirmationController(req, res, next) {
   });
 
 
-  console.log("transporter::::\n\n", transporter)
-  console.log(2)
+  // console.log("transporter::::\n\n", transporter)
+  // console.log(2)
 
   let info
   var mailOptions = {

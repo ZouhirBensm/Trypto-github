@@ -6,6 +6,9 @@ const httpStatus = require("http-status-codes")
 const CoinGecko = require('coingecko-api');
 var nodemailer = require('nodemailer');
 
+
+
+
 // Initializations
 const homeOrdersBackend_app_router = express.Router()
 const CoinGeckoClient = new CoinGecko();
@@ -111,6 +114,17 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
+
+
+homeOrdersBackend_app_router.post('/users/register', requireRefererMiddleware, require_loggedin_for_data(false), destructureURLandRefererMiddleware, LoginController.validateController, registerController)
+
+
+
+homeOrdersBackend_app_router.get('/resend-user-email/:userEmail', destructureURLandRefererMiddleware, resendConfirmationController)
+
+
+
+
 homeOrdersBackend_app_router.get('/', (req, res) => {
 
   res.locals.userId = req.session.userId
@@ -198,7 +212,6 @@ homeOrdersBackend_app_router.get(['/btclayerexchange/:page?'], require_loggedin_
 
 
 
-homeOrdersBackend_app_router.post('/users/register', requireRefererMiddleware, require_loggedin_for_data(false), destructureURLandRefererMiddleware, LoginController.validateController, registerController)
 
 
 
@@ -304,8 +317,6 @@ homeOrdersBackend_app_router.get('/confirm-user-email/:userID/:hexfield', async 
 
 
 
-
-homeOrdersBackend_app_router.get('/resend-user-email/:userEmail', destructureURLandRefererMiddleware, resendConfirmationController)
 
 
 
