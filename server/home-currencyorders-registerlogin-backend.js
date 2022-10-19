@@ -37,7 +37,11 @@ const { DeleteAccountProcessError } = require("../custom-errors/custom-errors")
 
 // Controllers
 const homeCurrencyOrdersController = require("../controllers/home-currencyorders-controllers/home-currencyorders-controllers")
-const RegisterLoginController = require("../controllers/register-login-controllers/login-controllers")
+
+// const RegisterLoginController = require("../controllers/register-login-controllers/login-controllers")
+const LoginController = require("../controllers/register-login-controllers/login-controllers")
+
+
 const {registerController} = require("../controllers/register-login-controllers/register")
 const distributePaginatedDataController = require("../controllers/generic-controllers/distribute-paginated-data-controller")
 const isUpController = require("../controllers/generic-controllers/is-up-controller")
@@ -194,7 +198,7 @@ homeOrdersBackend_app_router.get(['/btclayerexchange/:page?'], require_loggedin_
 
 
 
-homeOrdersBackend_app_router.post('/users/register', requireRefererMiddleware, require_loggedin_for_data(false), destructureURLandRefererMiddleware, RegisterLoginController.validateController, registerController)
+homeOrdersBackend_app_router.post('/users/register', requireRefererMiddleware, require_loggedin_for_data(false), destructureURLandRefererMiddleware, LoginController.validateController, registerController)
 
 
 
@@ -312,7 +316,7 @@ homeOrdersBackend_app_router.get('/resend-user-email/:userEmail', destructureURL
 
 
 
-homeOrdersBackend_app_router.post('/check/user/register', requireRefererMiddleware, RegisterLoginController.checkRegisterController)
+homeOrdersBackend_app_router.post('/check/user/register', requireRefererMiddleware, LoginController.checkRegisterController)
 
 
 homeOrdersBackend_app_router.get('/isup', isUpController)
@@ -445,7 +449,7 @@ homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID
 
 
 
-homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), verifyingAccountActiveMiddleware, verifyingPasswordMiddleware, RegisterLoginController.loginController)
+homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), verifyingAccountActiveMiddleware, verifyingPasswordMiddleware, LoginController.loginController)
 
 module.exports = homeOrdersBackend_app_router
 //router references the homeOrdersBackend const

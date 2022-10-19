@@ -18,81 +18,87 @@ const httpStatus = require("http-status-codes")
 const { ValidationError, LoggingInError, MongoError } = require('../../custom-errors/custom-errors')
 
 
-// TODO !! have these functions in their thing and not in a object that is exported
-module.exports = {
-  validateController: (req, res, next) => {
-    let flag, notification = [];
-    // console.log(req.body);
 
-    ({ flag, notification } = verifyEmail(req.body.email));
+function validateController(req, res, next) {
+  let flag, notification = [];
+  console.log("\n\nreq.body----->", req.body);
+
+  ({ flag, notification } = verifyEmail(req.body.email));
+  // console.log(flag, notification);
+
+  if (flag) {
+    ({ flag, notification } = verifyPassword(req.body.password));
     // console.log(flag, notification);
-
     if (flag) {
-      ({ flag, notification } = verifyPassword(req.body.password));
-      // console.log(flag, notification);
-      if (flag) {
-        //execute registerController with the current req
-        next()
-      } else {
-        // console.log('Password failed to validate') 
-        const error = new ValidationError(notification, "Password")
-        return next(error)
-      }
+      //execute registerController with the current req
+      next()
     } else {
-      // console.log('Email failed to validate')
-      const error = new ValidationError(notification, "Email")
+      // console.log('Password failed to validate') 
+      const error = new ValidationError(notification, "Password")
       return next(error)
     }
+  } else {
+    // console.log('Email failed to validate')
+    const error = new ValidationError(notification, "Email")
+    return next(error)
+  }
 
-  },
-  checkRegisterController: async (req, res, next) => {
-    console.log("we got: ", req.body)
+}
 
-    let mightFindUser
-    try {
-      mightFindUser = await User.findOne(req.body)
-    } catch (e) {
-      error = new MongoError(e.message, e.code)
-      return next(error)
-    }
+async function checkRegisterController(req, res, next) {
+  console.log("we got: ", req.body)
 
-    if (mightFindUser) {
-      console.log("one", mightFindUser)
-      res.status(httpStatus.StatusCodes.INTERNAL_SERVER_ERROR).json({
-        error: {
-          message: ['We did find a duplicate email in the database, please register under another email.']
-        }
-      })
-    } else {
-      console.log("one", mightFindUser)
-      res.status(httpStatus.StatusCodes.OK).json({
-        server: {
-          message: ['We did not find a duplicate email']
-        }
-      })
-    }
-  },
+  let mightFindUser
+  try {
+    mightFindUser = await User.findOne(req.body)
+  } catch (e) {
+    error = new MongoError(e.message, e.code)
+    return next(error)
+  }
 
-  loginController: async (req, res, next) => {
-
-    console.log("\nreq.session.userId end:\n", req.session.userId)
-
-    res.status(200).json({
-      server: {
-        message: ["User successfully logged in"]
+  if (mightFindUser) {
+    console.log("one", mightFindUser)
+    res.status(httpStatus.StatusCodes.INTERNAL_SERVER_ERROR).json({
+      error: {
+        message: ['We did find a duplicate email in the database, please register under another email.']
       }
     })
-
-
-  },
-
-  invalidPathHandler: (req, res, next) => {
-    // console.log(req.method)
-    if (req.method === "GET") {
-      let errorCode = httpStatus.StatusCodes.NOT_FOUND
-      res.status(errorCode)
-      res.render('bodies/error')
-    }
-    next()
+  } else {
+    console.log("one", mightFindUser)
+    res.status(httpStatus.StatusCodes.OK).json({
+      server: {
+        message: ['We did not find a duplicate email']
+      }
+    })
   }
+}
+
+async function loginController(req, res, next) {
+
+  console.log("\nreq.session.userId end:\n", req.session.userId)
+
+  res.status(200).json({
+    server: {
+      message: ["User successfully logged in"]
+    }
+  })
+
+
+}
+
+function invalidPathHandler(req, res, next) {
+  // console.log(req.method)
+  if (req.method === "GET") {
+    let errorCode = httpStatus.StatusCodes.NOT_FOUND
+    res.status(errorCode)
+    res.render('bodies/error')
+  }
+  next()
+}
+
+module.exports = {
+  validateController,
+  checkRegisterController,
+  loginController,
+  invalidPathHandler
 }

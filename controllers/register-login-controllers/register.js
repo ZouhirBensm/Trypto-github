@@ -1,4 +1,3 @@
-const { verifyEmail, verifyPassword } = require('../../full-stack-libs/validations')
 //We import the User model
 const User = require('../../models/User')
 const HexForUnactiveUser = require('../../models/HexForUnactiveUser')
@@ -30,7 +29,7 @@ async function registerController(req, res, next) {
 
   hex_for_unactive_user_instance = new HexForUnactiveUser()
 
-  
+
   switch (req.body.plan) {
     case ROLE.USER.NOTSUBSCRIBER:
       req.body.role = ROLE.USER.NOTSUBSCRIBER
@@ -53,7 +52,7 @@ async function registerController(req, res, next) {
       break;
   }
 
-  
+
   user_instance = new User({
     email: req.body.email,
     password: req.body.password,
@@ -98,16 +97,16 @@ async function registerController(req, res, next) {
 
 
 
-  let double_check_expression = ret_hex_for_unactive_user_save && ret_user_save  && 
-  (
-    req.body.plan == ROLE.USER.SUBSCRIBER.BASIC? !!ret_subinfo_save: 
-    req.body.plan == ROLE.USER.NOTSUBSCRIBER? true: 
-    true
-  )
+  let double_check_expression = ret_hex_for_unactive_user_save && ret_user_save &&
+    (
+      req.body.plan == ROLE.USER.SUBSCRIBER.BASIC ? !!ret_subinfo_save :
+        req.body.plan == ROLE.USER.NOTSUBSCRIBER ? true :
+          true
+    )
 
+  // if (true) {
   if (!(double_check_expression)) {
-    // TODO !! integrate error with UI
-    let e = new Error(`The user,${req.body.plan == ROLE.USER.SUBSCRIBER.BASIC? ' sub info': null} or hex save f'ed up!`)
+    let e = new MongoError(`The user,${req.body.plan == ROLE.USER.SUBSCRIBER.BASIC ? ' sub info' : ''} or hex save f'ed up!`)
     return next(e)
   }
 
@@ -117,7 +116,7 @@ async function registerController(req, res, next) {
   // console.log(`Date: ${now},\n\nWelcome ${ret_user_save.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user_save._id}/${ret_hex_for_unactive_user_save.hexfield}\n\nThank you!`)
 
 
-  // TODO !! should be send mail middleware
+  // TODO !! transporter can be global and instanciated once to a common denominator of where it is used
   transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -137,23 +136,26 @@ async function registerController(req, res, next) {
     text: `Date: ${now},\n\nWelcome ${ret_user_save.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user_save._id}/${ret_hex_for_unactive_user_save.hexfield}\n\nThank you!`
   };
 
+
+
+
   try {
     info = await transporter.sendMail(mailOptions);
   } catch (e) {
     return next(e)
   }
 
-  // console.log("\n\n\nInfo:\n\n\n", info);
+  console.log("\n\n\nInfo:\n\n\n", info);
 
-  if(!info) {
+  if (!info) {
     let e = new Error("Message not sent")
     return next(e)
   }
 
   let success_msg = (
-    req.body.plan == ROLE.USER.SUBSCRIBER.BASIC? `Subscriber ${req.body.email} successfully created, with the paypal subscriber ID: ${req.body.paypal_subscriptionID}`: 
-    req.body.plan == ROLE.USER.NOTSUBSCRIBER? `User ${ret_user_save.email} successfully created`:
-    null
+    req.body.plan == ROLE.USER.SUBSCRIBER.BASIC ? `Subscriber ${req.body.email} successfully created, with the paypal subscriber ID: ${req.body.paypal_subscriptionID}` :
+      req.body.plan == ROLE.USER.NOTSUBSCRIBER ? `User ${ret_user_save.email} successfully created` :
+        null
   )
 
 
