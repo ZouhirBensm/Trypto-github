@@ -142,6 +142,9 @@ marketplaceBackend_app_router.get(['/order/:userId/sellordersdata/:orderID', '/o
 marketplaceBackend_app_router.delete('/:userId/delete-this-order', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), marketplaceController.deleteOrderController)
 
 
+
+
+
 marketplaceBackend_app_router.post('/sellorders/save', require_loggedin_for_data(true), marketplaceController.registerMarketOrder)
 
 

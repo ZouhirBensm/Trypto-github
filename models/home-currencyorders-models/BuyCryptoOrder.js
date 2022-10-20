@@ -21,6 +21,11 @@ const BuyCryptoOrderSchema = new Schema({
     expirydate: String,
     expirytime: String,
     payment: String,
+    currencyorderlocationID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'BuyLocationCryptoOrder',
+        required: true
+    },
     expireAt: {
         type: Date,
         //default: Date.now,

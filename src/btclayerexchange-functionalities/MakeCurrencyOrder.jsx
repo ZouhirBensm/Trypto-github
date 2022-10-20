@@ -1,7 +1,9 @@
 // import React from 'react';
 import '../style/MakeCurrencyOrder.css'
 import utils from '../../full-stack-libs/utils'
-import {validateInputs, validateExpiry} from '../../full-stack-libs/validations'
+import { validateInputs, validateExpiry } from '../../full-stack-libs/validations'
+import React from 'react'
+import $ from 'jquery';
 
 
 class MakeCurrencyOrder extends React.Component {
@@ -13,10 +15,13 @@ class MakeCurrencyOrder extends React.Component {
       amountsTo_inBTC: undefined,
       amountsTo_inSAT: undefined,
       chain: undefined,
+      country: undefined,
+      value: ""
     }
     this.clickGetCryptoPrice = this.clickGetCryptoPrice.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.clickCreateOrder = this.clickCreateOrder.bind(this)
+    this.change = this.change.bind(this)
 
     console.log("this.props.match.params.type------>>>>>", this.props.match.params.type, caseOptionBTClayerexchange, paths_URL, URL_)
   }
@@ -26,13 +31,13 @@ class MakeCurrencyOrder extends React.Component {
     this.clickGetCryptoPrice()
   }
 
-  displayErrorpopup(error=undefined){
-    if(!error) return undefined
+  displayErrorpopup(error = undefined) {
+    if (!error) return undefined
     console.log("in display pop up", error)
 
     this.setState({
       popup_state: error
-    }, ()=>{
+    }, () => {
       console.log("scroll down")
       let container = document.getElementsByClassName("make-container")[0]
       console.log('container', container)
@@ -42,7 +47,7 @@ class MakeCurrencyOrder extends React.Component {
   }
 
 
-  async clickCreateOrder(e){
+  async clickCreateOrder(e) {
     e.preventDefault()
 
     console.log("create order...")
@@ -52,8 +57,8 @@ class MakeCurrencyOrder extends React.Component {
 
     let [url_param_order_type_to_save, amount_s] = []
 
-    caseOptionBTClayerexchange === "makebuy"? [url_param_order_type_to_save, amount_s] = ["buyorders", ["amount"]]:
-    caseOptionBTClayerexchange === "makesell"? [url_param_order_type_to_save, amount_s] = ["sellorders", ["minamount", "maxamount"]]:
+    caseOptionBTClayerexchange === "makebuy" ? [url_param_order_type_to_save, amount_s] = ["buyorders", ["amount"]] :
+    caseOptionBTClayerexchange === "makesell" ? [url_param_order_type_to_save, amount_s] = ["sellorders", ["minamount", "maxamount"]] :
     null
 
     let amount_fields_obj = {}
@@ -76,20 +81,36 @@ class MakeCurrencyOrder extends React.Component {
     }
 
 
+    let province_state
 
-    console.log(btc_orderinfo, url_param_order_type_to_save)
+    if(this.state.country == 'Canada') {
+      province_state = document.getElementById("form_id").elements["province"].value
+    } else if (this.state.country == 'United States') {
+      province_state = document.getElementById("form_id").elements["state"].value
+    }
 
 
-    let error = validateInputs(btc_orderinfo) || validateExpiry(btc_orderinfo)
+    let btc_orderinfo_location = {
+      country: document.getElementById("form_id").elements["country"].value,
+      province_state: province_state,
+      // iterator: document.getElementById("form_id").elements[7].value,
+    }
+
+
+
+    console.log(btc_orderinfo, btc_orderinfo_location, url_param_order_type_to_save)
+
+
+    let error = validateInputs({...btc_orderinfo, ...btc_orderinfo_location}) || validateExpiry(btc_orderinfo)
 
     console.log("error======>>>>>>>", error)
     // console.log("error1  ", error)
 
-    error = parseInt(btc_orderinfo.minamount)>parseInt(btc_orderinfo.maxamount) && !error ? "Min Amount Cannot be superior than Max Amount, please edit, and resubmit.": error
+    error = parseInt(btc_orderinfo.minamount) > parseInt(btc_orderinfo.maxamount) && !error ? "Min Amount Cannot be superior than Max Amount, please edit, and resubmit." : error
 
     // console.log("error2  ", error)
 
-    if(error) return this.displayErrorpopup(error)
+    if (error) return this.displayErrorpopup(error)
 
     // console.log("do the fetch")
 
@@ -101,7 +122,7 @@ class MakeCurrencyOrder extends React.Component {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify(btc_orderinfo)
+      body: JSON.stringify({...btc_orderinfo, ...btc_orderinfo_location})
     })
 
     console.log("server response status:", response.status)
@@ -189,20 +210,26 @@ class MakeCurrencyOrder extends React.Component {
   }
 
 
+
+
   async handleChange() {
     console.log("changing....")
 
 
-    
-    let _priceRate, _crypto, crypto_sel, _chain
-    
-  
+
+    let _priceRate, _crypto, crypto_sel, _chain, _country
+
+    var country_sel = document.getElementById("form_id").elements["country"];
+
+    _country = country_sel.options[country_sel.selectedIndex].text;
+    console.log("_country---->>>", _country)
+
     _chain = document.getElementById('chain-select').value
     crypto_sel = "Bitcoin";
     _crypto = "Bitcoin";
     _priceRate = document.getElementById("form_id").elements["price"].value
-    
-    if(caseOptionBTClayerexchange == "makebuy"){
+
+    if (caseOptionBTClayerexchange == "makebuy") {
 
       let _amount, amountsToBTC, amountsToSAT, amountsToRaw
 
@@ -211,14 +238,16 @@ class MakeCurrencyOrder extends React.Component {
       amountsToRaw = _amount / _priceRate
       amountsToBTC = amountsToRaw.toFixed(9)
       amountsToSAT = Math.trunc(amountsToRaw * 1000000000)
+
       this.setState({
         amountsTo_inBTC: amountsToBTC,
         amountsTo_inSAT: amountsToSAT,
         chain: _chain,
+        country: _country
       })
     }
 
-    if(caseOptionBTClayerexchange == "makesell"){
+    if (caseOptionBTClayerexchange == "makesell") {
       let _minamount, _maxamount, minamountsToRaw, maxamountsToRaw, minamountsToBTC, maxamountsToBTC, minamountsToSAT, maxamountsToSAT
 
       _minamount = document.getElementById("form_id").elements["minamount"].value
@@ -237,25 +266,96 @@ class MakeCurrencyOrder extends React.Component {
         amountsTo_inBTC: `${minamountsToBTC} to ${maxamountsToBTC}`,
         amountsTo_inSAT: `${minamountsToSAT} to ${maxamountsToSAT}`,
         chain: _chain,
+        country: _country
       })
     }
 
-
-
-    
     // console.log({_priceRate, _amount, _chain, crypto_sel, _crypto})
-
-
-    
-
-
 
   }
 
 
 
-  render() {
 
+  setOptions(_country) {
+    let options
+    let tag_options_arr_data = []
+
+    if (_country == "Canada") {
+      tag_options_arr_data = ["Ontario", "Quebec", "Alberta", "Manitoba"]
+      options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
+    }
+    else if (_country == "United States") {
+      tag_options_arr_data = ["Texas", "Florida", "California", "Colorado"]
+      options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
+    }
+    else { }
+
+    // console.log("SELECT:", document.getElementById('payment-select')?.options[0].selected)
+
+    return options
+  }
+
+
+  setStateProvinceSelector(_country) {
+    let options
+    let tag_options_arr_data = []
+    let selector
+
+    if (_country == "Canada") {
+      tag_options_arr_data = ["Ontario", "Quebec", "Alberta"]
+      options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
+      selector = <React.Fragment>
+        <label htmlFor="province-select">Province</label>
+        <select value={this.state.value} onChange={this.change} className="location-class" name="province" id="province-select" required>
+          <option value="" defaultValue>N/A</option>
+          {options}
+        </select> <br />
+
+        {/* <label htmlFor="province-select">Province</label>
+        <input value={this.state.value} onChange={this.change} name="province" id="province-select" required list="province" />
+        <datalist id="province">
+          <option value="N/A"/>
+          {options}
+        </datalist> <br /> */}
+      </React.Fragment>
+    }
+    else if (_country == "United States") {
+      tag_options_arr_data = ["Texas", "Florida", "California", "Colorado"]
+      options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
+      selector = <React.Fragment>
+        <label htmlFor="state-select">State</label>
+        <select value={this.state.value} onChange={this.change} className="location-class" name="state" id="state-select" required>
+          <option value="" defaultValue>N/A</option>
+          {options}
+        </select> <br />
+
+        {/* <label htmlFor="state-select">State</label>
+        <input value={this.state.value} onChange={this.change} name="state" id="state-select" required list="state" />
+        <datalist id="state">
+          <option value="N/A"/>
+          {options}
+        </datalist> <br /> */}
+      </React.Fragment>
+    }
+    else { }
+
+    // console.log("SELECT:", document.getElementById('payment-select')?.options[0].selected)
+
+    return selector
+  }
+
+
+
+
+  change(event) {
+    this.setState({
+      value: event.target.value
+    });
+  }
+
+
+  setAmountInput() {
     let amount_field
     let amountsTo_inBTC_msg, amountsTo_inSAT_msg
 
@@ -263,7 +363,7 @@ class MakeCurrencyOrder extends React.Component {
       amount_field =
         <React.Fragment>
           <label htmlFor="amount-select">Amount (CAD)</label>
-          <input onChange={(e) => this.handleChange(e)} type="number" id="amount-select" name="amount" required defaultValue='100' />
+          <input onChange={(e) => this.handleChange(e)} type="number" id="amount-select" name="amount" required defaultValue='100' /> <br />
         </React.Fragment>
 
       // this.state.amountsTo_inBTC == XXX
@@ -286,11 +386,58 @@ class MakeCurrencyOrder extends React.Component {
       amountsTo_inSAT_msg = `Amounts between: ${this.state.amountsTo_inSAT} SATs`
     }
 
+    return [amount_field, amountsTo_inBTC_msg, amountsTo_inSAT_msg]
+  }
 
 
 
 
-    console.log(this.state)
+
+  render() {
+    console.log("------>", this.state.country)
+    let AreaSelector = this.setStateProvinceSelector(this.state.country)
+    // let options = this.setOptions(this.state.country)
+
+    let [AmountInput, amountsTo_inBTC_msg, amountsTo_inSAT_msg] = this.setAmountInput()
+
+    // let amount_field
+    // let amountsTo_inBTC_msg, amountsTo_inSAT_msg
+
+    // if (caseOptionBTClayerexchange == "makebuy") {
+    //   amount_field =
+    //     <React.Fragment>
+    //       <label htmlFor="amount-select">Amount (CAD)</label>
+    //       <input onChange={(e) => this.handleChange(e)} type="number" id="amount-select" name="amount" required defaultValue='100' />
+    //     </React.Fragment>
+
+    //   // this.state.amountsTo_inBTC == XXX
+    //   amountsTo_inBTC_msg = `Amounts to: ${this.state.amountsTo_inBTC} BTC`
+    //   amountsTo_inSAT_msg = `Amounts to: ${this.state.amountsTo_inSAT} SATs`
+    // }
+
+    // if (caseOptionBTClayerexchange == "makesell") {
+    //   amount_field =
+    //     <React.Fragment>
+    //       <label htmlFor="min-amount-select">Min Amount (CAD)</label>
+    //       <input onChange={(e) => this.handleChange(e)} type="number" id="min-amount-select" name="minamount" required defaultValue='500' /> <br />
+
+    //       <label htmlFor="max-amount-select">Max Amount (CAD)</label>
+    //       <input onChange={(e) => this.handleChange(e)} type="number" id="max-amount-select" name="maxamount" required defaultValue='1000' /> <br />
+    //     </React.Fragment>
+
+    //   // this.state.amountsTo_inBTC == XXX and XXX
+    //   amountsTo_inBTC_msg = `Amounts between: ${this.state.amountsTo_inBTC} BTC`
+    //   amountsTo_inSAT_msg = `Amounts between: ${this.state.amountsTo_inSAT} SATs`
+    // }
+
+
+
+
+
+
+
+
+
 
 
     //_________________________________________________________________
@@ -317,7 +464,8 @@ class MakeCurrencyOrder extends React.Component {
           </select><br />
 
 
-          {amount_field}<br />
+          {/* {amount_field} */}
+          {AmountInput}
 
 
           <label htmlFor="price-select">Price/Unit</label>
@@ -338,9 +486,28 @@ class MakeCurrencyOrder extends React.Component {
           </select> <br />
 
 
-          <span>{this.state.unit == "BTC" ? amountsTo_inBTC_msg : this.state.unit == "SAT" ? amountsTo_inSAT_msg : null}</span><br />
+          <label htmlFor="country-select">Country</label>
+          <select onChange={(e) => this.handleChange(e)} name="country" id="country-select" required>
+            <option value="Canada" defaultValue>Canada</option>
+            <option value="United States">United States</option>
+          </select> <br />
 
+          {/* <label htmlFor="province-state-select">Province/State</label>
+          <select value={this.state.value} onChange={this.change} name="province-state" id="province-state-select" required>
+            <option value="N/A" defaultValue>N/A</option>
+            {options}
+          </select> <br /> */}
+
+          {AreaSelector}
+
+
+
+
+          <span>{this.state.unit == "BTC" ? amountsTo_inBTC_msg : this.state.unit == "SAT" ? amountsTo_inSAT_msg : null}</span><br />
           <button onClick={(e) => { this.toogleUnits(e) }}>in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null}</button><br />
+
+
+
 
           {/* <input type="hidden" name="iterator" value={this.state.iterator}/> */}
           <button type="submit" onClick={(e) => this.clickCreateOrder(e)}>Submit</button>
