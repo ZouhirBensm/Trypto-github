@@ -54,7 +54,8 @@ class MarketPlace extends React.Component {
   render() {
     console.log("UID????", userId)
     return (
-        <div className="wrapper">
+      <div className="wrapper">
+        {/* <React.Fragment> */}
         {/* OrdersApp2 */}
         <BrowserRouter> 
           <Switch> 
@@ -81,7 +82,9 @@ class MarketPlace extends React.Component {
 
           </Switch>     
         </BrowserRouter> 
+        {/* </React.Fragment> */}
         </div>
+
     )
   }
 }

@@ -1,7 +1,7 @@
 import HelpForOrders from './HelpForOrders'
 import MonitorForMessages from './MonitorForMessages'
 import ManageSubscriptions from './ManageSubscriptions'
-
+import HelpForMarketOrders from './HelpForMarketOrders'
 
 class OperationActions extends React.Component {
   constructor(props){
@@ -44,6 +44,14 @@ class OperationActions extends React.Component {
       loggedinUserObjInfo={user}
       />
         break;
+      case "help-for-market-orders":
+        this.componentToRender = <HelpForMarketOrders
+        comprehensiveSelectedUserInfoDataObj={this.comprehensiveSelectedUserInfoDataObj}
+        selected_userID={this.props.match.params.selected_userID}
+        mode={this.props.match.params.mode} 
+        loggedinUserObjInfo={user}
+        />
+          break;
       default:
         break;
     }
@@ -53,6 +61,7 @@ class OperationActions extends React.Component {
     return (
       <React.Fragment>
         {this.componentToRender}
+
       </React.Fragment>
     )
   }

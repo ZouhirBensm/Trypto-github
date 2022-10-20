@@ -49,7 +49,7 @@ const { require_loggedin_for_pages, require_loggedin_for_data } = require("../mi
 operationsBackend_app_router.use(set_user_if_any, (req, res, next) => {
   // Might need this as a "script endpoint global" variable!
   // res.locals.CATEGORY = CATEGORY;
-
+  res.locals.userId = req.session.userId
   navBars = NAVBAR.OPERATORS
   next()
 })
@@ -103,8 +103,7 @@ operationsBackend_app_router.get('/article-selector', require_loggedin_for_pages
 })
 
 
-operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/manage-subs'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
-
+operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/manage-subs', '/help-for-market-orders'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
 
   // res.locals.CATEGORY = CATEGORY;
 
@@ -119,7 +118,7 @@ operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/man
 })
 
 
-operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/manage-subs/:userID'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
+operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/manage-subs/:userID', '/help-for-market-orders/:userID'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
 
   // res.locals.CATEGORY = CATEGORY;
 
@@ -186,7 +185,13 @@ operationsBackend_app_router.get('/detailed-user-information/:userID', require_l
 
 })
 
+
+
+
 operationsBackend_app_router.get('/paginated-users/users-for-display', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), paginatingSetupMiddleware, destructureURLandRefererMiddleware, usersRetrievalMiddleware, distributePaginatedDataController)
+
+
+
 
 
 operationsBackend_app_router.get('/paginated-messages/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2), paginatingSetupMiddleware, destructureURLandRefererMiddleware, messagesRetrievalMiddleware, distributePaginatedDataController)

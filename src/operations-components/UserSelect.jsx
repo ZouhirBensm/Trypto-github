@@ -3,7 +3,9 @@ import Operations from '../root-spas/Operations';
 import UsersList from './UsersList'
 import PageSelector from '../generic-components/PageSelector'
 import OperationActions from '../operations-components/OperationActions'
+import MarketOrderDetails from '../marketplace-functionalities/MarketOrderDetails'
 import { Link, BrowserRouter, Route, Switch, useRouteMatch } from 'react-router-dom';
+import Testt from "./Testt"
 
 class UserSelect extends React.Component {
   constructor(props) {
@@ -113,8 +115,17 @@ class UserSelect extends React.Component {
             } />
 
             <Route path={`/operations/:mode/:selected_userID`} render={
-              (props) => <OperationActions {...props}/>
-            }/> 
+              (props) => <OperationActions {...props} />
+            } />
+
+            {/* <Route path="/marketplace/allmyorders/:UID" render={
+              (props) => <Testt {...props} />
+            } /> */}
+
+            <Route path="/marketplace/:order_type/:orderID" render={
+              (props) => <MarketOrderDetails {...props} />
+            } />
+
 
           </Switch>
         </BrowserRouter>

@@ -90,12 +90,16 @@
     case `/marketplace/${caseOptionMarketplace}`:
       userId = '<%= locals.userId %>'
       popup = '<%= locals.popup %>'
-      console.log("------------->>>>>>", userId, popup)
+      user = <%-JSON.stringify(locals.user || {})%> 
+
+      console.log("------------->>>>>>", userId, popup, user)
       break;
     case `/marketplace/${caseOptionMarketplace}/${caseOptionMarketplace2}`:
       userId = '<%= locals.userId %>'
       // orderId = '< %= locals.userId %>'
-      console.log("------------->>>>>>", userId)
+      user = <%-JSON.stringify(locals.user || {})%> 
+
+      console.log("------------->>>>>>!!!", userId, user)
       break;
 
 
@@ -139,25 +143,25 @@
 
     case '/operations':
       // CATEGORY = < %-JSON.stringify(locals.CATEGORY || {})%> 
-
+      userId = '<%= locals.userId %>'
       user = <%-JSON.stringify(locals.user || {})%> 
-      console.log("--------------->>>>>>", user, CATEGORY)
+      console.log("--------------->>>>>>(1111)", user, userId, CATEGORY)
       break;
     case `/operations/${caseOperationsTask}`:
+      user = <%-JSON.stringify(locals.user || {})%> 
+      userId = '<%= locals.userId %>'
+
       if (caseOperationsTask == "create-article") {
         CATEGORY = <%-JSON.stringify(locals.CATEGORY || {})%> 
-        console.log(CATEGORY)
       }
-      if (caseOperationsTask == "monitor-messages") {
-        user = <%-JSON.stringify(locals.user || {})%> 
-        console.log("--------->>>>", user)
-      }
+      console.log("--------->>>>(2222)", user, CATEGORY, userId)
+
       break;
     case `/operations/${caseOperationsTask}/${caseUserID}`:
-      if (caseOperationsTask == "monitor-messages") {
-        user = <%-JSON.stringify(locals.user || {})%> 
-        console.log("--------------->>>>>>", user)
-      }
+      userId = '<%= locals.userId %>'
+      user = <%-JSON.stringify(locals.user || {})%> 
+      console.log("--------------->>>>>>(333)", user, userId)
+
       break;
     default:
       break;

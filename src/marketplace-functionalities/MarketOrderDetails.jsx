@@ -1,5 +1,6 @@
 import React from 'react'
 import '../style/reactDivMobile.css'
+import ROLE from '../../full-stack-libs/Types/Role'
 
 import { validateInputs, validateExpiry } from '../../full-stack-libs/validations'
 
@@ -19,7 +20,7 @@ class MarketOrderDetails extends React.Component {
     this.EditOrder = this.EditOrder.bind(this)
     this.deal = this.deal.bind(this)
 
-    // console.log("UID????----->>>>>", userId)
+    console.log("UID????----->>>>>", userId)
     // console.log("OID????", this.props.match.params.orderID)
     // console.log("what_page????", this.props.match.params.order_type)
 
@@ -240,12 +241,13 @@ class MarketOrderDetails extends React.Component {
 
 
 
-    // console.log(response)
+    console.log(response)
 
     let order_or_error = await response.json()
 
+    console.log("order detailes: ", order_or_error)
+
     if (response.ok) {
-      // console.log("order detailes: ", order_or_error)
 
       let rows = this.setTableRows(order_or_error)
 
@@ -262,7 +264,7 @@ class MarketOrderDetails extends React.Component {
 
     } else {
       console.error("Error: ", order_or_error)
-      this.displayPopUp(order_or_error.error.message)
+      this.displayPopUp2(order_or_error.error.message)
     }
 
     // console.log("end load data")
@@ -270,11 +272,15 @@ class MarketOrderDetails extends React.Component {
   }
 
 
-  async DeleteClick(_orderID, e) {
+  async DeleteClick(orderownerID, _orderID, e) {
     e.preventDefault()
 
-    // console.log("------------------->>>>>>", userId)
+    console.log("------------------->>>>>>", userId)
+    console.log(`/operations/help-for-market-orders/${orderownerID}`)
+    console.log(paths_URL[0])
+    
 
+    
     let response = await fetch(`/marketplace/${userId}/delete-this-order`, {
       method: 'DELETE',
       headers: {
@@ -292,11 +298,17 @@ class MarketOrderDetails extends React.Component {
 
     if (response.ok) {
 
-      window.location.href = `/marketplace/${this.props.match.params.order_type}?popup=${srv_.srv_}`
+      if(paths_URL[0] == 'operations'){
+        window.location.href = `/operations/help-for-market-orders/${orderownerID}`
+      } else {
+        window.location.href = `/marketplace/${this.props.match.params.order_type}?popup=${srv_.srv_}`
+      }
+
+
 
     } else {
 
-      this.displayPopUp(srv_.error.message)
+      this.displayPopUp2(srv_.error.message)
       // console.error("deletion failed!")
     }
 
@@ -339,8 +351,10 @@ class MarketOrderDetails extends React.Component {
 
   setNormalRows(_order) {
 
+    console.log("Fn, USER????", user)
     let rows = []
     let myorder = (_order.userid._id == userId)
+    let isMaster = (user.role == ROLE.MASTER)
 
     for (const property in _order) {
       var i = Object.keys(_order).indexOf(property);
@@ -402,7 +416,7 @@ class MarketOrderDetails extends React.Component {
 
     }
 
-    if (myorder) {
+    if (myorder || isMaster) {
       rows.push(<tr key={123}>
         <td>Edit</td>
         <td>
@@ -412,7 +426,7 @@ class MarketOrderDetails extends React.Component {
       rows.push(<tr key={456}>
         <td>Delete</td>
         <td>
-          <button onClick={(e) => this.DeleteClick(_order._id, e)}>Delete</button>
+          <button onClick={(e) => this.DeleteClick(_order.userid._id, _order._id, e)}>Delete</button>
         </td>
       </tr>)
     } else {
@@ -442,6 +456,7 @@ class MarketOrderDetails extends React.Component {
   seEditRows(_order) {
     let rows = []
     let myorder = (_order.userid._id == userId)
+    let isMaster = (user.role == ROLE.MASTER)
     // console.log("this.state.denomination || _order.chain", this.state.denomination || _order.chain)
 
     let options = this.setOptions(this.state.denomination || _order.chain)
@@ -627,7 +642,7 @@ class MarketOrderDetails extends React.Component {
 
     }
 
-    if (myorder) {
+    if (myorder || isMaster) {
       rows.push(<tr key={123}>
         <td>Revert</td>
         <td>
@@ -642,7 +657,7 @@ class MarketOrderDetails extends React.Component {
             console.log("Edit_return_str", Edit_return_str);
             let ReactDiv = document.getElementById("react-div")
             // console.log("wrapper", ReactDiv)
-            this.displayPopUp(Edit_return_str);
+            this.displayPopUp2(Edit_return_str);
             ReactDiv.scrollTo(0, 0);
           }}>Save</button>
         </td>
@@ -653,12 +668,35 @@ class MarketOrderDetails extends React.Component {
 
   }
 
-  displayPopUp(_Edit_return_str) {
+  // displayPopUp(_Edit_return_str) {
+  //   // console.log("ARE WE GOOD!")
+
+  //   const wrapper = document.getElementsByClassName("wrapper")[0]
+
+  //   console.log("wrapper-------------->", wrapper)
+
+  //   let div = document.getElementById("popup");
+
+
+  //   div.style.display = "block"
+
+  //   // console.log(!(div.innerHTML))
+
+  //   if (!(div.innerHTML)) {
+  //     // console.log("set up pop up")
+  //     wrapper.insertBefore(div, wrapper.firstChild);
+  //   }
+
+  //   div.innerHTML = _Edit_return_str
+
+  // }
+
+  displayPopUp2(_Edit_return_str) {
     // console.log("ARE WE GOOD!")
 
-    const wrapper = document.getElementsByClassName("wrapper")[0]
+    const reactDiv = document.getElementById("react-div")
 
-    // console.log(wrapper)
+    console.log("reactDiv-------------->", reactDiv)
 
     let div = document.getElementById("popup");
 
@@ -668,12 +706,12 @@ class MarketOrderDetails extends React.Component {
     // console.log(!(div.innerHTML))
 
     if (!(div.innerHTML)) {
-      // console.log("set up pop up")
-      wrapper.insertBefore(div, wrapper.firstChild);
+      console.log("set up pop up")
+      reactDiv.insertBefore(div, reactDiv.firstChild);
+      // eElement.insertBefore(newFirstElement, eElement.firstChild);
     }
 
     div.innerHTML = _Edit_return_str
-
 
   }
 
