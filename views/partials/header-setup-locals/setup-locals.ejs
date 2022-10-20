@@ -160,7 +160,12 @@
     case `/operations/${caseOperationsTask}/${caseUserID}`:
       userId = '<%= locals.userId %>'
       user = <%-JSON.stringify(locals.user || {})%> 
-      console.log("--------------->>>>>>(333)", user, userId)
+      
+      if (caseOperationsTask == "help-for-market-orders") {
+        popup = '<%= locals.popup %>'
+      }
+      
+      console.log("--------------->>>>>>(333)", user, userId, popup)
 
       break;
     default:

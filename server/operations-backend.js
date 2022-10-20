@@ -107,6 +107,8 @@ operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/man
 
   // res.locals.CATEGORY = CATEGORY;
 
+  
+
 
   var JSX_to_load
   JSX_to_load = 'Operations';
@@ -120,6 +122,9 @@ operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/man
 
 operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/manage-subs/:userID', '/help-for-market-orders/:userID'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
 
+  console.log("popup??", req.query.popup)
+  
+  res.locals.popup = req.query.popup
   // res.locals.CATEGORY = CATEGORY;
 
   var JSX_to_load

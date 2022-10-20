@@ -299,7 +299,7 @@ class MarketOrderDetails extends React.Component {
     if (response.ok) {
 
       if(paths_URL[0] == 'operations'){
-        window.location.href = `/operations/help-for-market-orders/${orderownerID}`
+        window.location.href = `/operations/help-for-market-orders/${orderownerID}?popup=${srv_.srv_}`
       } else {
         window.location.href = `/marketplace/${this.props.match.params.order_type}?popup=${srv_.srv_}`
       }
