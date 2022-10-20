@@ -397,25 +397,24 @@ homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (re
 
 
 // TODO add userID for articles
-homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteMarketOrderMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware,
-  sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteHexMiddleware, deleteUserMiddleware, logoutMiddleware, 
-  
-  (req, res, next) => {
+homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteMarketOrderMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware, sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteHexMiddleware, deleteUserMiddleware, logoutMiddleware, (req, res, next) => {
 
-    console.log("Final point: ", res.locals.notifications.length, res.locals.notifications.length == 0, res.locals.notifications.length === 0)
+  console.log("Final point: ", res.locals.notifications.length, res.locals.notifications.length == 0, res.locals.notifications.length === 0)
 
-    if (res.locals.notifications.length === 0) {
-      res.status(200).json({
-        srv_: "User account and linked data completly deleted."
-      })
-    } else {
-      console.log("WTFFF")
-      let notifications_messages = res.locals.notifications.map(notification => notification.message);
-      let e = new DeleteAccountProcessError(notifications_messages)
+  if (res.locals.notifications.length === 0) {
+    res.status(200).json({
+      srv_: "User account and linked data completly deleted."
+    })
+  } else {
+    console.log("WTFFF")
+    let notifications_messages = res.locals.notifications.map(notification => notification.message);
+    let e = new DeleteAccountProcessError(notifications_messages)
 
-      return next(e)
-    }
-  })
+    return next(e)
+  }
+})
+
+
 
 
 // homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteMarketOrderMiddleware, logoutMiddleware, (req,res,next)=>{

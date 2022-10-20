@@ -82,7 +82,8 @@ module.exports = {
 
 
     console.log("chakalaka----->>>>", req.body.pkobmOr_4ft2sd)
-
+    
+    req.body.pkobmOr_4ft2sd.expireAt = new Date(req.body.pkobmOr_4ft2sd.expirydate.slice(0,4), req.body.pkobmOr_4ft2sd.expirydate.slice(5,7)-1, req.body.pkobmOr_4ft2sd.expirydate.slice(8,10), req.body.pkobmOr_4ft2sd.expirytime.slice(0,2), req.body.pkobmOr_4ft2sd.expirytime.slice(3,5))
 
 
     let updatedMarketOrder_ifAny
@@ -95,7 +96,20 @@ module.exports = {
     }
 
 
-    if (updatedMarketOrder_ifAny){
+    console.log("\n\nDo I have the ingredients: ", updatedMarketOrder_ifAny.sellmarketorderlocationID, req.body.pkobmOr_4ft2sd.expireAt, "\n\n")
+
+    let updatedMarketOrderLocation_ifAny
+
+    try{
+      // TODO optimization, check whether the expiry changed, then go a findByIdAndUpdate else don't. This feature might be built in the findByIdAndUpdate itself
+      updatedMarketOrderLocation_ifAny = await SellMarketOrderLocation.findByIdAndUpdate(updatedMarketOrder_ifAny.sellmarketorderlocationID, { $set: {expireAt: req.body.pkobmOr_4ft2sd.expireAt} }, { upsert: false, new: true });
+    } catch(e){
+      let error = new MongoError(e.message)
+      return next(error)
+    }
+
+
+    if (updatedMarketOrder_ifAny && updatedMarketOrderLocation_ifAny){
       res.status(200).json({
         srv_: "Successfully updated"
       })

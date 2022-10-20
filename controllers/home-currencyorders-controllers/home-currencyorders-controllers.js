@@ -14,38 +14,54 @@ module.exports = {
 
     console.log('Current User: ' + req.session.userId + ' and Order asked to update: ' + req.body.OrderID + ' order to update type: ' + req.body.OrderType)
 
+    req.body.expireAt = new Date(req.body.expirydate.slice(0,4), req.body.expirydate.slice(5,7)-1, req.body.expirydate.slice(8,10), req.body.expirytime.slice(0,2), req.body.expirytime.slice(3,5))
+
 
     let TypeCryptoOrder = undefined
+    let TypeLocationCryptoOrder = undefined
     // switch ("wrong") {
     switch (req.body.OrderType) {
       case "buyordersdata":
         TypeCryptoOrder = BuyCryptoOrder
+        TypeLocationCryptoOrder = BuyLocationCryptoOrder
         break;
       case "sellordersdata":
         TypeCryptoOrder = SellCryptoOrder
+        TypeLocationCryptoOrder = SellLocationCryptoOrder
         break;
       default:
-        let error = new MongoError(`Target TypeCryptoOrder: "${TypeCryptoOrder}" not reconized in switch statement`)
+        let error = new MongoError(`Target "${TypeCryptoOrder}, and ${TypeLocationCryptoOrder}" not reconized`)
         return next(error)
     }
+
 
 
     // If upsert is true then if the row trying to be updated does not exist then a new row is inserted instead , if false then it does not do anything .
 
     // If new is true then the modified document is returned after the update rather than the original , if false then the original document is returned
 
-    let patchRet
+    let updatedOrder_ifAny
 
     try {
       // throw new Error()
-      patchRet = await TypeCryptoOrder.findByIdAndUpdate(req.body.OrderID, { $set: req.body }, { upsert: false, new: true });
+      updatedOrder_ifAny = await TypeCryptoOrder.findByIdAndUpdate(req.body.OrderID, { $set: req.body }, { upsert: false, new: true });
     } catch (error) {
       error = new MongoError("Could not find by ID and update")
       return next(error)
     }
 
 
-    console.log(patchRet)
+    // console.log(updatedOrder_ifAny)
+    console.log("\n\nDo I have the ingredients: ", updatedOrder_ifAny.currencyorderlocationID, req.body.expireAt, "\n\n")
+
+    let updatedOrderLocation_ifAny
+    try{
+      // TODO optimization, check whether the expiry changed, then go a findByIdAndUpdate else don't. This feature might be built in the findByIdAndUpdate itself
+      updatedOrderLocation_ifAny = await TypeLocationCryptoOrder.findByIdAndUpdate(updatedOrder_ifAny.currencyorderlocationID, { $set: {expireAt: req.body.expireAt} }, { upsert: false, new: true });
+    } catch(e){
+      let error = new MongoError(e.message)
+      return next(error)
+    }
 
 
     res.status(200).json({
@@ -130,8 +146,6 @@ module.exports = {
       },
       expireAt: req.body.expireAt,
     })
-
-    // TODO !! when expireAt changes in orders update, do add the update also for it's respective location, when profile deletion, delete currency order locations
 
 
     type_order_instance = new TypeCryptoOrder({
