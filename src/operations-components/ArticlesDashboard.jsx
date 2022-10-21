@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, BrowserRouter, Route, Switch} from 'react-router-dom';
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
+import Operations from '../root-spas/Operations';
 
 
 class ArticlesDashboard extends React.Component {
