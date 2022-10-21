@@ -134,7 +134,6 @@ module.exports = {
 
 
 
-
     console.log(TypeCryptoOrder, TypeLocationCryptoOrder)
 
     let type_order_instance, type_location_order_instance
