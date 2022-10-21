@@ -14,7 +14,6 @@
     "build:prod": "webpack --config webpack.prod.js",
     "build": "webpack --config webpack.stag.js",
     "set:env:dev": "set NODE_ENV=develpment",
-    "set:env:remo": "set NODE_ENV=remote",
     "set:env:prod": "set NODE_ENV=production"
   },
   "author": "Zouhir Bensmaia",
