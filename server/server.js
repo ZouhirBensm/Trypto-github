@@ -21,6 +21,7 @@ mongoose.set('useCreateIndex', true)
 
 // ENV.database_link
 // mongodb+srv://Maestro:DB%24%251993@cluster0.81z5d.mongodb.net/mern_database_atlas
+console.log("------>", ENV.database_link)
 mongoose.connect(ENV.database_link)
 .catch(e => {throw e})
 
