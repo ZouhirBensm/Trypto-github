@@ -19,7 +19,8 @@ var config = {
     // },
     extensions: ['.js', '.jsx'],
     fallback: {
-      "buffer": require.resolve("buffer")
+      // "buffer": require.resolve("buffer"),
+      "buffer": require.resolve("buffer/")
     },
   },
   stats: { errorDetails: true },
