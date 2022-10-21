@@ -4,10 +4,10 @@ const crypto = require('crypto')
 
 
 // Checking the connection
-const db = mongoose.connection
-db.once("open", () => {
-  console.log(`Successfully connected to MongoDB using Mongoose from HexForUnactiveUser.js the readyState is ${db.readyState}, and the connection string is ${db._connectionString}`)
-})
+// const db = mongoose.connection
+// db.once("open", () => {
+//   console.log(`Successfully connected to MongoDB using Mongoose from HexForUnactiveUser.js the readyState is ${db.readyState}, and the connection string is ${db._connectionString}`)
+// })
 
 
 //Create empty Schema object

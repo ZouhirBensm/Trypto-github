@@ -4,10 +4,10 @@ const mongoose = require('mongoose')
 const ROLE = require('../full-stack-libs/Types/Role')
 
 // Checking the connection
-const db = mongoose.connection
-db.once("open", () => {
-  console.log(`Successfully connected to MongoDB using Mongoose from User.js the readyState is ${db.readyState}, and the connection string is ${db._connectionString}`)
-})
+// const db = mongoose.connection
+// db.once("open", () => {
+//   console.log(`Successfully connected to MongoDB using Mongoose from User.js the readyState is ${db.readyState}, and the connection string is ${db._connectionString}`)
+// })
 
 
 //Create empty Schema object?

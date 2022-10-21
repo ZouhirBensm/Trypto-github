@@ -14,10 +14,10 @@ const NAVBAR = require('../full-stack-libs/Types/Navbar')
 const mongoose = require('mongoose')
 
 //Fixes
-mongoose.set('useNewUrlParser', true)
-mongoose.set('useUnifiedTopology', true)
-mongoose.set('useFindAndModify', false)
-mongoose.set('useCreateIndex', true)
+// mongoose.set('useNewUrlParser', true)
+// mongoose.set('useUnifiedTopology', true)
+// mongoose.set('useCreateIndex', true)
+// mongoose.set('useFindAndModify', false)
 
 // ENV.database_link
 // mongodb+srv://Maestro:DB%24%251993@cluster0.81z5d.mongodb.net/mern_database_atlas
@@ -28,17 +28,20 @@ mongoose.connect(ENV.database_link)
 // Assign the "DB CONNECTION" to the db variable
 // db can then be use for "DATA CHANGES", "DATA STATE CHANGES"
 global.db = mongoose.connection
-// console.log("\n\n\n\ndb:\n\n", db._connectionString, db, typeof db)
+// console.log("------>", db)
+// console.log("\n\n\n\ndb:\n\n", db._connectionString, db['$initialConnection'], typeof db)
+
 // const clientP = db.then(m => m.getClient())
-const clientP = db.then(m => {
-  // console.log("\n\n\n\nm:\n\n", m); 
+const clientP = db['$initialConnection'].then(m => {
+  // console.log("\n\n\n\nm:\n\n", m, m.getClient()); 
   return m.getClient();
 })
 // console.log("\n\n\n\clientP\n\n", clientP)
 
 // runs once the DB is connected to the web server on the open event i.e. as soon the DB "opens"/connects
+
 db.once("open", () => {
-  console.log(`Successfully connected to MongoDB using Mongoose from server.js the readyState is ${db.readyState}, and the connection string is ${db._connectionString}`)
+  console.log(`\nSuccessfully connected to MongoDB using Mongoose from server.js the readyState is ${db.readyState}, and the connection string is ${db._connectionString}\n\n\n`)
 })
 
 

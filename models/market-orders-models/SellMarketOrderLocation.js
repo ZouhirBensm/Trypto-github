@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
-const db = mongoose.connection
+// const db = mongoose.connection
 
-db.once("open", () => {
-  console.log(`Successfully connected to MongoDB using Mongoose from SellMarketOrderLocation.js the readyState is ${db.readyState}, and the connection string is ${db._connectionString}`)
-})
+// db.once("open", () => {
+//   console.log(`Successfully connected to MongoDB using Mongoose from SellMarketOrderLocation.js the readyState is ${db.readyState}, and the connection string is ${db._connectionString}`)
+// })
 
 
 //Create empty Schema object?
