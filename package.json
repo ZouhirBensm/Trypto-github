@@ -19,14 +19,20 @@
   "author": "Zouhir Bensmaia",
   "license": "ISC",
   "dependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.6",
+    "@babel/preset-env": "^7.19.4",
+    "@babel/preset-react": "^7.18.6",
     "@loadable/component": "^5.15.2",
     "@paypal/paypal-js": "^5.1.1",
     "agenda": "^4.3.0",
     "axios": "^0.26.0",
+    "babel-loader": "^8.2.5",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
     "coingecko-api": "^1.0.10",
     "connect-mongo": "^4.4.1",
+    "css-loader": "^6.7.1",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.1",
@@ -48,20 +54,14 @@
     "rss-parser": "^3.12.0",
     "save": "^2.4.0",
     "socket.io": "^4.5.1",
+    "style-loader": "^3.3.1",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.11.1",
     "webpack-merge": "^5.8.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.14.5",
-    "@babel/core": "^7.14.6",
-    "@babel/preset-env": "^7.14.7",
-    "@babel/preset-react": "^7.14.5",
-    "babel-loader": "^8.2.2",
     "browserify": "^17.0.0",
-    "css-loader": "^6.2.0",
-    "style-loader": "^3.2.1",
     "watchify": "^4.0.0"
   }
 }
