@@ -50,6 +50,7 @@ db.once("open", () => {
 
 // A shell in which your views are rendered: file in which other render() views are rendered layouts.ejs
 const layouts = require("express-ejs-layouts")
+console.log("layouts:::::", layouts)
 
 const express = require('express');
 
