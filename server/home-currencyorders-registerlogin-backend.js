@@ -138,8 +138,8 @@ homeOrdersBackend_app_router.get('/', (req, res) => {
   var JSX_to_load = 'App';
   // console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
 
-  // res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { JSX_to_load: JSX_to_load })
-  res.render('test')
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { JSX_to_load: JSX_to_load })
+  // res.render('test')
 })
 
 
