@@ -1,6 +1,7 @@
 const path = require('path')
 const { EnvironmentPlugin, ProvidePlugin, DefinePlugin } = require("webpack")
 
+
 var config = {
   // Deletable externals:
   // externals: {
