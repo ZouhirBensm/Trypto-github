@@ -1,6 +1,7 @@
 console.log(`Server starting with NODE_ENV=${process.env.NODE_ENV}`);
 
 const ENV = require('../config/base')
+console.log("------>", ENV)
 //Global variable loggedIn that will be accessible from all our ejs files
 global.loggedIn = null
 global.navBars = null
@@ -21,7 +22,7 @@ const mongoose = require('mongoose')
 
 // ENV.database_link
 // mongodb+srv://Maestro:DB%24%251993@cluster0.81z5d.mongodb.net/mern_database_atlas
-console.log("------>", ENV.database_link)
+// console.log("------>", ENV.database_link)
 mongoose.connect(ENV.database_link)
 .catch(e => {throw e})
 
