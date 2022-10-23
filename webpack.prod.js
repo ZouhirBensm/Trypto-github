@@ -3,7 +3,7 @@ const { merge } = require('webpack-merge');
 const config = require('./webpack.common.js');
 const { EnvironmentPlugin, ProvidePlugin, DefinePlugin } = require("webpack")
 
-
+console.log(process.env)
 // let config_array = []
 //deploy
 
