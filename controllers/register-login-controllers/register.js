@@ -126,7 +126,8 @@ async function registerController(req, res, next) {
   });
 
 
-  // console.log("\n\nTransporter:\n\n", transporter)
+  console.log("\n\ncred:", ENV.bidblock_email, ENV.bidblock_email_app_pass_code)
+  console.log("\n\nTransporter:\n\n", transporter)
 
 
   mailOptions = {
