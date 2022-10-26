@@ -121,8 +121,8 @@ async function registerController(req, res, next) {
   
   transporter = nodemailer.createTransport({
     service: "smtp.gmail.com",
-    secure: true,
-    port: 465,
+    // secure: true,
+    // port: 465,
     auth: {
       user: ENV.bidblock_email,
       pass: ENV.bidblock_email_app_pass_code
