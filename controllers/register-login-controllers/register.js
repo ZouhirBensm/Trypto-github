@@ -120,7 +120,7 @@ async function registerController(req, res, next) {
 
   
   transporter = nodemailer.createTransport({
-    service: "smtp.gmail.com",
+    service: "gmail",
     // secure: true,
     // port: 465,
     auth: {
