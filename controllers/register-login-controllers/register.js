@@ -129,6 +129,12 @@ async function registerController(req, res, next) {
     }
   });
 
+  console.log("ok")
+  console.log("ok")
+  console.log("ok")
+  console.log("ok")
+  console.log("ok")
+  
   // transporter = nodemailer.createTransport({
   //   service: 'gmail',
   //   auth: {
