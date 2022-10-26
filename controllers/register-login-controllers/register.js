@@ -128,7 +128,6 @@ async function registerController(req, res, next) {
       pass: ENV.bidblock_email_app_pass_code
     }
   });
-  console.log("ok")
 
   // transporter = nodemailer.createTransport({
   //   service: 'gmail',
