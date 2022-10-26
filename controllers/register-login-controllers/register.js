@@ -149,6 +149,7 @@ async function registerController(req, res, next) {
   console.log("\n\n\nInfo:\n\n\n", info);
 
   if (!info) {
+    console.log("THERE IS NO INFO")
     let e = new Error("Message not sent")
     return next(e)
   }
