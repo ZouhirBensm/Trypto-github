@@ -116,6 +116,7 @@ async function registerController(req, res, next) {
   // console.log(`Date: ${now},\n\nWelcome ${ret_user_save.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user_save._id}/${ret_hex_for_unactive_user_save.hexfield}\n\nThank you!`)
 
 
+  console.log("\n---nodemailer,\n\n", nodemailer)
 
   transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -126,8 +127,8 @@ async function registerController(req, res, next) {
   });
 
 
-  console.log("\n\ncred:", ENV.bidblock_email, ENV.bidblock_email_app_pass_code)
-  console.log("\n\nTransporter:\n\n", transporter)
+  console.log("\n\n---cred:", ENV.bidblock_email, ENV.bidblock_email_app_pass_code)
+  console.log("\n\n---Transporter:\n\n", transporter)
 
 
   mailOptions = {
@@ -141,9 +142,9 @@ async function registerController(req, res, next) {
 
 
   try {
-    console.log("before info\n\n")
+    console.log("\n---before info\n\n")
     info = await transporter.sendMail(mailOptions);
-    console.log("after info:\n\n", info)
+    console.log("\n----after info:\n\n", info)
   } catch (e) {
     return next(e)
   }
@@ -151,7 +152,7 @@ async function registerController(req, res, next) {
   console.log("\n\n\nInfo:\n\n\n", info);
 
   if (!info) {
-    console.log("THERE IS NO INFO")
+    console.log("\n\n----THERE IS NO INFO")
     let e = new Error("Message not sent")
     return next(e)
   }
