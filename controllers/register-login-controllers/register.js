@@ -141,7 +141,9 @@ async function registerController(req, res, next) {
 
 
   try {
+    console.log("before info\n\n")
     info = await transporter.sendMail(mailOptions);
+    console.log("after info:\n\n", info)
   } catch (e) {
     return next(e)
   }
