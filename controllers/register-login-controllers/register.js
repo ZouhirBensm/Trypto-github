@@ -118,13 +118,23 @@ async function registerController(req, res, next) {
 
   console.log("\n---nodemailer,\n\n", nodemailer)
 
+  
   transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: "smtp.gmail.com",
+    secure: true,
+    port: 465,
     auth: {
       user: ENV.bidblock_email,
       pass: ENV.bidblock_email_app_pass_code
     }
   });
+  // transporter = nodemailer.createTransport({
+  //   service: 'gmail',
+  //   auth: {
+  //     user: ENV.bidblock_email,
+  //     pass: ENV.bidblock_email_app_pass_code
+  //   }
+  // });
 
 
   console.log("\n\n---cred:", ENV.bidblock_email, ENV.bidblock_email_app_pass_code)
@@ -142,14 +152,14 @@ async function registerController(req, res, next) {
 
 
   try {
-    console.log("\n---before info\n\n")
+    console.log("\n---before info\n\n", mailOptions)
     info = await transporter.sendMail(mailOptions);
     console.log("\n----after info:\n\n", info)
   } catch (e) {
     return next(e)
   }
 
-  console.log("\n\n\nInfo:\n\n\n", info);
+  // console.log("\n\n\nInfo:\n\n\n", info);
 
   if (!info) {
     console.log("\n\n----THERE IS NO INFO")
