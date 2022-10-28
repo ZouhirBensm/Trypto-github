@@ -1,7 +1,7 @@
 console.log(`Server starting with NODE_ENV=${process.env.NODE_ENV}`);
 
 const ENV = require('../config/base')
-console.log("------>", ENV)
+// console.log("------>", ENV)
 //Global variable loggedIn that will be accessible from all our ejs files
 global.loggedIn = null
 global.navBars = null

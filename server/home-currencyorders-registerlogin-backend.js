@@ -16,7 +16,7 @@ const CoinGeckoClient = new CoinGecko();
 
 // ENV variables
 const ENV = require('../config/base')
-console.log("\n\nENV-------->\n\n", ENV)
+// console.log("\n\nENV-------->\n\n", ENV)
 
 
 
