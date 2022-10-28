@@ -116,36 +116,20 @@ async function registerController(req, res, next) {
   // console.log(`Date: ${now},\n\nWelcome ${ret_user_save.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user_save._id}/${ret_hex_for_unactive_user_save.hexfield}\n\nThank you!`)
 
 
-  console.log("\n---nodemailer,\n\n", nodemailer)
+  // console.log("\n---nodemailer,\n\n", nodemailer)
 
-  
+
   transporter = nodemailer.createTransport({
-    service: "gmail",
-    // secure: true,
-    // port: 465,
+    service: 'gmail',
     auth: {
       user: ENV.bidblock_email,
       pass: ENV.bidblock_email_app_pass_code
     }
   });
 
-  console.log("ok")
-  console.log("ok")
-  console.log("ok")
-  console.log("ok")
-  console.log("ok")
-  
-  // transporter = nodemailer.createTransport({
-  //   service: 'gmail',
-  //   auth: {
-  //     user: ENV.bidblock_email,
-  //     pass: ENV.bidblock_email_app_pass_code
-  //   }
-  // });
 
-
-  console.log("\n\n---cred:", ENV.bidblock_email, ENV.bidblock_email_app_pass_code)
-  console.log("\n\n---Transporter:\n\n", transporter)
+  // console.log("\n\n---cred:", ENV.bidblock_email, ENV.bidblock_email_app_pass_code)
+  // console.log("\n\n---Transporter:\n\n", transporter)
 
 
   mailOptions = {
@@ -159,9 +143,9 @@ async function registerController(req, res, next) {
 
 
   try {
-    console.log("\n---before info\n\n", mailOptions)
+    // console.log("\n---before info\n\n", mailOptions)
     info = await transporter.sendMail(mailOptions);
-    console.log("\n----after info:\n\n", info)
+    // console.log("\n----after info:\n\n", info)
   } catch (e) {
     return next(e)
   }
@@ -169,7 +153,7 @@ async function registerController(req, res, next) {
   // console.log("\n\n\nInfo:\n\n\n", info);
 
   if (!info) {
-    console.log("\n\n----THERE IS NO INFO")
+    // console.log("\n\n----THERE IS NO INFO")
     let e = new Error("Message not sent")
     return next(e)
   }
