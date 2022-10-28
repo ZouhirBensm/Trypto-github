@@ -251,8 +251,6 @@ module.exports = {
   },
 
 
-  // TODO ! operations access to market order data and U,D capabilities
-
 
   getOrderController: async (req,res,next) => {
     let order
