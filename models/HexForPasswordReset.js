@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const crypto = require('crypto')
 const Schema = mongoose.Schema
+const bcrypt = require('bcryptjs')
 
 
 console.log(1)
@@ -41,8 +42,13 @@ HexForPasswordResetSchema.pre('save', function (next) {
 
   crypto.randomBytes(128, (err, buffer) => {
     var hex = buffer.toString('hex');
-    element.hexfield = hex
-    next()
+    // element.hexfield = hex
+
+    bcrypt.hash(hex, 5, (error, hash) => {
+      element.hexfield = hash
+      next()
+    })
+
   })
 
 
