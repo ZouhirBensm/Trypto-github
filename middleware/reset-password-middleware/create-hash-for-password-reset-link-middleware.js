@@ -2,6 +2,7 @@ const HashForPasswordReset = require("../../models/HashForPasswordReset")
 const crypto = require('crypto')
 const bcrypt = require('bcryptjs')
 
+
 module.exports = async (req, res, next) => {
   console.log("\n\n\n__________________createHashForPasswordResetLinkMiddleware")
 
@@ -44,7 +45,7 @@ module.exports = async (req, res, next) => {
   // Generate a hex that expires after 2 mins
   var now = new Date()
   exp = new Date(now)
-  exp.setMinutes(now.getMinutes() + 3)
+  exp.setMinutes(now.getMinutes() + 60*6)
 
   let buffer
   try {
@@ -57,16 +58,17 @@ module.exports = async (req, res, next) => {
   
   var hex = buffer.toString('hex');
   
-  console.log("--->", hex)
+  console.log("--->", hex, typeof hex)
 
   let hash
   try {
-    hash = await bcrypt.hash(hex, 5)
+    // hash = await bcrypt.hash(hex)
+    hash = crypto.createHash('sha256').update(hex).digest('hex')
   } catch (error) {
     // some error handling    
   }
 
-  console.log("--->", hash)
+  console.log("---> (1)", hash, typeof hash)
 
 
 

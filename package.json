@@ -10,6 +10,7 @@
   "scripts": {
     "server": "nodemon -w server server/server.js",
     "start": "nodemon -w server server/server.js",
+    "debug": "nodemon -w server --inspect server/server.js",
     "start:tracewarnings": "nodemon --trace-warnings -w server server/server.js",
     "build:dev": "webpack --config webpack.dev.js",
     "build:prod": "webpack --config webpack.prod.js",

@@ -79,26 +79,17 @@ const { requester_auth_middleware } = require('../middleware/generic-middleware/
 
 const verifyingPasswordMiddleware = require('../middleware/loggedin-middleware/verifying-password-middleware')
 
+
+
 const verifyingAccountActiveMiddleware = require('../middleware/loggedin-middleware/verifying-account-active-middleware')
-
-
-
 const checkIfUserByEmailMiddleware = require('../middleware/generic-middleware/check-if-user-by-email-middleware')
-
-
 const checkIfUserSetRequestForPasswordResetMiddleware = require('../middleware/generic-middleware/check-if-user-set-request-for-password-reset-middleware')
-
-// const checkIfUserHasUsableHexForPasswordResetMiddleware = require('../middleware/generic-middleware/check-if-user-has-usable-hex-hor-password-reset-middleware')
-
-
-
-// const createHexForPasswordResetLinkMiddleware = require('../middleware/reset-password-middleware/create-hex-for-password-reset-link-middleware')
 const createHashForPasswordResetLinkMiddleware = require('../middleware/reset-password-middleware/create-hash-for-password-reset-link-middleware')
-
-
-
 const sendEmailToResetPasswordMiddleware = require('../middleware/reset-password-middleware/send-email-to-reset-password-middleware')
 
+
+const reHachHexForPassResetMiddleware = require('../middleware/reset-password-middleware/re-hach-hex-for-pass-reset-middleware')
+const compareTheHashForPassResetMiddleware = require('../middleware/reset-password-middleware/compare-the-hash-for-pass-reset-middleware')
 
 
 
@@ -136,9 +127,33 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
+homeOrdersBackend_app_router.get(`/users/requestresetpasswordpage/:hex`, reHachHexForPassResetMiddleware, compareTheHashForPassResetMiddleware, (req,res)=>{
+
+
+  var JSX_to_load = 'MgtUser';
+
+  // console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
+  return res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
+    JSX_to_load: JSX_to_load,
+    // selectedUser: undefined
+  })
+
+
+})
 
 
 
+homeOrdersBackend_app_router.post('/users/requestresetpassword', destructureURLandRefererMiddleware, checkIfUserByEmailMiddleware, checkIfUserSetRequestForPasswordResetMiddleware, createHashForPasswordResetLinkMiddleware, sendEmailToResetPasswordMiddleware, (req,res)=>{
+
+  // check if user is active if so proceed else popup with reason
+  // create a entry with parameter code, created date, expiry 1 hour
+  // send email with userID, and parameter code
+
+
+  res.status(200).json({
+    message: "If a user under those credentials exists, an email with the reset link shall be sent."
+  })
+})
 
 
 
@@ -158,30 +173,8 @@ homeOrdersBackend_app_router.get('/users/forgotpasswordpage', (req,res)=>{
 
 
 
-homeOrdersBackend_app_router.post('/users/requestresetpassword', destructureURLandRefererMiddleware, checkIfUserByEmailMiddleware, checkIfUserSetRequestForPasswordResetMiddleware, createHashForPasswordResetLinkMiddleware, sendEmailToResetPasswordMiddleware, (req,res)=>{
-
-  // check if user is active if so proceed else popup with reason
-  // create a entry with parameter code, created date, expiry 1 hour
-  // send email with userID, and parameter code
 
 
-  res.status(200).json({
-    message: "If a user under those credentials exists, an email with the reset link shall be sent."
-  })
-})
-
-
-homeOrdersBackend_app_router.get(`/users/requestresetpasswordpage/:hex`, (req,res)=>{
-
-  // TODO implement node debugger
-  // verify the hex
-  // if bcrypt.compare true then proceed to serve the page,
-  // else serve error page
-
-  console.log("RESET PAGE NEEDS TO BE SERVED!")
-  res.status(200).end()
-
-})
 
 
 

@@ -17,7 +17,11 @@ const Profile = loadable(() => import("../login-register-functionalities/Profile
   fallback: <Loading />
 });
 
-const ForgotPassword = loadable(() => import("../login-register-functionalities/ForgotPassword"), {
+const ForgotPasswordRequest = loadable(() => import("../login-register-functionalities/ForgotPasswordRequest"), {
+  fallback: <Loading />
+});
+
+const PasswordResetComponent = loadable(() => import("../login-register-functionalities/PasswordResetComponent"), {
   fallback: <Loading />
 });
 
@@ -43,9 +47,13 @@ class MgtUser extends React.Component {
             (props) => <Profile {...props} usedUserID={userId} selectedUser={selectedUser} />
           } />
           <Route path="/users/forgotpasswordpage" render={
-            (props) => <ForgotPassword {...props} 
+            (props) => <ForgotPasswordRequest {...props}
             // usedUserID={userId} 
             // selectedUser={selectedUser} 
+            />
+          } />
+          <Route path="/users/requestresetpasswordpage/:hex" render={
+            (props) => <PasswordResetComponent {...props}
             />
           } />
         </Switch>

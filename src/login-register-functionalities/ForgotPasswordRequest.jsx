@@ -5,7 +5,7 @@ import {verifyEmail, validateInputs} from '../../full-stack-libs/validations'
 
 
 
-class ForgotPassword extends React.Component {
+class ForgotPasswordRequest extends React.Component {
   constructor(props){
     super(props)
     this.state = {
@@ -110,4 +110,4 @@ class ForgotPassword extends React.Component {
   }
 }
 
-export default ForgotPassword
+export default ForgotPasswordRequest

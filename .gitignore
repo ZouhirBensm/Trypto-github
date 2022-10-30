@@ -3,3 +3,4 @@ public/dist
 public/dist/img/*
 webpack.dev.js
 package-lock.json
+.vscode/*
