@@ -84,8 +84,19 @@ const verifyingAccountActiveMiddleware = require('../middleware/loggedin-middlew
 
 
 const checkIfUserByEmailMiddleware = require('../middleware/generic-middleware/check-if-user-by-email-middleware')
-const checkIfUserHasUsableHexForPasswordResetMiddleware = require('../middleware/generic-middleware/check-if-user-has-usable-hex-hor-password-reset-middleware')
-const createHexForPasswordResetLinkMiddleware = require('../middleware/reset-password-middleware/create-hex-for-password-reset-link-middleware')
+
+
+const checkIfUserSetRequestForPasswordResetMiddleware = require('../middleware/generic-middleware/check-if-user-set-request-for-password-reset-middleware')
+
+// const checkIfUserHasUsableHexForPasswordResetMiddleware = require('../middleware/generic-middleware/check-if-user-has-usable-hex-hor-password-reset-middleware')
+
+
+
+// const createHexForPasswordResetLinkMiddleware = require('../middleware/reset-password-middleware/create-hex-for-password-reset-link-middleware')
+const createHashForPasswordResetLinkMiddleware = require('../middleware/reset-password-middleware/create-hash-for-password-reset-link-middleware')
+
+
+
 const sendEmailToResetPasswordMiddleware = require('../middleware/reset-password-middleware/send-email-to-reset-password-middleware')
 
 
@@ -147,7 +158,7 @@ homeOrdersBackend_app_router.get('/users/forgotpasswordpage', (req,res)=>{
 
 
 
-homeOrdersBackend_app_router.post('/users/requestresetpassword', destructureURLandRefererMiddleware, checkIfUserByEmailMiddleware, checkIfUserHasUsableHexForPasswordResetMiddleware, createHexForPasswordResetLinkMiddleware, sendEmailToResetPasswordMiddleware, (req,res)=>{
+homeOrdersBackend_app_router.post('/users/requestresetpassword', destructureURLandRefererMiddleware, checkIfUserByEmailMiddleware, checkIfUserSetRequestForPasswordResetMiddleware, createHashForPasswordResetLinkMiddleware, sendEmailToResetPasswordMiddleware, (req,res)=>{
 
   // check if user is active if so proceed else popup with reason
   // create a entry with parameter code, created date, expiry 1 hour
@@ -162,13 +173,11 @@ homeOrdersBackend_app_router.post('/users/requestresetpassword', destructureURLa
 
 homeOrdersBackend_app_router.get(`/users/requestresetpasswordpage/:hex`, (req,res)=>{
 
-  // var JSX_to_load = 'MgtUser';
+  // TODO implement node debugger
+  // verify the hex
+  // if bcrypt.compare true then proceed to serve the page,
+  // else serve error page
 
-  // // console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
-  // res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
-  //   JSX_to_load: JSX_to_load,
-  //   // selectedUser: undefined
-  // })
   console.log("RESET PAGE NEEDS TO BE SERVED!")
   res.status(200).end()
 
