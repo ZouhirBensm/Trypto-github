@@ -140,6 +140,7 @@ class Login extends React.Component {
           <input type="text" name="password"/> 
           <button type="submit" onClick={(e) => this.handleSubmit(e)}>Login</button>
         </form>
+        <a href="/users/forgotpasswordpage">Forgot Password</a>
         {/* display the notification from the server here! */}
         { notifyDisplays }
 

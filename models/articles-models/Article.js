@@ -26,7 +26,8 @@ const ArticleSchema = new Schema({
   // },
   publishedDate: {
     type: Date,
-    default: new Date(),
+    // default: new Date(),
+    default: Date.now,
   },
   // editedDate: {
   //   type: Date,

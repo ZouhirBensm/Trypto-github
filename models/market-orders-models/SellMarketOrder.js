@@ -40,7 +40,8 @@ const SellMarketOrderSchema = new Schema({
     },
     postedDate: {
         type: Date,
-        default: new Date(),
+        // default: new Date(),
+        default: Date.now,
     }
 })
 

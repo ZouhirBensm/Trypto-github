@@ -17,6 +17,10 @@ const Profile = loadable(() => import("../login-register-functionalities/Profile
   fallback: <Loading />
 });
 
+const ForgotPassword = loadable(() => import("../login-register-functionalities/ForgotPassword"), {
+  fallback: <Loading />
+});
+
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -36,7 +40,13 @@ class MgtUser extends React.Component {
             (props) => <Login {...props} loginTo={"/users/login"} />
           } />
           <Route path="/users/profile" render={
-            (props) => <Profile {...props} usedUserID={userId} selectedUser={selectedUser}/>
+            (props) => <Profile {...props} usedUserID={userId} selectedUser={selectedUser} />
+          } />
+          <Route path="/users/forgotpasswordpage" render={
+            (props) => <ForgotPassword {...props} 
+            // usedUserID={userId} 
+            // selectedUser={selectedUser} 
+            />
           } />
         </Switch>
       </BrowserRouter>

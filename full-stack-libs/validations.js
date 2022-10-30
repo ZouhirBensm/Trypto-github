@@ -1,7 +1,12 @@
 function verifyEmail(_emailstr) {
   // console.log("verifying this email: ", _emailstr);
 
-  const emailRegularExpression = /(^[^@]+)@([^@.]+)\.{1}(\w{1,6}$)/;
+  // TODO do not allow spaces
+  // allows spaces old version used
+  // const emailRegularExpression = /(^[^@]+)@([^@.]+)\.{1}(\w{1,6}$)/;
+  // does not allows spaces old version used
+  const emailRegularExpression = /(^[^@\s]+)@([^@.\s]+)\.{1}(\w{1,6}$)/;
+  // const emailRegularExpression = /(^[^@\s]+)@([^@.\s]+)\.{1}([^@.\s]{1,6}$)/;
   const EmailVerif_status = emailRegularExpression.test(_emailstr)
   // const arrayReg = emailRegularExpression.exec(_emailstr)
 
@@ -70,13 +75,13 @@ function verifyPassword(_password) {
 
 function validateInputs(obj_input, err_msg = undefined) {
 
-  const preventInjectionsRegEx = /[<>;}{\&]/;
+  const preventInjectionsRegEx = /[<>;}(){\&]/;
 
   for (const property in obj_input) {
-    // console.log(`${property}: ${obj_input[property]}`);
+    console.log(`${property}: ${obj_input[property]}`);
 
     if (obj_input[property] == '' || preventInjectionsRegEx.test(obj_input[property])) {
-      err_msg = `This field: ${property}, inputed value is not proper. Please modify`
+      err_msg = `This field: ${property}, inputed value is not proper, i.e. empty or contains these chars: ()<>;}{&. Please modify`
       break
     }
 

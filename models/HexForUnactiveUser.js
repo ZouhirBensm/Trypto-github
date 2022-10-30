@@ -27,6 +27,10 @@ const HexForUnactiveUserSchema = new Schema({
     ref: 'User',
     required: true
   },
+  entrycreatedDateTime: {
+    type: Date,
+    default: Date.now,
+  },
 })
 
 
@@ -35,11 +39,11 @@ const HexForUnactiveUserSchema = new Schema({
 //Before save any records into users collection, execute the 
 //function passed into the second argument
 //Allows to change user data before saving it into the database
-HexForUnactiveUserSchema.pre('save', function(next) {
+HexForUnactiveUserSchema.pre('save', function (next) {
   //Get the entry being saved
   const element = this
 
-  crypto.randomBytes(128, (err, buffer)=>{
+  crypto.randomBytes(128, (err, buffer) => {
     var hex = buffer.toString('hex');
     console.log("Test--->!!!!", hex)
 

@@ -108,7 +108,9 @@ const sessionMiddleware = expressSession({
     secure: false,
     sameSite: 'strict',
     //originalMaxAge: 24*60*60
-    maxAge: 1000*60*60*24 // 1 Day
+    // maxAge: 1000*60*60*24 // 1 Day
+    // maxAge: 1000*60*60*5, // 5 hours then deletes
+    maxAge: 1000*60*30 // 30 min for testing then deletes
   }
 });
 
@@ -151,7 +153,7 @@ express_server_app_router.use((req, res, next) => {
   // console.log(URL_, res.locals.paths_URL)
 
   res.locals.ENV = ENV;
-  console.log(ENV, "VS", res.locals.ENV)
+  // console.log(ENV, "VS", res.locals.ENV)
   loggedIn = req.session.userId
   
 

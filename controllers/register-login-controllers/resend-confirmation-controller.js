@@ -59,7 +59,7 @@ async function resendConfirmationController(req, res, next) {
   var mailOptions = {
     from: ENV.bidblock_email,
     to: ret_user.email,
-    subject: 'Confirm your BidBlock Account Now!',
+    subject: `${ENV.domain_without_protocol}, Confirm your Account Now!`,
     text: `Date: ${now},\n\nWelcome ${ret_user.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user._id}/${ret_user_hex.hexfield}\n\nThank you!`
   };
   

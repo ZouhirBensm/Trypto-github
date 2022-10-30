@@ -82,6 +82,15 @@ const verifyingPasswordMiddleware = require('../middleware/loggedin-middleware/v
 const verifyingAccountActiveMiddleware = require('../middleware/loggedin-middleware/verifying-account-active-middleware')
 
 
+
+const checkIfUserByEmailMiddleware = require('../middleware/generic-middleware/check-if-user-by-email-middleware')
+const checkIfUserHasUsableHexForPasswordResetMiddleware = require('../middleware/generic-middleware/check-if-user-has-usable-hex-hor-password-reset-middleware')
+const createHexForPasswordResetLinkMiddleware = require('../middleware/reset-password-middleware/create-hex-for-password-reset-link-middleware')
+const sendEmailToResetPasswordMiddleware = require('../middleware/reset-password-middleware/send-email-to-reset-password-middleware')
+
+
+
+
 // Use this to check the role, requires a res.locals.user.role
 const { set_user_if_any } = require("../middleware/generic-middleware/set-user-if-any-middleware")
 
@@ -118,11 +127,67 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
+
+
+
+
+
+
+homeOrdersBackend_app_router.get('/users/forgotpasswordpage', (req,res)=>{
+  var JSX_to_load = 'MgtUser';
+
+  // console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
+    JSX_to_load: JSX_to_load,
+    // selectedUser: undefined
+  })
+  res.status(200).end()
+})
+
+
+
+
+homeOrdersBackend_app_router.post('/users/requestresetpassword', destructureURLandRefererMiddleware, checkIfUserByEmailMiddleware, checkIfUserHasUsableHexForPasswordResetMiddleware, createHexForPasswordResetLinkMiddleware, sendEmailToResetPasswordMiddleware, (req,res)=>{
+
+  // check if user is active if so proceed else popup with reason
+  // create a entry with parameter code, created date, expiry 1 hour
+  // send email with userID, and parameter code
+
+
+  res.status(200).json({
+    message: "If a user under those credentials exists, an email with the reset link shall be sent."
+  })
+})
+
+
+homeOrdersBackend_app_router.get(`/users/requestresetpasswordpage/:hex`, (req,res)=>{
+
+  // var JSX_to_load = 'MgtUser';
+
+  // // console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
+  // res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
+  //   JSX_to_load: JSX_to_load,
+  //   // selectedUser: undefined
+  // })
+  console.log("RESET PAGE NEEDS TO BE SERVED!")
+  res.status(200).end()
+
+})
+
+
+
+
+
+
+
+
 homeOrdersBackend_app_router.post('/users/register', requireRefererMiddleware, require_loggedin_for_data(false), destructureURLandRefererMiddleware, LoginController.validateController, registerController)
 
 
 
 homeOrdersBackend_app_router.get('/resend-user-email/:userEmail', destructureURLandRefererMiddleware, resendConfirmationController)
+
+
 
 
 
