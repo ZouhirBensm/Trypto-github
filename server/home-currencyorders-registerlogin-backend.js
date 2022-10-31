@@ -5,6 +5,7 @@ const fetch = require('node-fetch')
 const httpStatus = require("http-status-codes")
 const CoinGecko = require('coingecko-api');
 var nodemailer = require('nodemailer');
+var bcrypt = require('bcryptjs');
 
 
 
@@ -46,11 +47,11 @@ const homeCurrencyOrdersController = require("../controllers/home-currencyorders
 const LoginController = require("../controllers/register-login-controllers/login-controllers")
 
 
-const {registerController} = require("../controllers/register-login-controllers/register")
+const { registerController } = require("../controllers/register-login-controllers/register")
 const distributePaginatedDataController = require("../controllers/generic-controllers/distribute-paginated-data-controller")
 const isUpController = require("../controllers/generic-controllers/is-up-controller")
 // TODO keep the -2.js rename
-const {resendConfirmationController} = require("../controllers/register-login-controllers/resend-confirmation-controller")
+const { resendConfirmationController } = require("../controllers/register-login-controllers/resend-confirmation-controller")
 
 
 
@@ -113,6 +114,7 @@ const Protagonist = require('../models/messaging-models/Protagonist')
 const Message = require('../models/messaging-models/Message')
 const Subscriber = require('../models/Subscriber');
 const HexForUnactiveUser = require('../models/HexForUnactiveUser');
+const HashForPasswordReset = require('../models/HashForPasswordReset');
 
 
 
@@ -127,7 +129,75 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
-homeOrdersBackend_app_router.get(`/users/requestresetpasswordpage/:hex`, reHachHexForPassResetMiddleware, compareTheHashForPassResetMiddleware, (req,res)=>{
+homeOrdersBackend_app_router.post('/users/submission-new-password', async (req, res) => {
+
+  // Identify the entry in the 
+  // change the used to true
+  // potentially delete the entire entry, if so delete the used field
+  console.log(req.body)
+
+  // let ret_hashforpasswordreset
+  // try {
+  //   ret_hashforpasswordreset = await HashForPasswordReset({hash: req.body.hash})
+  // } catch (error) {
+  //   // some error handling
+  // }
+
+  // if(!ret_hashforpasswordreset) return //some error handling
+
+  // update the entries used field to true
+  let ret_hashforpasswordreset_update
+  try {
+    ret_hashforpasswordreset_update = await HashForPasswordReset.updateOne({ hash: req.body.hash }, { used: true }, { upsert: false, new: true });
+  } catch (error) {
+    // some error handling
+  }
+
+  // No entry identified to edit password
+  if (ret_hashforpasswordreset_update.matchedCount == 0) return res.status(500).json({ message: "No entry to reset password" })//some error handling
+  // The entry reset link has already been used
+  if (ret_hashforpasswordreset_update.modifiedCount == 0) return res.status(500).json({ message: "This reset link has already been utilized" })//some error handling
+
+  // else from this point the entry switched to used true and now ready to update the password
+
+
+  let ret_hashforpasswordreset
+  try {
+    ret_hashforpasswordreset = await HashForPasswordReset.findOne({ hash: req.body.hash })
+  } catch (error) {
+    //some error handling
+  }
+
+  // Not needed redundant, but ok I guess
+  if (!ret_hashforpasswordreset) return res.status(500).json({ message: "No entry to reset password" })//some error handling
+
+
+  // Hash the password
+  let newpasswordhash
+
+  try {
+    newpasswordhash = await bcrypt.hash(req.body.newpassword, 10)
+  } catch (error) {
+    // some error handling
+  }
+
+
+  let updated_user_ret
+  try {
+    updated_user_ret = await User.updateOne({ _id: ret_hashforpasswordreset.userID }, { password: newpasswordhash }, { upsert: false, new: true });
+  } catch (error) {
+    //some error handling
+  }
+
+
+  res.status(200).json({
+    message: "Congrats, you have successfully reset your password, please proceed to log in with new credentials."
+  })
+})
+
+
+
+homeOrdersBackend_app_router.get(`/users/requestresetpasswordpage/:hex`, reHachHexForPassResetMiddleware, compareTheHashForPassResetMiddleware, (req, res) => {
 
 
   var JSX_to_load = 'MgtUser';
@@ -136,14 +206,14 @@ homeOrdersBackend_app_router.get(`/users/requestresetpasswordpage/:hex`, reHachH
   return res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
     JSX_to_load: JSX_to_load,
     // selectedUser: undefined
+    hash: res.locals.hash
   })
 
 
 })
 
 
-
-homeOrdersBackend_app_router.post('/users/requestresetpassword', destructureURLandRefererMiddleware, checkIfUserByEmailMiddleware, checkIfUserSetRequestForPasswordResetMiddleware, createHashForPasswordResetLinkMiddleware, sendEmailToResetPasswordMiddleware, (req,res)=>{
+homeOrdersBackend_app_router.post('/users/requestresetpassword', destructureURLandRefererMiddleware, checkIfUserByEmailMiddleware, checkIfUserSetRequestForPasswordResetMiddleware, createHashForPasswordResetLinkMiddleware, sendEmailToResetPasswordMiddleware, (req, res) => {
 
   // check if user is active if so proceed else popup with reason
   // create a entry with parameter code, created date, expiry 1 hour
@@ -159,7 +229,7 @@ homeOrdersBackend_app_router.post('/users/requestresetpassword', destructureURLa
 
 
 
-homeOrdersBackend_app_router.get('/users/forgotpasswordpage', (req,res)=>{
+homeOrdersBackend_app_router.get('/users/forgotpasswordpage', (req, res) => {
   var JSX_to_load = 'MgtUser';
 
   // console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
@@ -299,8 +369,8 @@ homeOrdersBackend_app_router.get('/confirm-user-email/:userID/:hexfield', async 
     return res.render('bodies/error')
   }
 
-  if(!ret_user) {
-  // if(true) {
+  if (!ret_user) {
+    // if(true) {
     let e = new Error("No found user under that UID")
     utils.redBkLog(e)
     return res.render('bodies/error')
@@ -309,8 +379,8 @@ homeOrdersBackend_app_router.get('/confirm-user-email/:userID/:hexfield', async 
   console.log(ret_user)
 
   // CHECK IF ACTIVE OR NOT
-  if(ret_user.active) {
-  // if(true) {
+  if (ret_user.active) {
+    // if(true) {
     let e = new Error("Account already active")
     utils.redBkLog(e)
     return res.redirect(`/users/login?popup=${e.message}`)
@@ -327,7 +397,7 @@ homeOrdersBackend_app_router.get('/confirm-user-email/:userID/:hexfield', async 
     return res.render('bodies/error')
   }
 
-  if(ret_user_hex.hexfield != req.params.hexfield) {
+  if (ret_user_hex.hexfield != req.params.hexfield) {
     utils.redBkLog(e)
     return res.render('bodies/error')
   }
@@ -335,8 +405,8 @@ homeOrdersBackend_app_router.get('/confirm-user-email/:userID/:hexfield', async 
   let updated_user_ret
   // HEXs ARE EQUAL
   try {
-    updated_user_ret = await User.updateOne({_id: req.params.userID}, {active: true, $unset: {hexforunactiveuserID: 1}}, { upsert: false, new: true });
-  } catch(e) {
+    updated_user_ret = await User.updateOne({ _id: req.params.userID }, { active: true, $unset: { hexforunactiveuserID: 1 } }, { upsert: false, new: true });
+  } catch (e) {
     utils.redBkLog(e)
     return res.render('bodies/error')
   }
@@ -344,19 +414,19 @@ homeOrdersBackend_app_router.get('/confirm-user-email/:userID/:hexfield', async 
 
 
   console.log(updated_user_ret)
-  
-  if(updated_user_ret.nModified == 0) {
+
+  if (updated_user_ret.nModified == 0) {
     let e = new Error("Was unable to upadate the users active to true, and unset the hexforunactiveuserID field")
     utils.redBkLog(e)
     return res.render('bodies/error')
   }
 
-  
-  
+
+
   // RID OF THE HEX ENTRY
   let ret_delete_hex
   try {
-    ret_delete_hex = await HexForUnactiveUser.deleteOne({_id: ret_user.hexforunactiveuserID})
+    ret_delete_hex = await HexForUnactiveUser.deleteOne({ _id: ret_user.hexforunactiveuserID })
   } catch (e) {
     utils.redBkLog(e)
     return res.render('bodies/error')

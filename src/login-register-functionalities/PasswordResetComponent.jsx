@@ -37,8 +37,36 @@ class PasswordResetComponent extends React.Component {
       return
     }
 
-    console.log("FETCH")
+    // console.log("FETCH", password, hash_of_user_to_reset_password)
+
+    let response = await fetch(`/users/submission-new-password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        newpassword: password,
+        hash: hash_of_user_to_reset_password
+      })
+    })
+
+    let data = await response.json()
+
+    console.log(response, data)
+
+    let not = undefined
     
+    if (response.status == 200) {
+      window.location.href = `/users/login?popup=${data.message}`
+    } else {
+      not = data.message
+    }
+
+    return this.setState({
+      notification: not,
+    })
+
   }
 
   totalvalidationprocess(_password, _password_check){
