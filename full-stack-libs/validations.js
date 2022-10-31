@@ -133,5 +133,18 @@ function validateInputs_marketOrderTradeLocationSpecifics(_pkobmOr_LocationData,
 }
 
 
+function arePasswordsEqual(obj) {
+  let err_msg
 
-module.exports = { verifyEmail, verifyPassword, validateInputs, validateExpiry, validateInputs_marketOrderTradeLocationSpecifics }
+  if(obj._password != obj._password_check) err_msg = "Password and confirmation do not match please edit and retry."
+
+  if (err_msg) {
+    return err_msg
+  } else {
+    return undefined
+  }
+}
+
+
+
+module.exports = { verifyEmail, verifyPassword, validateInputs, validateExpiry, validateInputs_marketOrderTradeLocationSpecifics, arePasswordsEqual }

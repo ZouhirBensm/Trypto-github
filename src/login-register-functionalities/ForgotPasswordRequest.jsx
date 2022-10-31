@@ -96,8 +96,7 @@ class ForgotPasswordRequest extends React.Component {
           <input type="text" name="email"/> 
           <button type="submit" onClick={ async (e) => {
             let ok = await this.handleSubmit(e);
-            console.log("Hello end", ok)
-            
+            console.log("Hello end", ok)   
             }}>Reset</button>
           <div>{this.state.notification}</div>
         </form>
