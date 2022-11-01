@@ -23,17 +23,18 @@ class PasswordResetComponent extends React.Component {
     let password = document.getElementById("newpass").elements[0].value
     let password_check = document.getElementById("newpass").elements[1].value
 
-    let validation_notifs_and_boxalertmode = this.totalvalidationprocess(password, password_check)
+    let [validation_notifs, boxalertmode] = this.totalvalidationprocess(password, password_check)
+    // let [validation_notifs_and_boxalertmode] = this.totalvalidationprocess(password, password_check)
 
-    console.log("---->>>>>", validation_notifs_and_boxalertmode)
+    console.log("---->>>>>", validation_notifs)
 
     this.setState({
-      notification: validation_notifs_and_boxalertmode[0],
-      passwordinputbox1: validation_notifs_and_boxalertmode[1][0],
-      passwordinputbox2: validation_notifs_and_boxalertmode[1][1],
+      notification: validation_notifs,
+      passwordinputbox1: boxalertmode[0],
+      passwordinputbox2: boxalertmode[1],
     })
 
-    if(validation_notifs_and_boxalertmode[0]){
+    if(validation_notifs){
       return
     }
 
@@ -61,6 +62,7 @@ class PasswordResetComponent extends React.Component {
     let notif = undefined
     
     if (response.status == 200) {
+      console.log("HITTTTT")
       window.location.href = `/users/login?popup=${data.message}`
     } else {
       notif = data.message
@@ -106,11 +108,13 @@ class PasswordResetComponent extends React.Component {
 
     let arePasswordsEqualRet = arePasswordsEqual(passwords_obj)
     console.log({arePasswordsEqualRet})
-    msg = <span>{arePasswordsEqualRet}</span>;
+    
+    if(arePasswordsEqualRet) {
+      msg = <span>{arePasswordsEqualRet}</span>;
+      return [msg, [true, true]]
+    }
 
-    if(arePasswordsEqualRet) return [msg, [true, true]]
-
-
+    console.log([msg, [false, false]])
     return [msg, [false, false]]
   }
 

@@ -141,7 +141,12 @@ homeOrdersBackend_app_router.post('/users/submission-new-password', reHachHexFor
   try {
     ret_hashforpasswordreset_update = await HashForPasswordReset.updateOne({ hash: res.locals.hash }, { used: true }, { upsert: false, new: true });
   } catch (error) {
+    return res.status(500).json({message: "Making HashForPasswordReset used failed"})
     // some error handling
+    // new Error throw
+    // res.status(500).json({message})
+    // error = new CustomError("message")
+    // return next(error)
   }
 
   // No entry identified to edit password
@@ -160,6 +165,7 @@ homeOrdersBackend_app_router.post('/users/submission-new-password', reHachHexFor
     ret_hashforpasswordreset = await HashForPasswordReset.findOne({ hash: res.locals.hash })
   } catch (error) {
     //some error handling
+    return res.status(500).json({message: "Retrieving HashForPasswordReset failed"})
   }
 
   // Not needed redundant, but ok I guess
@@ -180,6 +186,7 @@ homeOrdersBackend_app_router.post('/users/submission-new-password', reHachHexFor
     newpasswordhash = await bcrypt.hash(req.body.newpassword, 10)
   } catch (error) {
     // some error handling
+    return res.status(500).json({message: "Hashing New Password Failed"})
   }
 
 
@@ -188,6 +195,7 @@ homeOrdersBackend_app_router.post('/users/submission-new-password', reHachHexFor
     updated_user_ret = await User.updateOne({ _id: ret_hashforpasswordreset.userID }, { password: newpasswordhash }, { upsert: false, new: true });
   } catch (error) {
     //some error handling
+    return res.status(500).json({message: "Saving new password in User failed"})
   }
 
 
