@@ -12,6 +12,7 @@ module.exports = async (req, res, next) => {
     ret_user = await User.findOne({ email: req.body.email })
   } catch (e) {
     // some error handling
+    return res.status(500).json({message: "Querying for user failed"})
   }
 
   console.log(ret_user)

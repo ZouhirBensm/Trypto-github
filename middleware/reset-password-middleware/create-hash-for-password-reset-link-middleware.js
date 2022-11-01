@@ -50,9 +50,9 @@ module.exports = async (req, res, next) => {
   let buffer
   try {
     buffer = crypto.randomBytes(128)
-
   } catch (error) {
     // some error handling
+    return res.status(500).json({message: "Unable to create buffer for hex"})
   }
 
   
@@ -65,7 +65,8 @@ module.exports = async (req, res, next) => {
     // hash = await bcrypt.hash(hex)
     hash = crypto.createHash('sha256').update(hex).digest('hex')
   } catch (error) {
-    // some error handling    
+    // some error handling
+    return res.status(500).json({message: "Unable hash the hex"})
   }
 
   console.log("---> (1)", hash, typeof hash)
@@ -85,6 +86,7 @@ module.exports = async (req, res, next) => {
     ret_hashforpasswordreset_save = await hashforpasswordreset_instance.save()
   } catch (error) {
     // some error handling
+    return res.status(500).json({message: "Failed while saving the created HashForPasswordReset entry"})
   }
 
   

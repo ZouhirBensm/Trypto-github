@@ -14,6 +14,7 @@ module.exports = async (req,res, next) =>{
     hashforpasswordreset_ifany = await HashForPasswordReset.findOne({userID: res.locals.ret_user._id, used: false})
   } catch (error) {
     // some error handling
+    return res.status(500).json({message: "Querying for HashForPasswordReset entry failed"})
   }
 
 

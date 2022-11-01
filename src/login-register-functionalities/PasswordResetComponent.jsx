@@ -8,8 +8,8 @@ class PasswordResetComponent extends React.Component {
     super(props)
     this.state={
       notification: undefined,
-      inputboxred1: false,
-      inputboxred2: false,
+      passwordinputbox1: false,
+      passwordinputbox2: false,
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.totalvalidationprocess = this.totalvalidationprocess.bind(this)
@@ -23,21 +23,24 @@ class PasswordResetComponent extends React.Component {
     let password = document.getElementById("newpass").elements[0].value
     let password_check = document.getElementById("newpass").elements[1].value
 
-    let watup = this.totalvalidationprocess(password, password_check)
+    let validation_notifs_and_boxalertmode = this.totalvalidationprocess(password, password_check)
 
-    console.log("---->>>>>", watup)
+    console.log("---->>>>>", validation_notifs_and_boxalertmode)
 
     this.setState({
-      notification: watup[0],
-      inputboxred1: watup[1][0],
-      inputboxred2: watup[1][1],
+      notification: validation_notifs_and_boxalertmode[0],
+      passwordinputbox1: validation_notifs_and_boxalertmode[1][0],
+      passwordinputbox2: validation_notifs_and_boxalertmode[1][1],
     })
 
-    if(watup[0]){
+    if(validation_notifs_and_boxalertmode[0]){
       return
     }
 
-    // console.log("FETCH", password, hash_of_user_to_reset_password)
+    let hex_token = paths_URL[2]
+    // pull in hex
+    console.log("FETCH", password, hex_token)
+    // return
 
     let response = await fetch(`/users/submission-new-password`, {
       method: 'POST',
@@ -47,7 +50,7 @@ class PasswordResetComponent extends React.Component {
       },
       body: JSON.stringify({
         newpassword: password,
-        hash: hash_of_user_to_reset_password
+        hex: hex_token
       })
     })
 
@@ -55,53 +58,57 @@ class PasswordResetComponent extends React.Component {
 
     console.log(response, data)
 
-    let not = undefined
+    let notif = undefined
     
     if (response.status == 200) {
       window.location.href = `/users/login?popup=${data.message}`
     } else {
-      not = data.message
+      notif = data.message
     }
 
     return this.setState({
-      notification: not,
+      notification: notif,
     })
 
   }
 
   totalvalidationprocess(_password, _password_check){
-    let obj = {_password, _password_check}
-    console.log(obj)
+    let passwords_obj = {_password, _password_check}
+    console.log(passwords_obj)
 
 
 
-    let returned2 = verifyPassword(_password)
+    let verifyPasswordRet = verifyPassword(_password)
     
-    console.log({returned2})
+    console.log({verifyPasswordRet})
 
     let msg = undefined
-    if(!returned2.flag) {
-      msg = returned2.notification.map((element, i)=>{
-        return <React.Fragment key={i}><span>{element}</span><br/></React.Fragment>
+    if(!verifyPasswordRet.flag) {
+      // TODO rename verifyPasswordRet.notification to verifyPasswordRet.notifications
+      msg = verifyPasswordRet.notification.map((element_notif, i)=>{
+        return <React.Fragment key={i}><span>{element_notif}</span><br/></React.Fragment>
       }) 
 
       return [msg, [true, false]]
     }
 
-    let returned4 = verifyPassword(_password_check)
-    console.log({returned4})
+    let verifyCheckPasswordRet = verifyPassword(_password_check)
+    console.log({verifyCheckPasswordRet})
 
-    if(!returned4.flag) {
-      msg = returned4.notification.map((element, i)=>{
-        return <React.Fragment key={i}><span>{element}</span><br/></React.Fragment>
+    if(!verifyCheckPasswordRet.flag) {
+      // TODO rename verifyCheckPasswordRet.notification to verifyCheckPasswordRet.notifications
+      msg = verifyCheckPasswordRet.notification.map((element_notif, i)=>{
+        return <React.Fragment key={i}><span>{element_notif}</span><br/></React.Fragment>
       })
       return [msg, [false, true]]
     }
     
 
-    let returned3 = arePasswordsEqual(obj)
-    console.log({returned3})
-    if(returned3) return [returned3, [true, true]]
+    let arePasswordsEqualRet = arePasswordsEqual(passwords_obj)
+    console.log({arePasswordsEqualRet})
+    msg = <span>{arePasswordsEqualRet}</span>;
+
+    if(arePasswordsEqualRet) return [msg, [true, true]]
 
 
     return [msg, [false, false]]
@@ -115,12 +122,17 @@ class PasswordResetComponent extends React.Component {
           <h3>PasswordResetComponent</h3>
 
           <label>New password</label>
-          <input  style={{ border: this.state.inputboxred1 == true? '2px solid red':'none' }} type="text" name="password"/> <br/>
+          <input  style={{ border: this.state.passwordinputbox1 == true? '2px solid red':'none' }} type="text" name="password"/> <br/>
           <label>Confirm new password</label>
-          <input  style={{ border: this.state.inputboxred2 == true? '2px solid red':'none'}} type="text" name="password-check"/> <br/>
+          <input  style={{ border: this.state.passwordinputbox2 == true? '2px solid red':'none'}} type="text" name="password-check"/> <br/>
           <button type="submit" onClick={async (e) => {
-            let ok = await this.handleSubmit(e);
-            console.log("Hello end", ok)
+            let handleSubmitRet
+            try {
+              handleSubmitRet = await this.handleSubmit(e);
+            } catch (error) {
+              console.error("---->>ERROR", error)
+            }
+            console.log("Click buttin Callback", handleSubmitRet)
           }}>Submit</button>
         </form>
         <div>{this.state.notification}</div>

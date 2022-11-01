@@ -41,6 +41,7 @@ module.exports = async (req,res, next) =>{
     // console.log("\n----after info:\n\n", info)
   } catch (e) {
     // some error handling
+    return res.status(500).json({message: "Was unable to send reset mail"})
   }
 
   // console.log("\n\n\nInfo:\n\n\n", info);
@@ -48,6 +49,7 @@ module.exports = async (req,res, next) =>{
   if (!info) {
     // console.log("\n\n----THERE IS NO INFO")
     // some error handling
+    return res.status(500).json({message: "Info object missing!"})
   }
 
 

@@ -23,21 +23,21 @@ class ForgotPasswordRequest extends React.Component {
     let email = document.getElementById("forgotpass").elements[0].value
 
 
-    let watup = this.totalvalidationprocess(email)
+    let validation_notif = this.totalvalidationprocess(email)
 
     this.setState({
-      notification: watup
+      notification: validation_notif
     })
 
-    console.log("---->>>>>", watup)
-    if(watup){
+    console.log("---->>>>>", validation_notif)
+    if(validation_notif){
       return
     }
 
 
     console.log("FETCH")
 
-    let response = await fetch(`/users/requestresetpassword`, {
+    let response = await fetch(`/users/requestpasswordresetbyemail`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -52,33 +52,36 @@ class ForgotPasswordRequest extends React.Component {
 
     console.log(response, data)
 
-    let not = undefined
+    let notif = undefined
     
     if (response.status == 200) {
-      not = data.message
+      notif = data.message
     } else {
-      not = "Not 200 in the response status"
+      notif = "Server error, please try again in a week, maintainer's are fixing the issue"
     }
-
-    return this.setState({
-      notification: not,
+    
+    this.setState({
+      notification: notif,
     })
+    
+    return data
+    
   
   }
 
   totalvalidationprocess(_email){
-    let obj = {_email}
-    console.log(obj)
+    let email_obj = {_email}
+    console.log(email_obj)
 
 
-    let returned2 = verifyEmail(_email)
-    console.log({returned2})
-    if(!returned2.flag) return returned2.notification
+    let verifEmailRet = verifyEmail(_email)
+    console.log({verifEmailRet})
+    if(!verifEmailRet.flag) return verifEmailRet.notification
 
 
-    let returned = validateInputs(obj)
-    console.log({returned})
-    if(returned) return returned
+    let validateInputsRetMsg = validateInputs(email_obj)
+    console.log({validateInputsRetMsg})
+    if(validateInputsRetMsg) return validateInputsRetMsg
 
     return undefined
   }
@@ -95,8 +98,13 @@ class ForgotPasswordRequest extends React.Component {
           <label>Enter Email to Reset</label>
           <input type="text" name="email"/> 
           <button type="submit" onClick={ async (e) => {
-            let ok = await this.handleSubmit(e);
-            console.log("Hello end", ok)   
+            let handleSubmitRet
+            try {
+              handleSubmitRet = await this.handleSubmit(e);
+            } catch (error) {
+              console.error("---->>ERROR", error)
+            }
+            console.log("Click buttin Callback", handleSubmitRet)
             }}>Reset</button>
           <div>{this.state.notification}</div>
         </form>

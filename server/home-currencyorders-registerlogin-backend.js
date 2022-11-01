@@ -84,13 +84,12 @@ const verifyingPasswordMiddleware = require('../middleware/loggedin-middleware/v
 
 const verifyingAccountActiveMiddleware = require('../middleware/loggedin-middleware/verifying-account-active-middleware')
 const checkIfUserByEmailMiddleware = require('../middleware/generic-middleware/check-if-user-by-email-middleware')
-const checkIfUserSetRequestForPasswordResetMiddleware = require('../middleware/generic-middleware/check-if-user-set-request-for-password-reset-middleware')
+const checkIfUserSetAndUsedRequestForPasswordResetMiddleware = require('../middleware/generic-middleware/check-if-user-set-and-used-request-for-password-reset-middleware')
 const createHashForPasswordResetLinkMiddleware = require('../middleware/reset-password-middleware/create-hash-for-password-reset-link-middleware')
 const sendEmailToResetPasswordMiddleware = require('../middleware/reset-password-middleware/send-email-to-reset-password-middleware')
 
 
 const reHachHexForPassResetMiddleware = require('../middleware/reset-password-middleware/re-hach-hex-for-pass-reset-middleware')
-const compareTheHashForPassResetMiddleware = require('../middleware/reset-password-middleware/compare-the-hash-for-pass-reset-middleware')
 
 
 
@@ -129,26 +128,18 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
-homeOrdersBackend_app_router.post('/users/submission-new-password', async (req, res) => {
+homeOrdersBackend_app_router.post('/users/submission-new-password', reHachHexForPassResetMiddleware, async (req, res) => {
 
   // Identify the entry in the 
   // change the used to true
   // potentially delete the entire entry, if so delete the used field
   console.log(req.body)
 
-  // let ret_hashforpasswordreset
-  // try {
-  //   ret_hashforpasswordreset = await HashForPasswordReset({hash: req.body.hash})
-  // } catch (error) {
-  //   // some error handling
-  // }
-
-  // if(!ret_hashforpasswordreset) return //some error handling
 
   // update the entries used field to true
   let ret_hashforpasswordreset_update
   try {
-    ret_hashforpasswordreset_update = await HashForPasswordReset.updateOne({ hash: req.body.hash }, { used: true }, { upsert: false, new: true });
+    ret_hashforpasswordreset_update = await HashForPasswordReset.updateOne({ hash: res.locals.hash }, { used: true }, { upsert: false, new: true });
   } catch (error) {
     // some error handling
   }
@@ -158,18 +149,28 @@ homeOrdersBackend_app_router.post('/users/submission-new-password', async (req, 
   // The entry reset link has already been used
   if (ret_hashforpasswordreset_update.modifiedCount == 0) return res.status(500).json({ message: "This reset link has already been utilized" })//some error handling
 
+
+
+
+
+
   // else from this point the entry switched to used true and now ready to update the password
-
-
   let ret_hashforpasswordreset
   try {
-    ret_hashforpasswordreset = await HashForPasswordReset.findOne({ hash: req.body.hash })
+    ret_hashforpasswordreset = await HashForPasswordReset.findOne({ hash: res.locals.hash })
   } catch (error) {
     //some error handling
   }
 
   // Not needed redundant, but ok I guess
   if (!ret_hashforpasswordreset) return res.status(500).json({ message: "No entry to reset password" })//some error handling
+
+
+
+
+
+
+
 
 
   // Hash the password
@@ -193,11 +194,13 @@ homeOrdersBackend_app_router.post('/users/submission-new-password', async (req, 
   res.status(200).json({
     message: "Congrats, you have successfully reset your password, please proceed to log in with new credentials."
   })
+
+
 })
 
 
 
-homeOrdersBackend_app_router.get(`/users/requestresetpasswordpage/:hex`, reHachHexForPassResetMiddleware, compareTheHashForPassResetMiddleware, (req, res) => {
+homeOrdersBackend_app_router.get(`/users/requestresetpasswordpage/:hex`, (req, res) => {
 
 
   var JSX_to_load = 'MgtUser';
@@ -206,14 +209,15 @@ homeOrdersBackend_app_router.get(`/users/requestresetpasswordpage/:hex`, reHachH
   return res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
     JSX_to_load: JSX_to_load,
     // selectedUser: undefined
-    hash: res.locals.hash
+    // hash: res.locals.hash
   })
 
 
 })
 
+// TODO resend confirm email on pop up
 
-homeOrdersBackend_app_router.post('/users/requestresetpassword', destructureURLandRefererMiddleware, checkIfUserByEmailMiddleware, checkIfUserSetRequestForPasswordResetMiddleware, createHashForPasswordResetLinkMiddleware, sendEmailToResetPasswordMiddleware, (req, res) => {
+homeOrdersBackend_app_router.post('/users/requestpasswordresetbyemail', destructureURLandRefererMiddleware, checkIfUserByEmailMiddleware, checkIfUserSetAndUsedRequestForPasswordResetMiddleware, createHashForPasswordResetLinkMiddleware, sendEmailToResetPasswordMiddleware, (req, res) => {
 
   // check if user is active if so proceed else popup with reason
   // create a entry with parameter code, created date, expiry 1 hour

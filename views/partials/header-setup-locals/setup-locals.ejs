@@ -19,9 +19,9 @@
 <%if(locals.paths_URL!=null && locals.paths_URL[0] == 'marketplace'){%>
   <%- include("setup-locals-dependencies/setup-path-params/setupPathParams4marketplace") %>
 <%}%>
-<%if(locals.paths_URL!=null && locals.paths_URL[0] == 'users'){%>
-  <%- include("setup-locals-dependencies/setup-path-params/setupPathParams4users") %>
-<%}%>
+<!-- < %if(locals.paths_URL!=null && locals.paths_URL[0] == 'users'){%>
+  < %- include("setup-locals-dependencies/setup-path-params/setupPathParams4users") %>
+< %}%> -->
 
 
 
@@ -39,7 +39,7 @@
   var user
   var orderId
   var bidblock_email
-  var hash_of_user_to_reset_password
+  // var hash_of_user_to_reset_password
 
 
 
@@ -52,10 +52,10 @@
     // case `/make/${caseOptionMakes}`:
       break;
 
-    case `/users/requestresetpasswordpage/${caseHex}`:
-      hash_of_user_to_reset_password = '<%= locals.hash %>'
-      console.log("------------->>>>", hash_of_user_to_reset_password)
-      break;
+    // case `/users/requestresetpasswordpage/${caseHex}`:
+    //   hash_of_user_to_reset_password = '< %= locals.hash %>'
+    //   console.log("------------->>>>", hash_of_user_to_reset_password)
+    //   break;
 
     case '/users/login':
       popup = '<%= locals.popup %>'
