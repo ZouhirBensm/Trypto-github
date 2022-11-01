@@ -1,7 +1,7 @@
 function verifyEmail(_emailstr) {
   // console.log("verifying this email: ", _emailstr);
 
-  // TODO do not allow spaces
+  
   // allows spaces old version used
   // const emailRegularExpression = /(^[^@]+)@([^@.]+)\.{1}(\w{1,6}$)/;
   // does not allows spaces old version used
@@ -50,11 +50,9 @@ function verifyPassword(_password) {
 
 // Long terme TODO
 // V1
-// TODO pseudo, system de mot de passe forgot
-// TODO images uploads
-// TODO reassess displayed market order information, e.g. rid of the street
+// TODO !! pseudo, add to the whole system
+// TODO !! reassess displayed market order information, e.g. rid of the street
 // TODO maintainers, process to allow the orders to go through
-// TODO admin control des market orders
 // + 
 // TODO design= logo, icons/font awsome, dimmensions, implementation css mobile/desktop, customs pictogrammes, animations, mobile touch events
 

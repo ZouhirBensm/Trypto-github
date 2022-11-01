@@ -45,7 +45,6 @@ const LoginController = require("../controllers/register-login-controllers/login
 const { registerController } = require("../controllers/register-login-controllers/register")
 const distributePaginatedDataController = require("../controllers/generic-controllers/distribute-paginated-data-controller")
 const isUpController = require("../controllers/generic-controllers/is-up-controller")
-// TODO keep the -2.js rename
 const { resendConfirmationController } = require("../controllers/register-login-controllers/resend-confirmation-controller")
 
 
@@ -147,7 +146,7 @@ homeOrdersBackend_app_router.get(`/users/requestresetpasswordpage/:hex`, (req, r
 
 
 
-// TODO resend confirm email on pop up
+// TODO ! resend confirm email on pop up in the login interface
 
 homeOrdersBackend_app_router.post('/users/requestpasswordresetbyemail', responseMessageSetterMiddleware("If a user under those credentials exists, an email with the reset link shall be sent."), destructureURLandRefererMiddleware, checkIfUserByEmailMiddleware, checkIfUserSetAndUsedRequestForPasswordResetMiddleware, createHashForPasswordResetLinkMiddleware, sendEmailToResetPasswordMiddleware, (req, res) => {
 

@@ -88,7 +88,7 @@ class Login extends React.Component {
 
 
     // TODO when registering need two inputs for the password (or not)
-    // TODO !! change password when forgotten process
+    // TODO in the forgot password process the app does not check that the newpassword is equal to the old one. This should be checked on the back end, and respond with an error "New Password cannot be set to the old one!"
     
     console.log("FETCH")
 

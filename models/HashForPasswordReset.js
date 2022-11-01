@@ -1,14 +1,8 @@
 const mongoose = require('mongoose')
-const crypto = require('crypto')
 const Schema = mongoose.Schema
-const bcrypt = require('bcryptjs')
 
 
-console.log(1)
-console.log(2)
-console.log(3)
 
-// TODO refactor hex->hash
 const HashForPasswordResetSchema = new Schema({
   hash: {
     type: String,

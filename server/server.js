@@ -47,12 +47,11 @@ db.once("open", () => {
 
 
 
-// TODO !! keep track of the session entries and make sure they have a auto delete feature that works
-// TODO ! index the databases so that the monthly payments for the mongo atlas account does not skyrocket: https://www.mongodb.com/developer/products/atlas/serverless-instances-billing-optimize-bill-indexing/
-// TODO ! have a opt in page on bidblock.ca that takes email list, look into 
+// TODO !! index the databases so that the monthly payments for the mongo atlas account does not skyrocket: https://www.mongodb.com/developer/products/atlas/serverless-instances-billing-optimize-bill-indexing/
+// TODO !! have a opt in page on bidblock.ca that takes email list, look into 
 // TODO network in groups to see if audience would pay for a bidblock platform
 // TODO look into kickstarter to fund the app: https://www.kickstarter.com/, look into crowdfunding
-// TODO ! make articles on home page feed by order recent to last recent
+// TODO !! make articles on home page feed by order recent to last recent
 // TODO ! make available to see the market orders when not logged in but cannot interact with on the home
 // TODO ! get rid of the other crypto prices and keep only bitcoin, and transform the display of the price to something better
 

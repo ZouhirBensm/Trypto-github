@@ -131,9 +131,6 @@ const errorResponderController = (err, req ,res, next) => {
   error_sent = `${errorStatus} | Sorry, our web server is Down!`;
 
 
-  // TODO kept temporarily
-  // error_sent = `On errorResponderController |\nAn Error has occured on the server please have a look!\n Error: ${err}`
-  // return res.status(errorStatus).send({message: error_sent}) 
   return res.status(errorStatus).send(error_sent) 
   
   // Personal note: err is an object and JSON.stringify(err,null,4) is a string

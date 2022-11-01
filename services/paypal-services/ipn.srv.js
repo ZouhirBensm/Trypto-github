@@ -1,4 +1,4 @@
-// TODO: if request no longer user, then delete these libraries npm
+// TODO: if request no longer used, then delete these libraries npm
 const request = require('request')
 const Promise = require('bluebird')
 
