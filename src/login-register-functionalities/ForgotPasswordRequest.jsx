@@ -57,7 +57,7 @@ class ForgotPasswordRequest extends React.Component {
     if (response.status == 200) {
       notif = data.message
     } else {
-      notif = "Server error, please try again in a week, maintainer's are fixing the issue"
+      notif = data.error.message
     }
     
     this.setState({

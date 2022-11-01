@@ -1,3 +1,5 @@
+const {ResetPasswordReset} = require("../../custom-errors/custom-errors")
+
 const HashForPasswordReset = require("../../models/HashForPasswordReset")
 
 module.exports = async (req,res, next) =>{
@@ -12,9 +14,10 @@ module.exports = async (req,res, next) =>{
   
   try {
     hashforpasswordreset_ifany = await HashForPasswordReset.findOne({userID: res.locals.ret_user._id, used: false})
-  } catch (error) {
+  } catch (e) {
     // some error handling
-    return res.status(500).json({message: "Querying for HashForPasswordReset entry failed"})
+    let error = new ResetPasswordReset(res.locals.response_message, "Querying for HashForPasswordReset entry failed")
+    return next(error)
   }
 
 

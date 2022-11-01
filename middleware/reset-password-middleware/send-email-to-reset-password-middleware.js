@@ -1,6 +1,7 @@
 const ENV = require('../../config/base')
 var nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs')
+const {ResetPasswordReset} = require("../../custom-errors/custom-errors")
 
 
 module.exports = async (req,res, next) =>{
@@ -41,7 +42,8 @@ module.exports = async (req,res, next) =>{
     // console.log("\n----after info:\n\n", info)
   } catch (e) {
     // some error handling
-    return res.status(500).json({message: "Was unable to send reset mail"})
+    let error = new ResetPasswordReset(res.locals.response_message, "Was unable to send reset mail")
+    return next(error)
   }
 
   // console.log("\n\n\nInfo:\n\n\n", info);
@@ -49,7 +51,8 @@ module.exports = async (req,res, next) =>{
   if (!info) {
     // console.log("\n\n----THERE IS NO INFO")
     // some error handling
-    return res.status(500).json({message: "Info object missing!"})
+    let error = new ResetPasswordReset(res.locals.response_message, "Info object missing!")
+    return next(error)
   }
 
 

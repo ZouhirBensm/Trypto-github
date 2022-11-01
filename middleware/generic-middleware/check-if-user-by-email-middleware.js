@@ -1,4 +1,5 @@
 const User = require("../../models/User")
+const {ResetPasswordReset} = require("../../custom-errors/custom-errors")
 
 
 
@@ -12,7 +13,8 @@ module.exports = async (req, res, next) => {
     ret_user = await User.findOne({ email: req.body.email })
   } catch (e) {
     // some error handling
-    return res.status(500).json({message: "Querying for user failed"})
+    let error = new ResetPasswordReset(res.locals.response_message, "Querying for user failed")
+    return next(error)
   }
 
   console.log(ret_user)

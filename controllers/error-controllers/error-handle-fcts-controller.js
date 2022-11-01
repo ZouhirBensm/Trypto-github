@@ -8,6 +8,14 @@ const errorResponseDispatcherController = async (err, req ,res, next) => {
 
   switch (err.constructor.name) {
     // Used to experiment custom throw errors for mongo DB methods
+    case "ResetPasswordReset":
+      return res.status(err.statusCode).json({
+        error: {
+          type: err.type,
+          message: err.client_message,
+        }
+      })
+      break;
     case "MongoError":
       return res.status(err.statusCode).json({
         error: {

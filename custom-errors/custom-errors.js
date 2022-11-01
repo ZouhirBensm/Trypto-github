@@ -111,6 +111,17 @@ class SessionRoleOrSentUIDnotAllowed extends CustomError {
   }
 }
 
+class ResetPasswordReset extends CustomError {
+  constructor(client_message, admin_message, statusCode = undefined){
+    super()
+    this.type = this.constructor.name
+    this.message = admin_message
+    this.client_message = client_message
+    this.admin_message= admin_message
+    this.statusCode = statusCode ||  this.statusCode
+  }
+}
+
 module.exports = {
   // SubCustomError,
   MongoError,
@@ -122,5 +133,6 @@ module.exports = {
   UnsubscribeError,
   DeleteAccountProcessError,
   RoleNotPermitedError,
-  SessionRoleOrSentUIDnotAllowed
+  SessionRoleOrSentUIDnotAllowed,
+  ResetPasswordReset
 }

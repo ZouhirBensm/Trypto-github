@@ -81,7 +81,7 @@ const { requester_auth_middleware } = require('../middleware/generic-middleware/
 const verifyingPasswordMiddleware = require('../middleware/loggedin-middleware/verifying-password-middleware')
 
 
-
+const responseMessageMiddleware = require('../middleware/reset-password-middleware/response-message-middleware')
 const verifyingAccountActiveMiddleware = require('../middleware/loggedin-middleware/verifying-account-active-middleware')
 const checkIfUserByEmailMiddleware = require('../middleware/generic-middleware/check-if-user-by-email-middleware')
 const checkIfUserSetAndUsedRequestForPasswordResetMiddleware = require('../middleware/generic-middleware/check-if-user-set-and-used-request-for-password-reset-middleware')
@@ -225,7 +225,7 @@ homeOrdersBackend_app_router.get(`/users/requestresetpasswordpage/:hex`, (req, r
 
 // TODO resend confirm email on pop up
 
-homeOrdersBackend_app_router.post('/users/requestpasswordresetbyemail', destructureURLandRefererMiddleware, checkIfUserByEmailMiddleware, checkIfUserSetAndUsedRequestForPasswordResetMiddleware, createHashForPasswordResetLinkMiddleware, sendEmailToResetPasswordMiddleware, (req, res) => {
+homeOrdersBackend_app_router.post('/users/requestpasswordresetbyemail', responseMessageMiddleware,destructureURLandRefererMiddleware, checkIfUserByEmailMiddleware, checkIfUserSetAndUsedRequestForPasswordResetMiddleware, createHashForPasswordResetLinkMiddleware, sendEmailToResetPasswordMiddleware, (req, res) => {
 
   // check if user is active if so proceed else popup with reason
   // create a entry with parameter code, created date, expiry 1 hour

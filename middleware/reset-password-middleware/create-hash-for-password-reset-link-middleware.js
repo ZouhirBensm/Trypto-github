@@ -1,6 +1,7 @@
 const HashForPasswordReset = require("../../models/HashForPasswordReset")
 const crypto = require('crypto')
 const bcrypt = require('bcryptjs')
+const {ResetPasswordReset} = require("../../custom-errors/custom-errors")
 
 
 module.exports = async (req, res, next) => {
@@ -50,9 +51,10 @@ module.exports = async (req, res, next) => {
   let buffer
   try {
     buffer = crypto.randomBytes(128)
-  } catch (error) {
+  } catch (e) {
     // some error handling
-    return res.status(500).json({message: "Unable to create buffer for hex"})
+    let error = new ResetPasswordReset(res.locals.response_message, "Unable to create buffer for hex")
+    return next(error)
   }
 
   
@@ -64,9 +66,10 @@ module.exports = async (req, res, next) => {
   try {
     // hash = await bcrypt.hash(hex)
     hash = crypto.createHash('sha256').update(hex).digest('hex')
-  } catch (error) {
+  } catch (e) {
     // some error handling
-    return res.status(500).json({message: "Unable hash the hex"})
+    let error = new ResetPasswordReset(res.locals.response_message, "Unable hash the hex")
+    return next(error)
   }
 
   console.log("---> (1)", hash, typeof hash)
@@ -84,9 +87,10 @@ module.exports = async (req, res, next) => {
 
   try {
     ret_hashforpasswordreset_save = await hashforpasswordreset_instance.save()
-  } catch (error) {
+  } catch (e) {
     // some error handling
-    return res.status(500).json({message: "Failed while saving the created HashForPasswordReset entry"})
+    let error = new ResetPasswordReset(res.locals.response_message, "Failed while saving the created HashForPasswordReset entry")
+    return next(error)
   }
 
   
@@ -97,13 +101,7 @@ module.exports = async (req, res, next) => {
 
   // send email to reset the password
 
-
-
   return next()
-
-
-
-
 
 
 }
