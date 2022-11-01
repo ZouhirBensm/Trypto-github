@@ -1,11 +1,7 @@
 // Libraries
 const express = require('express')
-const mongoose = require('mongoose')
-const fetch = require('node-fetch')
 const httpStatus = require("http-status-codes")
 const CoinGecko = require('coingecko-api');
-var nodemailer = require('nodemailer');
-var bcrypt = require('bcryptjs');
 
 
 
@@ -36,9 +32,7 @@ const NAVBAR = require('../full-stack-libs/Types/Navbar')
 
 
 // Custom Error
-const { CustomError } = require('../custom-errors/custom-errors');
 const { DeleteAccountProcessError } = require("../custom-errors/custom-errors")
-const {ResetPasswordReset} = require("../custom-errors/custom-errors")
 
 
 // Controllers
@@ -93,6 +87,10 @@ const sendEmailToResetPasswordMiddleware = require('../middleware/reset-password
 
 const reHachHexForPassResetMiddleware = require('../middleware/reset-password-middleware/re-hach-hex-for-pass-reset-middleware')
 
+const markHashForPasswordResetAsUsedMiddleware = require('../middleware/reset-password-middleware/mark-hash-forpassword-reset-as-used-middleware')
+const retrieveTheHashForPasswordResetMiddleware = require('../middleware/reset-password-middleware/retrieve-the-hash-for-password-reset-middleware')
+const createAndUpdateNewPasswordController = require('../controllers/reset-password-controllers/create-and-update-new-password-controller')
+
 
 
 // Use this to check the role, requires a res.locals.user.role
@@ -109,13 +107,7 @@ const { authenticate_role_for_pages, authenticate_role_for_data } = require("../
 
 // Database Models
 const User = require('../models/User')
-const BuyCryptoOrder = require('../models/home-currencyorders-models/BuyCryptoOrder');
-const SellCryptoOrder = require('../models/home-currencyorders-models/SellCryptoOrder');
-const Protagonist = require('../models/messaging-models/Protagonist')
-const Message = require('../models/messaging-models/Message')
-const Subscriber = require('../models/Subscriber');
 const HexForUnactiveUser = require('../models/HexForUnactiveUser');
-const HashForPasswordReset = require('../models/HashForPasswordReset');
 
 
 
@@ -130,100 +122,7 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
-homeOrdersBackend_app_router.post('/users/submission-new-password', responseMessageSetterMiddleware("Server Error, please try again later."), reHachHexForPassResetMiddleware, async (req, res, next) => {
-
-  // Identify the entry in the 
-  // change the used to true
-  // potentially delete the entire entry, if so delete the used field
-  console.log(req.body)
-
-
-  // update the entries used field to true
-  let ret_hashforpasswordreset_update
-  try {
-    ret_hashforpasswordreset_update = await HashForPasswordReset.updateOne({ hash: res.locals.hash }, { used: true }, { upsert: false, new: true });
-  } catch (e) {
-    let error = new ResetPasswordReset(res.locals.response_message, "Making HashForPasswordReset used failed")
-    return next(error)
-
-    // some error handling
-    // new Error throw
-    // res.status(500).json({message})
-    // error = new CustomError("message")
-    // return next(error)
-  }
-
-  // No entry identified to edit password
-  if (ret_hashforpasswordreset_update.matchedCount == 0) {
-  // if (true) {
-    let error = new ResetPasswordReset("No entry to reset password", "No entry to reset password")
-    return next(error)
-  }
-  // The entry reset link has already been used
-  if (ret_hashforpasswordreset_update.modifiedCount == 0) {
-  // if (true) {
-    let error = new ResetPasswordReset("This reset link has already been utilized", "This reset link has already been utilized")
-    return next(error)
-  }
-
-
-
-
-
-
-  // else from this point the entry switched to used true and now ready to update the password
-  let ret_hashforpasswordreset
-  try {
-    ret_hashforpasswordreset = await HashForPasswordReset.findOne({ hash: res.locals.hash })
-  } catch (e) {
-    //some error handling
-    let error = new ResetPasswordReset(res.locals.response_message, "Retrieving HashForPasswordReset failed")
-    return next(error)
-  }
-
-  // Not needed redundant, but ok I guess
-  if (!ret_hashforpasswordreset) {
-  // if (true) {
-    let error = new ResetPasswordReset(res.locals.response_message, "No entry to reset password")
-    return next(error)
-  }
-
-
-
-
-
-
-
-
-
-  // Hash the password
-  let newpasswordhash
-
-  try {
-    newpasswordhash = await bcrypt.hash(req.body.newpassword, 10)
-  } catch (e) {
-    // some error handling
-    let error = new ResetPasswordReset(res.locals.response_message, "Hashing New Password Failed")
-    return next(error)
-  }
-
-
-  let updated_user_ret
-  try {
-    updated_user_ret = await User.updateOne({ _id: ret_hashforpasswordreset.userID }, { password: newpasswordhash }, { upsert: false, new: true });
-  } catch (e) {
-    //some error handling
-    let error = new ResetPasswordReset(res.locals.response_message, "Saving new password in User failed")
-    return next(error)
-  }
-
-
-  res.status(200).json({
-    message: "Congrats, you have successfully reset your password, please proceed to log in with new credentials."
-  })
-
-
-})
+homeOrdersBackend_app_router.post('/users/submission-new-password', responseMessageSetterMiddleware("Server Error, please try again later."), reHachHexForPassResetMiddleware, markHashForPasswordResetAsUsedMiddleware, retrieveTheHashForPasswordResetMiddleware, createAndUpdateNewPasswordController)
 
 
 
@@ -241,6 +140,12 @@ homeOrdersBackend_app_router.get(`/users/requestresetpasswordpage/:hex`, (req, r
 
 
 })
+
+
+
+
+
+
 
 // TODO resend confirm email on pop up
 

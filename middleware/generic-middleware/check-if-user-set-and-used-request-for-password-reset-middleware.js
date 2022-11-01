@@ -1,5 +1,4 @@
 const {ResetPasswordReset} = require("../../custom-errors/custom-errors")
-
 const HashForPasswordReset = require("../../models/HashForPasswordReset")
 
 module.exports = async (req,res, next) =>{

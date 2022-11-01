@@ -1,8 +1,7 @@
 
-const HashForPasswordReset = require("../../models/HashForPasswordReset")
 const crypto = require('crypto')
-const bcrypt = require('bcryptjs')
 const {ResetPasswordReset} = require("../../custom-errors/custom-errors")
+
 
 
 module.exports = async (req,res,next) => {
@@ -21,7 +20,10 @@ module.exports = async (req,res,next) => {
     return next(error)
   }
 
-  if(!hash) return res.status(500).json({message: "no hash"}) //some error handling 
+  if(!hash) {
+    let error = new ResetPasswordReset(res.locals.response_message, "No Hash")
+    return next(error)
+  }
 
   console.log("---> (2)", hash, typeof hash)
   
