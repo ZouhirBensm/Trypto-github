@@ -65,7 +65,7 @@ class PasswordResetComponent extends React.Component {
       console.log("HITTTTT")
       window.location.href = `/users/login?popup=${data.message}`
     } else {
-      notif = data.message
+      notif = data.error.message
     }
 
     return this.setState({

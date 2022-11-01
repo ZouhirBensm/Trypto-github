@@ -1,7 +1,11 @@
-module.exports = (req, res, next) => {
+function responseMessageSetterMiddleware(message) {
+  return (req, res, next) => {
 
-  res.locals.response_message = "If a user under those credentials exists, an email with the reset link shall be sent."
-
-  return next()
-
+    res.locals.response_message = message 
+  
+    return next()
+  
+  }
 }
+
+module.exports = {responseMessageSetterMiddleware}

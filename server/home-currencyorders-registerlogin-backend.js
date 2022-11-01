@@ -38,6 +38,7 @@ const NAVBAR = require('../full-stack-libs/Types/Navbar')
 // Custom Error
 const { CustomError } = require('../custom-errors/custom-errors');
 const { DeleteAccountProcessError } = require("../custom-errors/custom-errors")
+const {ResetPasswordReset} = require("../custom-errors/custom-errors")
 
 
 // Controllers
@@ -81,7 +82,8 @@ const { requester_auth_middleware } = require('../middleware/generic-middleware/
 const verifyingPasswordMiddleware = require('../middleware/loggedin-middleware/verifying-password-middleware')
 
 
-const responseMessageMiddleware = require('../middleware/reset-password-middleware/response-message-middleware')
+const {responseMessageSetterMiddleware} = require('../middleware/reset-password-middleware/response-message-middleware')
+// const responseMessageMiddleware = require('../middleware/reset-password-middleware/response-message-middleware')
 const verifyingAccountActiveMiddleware = require('../middleware/loggedin-middleware/verifying-account-active-middleware')
 const checkIfUserByEmailMiddleware = require('../middleware/generic-middleware/check-if-user-by-email-middleware')
 const checkIfUserSetAndUsedRequestForPasswordResetMiddleware = require('../middleware/generic-middleware/check-if-user-set-and-used-request-for-password-reset-middleware')
@@ -128,7 +130,7 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
-homeOrdersBackend_app_router.post('/users/submission-new-password', reHachHexForPassResetMiddleware, async (req, res) => {
+homeOrdersBackend_app_router.post('/users/submission-new-password', responseMessageSetterMiddleware("Server Error, please try again later."), reHachHexForPassResetMiddleware, async (req, res, next) => {
 
   // Identify the entry in the 
   // change the used to true
@@ -140,8 +142,10 @@ homeOrdersBackend_app_router.post('/users/submission-new-password', reHachHexFor
   let ret_hashforpasswordreset_update
   try {
     ret_hashforpasswordreset_update = await HashForPasswordReset.updateOne({ hash: res.locals.hash }, { used: true }, { upsert: false, new: true });
-  } catch (error) {
-    return res.status(500).json({message: "Making HashForPasswordReset used failed"})
+  } catch (e) {
+    let error = new ResetPasswordReset(res.locals.response_message, "Making HashForPasswordReset used failed")
+    return next(error)
+
     // some error handling
     // new Error throw
     // res.status(500).json({message})
@@ -150,9 +154,17 @@ homeOrdersBackend_app_router.post('/users/submission-new-password', reHachHexFor
   }
 
   // No entry identified to edit password
-  if (ret_hashforpasswordreset_update.matchedCount == 0) return res.status(500).json({ message: "No entry to reset password" })//some error handling
+  if (ret_hashforpasswordreset_update.matchedCount == 0) {
+  // if (true) {
+    let error = new ResetPasswordReset("No entry to reset password", "No entry to reset password")
+    return next(error)
+  }
   // The entry reset link has already been used
-  if (ret_hashforpasswordreset_update.modifiedCount == 0) return res.status(500).json({ message: "This reset link has already been utilized" })//some error handling
+  if (ret_hashforpasswordreset_update.modifiedCount == 0) {
+  // if (true) {
+    let error = new ResetPasswordReset("This reset link has already been utilized", "This reset link has already been utilized")
+    return next(error)
+  }
 
 
 
@@ -163,13 +175,18 @@ homeOrdersBackend_app_router.post('/users/submission-new-password', reHachHexFor
   let ret_hashforpasswordreset
   try {
     ret_hashforpasswordreset = await HashForPasswordReset.findOne({ hash: res.locals.hash })
-  } catch (error) {
+  } catch (e) {
     //some error handling
-    return res.status(500).json({message: "Retrieving HashForPasswordReset failed"})
+    let error = new ResetPasswordReset(res.locals.response_message, "Retrieving HashForPasswordReset failed")
+    return next(error)
   }
 
   // Not needed redundant, but ok I guess
-  if (!ret_hashforpasswordreset) return res.status(500).json({ message: "No entry to reset password" })//some error handling
+  if (!ret_hashforpasswordreset) {
+  // if (true) {
+    let error = new ResetPasswordReset(res.locals.response_message, "No entry to reset password")
+    return next(error)
+  }
 
 
 
@@ -184,18 +201,20 @@ homeOrdersBackend_app_router.post('/users/submission-new-password', reHachHexFor
 
   try {
     newpasswordhash = await bcrypt.hash(req.body.newpassword, 10)
-  } catch (error) {
+  } catch (e) {
     // some error handling
-    return res.status(500).json({message: "Hashing New Password Failed"})
+    let error = new ResetPasswordReset(res.locals.response_message, "Hashing New Password Failed")
+    return next(error)
   }
 
 
   let updated_user_ret
   try {
     updated_user_ret = await User.updateOne({ _id: ret_hashforpasswordreset.userID }, { password: newpasswordhash }, { upsert: false, new: true });
-  } catch (error) {
+  } catch (e) {
     //some error handling
-    return res.status(500).json({message: "Saving new password in User failed"})
+    let error = new ResetPasswordReset(res.locals.response_message, "Saving new password in User failed")
+    return next(error)
   }
 
 
@@ -225,7 +244,7 @@ homeOrdersBackend_app_router.get(`/users/requestresetpasswordpage/:hex`, (req, r
 
 // TODO resend confirm email on pop up
 
-homeOrdersBackend_app_router.post('/users/requestpasswordresetbyemail', responseMessageMiddleware,destructureURLandRefererMiddleware, checkIfUserByEmailMiddleware, checkIfUserSetAndUsedRequestForPasswordResetMiddleware, createHashForPasswordResetLinkMiddleware, sendEmailToResetPasswordMiddleware, (req, res) => {
+homeOrdersBackend_app_router.post('/users/requestpasswordresetbyemail', responseMessageSetterMiddleware("If a user under those credentials exists, an email with the reset link shall be sent."), destructureURLandRefererMiddleware, checkIfUserByEmailMiddleware, checkIfUserSetAndUsedRequestForPasswordResetMiddleware, createHashForPasswordResetLinkMiddleware, sendEmailToResetPasswordMiddleware, (req, res) => {
 
   // check if user is active if so proceed else popup with reason
   // create a entry with parameter code, created date, expiry 1 hour
