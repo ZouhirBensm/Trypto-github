@@ -50,7 +50,7 @@ function verifyPassword(_password) {
 
 // Long terme TODO
 // V1
-// TODO !! pseudo, add to the whole system
+// TODO !!!! pseudo, add to the whole system
 // TODO !! reassess displayed market order information, e.g. rid of the street
 // TODO maintainers, process to allow the orders to go through
 // + 

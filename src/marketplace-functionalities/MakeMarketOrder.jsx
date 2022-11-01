@@ -371,7 +371,7 @@ class MakeMarketOrder extends React.Component {
     }
 
 
-// TODO !! add image upload, and operations U,D, and account delete associated images capabilities
+// TODO !!!! add image upload, and operations U,D, and account delete associated images capabilities
 
   }
 
