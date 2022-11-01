@@ -46,7 +46,7 @@ module.exports = async (req, res, next) => {
   // Generate a hex that expires after 2 mins
   var now = new Date()
   exp = new Date(now)
-  exp.setMinutes(now.getMinutes() + 60*6)
+  exp.setMinutes(now.getMinutes() + 30)
 
   let buffer
   try {
