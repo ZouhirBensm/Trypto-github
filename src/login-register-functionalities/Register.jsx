@@ -1,7 +1,7 @@
 // import React from 'react';
 
 import '../style/reactDivMobile.css'
-import {verifyEmail, verifyPassword} from '../../full-stack-libs/validations'
+import {verifyEmail, verifyPassword, verifyUsername} from '../../full-stack-libs/validations'
 import { Link, Switch, Route, BrowserRouter as Router } from "react-router-dom";
 
 
@@ -15,30 +15,33 @@ class Register extends React.Component {
     }
     this.handleValidation = this.handleValidation.bind(this)
     this.handleRegistrationCall = this.handleRegistrationCall.bind(this)
-    console.log("step in register: ", this.props.step)
+    // console.log("step in register: ", this.props.step)
     this.NOTSUBSCRIBERPlanRegistrationProcess = this.NOTSUBSCRIBERPlanRegistrationProcess.bind(this)
   }
 
   
 
   async NOTSUBSCRIBERPlanRegistrationProcess() {
-    console.log("heyy")
+    // console.log("heyy")
     let flag, notification
-    console.log("actuallly register the user", this.props.email, this.props.password, this.props.plan);
-    ({flag, notification} = await this.handleRegistrationCall(this.props.email, this.props.password, this.props.plan))
+    console.log({username: this.props.username, email: this.props.email, password: this.props.password, plan: this.props.plan});
 
-    console.log(flag, notification)
+    ({flag, notification} = await this.handleRegistrationCall(this.props.username, this.props.email, this.props.password, this.props.plan))
+
+    console.log("NOTSUBSCRIBERPlanRegistrationProcess()-> flag, notification: ", flag, notification)
+
     if (flag){
       this.setState({notification: notification})
       this.props.setStateStep(4)
     } else {
       this.setState({notification: notification})
     }
+    return
   }
 
 
 
-  async handleRegistrationCall (_email, _password, _plan){
+  async handleRegistrationCall (_username, _email, _password, _plan){
     console.log("Making API call!")
     
     const response = await fetch(`/users/register`, {
@@ -48,15 +51,15 @@ class Register extends React.Component {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
+        username: _username,
         email: _email,
         password: _password,
         plan: _plan,
       })
     })
    
-    console.log(response)
     let data = await response.json()
-    console.log(data)
+    console.log("handleRegistrationCall()-> response, data: ", response, data)
 
 
     switch (response.status) {
@@ -85,6 +88,7 @@ class Register extends React.Component {
 
 
   render() {
+
     console.log(typeof this.state.notification)
     let notifyDisplays
     notifyDisplays = this.state.notification?.map((notification, index) => {
@@ -101,34 +105,29 @@ class Register extends React.Component {
       <div id="container-log-reg">
         <form id="loginregister" className="form">
           <h3>Register React</h3>
+          <label>Username</label>
+          <input type="text" name="username" value={this.props.username} onChange={(e) => this.props.handleChange("username", e)} placeholder="Zouhir"/> <br/>
           <label>Email</label>
-          <input type="text" name="email" value={this.props.email} onChange={(e) => this.props.handleChange("email", e)}/>
+          <input type="text" name="email" value={this.props.email} onChange={(e) => this.props.handleChange("email", e)} placeholder="z@example.com"/> <br/>
           <label>Password</label>
-          <input type="password" name="password" value={this.props.password} onChange={(e) => this.props.handleChange("password", e)}/> 
+          <input type="text" name="password" value={this.props.password} onChange={(e) => this.props.handleChange("password", e)} placeholder="Zouhir123!"/> <br/>
 
           <button 
           onClick={
             async (e) => {
               e.preventDefault()
-              let returnedValue = await this.asyncFunctionToreturnValidation()
-              // console.log("work with this!", this.props.plan)
-              if (returnedValue.value.yield_level == 4){
-                // this.props.nextStep()
-                if(this.props.plan == "NOTSUBSCRIBER") {
-                  await this.NOTSUBSCRIBERPlanRegistrationProcess()
-                }
-                if(this.props.plan == "BASIC") {
-                  this.props.nextStep()
-                }
-              } else {
-                console.log("arrived until: ", returnedValue.value.yield_level)
-              }
+
+              let returnedValue1 = await this.asyncFunctionToreturnValidation()
+              await this.planRegistrationFunction(returnedValue1)
+
+              return
             }
+
           }>Register</button>
           
-        </form>
+        </form> <br/>
         {/* display the notification from the server here! */}
-        { notifyDisplays }
+        { notifyDisplays } <br/>
         <button onClick={(e) => this.props.setStateStep(1)}> Previous </button>
         {/* <button onClick={(e) => this.props.setStateStep('3')}> Next </button> */}
       </div>
@@ -137,71 +136,87 @@ class Register extends React.Component {
   // ___________________________________________________
 
 
+  async planRegistrationFunction(returnedValue1){
+    console.log("onClick()-> returnedValue1: ", returnedValue1)
+  
+    if (returnedValue1.value.status != "success"){
+      return
+    }
+  
+    // Validation successful
+    switch (this.props.plan) {
+      case "NOTSUBSCRIBER":
+        await this.NOTSUBSCRIBERPlanRegistrationProcess()
+        break;
+      case "BASIC":
+        this.props.nextStep()
+        break;
+      default:
+        console.error("Plan not reconized")
+        break;
+    }
 
+    return
+  }
 
 
   async asyncFunctionToreturnValidation(){
-    console.log("Hello!!!!!!")
     let gen = this.handleValidation()
-    let val = await gen.next() // Issue!
-    console.log("Returned val on button click statements\nAfter let val = await gen.next()\n", val)
+    let val = await gen.next()
+    console.log("asyncFunctionToreturnValidation()->val: ", val)
     return val
   }
 
   //generator function
   async *handleValidation(){
     // e.preventDefault()
-    const email = document.getElementById("loginregister").elements[0].value
-    const password = document.getElementById("loginregister").elements[1].value
+    const username = document.getElementById("loginregister").elements[0].value
+    const email = document.getElementById("loginregister").elements[1].value
+    const password = document.getElementById("loginregister").elements[2].value
+
     let flag, notification = [];
-    // console.log(e.target.parentNode)
-    // console.log(document.getElementById("loginregister").elements);
-    // console.log(email)
-    // console.log(password)
 
+    ({flag, notification} = verifyUsername(username))
 
-    // Destructuring and assigning 
-    ({flag, notification} = verifyEmail(email))
-    console.log("after verifyEmail: ", flag, notification)    
     if(!flag) {
-      // set the state of the notification to tell the user "Hey user email not good!"
       this.setState({notification: notification})
-      console.log("Hey user email not good!");
-      // yield to end process
-      yield {yield_level: 1, number_of_max_yield_levels: 3, inProcessChecking: "email", message: notification}
-    } else {
-      // set the state of the notification to tell component "Good email"
-      console.log("Hey component email good!");
-      // proceed to check the password
-      
-      ({flag, notification} = verifyPassword(password))
-      console.log("after verifyPassword: ", flag, notification);
-      if(!flag) {
-        // set the state of the notification to tell User "Hey user password not Good"
-        this.setState({notification: notification})
-        console.log("Hey user password not Good");
-        yield {yield_level: 2, number_of_max_yield_levels: 3, inProcessChecking: "password", message: notification}
-        // yield to end process
-      } else { // finish and return
-        console.log("Hey component password good!");
-        ({flag, notification} = await this.checkIfEmailDuplicateInDatabase(email))
-        console.log("\n\nAfter API call, we are left with: ", flag, notification)
-        if(!flag) {
-          console.log("BAM!", notification)
-          console.log("Hey component their is an issue on the server")
-          this.setState({notification: notification})
-          yield {yield_level: 3, number_of_max_yield_levels: 4, inProcessChecking: "password", message: notification}
-        } else {
-          // this.setState({notification: notification})
-          console.log("success")
-          return {yield_level: 4, number_of_max_yield_levels: 4, inProcessChecking: "POST /check/register endpoint", message: notification}
-        }
-      }
+      yield {status: "failed", yield_level: 1/4, broke_and_caughtOnChecking: "username", message: notification}
     }
+
+
+    ({flag, notification} = verifyEmail(email))
+
+    if(!flag) {
+      this.setState({notification: notification})
+      yield {status: "failed", yield_level: 2/4, broke_and_caughtOnChecking: "email", message: notification}
+    }
+
+    // EMAIL GOOD
+    ({flag, notification} = verifyPassword(password))
+
+    if(!flag) {
+      this.setState({notification: notification})
+      yield {status: "failed", yield_level: 3/4, broke_and_caughtOnChecking: "password", message: notification}
+    }
+
+    // PASSWORD GOOD
+    ({flag, notification} = await this.checkIfEmailDuplicateInDatabase(email))
+    
+    if(!flag) {
+      this.setState({notification: notification})
+      yield {status: "failed", yield_level: 4/4, broke_and_caughtOnChecking: "POST /check/register endpoint", message: notification}
+    }
+
+
+    // NO EMAIL DUPLICATE
+    this.setState({notification: []})
+    return {status: "success", yield_level: 4/4, broke_and_caughtOnChecking: null, message: notification}
+
+
   }
 
   async checkIfEmailDuplicateInDatabase (_email){
-    console.log("Making API call!")
+    // console.log("Making API call!")
     let response
     let data
 
@@ -218,7 +233,7 @@ class Register extends React.Component {
 
     data = await response.json()
    
-    console.log(response)
+    // console.log(response)
     // console.log(data)
 
 

@@ -181,6 +181,7 @@ homeOrdersBackend_app_router.get('/users/forgotpasswordpage', (req, res) => {
 
 
 
+homeOrdersBackend_app_router.post('/users/register',requireRefererMiddleware, require_loggedin_for_data(false), destructureURLandRefererMiddleware, LoginController.validateController, registerController)
 
 
 
@@ -188,7 +189,7 @@ homeOrdersBackend_app_router.get('/users/forgotpasswordpage', (req, res) => {
 
 
 
-homeOrdersBackend_app_router.post('/users/register', requireRefererMiddleware, require_loggedin_for_data(false), destructureURLandRefererMiddleware, LoginController.validateController, registerController)
+
 
 
 

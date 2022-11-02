@@ -31,6 +31,7 @@ class Subscription extends React.Component {
     // console.log("constructor Subscription: step: ", step)
     this.state = {
       step: 1,
+      username: "",
       email: "",
       password: "",
       plan: "",
@@ -78,10 +79,10 @@ class Subscription extends React.Component {
         component = <ChoosePlan handleChange={this.handleChange} setStateStep={this.setStateStep} step={this.state.step} plan={this.state.plan} nextStep={this.nextStep}/>
         break;
       case 2:
-        component = <Register plan={this.state.plan} setStateStep={this.setStateStep} email={this.state.email} password={this.state.password} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep} handleChange={this.handleChange}/>
+        component = <Register plan={this.state.plan} setStateStep={this.setStateStep} username={this.state.username} email={this.state.email} password={this.state.password} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep} handleChange={this.handleChange}/>
         break;
       case 3:
-        component = <CardInfoSubmission email={this.state.email} password={this.state.password} plan={this.state.plan} setStateStep={this.setStateStep} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep}/>
+        component = <CardInfoSubmission username={this.state.username} email={this.state.email} password={this.state.password} plan={this.state.plan} setStateStep={this.setStateStep} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep}/>
         break;
       case 4:
         component = <Confirmation email={this.state.email} plan={this.state.plan} setStateStep={this.setStateStep} previousStep={this.previousStep}/>

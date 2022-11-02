@@ -40,7 +40,6 @@ async function resendConfirmationController(req, res, next) {
   
 
   let now = new Date()
-  // console.log(`Date: ${now},\n\nWelcome ${ret_user.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user._id}/${ret_user_hex.hexfield}\n\nThank you!`)
 
 
   const transporter = nodemailer.createTransport({
@@ -60,7 +59,7 @@ async function resendConfirmationController(req, res, next) {
     from: ENV.bidblock_email,
     to: ret_user.email,
     subject: `${ENV.domain_without_protocol}, Confirm your Account Now!`,
-    text: `Date: ${now},\n\nWelcome ${ret_user.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user._id}/${ret_user_hex.hexfield}\n\nThank you!`
+    text: `Date: ${now},\n\nWelcome ${ret_user.username}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user._id}/${ret_user_hex.hexfield}\n\nThank you!`
   };
   
   try {

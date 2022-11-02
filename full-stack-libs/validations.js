@@ -1,3 +1,19 @@
+function verifyUsername(_username){
+
+  let flag = undefined, notification = [];
+
+  (_username.length < 3) ? notification = notification.concat("Your username length is unsufficient. Usernames require at least 4 characters") : null ;
+  (/[{}><'`"&;]/g).test(_username) ? notification = notification.concat("Your username cannot contain these characters: {}><'`\"&;") : null ;
+  (/\s/g).test(_username) ? notification = notification.concat("Your username cannot contain spaces.") : null ;
+
+  ({ flag, notification } = { flag: !notification.length, notification: notification.length === 0 ? ["Username format is proper: respect\'s all conditions"] : notification })
+
+  return { flag, notification }
+
+}
+
+
+
 function verifyEmail(_emailstr) {
   // console.log("verifying this email: ", _emailstr);
 
@@ -147,4 +163,4 @@ function arePasswordsEqual(obj) {
 
 
 
-module.exports = { verifyEmail, verifyPassword, validateInputs, validateExpiry, validateInputs_marketOrderTradeLocationSpecifics, arePasswordsEqual }
+module.exports = { verifyUsername, verifyEmail, verifyPassword, validateInputs, validateExpiry, validateInputs_marketOrderTradeLocationSpecifics, arePasswordsEqual }

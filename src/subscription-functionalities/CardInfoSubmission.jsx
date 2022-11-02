@@ -1,6 +1,8 @@
 // React way
 const PayPalButton = paypal.Buttons.driver("react", { React, ReactDOM });
 
+
+// TODO refactor code
 class CardInfoSubmission extends React.Component {
   constructor(props){
     super(props)
@@ -12,28 +14,27 @@ class CardInfoSubmission extends React.Component {
   }
 
   async BASICPlanRegistrationProcess(paypal_subscriptionID, paypal_plan_id, paypal_product_id){
-    console.log("BASIC registration")
     let flag, notification
-    console.log("actuallly register the user", this.props.email, this.props.password, this.props.plan);
-    console.log("paypal_subscriptionID: ", paypal_subscriptionID)
-    console.log("paypal_plan_id: ", paypal_plan_id)
-    console.log("paypal_product_id: ", paypal_product_id);
+    console.log("BASICPlanRegistrationProcess()->", {username: this.props.username, email: this.props.email, password: this.props.password, plan: this.props.plan});
 
     
-    ({flag, notification} =  await this.handleRegistrationCall(this.props.email, this.props.password, this.props.plan, paypal_subscriptionID, paypal_plan_id, paypal_product_id));
+    ({flag, notification} =  await this.handleRegistrationCall(this.props.username, this.props.email, this.props.password, this.props.plan, paypal_subscriptionID, paypal_plan_id, paypal_product_id));
+
+
 
     if (flag){
       // this.setState({notification: notification})
       this.props.nextStep()
-    } else {
-      this.setState({notification: notification})
+      return
     }
-    console.log(flag, notification)
+
+    this.setState({notification: notification})
+    return 
 
   }
 
 
-  async handleRegistrationCall (_email, _password, _plan, _paypal_subscriptionID, _paypal_plan_id, _paypal_product_id){
+  async handleRegistrationCall (_username, _email, _password, _plan, _paypal_subscriptionID, _paypal_plan_id, _paypal_product_id){
     console.log("Making API call!")
     
     const response = await fetch(`/users/register`, {
@@ -43,6 +44,7 @@ class CardInfoSubmission extends React.Component {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
+        username: _username,
         email: _email,
         password: _password,
         plan: _plan,
@@ -52,9 +54,9 @@ class CardInfoSubmission extends React.Component {
       })
     })
    
-    console.log(response)
+    
     let data = await response.json()
-    console.log(data)
+    console.log("handleRegistrationCall()->response, data: ", response, data)
 
 
     switch (response.status) {
@@ -63,7 +65,6 @@ class CardInfoSubmission extends React.Component {
           flag: true,
           notification: data.server.message
         }
-        // update page notification
       case 500:
         return {
           flag: false,

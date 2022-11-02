@@ -19,6 +19,10 @@ var bcrypt = require('bcryptjs');
 //Models are defined through the Schema interface
 //Models define collections
 const UserSchema = new Schema({
+    username: {
+        type: String,
+        required: true,
+    },
     email: {
         type: String,
         required: true,

@@ -1,4 +1,4 @@
-const { verifyEmail, verifyPassword } = require('../../full-stack-libs/validations')
+const { verifyUsername, verifyEmail, verifyPassword } = require('../../full-stack-libs/validations')
 //We import the User model
 const User = require('../../models/User')
 const HexForUnactiveUser = require('../../models/HexForUnactiveUser')
@@ -20,28 +20,34 @@ const { ValidationError, LoggingInError, MongoError } = require('../../custom-er
 
 
 function validateController(req, res, next) {
-  let flag, notification = [];
   console.log("\n\nreq.body----->", req.body);
+
+  let flag, notification = [];
+
+  ({flag, notification} = verifyUsername(req.body.username))
+
+  if(!flag) {
+    const error = new ValidationError(notification, "Username")
+    return next(error)
+  }
 
   ({ flag, notification } = verifyEmail(req.body.email));
   // console.log(flag, notification);
 
-  if (flag) {
-    ({ flag, notification } = verifyPassword(req.body.password));
-    // console.log(flag, notification);
-    if (flag) {
-      //execute registerController with the current req
-      next()
-    } else {
-      // console.log('Password failed to validate') 
-      const error = new ValidationError(notification, "Password")
-      return next(error)
-    }
-  } else {
-    // console.log('Email failed to validate')
+  if(!flag) {
     const error = new ValidationError(notification, "Email")
     return next(error)
   }
+
+  ({ flag, notification } = verifyPassword(req.body.password));
+
+  if(!flag) {
+    const error = new ValidationError(notification, "Password")
+    return next(error)
+  }
+
+
+  return next()
 
 }
 

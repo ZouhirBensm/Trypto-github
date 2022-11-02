@@ -16,7 +16,7 @@ const { ValidationError, LoggingInError, MongoError } = require('../../custom-er
 
 async function registerController(req, res, next) {
 
-  console.log("\nin registerController:\n__________________________\n\n", req.body)
+  console.log("\nin registerController:\n__________________________\n\n")
 
   let user_instance
   let hex_for_unactive_user_instance
@@ -54,6 +54,7 @@ async function registerController(req, res, next) {
 
 
   user_instance = new User({
+    username: req.body.username,
     email: req.body.email,
     password: req.body.password,
     role: req.body.role
@@ -97,12 +98,7 @@ async function registerController(req, res, next) {
 
 
 
-  let double_check_expression = ret_hex_for_unactive_user_save && ret_user_save &&
-    (
-      req.body.plan == ROLE.USER.SUBSCRIBER.BASIC ? !!ret_subinfo_save :
-        req.body.plan == ROLE.USER.NOTSUBSCRIBER ? true :
-          true
-    )
+  let double_check_expression = ret_hex_for_unactive_user_save && ret_user_save && (req.body.plan == ROLE.USER.SUBSCRIBER.BASIC ? !!ret_subinfo_save : true)
 
   // if (true) {
   if (!(double_check_expression)) {
@@ -110,14 +106,8 @@ async function registerController(req, res, next) {
     return next(e)
   }
 
+
   now = new Date()
-
-
-  // console.log(`Date: ${now},\n\nWelcome ${ret_user_save.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user_save._id}/${ret_hex_for_unactive_user_save.hexfield}\n\nThank you!`)
-
-
-  // console.log("\n---nodemailer,\n\n", nodemailer)
-
 
   transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -127,40 +117,31 @@ async function registerController(req, res, next) {
     }
   });
 
-
-  // console.log("\n\n---cred:", ENV.bidblock_email, ENV.bidblock_email_app_pass_code)
-  // console.log("\n\n---Transporter:\n\n", transporter)
-
-
   mailOptions = {
     from: ENV.bidblock_email,
     to: req.body.email,
     subject: `${ENV.domain_without_protocol}, Confirm your Account Now!`,
-    text: `Date: ${now},\n\nWelcome ${ret_user_save.email}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user_save._id}/${ret_hex_for_unactive_user_save.hexfield}\n\nThank you!`
+    text: `Date: ${now},\n\nWelcome ${ret_user_save.username}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user_save._id}/${ret_hex_for_unactive_user_save.hexfield}\n\nThank you!`
   };
 
 
-
-
   try {
-    // console.log("\n---before info\n\n", mailOptions)
     info = await transporter.sendMail(mailOptions);
-    // console.log("\n----after info:\n\n", info)
   } catch (e) {
     return next(e)
   }
 
-  // console.log("\n\n\nInfo:\n\n\n", info);
-
   if (!info) {
-    // console.log("\n\n----THERE IS NO INFO")
     let e = new Error("Message not sent")
     return next(e)
   }
 
+
+
+
   let success_msg = (
-    req.body.plan == ROLE.USER.SUBSCRIBER.BASIC ? `Subscriber ${req.body.email} successfully created, with the paypal subscriber ID: ${req.body.paypal_subscriptionID}` :
-      req.body.plan == ROLE.USER.NOTSUBSCRIBER ? `User ${ret_user_save.email} successfully created` :
+    req.body.plan == ROLE.USER.SUBSCRIBER.BASIC ? `Subscriber ${req.body.username} successfully created, with the paypal subscriber ID: ${req.body.paypal_subscriptionID}` :
+      req.body.plan == ROLE.USER.NOTSUBSCRIBER ? `User ${ret_user_save.username} successfully created` :
         null
   )
 
@@ -168,7 +149,7 @@ async function registerController(req, res, next) {
   // console.log(success_msg)
 
 
-  res.status(200).json({
+  return res.status(200).json({
     server: {
       message: [success_msg],
     }

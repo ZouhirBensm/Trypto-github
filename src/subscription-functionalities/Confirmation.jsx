@@ -51,7 +51,7 @@ class Confirmation extends React.Component {
     return (
       <div className="confirmation-wrapper">
         <h1>Confirm email account!</h1>
-        <p>Success! Please check your inbox, spam on {this.props.email}, and click the provided link to confirm your account. This will enable login!</p>
+        <p>Success! Please check your inbox, spam, {this.props.username}, and click the provided link to confirm your account. This will enable login!</p>
         <p>Note: The email issuer is {bidblock_email}</p>
 
         <button onClick={async (e) => {

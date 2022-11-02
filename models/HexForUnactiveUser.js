@@ -45,7 +45,7 @@ HexForUnactiveUserSchema.pre('save', function (next) {
 
   crypto.randomBytes(128, (err, buffer) => {
     var hex = buffer.toString('hex');
-    console.log("Test--->!!!!", hex)
+    // console.log("Test--->!!!!", hex)
 
     element.hexfield = hex
     next()
