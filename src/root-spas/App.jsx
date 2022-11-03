@@ -5,6 +5,7 @@ import PricesComponent from '../home-functionalities/PricesComponent.jsx';
 import Register from '../login-register-functionalities/Register.jsx';
 import Subscription from './Subscription'
 
+// TODO !!!! add check if username duplicate when registering new users
 
 require('react-dom');
 window.React2 = require('react');
