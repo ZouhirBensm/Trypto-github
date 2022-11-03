@@ -34,7 +34,7 @@ tr > td#crypto1 {
 tr > td#amount1 {
   grid-area: three;
 }
-tr > td#email1 {
+tr > td#username1 {
   grid-area: four;
 }
 tr > td#chain1 {

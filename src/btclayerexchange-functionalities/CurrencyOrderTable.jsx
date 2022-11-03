@@ -349,7 +349,7 @@ class OrderRow extends React.Component {
     return (
       <tr>
         <td id="id1">{order._id}</td>
-        <td id="email1">{order.userid.email} {wantsTO}</td>
+        <td id="username1">{order.userid.username} {wantsTO}</td>
         <td id="posteddate1">{'On: ' + order.postedDate}</td>
         {this.props.buttons == "normal" || this.props.buttons == "my" ? display_normal : null}
         {this.props.buttons == "edit" ? display_editing : null}
