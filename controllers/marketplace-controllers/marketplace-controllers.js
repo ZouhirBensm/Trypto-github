@@ -261,7 +261,7 @@ module.exports = {
         // Populate protagonists
         path: "userid",
         // Fields allowed to populate with
-        select: "_id email",
+        select: "_id username email",
       })
       .populate({
         // Populate protagonists

@@ -356,6 +356,7 @@ class MarketOrderDetails extends React.Component {
     let myorder = (_order.userid._id == userId)
     let isMaster = (user.role == ROLE.MASTER)
 
+    // TODO validate the N/A to not be permitted
     for (const property in _order) {
       var i = Object.keys(_order).indexOf(property);
       // console.log(`${property}: ${_order[property]}: ${i}`);
@@ -369,10 +370,14 @@ class MarketOrderDetails extends React.Component {
           // console.log("order.location: ", Object.keys(_order[property].location), _order[property].location['st'])
           for (const [index, iterator] of Object.keys(_order[property].location).entries()) {
             // console.log(iterator, index)
+            if (iterator == "neigh" || iterator == "st") {
+              continue;
+            }
             rows.push(<tr key={`Location-key-${index}`}>
               <td>{iterator}</td>
               <td>{_order[property].location[iterator]}</td>
             </tr>)
+
           }
 
           // rows.push(<tr key={99}>
@@ -401,7 +406,7 @@ class MarketOrderDetails extends React.Component {
           // console.log(i)
           rows.push(<tr key={i}>
             <td>{Object.keys(_order[property])[1]}</td>
-            <td>{_order[property].email}</td>
+            <td>{_order[property].username}</td>
           </tr>)
           break;
         default:
@@ -497,7 +502,7 @@ class MarketOrderDetails extends React.Component {
           // console.log(i)
           rows.push(<tr key={i}>
             <td>{Object.keys(_order[property])[1]}</td>
-            <td>{_order[property].email}</td>
+            <td>{_order[property].username}</td>
           </tr>)
           break;
         case "title":
