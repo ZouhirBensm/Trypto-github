@@ -56,6 +56,9 @@ function require_loggedin_for_pages(require_login){
   }
 }
 
+
+
+
 function require_loggedin_for_data(require_login){
   return (req, res, next) => {
     // console.log("are we logged in?", req.session.userId)

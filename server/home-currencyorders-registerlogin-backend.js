@@ -44,7 +44,6 @@ const LoginController = require("../controllers/register-login-controllers/login
 
 const { registerController } = require("../controllers/register-login-controllers/register")
 const distributePaginatedDataController = require("../controllers/generic-controllers/distribute-paginated-data-controller")
-const isUpController = require("../controllers/generic-controllers/is-up-controller")
 const { resendConfirmationController } = require("../controllers/register-login-controllers/resend-confirmation-controller")
 
 
@@ -178,10 +177,11 @@ homeOrdersBackend_app_router.get('/users/forgotpasswordpage', (req, res) => {
 
 
 
+homeOrdersBackend_app_router.post('/check/user/register', requireRefererMiddleware, LoginController.checkRegisterController)
 
 
 
-homeOrdersBackend_app_router.post('/users/register',requireRefererMiddleware, require_loggedin_for_data(false), destructureURLandRefererMiddleware, LoginController.validateController, registerController)
+homeOrdersBackend_app_router.post('/users/register', requireRefererMiddleware, require_loggedin_for_data(false), destructureURLandRefererMiddleware, LoginController.validateController, registerController)
 
 
 
@@ -403,10 +403,6 @@ homeOrdersBackend_app_router.get('/confirm-user-email/:userID/:hexfield', async 
 
 
 
-homeOrdersBackend_app_router.post('/check/user/register', requireRefererMiddleware, LoginController.checkRegisterController)
-
-
-homeOrdersBackend_app_router.get('/isup', isUpController)
 
 
 

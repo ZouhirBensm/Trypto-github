@@ -11,7 +11,7 @@ class Confirmation extends React.Component {
   }
 
   async resendConfirmEmail(email) {
-    console.log("resendConfirmEmail", email)
+    console.log("resendConfirmEmail()->email: ", email)
 
 
     let response = await fetch(`/resend-user-email/${email}`, {
@@ -43,10 +43,8 @@ class Confirmation extends React.Component {
 
   render() {
 
-    console.log("ppppppp", bidblock_email)
-    // let msg
-    // this.props.plan == "NOTSUBSCRIBER"? msg = "user": null
-    // this.props.plan == "BASIC"? msg = "subscriber": null
+    console.log("render()->bidblock_email: ", bidblock_email)
+
 
     return (
       <div className="confirmation-wrapper">
@@ -63,20 +61,10 @@ class Confirmation extends React.Component {
           }
           console.log({isResent})
         }}>Re-send confirmation email</button>
-        {/* <button onClick={(e) => {
-            console.log("what plan: ", this.props.plan)
-            if(this.props.plan == "NOTSUBSCRIBER") this.props.setStateStep(3)
-            if(this.props.plan == "BASIC") this.props.previousStep(e)
-          }}> Previous </button> */}
 
         {this.state.popup ?
           <p>{this.state.popup}</p>
           : null}
-
-
-        {/* <button onClick={(e) => {
-          window.location.href = `/users/login`
-        }}> Go to login page </button> */}
 
       </div>
     )
