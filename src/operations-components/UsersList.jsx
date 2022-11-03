@@ -59,7 +59,7 @@ class UserElement extends React.Component {
   render() {
     return (
       <div className='user-element-wrapper'>
-        <p>{this.props.user.email}</p>
+        <p>{this.props.user.email} ➡️ username: {this.props.user.username}</p>
       </div>
     )
   }
