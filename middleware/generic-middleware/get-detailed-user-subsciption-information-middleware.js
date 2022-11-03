@@ -22,7 +22,7 @@ function getDetailedUserSubscriptionInfo(_from) {
       _id: from,
       // subscriptionID: { $ne: null }
     })
-    .select('registrationDateTime email subscriptionID -_id')
+    .select('registrationDateTime username email subscriptionID -_id')
   
     query = query.populate({
       // Populate protagonists
@@ -33,6 +33,7 @@ function getDetailedUserSubscriptionInfo(_from) {
   
     selectedUser = await query.exec()
     console.log({ selectedUser })
+    
     res.locals.selectedUser = selectedUser
   
     if (res.locals.selectedUser) {

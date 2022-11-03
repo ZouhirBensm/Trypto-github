@@ -26,6 +26,7 @@ class Messages extends React.Component {
     this._PassedUserID = this.props.userID_toQueryWith
     // this._currentUserEmail = document.getElementById("currentUserEmail").innerHTML
     this._PassedUserEmail = this.props.PassedUserEmail
+    this._PassedUserName = this.props.PassedUserName
     this.controls = this.controls.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this)
     // this.handleChange = this.handleChange.bind(this)
@@ -105,7 +106,7 @@ class Messages extends React.Component {
       <React.Fragment>
         <div className="wrapper">
           <h2>Messages Component</h2>
-          <h4>Logged in as: {this._PassedUserEmail}</h4>
+          <h4>Logged in as: {this._PassedUserName}</h4>
           <MessageTable 
           comprehensiveSelectedUserInfoDataObj={this.props.comprehensiveSelectedUserInfoDataObj}
           loggedinUserObjInfo={this.loggedinUserObjInfo}

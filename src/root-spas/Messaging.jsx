@@ -18,6 +18,7 @@ class Messaging extends React.Component {
     this.state = {}
     console.log("THIS FUCKIN userId", userId)
     console.log("THIS FUCKIN currentUserEmail", currentUserEmail)
+    console.log("THIS FUCKIN currentUserName", currentUserName)
     console.log("THIS FUCKIN user", user)
   }
   render() {
@@ -29,6 +30,7 @@ class Messaging extends React.Component {
             (props) => <Messages {...props} 
             userID_toQueryWith={userId} 
             PassedUserEmail={currentUserEmail}
+            PassedUserName={currentUserName}
             loggedinUserObjInfo={user}
             comprehensiveSelectedUserInfoDataObj={undefined}
             />

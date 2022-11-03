@@ -8,16 +8,19 @@ console.log("socketio in the house!")
 // var userIdA = document.getElementById("userId").innerHTML
 
 
-console.log("we got!", userIdB, orderId)
+// console.log("we got!", userIdB, orderId)
 
 // Imporatant information to work with
 // userId is pre loaded and retreived from the backend /Users/Zouhir/Documents/MERN/BlockchainMERN/server/server.js line 115: res.locals.userId = req.session.userId
 
-console.log("EJS page preloaded information: ", `domain_without_protocol: ${window.location.protocol}//${domain_without_protocol}`, {userId, userIdB, orderId})
+// console.log("EJS page preloaded information: ", `domain_without_protocol: ${window.location.protocol}//${domain_without_protocol}`, {userId, userIdB, orderId})
 
 
 // Instantiating a socket connection using TCP to the domain_without_protocol i.e. http://localhost:3000, with query params
 const socket = io(`${window.location.protocol}//${domain_without_protocol}`, { query: `userAId=${userId}&userBId=${userIdB}&orderId=${orderId}` });
+
+
+
 
 // Retrieving HTML Elements needed
 var msgBox = document.getElementById("msg-box")
@@ -25,9 +28,10 @@ var chatForm = document.getElementById("chatForm")
 var chatInput = document.getElementById("chat-input")
 
 var loggedInEmail = currentUserEmail
+var loggedInUsername = currentUserName
 
 
-console.log("User that is currently logged in used for message author when submition of a new message: ", userId)
+// console.log("User that is currently logged in used for message author when submition of a new message: ", userId)
 
 // ______________________________ SUBMIT ______________________________
 // Submit message from the form
@@ -38,6 +42,7 @@ chatForm.addEventListener("submit", (e)=>{
   userSendObjectPackaged = {
     content: chatInput.value,
     msgAuthorId: userId,
+    msgAuthorUsername: loggedInUsername,
     msgAuthorEmail: loggedInEmail,
     datetime: new Date(),
     orderId: orderId,
@@ -68,7 +73,7 @@ socket.on("broadcast", (SentObjectPackaged) => {
     var item = document.createElement("li")
 
     // Define HTML and add class if logged in user is the author.
-    item.innerHTML = `<strong class="message${window.utils.equalityCheck_LogInID_to_msgUserID(SentObjectPackaged.msgAuthorId, userId)}">${SentObjectPackaged.msgAuthorEmail}</strong>: ${SentObjectPackaged.content}`
+    item.innerHTML = `<strong class="message${window.utils.equalityCheck_LogInID_to_msgUserID(SentObjectPackaged.msgAuthorId, userId)}">${SentObjectPackaged.msgAuthorUsername}</strong>: ${SentObjectPackaged.content}`
 
     // Append item and scroll
     msgBox.appendChild(item)

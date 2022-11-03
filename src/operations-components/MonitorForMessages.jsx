@@ -20,6 +20,7 @@ class MonitorForMessages extends React.Component {
               comprehensiveSelectedUserInfoDataObj={this.props.comprehensiveSelectedUserInfoDataObj}
               userID_toQueryWith={this.props.selected_userID}
               PassedUserEmail={this.props.selected_user_email}
+              PassedUserName={this.props.selected_user_username}
               // passed the entire user object but in reality just needed the role field
               loggedinUserObjInfo={this.props.loggedinUserObjInfo}
             />

@@ -31,6 +31,7 @@
 
   var popup
   var currentUserEmail
+  var currentUserName
   var userIdB
   var orderId
   var selectedUser
@@ -128,6 +129,7 @@
     case '/messaging':
       userId = '<%= locals.userId %>'
       currentUserEmail = '<%= locals.currentUserEmail  %>'
+      currentUserName = '<%= locals.currentUserName  %>'
       user = <%-JSON.stringify(locals.user || {})%> 
       domain_without_protocol = '<%-locals.ENV.domain_without_protocol%>'
 
@@ -135,15 +137,16 @@
       userIdB = '<%= locals.userIdB  %>'
       orderId = '<%= locals.orderId  %>'
 
-      console.log("--------------->>>>>>", userId, currentUserEmail, userIdB, orderId, user, domain_without_protocol)
+      console.log("--------------->>>>>>", userId, currentUserName, currentUserEmail, userIdB, orderId, user, domain_without_protocol)
 
       break;
     case '/messaging/messages':
       userId = '<%= locals.userId %>'
       currentUserEmail = '<%= locals.currentUserEmail  %>'
+      currentUserName = '<%= locals.currentUserName  %>'
       user = <%-JSON.stringify(locals.user || {})%> 
 
-      console.log("--------------->>>>>>", userId, currentUserEmail, user)
+      console.log("--------------->>>>>>", userId, currentUserName, currentUserEmail, user)
       break;
 
 

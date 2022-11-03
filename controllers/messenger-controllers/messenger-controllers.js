@@ -117,6 +117,7 @@ let chatControllers = (io) => {
         const format_for_UI_object = {
           content: msg.text,
           msgAuthorId: msg.sender._id,
+          msgAuthorUsername: msg.sender.username,
           msgAuthorEmail: msg.sender.email,
           datetime: msg.postedDate
         }

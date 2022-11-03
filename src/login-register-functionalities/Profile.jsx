@@ -100,7 +100,8 @@ class Profile extends React.Component {
     // console.log("selectedUser!!!! ", selectedUser, userId)
     // User card information
     let selectedUser = this.props.selectedUser
-
+    
+    let userName = selectedUser.username
     let userEmail = selectedUser.email
     let registrationTimeDate = selectedUser.registrationDateTime
     // Subscription card information
@@ -117,11 +118,12 @@ class Profile extends React.Component {
             [
               {tag: 'span', content: 'Logged in user: '},
               {tag: 'img', content: '#'},
-              {tag: 'span', content: `${userEmail}`},
+              {tag: 'span', content: `${userName}`},
             ]
           }
           section={
             [
+              {prepend: 'email:', value: `${userEmail}`},
               {prepend: 'userId:', value: `${this.props.usedUserID}`},
               {prepend: 'registrationDatetime:', value: `${registrationTimeDate}`},
             ]
@@ -143,7 +145,7 @@ class Profile extends React.Component {
             }
             section={
               [
-                {prepend: `On BidBlock, ${userEmail}'s plan:`, value: `${plan}`},
+                {prepend: `On BidBlock, ${userName}'s plan:`, value: `${plan}`},
                 {prepend: "On Paypal, Subscription ID:", value: `${paypalsubscriptionID}`},
                 {prepend: 'Subscription date time:', value: `${subscriptionDateTime}`},
                 {prepend: 'Next billing dateTime:', value: `${current_billing_cycle_top_datetime}`},
