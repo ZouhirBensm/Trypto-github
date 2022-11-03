@@ -7,7 +7,7 @@ class MessageTable extends React.Component {
     super(props)
     this.state = {
     }
-    console.log("QWQEWEREWGRGRGRGTGTGHT____", this.props.loggedinUserObjInfo)
+    // console.log("QWQEWEREWGRGRGRGTGTGHT____", this.props.loggedinUserObjInfo)
   }
 
   render(){
@@ -108,14 +108,16 @@ class MessageRow extends React.Component {
 
 
     const communicating_with = convo.protagonists.protagonists.filter(protagonist => {return protagonist._id != this.PassedUserID})
+
     console.log("this first: ", communicating_with[0])
 
-    const {_id: communicating_with_ID, email: communicating_with_email} = communicating_with[0]
+    const {_id: communicating_with_ID, username: communicating_with_username, email: communicating_with_email} = communicating_with[0]
 
-    console.log("this", communicating_with_ID, communicating_with_email)
+    console.log("this", communicating_with_ID, communicating_with_username, communicating_with_email)
 
     const most_recent_convo_text = convo.msg_stream.at(-1).text
     const most_recent_convo_sender_email = convo.msg_stream.at(-1).sender.email
+    const most_recent_convo_sender_username = convo.msg_stream.at(-1).sender.username
 
 
 
@@ -123,11 +125,16 @@ class MessageRow extends React.Component {
     return(
       <tr onClick={(e) => this.handleClick(this.props.comprehensiveSelectedUserInfoDataObj, communicating_with_ID, e)}>
         {/* TODO #85 Add Profile pictures to users */}
-        <td id="img-profile">Com w\ email: {communicating_with_email}</td>
-        <td id="comm-with-email" style={{"display": "none"}}>Com w\ email{communicating_with_email}</td>
+        <td id="img-profile" style={{"display": "none"}}>Com w\ username: {communicating_with_username}</td>
+
+        <td id="comm-with-email">Com w\ username: {communicating_with_username}</td>
+
         <td id="comm-with-ID" style={{"display": "none"}}>Com w\ ID: {communicating_with_ID}</td>
+
         <td id="msg-notifications">#</td>
-        <td id="last-sender-email">From: {most_recent_convo_sender_email}</td>
+
+        <td id="last-sender-email">From: {most_recent_convo_sender_username} </td>
+
         <td id="recent-msg">Said: {most_recent_convo_text}</td>
 
         {/* 

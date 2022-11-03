@@ -3,7 +3,7 @@ const Message = require('../../models/messaging-models/Message')
 module.exports = async (req,res,next)=>{
 
   res.locals.path_param_userID = req.params.userId
-  console.log("in intermediateMiddlewareMess: ",res.locals.page, res.locals.limit, res.locals.startIndex, res.locals.endIndex)
+  // console.log("in intermediateMiddlewareMess: ",res.locals.page, res.locals.limit, res.locals.startIndex, res.locals.endIndex)
 
 
 
@@ -18,14 +18,14 @@ module.exports = async (req,res,next)=>{
     populate: {
       path: 'protagonists',
       model: 'User',
-      select: "_id email"
+      select: "_id username email"
     } 
   })
   .populate({
     // Populate msg_stream
     path: "msg_stream.sender", 
     // Fields allowed to populate with
-    select: "-_id email"
+    select: "-_id username email"
   })
 
 
