@@ -200,11 +200,11 @@ class Register extends React.Component {
     }
 
     // PASSWORD GOOD
-    ({flag, notification} = await this.checkIfEmailDuplicateInDatabase(email))
+    ({flag, notification} = await this.checkIfEmailDuplicateInDatabase(email, username))
     
     if(!flag) {
       this.setState({notification: notification})
-      yield {status: "failed", yield_level: 4/4, broke_and_caughtOnChecking: "POST /check/register endpoint", message: notification}
+      yield {status: "failed", yield_level: 4/4, broke_and_caughtOnChecking: "checking email, or, and username duplicates", message: notification}
     }
 
 
@@ -215,7 +215,7 @@ class Register extends React.Component {
 
   }
 
-  async checkIfEmailDuplicateInDatabase (_email){
+  async checkIfEmailDuplicateInDatabase (_email, _username){
     // console.log("Making API call!")
     let response
     let data
@@ -228,6 +228,7 @@ class Register extends React.Component {
       },
       body: JSON.stringify({
         email: _email,
+        username: _username,
       })
     })
 

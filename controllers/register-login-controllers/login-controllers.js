@@ -24,9 +24,9 @@ function validateController(req, res, next) {
 
   let flag, notification = [];
 
-  ({flag, notification} = verifyUsername(req.body.username))
+  ({ flag, notification } = verifyUsername(req.body.username))
 
-  if(!flag) {
+  if (!flag) {
     const error = new ValidationError(notification, "Username")
     return next(error)
   }
@@ -34,14 +34,14 @@ function validateController(req, res, next) {
   ({ flag, notification } = verifyEmail(req.body.email));
   // console.log(flag, notification);
 
-  if(!flag) {
+  if (!flag) {
     const error = new ValidationError(notification, "Email")
     return next(error)
   }
 
   ({ flag, notification } = verifyPassword(req.body.password));
 
-  if(!flag) {
+  if (!flag) {
     const error = new ValidationError(notification, "Password")
     return next(error)
   }
@@ -56,27 +56,57 @@ async function checkRegisterController(req, res, next) {
 
   let mightFindUser
   try {
-    mightFindUser = await User.findOne(req.body)
+    // mightFindUser = await User.find({
+    //   $or: [
+    //     { username: req.body.username },
+    //     { email: req.body.email },
+    //   ]
+    // })
+
+    // TODO !!!! better understand this query
+    mightFindUser = await User.aggregate([
+      {
+        $facet: {
+          queryForUsername: [{ $match: { username: req.body.username } }, { $project: { _id: 0 } }],
+          queryForEmail: [{ $match: { email: req.body.email } }, { $project: { _id: 0 } }],
+        }
+      }
+    ])
   } catch (e) {
     error = new MongoError(e.message, e.code)
     return next(error)
   }
 
-  if (mightFindUser) {
-    console.log("one", mightFindUser)
-    res.status(httpStatus.StatusCodes.INTERNAL_SERVER_ERROR).json({
+  console.log("------->", mightFindUser[0], mightFindUser[0].queryForUsername.length, mightFindUser[0].queryForEmail.length)
+
+  if (mightFindUser[0].queryForUsername.length != 0) {
+    return res.status(httpStatus.StatusCodes.INTERNAL_SERVER_ERROR).json({
       error: {
-        message: ['We did find a duplicate email in the database, please register under another email.']
-      }
-    })
-  } else {
-    console.log("one", mightFindUser)
-    res.status(httpStatus.StatusCodes.OK).json({
-      server: {
-        message: ['We did not find a duplicate email']
+        message: ['We did find a duplicate username in the database, please register under another username']
       }
     })
   }
+
+  if (mightFindUser[0].queryForEmail.length != 0) {
+    return res.status(httpStatus.StatusCodes.INTERNAL_SERVER_ERROR).json({
+      error: {
+        message: ['We did find a duplicate email in the database, please register under another email']
+      }
+    })
+  }
+
+  // return res.status(httpStatus.StatusCodes.INTERNAL_SERVER_ERROR).json({
+  //   error: {
+  //     message: ['We did find a duplicate username in the database, please register under another username']
+  //   }
+  // })
+
+  return res.status(httpStatus.StatusCodes.OK).json({
+    server: {
+      message: ['We did not find a duplicate username, nor email']
+    }
+  })
+
 }
 
 async function loginController(req, res, next) {
