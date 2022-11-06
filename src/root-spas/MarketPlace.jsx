@@ -20,14 +20,25 @@ const Navigation = loadable(() => import("../btclayerexchange-functionalities/Na
 //   fallback: <Loading/>
 // });
 
-const MakeMarketOrder = loadable(() => import("../marketplace-functionalities/MakeMarketOrder"),{
+
+
+
+
+// const MakeMarketOrder = loadable(() => import("../marketplace-functionalities/MakeMarketOrder"),{
+//   fallback: <Loading/>
+// });
+
+const MakeMarketOrder2 = loadable(() => import("../marketplace-functionalities/MakeMarketOrder2"),{
   fallback: <Loading/>
 });
+
+
 
 
 const MarketOrders = loadable(() => import("../marketplace-functionalities/MarketOrders"),{
   fallback: <Loading/>
 });
+
 
 
 const MyMarketOrders = loadable(() => import("../marketplace-functionalities/MyMarketOrders"),{
@@ -71,7 +82,8 @@ class MarketPlace extends React.Component {
 
             <Route exact path="/marketplace/sellordersdata" component={MarketOrders} />
 
-            <Route exact path="/marketplace/makesell" component={MakeMarketOrder} />
+            {/* <Route exact path="/marketplace/makesell" component={MakeMarketOrder} /> */}
+            <Route exact path="/marketplace/makesell" component={MakeMarketOrder2} />
 
 
 

@@ -95,7 +95,7 @@ class Subscription extends React.Component {
     return (
       // <div>Subscriptions</div>
       <React.Fragment>
-        {this.state.step != 4? <a href="/subscription"> Restart </a>: null}
+        {this.state.step != 4? <a href="/subscription"> Reset </a>: null}
         {/* <button onClick={(e) => {this.setStateStep('1')}}> Step1 </button>
         <button onClick={(e) => {this.setStateStep('2')}}> Step2 </button>
         <button onClick={(e) => {this.setStateStep('3')}}> Step3 </button> */}

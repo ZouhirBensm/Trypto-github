@@ -107,9 +107,11 @@ const sessionMiddleware = expressSession({
     secure: false,
     sameSite: 'strict',
     //originalMaxAge: 24*60*60
-    // maxAge: 1000*60*60*24 // 1 Day
+    maxAge: 1000*60*60*24 
+    // 1 Day
     // maxAge: 1000*60*60*5, // 5 hours then deletes
-    maxAge: 1000*60*30 // 30 min for testing then deletes
+    // maxAge: 1000*60*30 
+    // 30 min for testing then deletes
   }
 });
 

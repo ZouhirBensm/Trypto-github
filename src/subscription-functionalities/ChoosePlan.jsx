@@ -9,10 +9,7 @@ class ChoosePlan extends React.Component {
     this.proceed=this.proceed.bind(this)
     this.select=this.select.bind(this)
   }
-  // functionn(e){
-  //   console.log("child!")
-  //   window.location.href= 'http://localhost:3000/subscription/2'
-  // }
+
 
   select(e){
     console.log("in select")

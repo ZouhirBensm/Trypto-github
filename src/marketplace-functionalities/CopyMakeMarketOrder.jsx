@@ -1,5 +1,5 @@
 // import React from 'react';
-import '../style/MakeCurrencyOrder.css'
+// import '../style/MakeCurrencyOrder.css'
 import LocationSelector from './LocationSelector'
 import {utils} from '../../full-stack-libs/utils.address'
 import {validateInputs, validateExpiry, validateInputs_marketOrderTradeLocationSpecifics} from '../../full-stack-libs/validations'
@@ -20,8 +20,8 @@ class MakeMarketOrder extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      popup_state: null,
       unit: "BTC",
+      popup_state: null,
       amountsTo_inBTC: undefined,
       amountsTo_inSAT: undefined,
       denomination: undefined,
@@ -430,7 +430,7 @@ class MakeMarketOrder extends React.Component {
 
         <form className="form" id="form_id">
 
-          <h3>Making a {this.props.match.params.type} order...</h3><br />
+          <h3>Making a market order...</h3><br />
 
 
           <label htmlFor="title-select">Title</label>
@@ -467,7 +467,7 @@ class MakeMarketOrder extends React.Component {
           </select> <br />
 
 
-          <label htmlFor="conversion-select">{this.props.match.params.type} based on what BTC value</label>
+          <label htmlFor="conversion-select">Based on what BTC value</label>
           <input onChange={(e) => this.handleChange(e)} type="number" id="conversion-select" name="conversion" step="0.01" required defaultValue='0' />
           <button onClick={(e) => { this.clickGetCryptoPrice(e) }}>Market</button><br />
 
