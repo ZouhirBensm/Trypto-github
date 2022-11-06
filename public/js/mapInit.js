@@ -8,5 +8,3 @@ map = new google.maps.Map(document.getElementById("the-map"), {
 });
 
 window.map = map
-
-console.log("Hello")

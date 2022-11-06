@@ -62,6 +62,7 @@ class MakeMarketOrder2 extends React.Component {
     this.setStateStep = this.setStateStep.bind(this)
     
     this.clickGetCryptoPrice = this.clickGetCryptoPrice.bind(this)
+    this.changeStateLocationParent = this.changeStateLocationParent.bind(this)
   }
 
   setStateStep(step) {
@@ -99,6 +100,9 @@ class MakeMarketOrder2 extends React.Component {
     });
 
   }
+
+
+  
 
   
   // _____________________________________________
@@ -166,6 +170,13 @@ class MakeMarketOrder2 extends React.Component {
           step={this.state.step}
           nextStep={this.nextStep}
           previousStep={this.previousStep}
+
+
+          changeStateLocationParent={this.changeStateLocationParent}
+          geometry={{
+            lat: this.state.lat,
+            lng: this.state.lng
+          }}
         />
         break;
       case 4:
@@ -211,6 +222,14 @@ class MakeMarketOrder2 extends React.Component {
     } else {
       console.error(`Error on the clickGetCryptoPrice() function response.status: ${response.status}`)
     }
+  }
+
+
+  changeStateLocationParent(geoloc) {
+    this.setState({
+      lat: geoloc.lat, 
+      lng: geoloc.lng,
+    })
   }
 
 

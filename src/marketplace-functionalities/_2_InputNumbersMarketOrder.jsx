@@ -1,5 +1,5 @@
 
-import '../style/reactDivMobile.css'
+// import '../style/reactDivMobile.css'
 
 
 
