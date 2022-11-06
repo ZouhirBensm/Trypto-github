@@ -9,6 +9,7 @@ class _2_InputNumbersMarketOrder extends React.Component {
     this.state = {
       amountsTo_inBTC: undefined,
       amountsTo_inSAT: undefined,
+      unit: "BTC",
     }
     this.amountsToCalculatorChange = this.amountsToCalculatorChange.bind(this)
   }
@@ -43,7 +44,6 @@ class _2_InputNumbersMarketOrder extends React.Component {
 
             <select onChange={(e) => {
               this.props.handleChange("chain", e);
-              // this.amountsToCalculatorChange(e);
             }} name="chain" id="chain-input" required value={this.props.chain}>
 
               <option value="">No Selection</option>
@@ -58,7 +58,7 @@ class _2_InputNumbersMarketOrder extends React.Component {
             <input onChange={(e) => {
               this.props.handleChange("price", e);
               this.amountsToCalculatorChange(e);
-            }} type="number" id="price-input" name="price" step="0.01" required value={this.props.price}/><br />
+            }} type="number" id="price-input" name="price" step="0.01" required value={this.props.price || ''}/><br />
 
 
             <label htmlFor="onBTCvaluation-input">Based on what BTC value</label>
@@ -66,12 +66,12 @@ class _2_InputNumbersMarketOrder extends React.Component {
               this.props.handleChange("onBTCvaluation", e);
               this.amountsToCalculatorChange(e);
             }} type="number" id="onBTCvaluation-input" name="conversion" step="0.01" required value={this.props.onBTCvaluation}/>
-
             <button onClick={(e) => { this.props.clickGetCryptoPrice(e) }}>Market</button><br />
 
 
-            {/* <span>Amounts to: {this.state.unit == "BTC" ? amountsTo_inBTC : this.state.unit == "SAT" ? amountsTo_inSAT : null}</span><br />
-            <button onClick={(e) => { this.toogleUnits(e) }}>in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null}</button><br /> */}
+            <span>Amounts to: {this.state.unit == "BTC" ? `${this.state.amountsTo_inBTC} BTC` : this.state.unit == "SAT" ? `${this.state.amountsTo_inSAT} SAT` : null}</span><br />
+
+            <button onClick={(e) => { this.toogleUnits(e) }}>in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null}</button><br />
 
 
 
@@ -84,12 +84,6 @@ class _2_InputNumbersMarketOrder extends React.Component {
               <option value="">No Selection</option>
               {options}
             </select> <br />
-            {/* <option value="Wallet2" defaultValue>Wallet1</option>
-              <option value="BlueWallet">BlueWallet</option>
-              <option value="Strike">Strike</option>
-              <option value="Wallet3">Wallet3</option>
-              <option value="Wallet4">Wallet4</option>
-              <option value="Wallet5">Wallet5</option> */}
 
 
           </form><br />
@@ -106,34 +100,6 @@ class _2_InputNumbersMarketOrder extends React.Component {
   }
   // ____________________________________________________
 
-  // componentDidMount() {
-  //   this.clickGetCryptoPrice()
-  // }
-
-  // async clickGetCryptoPrice(e = null) {
-  //   e?.preventDefault()
-  //   let _crypto = document.getElementById('chain-input').value || "Bitcoin"
-  //   let market_price_btc, response, pkg_prices
-
-  //   try {
-  //     response = await fetch(`/cryptoprice`)
-  //   } catch (error) {
-  //     alert(`Their seems to be an error. Enter Price manually. ${error}`)
-  //   }
-  //   if (response.ok) {
-  //     pkg_prices = await response.json()
-  //     market_price_btc = pkg_prices.data[_crypto.toLowerCase()]?.cad
-
-  //     document.getElementById('onBTCvaluation-input').value = market_price_btc
-      
-
-  //   } else {
-  //     console.error(`Error on the clickGetCryptoPrice() function response.status: ${response.status}`)
-  //   }
-
-  //   this.amountsToCalculatorChange()
-  //   this.props.handleChange("onBTCvaluation")
-  // }
 
   async amountsToCalculatorChange() {
     let _price, _onBTCvaluation, amountsToBTC, amountsToSAT, amountsToRaw
@@ -144,6 +110,11 @@ class _2_InputNumbersMarketOrder extends React.Component {
     amountsToRaw = _price / _onBTCvaluation
     amountsToBTC = amountsToRaw.toFixed(9)
     amountsToSAT = Math.trunc(amountsToRaw * 1000000000)
+
+    if (isNaN(amountsToRaw) || amountsToRaw == Infinity) {
+      amountsToBTC = ''
+      amountsToSAT = ''
+    }
 
     this.setState({
       amountsTo_inBTC: amountsToBTC,
@@ -171,6 +142,18 @@ class _2_InputNumbersMarketOrder extends React.Component {
     else { }
 
     return options
+  }
+
+
+
+
+  toogleUnits(e) {
+    e.preventDefault()
+    // console.log("toogle...")
+
+    this.setState({
+      unit: this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null
+    })
   }
 
 

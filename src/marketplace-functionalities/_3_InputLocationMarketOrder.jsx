@@ -9,8 +9,10 @@ class _3_InputLocationMarketOrder extends React.Component {
 
     return (
       <React.Fragment>
-        <div>_3_InputLocationMarketOrder...</div>
-        {/* <MakeMarketOrder/> */}
+        
+
+
+
         <button onClick={(e) => {
           this.props.previousStep(e)
         }}>Previous</button>

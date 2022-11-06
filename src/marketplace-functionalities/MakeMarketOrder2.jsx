@@ -46,7 +46,7 @@ class MakeMarketOrder2 extends React.Component {
       city: undefined,
       country: undefined,
 
-      unit: "BTC",
+      
       crypto: "Bitcoin",
       chain: undefined,
       price: undefined,
@@ -149,7 +149,7 @@ class MakeMarketOrder2 extends React.Component {
           nextStep={this.nextStep}
           previousStep={this.previousStep}
 
-          unit={this.state.unit}
+          // unit={this.state.unit}
           crypto={this.state.crypto}
           chain={this.state.chain}
           price={this.state.price}
