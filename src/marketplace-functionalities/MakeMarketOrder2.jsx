@@ -1,9 +1,18 @@
 
 import '../style/reactDivMobile.css'
+import './style/googlemaps.css'
 
 
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading"
+
+import { utils } from '../../full-stack-libs/utils.address'
+
+
+import Geocode from "react-geocode";
+Geocode.setApiKey(process.env.CONSOLE_CLOUD_GOOGLE_API_KEY);
+Geocode.enableDebug();
+
 
 const _1_InputGeneralMarketOrder = loadable(() => import("./_1_InputGeneralMarketOrder"), {
   fallback: <Loading />
@@ -35,8 +44,8 @@ class MakeMarketOrder2 extends React.Component {
       condition: undefined,
       expirytime: undefined,
       expirydate: undefined,
-      
-      lat: undefined, 
+
+      lat: undefined,
       lng: undefined,
       address: undefined,
       st_number: undefined,
@@ -46,7 +55,7 @@ class MakeMarketOrder2 extends React.Component {
       city: undefined,
       country: undefined,
 
-      
+
       crypto: "Bitcoin",
       chain: undefined,
       price: undefined,
@@ -60,7 +69,7 @@ class MakeMarketOrder2 extends React.Component {
     this.previousStep = this.previousStep.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.setStateStep = this.setStateStep.bind(this)
-    
+
     this.clickGetCryptoPrice = this.clickGetCryptoPrice.bind(this)
     this.changeStateLocationParent = this.changeStateLocationParent.bind(this)
   }
@@ -84,7 +93,7 @@ class MakeMarketOrder2 extends React.Component {
   handleChange(input, e = undefined) {
     let payment = null
 
-    if(input == "chain") payment = {
+    if (input == "chain") payment = {
       payment: ""
     }
 
@@ -102,9 +111,9 @@ class MakeMarketOrder2 extends React.Component {
   }
 
 
-  
 
-  
+
+
   // _____________________________________________
 
   render() {
@@ -116,8 +125,8 @@ class MakeMarketOrder2 extends React.Component {
         {component}
 
         {this.state.popup_state ?
-        <p>{this.state.popup_state}</p>
-        : null}
+          <p>{this.state.popup_state}</p>
+          : null}
 
 
       </React.Fragment>
@@ -128,6 +137,11 @@ class MakeMarketOrder2 extends React.Component {
   // _____________________________________________
 
   determineComponent() {
+    // default style hide map
+    let the_map = document.getElementById('the-map');
+    the_map.style.display = "none"
+
+
     let component
     switch (this.state.step) {
       case 1:
@@ -160,7 +174,7 @@ class MakeMarketOrder2 extends React.Component {
           onBTCvaluation={this.state.onBTCvaluation}
           payment={this.state.payment}
           clickGetCryptoPrice={this.clickGetCryptoPrice}
-          
+
         />
         break;
       case 3:
@@ -178,6 +192,9 @@ class MakeMarketOrder2 extends React.Component {
             lng: this.state.lng
           }}
         />
+
+        the_map.style.display = "block"
+        
         break;
       case 4:
         component = <_4_InputImagesMarketOrder
@@ -197,6 +214,8 @@ class MakeMarketOrder2 extends React.Component {
 
   componentDidMount() {
     this.clickGetCryptoPrice()
+    this.firstPlacementMap()
+
   }
 
 
@@ -217,7 +236,7 @@ class MakeMarketOrder2 extends React.Component {
       return this.setState({
         onBTCvaluation: market_price_btc
       })
-      
+
 
     } else {
       console.error(`Error on the clickGetCryptoPrice() function response.status: ${response.status}`)
@@ -227,12 +246,62 @@ class MakeMarketOrder2 extends React.Component {
 
   changeStateLocationParent(geoloc) {
     this.setState({
-      lat: geoloc.lat, 
+      lat: geoloc.lat,
       lng: geoloc.lng,
     })
   }
 
 
+  componentDidUpdate(prevProp, prevState) {
+    if (this.state.lat !== prevState.lat ||
+      this.state.lng !== prevState.lng) {
+
+      Geocode.fromLatLng(this.state.lat, this.state.lng).then(
+        response => {
+          const address = response.results[0].formatted_address, addressArray = response.results[0].address_components;
+
+
+          let st_number = utils.getStreetNumber(addressArray),
+            st = utils.getStreet(addressArray),
+            neigh = utils.getNeighborhood(addressArray),
+            province_state = utils.getProvinceState(addressArray),
+            city = utils.getCity(addressArray),
+            country = utils.getCountry(addressArray)
+
+          st_number = (st_number) ? st_number : undefined
+          st = (st) ? st : undefined
+          neigh = (neigh) ? neigh : undefined
+          province_state = (province_state) ? province_state : undefined
+          city = (city) ? city : undefined
+          country = (country) ? country : undefined
+
+
+          this.setState({
+            address: (address) ? address : undefined,
+            st_number: st_number,
+            st: st,
+            neigh: neigh,
+            province_state: province_state,
+            city: city,
+            country: country,
+          })
+        },
+        error => {
+          console.error(error);
+        }
+      );
+    }
+
+
+
+  }
+
+
+  firstPlacementMap(){
+    let reactDiv = document.getElementById('react-div');
+    let the_map = document.getElementById('the-map');
+    reactDiv.appendChild(the_map);
+  }
 
 }
 

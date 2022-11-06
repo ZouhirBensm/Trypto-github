@@ -1,4 +1,4 @@
-import './style/googlemaps.css'
+
 
 
 class Map2 extends React.Component {

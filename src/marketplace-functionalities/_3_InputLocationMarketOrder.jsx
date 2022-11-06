@@ -11,20 +11,6 @@ class _3_InputLocationMarketOrder extends React.Component {
 
   }
 
-
-  componentDidMount() {
-    this.rePlaceMap()
-  }
-
-  rePlaceMap() {
-    function insertAfter(newNode, existingNode) {
-      existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
-    }
-    let br = document.getElementById('location-dom-identifier');
-    let the_map = document.getElementById('the-map');
-    insertAfter(the_map, br);
-  }
-
   render() {
 
     // _____________________________________________

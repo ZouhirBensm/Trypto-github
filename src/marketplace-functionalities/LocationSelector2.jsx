@@ -9,7 +9,6 @@ class LocationSelector2 extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      localLocation: undefined
     }
   }
 
