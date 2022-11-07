@@ -1,8 +1,6 @@
 
 import '../style/reactDivMobile.css'
 
-// import MakeMarketOrder from './CopyMakeMarketOrder'
-
 
 class _4_InputImagesMarketOrder extends React.Component {
 

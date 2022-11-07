@@ -9,9 +9,9 @@ import Loading from "../generic-components/Loading"
 import { utils } from '../../full-stack-libs/utils.address'
 
 
-import Geocode from "react-geocode";
-Geocode.setApiKey(process.env.CONSOLE_CLOUD_GOOGLE_API_KEY);
-Geocode.enableDebug();
+// import Geocode from "react-geocode";
+// Geocode.setApiKey(process.env.CONSOLE_CLOUD_GOOGLE_API_KEY);
+// Geocode.enableDebug();
 
 
 const _1_InputGeneralMarketOrder = loadable(() => import("./_1_InputGeneralMarketOrder"), {
@@ -254,48 +254,101 @@ class MakeMarketOrder2 extends React.Component {
     })
   }
 
+  async geolocateAndSetState(){
+    let geocoder = window.geocoder
+
+    const latlng = {
+      lat: parseFloat(this.state.lat),
+      lng: parseFloat(this.state.lng),
+    };
+
+    let response
+    try {
+      response = await geocoder.geocode({ location: latlng })
+    } catch (e) {
+      console.error("Geocoder failed due to: " + e)
+    }
+
+    console.log(response)
+
+    const address = response.results[0].formatted_address, addressArray = response.results[0].address_components;
+
+    let st_number = utils.getStreetNumber(addressArray),
+    st = utils.getStreet(addressArray),
+    neigh = utils.getNeighborhood(addressArray),
+    province_state = utils.getProvinceState(addressArray),
+    city = utils.getCity(addressArray),
+    country = utils.getCountry(addressArray)
+
+
+    st_number = (st_number) ? st_number : undefined
+    st = (st) ? st : undefined
+    neigh = (neigh) ? neigh : undefined
+    province_state = (province_state) ? province_state : undefined
+    city = (city) ? city : undefined
+    country = (country) ? country : undefined
+
+    return this.setState({
+      address: (address) ? address : undefined,
+      st_number: st_number,
+      st: st,
+      neigh: neigh,
+      province_state: province_state,
+      city: city,
+      country: country,
+    })
+
+
+
+
+  }
 
   componentDidUpdate(prevProp, prevState) {
     if (this.state.lat !== prevState.lat ||
       this.state.lng !== prevState.lng) {
+        
+      // Option 1
+      return this.geolocateAndSetState()
+      
 
-      Geocode.fromLatLng(this.state.lat, this.state.lng).then(
-        response => {
-          const address = response.results[0].formatted_address, addressArray = response.results[0].address_components;
+      // Option 2
+      // Geocode.fromLatLng(this.state.lat, this.state.lng).then(
+      //   response => {
+      //     const address = response.results[0].formatted_address, addressArray = response.results[0].address_components;
+
+      //     let st_number = utils.getStreetNumber(addressArray),
+      //       st = utils.getStreet(addressArray),
+      //       neigh = utils.getNeighborhood(addressArray),
+      //       province_state = utils.getProvinceState(addressArray),
+      //       city = utils.getCity(addressArray),
+      //       country = utils.getCountry(addressArray)
+
+      //     st_number = (st_number) ? st_number : undefined
+      //     st = (st) ? st : undefined
+      //     neigh = (neigh) ? neigh : undefined
+      //     province_state = (province_state) ? province_state : undefined
+      //     city = (city) ? city : undefined
+      //     country = (country) ? country : undefined
 
 
-          let st_number = utils.getStreetNumber(addressArray),
-            st = utils.getStreet(addressArray),
-            neigh = utils.getNeighborhood(addressArray),
-            province_state = utils.getProvinceState(addressArray),
-            city = utils.getCity(addressArray),
-            country = utils.getCountry(addressArray)
+      //     this.setState({
+      //       address: (address) ? address : undefined,
+      //       st_number: st_number,
+      //       st: st,
+      //       neigh: neigh,
+      //       province_state: province_state,
+      //       city: city,
+      //       country: country,
+      //     })
+      //   },
+      //   error => {
+      //     console.error(error);
+      //   }
+      // );
 
-          st_number = (st_number) ? st_number : undefined
-          st = (st) ? st : undefined
-          neigh = (neigh) ? neigh : undefined
-          province_state = (province_state) ? province_state : undefined
-          city = (city) ? city : undefined
-          country = (country) ? country : undefined
-
-
-          this.setState({
-            address: (address) ? address : undefined,
-            st_number: st_number,
-            st: st,
-            neigh: neigh,
-            province_state: province_state,
-            city: city,
-            country: country,
-          })
-        },
-        error => {
-          console.error(error);
-        }
-      );
     }
 
-
+    return
 
   }
 

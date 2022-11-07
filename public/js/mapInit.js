@@ -1,4 +1,4 @@
-let map, marker, autocomplete;
+let map, marker, autocomplete, geocoder
 let lat = 45.41, lng = -75.70
 
 // map = 5
@@ -26,6 +26,12 @@ let options = {
 
 autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete-select'), options);
 
+
+geocoder = new google.maps.Geocoder()
+
+
+
 window.map = map
 window.marker = marker
 window.autocomplete = autocomplete
+window.geocoder = geocoder

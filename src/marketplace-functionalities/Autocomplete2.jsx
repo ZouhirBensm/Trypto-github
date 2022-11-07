@@ -1,5 +1,3 @@
-let autocomplete
-
 class Autocomplete2 extends React.Component {
   constructor(props){
     super(props)
@@ -19,8 +17,7 @@ class Autocomplete2 extends React.Component {
 
 
   async updateInputField(){
-    // TODO here!
-    let geocoder = new google.maps.Geocoder()
+    let geocoder = window.geocoder
 
     const latlng = {
       lat: parseFloat(this.props.newLocation.lat),
