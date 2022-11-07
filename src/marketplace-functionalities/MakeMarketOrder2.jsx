@@ -139,7 +139,10 @@ class MakeMarketOrder2 extends React.Component {
   determineComponent() {
     // default style hide map
     let the_map = document.getElementById('the-map');
+    let autocomplete_block = document.getElementById('autocomplete-block');
+
     the_map.style.display = "none"
+    autocomplete_block.style.display = "none"
 
 
     let component
@@ -194,6 +197,7 @@ class MakeMarketOrder2 extends React.Component {
         />
 
         the_map.style.display = "block"
+        autocomplete_block.style.display = "block"
         
         break;
       case 4:
@@ -215,7 +219,6 @@ class MakeMarketOrder2 extends React.Component {
   componentDidMount() {
     this.clickGetCryptoPrice()
     this.firstPlacementMap()
-
   }
 
 
@@ -300,6 +303,9 @@ class MakeMarketOrder2 extends React.Component {
   firstPlacementMap(){
     let reactDiv = document.getElementById('react-div');
     let the_map = document.getElementById('the-map');
+    let autocomplete_block = document.getElementById('autocomplete-block');
+
+    reactDiv.appendChild(autocomplete_block);
     reactDiv.appendChild(the_map);
   }
 

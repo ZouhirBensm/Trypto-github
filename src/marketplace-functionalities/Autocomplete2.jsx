@@ -19,6 +19,7 @@ class Autocomplete2 extends React.Component {
 
 
   async updateInputField(){
+    // TODO here!
     let geocoder = new google.maps.Geocoder()
 
     const latlng = {
@@ -43,24 +44,19 @@ class Autocomplete2 extends React.Component {
 
 
   componentDidMount(){
-    let options = {
-      componentRestrictions: { country: ["us", "ca"] },
-      fields: ["geometry"],
-      strictBounds: false,
-      types: ["address"],
-      position: { lat: 45.41, lng: -75.70 },
-    };
 
-    autocomplete = new google.maps.places.Autocomplete(document.getElementById("autocomplete-select"), options);
-
+    let autocomplete = window.autocomplete
     autocomplete.addListener('place_changed', this.onPlacedChanged)
   }
 
 
   onPlacedChanged(){
+    let autocomplete = window.autocomplete
+
     var place = autocomplete.getPlace()
+
     if(!place.geometry){
-      document.getElementById("autocomplete").placeholder = "Enter a place"
+      document.getElementById("autocomplete").placeholder = "..."
     } else {
       this.props.changeStateLocationParent({
         lat: place.geometry.location.lat(),
@@ -73,9 +69,9 @@ class Autocomplete2 extends React.Component {
   render(){
     return (
       <React.Fragment>
-        <label htmlFor="autocomplete-select">Trade Location</label>
+        {/* <label htmlFor="autocomplete-select">Trade Location</label>
         <input id="autocomplete-select" type="text" name="autocomplete" required/><span>📍 is DRAG-ABLE!</span>
-        <br id="location-dom-identifier"/>
+        <br id="location-dom-identifier"/> */}
       </React.Fragment>
     )
   }

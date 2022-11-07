@@ -18,6 +18,11 @@
 
 
 <%if(URL_ == "/marketplace/makesell"){%>
+  <div id="autocomplete-block">
+    <label htmlFor="autocomplete-select">Trade Location</label>
+    <input id="autocomplete-select" type="text" name="autocomplete" required/><span>📍 is DRAG-ABLE!</span>
+  </div>
+
   <div id="the-map"></div>
   <script src="/js/mapInit.js"></script>
 <%}%>
