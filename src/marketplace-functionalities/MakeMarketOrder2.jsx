@@ -26,7 +26,7 @@ const _3_InputLocationMarketOrder = loadable(() => import("./_3_InputLocationMar
   fallback: <Loading />
 });
 
-const _4_InputImagesMarketOrder = loadable(() => import("./_4_InputImagesMarketOrder"), {
+const _4_InputImagesMarketOrder = loadable(() => import("./3_4_InputImagesMarketOrder"), {
   fallback: <Loading />
 });
 
@@ -62,12 +62,15 @@ class MakeMarketOrder2 extends React.Component {
       onBTCvaluation: undefined,
       payment: undefined,
 
-      images: undefined
+      images: [],
+      filelist: []
     }
 
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleimages = this.handleimages.bind(this)
+    // this.handleimages2 = this.handleimages2.bind(this)
     this.setStateStep = this.setStateStep.bind(this)
 
     this.clickGetCryptoPrice = this.clickGetCryptoPrice.bind(this)
@@ -109,6 +112,36 @@ class MakeMarketOrder2 extends React.Component {
     });
 
   }
+
+  handleimages(newimages, newFileList) {
+
+    // const max_img_popup = "You have reached maximum amount of image uploads"
+    // if (newimages.length > 4) return max_img_popup
+
+
+    return this.setState({
+      images: newimages,
+      filelist: newFileList
+    });
+  }
+
+  // handleimages2(_selectedFile) {
+
+  //   let files_names = []
+
+  //   for (const property in _selectedFile) {
+  //     console.log(`${property}: ${_selectedFile[property]}`);
+  //     if (isNaN(parseInt(property))) break
+  //     files_names.push(_selectedFile[property].name)
+  //   }
+    
+  //   this.setState({
+  //     images: files_names
+  //   });
+
+  //   return
+  // }
+  
 
 
 
@@ -154,6 +187,7 @@ class MakeMarketOrder2 extends React.Component {
           step={this.state.step}
           nextStep={this.nextStep}
           previousStep={this.previousStep}
+
           title={this.state.title}
           description={this.state.description}
           category={this.state.category}
@@ -207,6 +241,11 @@ class MakeMarketOrder2 extends React.Component {
           step={this.state.step}
           nextStep={this.nextStep}
           previousStep={this.previousStep}
+
+          images={this.state.images}
+          filelist={this.state.filelist}
+          handleimages={this.handleimages}
+          handleimages2={this.handleimages2}
         />
         break;
       default:
