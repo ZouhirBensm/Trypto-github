@@ -1,7 +1,7 @@
 
 // import '../style/reactDivMobile.css'
 
-import LocationSelector2 from './LocationSelector2'
+import LocationSelector from './LocationSelector'
 
 
 class _3_InputLocationMarketOrder extends React.Component {
@@ -21,7 +21,7 @@ class _3_InputLocationMarketOrder extends React.Component {
         <div className="make-container">
           <form className="form" id="form_id">
 
-            <LocationSelector2
+            <LocationSelector
               changeStateLocationParent={this.props.changeStateLocationParent}
               newLocation={this.props.geometry}
             />

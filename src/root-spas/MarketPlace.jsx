@@ -28,7 +28,7 @@ const Navigation = loadable(() => import("../btclayerexchange-functionalities/Na
 //   fallback: <Loading/>
 // });
 
-const MakeMarketOrder2 = loadable(() => import("../marketplace-functionalities/MakeMarketOrder2"),{
+const MakeMarketOrder = loadable(() => import("../marketplace-functionalities/MakeMarketOrder"),{
   fallback: <Loading/>
 });
 
@@ -63,7 +63,7 @@ class MarketPlace extends React.Component {
     }
   }
   render() {
-    console.log("UID????", userId)
+    // console.log("UID????", userId)
     return (
       <div className="wrapper">
         {/* <React.Fragment> */}
@@ -83,7 +83,7 @@ class MarketPlace extends React.Component {
             <Route exact path="/marketplace/sellordersdata" component={MarketOrders} />
 
             {/* <Route exact path="/marketplace/makesell" component={MakeMarketOrder} /> */}
-            <Route exact path="/marketplace/makesell" component={MakeMarketOrder2} />
+            <Route exact path="/marketplace/makesell" component={MakeMarketOrder} />
 
 
 
