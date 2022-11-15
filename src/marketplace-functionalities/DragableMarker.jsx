@@ -22,6 +22,10 @@ class DragableMarker extends React.Component {
   
   componentDidUpdate(prevProp){
 
+    if(this.props.newLocation.lat == undefined || this.props.newLocation.lng == undefined){
+      return
+    }
+
     if(this.props.newLocation.lat===prevProp.newLocation.lat && this.props.newLocation.lng===prevProp.newLocation.lng){
     }else{
       this.setMarker()

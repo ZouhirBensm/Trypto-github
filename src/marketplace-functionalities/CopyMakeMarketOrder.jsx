@@ -215,6 +215,7 @@ class MakeMarketOrder extends React.Component {
     console.log("error======>>>>>>> ", error_msg_retrieved_if_any)
 
 
+    
     error_msg_retrieved_if_any = validateInputs_marketOrderTradeLocationSpecifics(_marketOrderTradeLocationSpecifics, error_msg_retrieved_if_any)
 
 

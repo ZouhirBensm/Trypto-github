@@ -18,8 +18,10 @@ class LocationSelector extends React.Component {
       <React.Fragment>
 
         <Autocomplete
-        changeStateLocationParent={this.props.changeStateLocationParent} 
+        changeStateLocationParent={this.props.changeStateLocationParent}
+        resetLocation={this.props.resetLocation}
         newLocation={this.props.newLocation}
+        setpopup={this.props.setpopup}
         />
 
         <Map/>

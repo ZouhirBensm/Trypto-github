@@ -47,6 +47,7 @@ class MakeMarketOrder extends React.Component {
 
       lat: undefined,
       lng: undefined,
+
       address: undefined,
       st_number: undefined,
       st: undefined,
@@ -72,24 +73,35 @@ class MakeMarketOrder extends React.Component {
     this.handleimages = this.handleimages.bind(this)
     // this.handleimages2 = this.handleimages2.bind(this)
     this.setStateStep = this.setStateStep.bind(this)
+    this.setpopup = this.setpopup.bind(this)
 
     this.clickGetCryptoPrice = this.clickGetCryptoPrice.bind(this)
     this.changeStateLocationParent = this.changeStateLocationParent.bind(this)
+    this.resetLocation = this.resetLocation.bind(this)
+  }
+
+  setpopup(message){
+    this.setState({
+      popup_state: message
+    })
   }
 
   setStateStep(step) {
     this.setState({
-      step: step
+      step: step,
+      popup_state: null
     })
   }
   nextStep(e) {
     this.setState({
-      step: ++this.state.step
+      step: ++this.state.step,
+      popup_state: null
     })
   }
   previousStep(e) {
     this.setState({
-      step: --this.state.step
+      step: --this.state.step,
+      popup_state: null
     })
   }
 
@@ -103,12 +115,14 @@ class MakeMarketOrder extends React.Component {
 
     if (e) return this.setState({
       [input]: e.target.value,
+      popup_state: null,
       ...payment
     });
 
 
     return this.setState({
-      [input]: document.getElementById(`${input}-input`).value
+      [input]: document.getElementById(`${input}-input`).value,
+      popup_state: null,
     });
 
   }
@@ -117,7 +131,8 @@ class MakeMarketOrder extends React.Component {
 
     return this.setState({
       images: newimages,
-      filelist: newFileList
+      filelist: newFileList,
+      popup_state: null,
     });
   }
 
@@ -163,6 +178,7 @@ class MakeMarketOrder extends React.Component {
           step={this.state.step}
           nextStep={this.nextStep}
           previousStep={this.previousStep}
+          setpopup={this.setpopup}
 
           title={this.state.title}
           description={this.state.description}
@@ -179,6 +195,7 @@ class MakeMarketOrder extends React.Component {
           step={this.state.step}
           nextStep={this.nextStep}
           previousStep={this.previousStep}
+          setpopup={this.setpopup}
 
           // unit={this.state.unit}
           crypto={this.state.crypto}
@@ -197,9 +214,11 @@ class MakeMarketOrder extends React.Component {
           step={this.state.step}
           nextStep={this.nextStep}
           previousStep={this.previousStep}
+          setpopup={this.setpopup}
 
 
           changeStateLocationParent={this.changeStateLocationParent}
+          resetLocation={this.resetLocation}
           geometry={{
             lat: this.state.lat,
             lng: this.state.lng
@@ -266,6 +285,22 @@ class MakeMarketOrder extends React.Component {
     this.setState({
       lat: geoloc.lat,
       lng: geoloc.lng,
+
+    })
+  }
+
+  resetLocation() {
+    this.setState({
+      lat: undefined,
+      lng: undefined,
+
+      address: undefined,
+      st_number: undefined,
+      st: undefined,
+      neigh: undefined,
+      province_state: undefined,
+      city: undefined,
+      country: undefined,
     })
   }
 
@@ -275,6 +310,7 @@ class MakeMarketOrder extends React.Component {
     const latlng = {
       lat: parseFloat(this.state.lat),
       lng: parseFloat(this.state.lng),
+      popup_state: null,
     };
 
     let response
@@ -311,6 +347,7 @@ class MakeMarketOrder extends React.Component {
       province_state: province_state,
       city: city,
       country: country,
+      popup_state: null,
     })
 
 
@@ -319,6 +356,12 @@ class MakeMarketOrder extends React.Component {
   }
 
   componentDidUpdate(prevProp, prevState) {
+
+    if (this.state.lat == undefined ||
+      this.state.lng == undefined) {
+      return 
+    }
+
     if (this.state.lat !== prevState.lat ||
       this.state.lng !== prevState.lng) {
       return this.geolocateAndSetState()

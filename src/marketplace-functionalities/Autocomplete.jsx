@@ -8,9 +8,13 @@ class Autocomplete extends React.Component {
   }
 
   componentDidUpdate(prevProp){
+    if(this.props.newLocation.lat == undefined || this.props.newLocation.lng == undefined){
+      return
+    }
+
     if(this.props.newLocation.lat===prevProp.newLocation.lat && this.props.newLocation.lng===prevProp.newLocation.lng){
     } else{
-      this.updateInputField()
+      return this.updateInputField()
     }
   }
 
@@ -53,7 +57,9 @@ class Autocomplete extends React.Component {
     var place = autocomplete.getPlace()
 
     if(!place.geometry){
-      document.getElementById("autocomplete").placeholder = "..."
+      // document.getElementById("autocomplete").placeholder = "..."
+      this.props.setpopup("Please enter a location")
+      this.props.resetLocation()
     } else {
       this.props.changeStateLocationParent({
         lat: place.geometry.location.lat(),

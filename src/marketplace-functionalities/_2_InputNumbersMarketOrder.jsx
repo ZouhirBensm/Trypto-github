@@ -1,5 +1,6 @@
 
 // import '../style/reactDivMobile.css'
+import {validateInputs} from '../../full-stack-libs/validations'
 
 
 
@@ -14,6 +15,28 @@ class _2_InputNumbersMarketOrder extends React.Component {
     this.amountsToCalculatorChange = this.amountsToCalculatorChange.bind(this)
   }
 
+  async validation(){
+    let _2_InputNumbersMarketOrder_data = {
+      chain: document.getElementById("form_id").elements["chain"].value,
+      price: document.getElementById("form_id").elements["price"].value,
+      conversion: document.getElementById("form_id").elements["conversion"].value,
+      payment: document.getElementById("form_id").elements["payment"].value
+    }
+
+    console.log(_2_InputNumbersMarketOrder_data)
+
+    let error_msg_retrieved_if_any
+    error_msg_retrieved_if_any = validateInputs(_2_InputNumbersMarketOrder_data)
+
+    console.log("error======>>>>>>> ", error_msg_retrieved_if_any)
+
+    if (error_msg_retrieved_if_any) {
+      this.props.setpopup(error_msg_retrieved_if_any)
+      return false
+    } else { return true }
+
+  }
+
   componentDidMount() {
     this.amountsToCalculatorChange()
   }
@@ -21,7 +44,7 @@ class _2_InputNumbersMarketOrder extends React.Component {
   componentDidUpdate(prevProp, prevState) {
     if (prevProp.price !== this.props.price ||
       prevProp.onBTCvaluation !== this.props.onBTCvaluation) {
-        this.amountsToCalculatorChange()
+      this.amountsToCalculatorChange()
     }
   }
 
@@ -58,14 +81,14 @@ class _2_InputNumbersMarketOrder extends React.Component {
             <input onChange={(e) => {
               this.props.handleChange("price", e);
               this.amountsToCalculatorChange(e);
-            }} type="number" id="price-input" name="price" step="0.01" required value={this.props.price || ''}/><br />
+            }} type="number" id="price-input" name="price" step="0.01" required value={this.props.price || ''} /><br />
 
 
             <label htmlFor="onBTCvaluation-input">Based on what BTC value</label>
             <input onChange={(e) => {
               this.props.handleChange("onBTCvaluation", e);
               this.amountsToCalculatorChange(e);
-            }} type="number" id="onBTCvaluation-input" name="conversion" step="0.01" required value={this.props.onBTCvaluation}/>
+            }} type="number" id="onBTCvaluation-input" name="conversion" step="0.01" required value={this.props.onBTCvaluation} />
             <button onClick={(e) => { this.props.clickGetCryptoPrice(e) }}>Market</button><br />
 
 
@@ -92,9 +115,16 @@ class _2_InputNumbersMarketOrder extends React.Component {
         <button onClick={(e) => {
           this.props.previousStep(e)
         }}>Previous</button>
-        <button onClick={(e) => {
-          this.props.nextStep(e)
+        
+        <button onClick={async (e) => {
+          let ret_validation = await this.validation()
+          if (ret_validation) {
+            return this.props.nextStep(e)
+          } else {
+            return
+          }
         }}>Next</button>
+
       </React.Fragment>
     )
   }
