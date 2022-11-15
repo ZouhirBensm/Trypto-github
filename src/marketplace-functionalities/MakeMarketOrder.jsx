@@ -330,12 +330,13 @@ class MakeMarketOrder extends React.Component {
 
 
   firstPlacementMap(){
-    let reactDiv = document.getElementById('react-div');
+    // let reactDiv = document.getElementById('react-div');
+    var a = document.querySelectorAll('a[href="/marketplace/makesell"]')[0]
     let the_map = document.getElementById('the-map');
     let autocomplete_block = document.getElementById('autocomplete-block');
 
-    reactDiv.appendChild(autocomplete_block);
-    reactDiv.appendChild(the_map);
+    a.parentNode.insertBefore(autocomplete_block, a.nextSibling);
+    autocomplete_block.parentNode.insertBefore(the_map, autocomplete_block.nextSibling);
   }
 
 }

@@ -18,3 +18,7 @@
   width: 150px;
   margin: 5px 0;
 }
+
+button {
+  display: block;
+}

@@ -1,6 +1,5 @@
 import ImagesDeletion from "./ImagesDeletion"
-// import Loading from "../generic-components/Loading"
-// import Image from "./Image2"
+
 
 class ImagesWDeletionLoop extends React.Component {
   constructor(props) {
@@ -20,7 +19,7 @@ class ImagesWDeletionLoop extends React.Component {
 
   render() {
 
-    let ImagesDeletion = this.props.filelist.map((File, index) => {
+    let ImagesDeletionComp = this.props.filelist.map((File, index) => {
       return <ImagesDeletion
         key={index}
         file={File}
@@ -28,12 +27,12 @@ class ImagesWDeletionLoop extends React.Component {
       />
     })
 
-    console.log("render()->ImagesWDeletionLoop: ", ImagesDeletion)
+    console.log("render()->ImagesWDeletionLoop: ", ImagesDeletionComp)
 
     return (
       <React.Fragment>
 
-        {ImagesDeletion}
+        {ImagesDeletionComp}
       </React.Fragment>
     )
   }
@@ -43,6 +42,3 @@ class ImagesWDeletionLoop extends React.Component {
 
 
 export default ImagesWDeletionLoop
-
-
-

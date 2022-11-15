@@ -1,3 +1,5 @@
+
+
 class ImagesDeletion extends React.Component {
   constructor(props) {
     super(props)
@@ -59,5 +61,3 @@ class ImagesDeletion extends React.Component {
 }
 
 export default ImagesDeletion
-
-

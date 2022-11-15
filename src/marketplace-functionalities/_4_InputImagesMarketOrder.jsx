@@ -131,6 +131,9 @@ class _4_InputImagesMarketOrder extends React.Component {
     return (
       <React.Fragment>
 
+
+
+
         <div id='images-container'>
           <ImagesWDeletionLoop
             filelist={filelist}
@@ -153,24 +156,27 @@ class _4_InputImagesMarketOrder extends React.Component {
 
           <button type="submit" onClick={(e) => {
             return
-          }}>api call</button>
+          }}>SUBMIT THE MARKET ORDER</button>
 
         </form>
-
-
-
-        {/* Original */}
-        <form action="/upload/post" method="post" encType="multipart/form-data">
-          <input type="file" name="image" /> <br /><br />
-          <button type="submit">Upload</button>
-        </form>
-
-
-
+        
 
         <button onClick={(e) => {
           this.props.previousStep(e)
         }}>Previous</button>
+
+
+
+        {/* Original */}
+        {/* <form action="/upload/post" method="post" encType="multipart/form-data">
+          <input type="file" name="image" /> <br /><br />
+          <button type="submit">Upload</button>
+        </form> */}
+
+
+
+
+
       </React.Fragment>
     )
   }
