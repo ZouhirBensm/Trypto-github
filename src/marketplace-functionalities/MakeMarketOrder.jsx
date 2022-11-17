@@ -71,7 +71,6 @@ class MakeMarketOrder extends React.Component {
     this.previousStep = this.previousStep.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleimages = this.handleimages.bind(this)
-    // this.handleimages2 = this.handleimages2.bind(this)
     this.setStateStep = this.setStateStep.bind(this)
     this.setpopup = this.setpopup.bind(this)
 
@@ -127,12 +126,12 @@ class MakeMarketOrder extends React.Component {
 
   }
 
-  handleimages(newimages, newFileList) {
+  handleimages(newimages, newFileList, popup_state = null) {
 
     return this.setState({
       images: newimages,
       filelist: newFileList,
-      popup_state: null,
+      popup_state: popup_state,
     });
   }
 
@@ -236,11 +235,12 @@ class MakeMarketOrder extends React.Component {
           step={this.state.step}
           nextStep={this.nextStep}
           previousStep={this.previousStep}
+          setpopup={this.setpopup}
 
           images={this.state.images}
           filelist={this.state.filelist}
           handleimages={this.handleimages}
-          handleimages2={this.handleimages2}
+          formData={this.state}
         />
         break;
       default:

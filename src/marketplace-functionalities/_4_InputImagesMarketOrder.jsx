@@ -3,12 +3,15 @@ import React from 'react'
 import '../style/reactDivMobile.css'
 import './style/market-images.css'
 import ImagesWDeletionLoop from './ImagesWDeletionLoop'
+import MarketSubmissionButton from './MarketSubmissionButton'
 
 // import fillsDragsFunctions from './drag-drop-event-functions/fills-functions'
 // import emptiesDragsFunctions from './drag-drop-event-functions/empties-functions'
 
 
 // Image sources: https://unsplash.com/
+
+// TODO make the image cards after upload slidable, i.e. be able to drag and drop and switch each Image component, This is necessary to re organize the order
 
 class _4_InputImagesMarketOrder extends React.Component {
   constructor(props) {
@@ -36,19 +39,55 @@ class _4_InputImagesMarketOrder extends React.Component {
     let selectedFiles = input.files
     let selectedFilesArr = this.makeArrayOutOf(selectedFiles)
 
+    let dt = new DataTransfer()
+    let passed, popup_state;
+
+    
+
+
+
     let Old_Files_arr = this.props.filelist // Past state before reseting to new at the end of this function
     let Total_trying = Old_Files_arr.length + selectedFiles.length
 
-    let dt = new DataTransfer()
     let Files_arr_names_build = []
     let Files_build = []
+    let selectedFilesArr_names = []
     let number_we_can_add = selectedFiles.length // all new addable
+
+
+
+
+
+    Files_arr_names_build = Old_Files_arr.map((old_file) => { return old_file.name })
+    selectedFilesArr_names = selectedFilesArr.map((file) => { return file.name })
+
+    function compare(a1, a2) {
+      let count
+      count = a1.filter(ele => { return a2.includes(ele) }).length;
+      return count
+    }
+
+    let countToSkipAlreadyPresentUploads = compare(Files_arr_names_build, selectedFilesArr_names);
+
+
+
+    ({passed, popup_state} = this.validateImagesTypes(selectedFiles));
+    console.log(passed, popup_state)
+
+    if (!passed) {
+      // let ret_handleimages = this.props.handleimages(Files_arr_names_build, Old_Files_arr, popup_state)
+
+      this.props.setpopup(popup_state)
+      return false
+    }
+
+
+
 
 
     // Old ones present
     if (Old_Files_arr.length != 0) {
 
-      Files_arr_names_build = Old_Files_arr.map((old_file) => { return old_file.name })
       Files_build = Old_Files_arr
 
       // reput the old files
@@ -66,14 +105,6 @@ class _4_InputImagesMarketOrder extends React.Component {
     }
 
 
-    let countToSkipAlreadyPresentUploads = 0
-    for (let i = 0; i < number_we_can_add; i++) {
-      const Fileadd = selectedFilesArr[i];
-      if (Files_arr_names_build.includes(Fileadd.name)) {
-        countToSkipAlreadyPresentUploads++
-      }
-    }
-
     for (let i = 0; i < number_we_can_add + countToSkipAlreadyPresentUploads; i++) {
       const Fileadd = selectedFilesArr[i];
       if (Files_arr_names_build.includes(Fileadd.name)) continue
@@ -87,6 +118,7 @@ class _4_InputImagesMarketOrder extends React.Component {
 
     let ret_handleimages = this.props.handleimages(Files_arr_names_build, Files_build)
 
+    return true
   }
 
 
@@ -151,15 +183,17 @@ class _4_InputImagesMarketOrder extends React.Component {
           <input type="file" name="image" id="image-select" multiple onChange={(e) => {
             e.preventDefault()
             let ret_addimages = this.addimages(e)
+            return
           }} />
 
 
-          <button type="submit" onClick={(e) => {
-            return
-          }}>SUBMIT THE MARKET ORDER</button>
+          <MarketSubmissionButton
+            setpopup={this.props.setpopup}
+            formData={this.props.formData}
+          />
 
         </form>
-        
+
 
         <button onClick={(e) => {
           this.props.previousStep(e)
@@ -180,6 +214,82 @@ class _4_InputImagesMarketOrder extends React.Component {
       </React.Fragment>
     )
   }
+
+
+  validateImagesTypes(_selectedFiles) {
+
+    // TODO have the image support add and delete the difference to what has already been added, i.e. no need to reset all
+    const supportedTypes = [
+      "image/png",
+      "image/jpeg",
+      "image/apng",
+      "image/avif",
+      "image/gif",
+      "image/svg+xml",
+      "image/webp",
+    ];
+
+    console.log(_selectedFiles, supportedTypes)
+
+    let not_supported_retrieved = []
+
+    for (const FileKey in _selectedFiles) {
+
+      if(isNaN(parseInt(FileKey))) {
+        continue
+      }
+
+      if (!supportedTypes.includes(_selectedFiles[FileKey].type)) {
+        not_supported_retrieved.push(_selectedFiles[FileKey].type)
+      }
+
+    }
+
+
+
+    if (not_supported_retrieved.length != 0){
+      not_supported_retrieved = [...new Set(not_supported_retrieved)];
+      let error_msg = `${not_supported_retrieved.join(' ')} image types are not supported.`
+      let error_msg_retrieved_if_any = error_msg
+
+      return {passed: false, popup_state: error_msg_retrieved_if_any};
+    }
+
+
+    return {passed: true, popup_state: undefined};
+
+  }
+
+
+
+
+//   finalSubmissionValidation(){
+//   let input = document.getElementById('image-select')
+//   let selectedFiles = input.files
+//   let selectedFilesArr = this.makeArrayOutOf(selectedFiles)
+
+//   let error_msg_retrieved_if_any
+
+//   if (selectedFilesArr.length == 0) {
+//     let error_msg = "No images have been uploaded, submission requires at least one image."
+//     error_msg_retrieved_if_any = error_msg
+//   }
+
+//   if (error_msg_retrieved_if_any) {
+//     this.props.setpopup(error_msg_retrieved_if_any)
+//     return false
+//   } else { return true }
+// }
+
+
+
+// async apiMakeMarketOrder(){
+//   console.log("API CALL")
+//   let response
+
+//   let json
+// }
+
 
 
 }

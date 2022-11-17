@@ -81,7 +81,7 @@ class _2_InputNumbersMarketOrder extends React.Component {
             <input onChange={(e) => {
               this.props.handleChange("price", e);
               this.amountsToCalculatorChange(e);
-            }} type="number" id="price-input" name="price" step="0.01" required value={this.props.price || ''} /><br />
+            }} type="number" id="price-input" name="price" step="0.01" required  value={this.props.price || ''}/><br />
 
 
             <label htmlFor="onBTCvaluation-input">Based on what BTC value</label>

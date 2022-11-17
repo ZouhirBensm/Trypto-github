@@ -46,7 +46,7 @@ class _1_InputGeneralMarketOrder extends React.Component {
           <form className="form" id="form_id">
 
             <label htmlFor="title-select">Title</label>
-            <input type="text" id="title-select" name="title" required  value={this.props.title || ''} onChange={(e) => this.props.handleChange("title", e)}/><br />
+            <input type="text" id="title-select" name="title" required value={this.props.title || ''} onChange={(e) => this.props.handleChange("title", e)}/><br />
 
             <label htmlFor="description-select">Description</label>
             <textarea name="description" id="description-select" cols="30" rows="3" required value={this.props.description || ''} onChange={(e) => this.props.handleChange("description", e)}></textarea><br />

@@ -234,50 +234,6 @@ class MakeMarketOrder extends React.Component {
   }
 
 
-
-  // validateInputs(_marketOrderBasicData, _marketOrderTradeLocationSpecifics) {
-  //   // console.log("validating inputs", _marketOrderBasicData)
-
-  //   let error
-  //   const preventInjectionsRegEx = /[<>;}{\&]/;
-
-  //   for (const property in _marketOrderBasicData) {
-  //     // console.log(`${property}: ${_marketOrderBasicData[property]}`);
-
-  //     if (_marketOrderBasicData[property] == '' || preventInjectionsRegEx.test(_marketOrderBasicData[property])) {
-  //       error = `This field: ${property}, inputed value is not proper. Please modify`
-  //       break
-  //     }
-
-  //   }
-
-  //   let expireAt = new Date(_marketOrderBasicData.expirydate.slice(0, 4), _marketOrderBasicData.expirydate.slice(5, 7) - 1, _marketOrderBasicData.expirydate.slice(8, 10), _marketOrderBasicData.expirytime.slice(0, 2), _marketOrderBasicData.expirytime.slice(3, 5))
-
-
-
-  //   if (expireAt < new Date() && !error) {
-  //     error = `Expiry date & time cannot set before now. Please modify`
-  //   }
-
-  //   const isUndefined = (currentValue) => currentValue == undefined;
-
-  //   if (Object.values(_marketOrderTradeLocationSpecifics.geometry).every(isUndefined) && !error) {
-  //     error = `Please, pick a geometry before submitting an order.`
-  //   }
-
-
-
-  //   console.log(error)
-
-
-  //   if (error) {
-  //     this.setState({
-  //       popup_state: error
-  //     })
-  //   } else { return true }
-
-  // }
-
   async clickCreateOrder(e) {
     e.preventDefault()
 
