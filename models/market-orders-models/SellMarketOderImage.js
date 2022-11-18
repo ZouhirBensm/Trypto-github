@@ -34,6 +34,11 @@ const SellMarketOderImageSchema = new Schema({
   }],
   expireAt: {
     type: Date,
+  },
+  postedDate: {
+    type: Date,
+    // default: new Date(),
+    default: Date.now,
   }
 })
 

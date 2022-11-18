@@ -53,6 +53,11 @@ const SellMarketOrderLocationSchema = new Schema({
     ref: 'SellMarketOrder',
     required: true
   },
+  postedDate: {
+    type: Date,
+    // default: new Date(),
+    default: Date.now,
+  }
 })
 
 
