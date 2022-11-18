@@ -39,7 +39,8 @@ const paginatedOrdersSetupMiddleware = require('../middleware/home-currencyorder
 
 
 
-const ordersRetrievalMiddleware = require('../middleware/marketplace-middleware/orders-retrieval-middleware')
+// const ordersRetrievalMiddleware = require('../middleware/marketplace-middleware/orders-retrieval-middleware')
+const marketplaceMiddleware = require('../middleware/marketplace-middleware/marketplace-middleware')
 
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 const startEmptyNotificationsMiddleware = require('../middleware/generic-middleware/start-empty-notifications-middleware')
@@ -145,7 +146,7 @@ marketplaceBackend_app_router.delete('/:userId/delete-this-order', require_logge
 
 
 
-marketplaceBackend_app_router.post('/sellorders/save', require_loggedin_for_data(true), marketplaceController.registerMarketOrder)
+// marketplaceBackend_app_router.post('/sellorders/save', require_loggedin_for_data(true), marketplaceController.registerMarketOrder)
 
 
 
@@ -159,7 +160,7 @@ marketplaceBackend_app_router.patch('/:userId/update', require_loggedin_for_data
 
 
 // '/paginated-orders/allmyorders/:data_of_userID?'
-marketplaceBackend_app_router.get(['/paginated-orders/sellordersdata/:data_of_userID?'], require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, ordersRetrievalMiddleware, distributePaginatedDataController)
+marketplaceBackend_app_router.get(['/paginated-orders/sellordersdata/:data_of_userID?'], require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, marketplaceMiddleware.ordersRetrievalMiddleware, distributePaginatedDataController)
 
 
 

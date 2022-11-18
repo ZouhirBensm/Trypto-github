@@ -14,10 +14,9 @@ const { MongoError } = require('../../custom-errors/custom-errors')
 
 
 
-// TODO put in middlewares
-// TODO delete marketplace duplicate code
+
 // TODO add error handling and proper sucess/error UI adaptability
-async function instantiateMarketOrderLocationController(req, res, next) {
+async function instantiateMarketOrderLocationMiddleware(req, res, next) {
   console.log("registerMarketOrder")
 
   req.body.expireAt = new Date(req.body.expirydate.slice(0, 4), req.body.expirydate.slice(5, 7) - 1, req.body.expirydate.slice(8, 10), req.body.expirytime.slice(0, 2), req.body.expirytime.slice(3, 5))
@@ -58,7 +57,7 @@ async function instantiateMarketOrderLocationController(req, res, next) {
 
 
 
-async function instantiateMarketOrderController(req, res, next) {
+async function instantiateMarketOrderMiddleware(req, res, next) {
   let ret_sellmarketorder_instance
 
   ret_sellmarketorder_instance = new SellMarketOrder({
@@ -96,9 +95,9 @@ async function instantiateMarketOrderController(req, res, next) {
 
 
 
-async function processImageFilesController(req, res, next) {
+async function processImageFilesMiddleware(req, res, next) {
 
-  let directory = `public/img/destination-images/${res.locals.ret_sellmarketorder_instance._id}`
+  let directory = `public/img/marketorder-images/${res.locals.ret_sellmarketorder_instance._id}`
   let images = []
 
   if (!existsSync(directory)) {
@@ -219,7 +218,7 @@ async function processImageFilesController(req, res, next) {
 
 
 
-async function instantiateMarketOrderImagesController(req, res, next) {
+async function instantiateMarketOrderImagesMiddleware(req, res, next) {
 
   let ret_sellmarketoderimage_instance
 
@@ -239,7 +238,7 @@ async function instantiateMarketOrderImagesController(req, res, next) {
 }
 
 
-async function saveAllMarketOrderController(req, res, next) {
+async function saveAllMarketOrderMiddleware(req, res, next) {
 
   let ret_sellmarketorderlocation_save, ret_sellmarketorder_save, ret_sellmarketoderimage_save
 
@@ -268,13 +267,13 @@ async function saveAllMarketOrderController(req, res, next) {
 }
 
 
-uploadsController = {
-  instantiateMarketOrderLocationController: instantiateMarketOrderLocationController,
-  instantiateMarketOrderController: instantiateMarketOrderController,
-  processImageFilesController: processImageFilesController,
-  instantiateMarketOrderImagesController: instantiateMarketOrderImagesController,
-  saveAllMarketOrderController: saveAllMarketOrderController
+uploadsMiddleware = {
+  instantiateMarketOrderLocationMiddleware: instantiateMarketOrderLocationMiddleware,
+  instantiateMarketOrderMiddleware: instantiateMarketOrderMiddleware,
+  processImageFilesMiddleware: processImageFilesMiddleware,
+  instantiateMarketOrderImagesMiddleware: instantiateMarketOrderImagesMiddleware,
+  saveAllMarketOrderMiddleware: saveAllMarketOrderMiddleware
 }
 
 
-module.exports = uploadsController
+module.exports = uploadsMiddleware

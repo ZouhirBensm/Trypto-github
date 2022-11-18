@@ -55,7 +55,8 @@ let upload = multer({
 })
 
 
-const uploadsController = require('../controllers/uploads-controllers/uploads-controllers')
+// const uploadsController = require('../controllers/uploads-controllers/uploads-controllers')
+const uploadsMiddleware = require('../middleware/uploads-middleware/uploads-middleware')
 
 
 const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
@@ -114,7 +115,7 @@ uploadsBackend_app_router.get('/', (req, res) => {
 // })
 
 
-uploadsBackend_app_router.post('/post', upload.array('image'), uploadsController.instantiateMarketOrderLocationController, uploadsController.instantiateMarketOrderController, uploadsController.processImageFilesController, uploadsController.instantiateMarketOrderImagesController, uploadsController.saveAllMarketOrderController, (req,res)=>{
+uploadsBackend_app_router.post('/post', upload.array('image'), uploadsMiddleware.instantiateMarketOrderLocationMiddleware, uploadsMiddleware.instantiateMarketOrderMiddleware, uploadsMiddleware.processImageFilesMiddleware, uploadsMiddleware.instantiateMarketOrderImagesMiddleware, uploadsMiddleware.saveAllMarketOrderMiddleware, (req,res)=>{
   console.log("end")
   res.status(200).end()
 })
