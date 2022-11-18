@@ -1,9 +1,47 @@
 // Libraries
 const express = require('express')
+const multer = require('multer')
+const path = require('path')
 const CoinGecko = require('coingecko-api');
 
 // Initializations
 const marketplaceBackend_app_router = express.Router()
+
+
+
+// Setting up uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    // manipulate the req, check is public/img is available or file to error handle
+    console.log("req_uuid", req.body, file)
+    let p_error = null
+    let directory = `./public/img/temporal-new`
+    cb(p_error, directory)
+  },
+  filename: function (req, file, cb) {
+    let p_error = null
+    // TODO prefix should have a constant number of digits
+    let prefix = Math.round(Math.random() * 10000)
+    cb(p_error, `${prefix}-${file.originalname}`)
+  }
+})
+
+let upload = multer({
+  storage: storage,
+  fileFilter: function (req, file, callback) {
+    suportedExtentions = ['.png', '.jpeg', '.jp2', '.jpg', '.jfif', '.pjpeg', '.pjp', '.apng', '.avif', '.gif', '.webp'] 
+
+    var ext = path.extname(file.originalname);
+    if (suportedExtentions.includes(ext)) {
+      return callback(null, true)
+    }
+    return callback(new Error('Only images with proper extensions are allowed'))
+  },
+  // limits: ,
+  preservePath: true,
+})
+
+
 
 
 // ENV variables
@@ -40,6 +78,8 @@ const paginatedOrdersSetupMiddleware = require('../middleware/home-currencyorder
 
 
 // const ordersRetrievalMiddleware = require('../middleware/marketplace-middleware/orders-retrieval-middleware')
+// const uploadsMiddleware = require('../middleware/uploads-middleware/uploads-middleware')
+
 const marketplaceMiddleware = require('../middleware/marketplace-middleware/marketplace-middleware')
 
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
@@ -85,6 +125,58 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
   navBars = NAVBAR.CLIENTS
   next()
 })
+
+
+
+
+
+
+// const marketOrderID = ObjectId()
+// let directory = `./public/img/${marketOrderID}`
+
+// if (!existsSync(dir)) {
+//   mkdirSync(dir, { recursive: true });
+// }
+
+
+
+// upload.any(),
+// uploadsBackend_app_router.post('/post', upload.array('image'), (req, res, next) => {
+
+//   if (!req.files) {
+//     console.log("No file received", req.body, req.files);
+//     return res.send({
+//       success: false
+//     });
+
+//   } else {
+//     console.log('file received', req.body, req.files);
+//     return res.send({
+//       success: true
+//     })
+//   }
+// })
+
+
+
+
+
+
+// marketplaceBackend_app_router.post('/sellorders/save', require_loggedin_for_data(true), marketplaceController.registerMarketOrder)
+
+
+// require_loggedin_for_data(true), marketplaceController.registerMarketOrder
+marketplaceBackend_app_router.post('/sellorders/save', upload.array('image'), marketplaceMiddleware.instantiateMarketOrderLocationMiddleware, marketplaceMiddleware.instantiateMarketOrderMiddleware, marketplaceMiddleware.processImageFilesMiddleware, marketplaceMiddleware.instantiateMarketOrderImagesMiddleware, marketplaceMiddleware.saveAllMarketOrderMiddleware, (req,res)=>{
+  console.log("end")
+  res.status(200).end()
+})
+
+
+
+
+
+
+
 
 
 
@@ -146,7 +238,7 @@ marketplaceBackend_app_router.delete('/:userId/delete-this-order', require_logge
 
 
 
-// marketplaceBackend_app_router.post('/sellorders/save', require_loggedin_for_data(true), marketplaceController.registerMarketOrder)
+
 
 
 
@@ -166,3 +258,7 @@ marketplaceBackend_app_router.get(['/paginated-orders/sellordersdata/:data_of_us
 
 
 module.exports = marketplaceBackend_app_router
+
+
+
+// TODO download the VScode icon extensions

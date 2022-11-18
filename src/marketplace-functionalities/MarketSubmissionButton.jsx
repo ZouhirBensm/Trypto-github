@@ -104,7 +104,7 @@ class MarketSubmissionButton extends React.Component {
     let json
 
     try {
-      response = await fetch(`/uploads/post`, {
+      response = await fetch(`/marketplace/sellorders/save`, {
         method: 'POST',
         body: formData
       })
