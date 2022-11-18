@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
     // manipulate the req, check is public/img is available or file to error handle
     console.log("req_uuid", req.body, file)
     let p_error = null
-    let directory = `./public/img`
+    let directory = `./public/img/temporal-new`
     cb(p_error, directory)
   },
   filename: function (req, file, cb) {
@@ -42,7 +42,7 @@ const storage = multer.diskStorage({
 let upload = multer({
   storage: storage,
   fileFilter: function (req, file, callback) {
-    suportedExtentions = ['.png', '.jpeg', '.jpg', '.jfif', '.pjpeg', '.pjp', '.apng', '.avif', '.gif', '.svg', '.webp'] 
+    suportedExtentions = ['.png', '.jpeg', '.jp2', '.jpg', '.jfif', '.pjpeg', '.pjp', '.apng', '.avif', '.gif', '.webp'] 
 
     var ext = path.extname(file.originalname);
     if (suportedExtentions.includes(ext)) {
@@ -94,6 +94,8 @@ uploadsBackend_app_router.get('/', (req, res) => {
   })
 })
 
+
+
 // upload.any(),
 // uploadsBackend_app_router.post('/post', upload.array('image'), (req, res, next) => {
 
@@ -112,7 +114,10 @@ uploadsBackend_app_router.get('/', (req, res) => {
 // })
 
 
-uploadsBackend_app_router.post('/post', upload.array('image'), uploadsController.registerMarketOrder)
+uploadsBackend_app_router.post('/post', upload.array('image'), uploadsController.instantiateMarketOrderLocationController, uploadsController.instantiateMarketOrderController, uploadsController.processImageFilesController, uploadsController.instantiateMarketOrderImagesController, uploadsController.saveAllMarketOrderController, (req,res)=>{
+  console.log("end")
+  res.status(200).end()
+})
 
 
 

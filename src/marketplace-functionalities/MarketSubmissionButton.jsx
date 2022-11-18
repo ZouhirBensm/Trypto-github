@@ -79,7 +79,10 @@ class MarketSubmissionButton extends React.Component {
           case 'popup_state':
           case 'step':
             break;
-        
+          case 'lat':
+          case 'lng':
+            formData.append(name, parseFloat(value));
+            break;
           default:
             formData.append(name, value);
             break;

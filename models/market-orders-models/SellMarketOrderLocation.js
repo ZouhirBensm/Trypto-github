@@ -29,24 +29,29 @@ const HumanLocationSchema = new Schema({
 //Models are defined through the Schema interface
 //Models define collections
 const SellMarketOrderLocationSchema = new Schema({
-    // location: {
-    //   type: LocationSchema,
-    //   required: true
-    // },
-    // human_location: {
-    //   type: HumanLocationSchema
-    // },
-    geometry: {
-      type: LocationSchema,
-      required: true
-    },
-    location: {
-      type: HumanLocationSchema
-    },
-    expireAt: {
-      type: Date,
-      //default: Date.now,
-      //expires: 5000
+  // location: {
+  //   type: LocationSchema,
+  //   required: true
+  // },
+  // human_location: {
+  //   type: HumanLocationSchema
+  // },
+  geometry: {
+    type: LocationSchema,
+    required: true
+  },
+  location: {
+    type: HumanLocationSchema
+  },
+  expireAt: {
+    type: Date,
+    //default: Date.now,
+    //expires: 5000
+  },
+  sellmarketorderID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'SellMarketOrder',
+    required: true
   },
 })
 
@@ -56,6 +61,6 @@ SellMarketOrderLocationSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
 //Access the database my_database via mongoose.model.
 //The first argument: The name of the collection the model is for.
 //Apply the model to the collection?
-const SellMarketOrderLocation = mongoose.model('SellMarketOrderLocation',SellMarketOrderLocationSchema)
+const SellMarketOrderLocation = mongoose.model('SellMarketOrderLocation', SellMarketOrderLocationSchema)
 //Export User variable to other files
 module.exports = SellMarketOrderLocation

@@ -71,17 +71,29 @@ class _4_InputImagesMarketOrder extends React.Component {
 
 
 
+
+
+
     ({passed, popup_state} = this.validateImagesTypes(selectedFiles));
     console.log(passed, popup_state)
 
     if (!passed) {
-      // let ret_handleimages = this.props.handleimages(Files_arr_names_build, Old_Files_arr, popup_state)
 
-      this.props.setpopup(popup_state)
+      Files_build = Old_Files_arr
+
+      // reput the old files
+      for (let i = 0; i < Files_build.length; i++) {
+        const File = Files_build[i];
+        dt.items.add(File)
+      }
+
+      input.files = dt.files
+      
+      let ret_handleimages = this.props.handleimages(Files_arr_names_build, Files_build, popup_state)
+
+      // this.props.setpopup(popup_state)
       return false
     }
-
-
 
 
 
@@ -97,6 +109,15 @@ class _4_InputImagesMarketOrder extends React.Component {
       }
 
     }
+
+
+
+ 
+
+
+
+
+
 
 
 
@@ -225,7 +246,6 @@ class _4_InputImagesMarketOrder extends React.Component {
       "image/apng",
       "image/avif",
       "image/gif",
-      "image/svg+xml",
       "image/webp",
     ];
 
