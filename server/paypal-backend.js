@@ -67,6 +67,7 @@ const {require_loggedin_for_pages, require_loggedin_for_data} = require("../midd
 const { authenticate_role_for_pages, authenticate_role_for_data } =  require("../middleware/generic-middleware/authenticate-role-middleware")
 
 
+
 // Start middleware for this paypalBackend_app_router
 // Route is called upon as request from browser as '/paypal'
 paypalBackend_app_router.use(set_user_if_any, (req, res, next) => {
@@ -74,29 +75,20 @@ paypalBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
+
+
+
 paypalBackend_app_router.post('/unsubscribe', require_loggedin_for_data(true),  authenticate_role_for_data([ROLE.USER.SUBSCRIBER.BASIC, ROLE.MASTER]), requester_auth_middleware(1), hasUnSubProcessStartedMiddleware, getRequestedSubscriptionInfoMiddleware, paypalUnsubscribeMiddleware, async (req,res,next) => {
 
   let paypal_cancel_sub_response_status = res.locals.paypalCancelSubResponseStatus
   let subscriptionInfo = res.locals.subscriptionInfo
-
-  console.log("in the end controller for paypal/unsubscribe we got: ", subscriptionInfo)
   
   // In the 200 range
   if(paypal_cancel_sub_response_status > 199 && paypal_cancel_sub_response_status < 300 ){
 
-    console.log("\n\nSubscription date time: \n", subscriptionInfo.subscriptionDateTime, "\ntype:\n", typeof subscriptionInfo.subscriptionDateTime)
-
-    // current_billing_cycle_botom_datetime
     let [, current_billing_cycle_top_datetime] = billing_utils.BillingDateTimeCalculator(subscriptionInfo.subscriptionDateTime)
 
-    console.log("\n\n\n\n##_________________did we get what we need?", current_billing_cycle_top_datetime)
-
-    
     unsubscriptionTakesEffectOnBidBlock = current_billing_cycle_top_datetime;
-
-    console.log("unsubscription takes effect: ", unsubscriptionTakesEffectOnBidBlock)
-
-    console.log({unsubscriptionTakesEffectOnBidBlock})
 
     // set the expiryAt field of the Subscriber entry at the unsubscriptionTakesEffectOnBidBlock date
     let SubscriptionSetExpityReturn
@@ -109,12 +101,9 @@ paypalBackend_app_router.post('/unsubscribe', require_loggedin_for_data(true),  
     agenda.define(`Nullify particular User: ${req.body.userId} subscriptionID field and set role to UNSUBSCRIBER`, async (job, done) => {
       let userUnsubscribed
       try {userUnsubscribed = await User.updateOne({_id: req.body.userId}, {subscriptionID: null, role: ROLE.USER.NOTSUBSCRIBER});} catch(e) {return next(e)}
-      console.log("executing the event: Nullify particular User subscriptionID field and set role to UNSUBSCRIBER")
       done()
       const numRemoved = await agenda.cancel({ name: `Nullify particular User: ${req.body.userId} subscriptionID field and set role to UNSUBSCRIBER`});
-      console.log("cancelled!", `value: ${userUnsubscribed} & ${numRemoved}`)
     });
-
 
     await agenda.schedule(unsubscriptionTakesEffectOnBidBlock, `Nullify particular User: ${req.body.userId} subscriptionID field and set role to UNSUBSCRIBER`);
 

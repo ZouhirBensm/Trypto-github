@@ -1,8 +1,10 @@
 // When required for the first time runs the entire script, then subsequent times only retrieces the Model
 
+const fs = require('fs')
 
 const SellMarketOrder = require('../../models/market-orders-models/SellMarketOrder')
 const SellMarketOrderLocation = require('../../models/market-orders-models/SellMarketOrderLocation')
+const SellMarketOrderImage = require('../../models/market-orders-models/SellMarketOrderImage')
 
 
 const { MongoError } = require('../../custom-errors/custom-errors')
@@ -52,41 +54,6 @@ async function updateOrderController(req, res, next) {
 
   // res.status(200).end
 }
-
-
-async function deleteOrderController(req, res, next) {
-  let getSellMarketOrderLocationID_todelete
-  try {
-    getSellMarketOrderLocationID_todelete = await SellMarketOrder.findById(req.body.market_orderID)
-      .select('sellmarketorderlocationID -_id')
-  } catch (e) {
-    let error = new MongoError(`Failed to delete: Error: ${e.message} Level: getSellMarketOrderLocationID_todelete`)
-    return next(error)
-  }
-
-
-
-  let market_Order_deletetionReturn
-  try {
-    market_Order_deletetionReturn = await SellMarketOrder.findByIdAndDelete(req.body.market_orderID)
-  } catch (e) {
-    let error = new MongoError(`Failed to delete: Error: ${e.message} Level: market_Order_deletetionReturn`)
-    return next(error)
-  }
-
-  let location_market_Order_deletetionReturn
-  try {
-    location_market_Order_deletetionReturn = await SellMarketOrderLocation.findByIdAndDelete(getSellMarketOrderLocationID_todelete?.sellmarketorderlocationID)
-  } catch (e) {
-    let error = new MongoError(`Failed to delete: Error: ${e.message} Level: location_market_Order_deletetionReturn`)
-    return next(error)
-  }
-
-  res.status(200).json({
-    srv_: "Successfully deleted"
-  })
-}
-
 
 
 async function getOrderController(req, res, next) {
@@ -143,94 +110,67 @@ function registerMarketOrderController(req, res) {
 
 
 
+
+async function deleteMarketOrderImages(req, res, next) {
+  
+  const directory = `public/img/marketorder-images/${req.body.market_orderID}`
+
+  try {
+    fs.rmSync(directory, { recursive: true, force: true });
+  } catch (e) {
+    let error = new Error(`Was unable to delete the images associated with market order ID: ${req.body.market_orderID}`)
+    return next(error)
+  }
+
+  return next()
+  
+}
+
+
+async function deleteOrderController(req, res, next) {
+
+  let market_Order_deletetionReturn
+  try {
+    market_Order_deletetionReturn = await SellMarketOrder.findByIdAndDelete(req.body.market_orderID)
+  } catch (e) {
+    let error = new MongoError(`Failed to delete: Error: ${e.message} Level: market_Order_deletetionReturn`)
+    return next(error)
+  }
+
+  let location_market_Order_deletetionReturn
+  try {
+    location_market_Order_deletetionReturn = await SellMarketOrderLocation.findOneAndDelete({sellmarketorderID: req.body.market_orderID})
+  } catch (e) {
+    let error = new MongoError(`Failed to delete: Error: ${e.message} Level: location_market_Order_deletetionReturn`)
+    return next(error)
+  }
+
+
+  
+  let sellmarketorderimage_deletetionReturn
+  try {
+    sellmarketorderimage_deletetionReturn = await SellMarketOrderImage.findOneAndDelete({sellmarketorderID: req.body.market_orderID})
+  } catch (e) {
+    let error = new MongoError(`Failed to delete: Error: ${e.message} Level: sellmarketorderimage_deletetionReturn`)
+    return next(error)
+  }
+
+
+  res.status(200).json({
+    srv_: "Successfully deleted"
+  })
+}
+
+
+
+
 marketplaceController = {
   updateOrderController: updateOrderController,
   deleteOrderController: deleteOrderController,
   getOrderController: getOrderController,
-  registerMarketOrderController: registerMarketOrderController
+  registerMarketOrderController: registerMarketOrderController,
+  deleteMarketOrderImages: deleteMarketOrderImages
 }
 
 
 module.exports = marketplaceController
-
-
-
-
-
-
-
-
-
-
-// async function registerMarketOrder(req, res, next) {
-
-//   let body_marketOR_basic_data = req.body.marketOrderBasicData
-//   let body_marketOR_location_data = req.body.marketOrderTradeLocationSpecifics
-
-
-//   console.log("\n\expirydate:\n", body_marketOR_basic_data.expirydate)
-
-//   body_marketOR_basic_data.expireAt = new Date(body_marketOR_basic_data.expirydate.slice(0, 4), body_marketOR_basic_data.expirydate.slice(5, 7) - 1, body_marketOR_basic_data.expirydate.slice(8, 10), body_marketOR_basic_data.expirytime.slice(0, 2), body_marketOR_basic_data.expirytime.slice(3, 5))
-
-//   console.log("\n\expireAt:\n", body_marketOR_basic_data.expireAt)
-
-
-//   let create_res_sellmarketorderlocation
-
-
-//   try {
-//     create_res_sellmarketorderlocation = await SellMarketOrderLocation.create({
-//       geometry: {
-//         lat: body_marketOR_location_data.geometry.lat,
-//         lng: body_marketOR_location_data.geometry.lng,
-//       },
-//       location: {
-//         address: body_marketOR_location_data.location.address,
-//         st_number: body_marketOR_location_data.location.st_number,
-//         st: body_marketOR_location_data.location.st,
-//         neigh: body_marketOR_location_data.location.neigh,
-//         province_state: body_marketOR_location_data.location.province_state,
-//         city: body_marketOR_location_data.location.city,
-//         country: body_marketOR_location_data.location.country
-//       },
-//       expireAt: body_marketOR_basic_data.expireAt,
-//     })
-
-//   } catch (e) {
-//     e = new MongoError(`Unable to create the SellMarketOrderLocation entry ${e.message}`)
-//     return next(e)
-//   }
-
-//   console.log("create_res_sellmarketorderlocation", create_res_sellmarketorderlocation._id)
-
-
-//   let create_res_sellmarketorder
-
-//   // TODO add backend validation for this create, in case of api calls trying to create orders with erroneous data
-//   try {
-//     create_res_sellmarketorder = await SellMarketOrder.create({
-//       title: body_marketOR_basic_data.title,
-//       description: body_marketOR_basic_data.description,
-//       category: body_marketOR_basic_data.category,
-//       price: body_marketOR_basic_data.price,
-//       crypto: body_marketOR_basic_data.crypto,
-//       conversion: body_marketOR_basic_data.conversion,
-//       payment: body_marketOR_basic_data.payment,
-//       chain: body_marketOR_basic_data.chain,
-//       expireAt: body_marketOR_basic_data.expireAt,
-//       expirydate: body_marketOR_basic_data.expirydate,
-//       expirytime: body_marketOR_basic_data.expirytime,
-//       userid: req.session.userId,
-//       sellmarketorderlocationID: create_res_sellmarketorderlocation._id
-//     })
-//   } catch (e) {
-//     e = new MongoError(`Unable to create the SellMarketOrder entry ${e.message}`)
-//     return next(e)
-//   }
-
-//   res.status(200).end()
-// }
-
-
-
-
