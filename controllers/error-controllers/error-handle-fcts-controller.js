@@ -15,7 +15,6 @@ const errorResponseDispatcherController = async (err, req ,res, next) => {
           message: err.client_message,
         }
       })
-      break;
     case "MongoError":
       return res.status(err.statusCode).json({
         error: {
@@ -23,8 +22,6 @@ const errorResponseDispatcherController = async (err, req ,res, next) => {
           message: err.usr_message,
         }
       })
-      break;
-
     case "LoggingInError":
       return res.status(err.statusCode).send({
         error: {
@@ -33,7 +30,6 @@ const errorResponseDispatcherController = async (err, req ,res, next) => {
           // message: res.locals.notification,
         }
       })
-      break;
     case "ValidationError":
       return res.status(err.statusCode).json({
         error: {
@@ -42,7 +38,6 @@ const errorResponseDispatcherController = async (err, req ,res, next) => {
           validatee: err.validatee
         }
       })
-    break;
     case "NoRefererError":
       return res.status(err.statusCode).json({
         error: {
@@ -50,7 +45,6 @@ const errorResponseDispatcherController = async (err, req ,res, next) => {
           message: err.message, // String format
         }
       })
-    break;
     case "FirstPathNotRegistered":
       return res.status(err.statusCode).json({
         error: {
@@ -58,7 +52,6 @@ const errorResponseDispatcherController = async (err, req ,res, next) => {
           message: err.message, // String format
         }
       })
-    break;
     case "UnsubscribeError":
       return res.status(err.statusCode).json({
         error: {
@@ -69,7 +62,6 @@ const errorResponseDispatcherController = async (err, req ,res, next) => {
           }
         }
       })
-    break;
     case "DeleteAccountProcessError":
       return res.status(err.statusCode).json({
         error: {
@@ -80,7 +72,6 @@ const errorResponseDispatcherController = async (err, req ,res, next) => {
           }
         }
       })
-    break;
     case "RoleNotPermitedError":
       return res.status(err.statusCode).json({
         error: {
@@ -91,8 +82,17 @@ const errorResponseDispatcherController = async (err, req ,res, next) => {
           }
         }
       })
-    break;
     case "SessionRoleOrSentUIDnotAllowed":
+      return res.status(err.statusCode).json({
+        error: {
+          type: err.type,
+          message: {
+            client_message: err.client_message,
+            admin_message: err.admin_message
+          }
+        }
+      })
+    case "MarketOrderSubmissionError":
       return res.status(err.statusCode).json({
         error: {
           type: err.type,

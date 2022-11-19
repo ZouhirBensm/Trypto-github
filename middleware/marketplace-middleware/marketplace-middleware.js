@@ -4,13 +4,13 @@ const fs = require('fs/promises')
 const path = require('path')
 
 
-
+const {MarketOrderSubmissionError} = require('../../custom-errors/custom-errors')
 
 const SellMarketOrderLocation = require('../../models/market-orders-models/SellMarketOrderLocation')
 
 const SellMarketOrder = require('../../models/market-orders-models/SellMarketOrder')
 
-const SellMarketOderImage = require('../../models/market-orders-models/SellMarketOderImage')
+const SellMarketOrderImage = require('../../models/market-orders-models/SellMarketOrderImage')
 
 
 
@@ -26,7 +26,7 @@ const ENV = require('../../config/base')
 
 
 async function instantiateMarketOrderLocationMiddleware(req, res, next) {
-  console.log("registerMarketOrder")
+  console.log("registering market order...")
 
   req.body.expireAt = new Date(req.body.expirydate.slice(0, 4), req.body.expirydate.slice(5, 7) - 1, req.body.expirydate.slice(8, 10), req.body.expirytime.slice(0, 2), req.body.expirytime.slice(3, 5))
 
@@ -50,12 +50,6 @@ async function instantiateMarketOrderLocationMiddleware(req, res, next) {
     expireAt: req.body.expireAt,
   })
 
-
-  // try {
-  // } catch (e) {
-  //   e = new MongoError(`Unable to create the SellMarketOrderLocation entry ${e.message}`)
-  //   return next(e)
-  // }
 
   res.locals.ret_sellmarketorderlocation_instance = ret_sellmarketorderlocation_instance
 
@@ -84,22 +78,12 @@ async function instantiateMarketOrderMiddleware(req, res, next) {
     userid: req.session.userId,
     sellmarketorderlocationID: res.locals.ret_sellmarketorderlocation_instance._id
   })
+
   // Refer one another
   res.locals.ret_sellmarketorderlocation_instance.sellmarketorderID = ret_sellmarketorder_instance._id
-
-  // try {
-  // } catch (e) {
-  //   e = new MongoError(`Unable to create the SellMarketOrder entry ${e.message}`)
-  //   return next(e)
-  // }
-
   res.locals.ret_sellmarketorder_instance = ret_sellmarketorder_instance
 
-
-
   return next()
-
-
 }
 
 
@@ -113,17 +97,14 @@ async function processImageFilesMiddleware(req, res, next) {
     mkdirSync(directory, { recursive: true });
   }
 
-
-
   for (let i = 0; i < req.files.length; i++) {
+
+
     let returned
     const processing_file = req.files[i];
-
     let toFormat = {}
 
-
     // heic, heif, avif, jpeg, jpg, jpe, tile, dz, png, raw, tiff, tif, webp, gif, jp2, jpx, j2k, j2c
-
     switch (processing_file.mimetype) {
       case "image/png":
         toFormat.format = "png"
@@ -131,7 +112,6 @@ async function processImageFilesMiddleware(req, res, next) {
         break;
       case "image/jpeg":
         var ext = path.extname(processing_file.originalname);
-
         switch (ext) {
           case ".jpeg":
           case ".jpg":
@@ -173,13 +153,12 @@ async function processImageFilesMiddleware(req, res, next) {
         toFormat.options = { quality: 80, lossless: true }
         break;
       default:
-        toFormat = {}
-        break;
+        let error = new MarketOrderSubmissionError("Server Error | Please, try again later", "File format is not supported.")
+        return next(error)
     }
 
 
     try {
-
       // background: { r: 255, g: 255, b: 255, alpha: 0.5 }, withoutEnlargement: true
       returned = sharp(processing_file.path)
       .resize({ width: 576, fit: 'inside' })
@@ -189,11 +168,9 @@ async function processImageFilesMiddleware(req, res, next) {
         returned = returned.toFormat(toFormat.format, toFormat.options)
       }
       returned = await returned.toFile(`${directory}/${processing_file.filename}`)
-
-      // .toFormat(toFormat.format, toFormat.options)
-      // .toFile(`${directory}/${processing_file.filename}`)
-    } catch (error) {
-      console.error(`An error has occured during the processing ${error}`)
+    } catch (e) {
+      let error = new MarketOrderSubmissionError("Server Error | Please, try again later", `An error has occured during image the processing. ${e.message}`)
+      return next(error)
     }
 
     let source_directory = `public/img/temporal-new`
@@ -201,8 +178,9 @@ async function processImageFilesMiddleware(req, res, next) {
 
     try {
       await fs.unlink(path.join(source_directory, processing_file.filename));
-    } catch (error) {
-      console.error(`An error has occured during the processing ${error}`)
+    } catch (e) {
+      let error = new MarketOrderSubmissionError("Server Error | Please, try again later", `Was unable to delete the uploaded file from ${source_directory}. ${e.message}`)
+      return next(error)
     }
 
 
@@ -219,9 +197,6 @@ async function processImageFilesMiddleware(req, res, next) {
   res.locals.images = images
   res.locals.directory = directory
 
-
-  console.log(res.locals.images)
-
   return next()
 }
 
@@ -229,19 +204,17 @@ async function processImageFilesMiddleware(req, res, next) {
 
 async function instantiateMarketOrderImagesMiddleware(req, res, next) {
 
-  let ret_sellmarketoderimage_instance
+  let ret_sellmarketorderimage_instance
 
-  ret_sellmarketoderimage_instance = new SellMarketOderImage({
+  ret_sellmarketorderimage_instance = new SellMarketOrderImage({
     sellmarketorderID: res.locals.ret_sellmarketorder_instance._id,
     path: res.locals.directory,
     images: res.locals.images,
     expireAt: req.body.expireAt
   })
   
-  res.locals.ret_sellmarketorder_instance.sellmarketorderImageID = ret_sellmarketoderimage_instance._id
-
-  res.locals.ret_sellmarketoderimage_instance = ret_sellmarketoderimage_instance
-
+  res.locals.ret_sellmarketorder_instance.sellmarketorderImageID = ret_sellmarketorderimage_instance._id
+  res.locals.ret_sellmarketorderimage_instance = ret_sellmarketorderimage_instance
 
   return next()
 }
@@ -249,30 +222,31 @@ async function instantiateMarketOrderImagesMiddleware(req, res, next) {
 
 async function saveAllMarketOrderMiddleware(req, res, next) {
 
-  let ret_sellmarketorderlocation_save, ret_sellmarketorder_save, ret_sellmarketoderimage_save
+  let ret_sellmarketorderlocation_save, ret_sellmarketorder_save, ret_sellmarketorderimage_save
 
   try {
     ret_sellmarketorderlocation_save = await res.locals.ret_sellmarketorderlocation_instance.save()
-  } catch (error) {
-    console.error(error)
+  } catch (e) {
+    let error = new MarketOrderSubmissionError("Server Error | Please, try again later", `Was unable to save ret_sellmarketorderlocation_instance. ${e.message}`)
+    return next(error)
   }
 
   try {
     ret_sellmarketorder_save = await res.locals.ret_sellmarketorder_instance.save()
-  } catch (error) {
-    console.error(error)
+  } catch (e) {
+    let error = new MarketOrderSubmissionError("Server Error | Please, try again later", `Was unable to save ret_sellmarketorder_instance. ${e.message}`)
+    return next(error)
   }
 
   try {
-    ret_sellmarketoderimage_save = await res.locals.ret_sellmarketoderimage_instance.save()
-  } catch (error) {
-    console.error(error)
+    ret_sellmarketorderimage_save = await res.locals.ret_sellmarketorderimage_instance.save()
+  } catch (e) {
+    let error = new MarketOrderSubmissionError("Server Error | Please, try again later", `Was unable to save ret_sellmarketorderimage_instance. ${e.message}`)
+    return next(error)
   }
 
-  console.log(ret_sellmarketorderlocation_save, ret_sellmarketorder_save, ret_sellmarketoderimage_save)
-
-
   return next()
+
 }
 
 

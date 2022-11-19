@@ -125,6 +125,19 @@ async function getOrderController(req, res, next) {
 
 
 
+function registerMarketOrderController(req, res) {
+
+  let success_message = "Done, success."
+  res.status(200).json({
+    server: {
+      message: success_message
+    }
+  })
+  
+}
+
+
+
 
 
 
@@ -134,6 +147,7 @@ marketplaceController = {
   updateOrderController: updateOrderController,
   deleteOrderController: deleteOrderController,
   getOrderController: getOrderController,
+  registerMarketOrderController: registerMarketOrderController
 }
 
 

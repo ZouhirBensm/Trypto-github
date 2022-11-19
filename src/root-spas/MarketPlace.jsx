@@ -61,6 +61,7 @@ class MarketPlace extends React.Component {
     this.state = {
 
     }
+    console.log("@@@", userId)
   }
   render() {
     // console.log("UID????", userId)
@@ -82,8 +83,10 @@ class MarketPlace extends React.Component {
 
             <Route exact path="/marketplace/sellordersdata" component={MarketOrders} />
 
-            {/* <Route exact path="/marketplace/makesell" component={MakeMarketOrder} /> */}
-            <Route exact path="/marketplace/makesell" component={MakeMarketOrder} />
+
+            <Route exact path="/marketplace/makesell" render={
+              (props) => <MakeMarketOrder {...props}/>
+            } />
 
 
 

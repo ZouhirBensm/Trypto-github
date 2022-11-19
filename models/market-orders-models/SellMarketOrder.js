@@ -40,7 +40,7 @@ const SellMarketOrderSchema = new Schema({
     },
     sellmarketorderImageID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'SellMarketOderImage',
+        ref: 'SellMarketOrderImage',
         required: true
       },
     postedDate: {

@@ -32,8 +32,8 @@ const _4_InputImagesMarketOrder = loadable(() => import("./_4_InputImagesMarketO
 
 
 class MakeMarketOrder extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       popup_state: null,
       step: 1,
@@ -77,6 +77,8 @@ class MakeMarketOrder extends React.Component {
     this.clickGetCryptoPrice = this.clickGetCryptoPrice.bind(this)
     this.changeStateLocationParent = this.changeStateLocationParent.bind(this)
     this.resetLocation = this.resetLocation.bind(this)
+
+    console.log(userId)
   }
 
   setpopup(message){
@@ -236,6 +238,7 @@ class MakeMarketOrder extends React.Component {
           nextStep={this.nextStep}
           previousStep={this.previousStep}
           setpopup={this.setpopup}
+          userId={this.props.userId}
 
           images={this.state.images}
           filelist={this.state.filelist}

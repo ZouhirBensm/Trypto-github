@@ -5,6 +5,7 @@ class MarketSubmissionButton extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
+    console.log("!!!!", userId)
   }
 
   makeArrayOutOf(selectedFiles) {
@@ -102,9 +103,12 @@ class MarketSubmissionButton extends React.Component {
 
     let response
     let json
+    
 
     try {
-      response = await fetch(`/marketplace/sellorders/save`, {
+      // TODO add uid
+      console.log("fetch to: ", `/marketplace/sellorders/save/${userId}`)
+      response = await fetch(`/marketplace/sellorders/save/${userId}`, {
         method: 'POST',
         body: formData
       })
@@ -112,8 +116,25 @@ class MarketSubmissionButton extends React.Component {
       console.error(error)
     }
 
-    let text = await response.text()
-    console.log(response, text)
+    try {
+      json = await response.json()
+    } catch (error) {
+      console.error(error)
+    }
+    
+    console.log("Server reponse object json:", json)
+
+    switch (response.status) {
+      case 200:
+        this.props.setpopup(json.server?.message)
+        break;
+      case 500:
+        this.props.setpopup(json.error?.message?.client_message)
+        break;
+      default:
+        break;
+    }
+
 
   }
 }

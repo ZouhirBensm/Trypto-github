@@ -20,6 +20,7 @@ class _4_InputImagesMarketOrder extends React.Component {
     }
     this.addimages = this.addimages.bind(this)
     this.reduceimage = this.reduceimage.bind(this)
+    console.log(userId)
   }
 
 

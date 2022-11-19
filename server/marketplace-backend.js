@@ -3,6 +3,9 @@ const express = require('express')
 const multer = require('multer')
 const path = require('path')
 const CoinGecko = require('coingecko-api');
+var { existsSync, mkdirSync } = require('fs');
+
+const {MarketOrderSubmissionError} = require('../custom-errors/custom-errors')
 
 // Initializations
 const marketplaceBackend_app_router = express.Router()
@@ -13,9 +16,12 @@ const marketplaceBackend_app_router = express.Router()
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     // manipulate the req, check is public/img is available or file to error handle
-    console.log("req_uuid", req.body, file)
     let p_error = null
     let directory = `./public/img/temporal-new`
+    // If directory not there throw an error
+    if (!existsSync(directory)) {
+      p_error = new MarketOrderSubmissionError("Server Error | Please, try again later", "Directory: temporal-new directory is not present.")
+    }
     cb(p_error, directory)
   },
   filename: function (req, file, cb) {
@@ -29,14 +35,15 @@ const storage = multer.diskStorage({
 let upload = multer({
   storage: storage,
   fileFilter: function (req, file, callback) {
-    suportedExtentions = ['.png', '.jpeg', '.jp2', '.jpg', '.jfif', '.pjpeg', '.pjp', '.apng', '.avif', '.gif', '.webp'] 
+    suportedExtentions = ['.png', '.jpeg', '.jp2', '.jpg', '.jfif', '.pjpeg', '.pjp', '.apng', '.avif', '.gif', '.webp']
 
     var ext = path.extname(file.originalname);
     if (suportedExtentions.includes(ext)) {
       return callback(null, true)
     }
-    return callback(new Error('Only images with proper extensions are allowed'))
+    return callback(new MarketOrderSubmissionError("Server Error | Please, try again later", 'Only images with proper extensions are allowed'))
   },
+  // TODO set top limit
   // limits: ,
   preservePath: true,
 })
@@ -83,18 +90,18 @@ const marketplaceMiddleware = require('../middleware/marketplace-middleware/mark
 
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 const startEmptyNotificationsMiddleware = require('../middleware/generic-middleware/start-empty-notifications-middleware')
-const {getDetailedUserSubscriptionInfo} = require('../middleware/generic-middleware/get-detailed-user-subsciption-information-middleware')
+const { getDetailedUserSubscriptionInfo } = require('../middleware/generic-middleware/get-detailed-user-subsciption-information-middleware')
 
 
 const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
 
 
 // Use this to check the role, requires a res.locals.user.role
-const { set_user_if_any } =  require("../middleware/generic-middleware/set-user-if-any-middleware")
+const { set_user_if_any } = require("../middleware/generic-middleware/set-user-if-any-middleware")
 
-const {require_loggedin_for_pages, require_loggedin_for_data} = require("../middleware/generic-middleware/check-loggedin-middleware")
+const { require_loggedin_for_pages, require_loggedin_for_data } = require("../middleware/generic-middleware/check-loggedin-middleware")
 
-const { authenticate_role_for_pages, authenticate_role_for_data } =  require("../middleware/generic-middleware/authenticate-role-middleware")
+const { authenticate_role_for_pages, authenticate_role_for_data } = require("../middleware/generic-middleware/authenticate-role-middleware")
 
 
 
@@ -164,11 +171,9 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 // marketplaceBackend_app_router.post('/sellorders/save', require_loggedin_for_data(true), marketplaceController.registerMarketOrder)
 
 
+// TODO add guards
 // require_loggedin_for_data(true), marketplaceController.registerMarketOrder
-marketplaceBackend_app_router.post('/sellorders/save', upload.array('image'), marketplaceMiddleware.instantiateMarketOrderLocationMiddleware, marketplaceMiddleware.instantiateMarketOrderMiddleware, marketplaceMiddleware.processImageFilesMiddleware, marketplaceMiddleware.instantiateMarketOrderImagesMiddleware, marketplaceMiddleware.saveAllMarketOrderMiddleware, (req,res)=>{
-  console.log("end")
-  res.status(200).end()
-})
+marketplaceBackend_app_router.post('/sellorders/save/:userID?', require_loggedin_for_data(true), requester_auth_middleware(2), upload.array('image'), marketplaceMiddleware.instantiateMarketOrderLocationMiddleware, marketplaceMiddleware.instantiateMarketOrderMiddleware, marketplaceMiddleware.processImageFilesMiddleware, marketplaceMiddleware.instantiateMarketOrderImagesMiddleware, marketplaceMiddleware.saveAllMarketOrderMiddleware, marketplaceController.registerMarketOrderController)
 
 
 
@@ -185,36 +190,35 @@ marketplaceBackend_app_router.post('/sellorders/save', upload.array('image'), ma
 
 
 
-marketplaceBackend_app_router.get(['/', '/allmyorders' , '/sellordersdata', '/makesell'], require_loggedin_for_pages(true), (req,res)=>{
+marketplaceBackend_app_router.get(['/', '/allmyorders', '/sellordersdata', '/makesell'], require_loggedin_for_pages(true), (req, res) => {
 
   res.locals.popup = req.query.popup
 
   console.log("\nDo we have any pop-up messages: \n", req.query.popup);
 
   // console.log("paths:", res.locals.paths_URL)
-  
-  (res.locals.paths_URL[1] == "allmyorders" || res.locals.paths_URL[1] == "sellordersdata") ? res.locals.userId = req.session.userId: null
+  res.locals.userId = req.session.userId
 
-  
+
   var JSX_to_load = 'MarketPlace';
 
-  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
-    JSX_to_load : JSX_to_load,
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
+    JSX_to_load: JSX_to_load,
   })
 })
 
 
 
-marketplaceBackend_app_router.get(['/sellordersdata/:orderID', '/allmyorders/:orderID'], require_loggedin_for_pages(true), (req,res)=>{
+marketplaceBackend_app_router.get(['/sellordersdata/:orderID', '/allmyorders/:orderID'], require_loggedin_for_pages(true), (req, res) => {
 
   console.log("paths:", res.locals.paths_URL);
-  
-  (res.locals.paths_URL[1] == "allmyorders" || res.locals.paths_URL[1] == "sellordersdata") ? res.locals.userId = req.session.userId: null
-  
+
+  (res.locals.paths_URL[1] == "allmyorders" || res.locals.paths_URL[1] == "sellordersdata") ? res.locals.userId = req.session.userId : null
+
   var JSX_to_load = 'MarketPlace';
 
-  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
-    JSX_to_load : JSX_to_load,
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
+    JSX_to_load: JSX_to_load,
   })
 })
 

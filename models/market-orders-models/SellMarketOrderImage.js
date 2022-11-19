@@ -21,7 +21,7 @@ const ImageInfoSchema = new Schema({
 });
 
 
-const SellMarketOderImageSchema = new Schema({
+const SellMarketOrderImageSchema = new Schema({
   sellmarketorderID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'SellMarketOrder',
@@ -43,8 +43,8 @@ const SellMarketOderImageSchema = new Schema({
 })
 
 
-SellMarketOderImageSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
+SellMarketOrderImageSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
 
 
-const SellMarketOderImage = mongoose.model('SellMarketOderImage', SellMarketOderImageSchema)
-module.exports = SellMarketOderImage
+const SellMarketOrderImage = mongoose.model('SellMarketOrderImage', SellMarketOrderImageSchema)
+module.exports = SellMarketOrderImage

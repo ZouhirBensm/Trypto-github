@@ -3,7 +3,7 @@ const {canProceed} = require('./helper-functions-middleware')
 
 function requester_auth_middleware(which_request_UID_source){
   return (req,res,next) => {
-    // console.log("!!!!!!!!!!!", req.params.data_of_userID)
+    console.log("Authenticating...")
     let request_UID
 
     switch (which_request_UID_source) {
@@ -31,29 +31,17 @@ function requester_auth_middleware(which_request_UID_source){
         
     }
 
-    canProceed(res.locals.user, request_UID)
-    // console.log("canProceed: ", canProceed(res.locals.user, request_UID))
 
     if (canProceed(res.locals.user, request_UID)) {
     // if (false) {
-      console.log("CAN PROCEED ZZZZ")
+      console.log("done auth...")
       return next()
     } else {
-      // let error = new UnsubscribeError(`Requester is not allowed to request for this resource`, `Logged in user not in the MASTER role or the resource requested does not match the logged in user ID`)
       let error = new SessionRoleOrSentUIDnotAllowed(`Role or request UID inadequate.`, `Role or request UID inadequate.`)
       return next(error)
     }
   }
 }
 
-// module.exports = (req,res,next) => {
-//   console.log("canProceed: ", canProceed(res.locals.user, req.body.userId))
-//   if (canProceed(res.locals.user, req.body.userId)) next()
-//   else {
-//     // let error = new UnsubscribeError(`Requester is not allowed to request for this resource`, `Logged in user not in the MASTER role or the resource requested does not match the logged in user ID`)
-//     let error = new LoggingInError([`Role or request UID inadequate.`])
-//     return next(error)
-//   }
-// }
 
 module.exports = { requester_auth_middleware }
