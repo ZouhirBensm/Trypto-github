@@ -24,11 +24,12 @@ ul.iflog {
   /* display: none; */
 }
 
-ul.home > li{
+ul.home>li {
   display: inline;
   position: sticky;
   margin: 0 auto;
 }
+
 ul.home {
   bottom: 0;
   justify-content: center;
@@ -42,22 +43,35 @@ ul.iflog {
 }
 
 
-ul.iflog > li{
+ul.iflog>li {
   display: inline;
   position: sticky;
   margin: 0 auto;
 }
+
 a {
   text-decoration: none;
   color: red;
 }
 
+a.button {
+  margin: 0 auto;
+  border: 3.5px solid white;
+  color: white;
+  background-color: red;
+  border-radius: 10px;
+  padding: 10px;
+  font-family: 'Gemunu Libre', sans-serif;
+}
+
 li a:link:hover {
   color: white;
 }
+
 li a:visited {
   color: red;
 }
+
 li a:active {
   color: lightblue;
 }

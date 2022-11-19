@@ -28,7 +28,7 @@ class Navigation extends React.Component {
           return (
             <div className="default">
               {/* <button id="MarketMake" onClick={this.handleClick}>Make a Market post</button> */}
-              <a href="/marketplace/makesell">Make Sell request</a>
+              <a className="button" href="/marketplace/makesell">Make Sell request</a>
               <button id="MarketSee" onClick={this.handleClick}>See Existing Maket posts</button>
             </div> 
           )

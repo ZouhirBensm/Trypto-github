@@ -55,11 +55,9 @@ div.see > a:active {
 div.default > button{
   margin: 0 auto;
   border: 3.5px solid white;
-  background-color: transparent;
   color: white;
   background-color: red;
   border-radius: 10px;
   padding: 10px;
-  /* font-family: 'Roboto', sans-serif; */
   font-family: 'Gemunu Libre', sans-serif;
 }
