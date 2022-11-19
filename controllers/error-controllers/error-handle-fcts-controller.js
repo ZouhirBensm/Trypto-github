@@ -102,6 +102,16 @@ const errorResponseDispatcherController = async (err, req ,res, next) => {
           }
         }
       })
+    case "MulterError":
+      return res.status(httpStatus.StatusCodes.REQUEST_TOO_LONG).json({
+        error: {
+          type: err.type,
+          message: {
+            client_message: `${err.message}, Images need to be under: ${max_marketimagefilesize} bytes`,
+            admin_message: err.message
+          }
+        }
+      })
 
     default:
       console.log("switch end")

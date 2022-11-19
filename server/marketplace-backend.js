@@ -4,6 +4,7 @@ const multer = require('multer')
 const path = require('path')
 const CoinGecko = require('coingecko-api');
 var { existsSync, mkdirSync } = require('fs');
+global.max_marketimagefilesize = 12500000
 
 const {MarketOrderSubmissionError} = require('../custom-errors/custom-errors')
 
@@ -44,7 +45,7 @@ let upload = multer({
     return callback(new MarketOrderSubmissionError("Server Error | Please, try again later", 'Only images with proper extensions are allowed'))
   },
   // TODO set top limit
-  // limits: ,
+  limits: {fileSize: max_marketimagefilesize},
   preservePath: true,
 })
 

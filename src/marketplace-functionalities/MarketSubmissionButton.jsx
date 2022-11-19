@@ -132,6 +132,7 @@ class MarketSubmissionButton extends React.Component {
         this.props.setpopup(json.error?.message?.client_message)
         break;
       default:
+        this.props.setpopup(json.error?.message?.client_message)
         break;
     }
 
