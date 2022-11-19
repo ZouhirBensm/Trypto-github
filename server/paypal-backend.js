@@ -1,49 +1,12 @@
 const express = require('express')
-const fetch = require('node-fetch');
-const Agenda = require('agenda');
-const httpStatus = require("http-status-codes")
 
 // Initializations
 const paypalBackend_app_router = express.Router()
 
-// Environment variables
-const ENV = require('../config/base');
 
 // Types and utilities
 const ROLE = require('../full-stack-libs/Types/Role')
-const utils = require('../full-stack-libs/utils')
-const billing_utils = require('../full-stack-libs/utils.billing')
 
-// Models
-const Subscriber = require('../models/Subscriber');
-const User = require('../models/User');
-
-
-// Setting up agenda for persistant jobs on each event when user unsubscribes to nullify their User subscriptionID field and change the user role from BASIC to NOTSUBSCRIBER
-// console.log("Before agenda: ", db._connectionString)
-const agenda = new Agenda({
-  db: { 
-    address: db._connectionString,
-    maxConcurrency: 10, // not having wanted effect of having no more thant 10 jobs processes runing simultaneously total
-    defaultConcurrency: 1, // not having wanted effect of 1 process per job
-    collection: "effect_users_to_unsubscribe_agendajobs"
-  },
-});
-
-// IIFE to start Agenda, and be able to forcefully and gracefully close it
-(async function () {
-  await agenda.start()
-
-  async function graceful() {
-    await agenda.stop();
-    await agenda.close({ force: true });
-    console.log(" Exiting agenda gracefully...")
-    process.exit(0);
-  }
-  
-  process.on("SIGTERM", graceful);
-  process.on("SIGINT", graceful);
-})();
 
 
 // TODO: delete these folders/files
@@ -62,9 +25,13 @@ const paypalUnsubscribeMiddleware = require('../middleware/paypal-middleware/pay
 
 
 // Use this to check the role, requires a res.locals.user.role
-const { set_user_if_any } =  require("../middleware/generic-middleware/set-user-if-any-middleware")
-const {require_loggedin_for_pages, require_loggedin_for_data} = require("../middleware/generic-middleware/check-loggedin-middleware")
-const { authenticate_role_for_pages, authenticate_role_for_data } =  require("../middleware/generic-middleware/authenticate-role-middleware")
+const { set_user_if_any } = require("../middleware/generic-middleware/set-user-if-any-middleware")
+const { require_loggedin_for_pages, require_loggedin_for_data } = require("../middleware/generic-middleware/check-loggedin-middleware")
+const { authenticate_role_for_pages, authenticate_role_for_data } = require("../middleware/generic-middleware/authenticate-role-middleware")
+
+
+
+const paypalControllers = require('../controllers/paypal-controllers/paypal-controllers')
 
 
 
@@ -76,56 +43,13 @@ paypalBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
+paypalBackend_app_router.post('/unsubscribe', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.USER.SUBSCRIBER.BASIC, ROLE.MASTER]), requester_auth_middleware(1), hasUnSubProcessStartedMiddleware, getRequestedSubscriptionInfoMiddleware, paypalUnsubscribeMiddleware, paypalControllers.paypalUnsubscribeController)
 
 
-paypalBackend_app_router.post('/unsubscribe', require_loggedin_for_data(true),  authenticate_role_for_data([ROLE.USER.SUBSCRIBER.BASIC, ROLE.MASTER]), requester_auth_middleware(1), hasUnSubProcessStartedMiddleware, getRequestedSubscriptionInfoMiddleware, paypalUnsubscribeMiddleware, async (req,res,next) => {
 
-  let paypal_cancel_sub_response_status = res.locals.paypalCancelSubResponseStatus
-  let subscriptionInfo = res.locals.subscriptionInfo
-  
-  // In the 200 range
-  if(paypal_cancel_sub_response_status > 199 && paypal_cancel_sub_response_status < 300 ){
 
-    let [, current_billing_cycle_top_datetime] = billing_utils.BillingDateTimeCalculator(subscriptionInfo.subscriptionDateTime)
 
-    unsubscriptionTakesEffectOnBidBlock = current_billing_cycle_top_datetime;
 
-    // set the expiryAt field of the Subscriber entry at the unsubscriptionTakesEffectOnBidBlock date
-    let SubscriptionSetExpityReturn
-    try {
-      SubscriptionSetExpityReturn = await Subscriber.findOneAndUpdate({_id: subscriptionInfo._id}, {expireAt: unsubscriptionTakesEffectOnBidBlock})
-    } catch (error) {
-      return next(error)
-    }
-
-    agenda.define(`Nullify particular User: ${req.body.userId} subscriptionID field and set role to UNSUBSCRIBER`, async (job, done) => {
-      let userUnsubscribed
-      try {userUnsubscribed = await User.updateOne({_id: req.body.userId}, {subscriptionID: null, role: ROLE.USER.NOTSUBSCRIBER});} catch(e) {return next(e)}
-      done()
-      const numRemoved = await agenda.cancel({ name: `Nullify particular User: ${req.body.userId} subscriptionID field and set role to UNSUBSCRIBER`});
-    });
-
-    await agenda.schedule(unsubscriptionTakesEffectOnBidBlock, `Nullify particular User: ${req.body.userId} subscriptionID field and set role to UNSUBSCRIBER`);
-
-    res.status(httpStatus.StatusCodes.OK).json({
-      server: {
-        client_message: `You have successfully unsubscribed, your paid for subscription benefits will stay valid until: ${unsubscriptionTakesEffectOnBidBlock}, at which point you will be set on the NOTSUBSCRIBER plan, and recurring charges will seize as of today.`,
-        admin_message: 'POST to /paypal/unsubscribe response when done, you should have the user unsubscribed now!'
-      }
-    });
-
-  } else {
-
-    res.status(httpStatus.StatusCodes.ACCEPTED).json({
-      server: {
-        client_message: `Unsubscription failed for some backend reason, please contact webmaster to manually unsubscribe for you! contact <a href="https://webdevelopercanada.website/Zouhir">Webmaster's website<a/>`,
-        admin_message: 'POST to /paypal/unsubscribe response when done, subsciption is  still on BidBlock and Paypal files, please contact an admin to unsubscribe properly!'
-      }
-    });
-    
-  }
-
-})
 
 // Kept bacause might reimplement when app deployed on digital ocean
 // paypalBackend_app_router.post('/ipn', IPNController.index)

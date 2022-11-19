@@ -1,6 +1,4 @@
 
-import axios from "axios"
-
 class MarketSubmissionButton extends React.Component {
   constructor(props) {
     super(props)

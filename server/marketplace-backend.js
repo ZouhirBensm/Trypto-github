@@ -174,7 +174,7 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 // TODO add guards
 // require_loggedin_for_data(true), marketplaceController.registerMarketOrder
-marketplaceBackend_app_router.post('/sellorders/save/:userID?', require_loggedin_for_data(true), requester_auth_middleware(2), upload.array('image'), marketplaceMiddleware.instantiateMarketOrderLocationMiddleware, marketplaceMiddleware.instantiateMarketOrderMiddleware, marketplaceMiddleware.processImageFilesMiddleware, marketplaceMiddleware.instantiateMarketOrderImagesMiddleware, marketplaceMiddleware.saveAllMarketOrderMiddleware, marketplaceController.registerMarketOrderController)
+marketplaceBackend_app_router.post('/sellorders/save/:userID?', require_loggedin_for_data(true), requester_auth_middleware(2), upload.array('image'), marketplaceMiddleware.instantiateMarketOrderLocationMiddleware, marketplaceMiddleware.instantiateMarketOrderMiddleware, marketplaceMiddleware.processImageFilesMiddleware, marketplaceMiddleware.instantiateMarketOrderImagesMiddleware, marketplaceMiddleware.saveAllMarketOrderMiddleware, marketplaceMiddleware.setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware, marketplaceController.registerMarketOrderController)
 
 
 

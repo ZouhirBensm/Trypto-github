@@ -1,5 +1,12 @@
 console.log(`Server starting with NODE_ENV=${process.env.NODE_ENV}`);
 
+const Agenda = require('agenda');
+
+
+
+
+
+
 const ENV = require('../config/base')
 // console.log("------>", ENV)
 //Global variable loggedIn that will be accessible from all our ejs files
@@ -14,15 +21,7 @@ const NAVBAR = require('../full-stack-libs/Types/Navbar')
 
 const mongoose = require('mongoose')
 
-//Fixes
-// mongoose.set('useNewUrlParser', true)
-// mongoose.set('useUnifiedTopology', true)
-// mongoose.set('useCreateIndex', true)
-// mongoose.set('useFindAndModify', false)
 
-// ENV.database_link
-// mongodb+srv://Maestro:DB%24%251993@cluster0.81z5d.mongodb.net/mern_database_atlas
-// console.log("------>", ENV.database_link)
 mongoose.connect(ENV.database_link)
 .catch(e => {throw e})
 
@@ -31,7 +30,6 @@ mongoose.connect(ENV.database_link)
 global.db = mongoose.connection
 // console.log("------>", db)
 // console.log("\n\n\n\ndb:\n\n", db._connectionString, db['$initialConnection'], typeof db)
-
 // const clientP = db.then(m => m.getClient())
 const clientP = db['$initialConnection'].then(m => {
   // console.log("\n\n\n\nm:\n\n", m, m.getClient()); 
@@ -54,6 +52,34 @@ db.once("open", () => {
 // TODO !! make articles on home page feed by order recent to last recent
 // TODO ! make available to see the market orders when not logged in but cannot interact with on the home
 // TODO ! get rid of the other crypto prices and keep only bitcoin, and transform the display of the price to something better
+
+
+
+
+global.agenda = new Agenda({
+  db: {
+    address: db._connectionString,
+    maxConcurrency: 10, // not having wanted effect of having no more thant 10 jobs processes runing simultaneously total
+    defaultConcurrency: 1, // not having wanted effect of 1 process per job
+    collection: "AgendaJobs"
+  },
+});
+
+// IIFE to start Agenda, and be able to forcefully and gracefully close it
+(async function () {
+  await agenda.start()
+
+  async function graceful() {
+    await agenda.stop();
+    await agenda.close({ force: true });
+    console.log(" Exiting agenda gracefully...")
+    process.exit(0);
+  }
+
+  process.on("SIGTERM", graceful);
+  process.on("SIGINT", graceful);
+})();
+
 
 
 

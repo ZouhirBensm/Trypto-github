@@ -37,7 +37,7 @@ module.exports = async (req,res,next)=>{
       
       try {
         await mongodbClient.connect();
-        let nullify_user_subscription_jobs_collection = mongodbClient.db(ENV.database_name).collection("effect_users_to_unsubscribe_agendajobs")
+        let nullify_user_subscription_jobs_collection = mongodbClient.db(ENV.database_name).collection("AgendaJobs")
         nullify_user_subscription_jobs_deletion_response = await nullify_user_subscription_jobs_collection.findOneAndDelete({name: `Nullify particular User: ${req.params.userId} subscriptionID field and set role to UNSUBSCRIBER`})
         console.log("\n\nnullify_user_subscription_jobs_deletion_response:\n\n", nullify_user_subscription_jobs_deletion_response)
         console.log(1)

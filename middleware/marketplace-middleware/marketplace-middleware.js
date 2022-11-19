@@ -14,9 +14,9 @@ const SellMarketOrderImage = require('../../models/market-orders-models/SellMark
 
 
 
-
 // const { MongoError } = require('../../custom-errors/custom-errors')
 // var ObjectId = require('mongodb').ObjectId; 
+
 // const {filterObject} = require('../../middleware/libs/match-maker-functions')
 
 const ENV = require('../../config/base')
@@ -245,9 +245,37 @@ async function saveAllMarketOrderMiddleware(req, res, next) {
     return next(error)
   }
 
+  res.locals.ret_sellmarketorder_save = ret_sellmarketorder_save
+
   return next()
 
 }
+
+
+
+async function setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware(req, res, next) {
+  const directory = `public/img/marketorder-images/${res.locals.ret_sellmarketorder_save._id}`
+
+  const jobname = `Delete market order images directory: ${directory} on expiry date and time: ${req.body.expireAt}`
+
+  agenda.define(jobname, async (job, done) => {
+    try {
+      fs.rmSync(directory, { recursive: true, force: true });
+    } catch (e) {
+      let error = new Error(`Was unable to delete the images in directory: ${directory}, @ expiry date and time.`)
+      return next(error)
+    }
+    done()
+    const numRemoved = await agenda.cancel({ name: jobname });
+  });
+
+  await agenda.schedule(req.body.expireAt, jobname);
+
+
+  return next()
+}
+
+
 
 
 
@@ -298,6 +326,8 @@ async function ordersRetrievalMiddleware(req, res, next) {
 }
 
 
+
+
 marketplaceMiddleware = {
   ordersRetrievalMiddleware: ordersRetrievalMiddleware,
   instantiateMarketOrderLocationMiddleware: instantiateMarketOrderLocationMiddleware,
@@ -305,6 +335,7 @@ marketplaceMiddleware = {
   processImageFilesMiddleware: processImageFilesMiddleware,
   instantiateMarketOrderImagesMiddleware: instantiateMarketOrderImagesMiddleware,
   saveAllMarketOrderMiddleware: saveAllMarketOrderMiddleware,
+  setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware: setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware,
 }
 
 
