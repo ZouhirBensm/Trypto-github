@@ -1,6 +1,6 @@
 node_modules
 public/dist
-public/dist/img/*
+public/img/*/*
 webpack.dev.js
 package-lock.json
 .vscode/*
