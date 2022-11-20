@@ -37,16 +37,15 @@ module.exports = async (req,res,next)=>{
       
       try {
         await mongodbClient.connect();
-        let nullify_user_subscription_jobs_collection = mongodbClient.db(ENV.database_name).collection("AgendaJobs")
-        nullify_user_subscription_jobs_deletion_response = await nullify_user_subscription_jobs_collection.findOneAndDelete({name: `Nullify particular User: ${req.params.userId} subscriptionID field and set role to UNSUBSCRIBER`})
-        console.log("\n\nnullify_user_subscription_jobs_deletion_response:\n\n", nullify_user_subscription_jobs_deletion_response)
+        let agenda_jobs_collection = mongodbClient.db(ENV.database_name).collection("AgendaJobs")
+        let agenda_jobs_entry_deletion_ret = await agenda_jobs_collection.findOneAndDelete({name: `Nullify particular User: ${req.params.userId} subscriptionID field and set role to UNSUBSCRIBER`})
         console.log(1)
       } catch (e) {
           console.log(2)
           // console.error(e);
           res.locals.notifications.push(e);
       } finally {
-        console.log(1)
+        console.log(3)
         await mongodbClient.close();
       }
     } else { // If the unsub process not triggered their is no job to nullify, and  we have established that the user is a subscriber, therefor we make a request to paypal to unsubscribe

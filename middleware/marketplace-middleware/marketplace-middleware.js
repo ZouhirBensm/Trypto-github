@@ -256,7 +256,7 @@ async function saveAllMarketOrderMiddleware(req, res, next) {
 async function setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware(req, res, next) {
   const directory = `public/img/marketorder-images/${res.locals.ret_sellmarketorder_save._id}`
 
-  const jobname = `Delete market order images directory: ${directory} on expiry date and time: ${req.body.expireAt}`
+  const jobname = `Delete market order images directory: ${directory}`
 
   agenda.define(jobname, async (job, done) => {
     try {

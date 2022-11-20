@@ -1,4 +1,8 @@
 // When required for the first time runs the entire script, then subsequent times only retrieces the Model
+const ENV = require('../../config/base')
+const { MongoClient } = require('mongodb');
+const uri = ENV.database_link;
+const mongodbClient = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const fs = require('fs')
 
@@ -114,12 +118,31 @@ function registerMarketOrderController(req, res) {
 async function deleteMarketOrderImages(req, res, next) {
   
   const directory = `public/img/marketorder-images/${req.body.market_orderID}`
+  const jobname = `Delete market order images directory: ${directory}`
 
   try {
     fs.rmSync(directory, { recursive: true, force: true });
   } catch (e) {
+    // TODO put better descriptive error
     let error = new Error(`Was unable to delete the images associated with market order ID: ${req.body.market_orderID}`)
     return next(error)
+  }
+
+  
+  // Delete Job
+  try {
+    await mongodbClient.connect();
+    let agenda_jobs_collection = mongodbClient.db(ENV.database_name).collection("AgendaJobs")
+    let agenda_jobs_entry_deletion_ret = await agenda_jobs_collection.findOneAndDelete({name: jobname})
+    console.log(1)
+  } catch (e) {
+      console.log(2)
+      // TODO put better descriptive error
+      let error = new Error(`Was unable to delete AgendaJob that deletes images in directory: ${directory}`)
+      return next(error)
+  } finally {
+    console.log(3)
+    await mongodbClient.close();
   }
 
   return next()
