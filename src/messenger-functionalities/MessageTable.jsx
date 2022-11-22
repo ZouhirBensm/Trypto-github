@@ -29,24 +29,8 @@ class MessageTable extends React.Component {
       console.error(`this.props.convos resolved to a false for some reason`)
     }
 
-    // console.log("done execution we got: ", convosRow)
-    // console.log("Does Not Require Keys: ", ordersRow)
-
     return(
       <table className="bordered-table">
-        {/* <thead>
-          <tr>
-            <th>Order _id</th>
-            <th>Posted by</th>
-            <th>Date Posted</th>
-            <th>Crypto</th>
-            <th>Amount</th>
-            <th>Price</th>
-            <th>Expiry</th>
-            <th>Payment</th>
-            <th>Deal</th>
-          </tr>
-        </thead> */}
         <tbody>
           {convosRow}
         </tbody>
@@ -59,18 +43,18 @@ class MessageTable extends React.Component {
 class MessageRow extends React.Component {
   constructor(props){
     super(props)
-    // this.state = {
+    this.state = {
+    }
 
-    // }
+    // console.log(this.props.loggedinUserObjInfo)
 
-    console.log(this.props.loggedinUserObjInfo)
-    this.handleClick = this.handleClick.bind(this)
     
+    this.handleClick = this.handleClick.bind(this)
     // this.deal = this.deal.bind(this)
-    // this.userId = document.getElementById("userId").innerHTML
+    
     this.PassedUserID = this.props.PassedUserID
-    console.log("this.PassedUserID @@@", this.PassedUserID)
     this.loggedinUserObjInfo = this.props.loggedinUserObjInfo
+    // this.userId = document.getElementById("userId").innerHTML
   }
 
   handleClick(comprehensiveSelectedUserInfoDataObj, communicating_with_ID, e){

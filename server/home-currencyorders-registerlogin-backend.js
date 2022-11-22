@@ -467,6 +467,7 @@ homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (re
 })
 
 
+// TODO re uncomment for the real delete account endpoint
 // TODO rename deleteEffectUserToUnsubscribeMiddleware to deleteIfAgendaJobThatUnsubsUserOnBidBlockMiddleware
 // TODO add userID for articles
 // homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteMarketOrderMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware, sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteHexMiddleware, deleteUserMiddleware, logoutMiddleware, (req, res, next) => {

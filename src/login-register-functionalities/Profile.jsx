@@ -11,18 +11,15 @@ class Profile extends React.Component {
     this.state = {
       unsub_popup: undefined,
       errors_popup: []
-
     }
-    console.log("usedUserID: ", this.props.usedUserID)
-    console.log("selectedUser: ", this.props.selectedUser)
-
+    // console.log("usedUserID: ", this.props.usedUserID)
+    // console.log("selectedUser: ", this.props.selectedUser)
     this.handleProfileDeletion = this.handleProfileDeletion.bind(this)
     this.paypalUnSub = this.paypalUnSub.bind(this)
   }
 
   async paypalUnSub(e){
     e.preventDefault()
-    console.log("paypal unsub!")
     let response
     response = await fetch(`/paypal/unsubscribe`, {
       method: 'POST',
@@ -37,15 +34,17 @@ class Profile extends React.Component {
       })
     })
 
-    let json = await response.json()
+    let json
+    json = await response.json()
 
-    console.log("response, json for paypalUnSub", response, json)
+    // console.log("response, json for paypalUnSub", response, json)
 
     if(response.status === 200 || response.status === 202) {
       this.setState({
         unsub_popup: json.server.client_message
       })
     } else {
+      // TODO might need to throw error
       this.setState({
         unsub_popup: json.error.message.client_message
       })
@@ -57,14 +56,12 @@ class Profile extends React.Component {
 
   async handleProfileDeletion(e){
     e.preventDefault()
-    console.log("deletion proper uid?", this.props.usedUserID)
     const userId = this.props.usedUserID
 
     const response = await fetch(`/users/profile/delete/${userId}`, {
       method: 'DELETE',
     })
     console.log(response)
-    //__________________________
     
     const srv_ = await response.json()
     console.log(srv_)
@@ -75,6 +72,7 @@ class Profile extends React.Component {
       window.location.href = `/?popup=${srv_.srv_}`;
       // TODO #137 if /operations display pop up or go to other page with pop up
     } else {
+      // TODO might need to throw error
       this.setState({
         errors_popup: srv_.error.message.admin_message
       })
@@ -96,11 +94,7 @@ class Profile extends React.Component {
     }
 
 
-
-    // console.log("selectedUser!!!! ", selectedUser, userId)
-    // User card information
     let selectedUser = this.props.selectedUser
-    
     let userName = selectedUser.username
     let userEmail = selectedUser.email
     let registrationTimeDate = selectedUser.registrationDateTime

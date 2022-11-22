@@ -1,34 +1,45 @@
 import React from 'react';
 import '../style/reactDivMobile.css'
 
+
 class CardShell extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
+      // modal: false
     }
-
     this.initCardHTML()
     this.collapsableSetup()
-    // console.log(this.props)
+
+    // this.toogleImageUploadModal = this.toogleImageUploadModal.bind(this)
+    // this.initCardHTML = this.initCardHTML.bind(this)
+    // this.collapsableSetup = this.collapsableSetup.bind(this)
+    // this.buildSqueleton = this.buildSqueleton.bind(this)
+    // this.differentiator = this.differentiator.bind(this)
+    // this.buildMainCardTitleCard = this.buildMainCardTitleCard.bind(this)
+    // this.buildMainCardSection = this.buildMainCardSection.bind(this)
+
   }
 
 
 
-  
-  
-  initCardHTML(){
+
+
+
+
+  initCardHTML() {
     this.buildSqueleton()
     this.differentiator()
     this.buildMainCardTitleCard()
     this.buildMainCardSection()
   }
 
-  collapsableSetup(){
+  collapsableSetup() {
     if (this.props.colapsable) {
       let TitleCard = document.getElementsByClassName("title-card")[this.props.position]
       let Section = document.getElementsByClassName("section")[this.props.position]
-      
-      TitleCard.onclick = function() {
+
+      TitleCard.onclick = function () {
         if (Section.style.display === "none") {
           Section.style.display = "block";
         } else {
@@ -38,21 +49,34 @@ class CardShell extends React.Component {
     }
   }
 
-  
 
-  componentDidMount(){
-  }
 
-  render(){
-    
+
+
+
+  render() {
+
     return (
-      <React.Fragment></React.Fragment>
+      <React.Fragment>
+        {this.props.modal ?
+          <div id="myModal" className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={(e) => {
+                this.props.toogleImageUploadModal(e)
+                }}>&times;</span>
+              <p>Some text in the Modal..</p>
+            </div>
+          </div>
+          :
+          null
+        }
+      </React.Fragment>
     )
   }
 
 
 
-  buildSqueleton(){
+  buildSqueleton() {
     let MainCard = document.createElement('div')
     MainCard.classList.add('main-card');
 
@@ -74,14 +98,14 @@ class CardShell extends React.Component {
     let Button = document.createElement('button')
     Button.innerHTML = `${this.props.section_btn_name}`
     Button.setAttribute("type", "button")
-    Button.onclick = ((e) => this.props.section_btn(e))
+    Button.onclick = ((e) => { this.props.section_btn(e) })
 
 
 
 
     // console.log("My Shit: ", MainCard, TitleCard, Section, SectionWrapper, SectionUl, Button)
 
-    
+
     let ReactDiv = document.getElementById("react-div")
 
     ReactDiv.appendChild(MainCard)
@@ -93,7 +117,7 @@ class CardShell extends React.Component {
 
   }
 
-  differentiator(){
+  differentiator() {
     let MainCard = document.getElementsByClassName('main-card')[this.props.position]
     MainCard.classList.add(this.props.wrapper_className);
     // this.buildMainCardTitleCard()
@@ -101,7 +125,9 @@ class CardShell extends React.Component {
 
   }
 
-  buildMainCardTitleCard(){
+
+
+  buildMainCardTitleCard() {
     let TitleCard = document.getElementsByClassName("title-card")[this.props.position]
     // console.log("check", this.props)
     for (let index = 0; index < this.props.title_card.length; index++) {
@@ -112,9 +138,10 @@ class CardShell extends React.Component {
       // What to do with the content
       switch (rawTagObject.tag) {
         case 'img':
+          virginTag.onclick = (e) => this.props.toogleImageUploadModal(e)
           virginTag.src = `${rawTagObject.content}`
           break;
-      
+
         default:
           virginTag.innerHTML = `${rawTagObject.content}`
           break;
@@ -123,9 +150,9 @@ class CardShell extends React.Component {
       TitleCard.appendChild(virginTag)
       // console.log(TitleCard)
     }
-    
+
   }
-  buildMainCardSection(){
+  buildMainCardSection() {
     let MainCard = document.getElementsByClassName('main-card')[this.props.position]
     let UL = MainCard.querySelector('.section-ul')
 

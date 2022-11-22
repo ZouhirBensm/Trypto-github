@@ -13,7 +13,7 @@ import Loading from "../generic-components/Loading"
 const Login = loadable(() => import("../login-register-functionalities/Login"), {
   fallback: <Loading />
 });
-const Profile = loadable(() => import("../login-register-functionalities/Profile"), {
+const Profile = loadable(() => import("../login-register-functionalities/Profile2"), {
   fallback: <Loading />
 });
 

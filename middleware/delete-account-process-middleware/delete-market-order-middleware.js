@@ -11,9 +11,12 @@ const SellMarketOrderLocation = require('../../models/market-orders-models/SellM
 
 const SellMarketOrderImage = require('../../models/market-orders-models/SellMarketOrderImage');
 
+
+
+
 module.exports = async (req, res, next) => {
 
-  let array_of_sellmarketorderlocationsandimages_ids_where_user_is_engaged
+  let array_of_sellmarketorderlocationsandimages_ids_where_user_is_engaged = []
 
   try {
     array_of_sellmarketorderlocationsandimages_ids_where_user_is_engaged = await SellMarketOrder.find({ userid: req.params.userId }).select("sellmarketorderlocationID sellmarketorderImageID _id")
@@ -26,14 +29,13 @@ module.exports = async (req, res, next) => {
   let agenda_jobs_collection
 
   try {
-    console.log("\n\n_______", 0)
     await mongodbClient.connect();
     agenda_jobs_collection = mongodbClient.db(ENV.database_name).collection("AgendaJobs")
   } catch (e) {
-    // TODO put better descriptive error
-    let error = new Error(`Was not able to connect to mongidbClient.connect() or access AgendaJobs collection`)
-    return next(error)
+    e.message = `Was not able to connect to mongidbClient.connect() or access AgendaJobs collection`
+    res.locals.notifications.push(e);
   }
+
 
 
   // TODO #95 Instead of deleting the locations one-by-one. Feed the SellMarketOrderLocation.deleteMany the array of IDs references and delete all at once i.e. the method itself loops
@@ -62,8 +64,9 @@ module.exports = async (req, res, next) => {
     try {
       fs.rmSync(directory, { recursive: true, force: true });
     } catch (e) {
-      let error = new Error(`Was unable to delete the images associated with market order ID: ${req.body.market_orderID}`)
-      return next(error)
+      e.message = `Was unable to delete the images associated with market order ID: ${obj_ids._id}`
+      res.locals.notifications.push(e);
+      break;
     }
 
 
@@ -71,19 +74,16 @@ module.exports = async (req, res, next) => {
     const jobname = `Delete market order images directory: ${directory}`
     try {
       let agenda_jobs_entry_deletion_ret = await agenda_jobs_collection.findOneAndDelete({ name: jobname })
-      console.log("------>>>", 1)
     } catch (e) {
-      console.log(222)
-      // TODO put better descriptive error
-      let error = new Error(`Was unable to delete AgendaJob that deletes images in directory: ${directory}`)
-      return next(error)
+      e.message = `Was unable to delete AgendaJob that deletes images in directory: ${directory}`
+      res.locals.notifications.push(e);
+      break;
     }
 
 
   }
 
 
-  console.log(2)
   await mongodbClient.close();
 
 
