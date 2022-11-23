@@ -32,7 +32,7 @@ class ProfileImageUpload extends React.Component {
     })
 
     let json
-    // json = await response.json()
+    json = await response.json()
 
     console.log(response, json)
 

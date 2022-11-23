@@ -37,6 +37,11 @@ const UserSchema = new Schema({
         ref: 'Subscriber',
         default: null
     },
+    userprofileimageID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'UserProfileImageID',
+        default: null
+    },
     registrationDateTime: {
         type: Date,
         default: Date.now,

@@ -3,6 +3,8 @@ var { existsSync, mkdirSync } = require('fs');
 const fs = require('fs/promises')
 const path = require('path')
 
+const {determine_Sharp_toFormatOptions} = require('../../full-stack-libs/utils')
+
 
 const {MarketOrderSubmissionError} = require('../../custom-errors/custom-errors')
 
@@ -91,6 +93,8 @@ async function instantiateMarketOrderMiddleware(req, res, next) {
 async function processImageFilesMiddleware(req, res, next) {
 
   let directory = `public/img/marketorder-images/${res.locals.ret_sellmarketorder_instance._id}`
+  let source_directory = `public/img/temporal-new`
+
   let images = []
 
   if (!existsSync(directory)) {
@@ -100,80 +104,41 @@ async function processImageFilesMiddleware(req, res, next) {
   for (let i = 0; i < req.files.length; i++) {
 
 
-    let returned
+    let sharp_returned
     const processing_file = req.files[i];
-    let toFormat = {}
+    var ext = path.extname(processing_file.originalname);
 
-    // heic, heif, avif, jpeg, jpg, jpe, tile, dz, png, raw, tiff, tif, webp, gif, jp2, jpx, j2k, j2c
-    switch (processing_file.mimetype) {
-      case "image/png":
-        toFormat.format = "png"
-        toFormat.options = { compressionLevel: 3 }
-        break;
-      case "image/jpeg":
-        var ext = path.extname(processing_file.originalname);
-        switch (ext) {
-          case ".jpeg":
-          case ".jpg":
-            toFormat.format = "jpeg"
-            toFormat.options = { quality: 90 }
-            break;
-          case ".jp2":
-            toFormat.format = "jp2"
-            toFormat.options = { quality: 90, lossless: true }
-            break;
-          case ".j2k":
-            toFormat.format = "j2k"
-            toFormat.options = {}
-            break;
-          case ".j2c":
-            toFormat.format = "j2c"
-            toFormat.options = {}
-            break;
-          default:
-            toFormat.format = "jpeg"
-            toFormat.options = {}
-            break;
-        }
-        break;
-      case "image/apng":
-        toFormat.format = "apng"
-        toFormat.options = { compressionLevel: 3 }
-        break;
-      case "image/gif":
-        toFormat.format = "gif"
-        toFormat.options = { compressionLevel: 3 }
-        break;
-      case "image/webp":
-        toFormat.format = "webp"
-        toFormat.options = { quality: 90, lossless: true, smartSubsample: true, minSize: true }
-        break;
-      case "image/avif":
-        toFormat.format = "avif"
-        toFormat.options = { quality: 80, lossless: true }
-        break;
-      default:
-        let error = new MarketOrderSubmissionError("Server Error | Please, try again later", "File format is not supported.")
-        return next(error)
-    }
+    let toFormat = determine_Sharp_toFormatOptions(processing_file.mimetype, processing_file.originalname, ext, new MarketOrderSubmissionError("Server Error | Please, try again later", "No toFormat object retrieved."))
+
+    let isError = false
+    isError = (toFormat instanceof Error);
+    isEmpty_toFormat = (toFormat && Object.keys(toFormat).length === 0
+      && Object.getPrototypeOf(toFormat) === Object.prototype)
 
 
     try {
       // background: { r: 255, g: 255, b: 255, alpha: 0.5 }, withoutEnlargement: true
-      returned = sharp(processing_file.path)
+      sharp_returned = sharp(processing_file.path)
       .resize({ width: 576, fit: 'inside' })
-
-      if (!(toFormat && Object.keys(toFormat).length === 0
-        && Object.getPrototypeOf(toFormat) === Object.prototype)) {
-        returned = returned.toFormat(toFormat.format, toFormat.options)
-      }
-      returned = await returned.toFile(`${directory}/${processing_file.filename}`)
     } catch (e) {
-      let error = new MarketOrderSubmissionError("Server Error | Please, try again later", `An error has occured during image the processing. ${e.message}`)
-      return next(error)
+      return next(e)
     }
 
-    let source_directory = `public/img/temporal-new`
+      if (!isError && !isEmpty_toFormat) {
+        try {
+          sharp_returned = sharp_returned.toFormat(toFormat.format, toFormat.options)
+        } catch (e) {
+          return next(e)
+        }
+      }
+
+      try {
+        sharp_returned = await sharp_returned.toFile(`${directory}/${processing_file.filename}`)
+      } catch (e) {
+        return next(e)
+      }
+
+    
 
 
     try {
@@ -186,10 +151,10 @@ async function processImageFilesMiddleware(req, res, next) {
 
     images.push({
       name: processing_file.filename,
-      format: returned.format,
-      width: returned.width,
-      height: returned.height,
-      size: returned.size,
+      format: sharp_returned.format,
+      width: sharp_returned.width,
+      height: sharp_returned.height,
+      size: sharp_returned.size,
     })
 
   }

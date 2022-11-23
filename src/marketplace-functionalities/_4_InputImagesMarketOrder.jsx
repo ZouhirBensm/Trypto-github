@@ -248,6 +248,8 @@ class _4_InputImagesMarketOrder extends React.Component {
       "image/avif",
       "image/gif",
       "image/webp",
+      // TODO get rid
+      // "image/svg+xml"
     ];
 
     console.log(_selectedFiles, supportedTypes)

@@ -41,7 +41,9 @@ class MulterSetup {
     this.upload = multer({
       storage: this.#storage,
       fileFilter: function (req, file, callback) {
-        let suportedExtentions = ['.png', '.jpeg', '.jp2', '.jpg', '.jfif', '.pjpeg', '.pjp', '.apng', '.avif', '.gif', '.webp']
+        let suportedExtentions = ['.png', '.jpeg', '.jp2', '.jpg', '.jfif', '.pjpeg', '.pjp', '.apng', '.avif', '.gif', '.webp'
+        // ,'.svg'
+      ]
     
         var ext = path.extname(file.originalname);
         if (suportedExtentions.includes(ext)) {

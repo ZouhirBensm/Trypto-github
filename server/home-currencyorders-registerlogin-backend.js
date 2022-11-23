@@ -108,6 +108,7 @@ const { DeleteAccountProcessError } = require("../custom-errors/custom-errors")
 
 
 // Controllers
+const profileController = require('../controllers/profile-controllers/profile-controllers')
 const homeCurrencyOrdersController = require("../controllers/home-currencyorders-controllers/home-currencyorders-controllers")
 
 // const RegisterLoginController = require("../controllers/register-login-controllers/login-controllers")
@@ -121,6 +122,7 @@ const { resendConfirmationController } = require("../controllers/register-login-
 
 
 // Middleware
+const profileMiddleware = require('../middleware/profile-middleware/profile-middleware')
 const requireRefererMiddleware = require('../middleware/generic-middleware/require-referer')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
 const paginatedOrdersSetupMiddleware = require('../middleware/home-currencyorders-middleware/paginated-orders-setup-middleware')
@@ -194,22 +196,7 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
-homeOrdersBackend_app_router.post('/users/upload/userprofileimage/:selectedUserID', multerinstance.upload.single('image'), (req, res) => {
-  console.log("posting to save user profile image", req.params.selectedUserID)
-
-  if (!req.file) {
-    console.log("No file received", req.file);
-    return res.send({
-      success: false
-    });
-
-  } else {
-    console.log('file received', req.file);
-    return res.send({
-      success: true
-    })
-  }
-})
+homeOrdersBackend_app_router.post('/users/upload/userprofileimage/:selectedUserID', multerinstance.upload.single('image'), profileMiddleware.middleware1, profileMiddleware.middleware2, profileMiddleware.middleware3, profileMiddleware.middleware4, profileController.controller1)
 
 
 // KEPT AS REFERENCE

@@ -50,11 +50,15 @@ class Profile extends React.Component {
       let maincards = document.getElementsByClassName('main-card')
 
       if (this.state.modal) {
+        // HERE!
+        // TODO loop throught maincards and add the class
         maincards[0].classList.add("disable2");
-        maincards[1].classList.add("disable2");
+        // maincards[1].classList.add("disable2");
       } else {
+        // HERE!
+        // TODO loop throught maincards and add the class
         maincards[0].classList.remove("disable2");
-        maincards[1].classList.remove("disable2");
+        // maincards[1].classList.remove("disable2");
       }
     })
   }
