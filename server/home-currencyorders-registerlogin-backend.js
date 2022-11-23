@@ -1,9 +1,81 @@
 // Libraries
 const express = require('express')
+const multer = require('multer')
+const path = require('path')
+var { existsSync, mkdirSync } = require('fs');
 const httpStatus = require("http-status-codes")
 const CoinGecko = require('coingecko-api');
 
+const {ProfileImageUploadError} = require('../custom-errors/custom-errors')
 
+// KEPT AS REFERENCE
+// METHOD 2
+// const {setupMulterStorageService, setupUploadMiddlewareService} = require('./multer')
+
+// const str_options = {
+//   directory2save2: `./public/img/temporal-new`,
+//   destination_error: new ProfileImageUploadError("Server Error | Please, try again later", "Directory: temporal-new directory is not present."),
+// }
+
+// const storage = setupMulterStorageService(str_options)
+
+
+// const mlt_options = {
+//   storage: storage,
+//   multer_error: new ProfileImageUploadError("Server Error | Please, try again later", 'Only images with proper extensions are allowed'),
+// }
+
+// let upload = setupUploadMiddlewareService(mlt_options)
+
+
+
+// KEPT AS REFERENCE
+// METHOD 1
+// Setting up uploads
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     // manipulate the req, check is public/img is available or file to error handle
+//     let p_error = null
+//     let directory = `./public/img/temporal-new`
+//     // If directory not there throw an error
+//     if (!existsSync(directory)) {
+//       p_error = new ProfileImageUploadError("Server Error | Please, try again later", "Directory: temporal-new directory is not present.")
+//     }
+//     cb(p_error, directory)
+//   },
+//   filename: function (req, file, cb) {
+//     let p_error = null
+//     // TODO prefix should have a constant number of digits
+//     let prefix = Math.round(Math.random() * 10000)
+//     cb(p_error, `${prefix}-${file.originalname}`)
+//   }
+// })
+
+// let upload = multer({
+//   storage: storage,
+//   fileFilter: function (req, file, callback) {
+//     suportedExtentions = ['.png', '.jpeg', '.jp2', '.jpg', '.jfif', '.pjpeg', '.pjp', '.apng', '.avif', '.gif', '.webp']
+
+//     var ext = path.extname(file.originalname);
+//     if (suportedExtentions.includes(ext)) {
+//       return callback(null, true)
+//     }
+//     return callback(new ProfileImageUploadError("Server Error | Please, try again later", 'Only images with proper extensions are allowed'))
+//   },
+//   // TODO set top limit
+//   limits: {fileSize: max_marketimagefilesize},
+//   preservePath: true,
+// })
+
+
+
+
+// METHOD 3
+const MulterSetup = require('../services/multer-services/multer.src')
+const multerinstance = new MulterSetup(`./public/img/temporal-new`, new ProfileImageUploadError("Server Error | Please, try again later", "Directory: temporal-new directory is not present."), new ProfileImageUploadError("Server Error | Please, try again later"))
+
+
+// multerinstance.setupUploadMiddlewareService(new ProfileImageUploadError("Server Error | Please, try again later", 'Only images with proper extensions are allowed'))
 
 
 // Initializations
@@ -118,6 +190,61 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
   navBars = NAVBAR.CLIENTS
   next()
 })
+
+
+
+
+homeOrdersBackend_app_router.post('/users/upload/userprofileimage/:selectedUserID', multerinstance.upload.single('image'), (req, res) => {
+  console.log("posting to save user profile image", req.params.selectedUserID)
+
+  if (!req.file) {
+    console.log("No file received", req.file);
+    return res.send({
+      success: false
+    });
+
+  } else {
+    console.log('file received', req.file);
+    return res.send({
+      success: true
+    })
+  }
+})
+
+
+// KEPT AS REFERENCE
+// homeOrdersBackend_app_router.post('/users/upload/userprofileimage/:selectedUserID', multerinstance.upload.single('image'), (req, res) => {
+//   console.log("posting to save user profile image", req.params.selectedUserID)
+
+//   if (!req.file) {
+//     console.log("No file received", req.file);
+//     return res.send({
+//       success: false
+//     });
+
+//   } else {
+//     console.log('file received', req.file);
+//     return res.send({
+//       success: true
+//     })
+//   }
+// })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 homeOrdersBackend_app_router.post('/users/submission-new-password', responseMessageSetterMiddleware("Server Error, please try again later."), reHachHexForPassResetMiddleware, markHashForPasswordResetAsUsedMiddleware, retrieveTheHashForPasswordResetMiddleware, createAndUpdateNewPasswordController)
@@ -279,6 +406,9 @@ homeOrdersBackend_app_router.get(['/btclayerexchange/:page?'], require_loggedin_
     JSX_to_load: JSX_to_load,
   })
 })
+
+
+
 
 
 
@@ -467,27 +597,10 @@ homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (re
 })
 
 
-// TODO re uncomment for the real delete account endpoint
+
 // TODO rename deleteEffectUserToUnsubscribeMiddleware to deleteIfAgendaJobThatUnsubsUserOnBidBlockMiddleware
 // TODO add userID for articles
-// homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteMarketOrderMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware, sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteHexMiddleware, deleteUserMiddleware, logoutMiddleware, (req, res, next) => {
-
-//   console.log("Final point: ", res.locals.notifications.length, res.locals.notifications.length == 0, res.locals.notifications.length === 0)
-
-//   if (res.locals.notifications.length === 0) {
-//     res.status(200).json({
-//       srv_: "User account and linked data completly deleted."
-//     })
-//   } else {
-//     let notifications_messages = res.locals.notifications.map(notification => notification.message);
-//     let e = new DeleteAccountProcessError(notifications_messages)
-
-//     return next(e)
-//   }
-// })
-
-
-homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteMarketOrderMiddleware, (req, res, next) => {
+homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteMarketOrderMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware, sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteHexMiddleware, deleteUserMiddleware, logoutMiddleware, (req, res, next) => {
 
   console.log("Final point: ", res.locals.notifications.length, res.locals.notifications.length == 0, res.locals.notifications.length === 0)
 

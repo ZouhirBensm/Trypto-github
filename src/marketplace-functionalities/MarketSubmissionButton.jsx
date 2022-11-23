@@ -6,6 +6,7 @@ class MarketSubmissionButton extends React.Component {
     console.log("!!!!", userId)
   }
 
+  // TODO put this as a utils and have every call reference it!
   makeArrayOutOf(selectedFiles) {
     let selectedFilesArray = []
     for (const FileKey in selectedFiles) {

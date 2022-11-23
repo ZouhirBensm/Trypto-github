@@ -13,6 +13,7 @@ const ENV = require('../config/base')
 global.loggedIn = null
 global.navBars = null
 global.URL_ = null
+global.max_marketimagefilesize = 12500000
 
 const NAVBAR = require('../full-stack-libs/Types/Navbar')
 // console.log(process.env.ROOT)

@@ -22,7 +22,7 @@ function getDetailedUserSubscriptionInfo(_from) {
       _id: from,
       // subscriptionID: { $ne: null }
     })
-    .select('registrationDateTime username email subscriptionID -_id')
+    .select('registrationDateTime username email subscriptionID')
   
     query = query.populate({
       // Populate protagonists

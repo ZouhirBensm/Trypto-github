@@ -163,6 +163,7 @@ class Profile extends React.Component {
           position={0}
           toogleImageUploadModal={this.toogleImageUploadModal}
           modal={this.state.modal}
+          selectedUserID={selectedUser._id}
         />
 
         {selectedUser.subscriptionID ?

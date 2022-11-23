@@ -1,5 +1,6 @@
 import React from 'react';
 import '../style/reactDivMobile.css'
+import ProfileImageUpload from '../login-register-functionalities/ProfileImageUpload'
 
 
 class CardShell extends React.Component {
@@ -8,6 +9,7 @@ class CardShell extends React.Component {
     this.state = {
       // modal: false
     }
+    console.log(this.props)
     this.initCardHTML()
     this.collapsableSetup()
 
@@ -59,14 +61,10 @@ class CardShell extends React.Component {
     return (
       <React.Fragment>
         {this.props.modal ?
-          <div id="myModal" className="modal">
-            <div className="modal-content">
-              <span className="close" onClick={(e) => {
-                this.props.toogleImageUploadModal(e)
-                }}>&times;</span>
-              <p>Some text in the Modal..</p>
-            </div>
-          </div>
+          <ProfileImageUpload
+            toogleImageUploadModal={this.props.toogleImageUploadModal}
+            selectedUserID={this.props.selectedUserID}
+          />
           :
           null
         }
