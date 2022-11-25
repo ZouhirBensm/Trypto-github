@@ -20,10 +20,12 @@ class Profile extends React.Component {
     this.paypalUnSub = this.paypalUnSub.bind(this)
     this.toogleImageUploadModal = this.toogleImageUploadModal.bind(this)
     this.somefunc = this.somefunc.bind(this)
+    this.setpopups = this.setpopups.bind(this)
   }
 
 
 
+  // TODO refactor name
   somefunc(e) {
     console.log("interface clicked!!!", e)
     // let clicked = e.path.includes(element.id == 'myModal')
@@ -32,6 +34,12 @@ class Profile extends React.Component {
       if (this.state.modal == false) return
       return this.toogleImageUploadModal(e)
     }
+  }
+
+  setpopups(popups){
+    this.setState({
+      popups: popups
+    })
   }
 
   componentDidMount() {
@@ -50,15 +58,15 @@ class Profile extends React.Component {
       let maincards = document.getElementsByClassName('main-card')
 
       if (this.state.modal) {
-        // HERE!
-        // TODO loop throught maincards and add the class
-        maincards[0].classList.add("disable2");
-        // maincards[1].classList.add("disable2");
+        for (let i = 0; i < maincards.length; i++) {
+          const maincard = maincards[i];
+          maincard.classList.add("disable2");
+        }
       } else {
-        // HERE!
-        // TODO loop throught maincards and add the class
-        maincards[0].classList.remove("disable2");
-        // maincards[1].classList.remove("disable2");
+        for (let i = 0; i < maincards.length; i++) {
+          const maincard = maincards[i];
+          maincard.classList.remove("disable2");
+        }
       }
     })
   }
@@ -168,6 +176,7 @@ class Profile extends React.Component {
           toogleImageUploadModal={this.toogleImageUploadModal}
           modal={this.state.modal}
           selectedUserID={selectedUser._id}
+          setpopups={this.setpopups}
         />
 
         {selectedUser.subscriptionID ?

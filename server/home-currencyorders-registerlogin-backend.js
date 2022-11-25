@@ -122,7 +122,7 @@ const { resendConfirmationController } = require("../controllers/register-login-
 
 
 // Middleware
-const profileMiddleware = require('../middleware/profile-middleware/profile-middleware')
+const profileMiddleware = require('../middleware/profile-middleware/profile-middleware2')
 const requireRefererMiddleware = require('../middleware/generic-middleware/require-referer')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
 const paginatedOrdersSetupMiddleware = require('../middleware/home-currencyorders-middleware/paginated-orders-setup-middleware')
@@ -195,8 +195,11 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
+homeOrdersBackend_app_router.post('/users/upload/userprofileimage/:selectedUserID', multerinstance.upload.single('image'), profileMiddleware.middleware1, profileMiddleware.middleware2, profileMiddleware.middleware3, profileMiddleware.middleware4, profileMiddleware.middleware5, profileMiddleware.middleware6, profileController.controller1)
 
-homeOrdersBackend_app_router.post('/users/upload/userprofileimage/:selectedUserID', multerinstance.upload.single('image'), profileMiddleware.middleware1, profileMiddleware.middleware2, profileMiddleware.middleware3, profileMiddleware.middleware4, profileController.controller1)
+
+// KEPT AS REFERENCE
+// homeOrdersBackend_app_router.post('/users/upload/userprofileimage/:selectedUserID', multerinstance.upload.single('image'), profileMiddleware.middleware1, profileMiddleware.middleware4, profileMiddleware.middleware5, profileMiddleware.middleware6, profileController.controller1)
 
 
 // KEPT AS REFERENCE

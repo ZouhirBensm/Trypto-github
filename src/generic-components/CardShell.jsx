@@ -64,6 +64,7 @@ class CardShell extends React.Component {
           <ProfileImageUpload
             toogleImageUploadModal={this.props.toogleImageUploadModal}
             selectedUserID={this.props.selectedUserID}
+            setpopups={this.props.setpopups}
           />
           :
           null

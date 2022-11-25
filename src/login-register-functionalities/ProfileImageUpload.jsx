@@ -1,5 +1,5 @@
 
-
+// TODO !!!! image format validation HERE !
 
 class ProfileImageUpload extends React.Component {
   constructor(props) {
@@ -36,6 +36,18 @@ class ProfileImageUpload extends React.Component {
 
     console.log(response, json)
 
+    switch (response.status) {
+      case 200:
+        this.props.setpopups(json.message)
+        break;
+      case 500:
+        // figure out
+        break;
+      default:
+        // figure out
+        break;
+    }
+
     return
 
   }
@@ -52,7 +64,8 @@ class ProfileImageUpload extends React.Component {
           {/* Original */}
           {/* action={`/users/upload/userprofileimage/${this.props.selectedUserID}`} method="post" encType="multipart/form-data" */}
           <form className="form" id="form_id">
-            <input id="image-select" type="file" name="image" />
+            <input id="image-select" type="file" name="image"/>
+
             <button type="submit" onClick={ async (e) => {
               e.preventDefault()
               // let ret_validation = this.finalSubmissionValidation()

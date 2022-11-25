@@ -66,7 +66,7 @@ module.exports = {
     console.error('\n\n\n\x1b[37;41;1m', e, '\x1b[0m\n\n')
     return
   },
-  determine_Sharp_toFormatOptions(mimetype, originalname, ext, error) {
+  determine_Sharp_toFormatOptions(mimetype, ext, error) {
     // heic, heif, avif, jpeg, jpg, jpe, tile, dz, png, raw, tiff, tif, webp, gif, jp2, jpx, j2k, j2c
     // let error = error
     let toFormat = {}

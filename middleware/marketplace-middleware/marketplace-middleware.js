@@ -108,7 +108,7 @@ async function processImageFilesMiddleware(req, res, next) {
     const processing_file = req.files[i];
     var ext = path.extname(processing_file.originalname);
 
-    let toFormat = determine_Sharp_toFormatOptions(processing_file.mimetype, processing_file.originalname, ext, new MarketOrderSubmissionError("Server Error | Please, try again later", "No toFormat object retrieved."))
+    let toFormat = determine_Sharp_toFormatOptions(processing_file.mimetype, ext, new MarketOrderSubmissionError("Server Error | Please, try again later", "No toFormat object retrieved."))
 
     let isError = false
     isError = (toFormat instanceof Error);

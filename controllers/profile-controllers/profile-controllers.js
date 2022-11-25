@@ -1,9 +1,10 @@
 async function controller1(req, res, next) {
 
-  return res.json({
-    success: true
+  let message = `Success updating your profile picture`
+  return res.status(200).json({
+    message: message
   });
-  
+
 }
 
 
