@@ -381,10 +381,18 @@ homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(fal
 })
 
 
-homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), getDetailedUserSubscriptionInfo("SESSION"), async (req, res) => {
+
+
+
+homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), getDetailedUserSubscriptionInfo("SESSION"),
+async (req, res, next) => {
+
+
+
 
   res.locals.userId = req.session.userId
 
+  // TODO have own middleware symbol 123@@
   let ret_userprofileimage
   try {
     ret_userprofileimage = await UserProfileImage.find({userID: ObjectId(res.locals.userId)}).select('image.name')
@@ -400,8 +408,6 @@ homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(tr
 
 
   var JSX_to_load = 'MgtUser';
-
-  // console.log("Response locals: ___________________/n", res.locals, "\n\n____________________")
 
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
     JSX_to_load: JSX_to_load,

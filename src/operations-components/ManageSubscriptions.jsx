@@ -55,7 +55,11 @@ class ManageSubscriptions extends React.Component {
         {error_div}
         {this.state.selectedUser?
           // <h1>Bam</h1>
-          <Profile usedUserID={this.props.selected_userID} selectedUser={this.state.selectedUser}/>
+          <Profile 
+          usedUserID={this.props.selected_userID} 
+          selectedUser={this.state.selectedUser}
+          profileimagename={this.props.profileimagename}
+          />
           :
           null
         }

@@ -39,7 +39,7 @@ const UserSchema = new Schema({
     },
     userprofileimageID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'UserProfileImageID',
+        ref: 'UserProfileImage',
         default: null
     },
     registrationDateTime: {

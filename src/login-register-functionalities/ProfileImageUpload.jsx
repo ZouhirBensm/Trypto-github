@@ -50,7 +50,7 @@ class ProfileImageUpload extends React.Component {
       case 200:
         this.props.setpopups(json.message)
         this.props.changeprofileimagename(json.newprofileimagename)
-        this.props.toogleProfilePicUploadModal(e)
+        this.props.toogleProfilePicUploadModal()
         break;
       case 500:
         this.props.setpopups(json.error?.message.client_message)

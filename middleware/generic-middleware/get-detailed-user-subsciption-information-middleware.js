@@ -18,6 +18,8 @@ function getDetailedUserSubscriptionInfo(_from) {
       default:
         break;
     }
+
+
     let query = User.findOne({
       _id: from,
       // subscriptionID: { $ne: null }
@@ -30,8 +32,17 @@ function getDetailedUserSubscriptionInfo(_from) {
       // Fields allowed to populate with
       select: "-_id plan subscriptionDateTime paypal_subscriptionID paypal_plan_id expireAt",
     })
+
+    // query = query.populate({
+    //   // Populate protagonists
+    //   path: "userprofileimageID",
+    //   // Fields allowed to populate with
+    //   select: "_id",
+    // })
+
   
     selectedUser = await query.exec()
+
     console.log({ selectedUser })
     
     res.locals.selectedUser = selectedUser

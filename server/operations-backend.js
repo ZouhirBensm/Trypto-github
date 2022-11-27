@@ -1,5 +1,6 @@
 const express = require('express')
 const operationsBackend_app_router = express.Router()
+var ObjectId = require('mongodb').ObjectId;
 
 
 // Environment variables and types
@@ -13,6 +14,7 @@ const Message = require('../models/messaging-models/Message')
 const Protagonist = require('../models/messaging-models/Protagonist')
 const Article = require('../models/articles-models/Article')
 const User = require('../models/User')
+const UserProfileImage = require('../models/UserProfileImage')
 
 
 
@@ -53,6 +55,65 @@ operationsBackend_app_router.use(set_user_if_any, (req, res, next) => {
   navBars = NAVBAR.OPERATORS
   next()
 })
+
+
+
+
+
+operationsBackend_app_router.get('/paginated-users/users-for-display', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), paginatingSetupMiddleware, destructureURLandRefererMiddleware, usersRetrievalMiddleware, distributePaginatedDataController)
+
+
+
+
+operationsBackend_app_router.get('/detailed-user-information/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2), getDetailedUserSubscriptionInfo("PATHPARAM"), (req,res) => {
+
+  res.status(200).json({
+    selectedUser: res.locals.selectedUser
+  })
+
+})
+
+
+
+
+operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/manage-subs/:userID', '/help-for-market-orders/:userID'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), async (req, res, next) => {
+
+
+  console.log("_________-popup??________", req.query.popup)
+  res.locals.popup = req.query.popup
+  // res.locals.CATEGORY = CATEGORY;
+
+  var JSX_to_load
+  JSX_to_load = 'Operations';
+
+
+
+  // For page refresh
+  if(res.locals.paths_URL[1] == "manage-subs") {
+    // TODO have own middleware symbol 123@@
+
+
+    let ret_userprofileimage
+    try {
+      ret_userprofileimage = await UserProfileImage.find({userID: ObjectId(req.params.userID)}).select('image.name')
+    } catch (error) {
+      // TODO error handling
+    }
+  
+    if (ret_userprofileimage[0]){
+      res.locals.profileimagename = ret_userprofileimage[0].image.name
+    } else {
+      res.locals.profileimagename = 'square.jpg'
+    }
+  }
+
+  // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
+    JSX_to_load: JSX_to_load,
+  })
+})
+
+
 
 
 
@@ -120,21 +181,10 @@ operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/man
 })
 
 
-operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/manage-subs/:userID', '/help-for-market-orders/:userID'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
 
-  console.log("popup??", req.query.popup)
-  
-  res.locals.popup = req.query.popup
-  // res.locals.CATEGORY = CATEGORY;
 
-  var JSX_to_load
-  JSX_to_load = 'Operations';
 
-  // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
-  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
-    JSX_to_load: JSX_to_load,
-  })
-})
+
 
 
 // , require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2)
@@ -182,18 +232,11 @@ operationsBackend_app_router.post('/create-article', require_loggedin_for_pages(
 
 
 
-operationsBackend_app_router.get('/detailed-user-information/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2), getDetailedUserSubscriptionInfo("PATHPARAM"), (req,res) => {
-
-  res.status(200).json({
-    selectedUser: res.locals.selectedUser
-  })
-
-})
 
 
 
 
-operationsBackend_app_router.get('/paginated-users/users-for-display', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), paginatingSetupMiddleware, destructureURLandRefererMiddleware, usersRetrievalMiddleware, distributePaginatedDataController)
+
 
 
 

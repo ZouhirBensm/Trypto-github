@@ -11,9 +11,9 @@ class UserInfo extends React.Component {
   }
 
 
-  toogleProfilePicUploadModal(e) {
-    e.preventDefault()
-    e.stopPropagation()
+  toogleProfilePicUploadModal(e = null) {
+    e?.preventDefault()
+    e?.stopPropagation()
     let modal = this.state.modal
 
 

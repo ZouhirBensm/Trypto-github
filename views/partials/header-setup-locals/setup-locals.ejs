@@ -178,8 +178,12 @@
       if (caseOperationsTask == "help-for-market-orders") {
         popup = '<%= locals.popup %>'
       }
+
+      if (caseOperationsTask == "manage-subs") {
+        profileimagename = '<%= locals.profileimagename %>'
+      }
       
-      console.log("--------------->>>>>>(333)", user, userId, popup)
+      console.log("--------------->>>>>>(333)", user, userId, popup, profileimagename)
 
       break;
     default:

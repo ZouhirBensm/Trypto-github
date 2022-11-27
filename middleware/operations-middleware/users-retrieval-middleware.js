@@ -11,14 +11,24 @@ module.exports = async (req,res,next)=>{
   // console.log({user: res.locals.user})
 
 
+  // For on select
   // Get rid of logged in user, and no password field
-  let users = await User.find({_id: {$ne: user._id}}).select('-password')
+  let users = await User.find({_id: {$ne: user._id}})
+  .populate({
+    // Populate protagonists
+    path: "userprofileimageID",
+    // Fields allowed to populate with
+    select: "image.name -_id",
+  })
+  .select('-password')
 
-  // console.log({articles})
+
+  users.forEach(user => {
+    console.log(user)
+    console.log(user.userprofileimageID?.image.name)
+  });
 
   res.locals.data_to_be_paginated_and_served = users
-
-  console.log("in usersRetrievalMiddleware: ", res.locals.data_to_be_paginated_and_served)
 
   console.log("\n______________________________")
   next()

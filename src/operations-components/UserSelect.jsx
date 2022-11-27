@@ -21,6 +21,7 @@ class UserSelect extends React.Component {
       number_of_pages: 1,
     }
     this.controls = this.controls.bind(this);
+    
   }
 
   controls(_page) {

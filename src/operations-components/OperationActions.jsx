@@ -11,17 +11,18 @@ class OperationActions extends React.Component {
       mode: this.props.match.params.mode
     }
     // console.log("THIS FUCKIN UID BEETTER", user)
+    console.log("\n\n\n--->",profileimagename)
     const comprehensiveSelectedUserInfoDataJSON = queryParams.get("comprehensiveSelectedUserInfo")
     this.comprehensiveSelectedUserInfoDataObj = JSON.parse(comprehensiveSelectedUserInfoDataJSON)
-    // console.log("did we get what we need bazzoka: ", this.comprehensiveSelectedUserInfoDataObj)
+    console.log("did we get what we need bazzoka: ", this.comprehensiveSelectedUserInfoDataObj)
 
     this.componentToRender
     this.setupTheProperComponent = this.setupTheProperComponent.bind(this)
-    this.setupTheProperComponent()
+    this.setupTheProperComponent(profileimagename)
     // console.log("props in OperationActions: ", this.props)
   }
 
-  setupTheProperComponent(){
+  setupTheProperComponent(_profileimagename){
     switch (this.state.mode) {
       case "help-for-orders":
         this.componentToRender = <HelpForOrders selected_userID={this.props.match.params.selected_userID}/>
@@ -37,12 +38,16 @@ class OperationActions extends React.Component {
         />
         break;
       case "manage-subs":
+        console.log("--->", this.comprehensiveSelectedUserInfoDataObj.userprofileimageID?.image.name)
+        console.log("---->", _profileimagename)
+      let profileimagename = _profileimagename || this.comprehensiveSelectedUserInfoDataObj.userprofileimageID?.image.name || "square.jpg"
       this.componentToRender = <ManageSubscriptions
       comprehensiveSelectedUserInfoDataObj={this.comprehensiveSelectedUserInfoDataObj}
       selected_userID={this.props.match.params.selected_userID}
       selected_user_email={this.comprehensiveSelectedUserInfoDataObj.selected_user_email}
       // not needed
       loggedinUserObjInfo={user}
+      profileimagename={profileimagename}
       />
         break;
       case "help-for-market-orders":
