@@ -1,15 +1,18 @@
-async function controller1(req, res, next) {
+async function sucessUploadProfilePicController(req, res, next) {
 
+  console.log("sucessUploadProfilePicController...")
+  
   let message = `Success updating your profile picture`
   return res.status(200).json({
-    message: message
+    message: message,
+    newprofileimagename: res.locals.newprofileimagename
   });
 
 }
 
 
 profileController = {
-  controller1: controller1
+  sucessUploadProfilePicController: sucessUploadProfilePicController
 }
 
 

@@ -13,7 +13,7 @@ import Loading from "../generic-components/Loading"
 const Login = loadable(() => import("../login-register-functionalities/Login"), {
   fallback: <Loading />
 });
-const Profile = loadable(() => import("../login-register-functionalities/Profile2"), {
+const Profile = loadable(() => import("../login-register-functionalities/Profile3"), {
   fallback: <Loading />
 });
 
@@ -44,7 +44,11 @@ class MgtUser extends React.Component {
             (props) => <Login {...props} loginTo={"/users/login"} />
           } />
           <Route path="/users/profile" render={
-            (props) => <Profile {...props} usedUserID={userId} selectedUser={selectedUser} />
+            (props) => <Profile {...props}
+              usedUserID={userId}
+              selectedUser={selectedUser}
+              profileimagename={profileimagename}
+            />
           } />
           <Route path="/users/forgotpasswordpage" render={
             (props) => <ForgotPasswordRequest {...props}

@@ -8,6 +8,7 @@ class ProfileImageUpload extends React.Component {
     console.log(this.props)
   }
 
+
   componentWillUnmount() {
     // Empties input, might not be needed
     let input = document.getElementById('image-select')
@@ -39,12 +40,13 @@ class ProfileImageUpload extends React.Component {
     switch (response.status) {
       case 200:
         this.props.setpopups(json.message)
+        this.props.changeprofileimagename(json.newprofileimagename)
         break;
       case 500:
-        // figure out
+        this.props.setpopups(json.error?.message.client_message)
         break;
       default:
-        // figure out
+        this.props.setpopups(json.error?.message.client_message)
         break;
     }
 

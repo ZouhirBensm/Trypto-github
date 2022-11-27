@@ -7,27 +7,11 @@ class CardShell extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      // modal: false
     }
-    console.log(this.props)
     this.initCardHTML()
     this.collapsableSetup()
 
-    // this.toogleImageUploadModal = this.toogleImageUploadModal.bind(this)
-    // this.initCardHTML = this.initCardHTML.bind(this)
-    // this.collapsableSetup = this.collapsableSetup.bind(this)
-    // this.buildSqueleton = this.buildSqueleton.bind(this)
-    // this.differentiator = this.differentiator.bind(this)
-    // this.buildMainCardTitleCard = this.buildMainCardTitleCard.bind(this)
-    // this.buildMainCardSection = this.buildMainCardSection.bind(this)
-
   }
-
-
-
-
-
-
 
   initCardHTML() {
     this.buildSqueleton()
@@ -50,10 +34,6 @@ class CardShell extends React.Component {
       };
     }
   }
-
-
-
-
 
 
   render() {
@@ -84,6 +64,7 @@ class CardShell extends React.Component {
 
     let Section = document.createElement('div')
     Section.classList.add('section');
+
     if (this.props.colapsable) {
       Section.style.display = "none";
     }
@@ -100,11 +81,6 @@ class CardShell extends React.Component {
     Button.onclick = ((e) => { this.props.section_btn(e) })
 
 
-
-
-    // console.log("My Shit: ", MainCard, TitleCard, Section, SectionWrapper, SectionUl, Button)
-
-
     let ReactDiv = document.getElementById("react-div")
 
     ReactDiv.appendChild(MainCard)
@@ -113,28 +89,23 @@ class CardShell extends React.Component {
     Section.appendChild(SectionWrapper)
     SectionWrapper.appendChild(SectionUl)
     SectionWrapper.appendChild(Button)
-
   }
+
+
 
   differentiator() {
     let MainCard = document.getElementsByClassName('main-card')[this.props.position]
     MainCard.classList.add(this.props.wrapper_className);
-    // this.buildMainCardTitleCard()
-    // this.buildMainCardSection()
-
   }
 
 
 
   buildMainCardTitleCard() {
     let TitleCard = document.getElementsByClassName("title-card")[this.props.position]
-    // console.log("check", this.props)
     for (let index = 0; index < this.props.title_card.length; index++) {
-      const rawTagObject = this.props.title_card[index];
-      // console.log(rawTagObject)
+      const rawTagObject = this.props.title_card[index];      
       let virginTag = document.createElement(`${rawTagObject.tag}`)
 
-      // What to do with the content
       switch (rawTagObject.tag) {
         case 'img':
           virginTag.onclick = (e) => this.props.toogleImageUploadModal(e)
@@ -145,26 +116,20 @@ class CardShell extends React.Component {
           virginTag.innerHTML = `${rawTagObject.content}`
           break;
       }
-      // console.log(virginTag)
       TitleCard.appendChild(virginTag)
-      // console.log(TitleCard)
     }
 
   }
+  
   buildMainCardSection() {
     let MainCard = document.getElementsByClassName('main-card')[this.props.position]
     let UL = MainCard.querySelector('.section-ul')
 
-    // let UL = document.getElementById("section-ul")
-    // console.log(UL)
     for (let index = 0; index < this.props.section.length; index++) {
       const listInfoObject = this.props.section[index];
-      // console.log(listInfoObject)
       let virginLiTag = document.createElement('li')
       virginLiTag.innerHTML = `${listInfoObject.prepend} ${listInfoObject.value}`
-      // console.log(virginLiTag)
       UL.appendChild(virginLiTag)
-      // console.log(TitleCard)
     }
   }
 }

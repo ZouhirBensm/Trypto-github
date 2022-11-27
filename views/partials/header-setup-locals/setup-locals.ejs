@@ -28,6 +28,7 @@
 <script>
 
   var userId
+  var profileimagename
 
   var popup
   var currentUserEmail
@@ -82,10 +83,11 @@
 
     case '/users/profile':
       userId = '<%= locals.userId %>'
+      profileimagename = '<%= locals.profileimagename %>'
       if(`<%=locals.selectedUser%>`){
         selectedUser = <%-JSON.stringify(locals.selectedUser || {})%> 
       }
-      console.log("------------->>>>>>", userId, selectedUser)
+      console.log("------------->>>>>>", userId, selectedUser, profileimagename)
       break;
 
 

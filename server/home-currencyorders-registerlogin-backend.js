@@ -180,6 +180,7 @@ const { authenticate_role_for_pages, authenticate_role_for_data } = require("../
 // Database Models
 const User = require('../models/User')
 const HexForUnactiveUser = require('../models/HexForUnactiveUser');
+const UserProfileImage = require('../models/UserProfileImage');
 
 
 
@@ -193,9 +194,28 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
   next()
 })
 
+// homeOrdersBackend_app_router.get('/users/userprofileimagename/:selectedUserID', async (req,res,next)=>{
+//   let ret_user_profile_file_name = []
+
+//   try {
+//     ret_user_profile_file_name = await UserProfileImage.find({userID: req.params.selectedUserID}).select('image')
+//   } catch (error) {
+//     // TODO error handle
+//   }
+
+//   const user_profile_file_name = ret_user_profile_file_name[0]?.image.name
+//   const default_profile_file_name = `square.jpg`
 
 
-homeOrdersBackend_app_router.post('/users/upload/userprofileimage/:selectedUserID', multerinstance.upload.single('image'), profileMiddleware.middleware1, profileMiddleware.middleware2, profileMiddleware.middleware3, profileMiddleware.middleware4, profileMiddleware.middleware5, profileMiddleware.middleware6, profileController.controller1)
+//   if(user_profile_file_name){
+//     res.status(200).send(user_profile_file_name)
+//   } else {
+//     res.status(200).send(default_profile_file_name)
+//   }
+// })
+
+
+homeOrdersBackend_app_router.post('/users/upload/userprofileimage/:selectedUserID', multerinstance.upload.single('image'), profileMiddleware.makeSureDestinationFolderPresentMiddleware, profileMiddleware.sharpAndDisplaceNewProfilePicMiddleware, profileMiddleware.isThereProfilePicAlreadyMiddleware, profileMiddleware.retrievePrevImageInfo_DeletePrevPic_DeletePicEntry_Middleware,profileMiddleware.instantiateNewImageMiddleware, profileMiddleware.editUsersLinkedImageIDMiddleare, profileMiddleware.saveNewImageEntryMiddleware, profileController.sucessUploadProfilePicController)
 
 
 // KEPT AS REFERENCE
@@ -361,9 +381,22 @@ homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(fal
 })
 
 
-homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), getDetailedUserSubscriptionInfo("SESSION"), (req, res) => {
+homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), getDetailedUserSubscriptionInfo("SESSION"), async (req, res) => {
 
   res.locals.userId = req.session.userId
+
+  let ret_userprofileimage
+  try {
+    ret_userprofileimage = await UserProfileImage.find({userID: ObjectId(res.locals.userId)}).select('image.name')
+  } catch (error) {
+    // TODO error handling
+  }
+
+  if (ret_userprofileimage[0]){
+    res.locals.profileimagename = ret_userprofileimage[0].image.name
+  } else {
+    res.locals.profileimagename = 'square.jpg'
+  }
 
 
   var JSX_to_load = 'MgtUser';

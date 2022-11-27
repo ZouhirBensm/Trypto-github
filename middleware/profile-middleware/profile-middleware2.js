@@ -11,13 +11,12 @@ const User = require('../../models/User')
 
 
 
-// TODO !!!! Integrate errors to UI. HERE !
-async function middleware1(req, res, next) {
-  console.log("middleware1...")
+async function makeSureDestinationFolderPresentMiddleware(req, res, next) {
+  console.log("makeSureDestinationFolderPresentMiddleware...")
 
   let directory = `public/img/profile-images`
   res.locals.directory = directory
-  
+
   if (!existsSync(directory)) {
     mkdirSync(directory, { recursive: true });
   }
@@ -29,13 +28,13 @@ async function middleware1(req, res, next) {
 
 
 
-async function middleware2(req, res, next) {
-  console.log("middleware2... process image")
+async function sharpAndDisplaceNewProfilePicMiddleware(req, res, next) {
+  console.log("sharpAndDisplaceNewProfilePicMiddleware... process image")
 
   const source_directory = `public/img/temporal-new`
   const processing_file = req.file;
   const ext = path.extname(processing_file.originalname);
-  
+
   let sharp_returned
 
   let toFormat = determine_Sharp_toFormatOptions(processing_file.mimetype, ext, new ProfileImageUploadError("Server Error | Please, try again later", "No toFormat object retrieved."))
@@ -49,9 +48,9 @@ async function middleware2(req, res, next) {
   try {
     // background: { r: 255, g: 255, b: 255, alpha: 0.5 }, withoutEnlargement: true
     sharp_returned = sharp(processing_file.path)
-    .resize({ width: 104, fit: 'inside' })
+      .resize({ width: 104, fit: 'inside' })
   } catch (e) {
-    let error = new ProfileImageUploadError("Server Error | Please, try again later", `Was unable to sharp resize method.\nSource error: ${e.name}\n${e.message}\n${e.stack}`)
+    let error = new ProfileImageUploadError("Server Error | Please, try again later", `Was unable to sharp resize method.\nSource error: ${e.name}\n${e.message}`)
     return next(error)
   }
 
@@ -59,15 +58,18 @@ async function middleware2(req, res, next) {
     try {
       sharp_returned = sharp_returned.toFormat(toFormat.format, toFormat.options)
     } catch (e) {
-      let error = new ProfileImageUploadError("Server Error | Please, try again later", `Was unable to sharp toFormat method.\nSource error: ${e.name}\n${e.message}\n${e.stack}`)
+      let error = new ProfileImageUploadError("Server Error | Please, try again later", `Was unable to sharp toFormat method.\nSource error: ${e.name}\n${e.message}`)
       return next(error)
     }
   }
 
+  const newprofilepicname = `${req.params.selectedUserID}${ext}`
+  res.locals.newprofilepicname = newprofilepicname
+
   try {
-    sharp_returned = await sharp_returned.toFile(`${res.locals.directory}/${req.params.selectedUserID}${ext}`)
+    sharp_returned = await sharp_returned.toFile(`${res.locals.directory}/${newprofilepicname}`)
   } catch (e) {
-    let error = new ProfileImageUploadError("Server Error | Please, try again later", `Was unable to sharp toFile method.\nSource error: ${e.name}\n${e.message}\n${e.stack}`)
+    let error = new ProfileImageUploadError("Server Error | Please, try again later", `Was unable to sharp toFile method.\nSource error: ${e.name}\n${e.message}`)
     return next(error)
   }
 
@@ -76,14 +78,14 @@ async function middleware2(req, res, next) {
   try {
     await fs.unlink(path.join(source_directory, processing_file.filename));
   } catch (e) {
-    let error = new ProfileImageUploadError("Server Error | Please, try again later", `Was unable to delete the uploaded file from ${source_directory}.\nSource error: ${e.name}\n${e.message}\n${e.stack}`)
+    let error = new ProfileImageUploadError("Server Error | Please, try again later", `Was unable to delete the uploaded file from ${source_directory}.\nSource error: ${e.name}\n${e.message}`)
     return next(error)
   }
 
 
   // Sharped profile pic entry information
   const image = {
-    name: `${req.params.selectedUserID}${ext}`,
+    name: newprofilepicname,
     format: sharp_returned.format,
     width: sharp_returned.width,
     height: sharp_returned.height,
@@ -91,19 +93,19 @@ async function middleware2(req, res, next) {
   }
 
   res.locals.image = image
-  
+
   return next()
 
 }
 
 
 
-async function middleware3(req, res, next) {
-  console.log("middleware3...")
+async function isThereProfilePicAlreadyMiddleware(req, res, next) {
+  console.log("isThereProfilePicAlreadyMiddleware...")
 
 
   let is_there_profile_img_already
-  let profile_image_to_replace = []
+  
 
   // Determine if user has a linked profile picture
   try {
@@ -112,55 +114,81 @@ async function middleware3(req, res, next) {
       userprofileimageID: { $ne: null }
     })
   } catch (e) {
-    let error = new ProfileImageUploadError("Server Error | Please, try again later", `User.exists failed, mongoDB related.\nSource error: ${e.name}\n${e.message}\n${e.stack}`)
+    let error = new ProfileImageUploadError("Server Error | Please, try again later", `User.exists failed, mongoDB related.\nSource error: ${e.name}\n${e.message}`)
     return next(error)
   }
 
-  // There is a linked profile picture linked, then 
-  // 1. Retrieve the saved profile pic file name and id
-  // 2. Delete saved profile pic from fs
-  // 3. Delete UserProfileImage entry from DB
-  if (is_there_profile_img_already) {
+  res.locals.is_there_profile_img_already = is_there_profile_img_already
 
-    // 1.
-    try {
-      profile_image_to_replace = await UserProfileImage.find({ userID: req.params.selectedUserID }).select("_id image")
-    } catch (e) {
-      let error = new ProfileImageUploadError("Server Error | Please, try again later", `UserProfileImage.find failed, mongoDB related.\nSource error: ${e.name}\n${e.message}\n${e.stack}`)
-      return next(error)
-    }
-
-    console.log(profile_image_to_replace)
-    console.log(profile_image_to_replace[0].image.name)
-
-    // 2.
-    try {
-      await fs.unlink(path.join(res.locals.directory, profile_image_to_replace[0].image.name));
-    } catch (e) {
-      let error = new ProfileImageUploadError("Server Error | Please, try again later", `Was unable to delete the saved profile pic file from ${res.locals.directory}, that has been replaced.\nSource error: ${e.name}\n${e.message}\n${e.stack}`)
-      return next(error)
-    }
-
-    // 3.
-    let ret_deletion_old_userprofileimage
-    try {
-      ret_deletion_old_userprofileimage = await UserProfileImage.deleteOne({_id: profile_image_to_replace[0]?._id})
-      console.log(ret_deletion_old_userprofileimage)
-    } catch (e) {
-      let error = new ProfileImageUploadError("Server Error | Please, try again later", `UserProfileImage.deleteOne failed, mongoDB related.\nSource error: ${e.name}\n${e.message}\n${e.stack}`)
-      return next(error)
-    }
-  }
 
   return next()
+
+
+
+
 
 }
 
 
 
+async function retrievePrevImageInfo_DeletePrevPic_DeletePicEntry_Middleware(req, res, next) {
+  console.log("retrievePrevImageInfo_DeletePrevPic_DeletePicEntry_Middleware...")
 
-async function middleware4(req, res, next) {
-  console.log("middleware4...")
+  if (!res.locals.is_there_profile_img_already) {
+    return next()
+  }
+
+  
+
+  // There is a linked profile picture linked, then 
+  // 1. Retrieve the saved profile pic file name and id
+  // 2. Delete UserProfileImage entry from DB
+  // 3. Delete saved profile pic from fs
+
+  // 1.
+
+  let profile_image_to_replace = []
+  try {
+    profile_image_to_replace = await UserProfileImage.find({ userID: req.params.selectedUserID }).select("_id image")
+  } catch (e) {
+    let error = new ProfileImageUploadError("Server Error | Please, try again later", `UserProfileImage.find failed, mongoDB related.\nSource error: ${e.name}\n${e.message}`)
+    return next(error)
+  }
+
+  console.log(profile_image_to_replace)
+  console.log(profile_image_to_replace[0]?.image.name)
+
+
+
+  // 2.
+  let ret_deletion_old_userprofileimage
+  try {
+    ret_deletion_old_userprofileimage = await UserProfileImage.deleteOne({ _id: profile_image_to_replace[0]?._id })
+    console.log(ret_deletion_old_userprofileimage)
+  } catch (e) {
+    let error = new ProfileImageUploadError("Server Error | Please, try again later", `UserProfileImage.deleteOne failed, mongoDB related.\nSource error: ${e.name}\n${e.message}`)
+    return next(error)
+  }
+
+  // If the names are the same no need to delete the original one as the system automatically replaces
+  if (profile_image_to_replace[0]?.image.name == res.locals.newprofilepicname) {
+    return next()
+  }
+  
+  // 3.
+  try {
+    await fs.unlink(path.join(res.locals.directory, profile_image_to_replace[0]?.image.name));
+  } catch (e) {
+    let error = new ProfileImageUploadError("Server Error | Please, try again later", `Was unable to delete the saved profile pic file from ${res.locals.directory}, that has been replaced.\nSource error: ${e.name}\n${e.message}`)
+    return next(error)
+  }
+
+  return next()
+}
+
+
+async function instantiateNewImageMiddleware(req, res, next) {
+  console.log("instantiateNewImageMiddleware...")
 
   // New user profile image instance
   let ret_userprofileimage_instance
@@ -180,15 +208,15 @@ async function middleware4(req, res, next) {
 
 
 
-async function middleware5(req, res, next) {
-  console.log("middleware5...")
+async function editUsersLinkedImageIDMiddleare(req, res, next) {
+  console.log("editUsersLinkedImageIDMiddleare...")
 
   let updated_user_ret
   // Updating User's userprofileimageID to new one created
   try {
     updated_user_ret = await User.updateOne({ _id: req.params.selectedUserID }, { userprofileimageID: res.locals.ret_userprofileimage_instance._id }, { upsert: false, new: true });
   } catch (e) {
-    let error = new ProfileImageUploadError("Server Error | Please, try again later", `User.updateOne failed, mongoDB related.\nSource error: ${e.name}\n${e.message}\n${e.stack}`)
+    let error = new ProfileImageUploadError("Server Error | Please, try again later", `User.updateOne failed, mongoDB related.\nSource error: ${e.name}\n${e.message}`)
     return next(error)
   }
 
@@ -201,8 +229,8 @@ async function middleware5(req, res, next) {
 
 
 
-async function middleware6(req, res, next) {
-  console.log("middleware6...")
+async function saveNewImageEntryMiddleware(req, res, next) {
+  console.log("saveNewImageEntryMiddleware...")
 
   // Saving the user profile image instance
   let ret_userprofileimage_save
@@ -213,6 +241,9 @@ async function middleware6(req, res, next) {
     return next(error)
   }
 
+  
+  res.locals.newprofileimagename = ret_userprofileimage_save.image.name
+
   return next()
 }
 
@@ -221,16 +252,16 @@ async function middleware6(req, res, next) {
 
 
 
-// TODO !!!! rename HERE !
-// TODO !!!!
-// also some js concepts to learn
+
+// TODO Some js concepts to learn
 profileMiddleware = {
-  middleware1: middleware1,
-  middleware2: middleware2,
-  middleware3: middleware3,
-  middleware4: middleware4,
-  middleware5: middleware5,
-  middleware6: middleware6,
+  makeSureDestinationFolderPresentMiddleware: makeSureDestinationFolderPresentMiddleware,
+  sharpAndDisplaceNewProfilePicMiddleware: sharpAndDisplaceNewProfilePicMiddleware,
+  isThereProfilePicAlreadyMiddleware: isThereProfilePicAlreadyMiddleware,
+  retrievePrevImageInfo_DeletePrevPic_DeletePicEntry_Middleware: retrievePrevImageInfo_DeletePrevPic_DeletePicEntry_Middleware,
+  instantiateNewImageMiddleware: instantiateNewImageMiddleware,
+  editUsersLinkedImageIDMiddleare: editUsersLinkedImageIDMiddleare,
+  saveNewImageEntryMiddleware: saveNewImageEntryMiddleware,
 }
 
 
