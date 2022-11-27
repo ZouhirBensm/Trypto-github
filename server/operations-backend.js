@@ -90,14 +90,14 @@ operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages
 
   // For page refresh
   if(res.locals.paths_URL[1] == "manage-subs") {
-    // TODO have own middleware symbol 123@@
+    // HERE TODO have own middleware symbol 123@@
 
 
     let ret_userprofileimage
     try {
       ret_userprofileimage = await UserProfileImage.find({userID: ObjectId(req.params.userID)}).select('image.name')
     } catch (error) {
-      // TODO error handling
+      // HERE TODO error handling
     }
   
     if (ret_userprofileimage[0]){
