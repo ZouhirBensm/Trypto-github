@@ -12,7 +12,7 @@ class UsersList extends React.Component {
     // console.log("from path:", this.mode)
     // console.log("from props:", this.props.mode)
     this.users = []
-    console.log("HERE!", this.props.users)
+    console.log("this.props.users: ", this.props.users)
     console.log(this.props)
     this.userElements = undefined
   }

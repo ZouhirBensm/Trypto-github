@@ -10,7 +10,6 @@ class ArticlesDashboard extends React.Component {
     super(props)
     this.state = {
     }
-    console.log("AAARREE WEEE HERE!!!!")
     this.createAnArticle = this.createAnArticle.bind(this)
   }
 

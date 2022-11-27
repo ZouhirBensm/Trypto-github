@@ -1,5 +1,5 @@
 
-// TODO !!!! image format validation HERE !
+
 
 class ProfileImageUpload extends React.Component {
   constructor(props) {

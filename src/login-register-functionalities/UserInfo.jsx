@@ -64,7 +64,6 @@ class UserInfo extends React.Component {
   }
 
 
-  // HERE ! TODO !!! add file upload validation and delete unecessary duplicate files
 
   render() {
 
