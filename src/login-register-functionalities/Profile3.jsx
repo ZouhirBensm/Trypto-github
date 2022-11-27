@@ -3,7 +3,6 @@ import './styles/MgtUser.css'
 import './styles/Profile.css'
 import './styles/UserInfo.css'
 import '../style/reactDivMobile.css'
-// import CardShell from '../generic-components/CardShell'
 import UserInfo from './UserInfo'
 import SubscriberInfo from './SubscriberInfo'
 

@@ -72,7 +72,7 @@ const {ProfileImageUploadError} = require('../custom-errors/custom-errors')
 
 // METHOD 3
 const MulterSetup = require('../services/multer-services/multer.src')
-const multerinstance = new MulterSetup(`./public/img/temporal-new`, new ProfileImageUploadError("Server Error | Please, try again later", "Directory: temporal-new directory is not present."), new ProfileImageUploadError("Server Error | Please, try again later"))
+const multerinstance = new MulterSetup(`./public/img/temporal-new`, new ProfileImageUploadError("Server Error | Please, try again later", "Directory: temporal-new directory is not present."), new ProfileImageUploadError("Only images with proper extensions i.e. [ png, jpeg, apng, avif, gif, webp ] are allowed.", "Only images with proper extensions i.e. [ png, jpeg, apng, avif, gif, webp ] are allowed."))
 
 
 // multerinstance.setupUploadMiddlewareService(new ProfileImageUploadError("Server Error | Please, try again later", 'Only images with proper extensions are allowed'))

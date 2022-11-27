@@ -11,11 +11,6 @@ class UserInfo extends React.Component {
   }
 
 
-  // shouldComponentUpdate(){
-
-  // }
-
-
   toogleProfilePicUploadModal(e) {
     e.preventDefault()
     e.stopPropagation()
@@ -30,12 +25,12 @@ class UserInfo extends React.Component {
       if (this.state.modal) {
         for (let i = 0; i < maincards.length; i++) {
           const maincard = maincards[i];
-          maincard.classList.add("disable2");
+          maincard.classList.add("disable");
         }
       } else {
         for (let i = 0; i < maincards.length; i++) {
           const maincard = maincards[i];
-          maincard.classList.remove("disable2");
+          maincard.classList.remove("disable");
         }
       }
     })
@@ -69,7 +64,7 @@ class UserInfo extends React.Component {
   }
 
 
-  // HERE ! TODO !!! add file upload validation and delete unecessary duplicate files and disable2 css
+  // HERE ! TODO !!! add file upload validation and delete unecessary duplicate files
 
   render() {
 
@@ -106,7 +101,7 @@ class UserInfo extends React.Component {
 
         {this.state.modal ?
           <ProfileImageUpload
-            toogleImageUploadModal={this.toogleProfilePicUploadModal}
+            toogleProfilePicUploadModal={this.toogleProfilePicUploadModal}
             selectedUserID={this.props.usedUserID}
             setpopups={this.props.setpopups}
             changeprofileimagename={this.props.changeprofileimagename}

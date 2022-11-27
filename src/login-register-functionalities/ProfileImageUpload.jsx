@@ -8,6 +8,15 @@ class ProfileImageUpload extends React.Component {
     console.log(this.props)
   }
 
+  // TODO !!! delete branches on github of trypto-github
+
+  profilePicSaveValidation(){
+    let input = document.getElementById('image-select')
+    let selectedFile = input.files[0]
+    const isThereAFile = !!selectedFile
+    return isThereAFile
+  }
+
 
   componentWillUnmount() {
     // Empties input, might not be needed
@@ -16,7 +25,7 @@ class ProfileImageUpload extends React.Component {
     input.files = dt.files
   }
 
-  async saveProfilePicture(){
+  async saveProfilePicture(e){
     console.log("SAVE!!")
     
     let input = document.getElementById('image-select')
@@ -41,6 +50,7 @@ class ProfileImageUpload extends React.Component {
       case 200:
         this.props.setpopups(json.message)
         this.props.changeprofileimagename(json.newprofileimagename)
+        this.props.toogleProfilePicUploadModal(e)
         break;
       case 500:
         this.props.setpopups(json.error?.message.client_message)
@@ -70,12 +80,13 @@ class ProfileImageUpload extends React.Component {
 
             <button type="submit" onClick={ async (e) => {
               e.preventDefault()
-              // let ret_validation = this.finalSubmissionValidation()
-              // if (ret_validation) {
-              if (true) {
-                let ret_apiMakeMarketOrder = await this.saveProfilePicture()
+              let ret_validation = this.profilePicSaveValidation()
+              if (ret_validation) {
+                let ret_apiMakeMarketOrder = await this.saveProfilePicture(e)
                 return
               } else {
+                const error_msg = `No file was loaded. Please load a file before saving.`
+                this.props.setpopups(error_msg)
                 return
               }
 
