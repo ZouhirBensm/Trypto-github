@@ -1,5 +1,8 @@
 node_modules
 public/dist
+public/img/*/*
 webpack.dev.js
 package-lock.json
 .vscode/*
+
+!public/img/profile-images/square.png
