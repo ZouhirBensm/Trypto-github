@@ -15,44 +15,6 @@ const marketplaceBackend_app_router = express.Router()
 const MulterSetup = require('../services/multer-services/multer.src')
 const multerinstance = new MulterSetup(`./public/img/temporal-new`, new MarketOrderSubmissionError("Server Error | Please, try again later", "Directory: temporal-new directory is not present."), new MarketOrderSubmissionError("Server Error | Please, try again later", 'Only images with proper extensions are allowed'))
 
-// KEPT AS REFERENCE
-// Setting up uploads
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     // manipulate the req, check is public/img is available or file to error handle
-//     let p_error = null
-//     let directory = `./public/img/temporal-new`
-//     // If directory not there throw an error
-//     if (!existsSync(directory)) {
-//       p_error = new MarketOrderSubmissionError("Server Error | Please, try again later", "Directory: temporal-new directory is not present.")
-//     }
-//     cb(p_error, directory)
-//   },
-//   filename: function (req, file, cb) {
-//     let p_error = null
-//     // TODO prefix should have a constant number of digits
-//     let prefix = Math.round(Math.random() * 10000)
-//     cb(p_error, `${prefix}-${file.originalname}`)
-//   }
-// })
-
-// let upload = multer({
-//   storage: storage,
-//   fileFilter: function (req, file, callback) {
-//     suportedExtentions = ['.png', '.jpeg', '.jp2', '.jpg', '.jfif', '.pjpeg', '.pjp', '.apng', '.avif', '.gif', '.webp']
-
-//     var ext = path.extname(file.originalname);
-//     if (suportedExtentions.includes(ext)) {
-//       return callback(null, true)
-//     }
-//     return callback(new MarketOrderSubmissionError("Server Error | Please, try again later", 'Only images with proper extensions are allowed'))
-//   },
-//   // TODO set top limit
-//   limits: {fileSize: max_marketimagefilesize},
-//   preservePath: true,
-// })
-
-
 
 
 // ENV variables
