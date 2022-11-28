@@ -22,8 +22,8 @@ class MulterSetup {
         let directory = directory2save2
         // If directory not there throw an error
         if (!existsSync(directory)) {
-          mkdirSync(directory, { recursive: true });
-          // p_error = destination_error
+          // mkdirSync(directory, { recursive: true });
+          p_error = destination_error
         }
         cb(p_error, directory)
       },
