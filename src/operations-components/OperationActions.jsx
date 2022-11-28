@@ -38,7 +38,7 @@ class OperationActions extends React.Component {
         />
         break;
       case "manage-subs":
-      let profileimagename = _profileimagename || this.comprehensiveSelectedUserInfoDataObj.userprofileimageID?.image.name || "square.jpg"
+      let profileimagename = _profileimagename || this.comprehensiveSelectedUserInfoDataObj.userprofileimageID?.image.name || "square.png"
       this.componentToRender = <ManageSubscriptions
       comprehensiveSelectedUserInfoDataObj={this.comprehensiveSelectedUserInfoDataObj}
       selected_userID={this.props.match.params.selected_userID}

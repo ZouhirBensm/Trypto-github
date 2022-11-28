@@ -9,8 +9,7 @@ import SubscriberInfo from './SubscriberInfo'
 import billing_utils from '../../full-stack-libs/utils.billing'
 
 
-// HERE !! TODO !!! that when deleting a user, associated profile image and DB entry get deleted!
-// TODO upload the default square.jpg image for default profile pic, for production, staging
+// TODO upload the default square.png image for default profile pic, for production, staging
 
 class Profile extends React.Component {
 

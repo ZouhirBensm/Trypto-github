@@ -34,7 +34,7 @@ function getProfilePicNameIfAnyMiddleware(_from) {
     if (ret_userprofileimage[0]) {
       res.locals.profileimagename = ret_userprofileimage[0].image.name
     } else {
-      res.locals.profileimagename = 'square.jpg'
+      res.locals.profileimagename = 'square.png'
     }
 
 

@@ -19,7 +19,6 @@ class ProfileImageUpload extends React.Component {
 
 
   componentWillUnmount() {
-    // Empties input, might not be needed
     let input = document.getElementById('image-select')
     let dt = new DataTransfer()
     input.files = dt.files
@@ -73,6 +72,7 @@ class ProfileImageUpload extends React.Component {
           }}>&times;</span>
 
 
+            
           {/* Original */}
           {/* action={`/users/upload/userprofileimage/${this.props.selectedUserID}`} method="post" encType="multipart/form-data" */}
           <form className="form" id="form_id">

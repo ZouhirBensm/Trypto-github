@@ -172,7 +172,7 @@ async function registerOrder(req, res, next) {
   }
 
 
-  res.status(httpStatus.StatusCodes.OK).json({
+  return res.status(httpStatus.StatusCodes.OK).json({
     saved: "success"
   })
 
@@ -181,6 +181,7 @@ async function registerOrder(req, res, next) {
 
 
 function renderMgtUserSPAController(req, res) {
+  res.locals.userId = req.session.userId
   var JSX_to_load = 'MgtUser';
 
   return res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {

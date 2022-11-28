@@ -38,7 +38,10 @@ class UserInfo extends React.Component {
 
 
   exitUploadModal(e) {
+    // e.stopPropagation()
     let didFindModal = e.path.filter(element => { return element.id == 'myModal' })
+    // let didFindModal = e.composedPath().filter(element => { return element.id == 'myModal' })
+
 
     console.log(didFindModal)
 
@@ -57,7 +60,14 @@ class UserInfo extends React.Component {
       this.toogleProfilePicUploadModal(e)
     }
 
-    document.addEventListener('click', (e) => this.exitUploadModal(e))
+    document.addEventListener('click', (e) => {
+      const modal = document.getElementById("myModal")
+      const contains = modal?.contains(e.target)
+      if (contains) {
+        return
+      }
+      this.exitUploadModal(e)
+    })
 
     let Section = document.getElementsByClassName('section')[0]
     Section.style.display = "none";
@@ -80,7 +90,7 @@ class UserInfo extends React.Component {
             }
           }}>
             <span>Logged in user: </span>
-            <img src={this.props.profile_image_path} alt="User's profile picture"/>
+            <img src={this.props.profile_image_path} alt="User's profile picture" />
             <span> {this.props.userName}</span>
           </div>
           <div className="section">

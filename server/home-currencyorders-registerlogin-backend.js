@@ -8,75 +8,10 @@ const CoinGecko = require('coingecko-api');
 
 const {ProfileImageUploadError} = require('../custom-errors/custom-errors')
 
-// KEPT AS REFERENCE
-// METHOD 2
-// const {setupMulterStorageService, setupUploadMiddlewareService} = require('./multer')
-
-// const str_options = {
-//   directory2save2: `./public/img/temporal-new`,
-//   destination_error: new ProfileImageUploadError("Server Error | Please, try again later", "Directory: temporal-new directory is not present."),
-// }
-
-// const storage = setupMulterStorageService(str_options)
-
-
-// const mlt_options = {
-//   storage: storage,
-//   multer_error: new ProfileImageUploadError("Server Error | Please, try again later", 'Only images with proper extensions are allowed'),
-// }
-
-// let upload = setupUploadMiddlewareService(mlt_options)
-
-
-
-// KEPT AS REFERENCE
-// METHOD 1
-// Setting up uploads
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     // manipulate the req, check is public/img is available or file to error handle
-//     let p_error = null
-//     let directory = `./public/img/temporal-new`
-//     // If directory not there throw an error
-//     if (!existsSync(directory)) {
-//       p_error = new ProfileImageUploadError("Server Error | Please, try again later", "Directory: temporal-new directory is not present.")
-//     }
-//     cb(p_error, directory)
-//   },
-//   filename: function (req, file, cb) {
-//     let p_error = null
-//     // TODO prefix should have a constant number of digits
-//     let prefix = Math.round(Math.random() * 10000)
-//     cb(p_error, `${prefix}-${file.originalname}`)
-//   }
-// })
-
-// let upload = multer({
-//   storage: storage,
-//   fileFilter: function (req, file, callback) {
-//     suportedExtentions = ['.png', '.jpeg', '.jp2', '.jpg', '.jfif', '.pjpeg', '.pjp', '.apng', '.avif', '.gif', '.webp']
-
-//     var ext = path.extname(file.originalname);
-//     if (suportedExtentions.includes(ext)) {
-//       return callback(null, true)
-//     }
-//     return callback(new ProfileImageUploadError("Server Error | Please, try again later", 'Only images with proper extensions are allowed'))
-//   },
-//   // TODO set top limit
-//   limits: {fileSize: max_marketimagefilesize},
-//   preservePath: true,
-// })
-
-
-
 
 // METHOD 3
 const MulterSetup = require('../services/multer-services/multer.src')
 const multerinstance = new MulterSetup(`./public/img/temporal-new`, new ProfileImageUploadError("Server Error | Please, try again later", "Directory: temporal-new directory is not present."), new ProfileImageUploadError("Only images with proper extensions i.e. [ png, jpeg, apng, avif, gif, webp ] are allowed.", "Only images with proper extensions i.e. [ png, jpeg, apng, avif, gif, webp ] are allowed."))
-
-
-// multerinstance.setupUploadMiddlewareService(new ProfileImageUploadError("Server Error | Please, try again later", 'Only images with proper extensions are allowed'))
-
 
 // Initializations
 const homeOrdersBackend_app_router = express.Router()
@@ -138,11 +73,21 @@ const deleteSellOrdersMiddleware = require('../middleware/delete-account-process
 const deleteProtagonistsMiddleware = require('../middleware/delete-account-process-middleware/delete-protagonists-middleware')
 const deleteMessagesMiddleware = require('../middleware/delete-account-process-middleware/delete-messages-middleware')
 const sessionSubscriberMiddleware = require('../middleware/paypal-middleware/session-subscriber-middleware')
-const deleteEffectUserToUnsubscribeMiddleware = require('../middleware/delete-account-process-middleware/delete-effect-user-to-unsubscribe-middleware')
+
+// RENAME
+const deleteIfAgendaJobThatUnsubsUserOnBidBlockMiddleware = require('../middleware/delete-account-process-middleware/delete-if-agenda-job-that-unsubs-user-on-bidblock-middleware')
+
+
 const deleteUserMiddleware = require('../middleware/delete-account-process-middleware/delete-user-middleware')
 const deleteHexMiddleware = require('../middleware/delete-account-process-middleware/delete-hex-middleware')
+
+const deleteUserProfileImageIfAnyMiddleware = require('../middleware/delete-account-process-middleware/delete-user-profile-image-ifany-middleware')
+const deleteFSProfilePictureIfAnyMiddleware = require('../middleware/delete-account-process-middleware/delete-fs-profile-picture-ifany-middleware')
+
+
 const logoutMiddleware = require('../middleware/generic-middleware/logout-middleware')
 // const checkPathUserIdMiddleware = require('../middleware/generic-middleware/check-path-userId-middleware')
+
 const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
 
 
@@ -567,23 +512,7 @@ homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (re
 
 
 
-// TODO rename deleteEffectUserToUnsubscribeMiddleware to deleteIfAgendaJobThatUnsubsUserOnBidBlockMiddleware
-// TODO add userID for articles
-homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteMarketOrderMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware, sessionSubscriberMiddleware, deleteEffectUserToUnsubscribeMiddleware, deleteHexMiddleware, deleteUserMiddleware, logoutMiddleware, (req, res, next) => {
 
-  console.log("Final point: ", res.locals.notifications.length, res.locals.notifications.length == 0, res.locals.notifications.length === 0)
-
-  if (res.locals.notifications.length === 0) {
-    res.status(200).json({
-      srv_: "User account and linked data completly deleted."
-    })
-  } else {
-    let notifications_messages = res.locals.notifications.map(notification => notification.message);
-    let e = new DeleteAccountProcessError(notifications_messages)
-
-    return next(e)
-  }
-})
 
 
 
@@ -599,15 +528,69 @@ homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_log
 homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', requireRefererMiddleware, require_loggedin_for_data(true), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, currencyordersRetrievalMiddleware, distributePaginatedDataController)
 
 
-
-
-
-
-
-
-
-
 homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), verifyingAccountActiveMiddleware, verifyingPasswordMiddleware, LoginController.loginController)
+
+
+
+
+
+
+
+
+
+// TODO add userID for articles
+homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteMarketOrderMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware,
+deleteUserProfileImageIfAnyMiddleware, deleteFSProfilePictureIfAnyMiddleware,
+sessionSubscriberMiddleware, deleteIfAgendaJobThatUnsubsUserOnBidBlockMiddleware, deleteHexMiddleware, deleteUserMiddleware, logoutMiddleware, (req, res, next) => {
+
+  console.log("Final point: ", res.locals.notifications.length)
+
+  
+
+  if (res.locals.notifications.length !== 0) {
+    let notifications_messages = res.locals.notifications.map(notification => notification.message);
+    let e = new DeleteAccountProcessError(notifications_messages)
+    return next(e)
+  } 
+
+
+  return res.status(200).json({
+    srv_: "User account and linked data completly deleted."
+  })
+
+})
+
+
+
+// KEPT AS REFERENCE
+// homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteUserProfileImageIfAnyMiddleware, deleteFSProfilePictureIfAnyMiddleware, (req, res, next) => {
+
+//   console.log("Final point: ", res.locals.notifications.length)
+
+  
+
+//   if (res.locals.notifications.length !== 0) {
+//     let notifications_messages = res.locals.notifications.map(notification => notification.message);
+//     let e = new DeleteAccountProcessError(notifications_messages)
+//     return next(e)
+//   } 
+
+
+//   return res.status(200).json({
+//     srv_: "User account and linked data completly deleted."
+//   })
+  
+// })
+
+
+
+
+
+
+
+
+
+
 
 module.exports = homeOrdersBackend_app_router
 //router references the homeOrdersBackend const
