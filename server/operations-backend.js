@@ -18,6 +18,9 @@ const UserProfileImage = require('../models/UserProfileImage')
 
 
 
+const operationsControllers = require('../controllers/operations-controllers/operations-controllers')
+
+
 const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
 
@@ -32,6 +35,7 @@ const destructureURLandRefererMiddleware = require('../middleware/generic-middle
 const distributePaginatedDataController = require('../controllers/generic-controllers/distribute-paginated-data-controller')
 
 const {getDetailedUserSubscriptionInfo} = require('../middleware/generic-middleware/get-detailed-user-subsciption-information-middleware')
+const {getProfilePicNameIfAnyMiddleware} = require('../middleware/generic-middleware/get-profile-pic-name-if-any-middleware')
 
 
 
@@ -39,6 +43,10 @@ const {getDetailedUserSubscriptionInfo} = require('../middleware/generic-middlew
 const { set_user_if_any } = require("../middleware/generic-middleware/set-user-if-any-middleware")
 const { authenticate_role_for_pages, authenticate_role_for_data } = require("../middleware/generic-middleware/authenticate-role-middleware")
 const { require_loggedin_for_pages, require_loggedin_for_data } = require("../middleware/generic-middleware/check-loggedin-middleware")
+
+
+// Errors
+const {MongoError} = require('../custom-errors/custom-errors')
 
 
 
@@ -76,42 +84,10 @@ operationsBackend_app_router.get('/detailed-user-information/:userID', require_l
 
 
 
-operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/manage-subs/:userID', '/help-for-market-orders/:userID'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), async (req, res, next) => {
+operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/help-for-market-orders/:userID'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), operationsControllers.getOperationsPagesController)
 
 
-  console.log("_________-popup??________", req.query.popup)
-  res.locals.popup = req.query.popup
-  // res.locals.CATEGORY = CATEGORY;
-
-  var JSX_to_load
-  JSX_to_load = 'Operations';
-
-
-
-  // For page refresh
-  if(res.locals.paths_URL[1] == "manage-subs") {
-    // HERE TODO have own middleware symbol 123@@
-
-
-    let ret_userprofileimage
-    try {
-      ret_userprofileimage = await UserProfileImage.find({userID: ObjectId(req.params.userID)}).select('image.name')
-    } catch (error) {
-      // HERE TODO error handling
-    }
-  
-    if (ret_userprofileimage[0]){
-      res.locals.profileimagename = ret_userprofileimage[0].image.name
-    } else {
-      res.locals.profileimagename = 'square.jpg'
-    }
-  }
-
-  // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
-  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
-    JSX_to_load: JSX_to_load,
-  })
-})
+operationsBackend_app_router.get('/manage-subs/:userID', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), getProfilePicNameIfAnyMiddleware("PATHPARAM"), operationsControllers.getOperationsPagesController)
 
 
 

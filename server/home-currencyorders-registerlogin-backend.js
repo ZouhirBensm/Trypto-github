@@ -130,6 +130,7 @@ const currencyordersRetrievalMiddleware = require('../middleware/home-currencyor
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 const startEmptyNotificationsMiddleware = require('../middleware/generic-middleware/start-empty-notifications-middleware')
 const { getDetailedUserSubscriptionInfo } = require('../middleware/generic-middleware/get-detailed-user-subsciption-information-middleware')
+const { getProfilePicNameIfAnyMiddleware } = require('../middleware/generic-middleware/get-profile-pic-name-if-any-middleware')
 
 const deleteMarketOrderMiddleware = require('../middleware/delete-account-process-middleware/delete-market-order-middleware.js')
 const deleteBuyCryptoOrdersMiddleware = require('../middleware/delete-account-process-middleware/delete-buycryptoorders-middleware')
@@ -182,6 +183,9 @@ const User = require('../models/User')
 const HexForUnactiveUser = require('../models/HexForUnactiveUser');
 const UserProfileImage = require('../models/UserProfileImage');
 
+// Errors
+const {MongoError} = require('../custom-errors/custom-errors')
+
 
 
 
@@ -194,51 +198,13 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
   next()
 })
 
-// homeOrdersBackend_app_router.get('/users/userprofileimagename/:selectedUserID', async (req,res,next)=>{
-//   let ret_user_profile_file_name = []
-
-//   try {
-//     ret_user_profile_file_name = await UserProfileImage.find({userID: req.params.selectedUserID}).select('image')
-//   } catch (error) {
-//     // TODO error handle
-//   }
-
-//   const user_profile_file_name = ret_user_profile_file_name[0]?.image.name
-//   const default_profile_file_name = `square.jpg`
 
 
-//   if(user_profile_file_name){
-//     res.status(200).send(user_profile_file_name)
-//   } else {
-//     res.status(200).send(default_profile_file_name)
-//   }
-// })
+homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), getDetailedUserSubscriptionInfo("SESSION"), getProfilePicNameIfAnyMiddleware("SESSION"), homeCurrencyOrdersController.renderMgtUserSPAController)
 
 
 homeOrdersBackend_app_router.post('/users/upload/userprofileimage/:selectedUserID', multerinstance.upload.single('image'), profileMiddleware.makeSureDestinationFolderPresentMiddleware, profileMiddleware.sharpAndDisplaceNewProfilePicMiddleware, profileMiddleware.isThereProfilePicAlreadyMiddleware, profileMiddleware.retrievePrevImageInfo_DeletePrevPic_DeletePicEntry_Middleware,profileMiddleware.instantiateNewImageMiddleware, profileMiddleware.editUsersLinkedImageIDMiddleare, profileMiddleware.saveNewImageEntryMiddleware, profileController.sucessUploadProfilePicController)
 
-
-// KEPT AS REFERENCE
-// homeOrdersBackend_app_router.post('/users/upload/userprofileimage/:selectedUserID', multerinstance.upload.single('image'), profileMiddleware.middleware1, profileMiddleware.middleware4, profileMiddleware.middleware5, profileMiddleware.middleware6, profileController.controller1)
-
-
-// KEPT AS REFERENCE
-// homeOrdersBackend_app_router.post('/users/upload/userprofileimage/:selectedUserID', multerinstance.upload.single('image'), (req, res) => {
-//   console.log("posting to save user profile image", req.params.selectedUserID)
-
-//   if (!req.file) {
-//     console.log("No file received", req.file);
-//     return res.send({
-//       success: false
-//     });
-
-//   } else {
-//     console.log('file received', req.file);
-//     return res.send({
-//       success: true
-//     })
-//   }
-// })
 
 
 
@@ -314,6 +280,9 @@ homeOrdersBackend_app_router.get('/users/forgotpasswordpage', (req, res) => {
 
 
 
+
+
+
 homeOrdersBackend_app_router.post('/check/user/register', requireRefererMiddleware, LoginController.checkRegisterController)
 
 
@@ -384,35 +353,6 @@ homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(fal
 
 
 
-homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), getDetailedUserSubscriptionInfo("SESSION"),
-async (req, res, next) => {
-
-
-
-
-  res.locals.userId = req.session.userId
-
-  // TODO have own middleware symbol 123@@
-  let ret_userprofileimage
-  try {
-    ret_userprofileimage = await UserProfileImage.find({userID: ObjectId(res.locals.userId)}).select('image.name')
-  } catch (error) {
-    // TODO error handling
-  }
-
-  if (ret_userprofileimage[0]){
-    res.locals.profileimagename = ret_userprofileimage[0].image.name
-  } else {
-    res.locals.profileimagename = 'square.jpg'
-  }
-
-
-  var JSX_to_load = 'MgtUser';
-
-  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
-    JSX_to_load: JSX_to_load,
-  })
-})
 
 
 // Endpoints

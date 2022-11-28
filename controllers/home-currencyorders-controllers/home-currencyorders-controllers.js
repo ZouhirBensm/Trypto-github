@@ -180,6 +180,15 @@ async function registerOrder(req, res, next) {
 
 
 
+function renderMgtUserSPAController(req, res) {
+  var JSX_to_load = 'MgtUser';
+
+  return res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
+    JSX_to_load: JSX_to_load,
+  })
+}
+
+
 
 
 
@@ -187,6 +196,7 @@ homeCurrencyOrdersController = {
   updateOrderController: updateOrderController,
   deleteOrderController: deleteOrderController,
   registerOrder: registerOrder,
+  renderMgtUserSPAController: renderMgtUserSPAController
 }
 
 

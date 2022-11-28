@@ -6,10 +6,6 @@ module.exports = async (req,res,next)=>{
   console.log("\n_______________\n")
   console.log("in usersRetrievalMiddleware: ")
 
-  // console.log(res.locals.page, res.locals.limit, res.locals.startIndex, res.locals.endIndex)
-
-  // console.log({user: res.locals.user})
-
 
   // For on select
   // Get rid of logged in user, and no password field
@@ -23,10 +19,10 @@ module.exports = async (req,res,next)=>{
   .select('-password')
 
 
-  users.forEach(user => {
-    console.log(user)
-    console.log(user.userprofileimageID?.image.name)
-  });
+  // users.forEach(user => {
+  //   console.log(user)
+  //   console.log(user.userprofileimageID?.image.name)
+  // });
 
   res.locals.data_to_be_paginated_and_served = users
 
