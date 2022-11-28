@@ -1,6 +1,8 @@
 node_modules
 public/dist
-public/img/*/*
+public/img/marketorder-images/*
+public/img/profile-images/*
+public/img/temporal-new/*
 webpack.dev.js
 package-lock.json
 .vscode/*
