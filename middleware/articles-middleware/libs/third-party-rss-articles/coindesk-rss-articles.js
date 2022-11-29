@@ -30,7 +30,8 @@ function articalizeForBidBlock(_MostRecentItems){
       content: _item.content,
       category: CATEGORY.COINDESK,
       excerpt: _item.contentSnippet,
-      link: _item.link
+      link: _item.link,
+      enclosure: '../img/default-rss-enclosure-images/coindesk.png'
     }
   })
   return articlesFromCoinDesk

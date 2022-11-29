@@ -79,7 +79,7 @@ class Articles extends React.Component {
   }
 
   render() {
-    console.log("Here articles!: ", this.state.articles)
+    // console.log("Here articles!: ", this.state.articles)
     return (
       <React.Fragment>
         {/* <div>Articles.jsx test</div> */}

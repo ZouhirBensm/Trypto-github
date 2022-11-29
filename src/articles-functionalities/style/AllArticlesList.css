@@ -5,3 +5,7 @@
 .disable {
   pointer-events: auto;
 }
+
+img.ext-rss-enclosure {
+  width: 100%;
+}

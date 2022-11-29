@@ -24,6 +24,8 @@ async function functionBitcoinMagazineArticles(){
 
 module.exports = {functionBitcoinMagazineArticles}
 
+
+
 function articalizeForBidBlock(_MostRecentItems){
   let articlesFromBitcoinMagazine = _MostRecentItems.map(_item => {
     return {
@@ -33,7 +35,8 @@ function articalizeForBidBlock(_MostRecentItems){
       content: _item.content,
       category: CATEGORY.BITCOIN_MAGAZINE,
       excerpt: _item.contentSnippet,
-      link: _item.link
+      link: _item.link,
+      enclosure: _item.enclosure.url
     }
   })
   return articlesFromBitcoinMagazine

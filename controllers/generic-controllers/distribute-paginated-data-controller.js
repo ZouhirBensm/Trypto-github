@@ -47,6 +47,7 @@ module.exports = (req, res, next)=>{
   }
 
 
+  console.log(data_pages_managed_obj)
   res.status(200).json({
     srv_: data_pages_managed_obj,
   })

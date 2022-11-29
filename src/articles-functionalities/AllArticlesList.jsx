@@ -1,5 +1,4 @@
-import React from "react"
-import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {THIRD_PARTY_CATEGORIES, EXTERNAL_READS_CATEGORIES} from '../../full-stack-libs/utils.arrays'
 import './style/AllArticlesList.css'
 
@@ -12,8 +11,9 @@ class AllArticlesList extends React.Component {
     super(props)
     this.state = {
     }
-    // this.contructArticleList()
+    this.contructArticleList()
   }
+
 
   contructArticleList() {
     if (this.props.articles) {
@@ -54,27 +54,11 @@ class ArticleElement extends React.Component {
     }
   }
 
-  componentDidMount(){
-  }
-
   render() {
-    let stringy = JSON.stringify(this.props.article)
+    // let stringy = JSON.stringify(this.props.article)
 
     return (
       <React.Fragment>
-        {/* <Link className='link' to={{
-          pathname: `/articles/individual_article/${this.props.article._id}`,
-          search: `?article=${JSON.stringify(this.props.article)}`,
-        }}>
-          <div>
-            <hr/>
-            <h4>{this.props.article.title}</h4>
-            <span>{this.props.article.publishedDate}</span> | <span>{this.props.article.category}</span>
-            <p>{this.props.article.excerpt}</p>
-            <hr/>
-          </div>
-        </Link> */}
-
         {!EXTERNAL_READS_CATEGORIES.includes(this.props.article.category)? 
         <Link className='link' to={{
           pathname: `/articles/individual_article/${this.props.article._id}`,
@@ -85,6 +69,7 @@ class ArticleElement extends React.Component {
             <h4>{this.props.article.title}</h4>
             <span>{this.props.article.publishedDate}</span> | <span>{this.props.article.category}</span>
             <p>{this.props.article.excerpt}</p>
+            <p>Personal image enclosure...</p>
             <hr/>
           </div>
         </Link>
@@ -95,6 +80,7 @@ class ArticleElement extends React.Component {
             <h4>{this.props.article.title}</h4>
             <span>{this.props.article.publishedDate}</span> | <span>{this.props.article.category}</span>
             <p>{this.props.article.excerpt}</p>
+            <img className="ext-rss-enclosure" src={this.props.article.enclosure} alt="Blog image banner" />
             <hr/>
           </div>
         </a>

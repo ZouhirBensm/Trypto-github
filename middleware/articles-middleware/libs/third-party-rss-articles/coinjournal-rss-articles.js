@@ -30,7 +30,8 @@ function articalizeForBidBlock(_MostRecentItems){
       content: _item.content,
       category: CATEGORY.COINJOURNAL,
       excerpt: _item.contentSnippet,
-      link: _item.link
+      link: _item.link,
+      enclosure: '../img/default-rss-enclosure-images/coinjournal.jpeg'
     }
   })
   return articlesFromCoinJournal
