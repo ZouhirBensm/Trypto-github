@@ -4,9 +4,6 @@ const {FirstPathNotRegistered} = require("../../custom-errors/custom-errors")
 const full_stack_utils = require('../../full-stack-libs/utils')
 
 module.exports = (req, res, next)=>{
-  // console.log("\n_______________\n")
-
-  // console.log("in distribute-paginated-data-controller.js: ", res.locals.data_to_be_paginated_and_served)
 
   const number_of_pages = Math.ceil(res.locals.data_to_be_paginated_and_served.length/res.locals.limit)
 
@@ -30,7 +27,6 @@ module.exports = (req, res, next)=>{
   }
 
 
-  console.log("res.locals.paths_URL_fromAPIcall[0]: ", res.locals.paths_URL_fromAPIcall[0])
   switch (res.locals.paths_URL_fromAPIcall[0]) {
     case "paginated-messages":
       data_pages_managed_obj.CONVOS = res.locals.data_to_be_paginated_and_served.slice(res.locals.startIndex, res.locals.endIndex)
@@ -51,9 +47,6 @@ module.exports = (req, res, next)=>{
   }
 
 
-
-
-  // console.log("\n______________________________")
   res.status(200).json({
     srv_: data_pages_managed_obj,
   })

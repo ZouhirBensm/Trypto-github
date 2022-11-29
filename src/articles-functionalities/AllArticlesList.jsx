@@ -16,7 +16,6 @@ class AllArticlesList extends React.Component {
   }
 
   contructArticleList() {
-    console.log(this.props.articles)
     if (this.props.articles) {
       let AllArticlesElements = this.props.articles.map((article, i) => {
         return <ArticleElement
@@ -56,16 +55,10 @@ class ArticleElement extends React.Component {
   }
 
   componentDidMount(){
-    console.log("ELEMENT CATEGORY!", this.props.article.category)
   }
 
   render() {
-
-    console.log(this.props.article)
     let stringy = JSON.stringify(this.props.article)
-    console.log(stringy)
-
-    console.log(!EXTERNAL_READS_CATEGORIES.includes(this.props.article.category))
 
     return (
       <React.Fragment>

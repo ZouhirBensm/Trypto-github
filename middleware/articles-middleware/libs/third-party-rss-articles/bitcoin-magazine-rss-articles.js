@@ -18,11 +18,7 @@ async function functionBitcoinMagazineArticles(){
   feed = await parser.parseURL('https://bitcoinmagazine.com/.rss/full/');
 
   let MostRecentItems = feed.items.slice(0,5)
-
-  // console.log("\n\n\MostRecentItems", MostRecentItems);
   let articlesFromBitcoinMagazine = articalizeForBidBlock(MostRecentItems)
-
-  // console.log("\n\n\narticlesFromBitcoinMagazine", articlesFromBitcoinMagazine);
   return articlesFromBitcoinMagazine
 }
 

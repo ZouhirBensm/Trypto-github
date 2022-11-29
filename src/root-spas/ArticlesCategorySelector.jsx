@@ -10,10 +10,8 @@ class ArticlesCategorySelector extends React.Component {
     super(props)
     this.state = {
     }
-    // console.log(CATEGORY)
     this.category = utils.parseFullPath4lastpath(window.location.href)
     if (this.category == 'articles') this.category = "RECENT"
-    console.log(this.category)
   }
 
   toogleCategories() {
@@ -22,20 +20,15 @@ class ArticlesCategorySelector extends React.Component {
     if (categoryNav.style.display === "none") {
       categoryNav.style.display = "block";
     } else {
-      console.log("ici")
       categoryNav.style.display = "none";
     }
 
-    console.log("3", categoryNav.style.display)
 
     let articlesContainer = document.getElementsByClassName("articles-container")[0]
 
     if (categoryNav.style.display == "block") {
-      console.log("disable all")
       articlesContainer.classList.add("disable");
-
     } else {
-      console.log("enable all")
       articlesContainer.classList.remove("disable");
     }
 
@@ -47,7 +40,6 @@ class ArticlesCategorySelector extends React.Component {
     categories_array.push("RECENT")
     // Guard to work with a navigation category selector, only if the last path in URL is one from the categories_array
     if(!categories_array.includes(this.category)) return
-    console.log(categories_array)
     let categoryNav = document.getElementsByClassName("category-nav")[0]
     categoryNav.style.position = "absolute";
     categoryNav.style.backgroundColor = "yellow";
@@ -62,11 +54,6 @@ class ArticlesCategorySelector extends React.Component {
     e.preventDefault()
     let categoryClicked = e.target.getAttribute("value")
     if (categoryClicked == 'RECENT') categoryClicked = undefined
-
-    console.log(categoryClicked)
-
-    console.log(`/articles${categoryClicked ? `/${categoryClicked}` : ''}`)
-
     window.location.href = `/articles${categoryClicked ? `/${categoryClicked}` : ''}`
 
 
@@ -81,7 +68,6 @@ class ArticlesCategorySelector extends React.Component {
     for (const key in CATEGORY) {
       if (Object.hasOwnProperty.call(CATEGORY, key)) {
         const category_element = CATEGORY[key];
-        // console.log(category_element)
         let newDiv = document.createElement("div")
         newDiv.setAttribute("value", category_element);
         newDiv.innerHTML = category_element
@@ -92,14 +78,12 @@ class ArticlesCategorySelector extends React.Component {
   }
 
   render() {
-    console.log("in the render!!", this.category)
     return (
       <React.Fragment>
 
         <BrowserRouter>
 
           <Switch>
-            {/* <Route path={`/articles/individual_article/${this.props.article._id}`} component={Article}/> */}
             <Route exact path={`/articles/:category?`}>
               <div onClick={(e) => { this.toogleCategories() }}>Categories ↕️</div>
               <div className='category-nav'></div>

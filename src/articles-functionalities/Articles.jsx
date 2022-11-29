@@ -25,7 +25,6 @@ class Articles extends React.Component {
       on_off_limit_next: false,
       on_off_limit_previous: true,
     }
-    console.log("in the child component:", this.props.category)
     this.controls = this.controls.bind(this);
   }
 
@@ -47,11 +46,7 @@ class Articles extends React.Component {
     
     let serverOBJ = await response.json()
 
-    // console.log(response)
-    // console.log(serverOBJ)
-
     if(response.ok){
-      console.log("serverOBJ", serverOBJ)
       this.setState({
         articles: serverOBJ.srv_.ARTICLES,
         nextPage: serverOBJ.srv_.next,
@@ -78,7 +73,7 @@ class Articles extends React.Component {
         }
       })
     } else {
-      console.error("Error: ", serverOBJ)
+      // TODO add some error handling with UI
     }
 
   }

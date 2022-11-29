@@ -1,16 +1,8 @@
 function filterObject(crypto = null, category = "RECENT"){
-  // let filter_object = {}
-  // filter_object = path_param_userID? (filter_object.userid = path_param_userID): null  
+
   let filter_object = crypto? {crypto: crypto}: {}; // Adding properties with destructuring
 
-  // crypto? (filter_object = {...filter_object, crypto: crypto}): filter_object // Adding properties with destructuring
-  // crypto? (filter_object.crypto = crypto): null;
-
-  // console.log((category == "RECENT") ? null: (filter_object.category = category));
   (category == "RECENT") ? null: (filter_object.category = category)
-
-  console.log("filter_object:", filter_object)
-
   return filter_object
 }
 

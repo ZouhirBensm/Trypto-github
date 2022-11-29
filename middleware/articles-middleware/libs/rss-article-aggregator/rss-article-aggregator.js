@@ -4,7 +4,6 @@ const {functionCoinJournalArticles} = require('../third-party-rss-articles/coinj
 const CATEGORY = require('../../../../full-stack-libs/Types/ArticleCategories')
 
 async function functionArticleAggregator(ARRAY_OF_NEEDED){
-  console.log("ARRAY_OF_NEEDED", ARRAY_OF_NEEDED)
   let aggregated_array_of_all_articles = []
 
   let articlesFromBitcoinMagazine  = await functionBitcoinMagazineArticles()
@@ -30,7 +29,6 @@ async function functionArticleAggregator(ARRAY_OF_NEEDED){
     }
   });
 
-  console.log("\n\n\naggregated_array_of_all_articles", aggregated_array_of_all_articles)
 
 
   return aggregated_array_of_all_articles

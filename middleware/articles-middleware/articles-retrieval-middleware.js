@@ -8,10 +8,7 @@ const {THIRD_PARTY_CATEGORIES} = require('../../full-stack-libs/utils.arrays')
 const {functionArticleAggregator} = require('./libs/rss-article-aggregator/rss-article-aggregator')
 
 module.exports = async (req,res,next)=>{
-  console.log("\n_______________\n")
-  // console.log("in articlesRetrievalMiddleware: ",res.locals.page, res.locals.limit, res.locals.startIndex, res.locals.endIndex, {user: res.locals.user})
 
-  console.log("CATEGORY ON THE SERVER BEFORE QUERY IS: ", req.query.category)
   let articles
   let filter_object
   filter_object = filterObject(null, req.query.category)
@@ -23,22 +20,16 @@ module.exports = async (req,res,next)=>{
     let retrievedArticles = await functionArticleAggregator(THIRD_PARTY_CATEGORIES)
 
     articles = [...articles, ...retrievedArticles]
-    // console.log("retrieved Articles!!", retrievedArticles)
-
-
 
   } else if (THIRD_PARTY_CATEGORIES.includes(req.query.category)) {
     // Grab only third party articles
-    console.log("INN HEEREE!!!", req.query.category)
     let retrievedArticles = await functionArticleAggregator([req.query.category])
     articles = retrievedArticles
 
   } else {
     // Grab DB articles with the particular category requested
-    // console.log({filter_object})
     articles = await Article.find(filter_object)
   }
-
 
 
   articles.sort(function compare(a, b) {
@@ -47,12 +38,8 @@ module.exports = async (req,res,next)=>{
     return dateB - dateA;
   });
   
-  console.log({articles})
+  
 
   res.locals.data_to_be_paginated_and_served = articles
-
-  // console.log("in articlesRetrievalMiddleware: ", res.locals.data_to_be_paginated_and_served)
-
-  // console.log("\n______________________________")
-  next()
+  return next()
 }
