@@ -29,18 +29,7 @@ class Profile extends React.Component {
     this.changeprofileimagename = this.changeprofileimagename.bind(this)
   }
 
-
-
-  componentDidUpdate(){
-  }
-
-
-  componentDidMount() {
-  }
-
   changeprofileimagename(newimageName){
-
-
     this.setState({
       profileimagename: newimageName,
       imageHash: Date.now()

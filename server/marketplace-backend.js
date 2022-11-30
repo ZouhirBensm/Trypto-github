@@ -11,7 +11,6 @@ const {MarketOrderSubmissionError} = require('../custom-errors/custom-errors')
 const marketplaceBackend_app_router = express.Router()
 
 
-// METHOD 3
 const MulterSetup = require('../services/multer-services/multer.src')
 const multerinstance = new MulterSetup(`./public/img/temporal-new`, new MarketOrderSubmissionError("Server Error | Please, try again later", "Directory: temporal-new directory is not present."), new MarketOrderSubmissionError("Server Error | Please, try again later", 'Only images with proper extensions are allowed'))
 

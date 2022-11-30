@@ -1,16 +1,5 @@
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
-
-
-
-
-// import Admin_Block from '../operations-components/Admin-Block';
-// import ArticlesDashboard from '../operations-components/ArticlesDashboard';
-// import UserSelect from '../operations-components/UserSelect';
-// import NotFound from '../generic-components/NotFound';
-// import ScrollToTop from '../generic-components/ScrollToTop';
-
-
 import '../style/reactDivMobile.css'
 
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
@@ -26,12 +15,12 @@ const ArticlesDashboard = loadable(() => import("../operations-components/Articl
 const UserSelect = loadable(() => import("../operations-components/UserSelect"), {
   fallback: <Loading />
 });
-// const NotFound = loadable(() => import("../generic-components/NotFound"),{
-//   fallback: <Loading/>
-// });
 const ScrollToTop = loadable(() => import("../generic-components/ScrollToTop"), {
   fallback: <Loading />
 });
+// const NotFound = loadable(() => import("../generic-components/NotFound"),{
+//   fallback: <Loading/>
+// });
 
 
 
@@ -45,25 +34,14 @@ class Operations extends React.Component {
     super(props)
     this.state = {
     }
-    // console.log(`you are in: ${window.location.href}`)
-    
-
   }
 
 
   render() {
     return (
       <React.Fragment>
-        {/* forceRefresh = force refresh on route change */}
-        {/* getUserConfirmation = gives a promp on the page when going to new route*/}
         <BrowserRouter basename="/operations">
           <ScrollToTop />
-          {/* <Route exact path="/operations" render={
-            (props) => <Admin_Block {...props} className="some-class" title="Some title"/>
-          }/>  */}
-
-
-
           <Switch>
 
             <Route exact path="/">
@@ -75,41 +53,27 @@ class Operations extends React.Component {
             </Route>
 
 
-            {/* <Route path="/operations/help-for-orders" component={UserSelect}></Route> */}
+            
             <Route path="/help-for-orders" render={
               (props) => <UserSelect {...props} mode="help-for-orders" />
             } />
-            {/* <Route path="/operations/monitor-messages" component={UserSelect}></Route> */}
+            
             <Route path="/monitor-messages" render={
               (props) => <UserSelect {...props} mode="monitor-messages" />
             } />
-            {/* <Route path="/operations/manage-subs" component={UserSelect}></Route> */}
+            
             <Route path="/manage-subs" render={
               (props) => <UserSelect {...props} mode="manage-subs" />
             } />
+
             <Route path="/help-for-market-orders" render={
               (props) => <UserSelect {...props} mode="help-for-market-orders" />
             } />
-            {/* <Route path="/operations/articles-dashboard" component={ArticlesDashboard}></Route> */}
 
 
             <Route path="/articles-dashboard" render={
               (props) => <ArticlesDashboard {...props} />
             } />
-
-            {/* WORKED TEST */}
-            {/* <Route path="/test">
-            Test component!
-          </Route>  */}
-
-
-
-
-            {/* Fallback */}
-            {/* <Route render={
-            (props) => <NotFound {...props}/>
-          }/>  */}
-
 
           </Switch>
         </BrowserRouter>

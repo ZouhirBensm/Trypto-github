@@ -1,14 +1,12 @@
 module.exports = (req,res, next) => {
+  console.log(req.body)
+  console.log(req.file)
+  // let excerpt
+  // let split_content = req.body.content.split(" ")
+  // let split_excerpt = split_content.slice(0, 10)
+  // excerpt = split_excerpt.join(" ")
 
-  let excerpt
-  let split_content = req.body.content.split(" ")
-  // console.log(split_content)
-  let split_excerpt = split_content.slice(0, 10)
-  // console.log(split_excerpt)
-  excerpt = split_excerpt.join(" ")
-  // console.log(excerpt)
+  // req.body.excerpt = excerpt
 
-  req.body.excerpt = excerpt
-
-  next()
+  return next()
 }

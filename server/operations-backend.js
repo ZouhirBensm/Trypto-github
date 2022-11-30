@@ -3,6 +3,11 @@ const operationsBackend_app_router = express.Router()
 var ObjectId = require('mongodb').ObjectId;
 
 
+const MulterSetup = require('../services/multer-services/multer.src')
+const multerinstance = new MulterSetup(`./public/img/temporal-new`, new Error("Directory: temporal-new directory is not present."), new Error('Only images with proper extensions are allowed'))
+
+
+
 // Environment variables and types
 const ENV = require('../config/base')
 const NAVBAR = require('../full-stack-libs/Types/Navbar')
@@ -181,28 +186,31 @@ operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', require_l
 
 
 
-
-
-
-
-
-
-operationsBackend_app_router.post('/create-article', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), setTheExcerptMiddleware , async (req, res, next) => {
-
-  console.log("\n\nin POST /operations/create-article: ", req.body)
-
-  Article.create(req.body, (e, saveArticleRes) => {
-    if(e) return next(e)
-    console.log(saveArticleRes)
-    Article.updateOne({_id: saveArticleRes._id}, {$set: {link: `/articles/individual_article/${saveArticleRes._id}`}}, (e, saveArticleRes) => {
-      if(e) return next(e)
-      console.log(saveArticleRes)
-    });
-  })
-
-  // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
+// DATA WELL RECEIVED HERE !!
+operationsBackend_app_router.post('/create-article', multerinstance.upload.single('image'), setTheExcerptMiddleware , async (req, res, next) => {
+  console.log("backend hit!")
   res.status(200).end()
 })
+
+
+
+
+// KEPT AS REFERENCE
+// operationsBackend_app_router.post('/create-article', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), setTheExcerptMiddleware , async (req, res, next) => {
+
+//   console.log("\n\nin POST /operations/create-article: ", req.body)
+
+//   Article.create(req.body, (e, saveArticleRes) => {
+//     if(e) return next(e)
+//     console.log(saveArticleRes)
+//     Article.updateOne({_id: saveArticleRes._id}, {$set: {link: `/articles/individual_article/${saveArticleRes._id}`}}, (e, saveArticleRes) => {
+//       if(e) return next(e)
+//       console.log(saveArticleRes)
+//     });
+//   })
+
+//   res.status(200).end()
+// })
 
 
 
