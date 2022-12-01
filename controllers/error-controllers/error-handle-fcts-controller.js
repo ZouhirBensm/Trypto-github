@@ -3,7 +3,7 @@ const ENV = require('../../config/base')
 
 
 
-const errorResponseDispatcherController = async (err, req ,res, next) => {
+const errorResponseDispatcherController = async (err, req, res, next) => {
   console.log("\n\n\x1b[33;5mOn errorResponseDispatcherController\x1b[0m\n\n\n\x1b[37;43;1mConstructor: ", err.constructor.name, '\x1b[0m')
 
   switch (err.constructor.name) {
@@ -26,7 +26,7 @@ const errorResponseDispatcherController = async (err, req ,res, next) => {
       return res.status(err.statusCode).send({
         error: {
           type: err.type,
-          message: err.message, 
+          message: err.message,
           // message: res.locals.notification,
         }
       })
@@ -122,6 +122,16 @@ const errorResponseDispatcherController = async (err, req ,res, next) => {
           }
         }
       })
+    case "CreateArticleError":
+      return res.status(err.statusCode).json({
+        error: {
+          type: err.type,
+          message: {
+            admin_message: err.admin_message,
+            message: err.message
+          }
+        }
+      })
     default:
       console.log("switch end")
       return next(err)
@@ -129,11 +139,11 @@ const errorResponseDispatcherController = async (err, req ,res, next) => {
   }
 }
 
-const errorResponderController = (err, req ,res, next) => {
+const errorResponderController = (err, req, res, next) => {
   console.log("\n\n\n\x1b[38;5;130;5mOn errorResponderController\x1b[0m")
 
 
-  console.log("\n\x1b[37;48;5;172;1mEnvironment", ENV.environment , '\x1b[0m\n\n')
+  console.log("\n\x1b[37;48;5;172;1mEnvironment", ENV.environment, '\x1b[0m\n\n')
   // for (let i = 0; i < 256; ++i){
   //   console.log(`\x1b[48;5;${i}m${i}\x1b[0m`)
   // }
@@ -145,13 +155,13 @@ const errorResponderController = (err, req ,res, next) => {
 
   let error_sent
 
-  ENV.environment === "developement" ? 
-  error_sent = `On errorResponderController |\nAn Error has occured on the server please have a look!\n Error: ${err}`: 
-  error_sent = `${errorStatus} | Sorry, our web server is Down!`;
+  ENV.environment === "developement" ?
+    error_sent = `On errorResponderController |\nAn Error has occured on the server please have a look!\n Error: ${err}` :
+    error_sent = `${errorStatus} | Sorry, our web server is Down!`;
 
 
-  return res.status(errorStatus).send(error_sent) 
-  
+  return res.status(errorStatus).send(error_sent)
+
   // Personal note: err is an object and JSON.stringify(err,null,4) is a string
 
 }

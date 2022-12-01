@@ -9,10 +9,25 @@ async function getOperationsPagesController(req, res) {
 
 }
 
+function responseCreateArticleController(req, res) {
+  console.log("responseCreateArticleController...")
+  
+  const success_message = `Your new article got posted and saved! Congrats real top G!`
+
+  res.status(200).json({
+    server: {
+      message: success_message
+    }
+  })
+}
+
+
+
 
 
 operationsControllers = {
-  getOperationsPagesController: getOperationsPagesController
+  getOperationsPagesController: getOperationsPagesController,
+  responseCreateArticleController: responseCreateArticleController
 }
 
 

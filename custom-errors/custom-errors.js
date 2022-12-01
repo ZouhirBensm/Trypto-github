@@ -145,6 +145,16 @@ class ProfileImageUploadError extends CustomError {
   }
 }
 
+class CreateArticleError extends CustomError {
+  constructor(admin_message, statusCode = undefined){
+    super()
+    this.type = this.constructor.name
+    this.message = admin_message
+    this.admin_message= admin_message
+    this.statusCode = statusCode ||  this.statusCode
+  }
+}
+
 module.exports = {
   // SubCustomError,
   MongoError,
@@ -159,5 +169,6 @@ module.exports = {
   SessionRoleOrSentUIDnotAllowed,
   ResetPasswordReset,
   MarketOrderSubmissionError,
-  ProfileImageUploadError
+  ProfileImageUploadError,
+  CreateArticleError
 }

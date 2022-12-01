@@ -19,6 +19,7 @@ const ArticleSchema = new Schema({
   category: String,
   excerpt: String,
   link: String,
+  enclosure: String,
   // Author: {
   //   type: mongoose.Schema.Types.ObjectId,
   //   ref: 'User',
@@ -28,6 +29,11 @@ const ArticleSchema = new Schema({
     type: Date,
     // default: new Date(),
     default: Date.now,
+  },
+  articleenclosureimageID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'ArticleEnclosureImage',
+    default: null
   },
   // editedDate: {
   //   type: Date,

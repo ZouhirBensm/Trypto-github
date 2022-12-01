@@ -2,9 +2,11 @@ const express = require('express')
 const operationsBackend_app_router = express.Router()
 var ObjectId = require('mongodb').ObjectId;
 
+const { CreateArticleError } = require('../custom-errors/custom-errors')
+
 
 const MulterSetup = require('../services/multer-services/multer.src')
-const multerinstance = new MulterSetup(`./public/img/temporal-new`, new Error("Directory: temporal-new directory is not present."), new Error('Only images with proper extensions are allowed'))
+const multerinstance = new MulterSetup(`./public/img/temporal-new`, new CreateArticleError("Directory: temporal-new directory is not present."), new CreateArticleError('Only images with proper extensions are allowed'))
 
 
 
@@ -29,7 +31,7 @@ const operationsControllers = require('../controllers/operations-controllers/ope
 const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
 
-const setTheExcerptMiddleware = require('../middleware/articles-middleware/set-the-excerpt-middleware')
+const articlesMiddleware = require('../middleware/articles-middleware/articles-middleware')
 
 const usersRetrievalMiddleware = require('../middleware/operations-middleware/users-retrieval-middleware')
 const messagesRetrievalMiddleware = require('../middleware/operations-middleware/messages-retrieval-middleware')
@@ -187,15 +189,19 @@ operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', require_l
 
 
 // DATA WELL RECEIVED HERE !!
-operationsBackend_app_router.post('/create-article', multerinstance.upload.single('image'), setTheExcerptMiddleware , async (req, res, next) => {
-  console.log("backend hit!")
-  res.status(200).end()
-})
+operationsBackend_app_router.post('/create-article', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), multerinstance.upload.single('image'), articlesMiddleware.setTheExcerptMiddleware, articlesMiddleware.makeSureDestinationFolderPresentMiddleware,  articlesMiddleware.createArticleInstanceMiddleware, articlesMiddleware.processArticleImageMiddleware,  articlesMiddleware.createArticleEnclosureImageInstanceMiddleware, articlesMiddleware.saveTheArticleEntryMiddleware, articlesMiddleware.saveTheArticleEnclosureImageEntryMiddleware,  operationsControllers.responseCreateArticleController)
 
 
+  
+  
+  
+  
+  
+  
+  
 
 
-// KEPT AS REFERENCE
+// // KEPT AS REFERENCE
 // operationsBackend_app_router.post('/create-article', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), setTheExcerptMiddleware , async (req, res, next) => {
 
 //   console.log("\n\nin POST /operations/create-article: ", req.body)

@@ -1,4 +1,5 @@
 import '../style/reactDivMobile.css'
+import {validateInputs} from '../../full-stack-libs/validations'
 import CATEGORY from '../../full-stack-libs/Types/ArticleCategories';
 import THIRD_PARTY_CATEGORY from '../../full-stack-libs/Types/ArticleThirdPartyCategories';
 
@@ -7,13 +8,53 @@ class CreateArticle extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      popup: null
     }
     this.clickCreateArticle = this.clickCreateArticle.bind(this)
+    this.setpopups = this.setpopups.bind(this)
+    this.popup
   }
 
+  
   componentDidMount() {
     this.buildCategorySelect()
+
+    let popup = document.getElementById('popup')
+    popup.style.display = "block";
+    let form = document.getElementById("form_id")
+    form.append(popup)
   }
+
+
+  articlePostValidation(){
+    let error_message = undefined
+
+    error_message = validateInputs({
+      title: document.getElementById("form_id").elements["title"].value,
+      content: document.getElementById("form_id").elements["content"].value,
+      category: document.getElementById("form_id").elements["category"].value
+    })
+
+    if(!!error_message){
+      return error_message
+    }
+
+    let input = document.getElementById('image-select')
+    let selectedFile = input.files[0]
+    const isThereAFile = !!selectedFile
+    // console.log(isThereAFile)
+
+    if(!isThereAFile) {
+      error_message = `Please upload a associated image before making a save request to the server!`
+      return error_message
+    }
+    return
+  }
+
+
+
+
+
 
   buildCategorySelect() {
     let selectCategory = document.getElementById("category-select")
@@ -55,35 +96,41 @@ class CreateArticle extends React.Component {
       }
     }
 
-    console.log(formData)
-
     let response
     response = await fetch(`/operations/create-article`, {
       method: 'POST',
       body: formData
     })
 
-    // let json
-    // json = await response.json()
+    let json
+    json = await response.json()
 
     console.log(response)
-    // console.log(json)
+    console.log(json)
 
-    // switch (response.status) {
-    //   case 200:
-    //     console.log("pop up that you have successfully created an article")
-    //     break;
-    //   case 500:
-    //     console.log("pop up that you have a server internal error")
-    //     break;
-    //   default:
-    //     console.log("pop up that you have a status that is not 200 nor 500")
-    //     break;
-    // }
+    switch (response.status) {
+      case 200:
+        return json.server?.message
+      case 500:
+        return json.error?.message.message
+      default:
+        return json.error?.message.message
+    }
 
   }
 
+  setpopups(_error_msg){
+    console.log("setting the popup..", _error_msg)
+
+    this.setState({
+      popup: _error_msg
+    })
+  }
+
+
   render() {
+    let popup = document.getElementById('popup')
+    popup.innerHTML = this.state.popup
 
 
     return (
@@ -107,14 +154,14 @@ class CreateArticle extends React.Component {
 
             <button type='submit' onClick={async (e) => {
               e.preventDefault()
-              // let ret_validation = this.profilePicSaveValidation()
-              // if (ret_validation) {
-              if (true) {
-                let ret_clickCreateArticle = await this.clickCreateArticle(e)
-                return
+              let ret_validation = this.articlePostValidation()
+
+              if (ret_validation) {
+                const error_msg = ret_validation
+                this.setpopups(error_msg)
               } else {
-                // const error_msg = `No file was loaded. Please load a file before saving.`
-                // this.props.setpopups(error_msg)
+                let ret_clickCreateArticle = await this.clickCreateArticle(e)
+                this.setpopups(ret_clickCreateArticle)
                 return
               }
             }}>Create Article</button> <br/>
