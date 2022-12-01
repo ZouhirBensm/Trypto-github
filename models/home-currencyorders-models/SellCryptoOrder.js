@@ -45,6 +45,7 @@ const SellCryptoOrderSchema = new Schema({
 
 
 SellCryptoOrderSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
+SellCryptoOrderSchema.index({ postedDate: -1 });
 
 //Access the database my_database via mongoose.model.
 //The first argument: The name of the collection the model is for.

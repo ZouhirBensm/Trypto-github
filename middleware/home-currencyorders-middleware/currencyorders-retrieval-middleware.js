@@ -31,8 +31,8 @@ module.exports = async (req,res,next)=>{
 
 
 
-  let bOrders = BuyCryptoOrder.find(findObject).populate('userid')
-  let sOrders = SellCryptoOrder.find(findObject).populate('userid')
+  let bOrders = BuyCryptoOrder.find(findObject).sort({ postedDate: -1 }).populate('userid')
+  let sOrders = SellCryptoOrder.find(findObject).sort({ postedDate: -1 }).populate('userid')
 
   let [buyOrders, sellOrders] = await Promise.all([bOrders, sOrders]).catch(e => {
     return next(e)

@@ -119,10 +119,6 @@ const { require_loggedin_for_pages, require_loggedin_for_data } = require("../mi
 const { authenticate_role_for_pages, authenticate_role_for_data } = require("../middleware/generic-middleware/authenticate-role-middleware")
 
 
-
-
-
-
 // Database Models
 const User = require('../models/User')
 const HexForUnactiveUser = require('../models/HexForUnactiveUser');
@@ -132,9 +128,6 @@ const UserProfileImage = require('../models/UserProfileImage');
 const {MongoError} = require('../custom-errors/custom-errors')
 
 
-
-
-
 // Start middleware for this homeOrdersBackend_app_router
 homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
   // Might need this as a "script endpoint global" variable!
@@ -142,6 +135,34 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
   navBars = NAVBAR.CLIENTS
   next()
 })
+
+
+
+
+
+
+
+homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', requireRefererMiddleware, require_loggedin_for_data(true), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, currencyordersRetrievalMiddleware, distributePaginatedDataController)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -526,7 +547,7 @@ homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (re
 
 
 
-homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', requireRefererMiddleware, require_loggedin_for_data(true), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, currencyordersRetrievalMiddleware, distributePaginatedDataController)
+
 
 
 homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), verifyingAccountActiveMiddleware, verifyingPasswordMiddleware, LoginController.loginController)
