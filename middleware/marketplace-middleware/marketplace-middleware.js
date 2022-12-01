@@ -255,12 +255,13 @@ async function ordersRetrievalMiddleware(req, res, next) {
   let sellOrders
 
   try {
-    sellOrders = await SellMarketOrder.find().populate('userid')
+    // Descending: from newest to oldest
+    sellOrders = await SellMarketOrder.find().sort({ postedDate: -1 }).populate('userid')
   } catch (e) {
     return next(e)
   }
 
-  console.log("\n\n\n\nsellOrders!!\n\n", sellOrders)
+  // console.log("\n\n\n\nsellOrders!!\n\n", sellOrders)
 
 
   
