@@ -66,10 +66,10 @@ class ArticleElement extends React.Component {
         }}>
           <div>
             <hr/>
+            <img className="bidblock-article-enclosure" src={this.props.article.enclosure} alt="Blog image banner" />
             <h4>{this.props.article.title}</h4>
             <span>{this.props.article.publishedDate}</span> | <span>{this.props.article.category}</span>
             <p>{this.props.article.excerpt}</p>
-            <p>Personal image enclosure...</p>
             <hr/>
           </div>
         </Link>
@@ -77,10 +77,10 @@ class ArticleElement extends React.Component {
         <a className='alink' href={this.props.article.link} target="_blank">
           <div>
             <hr/>
+            <img className="ext-rss-enclosure" src={this.props.article.enclosure} alt="Blog image banner" />
             <h4>{this.props.article.title}</h4>
             <span>{this.props.article.publishedDate}</span> | <span>{this.props.article.category}</span>
             <p>{this.props.article.excerpt}</p>
-            <img className="ext-rss-enclosure" src={this.props.article.enclosure} alt="Blog image banner" />
             <hr/>
           </div>
         </a>

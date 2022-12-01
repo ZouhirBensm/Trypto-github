@@ -6,6 +6,7 @@
   pointer-events: auto;
 }
 
-img.ext-rss-enclosure {
+img.ext-rss-enclosure,
+img.bidblock-article-enclosure {
   width: 100%;
 }

@@ -17,6 +17,7 @@ class Article extends React.Component {
   render(){
     return (
       <div>
+        <img className="bidblock-article-enclosure" src={`../${this.articleDataObj.enclosure}`} alt="Blog image banner" />
         <h3>Title:</h3>
         <p>{this.articleDataObj.title}</p>
         <h4>Category:</h4>
