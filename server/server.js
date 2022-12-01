@@ -50,9 +50,7 @@ db.once("open", () => {
 // TODO !! have a opt in page on bidblock.ca that takes email list, look into 
 // TODO network in groups to see if audience would pay for a bidblock platform
 // TODO look into kickstarter to fund the app: https://www.kickstarter.com/, look into crowdfunding
-// TODO !! make articles on home page feed by order recent to last recent
 // TODO ! make available to see the market orders when not logged in but cannot interact with on the home
-// TODO ! get rid of the other crypto prices and keep only bitcoin, and transform the display of the price to something better
 
 
 

@@ -147,8 +147,7 @@ marketplaceBackend_app_router.get(['/paginated-orders/sellordersdata/:data_of_us
 // marketplaceBackend_app_router.post('/sellorders/save', require_loggedin_for_data(true), marketplaceController.registerMarketOrder)
 
 
-// TODO add guards
-// require_loggedin_for_data(true), marketplaceController.registerMarketOrder
+
 marketplaceBackend_app_router.post('/sellorders/save/:userID?', require_loggedin_for_data(true), requester_auth_middleware(2), multerinstance.upload.array('image'), marketplaceMiddleware.instantiateMarketOrderLocationMiddleware, marketplaceMiddleware.instantiateMarketOrderMiddleware, marketplaceMiddleware.processImageFilesMiddleware, marketplaceMiddleware.instantiateMarketOrderImagesMiddleware, marketplaceMiddleware.saveAllMarketOrderMiddleware, marketplaceMiddleware.setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware, marketplaceController.registerMarketOrderController)
 
 

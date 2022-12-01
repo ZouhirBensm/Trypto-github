@@ -108,7 +108,7 @@ class MessageRow extends React.Component {
     // console.log("Require Keys: ", display_editing)
     return(
       <tr onClick={(e) => this.handleClick(this.props.comprehensiveSelectedUserInfoDataObj, communicating_with_ID, e)}>
-        {/* TODO #85 Add Profile pictures to users */}
+        {/* TODO !!!! #85 Add Profile pictures to users */}
         <td id="img-profile" style={{"display": "none"}}>Com w\ username: {communicating_with_username}</td>
 
         <td id="comm-with-email">Com w\ username: {communicating_with_username}</td>

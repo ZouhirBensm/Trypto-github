@@ -104,22 +104,16 @@ class MarketSubmissionButton extends React.Component {
     let json
     
 
-    try {
-      // TODO add uid
-      console.log("fetch to: ", `/marketplace/sellorders/save/${userId}`)
-      response = await fetch(`/marketplace/sellorders/save/${userId}`, {
-        method: 'POST',
-        body: formData
-      })
-    } catch (error) {
-      console.error(error)
-    }
+    // TODO add uid
+    console.log("fetch to: ", `/marketplace/sellorders/save/${userId}`)
 
-    try {
-      json = await response.json()
-    } catch (error) {
-      console.error(error)
-    }
+    response = await fetch(`/marketplace/sellorders/save/${userId}`, {
+      method: 'POST',
+      body: formData
+    })
+
+    json = await response.json()
+
     
     console.log("Server reponse object json:", json)
 

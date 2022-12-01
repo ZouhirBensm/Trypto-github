@@ -5,8 +5,6 @@ class ProfileImageUpload extends React.Component {
     console.log(this.props)
   }
 
-  // TODO !!! delete branches on github of trypto-github
-
   profilePicSaveValidation(){
     let input = document.getElementById('image-select')
     let selectedFile = input.files[0]

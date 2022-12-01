@@ -240,7 +240,6 @@ class _4_InputImagesMarketOrder extends React.Component {
 
   validateImagesTypes(_selectedFiles) {
 
-    // TODO have the image support add and delete the difference to what has already been added, i.e. no need to reset all
     const supportedTypes = [
       "image/png",
       "image/jpeg",
@@ -248,8 +247,6 @@ class _4_InputImagesMarketOrder extends React.Component {
       "image/avif",
       "image/gif",
       "image/webp",
-      // TODO get rid
-      // "image/svg+xml"
     ];
 
     console.log(_selectedFiles, supportedTypes)
@@ -319,7 +316,6 @@ class _4_InputImagesMarketOrder extends React.Component {
 
 export default _4_InputImagesMarketOrder
 
-// TODO finish https://www.ycombinator.com/apply registration
 // TODO get people to onboard to your company on angellist.co
 
 

@@ -6,11 +6,9 @@ import ROLE from '../../full-stack-libs/Types/Role'
 import { validateInputs, validateExpiry } from '../../full-stack-libs/validations'
 
 
-// TODO add the amounts to display SAT and BTC
-
-// TODO display market order images on the market orders details page
-
-// TODO when submitting a market order, add the auto scroll to botom to see the pop up
+// TODO !!!! add the amounts to display SAT and BTC
+// TODO !!!! display market order images on the market orders details page
+// TODO !!!! when submitting a market order, add the auto scroll to botom to see the pop up
 class MarketOrderDetails extends React.Component {
   constructor(props) {
     super(props)
