@@ -453,20 +453,21 @@ homeOrdersBackend_app_router.get('/confirm-user-email/:userID/:hexfield', async 
 homeOrdersBackend_app_router.get('/cryptoprice', async (req, res, next) => {
 
   let params = {
-    ids: ['bitcoin', 'ethereum', 'litecoin', 'bitcoin-cash', 'zcash', 'monero'],
+    ids: ['bitcoin'],
     vs_currencies: ['cad', 'usd', 'eur']
   }
 
+  let data
   try {
-    let data = await CoinGeckoClient.simple.price(params)
-    return res.json({
-      data: data.data
-    })
+    data = await CoinGeckoClient.simple.price(params)
   } catch (e) {
-    console.log(`CoinGeckoClient api call error: ${e}`)
-    next(e)
+    return next(e)
   }
-  //console.log(typeof data.data, typeof JSON.stringify(data.data))
+
+  console.log(data)
+  return res.json({
+    data: data.data
+  })
 })
 
 

@@ -63,7 +63,7 @@ async function checkRegisterController(req, res, next) {
     //   ]
     // })
 
-    // TODO !!!! better understand this query
+    // TODO ! better understand this query
     mightFindUser = await User.aggregate([
       {
         $facet: {

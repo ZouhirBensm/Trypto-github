@@ -1,17 +1,7 @@
-// import React, {lazy, Suspense} from 'react';
-// import ReactDOM from 'react-dom'
 import PricesComponent from '../home-functionalities/PricesComponent.jsx';
+import '../style/reactDivMobile.css'
 
-import Register from '../login-register-functionalities/Register.jsx';
-import Subscription from './Subscription'
 
-// TODO !!!! add check if username duplicate when registering new users
-
-require('react-dom');
-window.React2 = require('react');
-console.log("same---->>>", window.React1 === window.React2);
-console.log(window.React1)
-console.log(window.React2)
 
 
 class App extends React.Component {
@@ -20,74 +10,44 @@ class App extends React.Component {
     this.state = {
       prices: []
     }
-    this.repairData = this.repairData.bind(this)
+    // this.repairData = this.repairData.bind(this)
   }
 
-
-  
-  repairData(_objPrices){
-    let wahad
-    let zouj
-    let _repairedData = []
-    wahad = _objPrices.data
-    zouj = Object.getOwnPropertyNames(wahad)
-    _repairedData = Object.values(wahad)
-    for (let i=0; i<zouj.length; i++){
-      _repairedData[i].name = zouj[i]
-    }
-    return _repairedData
-  }
 
   componentDidMount(){
-    console.log("in component: ", userId)
-    //DOM is ready
+    // console.log("in component: ", userId)
     this.loadData()
-    
-    // const pricesComponent = document.getElementsByClassName("prices")[0]
-    // const registerComponent = document.getElementById("container-log-reg")
-
-    // registerComponent.insertBefore(pricesComponent, registerComponent.firstChild);
   }
   
   async loadData(){
-    let objPrices = {}
+    let btc_gecko_prices = {}
     const response = await fetch(`/cryptoprice`)
     const data = await response.json()
-    objPrices = this.repairData(data)
+
+    console.log(btc_gecko_prices, data.data.bitcoin)
 
     this.setState({
-      prices: objPrices
-    })
-      
+      prices: data.data.bitcoin
+    })   
   }
+
     
   render() {
-    //console.log("session: ", document.cookie)
-    //console.log(this.state.prices)
-    let countries = {
-      west: {
-        one: "Canada",
-        two: "USA",
-        three: "EU"
-      },
-      third:{
-        one: "Algeria",
-        two: "Tunisia",
-        three: "Morocco"
-      }
-    }
-    
-    console.log(countries.west, this.state.prices)
+
     return (
-    
+      
+      // Home
       <React.Fragment>
-        <PricesComponent countries={countries.west} prices={this.state.prices}/>
+        <PricesComponent btc_gecko_prices={this.state.prices}/>
         
 
       </React.Fragment> 
       
     );
   }
+
+
+
 }
 
 const element = <App />;
@@ -98,3 +58,11 @@ ReactDOM.render(element, document.getElementById('react-div'));
 
 export default App
 
+
+
+
+// require('react-dom');
+// window.React2 = require('react');
+// console.log("same---->>>", window.React1 === window.React2);
+// console.log(window.React1)
+// console.log(window.React2)

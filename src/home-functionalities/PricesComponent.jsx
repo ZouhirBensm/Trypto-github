@@ -1,63 +1,55 @@
-// import React, {lazy, Suspense} from 'react';
-import Prices from './Prices';
+import React from "react"
 
 class PricesComponent extends React.Component {
-  constructor(){
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      country: 'Canada'
     }
-    this.handleClick = this.handleClick.bind(this)
-    this.popup = popup
+    // console.log(this.props)
   }
 
-  handleClick(e){
-    e.preventDefault()
-    //console.log(e.target.value);
-    this.setState({
-      country: e.target.value
-    })
-    // document.getElementsByName("toogle");
+
+
+  setTDs(){
+    let currencies, values
+    currencies = Object.keys(this.props.btc_gecko_prices)
+    values = Object.values(this.props.btc_gecko_prices)
+    
+    let tds_currencies = []
+    for (let i = 0; i < currencies.length; i++) {
+      const currency = currencies[i];
+      tds_currencies.push(<td key={i}>{currency}</td>)
+    }
+    let tds_values = []
+    for (let i = 0; i < values.length; i++) {
+      const value = values[i];
+      tds_values.push(<td key={i}>{value}</td>)
+    }
+    return [tds_currencies, tds_values]
   }
+
+
+
 
   render() {
-    console.log("popup:", this.popup)
-
-    let i=0
-    const pricesRows = this.props.prices.map(price => {
-        i++
-        return (
-            <Prices key={i} price={price} country={this.state.country}/>
-        )
-      }
-    )
-    //console.log(typeof this.props.prices)
+    let tds_currencies, tds_values
+    [tds_currencies, tds_values] = this.setTDs()
 
 
     return (
-    <div className="prices">
-      <form name="toogle">
-        <label><input type="radio" id="Canada" name="radio" value={this.props.countries.one} onClick={this.handleClick}/>{this.props.countries.one}</label>
-        <label><input type="radio" id="America" name="radio" value={this.props.countries.two} onClick={this.handleClick}/>{this.props.countries.two}</label>  
-        <label><input type="radio" id="Europe" name="radio" value={this.props.countries.three} onClick={this.handleClick}/>{this.props.countries.three}</label>
-      </form>
-      <table className="bordered-table">
-      <thead>
-        <tr>
-          <th>Country</th>
-          <th>Name</th>
-          <th>Value</th>
-        </tr>
-      </thead>
-      <tbody>
-        {pricesRows}
-      </tbody>
-    </table>
-    {this.popup?
-    <p>{this.popup}</p>
-    :null}
-    </div>
-
+      <React.Fragment>
+      <h1>Bitcoin Prices</h1>
+      <table>
+        <tbody>
+          <tr>
+            {tds_currencies}
+          </tr>
+          <tr>
+            {tds_values}
+          </tr>
+        </tbody>
+      </table>
+      </React.Fragment>
     );
   }
 }

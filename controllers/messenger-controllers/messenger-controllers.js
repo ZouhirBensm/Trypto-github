@@ -44,7 +44,7 @@ let chatControllers = (io) => {
     var srvSockets = io.sockets.sockets
 
     // Retrive the sessions
-    // TODO !!!! try to assigne the session directly with the socket id i.e. without the querying for the DB
+    // TODO ! try to assigne the session directly with the socket id i.e. without the querying for the DB
     let sessions
     try {
       await mongodbClient.connect();

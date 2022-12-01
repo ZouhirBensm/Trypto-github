@@ -186,47 +186,7 @@ operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', require_l
 
 
 
-
-
-// DATA WELL RECEIVED HERE !!
 operationsBackend_app_router.post('/create-article', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), multerinstance.upload.single('image'), articlesMiddleware.setTheExcerptMiddleware, articlesMiddleware.makeSureDestinationFolderPresentMiddleware,  articlesMiddleware.createArticleInstanceMiddleware, articlesMiddleware.processArticleImageMiddleware,  articlesMiddleware.createArticleEnclosureImageInstanceMiddleware, articlesMiddleware.saveTheArticleEntryMiddleware, articlesMiddleware.saveTheArticleEnclosureImageEntryMiddleware,  operationsControllers.responseCreateArticleController)
-
-
-  
-  
-  
-  
-  
-  
-  
-
-
-// // KEPT AS REFERENCE
-// operationsBackend_app_router.post('/create-article', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), setTheExcerptMiddleware , async (req, res, next) => {
-
-//   console.log("\n\nin POST /operations/create-article: ", req.body)
-
-//   Article.create(req.body, (e, saveArticleRes) => {
-//     if(e) return next(e)
-//     console.log(saveArticleRes)
-//     Article.updateOne({_id: saveArticleRes._id}, {$set: {link: `/articles/individual_article/${saveArticleRes._id}`}}, (e, saveArticleRes) => {
-//       if(e) return next(e)
-//       console.log(saveArticleRes)
-//     });
-//   })
-
-//   res.status(200).end()
-// })
-
-
-
-
-
-
-
-
-
-
 
 
 
