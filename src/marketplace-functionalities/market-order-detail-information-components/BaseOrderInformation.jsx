@@ -16,6 +16,9 @@ class BaseOrderInformation extends React.Component {
         <div>Category: {this.props.category}</div>
         <div>Posted Date: {this.props.postedDate}</div>
         <div>Expiration | {this.props.expirationAt} | {this.props.expirationDate} | {this.props.expirationTime}</div>
+        <button onClick={(e)=>{
+          this.props.handleToogleEdit("BaseOrderInformation")
+        }}>Edit</button>
       </React.Fragment>
     )
   }

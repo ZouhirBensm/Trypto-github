@@ -19,6 +19,7 @@ class CurrencyOrderTable extends React.Component {
       })
     }
   }
+  
   handleToogleEdit(buttons, valueid, e) {
     //e.preventDefault()
     //console.log(e.target.value);

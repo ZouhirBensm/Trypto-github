@@ -13,6 +13,7 @@ class MarketOrderDetails extends React.Component {
     this.state = {
       order: undefined,
     }
+    this.loadData = this.loadData.bind(this)
   }
 
   componentDidMount() {
@@ -41,6 +42,7 @@ class MarketOrderDetails extends React.Component {
       <React.Fragment>
         <RetrievedMarketOrderData
           order={this.state.order}
+          loadData={this.loadData}
         />
       </React.Fragment>
     )

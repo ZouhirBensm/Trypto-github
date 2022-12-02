@@ -13,6 +13,9 @@ class OrderNumbersInformation extends React.Component {
         <div>OrderNumbersInformation...</div>
         <div>Conversion: {this.props.conversion}</div>
         <div>Price: {this.props.price}</div>
+        <button onClick={(e)=>{
+          this.props.handleToogleEdit("OrderNumbersInformation")
+        }}>Edit</button>
       </React.Fragment>
     )
   }

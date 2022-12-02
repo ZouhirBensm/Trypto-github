@@ -16,6 +16,9 @@ class LocationInformation extends React.Component {
         <div>City: {this.props.city}</div>
         <div>Province/State: {this.props.province_state}</div>
         <div>Country: {this.props.country}</div>
+        <button onClick={(e)=>{
+          this.props.handleToogleEdit("LocationInformation")
+        }}>Edit</button>
       </React.Fragment>
     )
   }

@@ -100,9 +100,15 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
-// TODO ass guards
+// TODO add guards
 // , require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4)
 marketplaceBackend_app_router.get(['/order/:userId/sellordersdata/:orderID', '/order/:userId/allmyorders/:orderID'], marketplaceController.getOrderController)
+
+
+
+
+
+marketplaceBackend_app_router.patch('/:userId/update1', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), marketplaceController.updateOrder1Controller)
 
 
 
@@ -235,7 +241,7 @@ marketplaceBackend_app_router.delete('/:userId/delete-this-order', require_logge
 
 
 
-marketplaceBackend_app_router.patch('/:userId/update', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), marketplaceController.updateOrderController)
+
 
 
 

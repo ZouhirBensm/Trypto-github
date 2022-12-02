@@ -13,6 +13,9 @@ class ChainWalletInformation extends React.Component {
         <div>ChainWalletInformation...</div>
         <div>Chain: {this.props.chain}</div>
         <div>Payment: {this.props.payment}</div>
+        <button onClick={(e)=>{
+          this.props.handleToogleEdit("ChainWalletInformation")
+        }}>Edit</button>
       </React.Fragment>
     )
   }
