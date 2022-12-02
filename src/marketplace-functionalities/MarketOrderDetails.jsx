@@ -5,10 +5,11 @@ import ROLE from '../../full-stack-libs/Types/Role'
 
 import { validateInputs, validateExpiry } from '../../full-stack-libs/validations'
 
-
 // TODO !!!! add the amounts to display SAT and BTC
 // TODO !!!! display market order images on the market orders details page
-// TODO !!!! when submitting a market order, add the auto scroll to botom to see the pop up
+
+
+
 class MarketOrderDetails extends React.Component {
   constructor(props) {
     super(props)
@@ -84,10 +85,6 @@ class MarketOrderDetails extends React.Component {
         case "sellmarketorderlocationID":
           // console.log("order.location: ", Object.keys(_order[property].location), _order[property].location['st'])
           for (const [index, iterator] of Object.keys(_order[property].location).entries()) {
-            // console.log(iterator, index)
-            if (iterator == "st") {
-              continue;
-            }
             rows.push(<tr key={`Location-key-${index}`}>
               <td>{iterator}</td>
               <td>{_order[property].location[iterator]}</td>

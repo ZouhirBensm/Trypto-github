@@ -43,7 +43,7 @@ class _4_InputImagesMarketOrder extends React.Component {
     let dt = new DataTransfer()
     let passed, popup_state;
 
-    
+
 
 
 
@@ -75,7 +75,7 @@ class _4_InputImagesMarketOrder extends React.Component {
 
 
 
-    ({passed, popup_state} = this.validateImagesTypes(selectedFiles));
+    ({ passed, popup_state } = this.validateImagesTypes(selectedFiles));
     console.log(passed, popup_state)
 
     if (!passed) {
@@ -89,7 +89,7 @@ class _4_InputImagesMarketOrder extends React.Component {
       }
 
       input.files = dt.files
-      
+
       let ret_handleimages = this.props.handleimages(Files_arr_names_build, Files_build, popup_state)
 
       // this.props.setpopup(popup_state)
@@ -113,7 +113,7 @@ class _4_InputImagesMarketOrder extends React.Component {
 
 
 
- 
+
 
 
 
@@ -185,7 +185,12 @@ class _4_InputImagesMarketOrder extends React.Component {
     return (
       <React.Fragment>
 
-
+        <h1>HHHH</h1>
+        <h1>HHHH</h1>
+        <h1>HHHH</h1>
+        <h1>HHHH</h1>
+        <h1>HHHH</h1>
+        <h1>HHHH</h1>
 
 
         <div id='images-container'>
@@ -255,7 +260,7 @@ class _4_InputImagesMarketOrder extends React.Component {
 
     for (const FileKey in _selectedFiles) {
 
-      if(isNaN(parseInt(FileKey))) {
+      if (isNaN(parseInt(FileKey))) {
         continue
       }
 
@@ -267,48 +272,48 @@ class _4_InputImagesMarketOrder extends React.Component {
 
 
 
-    if (not_supported_retrieved.length != 0){
+    if (not_supported_retrieved.length != 0) {
       not_supported_retrieved = [...new Set(not_supported_retrieved)];
       let error_msg = `${not_supported_retrieved.join(' ')} image types are not supported.`
       let error_msg_retrieved_if_any = error_msg
 
-      return {passed: false, popup_state: error_msg_retrieved_if_any};
+      return { passed: false, popup_state: error_msg_retrieved_if_any };
     }
 
 
-    return {passed: true, popup_state: undefined};
+    return { passed: true, popup_state: undefined };
 
   }
 
 
 
 
-//   finalSubmissionValidation(){
-//   let input = document.getElementById('image-select')
-//   let selectedFiles = input.files
-//   let selectedFilesArr = this.makeArrayOutOf(selectedFiles)
+  //   finalSubmissionValidation(){
+  //   let input = document.getElementById('image-select')
+  //   let selectedFiles = input.files
+  //   let selectedFilesArr = this.makeArrayOutOf(selectedFiles)
 
-//   let error_msg_retrieved_if_any
+  //   let error_msg_retrieved_if_any
 
-//   if (selectedFilesArr.length == 0) {
-//     let error_msg = "No images have been uploaded, submission requires at least one image."
-//     error_msg_retrieved_if_any = error_msg
-//   }
+  //   if (selectedFilesArr.length == 0) {
+  //     let error_msg = "No images have been uploaded, submission requires at least one image."
+  //     error_msg_retrieved_if_any = error_msg
+  //   }
 
-//   if (error_msg_retrieved_if_any) {
-//     this.props.setpopup(error_msg_retrieved_if_any)
-//     return false
-//   } else { return true }
-// }
+  //   if (error_msg_retrieved_if_any) {
+  //     this.props.setpopup(error_msg_retrieved_if_any)
+  //     return false
+  //   } else { return true }
+  // }
 
 
 
-// async apiMakeMarketOrder(){
-//   console.log("API CALL")
-//   let response
+  // async apiMakeMarketOrder(){
+  //   console.log("API CALL")
+  //   let response
 
-//   let json
-// }
+  //   let json
+  // }
 
 
 

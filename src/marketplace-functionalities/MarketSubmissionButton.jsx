@@ -31,6 +31,8 @@ class MarketSubmissionButton extends React.Component {
 
     if (error_msg_retrieved_if_any) {
       this.props.setpopup(error_msg_retrieved_if_any)
+      const reactDiv = document.getElementById("react-div")
+      reactDiv.scrollTo(0, reactDiv.scrollHeight);
       return false
     } else { return true }
   }
@@ -87,7 +89,7 @@ class MarketSubmissionButton extends React.Component {
             formData.append(name, value);
             break;
         }
-        
+
       }
     }
 
@@ -102,7 +104,7 @@ class MarketSubmissionButton extends React.Component {
 
     let response
     let json
-    
+
 
     // TODO add uid
     console.log("fetch to: ", `/marketplace/sellorders/save/${userId}`)
@@ -114,7 +116,7 @@ class MarketSubmissionButton extends React.Component {
 
     json = await response.json()
 
-    
+
     console.log("Server reponse object json:", json)
 
     switch (response.status) {
@@ -129,6 +131,8 @@ class MarketSubmissionButton extends React.Component {
         break;
     }
 
+    const reactDiv = document.getElementById("react-div")
+    reactDiv.scrollTo(0, reactDiv.scrollHeight);
 
   }
 }
