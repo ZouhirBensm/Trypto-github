@@ -100,6 +100,25 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
+// TODO ass guards
+// , require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4)
+marketplaceBackend_app_router.get(['/order/:userId/sellordersdata/:orderID', '/order/:userId/allmyorders/:orderID'], marketplaceController.getOrderController)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 marketplaceBackend_app_router.get(['/paginated-orders/sellordersdata/:data_of_userID?'], require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, marketplaceMiddleware.ordersRetrievalMiddleware, distributePaginatedDataController)
@@ -201,10 +220,6 @@ marketplaceBackend_app_router.get(['/sellordersdata/:orderID', '/allmyorders/:or
 
 
 
-
-
-// , require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4)
-marketplaceBackend_app_router.get(['/order/:userId/sellordersdata/:orderID', '/order/:userId/allmyorders/:orderID'], marketplaceController.getOrderController)
 
 
 

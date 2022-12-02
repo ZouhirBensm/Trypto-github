@@ -1,4 +1,3 @@
-
 import '../style/reactDivMobile.css'
 import MarketOrderTable from './MarketOrderTable';
 
@@ -6,6 +5,15 @@ import MarketOrderTable from './MarketOrderTable';
 import PageSelector from '../generic-components/PageSelector';
 // import SearchEngine from './SearchEngine';
 // import SearchEngine from '../btclayerexchange-functionalities/SearchEngine';
+
+
+
+// TODO ! if regitered user does not activate acount within 2 months, delete account, i.e. if not subed delete user and hex, if subed, then unsub, delete user and hex
+// TODO !!!! implement rate on inputs to avoid getting spammed from bots
+// TODO !!!! human check (not bot spams), third party sliders, when user registers, and posts
+// TODO #102 Add touch event to slide search engine
+// TODO ! return the search engine, and add search engine validation on inputs
+
 
 class MarketOrders extends React.Component {
   constructor(props) {
@@ -19,51 +27,13 @@ class MarketOrders extends React.Component {
       on_off_limit_next: false,
       on_off_limit_previous: true,
       crypto: undefined,
-      // searchTerm: '',
       number_of_pages: 1,
     }
     this.controls = this.controls.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this)
-    // this.handleChange = this.handleChange.bind(this)
     this.userId = userId
     this.popup = popup
-
-    console.log("---------->>>>>!!!", userId)
+    // console.log("---------->>>>>!!!", userId)
   }
-
-
-  // KEPT AS REFERENCE for Search engine
-  // handleSubmit(e){
-  //   e.preventDefault()
-  //   this.setState({
-  //     crypto: this.state.searchTerm,
-  //     page: 1
-  //   }, () => {
-  //     this.loadData()
-  //   })
-  //   console.log("this.state.searchTerm", this.state.searchTerm)
-
-  //   if(this.state.searchTerm == "All"){
-  //     this.setState({
-  //       crypto: undefined
-  //     }, () => {
-  //       this.loadData()
-  //     })
-  //   }
-  // }
-
-  // KEPT AS REFERENCE for Search engine
-  // handleChange(e){
-  //   this.setState({
-  //     searchTerm: e.target.value
-  //   })
-  // }
-
-
-  // TODO ! if regitered user does not activate acount within 2 months, delete account, i.e. if not subed delete user and hex, if subed, then unsub, delete user and hex
-  
-  // TODO !!!! implement rate on inputs to avoid getting spammed from bots
-  // TODO !!!! human check (not bot spams), third party sliders, when user registers, and posts
 
   controls(_page) {
     this.setState({
@@ -79,7 +49,6 @@ class MarketOrders extends React.Component {
   }
 
   async loadData() {
-    // let response = await fetch(`/paginated-orders/${this.props.match.params.order_type}?page=${this.state.page}&limit=${this.state.limit}${this.state.crypto ? `&crypto=${this.state.crypto}`: "" }`)
 
     let response = await fetch(`/marketplace/paginated-orders/sellordersdata?page=${this.state.page}&limit=${this.state.limit}`)
 
@@ -129,15 +98,6 @@ class MarketOrders extends React.Component {
     console.log("Here orders!: ", this.state.orders)
     return (
       <React.Fragment>
-        {/* TODO #102 Add touch event to slide search engine */}
-        {/* TODO ! return the search engine, and add search engine validation on inputs */}
-        {/* <SearchEngine 
-        searchTerm={this.state.searchTerm} handleSubmit={this.handleSubmit} handleChange={this.handleChange}
-        /> */}
-
-
-
-
         <div className='wrapper'>
           {this.popup ?
             <p>{this.popup}</p>
@@ -147,7 +107,6 @@ class MarketOrders extends React.Component {
             selected_userID={this.userId}
             orders={this.state.orders}
             order_type="sellordersdata"
-          // loadData={this.loadData}
           />
 
           <PageSelector

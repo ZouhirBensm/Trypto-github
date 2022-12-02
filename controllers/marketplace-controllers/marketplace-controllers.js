@@ -60,38 +60,7 @@ async function updateOrderController(req, res, next) {
 }
 
 
-async function getOrderController(req, res, next) {
-  let order
 
-  try {
-    order = await SellMarketOrder.findById({ _id: ObjectId(req.params.orderID) })
-      .populate({
-        // Populate protagonists
-        path: "userid",
-        // Fields allowed to populate with
-        select: "_id username email",
-      })
-      .populate({
-        // Populate protagonists
-        path: "sellmarketorderlocationID",
-        // Fields allowed to populate with
-        select: "location.st location.neigh location.province_state location.city location.country -_id",
-      })
-
-  } catch (e) {
-    let error = new MongoError(`No order found by that ID: ${e.message}`)
-    return next(error)
-  }
-
-
-
-  console.log("---------->>>>", order)
-
-  console.log("Found!!!!")
-
-
-  res.status(200).json(order)
-}
 
 
 
@@ -183,6 +152,48 @@ async function deleteOrderController(req, res, next) {
     srv_: "Successfully deleted"
   })
 }
+
+
+
+
+
+async function getOrderController(req, res, next) {
+  let order
+
+  try {
+    order = await SellMarketOrder.findById({ _id: ObjectId(req.params.orderID) })
+      .populate({
+        // Populate protagonists
+        path: "userid",
+        // Fields allowed to populate with
+        select: "_id username email",
+      })
+      .populate({
+        // Populate protagonists
+        path: "sellmarketorderlocationID",
+        // Fields allowed to populate with
+        select: "location.st location.neigh location.province_state location.city location.country -_id",
+      })
+      .populate({
+        // Populate protagonists
+        path: "sellmarketorderImageID",
+        // Fields allowed to populate with
+        select: "images.name",
+      })
+
+  } catch (e) {
+    let error = new MongoError(`No order found by that ID: ${e.message}`)
+    return next(error)
+  }
+
+  console.log("---------->>>>", order)
+
+  console.log("Found!!!!")
+
+
+  res.status(200).json(order)
+}
+
 
 
 

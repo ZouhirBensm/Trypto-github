@@ -1,0 +1,8 @@
+/* div {
+  background-color: red;
+} */
+
+div#image-scroll {
+  height: 30vh;
+  border: 2px solid rgb(185, 121, 0);
+}
