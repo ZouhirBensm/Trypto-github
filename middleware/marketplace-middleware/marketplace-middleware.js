@@ -69,6 +69,7 @@ async function instantiateMarketOrderMiddleware(req, res, next) {
     title: req.body.title,
     description: req.body.description,
     category: req.body.category,
+    condition: req.body.condition,
     price: req.body.price,
     crypto: req.body.crypto,
     conversion: req.body.onBTCvaluation,

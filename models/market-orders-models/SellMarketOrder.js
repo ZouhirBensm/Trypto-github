@@ -16,6 +16,7 @@ const SellMarketOrderSchema = new Schema({
     title: String,
     description: String,
     category: String,
+    condition: Number,
     price: String,
     crypto: String,
     conversion: String,

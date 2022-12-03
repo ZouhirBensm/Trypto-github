@@ -35,6 +35,12 @@ class InformationDetailsDisplay extends React.Component {
             <EditBaseOrderInformation
               orderID={this.props.order_information?._id}
               title={this.props.order_information?.title}
+              description={this.props.order_information?.description}
+              category={this.props.order_information?.category}
+              condition={this.props.order_information?.condition}
+              postedDate={this.props.order_information?.postedDate}
+              expirationDate={this.props.order_information?.expirydate}
+              expirationTime={this.props.order_information?.expirytime}
               handleToogleEdit={this.handleToogleEdit}
               loadData={this.props.loadData}
             />
@@ -43,6 +49,7 @@ class InformationDetailsDisplay extends React.Component {
               title={this.props.order_information?.title}
               description={this.props.order_information?.description}
               category={this.props.order_information?.category}
+              condition={this.props.order_information?.condition}
               expirationAt={this.props.order_information?.expireAt}
               expirationDate={this.props.order_information?.expirydate}
               expirationTime={this.props.order_information?.expirytime}
