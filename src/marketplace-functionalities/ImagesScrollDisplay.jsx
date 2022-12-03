@@ -7,7 +7,6 @@ class ImagesScrollDisplay extends React.Component {
   }
   
   render(){
-    console.log("Fuckin images names!!! ", this.props.images_names, ", orderID: ", this.props.orderID)
     return (
       <React.Fragment>
         <div id='image-scroll'>ImagesScrollDisplay...

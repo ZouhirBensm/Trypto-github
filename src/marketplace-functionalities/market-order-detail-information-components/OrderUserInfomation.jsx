@@ -1,22 +1,27 @@
 
 
 class OrderUserInfomation extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {}
   }
 
-  render(){
-    console.log(this.props)
+  render() {
     return (
       <React.Fragment>
         <div>OrderUserInfomation...</div>
         <div>User ID: {this.props.user_id}</div>
         <div>Username: {this.props.username}</div>
         <div>Email: {this.props.email}</div>
-        <button onClick={(e)=>{
-          this.props.handleToogleEdit("OrderUserInfomation")
-        }}>Edit</button>
+
+        {this.props.isSuperUser ?
+          <button onClick={(e) => {
+            this.props.handleToogleEdit("OrderUserInfomation")
+          }}>Edit</button>
+          :
+          null
+        }
+
       </React.Fragment>
     )
   }

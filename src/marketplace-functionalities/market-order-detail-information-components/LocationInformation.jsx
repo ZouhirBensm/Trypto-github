@@ -1,13 +1,12 @@
 
 
 class LocationInformation extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {}
   }
 
-  render(){
-    console.log(this.props)
+  render() {
     return (
       <React.Fragment>
         <div>LocationInformation...</div>
@@ -16,9 +15,14 @@ class LocationInformation extends React.Component {
         <div>City: {this.props.city}</div>
         <div>Province/State: {this.props.province_state}</div>
         <div>Country: {this.props.country}</div>
-        <button onClick={(e)=>{
-          this.props.handleToogleEdit("LocationInformation")
-        }}>Edit</button>
+
+        {this.props.isSuperUser ?
+          <button onClick={(e) => {
+            this.props.handleToogleEdit("LocationInformation")
+          }}>Edit</button>
+          :
+          null
+        }
       </React.Fragment>
     )
   }

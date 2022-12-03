@@ -16,8 +16,9 @@ class EditBaseOrderInformation extends React.Component {
 
   EditValidation(EditBaseOrderInformation_data) {
     let error_msg_retrieved_if_any
-  
-    if (EditBaseOrderInformation_data.newtitle === this.props.title && EditBaseOrderInformation_data.newdescription === this.props.description && EditBaseOrderInformation_data.newcategory === this.props.category && EditBaseOrderInformation_data.newcondition === this.props.condition &&  EditBaseOrderInformation_data.expirydate === this.props.expirationDate && EditBaseOrderInformation_data.expirytime === this.props.expirationTime) {
+
+    if (EditBaseOrderInformation_data.newtitle === this.props.title && EditBaseOrderInformation_data.newdescription === this.props.description && EditBaseOrderInformation_data.newcategory === this.props.category && parseInt(EditBaseOrderInformation_data.newcondition) === this.props.condition &&  EditBaseOrderInformation_data.expirydate === this.props.expirationDate && EditBaseOrderInformation_data.expirytime === this.props.expirationTime) {
+
       error_msg_retrieved_if_any = `Nothing has changed, therefor nothing to update!`
       this.setpopup(error_msg_retrieved_if_any)
       return false

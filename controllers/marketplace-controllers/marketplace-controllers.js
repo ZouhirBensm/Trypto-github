@@ -69,14 +69,6 @@ async function updateOrder1Controller(req, res, next) {
 
   let updatedMarketOrder_ifAny
 
-console.log({title: req.body.EditBaseOrderInformation_data.newtitle,
-    description: req.body.EditBaseOrderInformation_data.newdescription,
-    category: req.body.EditBaseOrderInformation_data.newcategory,
-    condition: req.body.EditBaseOrderInformation_data.newcondition,
-    expirydate: req.body.EditBaseOrderInformation_data.expirydate,
-    expirytime: req.body.EditBaseOrderInformation_data.expirytime,
-    expireAt: req.body.EditBaseOrderInformation_data.expireAt}, req.body.EditBaseOrderInformation_data.orderID)
-
   try {
     updatedMarketOrder_ifAny = await SellMarketOrder.findByIdAndUpdate(req.body.EditBaseOrderInformation_data.orderID, { $set: {
       title: req.body.EditBaseOrderInformation_data.newtitle,
@@ -92,15 +84,36 @@ console.log({title: req.body.EditBaseOrderInformation_data.newtitle,
     return next(error)
   }
 
+  if (updatedMarketOrder_ifAny) {
+    res.status(200).json({
+      srv_: "Successfully updated"
+    })
+  }
+}
 
-  console.log(updatedMarketOrder_ifAny)
+
+
+async function updateOrder2Controller(req, res, next) {
+
+  console.log("EditBaseOrderInformation_data----->>>>", req.body.EditBaseOrderInformation_data, req.body.EditBaseOrderInformation_data.orderID)
+
+  let updatedMarketOrder_ifAny = true
+
+  try {
+    updatedMarketOrder_ifAny = await SellMarketOrder.findByIdAndUpdate(req.body.EditBaseOrderInformation_data.orderID, { $set: {
+      price: req.body.EditBaseOrderInformation_data.newprice,
+      conversion: req.body.EditBaseOrderInformation_data.newconversion,
+    } }, { upsert: false, new: true });
+  } catch (e) {
+    let error = new MongoError(e.message)
+    return next(error)
+  }
 
   if (updatedMarketOrder_ifAny) {
     res.status(200).json({
       srv_: "Successfully updated"
     })
   }
-
 }
 
 
@@ -245,6 +258,7 @@ async function getOrderController(req, res, next) {
 marketplaceController = {
   updateOrderController: updateOrderController,
   updateOrder1Controller: updateOrder1Controller,
+  updateOrder2Controller: updateOrder2Controller,
   deleteOrderController: deleteOrderController,
   getOrderController: getOrderController,
   registerMarketOrderController: registerMarketOrderController,

@@ -61,10 +61,9 @@ class MarketPlace extends React.Component {
     this.state = {
 
     }
-    console.log("@@@", userId)
+    // console.log("userId", userId)
   }
   render() {
-    // console.log("UID????", userId)
     return (
       <div className="wrapper">
         {/* <React.Fragment> */}

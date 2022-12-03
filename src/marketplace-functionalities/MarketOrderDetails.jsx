@@ -7,6 +7,7 @@ import { validateInputs, validateExpiry } from '../../full-stack-libs/validation
 
 // TODO !!!! add the amounts to display SAT and BTC
 // TODO !!!! display market order images on the market orders details page
+// TODO !!!! log in as root in heroku server and check img folder
 
 
 

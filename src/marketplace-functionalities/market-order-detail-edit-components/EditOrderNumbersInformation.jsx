@@ -1,14 +1,209 @@
+import { validateInputs } from '../../../full-stack-libs/validations'
+
+
 class EditOrderNumbersInformation extends React.Component {
-  render(){
+  constructor(props) {
+    super(props)
+    this.state = {
+      amountsToBTC: undefined,
+      amountsToSAT: undefined,
+      unit: "BTC",
+    }
+    this.SATBTC = this.SATBTC.bind(this)
+    this.amountsToCalculatorChange = this.amountsToCalculatorChange.bind(this)
+    this.setpopup = this.setpopup.bind(this)
+  }
+
+
+  setpopup(error_message) {
+    console.log(`Setting popup: ${error_message}`)
+  }
+
+  EditValidation(EditBaseOrderInformation_data) {
+    let error_msg_retrieved_if_any
+
+    if (EditBaseOrderInformation_data.newprice === this.props.price && EditBaseOrderInformation_data.newconversion === this.props.conversion) {
+      error_msg_retrieved_if_any = `Nothing has changed, therefor nothing to update!`
+      this.setpopup(error_msg_retrieved_if_any)
+      return false
+    }
+
+    error_msg_retrieved_if_any = validateInputs(EditBaseOrderInformation_data)
+
+    if (error_msg_retrieved_if_any) {
+      this.setpopup(error_msg_retrieved_if_any)
+      return false
+    }
+    else { return true }
+  }
+
+
+  async EditFunction2(EditBaseOrderInformation_data) {
+    console.log("Making api call to edit this component!")
+
+
+    const response = await fetch(`/marketplace/${userId}/update2`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        EditBaseOrderInformation_data
+      })
+    })
+
+    const json = await response.json()
+
+    console.log(response)
+    console.log(json)
+
+    if (response.status === 200) {
+      this.props.handleToogleEdit(undefined)
+      this.props.loadData()
+    } else {
+    }
+
+  }
+
+
+
+  SATBTC(e) {
+    e.preventDefault()
+    this.setState({
+      unit: this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null
+    })
+  }
+
+  componentDidMount() {
+    this.amountsToCalculatorChange()
+  }
+
+  // shouldComponentUpdate(prevProp, prevState) {
+  //   if (prevState.price !== this.state.price ||
+  //     prevState.conversion !== this.state.conversion) {
+  //     return true
+  //   }
+  //   return false
+  // }
+
+
+  render() {
     return (
       <React.Fragment>
         <div>EditOrderNumbersInformation...</div>
-        <button onClick={(e)=>{
+
+        <form className="form" id="form_id">
+          <label htmlFor="price-input">Price</label>
+          <input onChange={(e) => {
+            this.amountsToCalculatorChange(e);
+          }} type="number" id="price-input" name="price" step="0.01" defaultValue={this.props.price} />
+          <span> CAD</span>
+          <br />
+
+          <label htmlFor="conversion-input">@ 1 BTC =</label>
+          <input onChange={(e) => {
+            this.amountsToCalculatorChange(e);
+          }} type="number" id="conversion-input" name="conversion" step="0.01" defaultValue={this.props.conversion} />
+          <span> CAD</span> <br />
+          <button onClick={(e) => { this.clickGetBTCPrice(e) }}>Market</button><br />
+
+          <span>Amounts to: {this.state.unit == "BTC" ? `${this.state.amountsToBTC} ` : this.state.unit == "SAT" ? `${this.state.amountsToSAT} ` : null} {this.state.unit}</span><br />
+
+          <button onClick={(e) => { this.SATBTC(e) }}>in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null}</button><br />
+
+
+          <button onClick={async (e) => {
+
+            e.preventDefault()
+            let EditBaseOrderInformation_data = {
+              orderID: this.props.orderID,
+              newprice: document.getElementById("form_id").elements["price"].value,
+              newconversion: document.getElementById("form_id").elements["conversion"].value
+            }
+
+            let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data)
+            if (ret_EditValidation) {
+              let ret_EditFunction1 = await this.EditFunction2(EditBaseOrderInformation_data)
+              return
+            } else {
+              return
+            }
+          }}>Save Edits</button>
+
+
+
+
+        </form><br />
+
+
+
+        <button onClick={(e) => {
           this.props.handleToogleEdit(undefined)
         }}>Revert</button>
       </React.Fragment>
     )
   }
+
+
+  async clickGetBTCPrice(e = null) {
+    e?.preventDefault()
+
+    let actual_BTC_value, response, json
+
+    response = await fetch(`/cryptoprice`)
+
+    let conversionInput = document.getElementById("conversion-input")
+
+    if (response.ok) {
+      json = await response.json()
+      actual_BTC_value = json.data["bitcoin"]?.cad
+
+      console.log(actual_BTC_value)
+      conversionInput.value = actual_BTC_value
+
+    } else {
+      // handle error
+    }
+  }
+
+
+  async amountsToCalculatorChange(e = null) {
+    e?.preventDefault()
+
+
+    let realtime_price, realtime_conversion
+
+
+    realtime_price = document.getElementById("price-input").value
+    realtime_conversion = document.getElementById("conversion-input").value
+
+
+
+    if (e?.target.id == "price-input") {
+      realtime_price = e.target.value
+    }
+    if (e?.target.id == "conversion-input") {
+      realtime_conversion = e.target.value
+    }
+
+    console.log(realtime_price, realtime_conversion)
+    let amountsToRaw, amountsToBTC, amountsToSAT
+    amountsToRaw = realtime_price / realtime_conversion
+    amountsToBTC = amountsToRaw.toFixed(9)
+    amountsToSAT = Math.trunc(amountsToRaw * 1000000000)
+
+    if (isNaN(amountsToRaw) || amountsToRaw == Infinity) {
+      amountsToBTC = ''
+      amountsToSAT = ''
+    }
+
+    this.setState({
+      amountsToBTC: amountsToBTC,
+      amountsToSAT: amountsToSAT,
+    })
+  }
+
 }
 
 export default EditOrderNumbersInformation

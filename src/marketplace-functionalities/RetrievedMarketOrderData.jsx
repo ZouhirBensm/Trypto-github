@@ -11,7 +11,7 @@ class RetrievedMarketOrderData extends React.Component {
   render() {
     let sellmarketorderImageID, order_infomation;
     this.props.order? ({sellmarketorderImageID, ...order_infomation} = this.props.order): null
-    console.log("HHHHHHHH---->>>>>", order_infomation?._id)
+    // console.log("order_infomation?._id", order_infomation?._id)
     
     return (
       <React.Fragment>

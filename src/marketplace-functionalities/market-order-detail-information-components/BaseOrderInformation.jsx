@@ -1,3 +1,4 @@
+import React from "react"
 
 
 class BaseOrderInformation extends React.Component {
@@ -7,7 +8,6 @@ class BaseOrderInformation extends React.Component {
   }
 
   render(){
-    console.log(this.props)
     return (
       <React.Fragment>
         <div>BaseOrderInformation...</div>
@@ -19,9 +19,13 @@ class BaseOrderInformation extends React.Component {
         <div>Expiration | {this.props.expirationAt} | {this.props.expirationDate} | {this.props.expirationTime}</div>
 
         {/* TODO HERE Accessable only if my order or master */}
-        <button onClick={(e)=>{
-          this.props.handleToogleEdit("BaseOrderInformation")
-        }}>Edit</button>
+        {this.props.isSuperUser? 
+          <button onClick={(e)=>{
+            this.props.handleToogleEdit("BaseOrderInformation")
+          }}>Edit</button>
+        :
+        null
+        }
       </React.Fragment>
     )
   }
