@@ -4,10 +4,12 @@ class EditChainWalletInformation extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      options: null
+      options: null,
+      popup: undefined
     }
     this.onChange = this.onChange.bind(this)
     this.setOptions = this.setOptions.bind(this)
+    this.setpopup = this.setpopup.bind(this)
   }
 
 
@@ -18,6 +20,7 @@ class EditChainWalletInformation extends React.Component {
   setOptions(_chain) {
     let options
     let tag_options_arr_data = []
+    let message = undefined
 
     if (_chain == "Bitcoin Base Chain") {
       tag_options_arr_data = ["Wallet1", "Wallet2", "Wallet3", "Wallet4"]
@@ -31,7 +34,11 @@ class EditChainWalletInformation extends React.Component {
       tag_options_arr_data = ["Wallet9", "Wallet10", "Wallet11", "Wallet12"]
       options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
     }
-    else { }
+    else { 
+      message = `Chain value is not valid `
+    }
+    
+    this.setpopup(message)
 
     this.setState({
       options: options
@@ -41,7 +48,7 @@ class EditChainWalletInformation extends React.Component {
       let options_object = [...payment_select.options].map((option, index) => {
         return { index: index, value: option.value }
       })
-      console.log(options_object)
+
       const found = options_object.find(option_object => option_object.value == this.props.payment)
 
       if (!found) {
@@ -105,6 +112,10 @@ class EditChainWalletInformation extends React.Component {
           }}>Save Edits</button>
         </form>
 
+        { this.state.popup ?
+        <div id="popup-section1">{this.state.popup}</div>
+        : null }
+
 
         <button onClick={(e) => {
           this.props.handleToogleEdit(undefined)
@@ -115,6 +126,9 @@ class EditChainWalletInformation extends React.Component {
 
   setpopup(error_message) {
     console.log(`Setting popup: ${error_message}`)
+    this.setState({
+      popup: error_message
+    })
   }
 
 
@@ -134,8 +148,10 @@ class EditChainWalletInformation extends React.Component {
     if (error_msg_retrieved_if_any) {
       this.setpopup(error_msg_retrieved_if_any)
       return false
+    } else { 
+      this.setpopup(undefined)
+      return true 
     }
-    else { return true }
   }
 
 
@@ -161,7 +177,11 @@ class EditChainWalletInformation extends React.Component {
     if (response.status === 200) {
       this.props.handleToogleEdit(undefined)
       this.props.loadData()
+      return
     } else {
+      const message = `Server Error | Please, try again later!`
+      this.setpopup(json?.error?.message || message)
+      return
     }
   }
 

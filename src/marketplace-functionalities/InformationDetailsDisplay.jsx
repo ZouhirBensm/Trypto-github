@@ -5,7 +5,6 @@ import OrderNumbersInformation from './market-order-detail-information-component
 import ChainWalletInformation from './market-order-detail-information-components/ChainWalletInformation'
 import LocationInformation from './market-order-detail-information-components/LocationInformation'
 import OrderUserInfomation from './market-order-detail-information-components/OrderUserInfomation'
-
 import EditBaseOrderInformation from './market-order-detail-edit-components/EditBaseOrderInformation'
 import EditOrderNumbersInformation from './market-order-detail-edit-components/EditOrderNumbersInformation'
 import EditChainWalletInformation from './market-order-detail-edit-components/EditChainWalletInformation'
@@ -30,11 +29,6 @@ class InformationDetailsDisplay extends React.Component {
     let myorder = (this.props.order_information?.userid._id == userId)
     let isMaster = (user.role == ROLE.MASTER)
     let isSuperUser = myorder || isMaster
-
-
-    // console.log("InformationDetailsDisplay->this.props.order_information: ", this.props.order_information)
-    // console.log("InformationDetailsDisplay->user: ", user)
-    // console.log("InformationDetailsDisplay->userId: ", userId)
 
 
     return (

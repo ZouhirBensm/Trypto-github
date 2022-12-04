@@ -8,6 +8,7 @@ class EditOrderNumbersInformation extends React.Component {
       amountsToBTC: undefined,
       amountsToSAT: undefined,
       unit: "BTC",
+      popup: undefined
     }
     this.SATBTC = this.SATBTC.bind(this)
     this.amountsToCalculatorChange = this.amountsToCalculatorChange.bind(this)
@@ -17,6 +18,9 @@ class EditOrderNumbersInformation extends React.Component {
 
   setpopup(error_message) {
     console.log(`Setting popup: ${error_message}`)
+    this.setState({
+      popup: error_message
+    })
   }
 
   EditValidation(EditBaseOrderInformation_data) {
@@ -33,8 +37,10 @@ class EditOrderNumbersInformation extends React.Component {
     if (error_msg_retrieved_if_any) {
       this.setpopup(error_msg_retrieved_if_any)
       return false
+    } else { 
+      this.setpopup(undefined)
+      return true 
     }
-    else { return true }
   }
 
 
@@ -61,7 +67,11 @@ class EditOrderNumbersInformation extends React.Component {
     if (response.status === 200) {
       this.props.handleToogleEdit(undefined)
       this.props.loadData()
+      return
     } else {
+      const message = `Server Error | Please, try again later!`
+      this.setpopup(json?.error?.message || message)
+      return
     }
 
   }
@@ -136,6 +146,10 @@ class EditOrderNumbersInformation extends React.Component {
 
         </form><br />
 
+        { this.state.popup ?
+        <div id="popup-section1">{this.state.popup}</div>
+        : null }
+
 
 
         <button onClick={(e) => {
@@ -161,9 +175,12 @@ class EditOrderNumbersInformation extends React.Component {
 
       console.log(actual_BTC_value)
       conversionInput.value = actual_BTC_value
+      return
 
     } else {
-      // handle error
+      const message = `Unable to retrieve BTC market value. Enter manually!`
+      this.setpopup(message)
+      return
     }
   }
 
