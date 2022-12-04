@@ -24,6 +24,9 @@ const SellMarketOrderImage = require('../../models/market-orders-models/SellMark
 const ENV = require('../../config/base')
 
 
+const agendaDefineJobFunctions = require('../../full-stack-libs/define-agenda-job-functions/define-aganda-job-functions')
+
+
 
 
 
@@ -221,20 +224,23 @@ async function saveAllMarketOrderMiddleware(req, res, next) {
 
 async function setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware(req, res, next) {
   const directory = `public/img/marketorder-images/${res.locals.ret_sellmarketorder_save._id}`
-
   const jobname = `Delete market order images directory: ${directory}`
 
-  // TODO !!!! HERE put this in a function (jobname) and use function to define jobs where needed
-  agenda.define(jobname, async (job, done) => {
-    try {
-      fs.rmSync(directory, { recursive: true, force: true });
-    } catch (e) {
-      let error = new Error(`Was unable to delete the images in directory: ${directory}, @ expiry date and time.`)
-      return next(error)
-    }
-    done()
-    const numRemoved = await agenda.cancel({ name: jobname });
-  });
+  
+  // When creating a market order with set expiration
+  // HERE
+  // TODO NEEDS TEST
+  agendaDefineJobFunctions.defineDeleteteMarketOrderImagesFolder(jobname, directory)
+  // agenda.define(jobname, async (job, done) => {
+  //   try {
+  //     fs.rmSync(directory, { recursive: true, force: true });
+  //   } catch (e) {
+  //     let error = new Error(`Was unable to delete the images in directory: ${directory}, @ expiry date and time.`)
+  //     return next(error)
+  //   }
+  //   done()
+  //   const numRemoved = await agenda.cancel({ name: jobname });
+  // });
 
   await agenda.schedule(req.body.expireAt, jobname);
 

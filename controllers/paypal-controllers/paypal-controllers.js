@@ -7,7 +7,7 @@ const User = require('../../models/User');
 const ROLE = require('../../full-stack-libs/Types/Role')
 
 
-
+const agendaDefineJobFunctions = require('../../full-stack-libs/define-agenda-job-functions/define-aganda-job-functions')
 
 
 async function paypalUnsubscribeController(req, res, next) {
@@ -29,17 +29,19 @@ async function paypalUnsubscribeController(req, res, next) {
       return next(error)
     }
 
-
-    agenda.define(`Nullify particular User: ${req.body.userId} subscriptionID field and set role to UNSUBSCRIBER`, async (job, done) => {
-      let userUnsubscribed
-      try { 
-        userUnsubscribed = await User.updateOne({ _id: req.body.userId }, { subscriptionID: null, role: ROLE.USER.NOTSUBSCRIBER }); 
-      } catch (e) { 
-        return next(e) 
-      }
-      done()
-      const numRemoved = await agenda.cancel({ name: `Nullify particular User: ${req.body.userId} subscriptionID field and set role to UNSUBSCRIBER` });
-    });
+    // When unsubscribing from Paypal
+    // TODO NEEDS TEST
+    agendaDefineJobFunctions.unsubFromBidBlockOnCalendar(req.body.userId)
+    // agenda.define(`Nullify particular User: ${req.body.userId} subscriptionID field and set role to UNSUBSCRIBER`, async (job, done) => {
+    //   let userUnsubscribed
+    //   try { 
+    //     userUnsubscribed = await User.updateOne({ _id: req.body.userId }, { subscriptionID: null, role: ROLE.USER.NOTSUBSCRIBER }); 
+    //   } catch (e) { 
+    //     return next(e) 
+    //   }
+    //   done()
+    //   const numRemoved = await agenda.cancel({ name: `Nullify particular User: ${req.body.userId} subscriptionID field and set role to UNSUBSCRIBER` });
+    // });
 
     await agenda.schedule(unsubscriptionTakesEffectOnBidBlock, `Nullify particular User: ${req.body.userId} subscriptionID field and set role to UNSUBSCRIBER`);
 

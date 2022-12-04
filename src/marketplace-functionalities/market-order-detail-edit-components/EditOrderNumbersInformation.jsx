@@ -26,7 +26,7 @@ class EditOrderNumbersInformation extends React.Component {
   EditValidation(EditBaseOrderInformation_data) {
     let error_msg_retrieved_if_any
 
-    if (EditBaseOrderInformation_data.newprice === this.props.price && EditBaseOrderInformation_data.newconversion === this.props.conversion) {
+    if (EditBaseOrderInformation_data.price === this.props.price && EditBaseOrderInformation_data.conversion === this.props.conversion) {
       error_msg_retrieved_if_any = `Nothing has changed, therefor nothing to update!`
       this.setpopup(error_msg_retrieved_if_any)
       return false
@@ -48,7 +48,7 @@ class EditOrderNumbersInformation extends React.Component {
     console.log("Making api call to edit this component!")
 
 
-    const response = await fetch(`/marketplace/${userId}/update2`, {
+    const response = await fetch(`/marketplace/${userId}/update23`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -128,8 +128,8 @@ class EditOrderNumbersInformation extends React.Component {
             e.preventDefault()
             let EditBaseOrderInformation_data = {
               orderID: this.props.orderID,
-              newprice: document.getElementById("form_id").elements["price"].value,
-              newconversion: document.getElementById("form_id").elements["conversion"].value
+              price: document.getElementById("form_id").elements["price"].value,
+              conversion: document.getElementById("form_id").elements["conversion"].value
             }
 
             let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data)

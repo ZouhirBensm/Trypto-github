@@ -19,51 +19,9 @@ const httpStatus = require("http-status-codes")
 
 var ObjectId = require('mongodb').ObjectId;
 
-
-async function updateOrderController(req, res, next) {
-
-  console.log("chakalaka----->>>>", req.body.pkobmOr_4ft2sd)
-
-  req.body.pkobmOr_4ft2sd.expireAt = new Date(req.body.pkobmOr_4ft2sd.expirydate.slice(0, 4), req.body.pkobmOr_4ft2sd.expirydate.slice(5, 7) - 1, req.body.pkobmOr_4ft2sd.expirydate.slice(8, 10), req.body.pkobmOr_4ft2sd.expirytime.slice(0, 2), req.body.pkobmOr_4ft2sd.expirytime.slice(3, 5))
+const agendaDefineJobFunctions = require('../../full-stack-libs/define-agenda-job-functions/define-aganda-job-functions')
 
 
-  let updatedMarketOrder_ifAny
-
-  try {
-    updatedMarketOrder_ifAny = await SellMarketOrder.findByIdAndUpdate(req.body.pkobmOr_4ft2sd._id, { $set: req.body.pkobmOr_4ft2sd }, { upsert: false, new: true });
-  } catch (e) {
-    let error = new MongoError(e.message)
-    return next(error)
-  }
-
-
-
-
-  console.log("\n\nDo I have the ingredients: ", updatedMarketOrder_ifAny.sellmarketorderlocationID, req.body.pkobmOr_4ft2sd.expireAt, "\n\n")
-
-  let updatedMarketOrderLocation_ifAny
-
-  try {
-    // TODO optimization, check whether the expiry changed, then go a findByIdAndUpdate else don't. This feature might be built in the findByIdAndUpdate itself
-    updatedMarketOrderLocation_ifAny = await SellMarketOrderLocation.findByIdAndUpdate(updatedMarketOrder_ifAny.sellmarketorderlocationID, { $set: { expireAt: req.body.pkobmOr_4ft2sd.expireAt } }, { upsert: false, new: true });
-  } catch (e) {
-    let error = new MongoError(e.message)
-    return next(error)
-  }
-
-
-  if (updatedMarketOrder_ifAny && updatedMarketOrderLocation_ifAny) {
-    res.status(200).json({
-      srv_: "Successfully updated"
-    })
-  }
-
-  // res.status(200).end
-}
-
-
-
-// TODO !!!! HERE try to merge update functions
 async function updateOrder1Controller(req, res, next) {
 
   console.log("EditBaseOrderInformation_data----->>>>", req.body.EditBaseOrderInformation_data)
@@ -121,16 +79,19 @@ async function updateOrder1Controller(req, res, next) {
 
   const numRemoved = await agenda.cancel({ name: jobname });
 
-  agenda.define(jobname, async (job, done) => {
-    try {
-      fs.rmSync(directory, { recursive: true, force: true });
-    } catch (e) {
-      let error = new Error(`Was unable to delete the images in directory: ${directory}, @ expiry date and time.`)
-      return next(error)
-    }
-    done()
-    const numRemoved = await agenda.cancel({ name: jobname });
-  });
+  // When updating market order expiration
+  // TODO NEEDS TEST
+  agendaDefineJobFunctions.defineDeleteteMarketOrderImagesFolder(jobname, directory)
+
+  // agenda.define(jobname, async (job, done) => {
+  //   try {
+  //     fs.rmSync(directory, { recursive: true, force: true });
+  //   } catch (e) {
+  //     console.error(`Was unable to delete the images in directory: ${directory}, @ expiry date and time.`)
+  //   }
+  //   done()
+  //   const numRemoved = await agenda.cancel({ name: jobname });
+  // });
 
   await agenda.schedule(updatedMarketOrder_ifAny.expireAt, jobname);
 
@@ -144,17 +105,22 @@ async function updateOrder1Controller(req, res, next) {
 
 
 
-async function updateOrder2Controller(req, res, next) {
+async function updateOrder23Controller(req, res, next) {
 
-  console.log("EditBaseOrderInformation_data----->>>>", req.body.EditBaseOrderInformation_data, req.body.EditBaseOrderInformation_data.orderID)
+  console.log("EditBaseOrderInformation_data----->>>>", req.body.EditBaseOrderInformation_data)
+
+
+  let newUpdatedDateObject, orderID;
+  ({orderID, ...newUpdatedDateObject} = req.body.EditBaseOrderInformation_data)
+
+  console.log("newUpdatedDateObject---->>>", newUpdatedDateObject, "orderID:---->", orderID)
+
+
 
   let updatedMarketOrder_ifAny
 
   try {
-    updatedMarketOrder_ifAny = await SellMarketOrder.findByIdAndUpdate(req.body.EditBaseOrderInformation_data.orderID, { $set: {
-      price: req.body.EditBaseOrderInformation_data.newprice,
-      conversion: req.body.EditBaseOrderInformation_data.newconversion,
-    } }, { upsert: false, new: true });
+    updatedMarketOrder_ifAny = await SellMarketOrder.findByIdAndUpdate(req.body.EditBaseOrderInformation_data.orderID, { $set: newUpdatedDateObject }, { upsert: false, new: true });
   } catch (e) {
     let error = new MongoError(e.message)
     return next(error)
@@ -169,28 +135,9 @@ async function updateOrder2Controller(req, res, next) {
 
 
 
-async function updateOrder3Controller(req, res, next) {
 
-  console.log("EditBaseOrderInformation_data----->>>>", req.body.EditBaseOrderInformation_data, req.body.EditBaseOrderInformation_data.orderID)
 
-  let updatedMarketOrder_ifAny = true
 
-  try {
-    updatedMarketOrder_ifAny = await SellMarketOrder.findByIdAndUpdate(req.body.EditBaseOrderInformation_data.orderID, { $set: {
-      chain: req.body.EditBaseOrderInformation_data.newchain,
-      payment: req.body.EditBaseOrderInformation_data.newpayment,
-    } }, { upsert: false, new: true });
-  } catch (e) {
-    let error = new MongoError(e.message)
-    return next(error)
-  }
-
-  if (updatedMarketOrder_ifAny) {
-    res.status(200).json({
-      srv_: "Successfully updated"
-    })
-  }
-}
 
 
 
@@ -208,13 +155,6 @@ function registerMarketOrderController(req, res) {
   })
   
 }
-
-
-
-
-
-
-
 
 
 async function deleteMarketOrderImages(req, res, next) {
@@ -318,10 +258,8 @@ async function getOrderController(req, res, next) {
 
 
 marketplaceController = {
-  updateOrderController: updateOrderController,
+  updateOrder23Controller: updateOrder23Controller,
   updateOrder1Controller: updateOrder1Controller,
-  updateOrder2Controller: updateOrder2Controller,
-  updateOrder3Controller: updateOrder3Controller,
   deleteOrderController: deleteOrderController,
   getOrderController: getOrderController,
   registerMarketOrderController: registerMarketOrderController,

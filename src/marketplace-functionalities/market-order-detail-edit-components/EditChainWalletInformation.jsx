@@ -99,8 +99,8 @@ class EditChainWalletInformation extends React.Component {
             e.preventDefault()
             let EditBaseOrderInformation_data = {
               orderID: this.props.orderID,
-              newchain: document.getElementById("form_id").elements["chain"].value,
-              newpayment: document.getElementById("form_id").elements["payment"].value,
+              chain: document.getElementById("form_id").elements["chain"].value,
+              payment: document.getElementById("form_id").elements["payment"].value,
             }
             let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data)
             if (ret_EditValidation) {
@@ -136,7 +136,7 @@ class EditChainWalletInformation extends React.Component {
   EditValidation(EditBaseOrderInformation_data) {
     let error_msg_retrieved_if_any
 
-    if (EditBaseOrderInformation_data.newchain === this.props.chain && EditBaseOrderInformation_data.newpayment === this.props.payment) {
+    if (EditBaseOrderInformation_data.chain === this.props.chain && EditBaseOrderInformation_data.payment === this.props.payment) {
 
       error_msg_retrieved_if_any = `Nothing has changed, therefor nothing to update!`
       this.setpopup(error_msg_retrieved_if_any)
@@ -158,7 +158,7 @@ class EditChainWalletInformation extends React.Component {
   async EditFunction3(EditBaseOrderInformation_data){
     console.log("Making api call to edit this component!")
 
-    const response = await fetch(`/marketplace/${userId}/update3`, {
+    const response = await fetch(`/marketplace/${userId}/update23`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
