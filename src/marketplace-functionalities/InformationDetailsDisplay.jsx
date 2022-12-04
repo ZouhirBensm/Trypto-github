@@ -8,15 +8,29 @@ import OrderUserInfomation from './market-order-detail-information-components/Or
 import EditBaseOrderInformation from './market-order-detail-edit-components/EditBaseOrderInformation'
 import EditOrderNumbersInformation from './market-order-detail-edit-components/EditOrderNumbersInformation'
 import EditChainWalletInformation from './market-order-detail-edit-components/EditChainWalletInformation'
+import DeleteThisOrder from './market-order-detail-information-components/DeleteThisOrder'
+import Deal from './market-order-detail-information-components/Deal'
 
 class InformationDetailsDisplay extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       section_to_edit: undefined,
+      // popup: undefined
     }
     this.handleToogleEdit = this.handleToogleEdit.bind(this)
+    // this.setpopup = this.setpopup.bind(this)
+
+    // const reactDiv = document.getElementById("react-div")
+    // let popupdiv = document.getElementById("popup")
+    // reactDiv.appendChild(popupdiv);
   }
+
+  // setpopup(message){
+  //   this.setState({
+  //     popup: message
+  //   })
+  // }
 
   handleToogleEdit(section, e) {
     this.setState({
@@ -26,6 +40,14 @@ class InformationDetailsDisplay extends React.Component {
 
   // TODO !!!! HERE Add the deal and delete functionality
   render() {
+    // let popupdiv = document.getElementById("popup")
+    // popupdiv.style.display = "none"
+    // popupdiv.innerHTML = ''
+
+    // if (this.state.popup) {
+    //   popupdiv.style.display = "block"
+    //   popupdiv.innerHTML = this.state.popup      
+    // }
 
     let myorder = (this.props.order_information?.userid._id == userId)
     let isMaster = (user.role == ROLE.MASTER)
@@ -124,13 +146,23 @@ class InformationDetailsDisplay extends React.Component {
 
 
           {isSuperUser ?
-            <React.Fragment>
-              <button>Delete</button>
-            </React.Fragment>
+            <DeleteThisOrder
+              order_type={this.props.order_type}
+              order_owner_id={this.props.order_information?.userid._id}
+              orderID={this.props.order_information?._id}
+              // setpopup={this.setpopup}
+            />
             :
-            <button>Deal</button>
+            <React.Fragment>
+              <Deal
+                orderID={this.props.order_information?._id}
+                order_owner_id={this.props.order_information?.userid._id}
+              />
+            </React.Fragment>
           }
         </div>
+
+
       </React.Fragment>
     )
   }

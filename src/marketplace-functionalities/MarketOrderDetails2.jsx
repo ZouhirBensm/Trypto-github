@@ -43,6 +43,7 @@ class MarketOrderDetails extends React.Component {
         <RetrievedMarketOrderData
           order={this.state.order}
           loadData={this.loadData}
+          order_type={this.props.match.params.order_type}
         />
       </React.Fragment>
     )

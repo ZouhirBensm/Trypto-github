@@ -24,6 +24,7 @@ class RetrievedMarketOrderData extends React.Component {
           // pass other order related data
           order_information={order_infomation}
           loadData={this.props.loadData}
+          order_type={this.props.order_type}
         />
       </React.Fragment>
     )
