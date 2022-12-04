@@ -26,16 +26,6 @@ module.exports = async (req, res, next) => {
 
   console.log("array_of_sellmarketorderlocationsandimages_ids_where_user_is_engaged", array_of_sellmarketorderlocationsandimages_ids_where_user_is_engaged)
 
-  let agenda_jobs_collection
-
-  try {
-    await mongodbClient.connect();
-    agenda_jobs_collection = mongodbClient.db(ENV.database_name).collection("AgendaJobs")
-  } catch (e) {
-    e.message = `Was not able to connect to mongidbClient.connect() or access AgendaJobs collection`
-    res.locals.notifications.push(e);
-  }
-
 
 
   // TODO #95 Instead of deleting the locations one-by-one. Feed the SellMarketOrderLocation.deleteMany the array of IDs references and delete all at once i.e. the method itself loops
@@ -72,19 +62,10 @@ module.exports = async (req, res, next) => {
 
     // Delete JOBS
     const jobname = `Delete market order images directory: ${directory}`
-    try {
-      let agenda_jobs_entry_deletion_ret = await agenda_jobs_collection.findOneAndDelete({ name: jobname })
-    } catch (e) {
-      e.message = `Was unable to delete AgendaJob that deletes images in directory: ${directory}`
-      res.locals.notifications.push(e);
-      break;
-    }
+    const numRemoved = await agenda.cancel({ name: jobname });
 
 
   }
-
-
-  await mongodbClient.close();
 
 
 

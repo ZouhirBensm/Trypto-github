@@ -38,7 +38,7 @@ class InformationDetailsDisplay extends React.Component {
     })
   }
 
-  // TODO !!!! HERE Add the deal and delete functionality
+
   render() {
     // let popupdiv = document.getElementById("popup")
     // popupdiv.style.display = "none"

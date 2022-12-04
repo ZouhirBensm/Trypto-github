@@ -224,6 +224,7 @@ async function setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware(req, res, nex
 
   const jobname = `Delete market order images directory: ${directory}`
 
+  // TODO !!!! HERE put this in a function (jobname) and use function to define jobs where needed
   agenda.define(jobname, async (job, done) => {
     try {
       fs.rmSync(directory, { recursive: true, force: true });

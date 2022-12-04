@@ -100,14 +100,13 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
-// TODO add guards
-// , require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4)
-marketplaceBackend_app_router.get(['/order/:userId/sellordersdata/:orderID', '/order/:userId/allmyorders/:orderID'], marketplaceController.getOrderController)
+marketplaceBackend_app_router.get(['/order/:userId/sellordersdata/:orderID', '/order/:userId/allmyorders/:orderID'], require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), marketplaceController.getOrderController)
 
 
 
 
 
+// HERE TODO !!!! find a way to merge these 3
 marketplaceBackend_app_router.patch('/:userId/update1', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), marketplaceController.updateOrder1Controller)
 
 
@@ -179,7 +178,13 @@ marketplaceBackend_app_router.get(['/paginated-orders/sellordersdata/:data_of_us
 
 
 
-marketplaceBackend_app_router.post('/sellorders/save/:userID?', require_loggedin_for_data(true), requester_auth_middleware(2), multerinstance.upload.array('image'), marketplaceMiddleware.instantiateMarketOrderLocationMiddleware, marketplaceMiddleware.instantiateMarketOrderMiddleware, marketplaceMiddleware.processImageFilesMiddleware, marketplaceMiddleware.instantiateMarketOrderImagesMiddleware, marketplaceMiddleware.saveAllMarketOrderMiddleware, marketplaceMiddleware.setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware, marketplaceController.registerMarketOrderController)
+marketplaceBackend_app_router.post('/sellorders/save/:userID?', require_loggedin_for_data(true), requester_auth_middleware(2), multerinstance.upload.array('image'), marketplaceMiddleware.instantiateMarketOrderLocationMiddleware, 
+marketplaceMiddleware.instantiateMarketOrderMiddleware,
+marketplaceMiddleware.processImageFilesMiddleware,
+marketplaceMiddleware.instantiateMarketOrderImagesMiddleware,
+marketplaceMiddleware.saveAllMarketOrderMiddleware,
+marketplaceMiddleware.setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware,
+marketplaceController.registerMarketOrderController)
 
 
 

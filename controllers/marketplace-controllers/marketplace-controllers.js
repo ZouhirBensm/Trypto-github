@@ -37,6 +37,8 @@ async function updateOrderController(req, res, next) {
   }
 
 
+
+
   console.log("\n\nDo I have the ingredients: ", updatedMarketOrder_ifAny.sellmarketorderlocationID, req.body.pkobmOr_4ft2sd.expireAt, "\n\n")
 
   let updatedMarketOrderLocation_ifAny
@@ -85,7 +87,55 @@ async function updateOrder1Controller(req, res, next) {
     return next(error)
   }
 
-  if (updatedMarketOrder_ifAny) {
+
+  
+
+  console.log("\n\nDo I have the ingredients: ", updatedMarketOrder_ifAny.sellmarketorderlocationID, updatedMarketOrder_ifAny.expireAt, "\n\n")
+
+  let updatedMarketOrderLocation_ifAny
+  try {
+    // TODO optimization, check whether the expiry changed, then go a findByIdAndUpdate else don't. This feature might be built in the findByIdAndUpdate itself
+    updatedMarketOrderLocation_ifAny = await SellMarketOrderLocation.findByIdAndUpdate(updatedMarketOrder_ifAny.sellmarketorderlocationID, { $set: { 
+      expireAt: updatedMarketOrder_ifAny.expireAt // or req.body.EditBaseOrderInformation_data.expireAt
+    } }, { upsert: false, new: true });
+  } catch (e) {
+    let error = new MongoError(e.message)
+    return next(error)
+  }
+
+
+  let updatedMarketOrderImage_ifAny
+  try {
+    // TODO optimization, check whether the expiry changed, then go a findByIdAndUpdate else don't. This feature might be built in the findByIdAndUpdate itself
+    updatedMarketOrderImage_ifAny = await SellMarketOrderImage.findByIdAndUpdate(updatedMarketOrder_ifAny.sellmarketorderImageID, { $set: { 
+      expireAt: updatedMarketOrder_ifAny.expireAt // or req.body.EditBaseOrderInformation_data.expireAt
+    } }, { upsert: false, new: true });
+  } catch (e) {
+    let error = new MongoError(e.message)
+    return next(error)
+  }
+
+  const directory = `public/img/marketorder-images/${updatedMarketOrder_ifAny._id}`
+  const jobname = `Delete market order images directory: ${directory}`
+
+
+  const numRemoved = await agenda.cancel({ name: jobname });
+
+  agenda.define(jobname, async (job, done) => {
+    try {
+      fs.rmSync(directory, { recursive: true, force: true });
+    } catch (e) {
+      let error = new Error(`Was unable to delete the images in directory: ${directory}, @ expiry date and time.`)
+      return next(error)
+    }
+    done()
+    const numRemoved = await agenda.cancel({ name: jobname });
+  });
+
+  await agenda.schedule(updatedMarketOrder_ifAny.expireAt, jobname);
+
+
+  if (updatedMarketOrder_ifAny && updatedMarketOrderLocation_ifAny) {
     res.status(200).json({
       srv_: "Successfully updated"
     })
@@ -180,22 +230,8 @@ async function deleteMarketOrderImages(req, res, next) {
     return next(error)
   }
 
-  
-  // Delete Job
-  try {
-    await mongodbClient.connect();
-    let agenda_jobs_collection = mongodbClient.db(ENV.database_name).collection("AgendaJobs")
-    let agenda_jobs_entry_deletion_ret = await agenda_jobs_collection.findOneAndDelete({name: jobname})
-    console.log(1)
-  } catch (e) {
-      console.log(2)
-      // TODO put better descriptive error
-      let error = new Error(`Was unable to delete AgendaJob that deletes images in directory: ${directory}`)
-      return next(error)
-  } finally {
-    console.log(3)
-    await mongodbClient.close();
-  }
+    
+  const numRemoved = await agenda.cancel({ name: jobname });
 
   return next()
   
