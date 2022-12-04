@@ -9,9 +9,6 @@ import OrderUserInfomation from './market-order-detail-information-components/Or
 import EditBaseOrderInformation from './market-order-detail-edit-components/EditBaseOrderInformation'
 import EditOrderNumbersInformation from './market-order-detail-edit-components/EditOrderNumbersInformation'
 import EditChainWalletInformation from './market-order-detail-edit-components/EditChainWalletInformation'
-import EditLocationInformation from './market-order-detail-edit-components/EditLocationInformation'
-import EditOrderUserInfomation from './market-order-detail-edit-components/EditOrderUserInfomation'
-import React from 'react'
 
 class InformationDetailsDisplay extends React.Component {
   constructor(props) {
@@ -112,37 +109,22 @@ class InformationDetailsDisplay extends React.Component {
           <br />
 
 
-          {this.state.section_to_edit == "LocationInformation" && isSuperUser ?
-            <EditLocationInformation
-              handleToogleEdit={this.handleToogleEdit}
-            />
-            :
-            <LocationInformation
-              st={this.props.order_information?.sellmarketorderlocationID.location.st}
-              neigh={this.props.order_information?.sellmarketorderlocationID.location.neigh}
-              city={this.props.order_information?.sellmarketorderlocationID.location.city}
-              province_state={this.props.order_information?.sellmarketorderlocationID.location.province_state}
-              country={this.props.order_information?.sellmarketorderlocationID.location.country}
-              handleToogleEdit={this.handleToogleEdit}
-              isSuperUser={isSuperUser}
-            />
-          }
+          <LocationInformation
+            st={this.props.order_information?.sellmarketorderlocationID.location.st}
+            neigh={this.props.order_information?.sellmarketorderlocationID.location.neigh}
+            city={this.props.order_information?.sellmarketorderlocationID.location.city}
+            province_state={this.props.order_information?.sellmarketorderlocationID.location.province_state}
+            country={this.props.order_information?.sellmarketorderlocationID.location.country}
+          />
+
           <br />
 
 
-          {this.state.section_to_edit == "OrderUserInfomation" && isSuperUser ?
-            <EditOrderUserInfomation
-              handleToogleEdit={this.handleToogleEdit}
-            />
-            :
-            <OrderUserInfomation
-              user_id={this.props.order_information?.userid._id}
-              username={this.props.order_information?.userid.username}
-              email={this.props.order_information?.userid.email}
-              handleToogleEdit={this.handleToogleEdit}
-              isSuperUser={isSuperUser}
-            />
-          }
+          <OrderUserInfomation
+            username={this.props.order_information?.userid.username}
+            // user_id={this.props.order_information?.userid._id}
+            // email={this.props.order_information?.userid.email}
+          />
           <br />
 
 

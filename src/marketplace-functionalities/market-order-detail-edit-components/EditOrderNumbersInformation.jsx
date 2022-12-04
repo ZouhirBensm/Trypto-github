@@ -124,7 +124,7 @@ class EditOrderNumbersInformation extends React.Component {
 
             let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data)
             if (ret_EditValidation) {
-              let ret_EditFunction1 = await this.EditFunction2(EditBaseOrderInformation_data)
+              let ret_EditFunction2 = await this.EditFunction2(EditBaseOrderInformation_data)
               return
             } else {
               return

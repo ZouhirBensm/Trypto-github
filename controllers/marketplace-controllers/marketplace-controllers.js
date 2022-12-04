@@ -97,12 +97,37 @@ async function updateOrder2Controller(req, res, next) {
 
   console.log("EditBaseOrderInformation_data----->>>>", req.body.EditBaseOrderInformation_data, req.body.EditBaseOrderInformation_data.orderID)
 
-  let updatedMarketOrder_ifAny = true
+  let updatedMarketOrder_ifAny
 
   try {
     updatedMarketOrder_ifAny = await SellMarketOrder.findByIdAndUpdate(req.body.EditBaseOrderInformation_data.orderID, { $set: {
       price: req.body.EditBaseOrderInformation_data.newprice,
       conversion: req.body.EditBaseOrderInformation_data.newconversion,
+    } }, { upsert: false, new: true });
+  } catch (e) {
+    let error = new MongoError(e.message)
+    return next(error)
+  }
+
+  if (updatedMarketOrder_ifAny) {
+    res.status(200).json({
+      srv_: "Successfully updated"
+    })
+  }
+}
+
+
+
+async function updateOrder3Controller(req, res, next) {
+
+  console.log("EditBaseOrderInformation_data----->>>>", req.body.EditBaseOrderInformation_data, req.body.EditBaseOrderInformation_data.orderID)
+
+  let updatedMarketOrder_ifAny = true
+
+  try {
+    updatedMarketOrder_ifAny = await SellMarketOrder.findByIdAndUpdate(req.body.EditBaseOrderInformation_data.orderID, { $set: {
+      chain: req.body.EditBaseOrderInformation_data.newchain,
+      payment: req.body.EditBaseOrderInformation_data.newpayment,
     } }, { upsert: false, new: true });
   } catch (e) {
     let error = new MongoError(e.message)
@@ -259,6 +284,7 @@ marketplaceController = {
   updateOrderController: updateOrderController,
   updateOrder1Controller: updateOrder1Controller,
   updateOrder2Controller: updateOrder2Controller,
+  updateOrder3Controller: updateOrder3Controller,
   deleteOrderController: deleteOrderController,
   getOrderController: getOrderController,
   registerMarketOrderController: registerMarketOrderController,

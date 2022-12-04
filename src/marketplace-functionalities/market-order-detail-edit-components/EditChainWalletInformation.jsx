@@ -1,3 +1,5 @@
+import { validateInputs } from '../../../full-stack-libs/validations'
+
 class EditChainWalletInformation extends React.Component {
   constructor(props) {
     super(props)
@@ -7,6 +9,7 @@ class EditChainWalletInformation extends React.Component {
     this.onChange = this.onChange.bind(this)
     this.setOptions = this.setOptions.bind(this)
   }
+
 
   componentDidMount() {
     this.setOptions(this.props.chain)
@@ -32,20 +35,20 @@ class EditChainWalletInformation extends React.Component {
 
     this.setState({
       options: options
-    }, ()=>{
+    }, () => {
 
       let payment_select = document.getElementById("payment-input")
-      let options_object = [...payment_select.options].map((option, index)=>{
-        return {index: index, value: option.value}
+      let options_object = [...payment_select.options].map((option, index) => {
+        return { index: index, value: option.value }
       })
       console.log(options_object)
       const found = options_object.find(option_object => option_object.value == this.props.payment)
 
-      if (!found){
+      if (!found) {
         payment_select.options[0].selected = true;
         return
       }
-      
+
       const selectedIndex = found.index
       console.log(payment_select.options.selectedIndex)
       payment_select.options[selectedIndex].selected = true;
@@ -83,6 +86,23 @@ class EditChainWalletInformation extends React.Component {
             <option value="">No Selection</option>
             {this.state.options}
           </select> <br />
+
+
+          <button onClick={async (e) => {
+            e.preventDefault()
+            let EditBaseOrderInformation_data = {
+              orderID: this.props.orderID,
+              newchain: document.getElementById("form_id").elements["chain"].value,
+              newpayment: document.getElementById("form_id").elements["payment"].value,
+            }
+            let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data)
+            if (ret_EditValidation) {
+              let ret_EditFunction3 = await this.EditFunction3(EditBaseOrderInformation_data)
+              return
+            } else {
+              return
+            }
+          }}>Save Edits</button>
         </form>
 
 
@@ -92,6 +112,59 @@ class EditChainWalletInformation extends React.Component {
       </React.Fragment>
     )
   }
+
+  setpopup(error_message) {
+    console.log(`Setting popup: ${error_message}`)
+  }
+
+
+
+  EditValidation(EditBaseOrderInformation_data) {
+    let error_msg_retrieved_if_any
+
+    if (EditBaseOrderInformation_data.newchain === this.props.chain && EditBaseOrderInformation_data.newpayment === this.props.payment) {
+
+      error_msg_retrieved_if_any = `Nothing has changed, therefor nothing to update!`
+      this.setpopup(error_msg_retrieved_if_any)
+      return false
+    }
+
+    error_msg_retrieved_if_any = validateInputs(EditBaseOrderInformation_data)
+
+    if (error_msg_retrieved_if_any) {
+      this.setpopup(error_msg_retrieved_if_any)
+      return false
+    }
+    else { return true }
+  }
+
+
+  async EditFunction3(EditBaseOrderInformation_data){
+    console.log("Making api call to edit this component!")
+
+    const response = await fetch(`/marketplace/${userId}/update3`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        EditBaseOrderInformation_data
+      })
+    })
+
+    const json = await response.json()
+
+    console.log(response)
+    console.log(json)
+
+    if (response.status === 200) {
+      this.props.handleToogleEdit(undefined)
+      this.props.loadData()
+    } else {
+    }
+  }
+
 }
 
 export default EditChainWalletInformation
