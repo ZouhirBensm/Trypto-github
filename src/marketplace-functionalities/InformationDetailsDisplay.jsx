@@ -24,6 +24,7 @@ class InformationDetailsDisplay extends React.Component {
     })
   }
 
+  // TODO !!!! HERE Add the deal and delete functionality
   render() {
 
     let myorder = (this.props.order_information?.userid._id == userId)
