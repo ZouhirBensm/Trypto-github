@@ -226,21 +226,7 @@ async function setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware(req, res, nex
   const directory = `public/img/marketorder-images/${res.locals.ret_sellmarketorder_save._id}`
   const jobname = `Delete market order images directory: ${directory}`
 
-  
-  // When creating a market order with set expiration
-  // HERE
-  // TODO NEEDS TEST
   agendaDefineJobFunctions.defineDeleteteMarketOrderImagesFolder(jobname, directory)
-  // agenda.define(jobname, async (job, done) => {
-  //   try {
-  //     fs.rmSync(directory, { recursive: true, force: true });
-  //   } catch (e) {
-  //     let error = new Error(`Was unable to delete the images in directory: ${directory}, @ expiry date and time.`)
-  //     return next(error)
-  //   }
-  //   done()
-  //   const numRemoved = await agenda.cancel({ name: jobname });
-  // });
 
   await agenda.schedule(req.body.expireAt, jobname);
 

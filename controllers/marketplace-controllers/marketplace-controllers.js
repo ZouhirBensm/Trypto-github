@@ -79,19 +79,7 @@ async function updateOrder1Controller(req, res, next) {
 
   const numRemoved = await agenda.cancel({ name: jobname });
 
-  // When updating market order expiration
-  // TODO NEEDS TEST
   agendaDefineJobFunctions.defineDeleteteMarketOrderImagesFolder(jobname, directory)
-
-  // agenda.define(jobname, async (job, done) => {
-  //   try {
-  //     fs.rmSync(directory, { recursive: true, force: true });
-  //   } catch (e) {
-  //     console.error(`Was unable to delete the images in directory: ${directory}, @ expiry date and time.`)
-  //   }
-  //   done()
-  //   const numRemoved = await agenda.cancel({ name: jobname });
-  // });
 
   await agenda.schedule(updatedMarketOrder_ifAny.expireAt, jobname);
 

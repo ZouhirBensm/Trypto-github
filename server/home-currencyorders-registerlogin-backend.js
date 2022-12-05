@@ -269,10 +269,13 @@ homeOrdersBackend_app_router.get('/resend-user-email/:userEmail', destructureURL
 
 
 
+homeOrdersBackend_app_router.get('/purge', async (req, res) => {
+  const numRemoved = await agenda.purge();
+})
 
 
+homeOrdersBackend_app_router.get('/', async (req, res) => {
 
-homeOrdersBackend_app_router.get('/', (req, res) => {
 
   res.locals.userId = req.session.userId
   res.locals.popup = req.query.popup

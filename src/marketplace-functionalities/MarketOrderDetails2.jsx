@@ -2,7 +2,6 @@
 import RetrievedMarketOrderData from './RetrievedMarketOrderData'
 import '../style/reactDivMobile.css'
 
-// TODO !!!! add the amounts to display SAT and BTC
 // TODO !!!! display market order images on the market orders details page
 
 
