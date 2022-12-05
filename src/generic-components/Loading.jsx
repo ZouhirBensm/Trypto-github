@@ -8,3 +8,6 @@ class Loading extends React.Component {
 }
 
 export default Loading
+
+
+// TODO make this into a VS code JSX template
