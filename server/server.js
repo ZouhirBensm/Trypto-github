@@ -1,7 +1,17 @@
 console.log(`Server starting with NODE_ENV=${process.env.NODE_ENV}`);
 
 const Agenda = require('agenda');
+const rateLimit = require('express-rate-limit')
 
+const limiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minutes
+  // windowMs: 5 * 60 * 1000, // 5 minutes
+	// windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 30, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	// max: 200 * 5, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
 
 
 
@@ -141,12 +151,21 @@ const sessionMiddleware = expressSession({
 });
 
 
-//We register the expressSession middleware in our express_server_app_router
-express_server_app_router.use(sessionMiddleware)
+
+express_server_app_router.set('trust proxy', 1)
 
 
 express_server_app_router.set('view engine', 'ejs')
 // console.log(express_server_app_router.get("view engine"))
+
+
+// Apply the rate limiting middleware to all requests
+express_server_app_router.use(limiter)
+
+//We register the expressSession middleware in our express_server_app_router
+express_server_app_router.use(sessionMiddleware)
+
+
 
 
 // Express.js know to use this package as an additional middleware layer
@@ -187,6 +206,9 @@ express_server_app_router.use((req, res, next) => {
   // res.locals.userId = req.session.userId
   next()
 })
+
+
+express_server_app_router.get('/ip', (request, response) => response.send(request.ip))
 
 
 express_server_app_router.use('/', homeOrdersBackend_app_router)

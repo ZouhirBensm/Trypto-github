@@ -64,8 +64,6 @@ function verifyPassword(_password) {
 
 
 
-
-// TODO !! reassess displayed market order information, e.g. add the street
 // TODO maintainers, process to allow the orders to go through
 // + 
 // TODO design= logo, icons/font awsome, dimmensions, implementation css mobile/desktop, customs pictogrammes, animations, mobile touch events

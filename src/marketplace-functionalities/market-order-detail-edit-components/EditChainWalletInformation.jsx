@@ -68,7 +68,6 @@ class EditChainWalletInformation extends React.Component {
     this.setOptions(e.target.value)
   }
 
-  // TODO log in heroku and check charges
   render() {
 
     return (
