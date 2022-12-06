@@ -18,8 +18,13 @@ module.exports = async (req,res,next)=>{
     populate: {
       path: 'protagonists',
       model: 'User',
-      select: "_id username email"
-    } 
+      select: "_id username email",
+      populate: {
+        path: 'userprofileimageID',
+        model: 'UserProfileImage',
+        select: "image.name -_id"
+      }
+    }
   })
   .populate({
     // Populate msg_stream
@@ -37,10 +42,14 @@ module.exports = async (req,res,next)=>{
 
   // console.log(`entries with my protagonist ${req.session.userId}:`,protagonists_communications)
 
-  protagonists_communications.forEach(element => {
-    console.log("\n\nActual msg_streams:\n\n",element.msg_stream)
-    console.log("\n\nActual protagonists emails:\n\n",element.protagonists.protagonists)
-  });
+  // protagonists_communications.forEach((element, i) => {
+  //   console.log("\n\nActual msg_streams:\n\n",element.msg_stream)
+  //   console.log("\n\nActual protagonists emails:\n\n",element.protagonists.protagonists)
+  //   element.protagonists.protagonists.forEach(element => {
+  //     console.log(element.userprofileimageID)
+  //   });
+  //   console.log("ok->", i, element.protagonists.protagonists.userprofileimageID?.image)
+  // });
 
   res.locals.data_to_be_paginated_and_served = protagonists_communications
 

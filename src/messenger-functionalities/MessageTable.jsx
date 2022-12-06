@@ -1,4 +1,5 @@
 // import React from 'react';
+import './styles/MessageTable.css' 
 import utils from '../../full-stack-libs/utils'
 
 class MessageTable extends React.Component {
@@ -86,45 +87,47 @@ class MessageRow extends React.Component {
 
   render(){
     const convo = this.props.convo;
-    console.log(`row ${this.props.keyy} executing: `, convo)
+    // console.log(`row ${this.props.keyy} executing: `, convo)
 
-    console.log("convo.protagonists.protagonists", convo.protagonists.protagonists)
+    // console.log("convo.protagonists.protagonists", convo.protagonists.protagonists)
 
 
     const communicating_with = convo.protagonists.protagonists.filter(protagonist => {return protagonist._id != this.PassedUserID})
 
-    console.log("this first: ", communicating_with[0])
+    // console.log("this first: ", communicating_with[0])
 
-    const {_id: communicating_with_ID, username: communicating_with_username, email: communicating_with_email} = communicating_with[0]
+    const {_id: communicating_with_ID, username: communicating_with_username, email: communicating_with_email, userprofileimageID: comunicating_with_userprofileimageID} = communicating_with[0]
 
-    console.log("this", communicating_with_ID, communicating_with_username, communicating_with_email)
+    console.log("this", communicating_with_ID, communicating_with_username, communicating_with_email, comunicating_with_userprofileimageID)
+
+    let comunicating_with_profile_image_name = `square.png`
+    
+    if (comunicating_with_userprofileimageID) {
+      comunicating_with_profile_image_name = comunicating_with_userprofileimageID.image.name
+    } 
 
     const most_recent_convo_text = convo.msg_stream.at(-1).text
     const most_recent_convo_sender_email = convo.msg_stream.at(-1).sender.email
-    const most_recent_convo_sender_username = convo.msg_stream.at(-1).sender.username
+    let most_recent_convo_sender_username = convo.msg_stream.at(-1).sender.username
+
+    if (most_recent_convo_sender_username != communicating_with_username) {
+      most_recent_convo_sender_username = "You"
+    }
 
 
 
     // console.log("Require Keys: ", display_editing)
     return(
       <tr onClick={(e) => this.handleClick(this.props.comprehensiveSelectedUserInfoDataObj, communicating_with_ID, e)}>
-        {/* TODO !!!! #85 Add Profile pictures to users */}
-        <td id="img-profile" style={{"display": "none"}}>Com w\ username: {communicating_with_username}</td>
-
-        <td id="comm-with-email">Com w\ username: {communicating_with_username}</td>
+        <td id="comm-with">
+          <img src={`../img/profile-images/${comunicating_with_profile_image_name}`} alt="" />
+          <span> {communicating_with_username}</span>
+        </td>
+        <td id="last-message"> 💬.. {most_recent_convo_sender_username}: {most_recent_convo_text} </td>
 
         <td id="comm-with-ID" style={{"display": "none"}}>Com w\ ID: {communicating_with_ID}</td>
+        <td id="msg-notifications" style={{"display": "none"}}>#</td>
 
-        <td id="msg-notifications">#</td>
-
-        <td id="last-sender-email">From: {most_recent_convo_sender_username} </td>
-
-        <td id="recent-msg">Said: {most_recent_convo_text}</td>
-
-        {/* 
-        <td id="img-profile"></td>
-        <td id="new-msgs">ok</td>
-        <td id="recent-msg">ok</td> */}
       </tr>
     );
   }

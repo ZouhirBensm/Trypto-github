@@ -2,8 +2,6 @@
 import RetrievedMarketOrderData from './RetrievedMarketOrderData'
 import '../style/reactDivMobile.css'
 
-// TODO !!!! display market order images on the market orders details page
-
 
 
 class MarketOrderDetails extends React.Component {

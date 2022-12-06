@@ -14,24 +14,23 @@ table.bordered-table {
   width: 100%;
 }
 
-div.wrapper tr {
+/* div.wrapper tr {
   display: grid;
   grid-template-rows: repeat(2,1fr);
   grid-template-columns: repeat(2,1fr);
   grid-template-areas : 
   "one two"
-  "three four";
+  "three three";
 }
 
 tr > td#img-profile {
   grid-area: one;
 }
-tr > td#msg-notifications {
+
+tr > td#comm-with-username {
   grid-area: two;
 }
-tr > td#last-sender-email {
+
+tr > td#last-message {
   grid-area: three;
-}
-tr > td#recent-msg {
-  grid-area: four;
-}
+} */
