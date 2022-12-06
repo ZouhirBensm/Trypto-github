@@ -152,7 +152,7 @@ const sessionMiddleware = expressSession({
 
 
 
-express_server_app_router.set('trust proxy', 1)
+express_server_app_router.set('trust proxy', 2)
 
 
 express_server_app_router.set('view engine', 'ejs')
