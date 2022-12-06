@@ -12,8 +12,8 @@ class PricesComponent extends React.Component {
 
   setTDs(){
     let currencies, values
-    currencies = Object.keys(this.props.btc_gecko_prices)
-    values = Object.values(this.props.btc_gecko_prices)
+    currencies = Object.keys(this.props?.btc_gecko_prices)
+    values = Object.values(this.props?.btc_gecko_prices)
     
     let tds_currencies = []
     for (let i = 0; i < currencies.length; i++) {
