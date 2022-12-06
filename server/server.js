@@ -153,7 +153,7 @@ const sessionMiddleware = expressSession({
 
 
 // Prod: number of trusted proxies
-express_server_app_router.set('trust proxy', 1)
+express_server_app_router.set('trust proxy', 7)
 // Staging: number of trusted proxies
 // express_server_app_router.set('trust proxy', 2)
 
