@@ -3,16 +3,18 @@ console.log(`Server starting with NODE_ENV=${process.env.NODE_ENV}`);
 const Agenda = require('agenda');
 
 // RATE LIMIT!!!!!
-// const rateLimit = require('express-rate-limit')
-// const limiter = rateLimit({
-//   // windowMs: 60 * 1000, // 1 minutes
-//   // windowMs: 5 * 60 * 1000, // 5 minutes
-// 	windowMs: 15 * 60 * 1000, // 15 minutes
-//   // max: 30, // Limit each IP to 30 requests per `window` (here, per 15 minutes)
-// 	max: 200 * 5, // Limit each IP to 1000 requests per `window` (here, per 15 minutes)
-// 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-// 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-// })
+const rateLimit = require('express-rate-limit')
+const limiter = rateLimit({
+  windowMs: 1000, // 1 minutes
+  // windowMs: 60 * 1000, // 1 minutes
+  // windowMs: 5 * 60 * 1000, // 5 minutes
+	// windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 * 12, // Limit each IP to 1000 requests per `window` (here, per 15 minutes)
+  // max: 30, // Limit each IP to 30 requests per `window` (here, per 15 minutes)
+	// max: 200 * 5 * 1000, // Limit each IP to 1000 requests per `window` (here, per 15 minutes)
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
 
 
 
@@ -153,7 +155,7 @@ const sessionMiddleware = expressSession({
 
 
 // RATE LIMIT!!!!!
-// express_server_app_router.set('trust proxy', 1)
+express_server_app_router.set('trust proxy', 1)
 
 
 express_server_app_router.set('view engine', 'ejs')
@@ -162,7 +164,7 @@ express_server_app_router.set('view engine', 'ejs')
 
 // RATE LIMIT!!!!!
 // Apply the rate limiting middleware to all requests
-// express_server_app_router.use(limiter)
+express_server_app_router.use(limiter)
 
 //We register the expressSession middleware in our express_server_app_router
 express_server_app_router.use(sessionMiddleware)
