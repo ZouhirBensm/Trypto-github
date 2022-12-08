@@ -1,16 +1,8 @@
-import loadable from "@loadable/component";
-import React from "react";
-// import Loading from "./Loading";
-import Loading from "../generic-components/Loading";
 import PageSelector from '../generic-components/PageSelector';
 import AllArticlesList from '../articles-functionalities/AllArticlesList';
 import '../style/reactDivMobile.css'
 
-// const Messages = loadable(() => import("../messenger-functionalities/Messages"),{
-//   fallback: <Loading/>
-// });
 
-// import { BrowserRouter, Route, Switch} from 'react-router-dom';
 
 class Articles extends React.Component {
   constructor(props){

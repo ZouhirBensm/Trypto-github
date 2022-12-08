@@ -7,7 +7,7 @@ import PageSelector from '../generic-components/PageSelector';
 // import SearchEngine from '../btclayerexchange-functionalities/SearchEngine';
 
 
-// TODO !!!! implement rate on inputs to avoid getting spammed from bots
+// TODO !!!! add market order image on the market order list
 // TODO !!!! human check (not bot spams), third party sliders, when user registers, and posts
 
 // TODO ! if regitered user does not activate acount within 2 months, delete account, i.e. if not subed delete user and hex, if subed, then unsub, delete user and hex

@@ -35,6 +35,7 @@ class Subscription extends React.Component {
       email: "",
       password: "",
       plan: "",
+      // hny_spm: "",
     }
     this.nextStep=this.nextStep.bind(this)
     this.previousStep=this.previousStep.bind(this)
@@ -93,13 +94,8 @@ class Subscription extends React.Component {
         break;
     }
     return (
-      // <div>Subscriptions</div>
       <React.Fragment>
         {this.state.step != 4? <a href="/subscription"> Reset </a>: null}
-        {/* <button onClick={(e) => {this.setStateStep('1')}}> Step1 </button>
-        <button onClick={(e) => {this.setStateStep('2')}}> Step2 </button>
-        <button onClick={(e) => {this.setStateStep('3')}}> Step3 </button> */}
-
         {component}
       </React.Fragment>
     )

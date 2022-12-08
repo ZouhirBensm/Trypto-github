@@ -2,6 +2,7 @@
 import React from 'react'
 import '../style/reactDivMobile.css'
 import './style/market-images.css'
+import './style/_4_InputImagesMarketOrder.css'
 import ImagesWDeletionLoop from './ImagesWDeletionLoop'
 import MarketSubmissionButton from './MarketSubmissionButton'
 
@@ -184,15 +185,6 @@ class _4_InputImagesMarketOrder extends React.Component {
 
     return (
       <React.Fragment>
-
-        <h1>HHHH</h1>
-        <h1>HHHH</h1>
-        <h1>HHHH</h1>
-        <h1>HHHH</h1>
-        <h1>HHHH</h1>
-        <h1>HHHH</h1>
-
-
         <div id='images-container'>
           <ImagesWDeletionLoop
             filelist={filelist}
@@ -212,6 +204,8 @@ class _4_InputImagesMarketOrder extends React.Component {
             let ret_addimages = this.addimages(e)
             return
           }} />
+
+        <input type="text" name="hny_spm"/>
 
 
           <MarketSubmissionButton

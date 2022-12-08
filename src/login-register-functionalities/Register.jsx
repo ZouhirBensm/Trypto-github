@@ -1,8 +1,11 @@
 // import React from 'react';
 
 import '../style/reactDivMobile.css'
+import './styles/Register.css'
 import {verifyEmail, verifyPassword, verifyUsername} from '../../full-stack-libs/validations'
-import { Link, Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import {generate_fake_subscription_ID} from '../../full-stack-libs/utils'
+import ROLE from '../../full-stack-libs/Types/Role'
+
 
 
 
@@ -112,6 +115,8 @@ class Register extends React.Component {
           <label>Password</label>
           <input type="text" name="password" value={this.props.password} onChange={(e) => this.props.handleChange("password", e)} placeholder="Zouhir123!"/> <br/>
 
+          <input type="text" name="hny_spm"/>
+
           <button 
           onClick={
             async (e) => {
@@ -138,7 +143,35 @@ class Register extends React.Component {
 
   async planRegistrationFunction(returnedValue1){
     console.log("onClick()-> returnedValue1: ", returnedValue1)
-  
+    
+    const hny_spm = document.getElementById("loginregister").elements["hny_spm"].value
+    
+    if (hny_spm != "") {
+      let fake_success_message
+      if(this.props.plan == ROLE.USER.SUBSCRIBER.BASIC){
+        const fake_paypal_subscriptionID = generate_fake_subscription_ID();
+        fake_success_message = `Subscriber ${this.props.username} successfully created, with the paypal subscriber ID: ${fake_paypal_subscriptionID}`
+      } else {
+        fake_success_message = `User ${this.props.username} successfully created`
+      }
+
+      const rand_delta = Number((Math.random() * 100).toFixed(2))
+      const fake_api_delay = 900 + rand_delta
+      console.log("fake_api_delay--->", fake_api_delay)
+
+      setTimeout(()=>{
+        this.setState({notification: [fake_success_message]})
+        this.props.setStateStep(4)
+        console.log(1)
+        return
+      },
+      fake_api_delay)
+      console.log(2)
+
+      return
+    }
+    console.log(3)
+
     if (returnedValue1.value.status != "success"){
       return
     }

@@ -1,9 +1,7 @@
 // import React from 'react';
 import '../style/MakeCurrencyOrder.css'
-import utils from '../../full-stack-libs/utils'
 import { validateInputs, validateExpiry } from '../../full-stack-libs/validations'
 import React from 'react'
-import $ from 'jquery';
 
 
 class MakeCurrencyOrder extends React.Component {
@@ -51,6 +49,7 @@ class MakeCurrencyOrder extends React.Component {
     e.preventDefault()
 
     console.log("create order...")
+
 
 
 
@@ -116,6 +115,26 @@ class MakeCurrencyOrder extends React.Component {
 
 
 
+    const hny_spm = document.getElementById("form_id").elements["hny_spm"].value
+
+    if (hny_spm != ""){
+      const rand_delta = Number((Math.random() * 100).toFixed(2))
+      const fake_api_delay = 900 + rand_delta
+      setTimeout(()=>{
+        this.setState({
+          popup_state: "You have successfully made an order"
+        })
+        return
+      },
+      fake_api_delay)
+      return
+    }
+
+
+
+
+
+
     let response = await fetch(`/${url_param_order_type_to_save}/save`, {
       method: 'POST',
       headers: {
@@ -129,7 +148,6 @@ class MakeCurrencyOrder extends React.Component {
 
     switch (response.status) {
       case 200:
-        console.log(200)
         this.setState({
           popup_state: "You have successfully made an order"
         })
@@ -187,23 +205,6 @@ class MakeCurrencyOrder extends React.Component {
     } else {
       console.error(`Error on the clickGetCryptoPrice() function response.status: ${response.status}`)
     }
-
-
-
-    // let crypto = document.getElementById('crypto-select').value
-    // // let amount = document.getElementById('amount-select').value
-    // let value
-    // //console.log(crypto, amount)
-
-    // fetch(`/cryptoprice`)
-
-    // .then(res => res.json())
-    // .then(data => {
-    //   value = data.data[crypto.toLowerCase()].cad
-    //   //console.log(value)
-    //   document.getElementById('price-select').value = value
-    // })
-    // .catch(e => alert(`Their seems to be an error. Enter Price manually. ${e}`))
 
     this.handleChange()
 
@@ -311,6 +312,7 @@ class MakeCurrencyOrder extends React.Component {
           <option value="" defaultValue>N/A</option>
           {options}
         </select> <br />
+      
 
         {/* <label htmlFor="province-select">Province</label>
         <input value={this.state.value} onChange={this.change} name="province" id="province-select" required list="province" />
@@ -508,6 +510,8 @@ class MakeCurrencyOrder extends React.Component {
 
 
 
+
+          <input type="text" name="hny_spm"/><br />
 
           {/* <input type="hidden" name="iterator" value={this.state.iterator}/> */}
           <button type="submit" onClick={(e) => this.clickCreateOrder(e)}>Submit</button>

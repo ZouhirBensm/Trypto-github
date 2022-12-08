@@ -122,5 +122,26 @@ module.exports = {
     }
 
     return toFormat
+  },
+
+  generate_fake_subscription_ID() {
+    let fake_paypal_subscriptionID = ``
+    for (let i = 0; i < 12; i++) {
+      let alphanumeric
+      if (i == 3 || i == 6 || i == 7) {
+        alphanumeric = Math.floor(Math.random() * 10)
+        fake_paypal_subscriptionID += alphanumeric
+        continue
+      }
+      if (i == 1) {
+        alphanumeric = '-'
+        fake_paypal_subscriptionID += alphanumeric
+        continue
+      }
+      alphanumeric = String.fromCharCode(65 + Math.floor(Math.random() * 26))
+      fake_paypal_subscriptionID += alphanumeric
+    }
+    return fake_paypal_subscriptionID
   }
+  
 }

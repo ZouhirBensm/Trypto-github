@@ -1,9 +1,11 @@
 
+
+
 class MarketSubmissionButton extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
-    console.log("!!!!", userId)
+    console.log("userId-->", userId)
   }
 
   // TODO put this as a utils and have every call reference it!
@@ -61,6 +63,21 @@ class MarketSubmissionButton extends React.Component {
 
   async apiMakeMarketOrder() {
 
+
+    const hny_spm = document.getElementById("form_id").elements["hny_spm"].value
+    if (hny_spm != ""){
+      const rand_delta = Number((Math.random() * 100).toFixed(2))
+      const fake_api_delay = 900 + rand_delta
+      setTimeout(()=>{
+        this.props.setpopup("Done, success.")
+        const reactDiv = document.getElementById("react-div")
+        reactDiv.scrollTo(0, reactDiv.scrollHeight);
+        return
+      },
+      fake_api_delay)
+      return
+    }
+
     let input = document.getElementById('image-select')
     let selectedFiles = input.files
 
@@ -106,8 +123,7 @@ class MarketSubmissionButton extends React.Component {
     let json
 
 
-    // TODO add uid
-    console.log("fetch to: ", `/marketplace/sellorders/save/${userId}`)
+    // console.log("fetch to: ", `/marketplace/sellorders/save/${userId}`)
 
     response = await fetch(`/marketplace/sellorders/save/${userId}`, {
       method: 'POST',

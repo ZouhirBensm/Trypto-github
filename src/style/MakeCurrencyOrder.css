@@ -8,3 +8,8 @@ div.make-container {
   left: 3%;
   right: 3%;
 }
+
+
+input[name="hny_spm"] {
+  display: none;
+}

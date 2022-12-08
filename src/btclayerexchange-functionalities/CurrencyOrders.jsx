@@ -1,4 +1,3 @@
-// import React from 'react';
 import './styles/CurrencyOrders.css'
 import CurrencyOrderTable from './CurrencyOrderTable';
 // import PageSelector from './PageSelector';
