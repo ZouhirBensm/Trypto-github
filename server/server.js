@@ -34,6 +34,7 @@ const NAVBAR = require('../full-stack-libs/Types/Navbar')
 // TODO #98 Better organize server folder
 
 const mongoose = require('mongoose')
+mongoose.set('strictQuery', true);
 
 
 mongoose.connect(ENV.database_link)
@@ -56,6 +57,8 @@ const clientP = db['$initialConnection'].then(m => {
 db.once("open", () => {
   console.log(`\nSuccessfully connected to MongoDB using Mongoose from server.js the readyState is ${db.readyState}, and the connection string is ${db._connectionString}\n\n\n`)
 })
+
+
 
 
 
