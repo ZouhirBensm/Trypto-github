@@ -250,12 +250,20 @@ async function ordersRetrievalMiddleware(req, res, next) {
 
   try {
     // Descending: from newest to oldest
-    sellOrders = await SellMarketOrder.find().sort({ postedDate: -1 }).populate('userid')
+    sellOrders = await SellMarketOrder.find().sort({ postedDate: -1 })
+    .populate('userid')
+    .populate({
+      // Populate protagonists
+      path: "sellmarketorderImageID",
+      // Fields allowed to populate with
+      select: "images.name -_id",
+    })
+
   } catch (e) {
     return next(e)
   }
 
-  // console.log("\n\n\n\nsellOrders!!\n\n", sellOrders)
+  console.log("\n\n\n\nsellOrders!!\n\n", sellOrders)
 
 
   

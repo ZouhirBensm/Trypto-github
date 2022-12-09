@@ -8,6 +8,8 @@ import ROLE from '../../full-stack-libs/Types/Role'
 
 
 
+// TODO !! needs destructuring and refactoring i.e. the component is too big!!
+
 
 class Register extends React.Component {
 

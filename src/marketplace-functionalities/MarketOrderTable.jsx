@@ -1,5 +1,5 @@
-// import React from 'react';
-import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
+import './style/MarketOrderTable.css'
+import { Link } from "react-router-dom";
 
 class MarketOrderTable extends React.Component {
 
@@ -47,6 +47,7 @@ class OrderRow extends React.Component {
 
   render() {
     let order = this.props.order;
+    console.log(order)
     // console.log(order.price)
     let display_normal = [];
     let display_editing = [];
@@ -55,6 +56,9 @@ class OrderRow extends React.Component {
     let amount_normal;
     let amount_editing;
     let wantsTO;
+
+
+    const order_first_image_name = order.sellmarketorderImageID.images[0].name
 
     
     return (
@@ -68,7 +72,7 @@ class OrderRow extends React.Component {
         }}
         >
         <div>
-          <img src="#"></img>
+          <img src={`/img/marketorder-images/${order._id}/${order_first_image_name}`}></img>
           <div>Title: {order.title}</div>
           <div>Price: {order.price}</div>
           {/* TODO add location and condition */}
