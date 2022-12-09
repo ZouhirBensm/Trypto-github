@@ -24,6 +24,17 @@ class Register extends React.Component {
     this.NOTSUBSCRIBERPlanRegistrationProcess = this.NOTSUBSCRIBERPlanRegistrationProcess.bind(this)
   }
 
+  componentDidMount(){
+    var registerButton = document.getElementById("register-button")
+    registerButton.disabled = true
+    const rand_delta = Number((Math.random() * 100).toFixed(2))
+    const fake_delay = 1000 + rand_delta
+    
+    setTimeout(()=>{
+      registerButton.disabled = false
+    }, fake_delay)
+  }
+
   
 
   async NOTSUBSCRIBERPlanRegistrationProcess() {
@@ -119,7 +130,7 @@ class Register extends React.Component {
 
           <input type="text" name="hny_spm"/>
 
-          <button 
+          <button id='register-button'
           onClick={
             async (e) => {
               e.preventDefault()

@@ -7,8 +7,6 @@ import PageSelector from '../generic-components/PageSelector';
 // import SearchEngine from '../btclayerexchange-functionalities/SearchEngine';
 
 
-// TODO !!!! add timer to prevent bots, for example submits before 5sec get ignored
-
 // TODO ! if regitered user does not activate acount within 2 months, delete account, i.e. if not subed delete user and hex, if subed, then unsub, delete user and hex
 // TODO #102 Add touch event to slide search engine
 // TODO ! return the search engine, and add search engine validation on inputs

@@ -8,6 +8,17 @@ class MarketSubmissionButton extends React.Component {
     console.log("userId-->", userId)
   }
 
+  componentDidMount(){
+    var marketSubmitButton = document.getElementById("market-submit")
+    marketSubmitButton.disabled = true
+    const rand_delta = Number((Math.random() * 100).toFixed(2))
+    const fake_delay = 1000 + rand_delta
+
+    setTimeout(()=>{
+      marketSubmitButton.disabled = false
+    }, fake_delay)
+  }
+
   // TODO put this as a utils and have every call reference it!
   makeArrayOutOf(selectedFiles) {
     let selectedFilesArray = []
@@ -45,7 +56,7 @@ class MarketSubmissionButton extends React.Component {
   render() {
 
     return (
-      <button type="submit" onClick={async (e) => {
+      <button type="submit" id="market-submit" onClick={async (e) => {
         e.preventDefault()
         let ret_validation = this.finalSubmissionValidation()
 

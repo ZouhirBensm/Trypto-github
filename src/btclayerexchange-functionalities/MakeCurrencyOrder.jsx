@@ -3,7 +3,7 @@ import '../style/MakeCurrencyOrder.css'
 import { validateInputs, validateExpiry } from '../../full-stack-libs/validations'
 import React from 'react'
 
-
+// TODO !! needs destructuring and refactoring i.e. the component is too big!!
 class MakeCurrencyOrder extends React.Component {
   constructor(props) {
     super(props)
@@ -25,7 +25,16 @@ class MakeCurrencyOrder extends React.Component {
   }
 
   componentDidMount() {
-    //DOM is ready
+
+    var currencySubmitButton = document.getElementById("currency-submit")
+    currencySubmitButton.disabled = true
+    const rand_delta = Number((Math.random() * 100).toFixed(2))
+    const fake_delay = 1000 + rand_delta
+
+    setTimeout(()=>{
+      currencySubmitButton.disabled = false
+    }, fake_delay)
+
     this.clickGetCryptoPrice()
   }
 
@@ -514,7 +523,7 @@ class MakeCurrencyOrder extends React.Component {
           <input type="text" name="hny_spm"/><br />
 
           {/* <input type="hidden" name="iterator" value={this.state.iterator}/> */}
-          <button type="submit" onClick={(e) => this.clickCreateOrder(e)}>Submit</button>
+          <button type="submit" id='currency-submit' onClick={(e) => this.clickCreateOrder(e)}>Submit</button>
         </form><br />
 
 
