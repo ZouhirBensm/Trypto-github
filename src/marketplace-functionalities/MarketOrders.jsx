@@ -8,7 +8,7 @@ import PageSelector from '../generic-components/PageSelector';
 
 
 // TODO !!!! add market order image on the market order list
-// TODO !!!! human check (not bot spams), third party sliders, when user registers, and posts
+// TODO !!!! add timer to prevent bots, for example submits before 5sec get ignored
 
 // TODO ! if regitered user does not activate acount within 2 months, delete account, i.e. if not subed delete user and hex, if subed, then unsub, delete user and hex
 // TODO #102 Add touch event to slide search engine
