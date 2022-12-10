@@ -10,7 +10,7 @@ import Loading from "../generic-components/Loading"
 // import ChoosePlan from "./subscription-functionalities/ChoosePlan"
 // import CardInfoSubmission from "./subscription-functionalities/CardInfoSubmission"
 
-const Register = loadable(() => import("../login-register-functionalities/Register"),{
+const Register = loadable(() => import("../login-register-functionalities/Register2"),{
   fallback: <Loading/>
 });
 const ChoosePlan = loadable(() => import("../subscription-functionalities/ChoosePlan"),{
