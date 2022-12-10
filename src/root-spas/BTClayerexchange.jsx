@@ -1,20 +1,9 @@
-
-// import React from 'react';
-// import ReactDOM from 'react-dom'
-// import MakeBuy from './btclayerexchange-functionalities/MakeBuy';
-// import MakeSell from './btclayerexchange-functionalities/MakeSell';
-// import CurrencyOrders from './btclayerexchange-functionalities/CurrencyOrders';
-// import MyCurrencyOrders from './btclayerexchange-functionalities/MyCurrencyOrders';
-// import Navigation from './btclayerexchange-functionalities/Navigation';
-// import CurrencyOrderMatches from './btclayerexchange-functionalities/CurrencyOrderMatches';
-
-
 import loadable from "@loadable/component";
 // import Loading from "./Loading";
 import Loading from "../generic-components/Loading";
 
 
-const MakeCurrencyOrder = loadable(() => import("../btclayerexchange-functionalities/MakeCurrencyOrder"),{
+const MakeCurrencyOrder = loadable(() => import("../btclayerexchange-functionalities/MakeCurrencyOrder3"),{
   fallback: <Loading/>
 });
 
@@ -52,8 +41,13 @@ class BTClayerexchange extends React.Component {
             <Route exact path="/btclayerexchange" render={
               (props) => <Navigation {...props} mode="orders"/>
             } />
+
+
+
             <Route exact path="/btclayerexchange/makebuy" component={MakeCurrencyOrder} />
             <Route exact path="/btclayerexchange/makesell" component={MakeCurrencyOrder} />
+
+
 
             <Route exact path="/btclayerexchange/allmyorders" render={
               (props) => <MyCurrencyOrders {...props} userID_toQueryWith={userId}/>
