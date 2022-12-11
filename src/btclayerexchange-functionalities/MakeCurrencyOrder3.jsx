@@ -6,7 +6,7 @@ import MakeCurrencyOrderNumbers from './make-currency-order-components/MakeCurre
 import MakeCurrencyOrderChainPayment from './make-currency-order-components/MakeCurrencyOrderChainPayment'
 import SubmitCurrencyOrderButton from './make-currency-order-components/SubmitCurrencyOrderButton'
 
-// TODO !! needs destructuring and refactoring i.e. the component is too big!!
+// TODO !!! Test the currency tables to see if display properly with no errors!
 
 class MakeCurrencyOrder extends React.Component {
   constructor(props) {
