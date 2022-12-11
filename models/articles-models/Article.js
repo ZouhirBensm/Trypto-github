@@ -44,6 +44,8 @@ const ArticleSchema = new Schema({
 })
 
 
+
+
 //Apply the Schema to the Model
 const Article = mongoose.model('Article', ArticleSchema)
 //Export Article variable to other files

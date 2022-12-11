@@ -44,7 +44,7 @@ const SellMarketOrderImageSchema = new Schema({
 
 
 SellMarketOrderImageSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
-
+SellMarketOrderImageSchema.index({ sellmarketorderID: 1 })
 
 const SellMarketOrderImage = mongoose.model('SellMarketOrderImage', SellMarketOrderImageSchema)
 module.exports = SellMarketOrderImage

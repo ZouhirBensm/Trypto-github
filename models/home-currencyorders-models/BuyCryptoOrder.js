@@ -44,6 +44,8 @@ const BuyCryptoOrderSchema = new Schema({
 
 BuyCryptoOrderSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
 BuyCryptoOrderSchema.index({ postedDate: -1 });
+BuyCryptoOrderSchema.index({ userid: 1 })
+// BuyCryptoOrderSchema.index({ currencyorderlocationID: 1 })
 
 //Access the database my_database via mongoose.model.
 //The first argument: The name of the collection the model is for.

@@ -38,6 +38,7 @@ const UserProfileImageSchema = new Schema({
   }
 })
 
+UserProfileImageSchema.index({ userID: 1 });
 
 
 const UserProfileImage = mongoose.model('UserProfileImage', UserProfileImageSchema)

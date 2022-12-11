@@ -38,6 +38,8 @@ const ArticleEnclosureImageSchema = new Schema({
   }
 })
 
+ArticleEnclosureImageSchema.index({ articleID: 1 });
+
 
 
 const ArticleEnclosureImage = mongoose.model('ArticleEnclosureImage', ArticleEnclosureImageSchema)

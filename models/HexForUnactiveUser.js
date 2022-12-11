@@ -2,7 +2,6 @@
 const mongoose = require('mongoose')
 const crypto = require('crypto')
 
-
 // Checking the connection
 // const db = mongoose.connection
 // db.once("open", () => {
@@ -33,6 +32,7 @@ const HexForUnactiveUserSchema = new Schema({
   },
 })
 
+HexForUnactiveUserSchema.index({ userID: 1 })
 
 
 

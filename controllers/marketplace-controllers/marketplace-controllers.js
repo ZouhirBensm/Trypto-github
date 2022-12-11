@@ -153,7 +153,6 @@ async function deleteMarketOrderImages(req, res, next) {
   try {
     fs.rmSync(directory, { recursive: true, force: true });
   } catch (e) {
-    // TODO put better descriptive error
     let error = new Error(`Was unable to delete the images associated with market order ID: ${req.body.market_orderID}`)
     return next(error)
   }

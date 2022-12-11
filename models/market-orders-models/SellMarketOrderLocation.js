@@ -62,6 +62,7 @@ const SellMarketOrderLocationSchema = new Schema({
 
 
 SellMarketOrderLocationSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
+SellMarketOrderLocationSchema.index({ sellmarketorderID: 1 });
 
 //Access the database my_database via mongoose.model.
 //The first argument: The name of the collection the model is for.

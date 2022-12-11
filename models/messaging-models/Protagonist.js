@@ -26,6 +26,7 @@ const ProtagonistSchema = new Schema({
   }
 })
 
+ProtagonistSchema.index({ messages: 1 })
 
 //Access the database my_database via mongoose.model.
 //The first argument: The name of the collection the model is for.

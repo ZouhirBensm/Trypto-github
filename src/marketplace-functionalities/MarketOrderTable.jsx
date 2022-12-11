@@ -75,7 +75,7 @@ class OrderRow extends React.Component {
           <img src={`/img/marketorder-images/${order._id}/${order_first_image_name}`}></img>
           <div>Title: {order.title}</div>
           <div>Price: {order.price}</div>
-          {/* TODO add location and condition */}
+          {/* TODO !!! Add location and condition */}
         </div>
         </Link>
       </React.Fragment>

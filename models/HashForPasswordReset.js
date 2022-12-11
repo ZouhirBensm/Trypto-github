@@ -31,6 +31,7 @@ const HashForPasswordResetSchema = new Schema({
 
 
 HashForPasswordResetSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
+HashForPasswordResetSchema.index({ userID: 1 })
 
 // HashForPasswordResetSchema.pre('save', function (next) {
 //   const element = this

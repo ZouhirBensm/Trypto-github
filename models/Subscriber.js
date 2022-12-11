@@ -52,6 +52,7 @@ const SubscriberSchema = new Schema({
 })
 
 SubscriberSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
+SubscriberSchema.index({ userID: 1 });
 
 //Access the database my_database via mongoose.model.
 //The first argument: The name of the collection the model is for.

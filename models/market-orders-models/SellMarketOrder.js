@@ -54,6 +54,7 @@ const SellMarketOrderSchema = new Schema({
 
 SellMarketOrderSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
 SellMarketOrderSchema.index({ postedDate: -1 });
+SellMarketOrderSchema.index({ userid: 1 });
 
 //Access the database my_database via mongoose.model.
 //The first argument: The name of the collection the model is for.

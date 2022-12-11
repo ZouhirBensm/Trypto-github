@@ -1,8 +1,6 @@
 // React way
 const PayPalButton = paypal.Buttons.driver("react", { React, ReactDOM });
 
-
-// TODO refactor code
 class CardInfoSubmission extends React.Component {
   constructor(props) {
     super(props)
