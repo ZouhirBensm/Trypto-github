@@ -149,7 +149,6 @@ async function registerOrder(req, res, next) {
     rate: req.body.rate,
     expirydate: req.body.expirydate,
     expirytime: req.body.expirytime,
-    payment: req.body.payment,
     userid: req.session.userId,
     expireAt: req.body.expireAt,
     currencyorderlocationID: type_location_order_instance._id

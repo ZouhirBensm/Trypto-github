@@ -1,5 +1,4 @@
 import {validateInputs, validateExpiry} from '../../full-stack-libs/validations'
-// import React from 'react';
 class CurrencyOrderTable extends React.Component {
 
   constructor(props) {
@@ -56,19 +55,6 @@ class CurrencyOrderTable extends React.Component {
 
     return (
       <table className="bordered-table">
-        {/* <thead>
-          <tr>
-            <th>Order _id</th>
-            <th>Posted by</th>
-            <th>Date Posted</th>
-            <th>Crypto</th>
-            <th>Amount</th>
-            <th>Price</th>
-            <th>Expiry</th>
-            <th>Payment</th>
-            <th>Deal</th>
-          </tr>
-        </thead> */}
         <tbody>
           {ordersRow}
         </tbody>
@@ -159,8 +145,7 @@ class OrderRow extends React.Component {
       ...amount_fields_obj,
       rate: document.getElementById("my_form").elements["rate"].value,
       expirydate: document.getElementById("my_form").elements["expirydate"].value,
-      expirytime: document.getElementById("my_form").elements["expirytime"].value,
-      payment: document.getElementById("my_form").elements["payment"].value,
+      expirytime: document.getElementById("my_form").elements["expirytime"].value
     }
 
 
@@ -278,7 +263,6 @@ class OrderRow extends React.Component {
       <td id="chain1" key={`td-chain-key-order:${order._id}`}>{order.chain}</td>,
       <td id="rate1" key={`td-rate-key-order:${order._id}`}>{'Rate: ' + order.rate}</td>,
       <td id="expiry1" key={`td-expiry-key-order:${order._id}`}>{'Exp.: ' + order.expirydate}@{order.expirytime}</td>,
-      <td id="payment1" key={`td-payment-key-order:${order._id}`}>{order.payment}</td>,
       amount_normal,
     )
 
@@ -331,12 +315,6 @@ class OrderRow extends React.Component {
           <label htmlFor="expirytime-select">Order Expiry Time</label>
           <input form="my_form" id="expirytime-select" type="time" name="expirytime" required defaultValue={order.expirytime} />
         </td>,
-        <td id="payment1" key={`td-edit-payment-key-order:${order._id}`}>
-          <label htmlFor="payment-select">Payment</label>
-          <TheSelectPayment
-            curentValue={order.payment}
-          />
-        </td>,
         <td id="button1" key={`td-edit-button2-key-order:${order._id}`}>
           <button onClick={(e) => this.props.handleToogleEdit("my", order._id, e)}>Done</button>
         </td>,
@@ -361,15 +339,6 @@ class OrderRow extends React.Component {
 
 
 
-
-
-
-
-
-
-
-
-
 function BuyAmount(props) {
   return (
     <div>
@@ -387,17 +356,6 @@ function SellAmount(props) {
       <label htmlFor="max-amount-select">Max Amount</label>
       <input form="my_form" type="number" id="max-amount-select" name="maxamount" required defaultValue={props.maxamount} />
     </div>
-  )
-}
-
-function TheSelectPayment(props) {
-  let currentValue = props.curentValue;
-  return (
-    <select form="my_form" name="payment" id="payment-select" required defaultValue={currentValue}>
-      <option value="Paypal">Paypal</option>
-      <option value="Interac">Interac</option>
-      <option value="Cash">Cash</option>
-    </select>
   )
 }
 

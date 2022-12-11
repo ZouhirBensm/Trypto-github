@@ -20,7 +20,6 @@ const BuyCryptoOrderSchema = new Schema({
     rate: String,
     expirydate: String,
     expirytime: String,
-    payment: String,
     currencyorderlocationID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'BuyLocationCryptoOrder',

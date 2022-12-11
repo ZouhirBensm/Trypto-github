@@ -6,9 +6,9 @@ div.wrapper2 tr {
   "one two"
   "three three" 
   "four five"
-  "six seven"
-  "eight eight"
-  "nine ten";
+  "six six"
+  "seven seven"
+  "eight nine";
 }
 
 div.wrapper2 {
@@ -48,18 +48,15 @@ tr > td#chain1 {
 tr > td#rate1 {
   grid-area: six;
 }
-tr > td#payment1 {
-  grid-area: seven;
-}
 
 tr > td#expiry1 {
-  grid-area: eight;
+  grid-area: seven;
 }
 tr > td#button1 {
-  grid-area: nine;
+  grid-area: eight;
 }
 tr > td#button2 {
-  grid-area: ten;
+  grid-area: nine;
 }
 
 tr > td#id1 {

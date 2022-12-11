@@ -54,7 +54,6 @@ class ProvinceSelector extends React.Component {
 
     return (
       <React.Fragment>
-        <p>ProvinceSelector</p>
         {component}
       </React.Fragment>
     )

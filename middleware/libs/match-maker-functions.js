@@ -67,8 +67,7 @@ function findBuyMatches(_sell, buyOrders, id){
       _sell.crypto === buyorder.crypto && 
       _sell.chain === buyorder.chain && 
       parseInt(_sell.minamount,10) < buyorder.amount && 
-      parseInt(_sell.maxamount,10) > buyorder.amount  && 
-      _sell.payment === buyorder.payment
+      parseInt(_sell.maxamount,10) > buyorder.amount
     ) {
       arrayofBuymatches.push(buyorder)
     }
@@ -108,8 +107,7 @@ function findSellMatches(_buy, sellOrders, id){
       _buy.crypto === sellorder.crypto && 
       _buy.chain === sellorder.chain && 
       parseInt(_buy.amount,10) > parseInt(sellorder.minamount, 10) && 
-      parseInt(_buy.amount,10) < parseInt(sellorder.maxamount, 10)  && 
-      _buy.payment === sellorder.payment
+      parseInt(_buy.amount,10) < parseInt(sellorder.maxamount, 10)
     ) {
       arrayofSellmatches.push(sellorder)
     }

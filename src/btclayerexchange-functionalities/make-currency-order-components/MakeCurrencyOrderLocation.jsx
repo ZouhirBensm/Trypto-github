@@ -35,43 +35,8 @@ class MakeCurrencyOrderLocation extends React.Component {
     });
   }
 
-  // setStateProvinceSelector(_country) {
-  //   let options
-  //   let tag_options_arr_data = []
-  //   let selector
-
-  //   if (_country == "Canada") {
-  //     tag_options_arr_data = ["Ontario", "Quebec", "Alberta"]
-  //     options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
-  //     selector = <React.Fragment>
-  //       <label htmlFor="province-select">Province</label>
-  //       <select value={this.state.value} onChange={this.change} className="location-class" name="province" id="province-select" required>
-  //         <option value="" defaultValue>N/A</option>
-  //         {options}
-  //       </select> <br />
-
-
-  //     </React.Fragment>
-  //   }
-  //   else if (_country == "United States") {
-  //     tag_options_arr_data = ["Texas", "Florida", "California", "Colorado"]
-  //     options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
-  //     selector = <React.Fragment>
-  //       <label htmlFor="state-select">State</label>
-  //       <select value={this.state.value} onChange={this.change} className="location-class" name="state" id="state-select" required>
-  //         <option value="" defaultValue>N/A</option>
-  //         {options}
-  //       </select> <br />
-
-  //     </React.Fragment>
-  //   }
-  //   else { }
-
-  //   return selector
-  // }
 
   render() {
-    // const AreaSelector = this.setStateProvinceSelector(this.state.country)
 
     return (
       <React.Fragment>
