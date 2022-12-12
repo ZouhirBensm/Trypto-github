@@ -36,6 +36,7 @@ const { DeleteAccountProcessError } = require("../custom-errors/custom-errors")
 const marketplaceController = require("../controllers/marketplace-controllers/marketplace-controllers")
 
 const distributePaginatedDataController = require("../controllers/generic-controllers/distribute-paginated-data-controller")
+const distributeDataController = require('../controllers/articles-controllers/distribute-data-controller')
 
 
 // Middleware
@@ -99,6 +100,9 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
+marketplaceBackend_app_router.get(['/recent-marketorders'], marketplaceMiddleware.recentOrdersRetrievalMiddleware, distributeDataController)
+
+
 
 
 marketplaceBackend_app_router.get(['/paginated-orders/sellordersdata/:data_of_userID?'], require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(5), paginatingSetupMiddleware, destructureURLandRefererMiddleware, paginatedOrdersSetupMiddleware, marketplaceMiddleware.ordersRetrievalMiddleware, distributePaginatedDataController)
@@ -145,42 +149,6 @@ marketplaceBackend_app_router.patch('/:userId/update23', require_loggedin_for_da
 
 
 
-
-
-
-
-// const marketOrderID = ObjectId()
-// let directory = `./public/img/${marketOrderID}`
-
-// if (!existsSync(dir)) {
-//   mkdirSync(dir, { recursive: true });
-// }
-
-
-
-// upload.any(),
-// uploadsBackend_app_router.post('/post', upload.array('image'), (req, res, next) => {
-
-//   if (!req.files) {
-//     console.log("No file received", req.body, req.files);
-//     return res.send({
-//       success: false
-//     });
-
-//   } else {
-//     console.log('file received', req.body, req.files);
-//     return res.send({
-//       success: true
-//     })
-//   }
-// })
-
-
-
-
-
-
-// marketplaceBackend_app_router.post('/sellorders/save', require_loggedin_for_data(true), marketplaceController.registerMarketOrder)
 
 
 
@@ -249,13 +217,6 @@ marketplaceBackend_app_router.get(['/sellordersdata/:orderID', '/allmyorders/:or
 
 
 marketplaceBackend_app_router.delete('/:userId/delete-this-order', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), marketplaceController.deleteMarketOrderImages, marketplaceController.deleteOrderController)
-
-
-
-
-
-
-
 
 
 

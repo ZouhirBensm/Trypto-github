@@ -66,12 +66,6 @@ db.once("open", () => {
 
 
 
-
-// TODO !!!! Make available to see the market orders when not logged in but cannot interact with on the home
-
-
-
-
 global.agenda = new Agenda({
   db: {
     address: db._connectionString,

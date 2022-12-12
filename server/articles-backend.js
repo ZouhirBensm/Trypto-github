@@ -12,6 +12,7 @@ const CATEGORY = require('../full-stack-libs/Types/ArticleCategories')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
 
 const articlesRetrievalMiddleware = require('../middleware/articles-middleware/articles-retrieval-middleware')
+const recentArticlesRetrievalMiddleware = require('../middleware/articles-middleware/recent-articles-retrieval-middleware')
 
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 
@@ -19,6 +20,8 @@ const requireRefererMiddleware = require('../middleware/generic-middleware/requi
 
 
 const distributePaginatedDataController = require('../controllers/generic-controllers/distribute-paginated-data-controller')
+
+const distributeDataController = require('../controllers/articles-controllers/distribute-data-controller')
 
 
 // Use this to check the role, requires a res.locals.user.role
@@ -38,6 +41,11 @@ articlesBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
+articlesBackend_app_router.get('/recent-articles', requireRefererMiddleware, recentArticlesRetrievalMiddleware, distributeDataController)
+
+
+articlesBackend_app_router.get('/paginated-articles/data', requireRefererMiddleware, paginatingSetupMiddleware, destructureURLandRefererMiddleware, articlesRetrievalMiddleware, distributePaginatedDataController)
+
 
 articlesBackend_app_router.get(['/:category?', '/individual_article/:articleID'], (req,res)=>{
 
@@ -54,7 +62,8 @@ articlesBackend_app_router.get(['/:category?', '/individual_article/:articleID']
 
 
 
-articlesBackend_app_router.get('/paginated-articles/data', requireRefererMiddleware, paginatingSetupMiddleware, destructureURLandRefererMiddleware, articlesRetrievalMiddleware, distributePaginatedDataController)
+
+
 
 
 module.exports = articlesBackend_app_router

@@ -244,9 +244,7 @@ async function setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware(req, res, nex
 async function ordersRetrievalMiddleware(req, res, next) {
   console.log("\n\n\n_______________in ordersRetrievalMiddleware: \n\n\n\n")
   
-  let orders
-
-  let sellOrders
+  let orders, sellOrders
 
   try {
     // Descending: from newest to oldest
@@ -258,7 +256,6 @@ async function ordersRetrievalMiddleware(req, res, next) {
       // Fields allowed to populate with
       select: "images.name -_id",
     })
-
   } catch (e) {
     return next(e)
   }
@@ -295,9 +292,37 @@ async function ordersRetrievalMiddleware(req, res, next) {
 
 
 
+async function recentOrdersRetrievalMiddleware(req, res, next) {
+  let sellOrders
+
+  try {
+    // Descending: from newest to oldest
+    sellOrders = await SellMarketOrder.find().sort({ postedDate: -1 })
+    .select("title price conversion chain sellmarketorderImageID -_id")
+    .populate({
+      // Populate protagonists
+      path: "sellmarketorderImageID",
+      // Fields allowed to populate with
+      select: "images.name -_id",
+    })
+    // .populate('userid')
+
+  } catch (e) {
+    return next(e)
+  }
+
+  console.log("\n\n\n\nsellOrders!!\n\n", sellOrders)
+  res.locals.data_to_be_served = sellOrders.slice(0,5)
+
+  return next()
+}
+
+
+
 
 marketplaceMiddleware = {
   ordersRetrievalMiddleware: ordersRetrievalMiddleware,
+  recentOrdersRetrievalMiddleware: recentOrdersRetrievalMiddleware,
   instantiateMarketOrderLocationMiddleware: instantiateMarketOrderLocationMiddleware,
   instantiateMarketOrderMiddleware: instantiateMarketOrderMiddleware,
   processImageFilesMiddleware: processImageFilesMiddleware,

@@ -1,4 +1,6 @@
 import PricesComponent from '../home-functionalities/PricesComponent.jsx';
+import GetRecentArticles from '../home-functionalities/GetRecentArticles.jsx';
+import GetRecentMarketItems from '../home-functionalities/GetRecentMarketItems.jsx';
 import '../style/reactDivMobile.css'
 
 
@@ -39,8 +41,8 @@ class App extends React.Component {
       // Home
       <React.Fragment>
         <PricesComponent btc_gecko_prices={this.state.prices}/>
-        
-
+        <GetRecentArticles/>
+        <GetRecentMarketItems/>
       </React.Fragment> 
       
     );
