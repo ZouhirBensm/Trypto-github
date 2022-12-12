@@ -3,6 +3,9 @@ var { existsSync, mkdirSync } = require('fs');
 const fs = require('fs/promises')
 const path = require('path')
 
+
+const { filterObject2 } = require('../../middleware/libs/match-maker-functions')
+
 const {determine_Sharp_toFormatOptions} = require('../../full-stack-libs/utils')
 
 
@@ -241,54 +244,7 @@ async function setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware(req, res, nex
 // __________________________________________________
 
 
-async function ordersRetrievalMiddleware(req, res, next) {
-  console.log("\n\n\n_______________in ordersRetrievalMiddleware: \n\n\n\n")
-  
-  let orders, sellOrders
 
-  try {
-    // Descending: from newest to oldest
-    sellOrders = await SellMarketOrder.find().sort({ postedDate: -1 })
-    .populate('userid')
-    .populate({
-      // Populate protagonists
-      path: "sellmarketorderImageID",
-      // Fields allowed to populate with
-      select: "images.name -_id",
-    })
-  } catch (e) {
-    return next(e)
-  }
-
-  console.log("\n\n\n\nsellOrders!!\n\n", sellOrders)
-
-
-  
-  let mysellOrders = sellOrders.filter((order_entry) => {
-    console.log(order_entry.userid._id.toString() == res.locals.path_param_userID)
-    return order_entry.userid._id.toString() == res.locals.path_param_userID
-  })
-
-  
-
-    if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/marketplace/allmyorders` || res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-market-orders/${res.locals.path_param_userID}`) {
-      console.log("MY MODE -> from path param")
-      orders = mysellOrders
-    } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/marketplace/sellordersdata`) {        
-      console.log("NORMAL MODE")
-      orders = sellOrders
-    } else {
-      const e = new Error("The path URL not identified to enable to return proper orders")
-      return next(e)
-    }
-
-
-  console.log("\n\n\n\nORDERS!!\n\n", orders)
-
-  res.locals.data_to_be_paginated_and_served = orders
-  return next()
-
-}
 
 
 
@@ -316,6 +272,81 @@ async function recentOrdersRetrievalMiddleware(req, res, next) {
 
   return next()
 }
+
+
+
+
+
+
+
+
+
+
+async function ordersRetrievalMiddleware(req, res, next) {
+  console.log("\n\n\n_______________in ordersRetrievalMiddleware: \n\n\n\n")
+  
+
+  // Query string parameters
+  let searchEngineTerms = req.query.search
+  searchEngineTerms = searchEngineTerms ? JSON.parse(searchEngineTerms) : undefined
+
+  console.log("ordersRetrievalMiddleware()->searchEngineTerms: ", searchEngineTerms)
+
+  let findObject = filterObject2(searchEngineTerms)
+  
+  console.log("\n\n\ncurrencyordersRetrievalMiddleware()->findObject: ", findObject)
+
+
+
+  let orders, sellOrders
+
+  try {
+    // Descending: from newest to oldest
+    sellOrders = await SellMarketOrder.find(findObject).sort({ postedDate: -1 })
+    .populate('userid')
+    .populate({
+      // Populate protagonists
+      path: "sellmarketorderImageID",
+      // Fields allowed to populate with
+      select: "images.name -_id",
+    })
+  } catch (e) {
+    return next(e)
+  }
+
+  // console.log("\n\n\n\nsellOrders!!\n\n", sellOrders)
+
+
+  
+  let mysellOrders = sellOrders.filter((order_entry) => {
+    console.log(order_entry.userid._id.toString() == res.locals.path_param_userID)
+    return order_entry.userid._id.toString() == res.locals.path_param_userID
+  })
+
+  
+
+    if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/marketplace/allmyorders` || res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-market-orders/${res.locals.path_param_userID}`) {
+      console.log("MY MODE -> from path param")
+      orders = mysellOrders
+    } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/marketplace/sellordersdata`) {        
+      console.log("NORMAL MODE")
+      orders = sellOrders
+    } else {
+      const e = new Error("The path URL not identified to enable to return proper orders")
+      return next(e)
+    }
+
+
+  // console.log("\n\n\n\nORDERS!!\n\n", orders)
+
+  res.locals.data_to_be_paginated_and_served = orders
+  return next()
+
+}
+
+
+
+
 
 
 

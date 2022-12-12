@@ -1,9 +1,9 @@
-import '../style/reactDivMobile.css'
+// import '../style/reactDivMobile.css'
+import './style/MarketOrders.css'
 import MarketOrderTable from './MarketOrderTable';
-
-// import PageSelector from '../generic-components/PageSelector';
 import PageSelector from '../generic-components/PageSelector';
-// import SearchEngine from './SearchEngine';
+
+import SearchEngine from './SearchEngine';
 // import SearchEngine from '../btclayerexchange-functionalities/SearchEngine';
 
 
@@ -12,6 +12,7 @@ import PageSelector from '../generic-components/PageSelector';
 // TODO !!!! return the search engine, and add search engine validation on inputs
 
 
+// TODO !!!! When in details market page then ckick back the css layout breaks. Needs to be fixed!
 class MarketOrders extends React.Component {
   constructor(props) {
     super(props)
@@ -25,38 +26,84 @@ class MarketOrders extends React.Component {
       on_off_limit_previous: true,
       crypto: undefined,
       number_of_pages: 1,
+
+      titleTerm: undefined,
+      categoryTerm: undefined,
+      conditionTerm: undefined,
+      minPriceTerm: undefined,
+      maxPriceTerm: undefined,
+      chainTerm: undefined,
+      countryTerm: undefined,
     }
     this.controls = this.controls.bind(this);
+    this.submitFilter = this.submitFilter.bind(this)
+    this.searchEngineOnChange = this.searchEngineOnChange.bind(this)
+    this.resetPriceFilter = this.resetPriceFilter.bind(this)
     this.userId = userId
     this.popup = popup
     // console.log("---------->>>>>!!!", userId)
+  }
+
+  resetPriceFilter(){
+    this.setState({
+      minPriceTerm: undefined,
+      maxPriceTerm: undefined,
+    })
   }
 
   controls(_page) {
     this.setState({
       page: _page
     }, () => {
-      this.loadData()
+      const searchEngineState = {
+        titleTerm: this.state.titleTerm,
+        categoryTerm: this.state.categoryTerm,
+        conditionTerm: this.state.conditionTerm,
+        minPriceTerm: this.state.minPriceTerm,
+        maxPriceTerm: this.state.maxPriceTerm,
+        chainTerm: this.state.chainTerm,
+        countryTerm: this.state.countryTerm,
+      }
+      let theUtilizedSearchQuery = this.setuptheSeachQuery(searchEngineState)
+      this.loadData(theUtilizedSearchQuery)
     })
   }
 
   componentDidMount() {
-    //DOM is ready
-    this.loadData()
+    const searchEngineState = {
+      titleTerm: this.state.titleTerm,
+      categoryTerm: this.state.categoryTerm,
+      conditionTerm: this.state.conditionTerm,
+      minPriceTerm: this.state.minPriceTerm,
+      maxPriceTerm: this.state.maxPriceTerm,
+      chainTerm: this.state.chainTerm,
+      countryTerm: this.state.countryTerm,
+    }
+    let theUtilizedSearchQuery = this.setuptheSeachQuery(searchEngineState)
+
+    this.loadData(theUtilizedSearchQuery)
   }
 
-  async loadData() {
 
-    let response = await fetch(`/marketplace/paginated-orders/sellordersdata?page=${this.state.page}&limit=${this.state.limit}`)
+
+  async loadData(theUtilizedSearchQuery = undefined) {
+
+    console.log("MarketOrders: loadData()->theUtilizedSearchQuery:", theUtilizedSearchQuery)
+
+
+    // console.log(`/marketplace/paginated-orders/sellordersdata?page=${this.state.page}&limit=${this.state.limit}${theUtilizedSearchQuery ? theUtilizedSearchQuery : ""}`)
+
+
+    let response = await fetch(`/marketplace/paginated-orders/sellordersdata?page=${this.state.page}&limit=${this.state.limit}${theUtilizedSearchQuery ? theUtilizedSearchQuery : ""}`)
 
     let serverOBJ = await response.json()
 
 
-    console.log(response, serverOBJ)
+    // console.log("MarketOrders: loadData()->response", response)
 
     if (response.ok) {
 
-      console.log("serverOBJ: ", serverOBJ)
+      // console.log("MarketOrders: loadData()->serverOBJ", serverOBJ)
 
       this.setState({
         orders: serverOBJ.srv_.ORDERS,
@@ -91,11 +138,29 @@ class MarketOrders extends React.Component {
   }
 
   render() {
-    console.log("popup:", this.popup)
-    console.log("Here orders!: ", this.state.orders)
+    const searchEngineState = {
+      titleTerm: this.state.titleTerm,
+      categoryTerm: this.state.categoryTerm,
+      conditionTerm: this.state.conditionTerm,
+      minPriceTerm: this.state.minPriceTerm,
+      maxPriceTerm: this.state.maxPriceTerm,
+      chainTerm: this.state.chainTerm,
+      countryTerm: this.state.countryTerm,
+    }
+
     return (
       <React.Fragment>
-        <div className='wrapper'>
+        <SearchEngine
+          searchEngineState={searchEngineState}
+          submitFilter={this.submitFilter}
+          searchEngineOnChange={this.searchEngineOnChange}
+          resetPriceFilter={this.resetPriceFilter}
+          minPriceTerm={this.state.minPriceTerm}
+          maxPriceTerm={this.state.maxPriceTerm}
+        />
+
+        <div id="market-order-table-wrapper" className='wrapper'>
+
           {this.popup ?
             <p>{this.popup}</p>
             : null}
@@ -120,6 +185,80 @@ class MarketOrders extends React.Component {
       </React.Fragment>
     );
   }
+
+  submitFilter(e = undefined) {
+    e?.preventDefault()
+    this.setState({
+      page: 1
+    }, () => {
+      const searchEngineState = {
+        titleTerm: this.state.titleTerm,
+        categoryTerm: this.state.categoryTerm,
+        conditionTerm: this.state.conditionTerm,
+        minPriceTerm: this.state.minPriceTerm,
+        maxPriceTerm: this.state.maxPriceTerm,
+        chainTerm: this.state.chainTerm,
+        countryTerm: this.state.countryTerm,
+      }
+
+      let theUtilizedSearchQuery = this.setuptheSeachQuery(searchEngineState)
+      this.loadData(theUtilizedSearchQuery)
+    })
+  }
+
+
+  searchEngineOnChange(e) {
+
+    let titleTerm_value = document.getElementById("my_form").elements["title"].value
+    let categoryTerm_value = document.getElementById("my_form").elements["category"].value
+    let conditionTerm_value = document.getElementById("my_form").elements["condition"].value
+    let chainTerm_value = document.getElementById("my_form").elements["chain"].value
+
+    let minPriceTerm_value = this.state.minPriceTerm
+    let maxPriceTerm_value = this.state.maxPriceTerm
+
+    if (e.target.name == "min-price" || e.target.name == "max-price") {
+      minPriceTerm_value = document.getElementById("my_form").elements["min-price"].value
+      maxPriceTerm_value = document.getElementById("my_form").elements["max-price"].value
+    }
+
+    this.setState({
+      titleTerm: titleTerm_value == '' ? undefined : titleTerm_value,
+      categoryTerm: categoryTerm_value == '' ? undefined : categoryTerm_value,
+      conditionTerm: conditionTerm_value == '' ? undefined : conditionTerm_value,
+      chainTerm: chainTerm_value == '' ? undefined : chainTerm_value,
+      minPriceTerm: minPriceTerm_value,
+      maxPriceTerm: maxPriceTerm_value,
+    })
+  }
+
+
+
+  setuptheSeachQuery(_searchEngineState) {
+
+    for (const key in _searchEngineState) {
+      if (Object.hasOwnProperty.call(_searchEngineState, key)) {
+        const value = _searchEngineState[key];
+        if (value == undefined) {
+          delete _searchEngineState[key]
+        }
+      }
+    }
+
+    let _theUtilizedSearchQuery
+    if (_searchEngineState
+      && Object.keys(_searchEngineState).length === 0
+      && Object.getPrototypeOf(_searchEngineState) === Object.prototype) {
+      _theUtilizedSearchQuery = undefined
+    } else {
+      _theUtilizedSearchQuery = `&search=${JSON.stringify(_searchEngineState)}`
+    }
+
+    // console.log("CurrencyOrders: setuptheSeachQuery()-> setuptheSeachQuery: ", _theUtilizedSearchQuery)
+    return _theUtilizedSearchQuery
+  }
+
+
 }
 
 export default MarketOrders

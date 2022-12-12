@@ -12,21 +12,55 @@ function filterObject2(searchEngineTerms = undefined){
 
   if(searchEngineTerms){
     for (const key in searchEngineTerms) {
-      // console.log("key", key)
       if (Object.hasOwnProperty.call(searchEngineTerms, key)) {
         const value = searchEngineTerms[key];
         switch (key) {
+          case "titleTerm":
+            const reg = new RegExp(value)
+            findObject = {
+              ...findObject,
+              title: reg,
+            }
+            break;
+          case "categoryTerm":
+            findObject = {
+              ...findObject,
+              category: value,
+            }
+            break;
+          case "conditionTerm":
+            findObject = {
+              ...findObject,
+              condition: parseInt(value),
+            }
+            break;
           case "chainTerm":
             findObject = {
               ...findObject,
               chain: value,
             }
-            break;
-        
+            break;  
+          case "minPriceTerm":
+            findObject = {
+              ...findObject,
+              price: { 
+                ...findObject.price,
+                $gt: parseInt(value) 
+              },
+            }
+            break;  
+          case "maxPriceTerm":
+            findObject = {
+              ...findObject,
+              price: { 
+                ...findObject.price,
+                $lt: parseInt(value) 
+              },
+            }
+            break;        
           default:
             break;
         }
-
       }
     }
   }

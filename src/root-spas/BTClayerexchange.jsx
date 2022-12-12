@@ -37,12 +37,9 @@ class BTClayerexchange extends React.Component {
         <div>
         <BrowserRouter> 
           <Switch> 
-            {/* <Route exact path="/databases/" component={Navigation} /> */}
             <Route exact path="/btclayerexchange" render={
               (props) => <Navigation {...props} mode="orders"/>
             } />
-
-
 
             <Route exact path="/btclayerexchange/makebuy" component={MakeCurrencyOrder} />
             <Route exact path="/btclayerexchange/makesell" component={MakeCurrencyOrder} />
@@ -53,6 +50,7 @@ class BTClayerexchange extends React.Component {
               (props) => <MyCurrencyOrders {...props} userID_toQueryWith={userId}/>
             } />
             <Route exact path="/btclayerexchange/matches" component={CurrencyOrderMatches} />
+            
             <Route path="/btclayerexchange/:order_type" component={CurrencyOrders} />
           </Switch>     
         </BrowserRouter> 
