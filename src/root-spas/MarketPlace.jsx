@@ -1,13 +1,3 @@
-
-// import React from 'react';
-// import ReactDOM from 'react-dom'
-// import MakeBuy from './btclayerexchange-functionalities/MakeBuy';
-// import MakeSell from './btclayerexchange-functionalities/MakeSell';
-// import CurrencyOrders from './btclayerexchange-functionalities/CurrencyOrders';
-// import MyCurrencyOrders from './btclayerexchange-functionalities/MyCurrencyOrders';
-// import Navigation from './btclayerexchange-functionalities/Navigation';
-// import CurrencyOrderMatches from './btclayerexchange-functionalities/CurrencyOrderMatches';
-
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
 
@@ -16,30 +6,13 @@ const Navigation = loadable(() => import("../btclayerexchange-functionalities/Na
   fallback: <Loading/>
 });
 
-// const Navigation2 = loadable(() => import("../generic-components/Navigation2"),{
-//   fallback: <Loading/>
-// });
-
-
-
-
-
-// const MakeMarketOrder = loadable(() => import("../marketplace-functionalities/MakeMarketOrder"),{
-//   fallback: <Loading/>
-// });
-
 const MakeMarketOrder = loadable(() => import("../marketplace-functionalities/MakeMarketOrder"),{
   fallback: <Loading/>
 });
 
-
-
-
 const MarketOrders = loadable(() => import("../marketplace-functionalities/MarketOrders"),{
   fallback: <Loading/>
 });
-
-
 
 const MyMarketOrders = loadable(() => import("../marketplace-functionalities/MyMarketOrders"),{
   fallback: <Loading/>
@@ -48,10 +21,6 @@ const MyMarketOrders = loadable(() => import("../marketplace-functionalities/MyM
 const MarketOrderDetails = loadable(() => import("../marketplace-functionalities/MarketOrderDetails2"),{
   fallback: <Loading/>
 });
-
-
-
-
 
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 
