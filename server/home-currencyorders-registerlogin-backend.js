@@ -137,7 +137,7 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
-
+// TODO !!! if regitered user does not activate acount within 2 months, delete account, i.e. if not subed delete user and hex, if subed, then unsub, delete user and hex
 
 
 

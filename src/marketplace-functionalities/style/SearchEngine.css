@@ -16,6 +16,7 @@ div#react-div > div > div.search-inputs {
   bottom: 12vh;
   z-index: 2;
   width: 100%;
+  overflow: scroll;
 } 
 
  

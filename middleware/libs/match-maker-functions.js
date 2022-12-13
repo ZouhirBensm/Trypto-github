@@ -7,7 +7,7 @@ function filterObject(crypto = null, category = "RECENT"){
 }
 
 
-function filterObject2(searchEngineTerms = undefined){
+function formOrderFindFilter(searchEngineTerms = undefined){
   let findObject = {}
 
   if(searchEngineTerms){
@@ -68,6 +68,40 @@ function filterObject2(searchEngineTerms = undefined){
   return findObject
 
 }
+
+
+
+function formLocalityFindFilter(searchEngineTerms = undefined){
+  let findObject = {}
+
+  if(searchEngineTerms){
+    for (const key in searchEngineTerms) {
+      if (Object.hasOwnProperty.call(searchEngineTerms, key)) {
+        const value = searchEngineTerms[key];
+        switch (key) {
+          case "countryTerm":
+            findObject = {
+              ...findObject,
+              // "location.country": { $eq: value },
+              "location.country": value,
+            }
+            break;     
+          default:
+            break;
+        }
+      }
+    }
+  }
+
+  return findObject
+
+}
+
+
+
+
+
+
 
 
 
@@ -150,4 +184,4 @@ function findSellMatches(_buy, sellOrders, id){
 }
 
 
-module.exports =  {filterObject, filterObject2, buyMatchesFinder, sellMatchesFinder}
+module.exports =  {filterObject, formOrderFindFilter, formLocalityFindFilter, buyMatchesFinder, sellMatchesFinder}

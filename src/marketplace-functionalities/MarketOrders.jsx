@@ -4,15 +4,21 @@ import MarketOrderTable from './MarketOrderTable';
 import PageSelector from '../generic-components/PageSelector';
 
 import SearchEngine from './SearchEngine';
-// import SearchEngine from '../btclayerexchange-functionalities/SearchEngine';
 
 
-// TODO !!! if regitered user does not activate acount within 2 months, delete account, i.e. if not subed delete user and hex, if subed, then unsub, delete user and hex
+
 // TODO #102 Add touch event to slide search engine
-// TODO !!!! return the search engine, and add search engine validation on inputs
 
 
-// TODO !!!! When in details market page then ckick back the css layout breaks. Needs to be fixed!
+
+// TODO !!!! When in details market page then click back the css layout breaks. Needs to be fixed!
+// TODO !!!! Organize jsx files in the market space into folders. E.g. I have StateProvinceSelector and ProvinceSelector, and have 2 SearchEngine components. This can get confusing.
+// TODO !!!! HERE In StateProvinceSelector figure out a way to load all the proper cities corresponding to the proper state and province.
+// TODO !!! Add search engine security validation on inputs
+// TODO !! Add, when typing a locality, the ability to 
+// 1. Dynamicly display the options that match what is being typed
+// 2. Select one from the dynamic list
+// TODO When done locality filter, Implement same solution for the currency orders search engine
 class MarketOrders extends React.Component {
   constructor(props) {
     super(props)
@@ -34,6 +40,8 @@ class MarketOrders extends React.Component {
       maxPriceTerm: undefined,
       chainTerm: undefined,
       countryTerm: undefined,
+      stateProvinceTerm: undefined,
+      cityTerm: undefined,
     }
     this.controls = this.controls.bind(this);
     this.submitFilter = this.submitFilter.bind(this)
@@ -63,6 +71,8 @@ class MarketOrders extends React.Component {
         maxPriceTerm: this.state.maxPriceTerm,
         chainTerm: this.state.chainTerm,
         countryTerm: this.state.countryTerm,
+        stateProvinceTerm: this.state.stateProvinceTerm,
+        cityTerm: this.state.cityTerm,
       }
       let theUtilizedSearchQuery = this.setuptheSeachQuery(searchEngineState)
       this.loadData(theUtilizedSearchQuery)
@@ -78,6 +88,8 @@ class MarketOrders extends React.Component {
       maxPriceTerm: this.state.maxPriceTerm,
       chainTerm: this.state.chainTerm,
       countryTerm: this.state.countryTerm,
+      stateProvinceTerm: this.state.stateProvinceTerm,
+      cityTerm: this.state.cityTerm,
     }
     let theUtilizedSearchQuery = this.setuptheSeachQuery(searchEngineState)
 
@@ -146,6 +158,8 @@ class MarketOrders extends React.Component {
       maxPriceTerm: this.state.maxPriceTerm,
       chainTerm: this.state.chainTerm,
       countryTerm: this.state.countryTerm,
+      stateProvinceTerm: this.state.stateProvinceTerm,
+      cityTerm: this.state.cityTerm,
     }
 
     return (
@@ -199,6 +213,8 @@ class MarketOrders extends React.Component {
         maxPriceTerm: this.state.maxPriceTerm,
         chainTerm: this.state.chainTerm,
         countryTerm: this.state.countryTerm,
+        stateProvinceTerm: this.state.stateProvinceTerm,
+        cityTerm: this.state.cityTerm,
       }
 
       let theUtilizedSearchQuery = this.setuptheSeachQuery(searchEngineState)
@@ -208,7 +224,15 @@ class MarketOrders extends React.Component {
 
 
   searchEngineOnChange(e) {
+    if (e.target.name == "country") {
+      document.getElementById("my_form").elements["state-province"].value = ''
+      document.getElementById("my_form").elements["city"].value = ''
+    }
+    if (e.target.name == "state-province") {
+      document.getElementById("my_form").elements["city"].value = ''
+    }
 
+    
     let titleTerm_value = document.getElementById("my_form").elements["title"].value
     let categoryTerm_value = document.getElementById("my_form").elements["category"].value
     let conditionTerm_value = document.getElementById("my_form").elements["condition"].value
@@ -217,10 +241,18 @@ class MarketOrders extends React.Component {
     let minPriceTerm_value = this.state.minPriceTerm
     let maxPriceTerm_value = this.state.maxPriceTerm
 
+    let countryTerm_value = document.getElementById("my_form").elements["country"].value
+    
+    let stateProvinceTerm_value = document.getElementById("my_form").elements["state-province"].value
+    let cityTerm_value = document.getElementById("my_form").elements["city"].value
+
     if (e.target.name == "min-price" || e.target.name == "max-price") {
       minPriceTerm_value = document.getElementById("my_form").elements["min-price"].value
       maxPriceTerm_value = document.getElementById("my_form").elements["max-price"].value
     }
+
+
+ 
 
     this.setState({
       titleTerm: titleTerm_value == '' ? undefined : titleTerm_value,
@@ -229,6 +261,9 @@ class MarketOrders extends React.Component {
       chainTerm: chainTerm_value == '' ? undefined : chainTerm_value,
       minPriceTerm: minPriceTerm_value,
       maxPriceTerm: maxPriceTerm_value,
+      countryTerm: countryTerm_value == '' ? undefined : countryTerm_value,
+      stateProvinceTerm: stateProvinceTerm_value == '' ? undefined : stateProvinceTerm_value,
+      cityTerm: cityTerm_value == '' ? undefined : cityTerm_value,
     })
   }
 

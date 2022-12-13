@@ -142,6 +142,10 @@ module.exports = {
       fake_paypal_subscriptionID += alphanumeric
     }
     return fake_paypal_subscriptionID
+  },
+
+  isObjEmpty(obj){
+    return (obj && Object.keys(obj).length === 0 && Object.getPrototypeOf(obj) === Object.prototype)
   }
   
 }

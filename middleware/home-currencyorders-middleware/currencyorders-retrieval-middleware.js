@@ -6,7 +6,7 @@ var ObjectId = require('mongodb').ObjectId;
 
 const ENV = require('../../config/base')
 
-const {filterObject, filterObject2, buyMatchesFinder, sellMatchesFinder} = require('../../middleware/libs/match-maker-functions')
+const {filterObject, formOrderFindFilter, buyMatchesFinder, sellMatchesFinder} = require('../../middleware/libs/match-maker-functions')
 
 module.exports = async (req,res,next)=>{
   console.log("\n\n\n______in ordersRetrievalMiddleware: \n\n")
@@ -25,12 +25,12 @@ module.exports = async (req,res,next)=>{
 
 
   
-  let findObject = filterObject2(searchEngineTerms)
+  let findObject = formOrderFindFilter(searchEngineTerms)
   
   console.log("currencyordersRetrievalMiddleware()->findObject: ", findObject)
 
 
-  
+
   let orders
 
 

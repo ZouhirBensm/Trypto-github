@@ -1,4 +1,5 @@
 import './style/SearchEngine.css'
+import LocalityFilter from './LocalityFilter'
 
 
 const rangeMin = 10
@@ -13,8 +14,12 @@ class SearchEngine extends React.Component {
     }
     this.displayHideFilterEngine = this.displayHideFilterEngine.bind(this);
     this.rangeLimits = this.rangeLimits.bind(this);
+  
     // console.log("order_type=", this.props.order_type)
   }
+
+
+
 
   rangeLimits(e) {
     // if (e.target.value < 2000) e.target.value = 2000
@@ -135,14 +140,11 @@ class SearchEngine extends React.Component {
 
 
 
-
-
-              <label htmlFor="country-select">Country</label>
-              <select name="country" id="country-select" defaultValue={this.props.searchEngineState.countryTerm}>
-                <option value="">No Selection</option>
-                <option value="Canada">Canada</option>
-                <option value="United States">United States</option>
-              </select> <br />
+              <LocalityFilter
+                countryTerm={this.props.searchEngineState.countryTerm}
+                stateProvinceTerm={this.props.searchEngineState.stateProvinceTerm}
+                cityTerm={this.props.searchEngineState.cityTerm}
+              />
 
 
 

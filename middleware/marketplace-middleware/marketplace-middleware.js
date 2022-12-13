@@ -4,9 +4,9 @@ const fs = require('fs/promises')
 const path = require('path')
 
 
-const { filterObject2 } = require('../../middleware/libs/match-maker-functions')
+const { formOrderFindFilter, formLocalityFindFilter } = require('../../middleware/libs/match-maker-functions')
 
-const {determine_Sharp_toFormatOptions} = require('../../full-stack-libs/utils')
+const {determine_Sharp_toFormatOptions, isObjEmpty} = require('../../full-stack-libs/utils')
 
 
 const {MarketOrderSubmissionError} = require('../../custom-errors/custom-errors')
@@ -16,6 +16,8 @@ const SellMarketOrderLocation = require('../../models/market-orders-models/SellM
 const SellMarketOrder = require('../../models/market-orders-models/SellMarketOrder')
 
 const SellMarketOrderImage = require('../../models/market-orders-models/SellMarketOrderImage')
+
+
 
 
 
@@ -290,19 +292,23 @@ async function ordersRetrievalMiddleware(req, res, next) {
   let searchEngineTerms = req.query.search
   searchEngineTerms = searchEngineTerms ? JSON.parse(searchEngineTerms) : undefined
 
-  console.log("ordersRetrievalMiddleware()->searchEngineTerms: ", searchEngineTerms)
+  // console.log("ordersRetrievalMiddleware()->searchEngineTerms: ", searchEngineTerms)
 
-  let findObject = filterObject2(searchEngineTerms)
+  let baseFilter = formOrderFindFilter(searchEngineTerms)
   
-  console.log("\n\n\ncurrencyordersRetrievalMiddleware()->findObject: ", findObject)
+  console.log("\n\n\ncurrencyordersRetrievalMiddleware()->baseFilter: ", baseFilter)
 
+
+  let localityFilter = formLocalityFindFilter(searchEngineTerms)
+  
+  console.log("\n\n\ncurrencyordersRetrievalMiddleware()->localityFilter: ", localityFilter)
 
 
   let orders, sellOrders
 
   try {
     // Descending: from newest to oldest
-    sellOrders = await SellMarketOrder.find(findObject).sort({ postedDate: -1 })
+    sellOrders = await SellMarketOrder.find(baseFilter).sort({ postedDate: -1 })
     .populate('userid')
     .populate({
       // Populate protagonists
@@ -310,11 +316,33 @@ async function ordersRetrievalMiddleware(req, res, next) {
       // Fields allowed to populate with
       select: "images.name -_id",
     })
+    .populate({
+      // Populate protagonists
+      path: "sellmarketorderlocationID",
+      // Fields allowed to populate with
+      match: localityFilter,
+      select: "location.country location.province_state location.city -_id",
+    })
   } catch (e) {
     return next(e)
   }
 
+
+  if (!isObjEmpty(localityFilter)) {
+    sellOrders = sellOrders.filter(sellOrder=>!!sellOrder.sellmarketorderlocationID)
+  }
+
+
+  sellOrders.forEach(sellOrder => {
+    console.log("\n\n_________", sellOrder)
+  });
+
   // console.log("\n\n\n\nsellOrders!!\n\n", sellOrders)
+
+
+
+
+
 
 
   
