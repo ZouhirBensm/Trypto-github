@@ -1,13 +1,12 @@
-
-import React from 'react'
 import '../style/reactDivMobile.css'
 import './style/market-images.css'
 import './style/_4_InputImagesMarketOrder.css'
+
+
+
 import ImagesWDeletionLoop from './ImagesWDeletionLoop'
 import MarketSubmissionButton from './MarketSubmissionButton'
 
-// import fillsDragsFunctions from './drag-drop-event-functions/fills-functions'
-// import emptiesDragsFunctions from './drag-drop-event-functions/empties-functions'
 
 
 // Image sources: https://unsplash.com/
@@ -23,8 +22,6 @@ class _4_InputImagesMarketOrder extends React.Component {
     this.reduceimage = this.reduceimage.bind(this)
     console.log(userId)
   }
-
-
 
   makeArrayOutOf(selectedFiles) {
     let selectedFilesArray = []
@@ -44,10 +41,6 @@ class _4_InputImagesMarketOrder extends React.Component {
     let dt = new DataTransfer()
     let passed, popup_state;
 
-
-
-
-
     let Old_Files_arr = this.props.filelist // Past state before reseting to new at the end of this function
     let Total_trying = Old_Files_arr.length + selectedFiles.length
 
@@ -55,9 +48,6 @@ class _4_InputImagesMarketOrder extends React.Component {
     let Files_build = []
     let selectedFilesArr_names = []
     let number_we_can_add = selectedFiles.length // all new addable
-
-
-
 
 
     Files_arr_names_build = Old_Files_arr.map((old_file) => { return old_file.name })
@@ -70,10 +60,6 @@ class _4_InputImagesMarketOrder extends React.Component {
     }
 
     let countToSkipAlreadyPresentUploads = compare(Files_arr_names_build, selectedFilesArr_names);
-
-
-
-
 
 
     ({ passed, popup_state } = this.validateImagesTypes(selectedFiles));
@@ -111,16 +97,6 @@ class _4_InputImagesMarketOrder extends React.Component {
       }
 
     }
-
-
-
-
-
-
-
-
-
-
 
 
     if (Total_trying >= 5) {
@@ -172,10 +148,6 @@ class _4_InputImagesMarketOrder extends React.Component {
     return
   }
 
-
-
-
-
   render() {
     console.log("\n\n\n\n\nSTART\n\n\n\n")
     console.log("render()->_4_InputImagesMarketOrder")
@@ -193,12 +165,8 @@ class _4_InputImagesMarketOrder extends React.Component {
         </div>
 
 
-
-        {/* New */}
-        {/* action="/upload/post" method="post" encType="multipart/form-data" */}
         <form className="form" id="form_id">
           <label htmlFor="image-select">Image(s)</label>
-          {/* required value={this.props.images} */}
           <input type="file" name="image" id="image-select" multiple onChange={(e) => {
             e.preventDefault()
             let ret_addimages = this.addimages(e)
@@ -219,19 +187,6 @@ class _4_InputImagesMarketOrder extends React.Component {
         <button onClick={(e) => {
           this.props.previousStep(e)
         }}>Previous</button>
-
-
-
-        {/* Original */}
-        {/* <form action="/upload/post" method="post" encType="multipart/form-data">
-          <input type="file" name="image" /> <br /><br />
-          <button type="submit">Upload</button>
-        </form> */}
-
-
-
-
-
       </React.Fragment>
     )
   }
@@ -264,8 +219,6 @@ class _4_InputImagesMarketOrder extends React.Component {
 
     }
 
-
-
     if (not_supported_retrieved.length != 0) {
       not_supported_retrieved = [...new Set(not_supported_retrieved)];
       let error_msg = `${not_supported_retrieved.join(' ')} image types are not supported.`
@@ -274,43 +227,9 @@ class _4_InputImagesMarketOrder extends React.Component {
       return { passed: false, popup_state: error_msg_retrieved_if_any };
     }
 
-
     return { passed: true, popup_state: undefined };
 
   }
-
-
-
-
-  //   finalSubmissionValidation(){
-  //   let input = document.getElementById('image-select')
-  //   let selectedFiles = input.files
-  //   let selectedFilesArr = this.makeArrayOutOf(selectedFiles)
-
-  //   let error_msg_retrieved_if_any
-
-  //   if (selectedFilesArr.length == 0) {
-  //     let error_msg = "No images have been uploaded, submission requires at least one image."
-  //     error_msg_retrieved_if_any = error_msg
-  //   }
-
-  //   if (error_msg_retrieved_if_any) {
-  //     this.props.setpopup(error_msg_retrieved_if_any)
-  //     return false
-  //   } else { return true }
-  // }
-
-
-
-  // async apiMakeMarketOrder(){
-  //   console.log("API CALL")
-  //   let response
-
-  //   let json
-  // }
-
-
-
 }
 
 export default _4_InputImagesMarketOrder

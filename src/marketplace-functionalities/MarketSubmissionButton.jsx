@@ -1,6 +1,3 @@
-
-
-
 class MarketSubmissionButton extends React.Component {
   constructor(props) {
     super(props)
@@ -51,8 +48,6 @@ class MarketSubmissionButton extends React.Component {
   }
 
 
-
-
   render() {
 
     return (
@@ -66,15 +61,12 @@ class MarketSubmissionButton extends React.Component {
         } else {
           return
         }
-
       }}>SUBMIT THE MARKET ORDER</button>
     )
   }
 
 
   async apiMakeMarketOrder() {
-
-
     const hny_spm = document.getElementById("form_id").elements["hny_spm"].value
     if (hny_spm != ""){
       const rand_delta = Number((Math.random() * 100).toFixed(2))
@@ -125,16 +117,8 @@ class MarketSubmissionButton extends React.Component {
     let uuid = self.crypto.randomUUID();
     formData.append("req_uuid", uuid);
 
-
-
-
-
-
     let response
     let json
-
-
-    // console.log("fetch to: ", `/marketplace/sellorders/save/${userId}`)
 
     response = await fetch(`/marketplace/sellorders/save/${userId}`, {
       method: 'POST',

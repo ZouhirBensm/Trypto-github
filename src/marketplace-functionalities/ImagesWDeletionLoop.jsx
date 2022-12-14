@@ -7,15 +7,6 @@ class ImagesWDeletionLoop extends React.Component {
     this.state = {}
   }
 
-  componentDidMount(prevProps, prevState) {
-    // console.log("componentDidMount()->ImagesWDeletionLoop: ", this.props)
-
-  }
-  componentDidUpdate(prevProps, prevState) {
-    // console.log("componentDidUpdate()->ImagesWDeletionLoop: ", this.props)
-
-  }
-
 
   render() {
 
@@ -27,11 +18,10 @@ class ImagesWDeletionLoop extends React.Component {
       />
     })
 
-    console.log("render()->ImagesWDeletionLoop: ", ImagesDeletionComp)
+    // console.log("render()->ImagesWDeletionLoop: ", ImagesDeletionComp)
 
     return (
       <React.Fragment>
-
         {ImagesDeletionComp}
       </React.Fragment>
     )
