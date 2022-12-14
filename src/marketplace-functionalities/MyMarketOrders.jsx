@@ -1,12 +1,5 @@
-// import React from 'react';
-// import './styles/MyCurrencyOrders.css'
-
 import '../style/reactDivMobile.css'
-
-// import '../btclayerexchange-functionalities/styles/MyCurrencyOrders.css'
 import MarketOrderTable from './MarketOrderTable';
-
-// import PageSelector from './PageSelector';
 import PageSelector from '../generic-components/PageSelector';
 
 class MyMarketOrders extends React.Component {

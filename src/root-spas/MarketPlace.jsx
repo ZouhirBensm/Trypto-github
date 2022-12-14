@@ -47,6 +47,7 @@ class MarketPlace extends React.Component {
 
 
 
+
             <Route exact path="/marketplace/sellordersdata" component={MarketOrders} />
 
             <Route exact path="/marketplace/allmyorders" render={

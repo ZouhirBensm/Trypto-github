@@ -9,12 +9,7 @@ import Loading from "../generic-components/Loading"
 import { utils } from '../../full-stack-libs/utils.address'
 
 
-// import Geocode from "react-geocode";
-// Geocode.setApiKey(process.env.CONSOLE_CLOUD_GOOGLE_API_KEY);
-// Geocode.enableDebug();
-
-
-const _1_InputGeneralMarketOrder = loadable(() => import("./_1_InputGeneralMarketOrder"), {
+const _1_InputGeneralMarketOrder = loadable(() => import("./make-market-order-components/_1_InputGeneralMarketOrder"), {
   fallback: <Loading />
 });
 
@@ -29,6 +24,8 @@ const _3_InputLocationMarketOrder = loadable(() => import("./_3_InputLocationMar
 const _4_InputImagesMarketOrder = loadable(() => import("./_4_InputImagesMarketOrder"), {
   fallback: <Loading />
 });
+
+
 
 
 class MakeMarketOrder extends React.Component {

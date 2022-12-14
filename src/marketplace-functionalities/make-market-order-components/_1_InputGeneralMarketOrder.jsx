@@ -1,8 +1,4 @@
-
-// import '../style/reactDivMobile.css'
-
-// import MakeMarketOrder from './CopyMakeMarketOrder'
-import {validateInputs, validateExpiry} from '../../full-stack-libs/validations'
+import {validateInputs, validateExpiry} from '../../../full-stack-libs/validations'
 
 
 class _1_InputGeneralMarketOrder extends React.Component {

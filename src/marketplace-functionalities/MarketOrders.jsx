@@ -1,8 +1,4 @@
-// import '../style/reactDivMobile.css'
 import './style/MarketOrders.css'
-
-
-
 
 import MarketOrderTable from './MarketOrderTable';
 import PageSelector from '../generic-components/PageSelector';
@@ -22,6 +18,7 @@ import SearchEngine from './SearchEngine';
 // 1. Dynamicly display the options that match what is being typed
 // 2. Select one from the dynamic list
 // TODO When done locality filter, Implement same solution for the currency orders search engine
+
 class MarketOrders extends React.Component {
   constructor(props) {
     super(props)
@@ -46,6 +43,7 @@ class MarketOrders extends React.Component {
       stateProvinceTerm: undefined,
       cityTerm: undefined,
     }
+
     this.controls = this.controls.bind(this);
     this.submitFilter = this.submitFilter.bind(this)
     this.searchEngineOnChange = this.searchEngineOnChange.bind(this)
