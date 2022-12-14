@@ -18,7 +18,7 @@ const MyMarketOrders = loadable(() => import("../marketplace-functionalities/MyM
   fallback: <Loading />
 });
 
-const MarketOrderDetails = loadable(() => import("../marketplace-functionalities/MarketOrderDetails2"), {
+const MarketOrderDetails = loadable(() => import("../marketplace-functionalities/MarketOrderDetails"), {
   fallback: <Loading />
 });
 

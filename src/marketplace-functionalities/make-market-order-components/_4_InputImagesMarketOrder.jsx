@@ -1,11 +1,11 @@
-import '../style/reactDivMobile.css'
-import './style/market-images.css'
-import './style/_4_InputImagesMarketOrder.css'
+// import '../../style/reactDivMobile.css'
+import '../style/market-images.css'
+import '../style/_4_InputImagesMarketOrder.css'
 
 
 
-import ImagesWDeletionLoop from './ImagesWDeletionLoop'
 import MarketSubmissionButton from './MarketSubmissionButton'
+import ImagesWDeletionLoop from './ImagesWDeletionLoop'
 
 
 

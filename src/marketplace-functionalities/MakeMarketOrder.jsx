@@ -20,7 +20,7 @@ const _3_InputLocationMarketOrder = loadable(() => import("./make-market-order-c
   fallback: <Loading />
 });
 
-const _4_InputImagesMarketOrder = loadable(() => import("./_4_InputImagesMarketOrder"), {
+const _4_InputImagesMarketOrder = loadable(() => import("./make-market-order-components/_4_InputImagesMarketOrder"), {
   fallback: <Loading />
 });
 
@@ -372,7 +372,6 @@ class MakeMarketOrder extends React.Component {
 
 
   firstPlacementMap(){
-    // let reactDiv = document.getElementById('react-div');
     var a = document.querySelectorAll('a[href="/marketplace/makesell"]')[0]
     let the_map = document.getElementById('the-map');
     let autocomplete_block = document.getElementById('autocomplete-block');
