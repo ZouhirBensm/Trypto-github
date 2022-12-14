@@ -1,8 +1,11 @@
 // import '../style/reactDivMobile.css'
 import './style/MarketOrders.css'
+
+
+
+
 import MarketOrderTable from './MarketOrderTable';
 import PageSelector from '../generic-components/PageSelector';
-
 import SearchEngine from './SearchEngine';
 
 
@@ -10,9 +13,9 @@ import SearchEngine from './SearchEngine';
 // TODO #102 Add touch event to slide search engine
 
 
-
-// TODO !!!! When in details market page then click back the css layout breaks. Needs to be fixed!
 // TODO !!!! Organize jsx files in the market space into folders. E.g. I have StateProvinceSelector and ProvinceSelector, and have 2 SearchEngine components. This can get confusing.
+
+
 // TODO !!!! HERE In StateProvinceSelector figure out a way to load all the proper cities corresponding to the proper state and province.
 // TODO !!! Add search engine security validation on inputs
 // TODO !! Add, when typing a locality, the ability to 

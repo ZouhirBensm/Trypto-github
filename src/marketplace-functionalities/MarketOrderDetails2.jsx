@@ -1,6 +1,5 @@
 
 import RetrievedMarketOrderData from './RetrievedMarketOrderData'
-import '../style/reactDivMobile.css'
 
 
 
