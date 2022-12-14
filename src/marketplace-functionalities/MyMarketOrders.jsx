@@ -1,6 +1,8 @@
-import '../style/reactDivMobile.css'
-import MarketOrderTable from './MarketOrderTable';
+import './style/MyMarketOrders.css'
+
+
 import PageSelector from '../generic-components/PageSelector';
+import MarketOrderTable from './market-order-list-components/MarketOrderTable';
 
 class MyMarketOrders extends React.Component {
   constructor(props) {
@@ -171,7 +173,7 @@ class MyMarketOrders extends React.Component {
     console.log("popup:", this.popup)
     // console.log("ordertype!!! ", this.state.orderstype)
     return (
-      <div className='wrapper5'>
+      <div id='wrapper5'>
         {this.popup ?
           <p>{this.popup}</p>
           : null}

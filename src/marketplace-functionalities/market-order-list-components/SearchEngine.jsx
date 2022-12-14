@@ -1,5 +1,6 @@
 import './style/SearchEngine.css'
-import LocalityFilter from './search-engine/LocalityFilter'
+
+import LocalityFilter from '../search-engine/LocalityFilter'
 
 
 const rangeMin = 10

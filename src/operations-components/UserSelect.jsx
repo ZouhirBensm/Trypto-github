@@ -3,7 +3,7 @@ import Operations from '../root-spas/Operations';
 import UsersList from './UsersList'
 import PageSelector from '../generic-components/PageSelector'
 import OperationActions from '../operations-components/OperationActions'
-import MarketOrderDetails from '../marketplace-functionalities/MarketOrderDetails2'
+import MarketOrderDetails from '../marketplace-functionalities/MarketOrderDetails'
 import { Link, BrowserRouter, Route, Switch, useRouteMatch } from 'react-router-dom';
 
 

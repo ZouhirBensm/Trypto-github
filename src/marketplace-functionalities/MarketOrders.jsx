@@ -1,9 +1,10 @@
 import './style/MarketOrders.css'
 
 
-import MarketOrderTable from './MarketOrderTable';
 import PageSelector from '../generic-components/PageSelector';
-import SearchEngine from './SearchEngine';
+
+import SearchEngine from './market-order-list-components/SearchEngine';
+import MarketOrderTable from './market-order-list-components/MarketOrderTable';
 
 
 
