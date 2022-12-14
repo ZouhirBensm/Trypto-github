@@ -1,7 +1,4 @@
-
-// import '../style/reactDivMobile.css'
-import {validateInputs_marketOrderTradeLocationSpecifics} from '../../full-stack-libs/validations'
-
+import {validateInputs_marketOrderTradeLocationSpecifics} from '../../../full-stack-libs/validations'
 import LocationSelector from './LocationSelector'
 
 

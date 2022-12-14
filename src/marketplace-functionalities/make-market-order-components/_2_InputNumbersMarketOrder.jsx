@@ -1,6 +1,4 @@
-
-// import '../style/reactDivMobile.css'
-import {validateInputs} from '../../full-stack-libs/validations'
+import {validateInputs} from '../../../full-stack-libs/validations'
 
 
 

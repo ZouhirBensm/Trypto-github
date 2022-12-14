@@ -2,7 +2,6 @@
 import '../style/reactDivMobile.css'
 import './style/googlemaps.css'
 
-
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading"
 
@@ -13,11 +12,11 @@ const _1_InputGeneralMarketOrder = loadable(() => import("./make-market-order-co
   fallback: <Loading />
 });
 
-const _2_InputNumbersMarketOrder = loadable(() => import("./_2_InputNumbersMarketOrder"), {
+const _2_InputNumbersMarketOrder = loadable(() => import("./make-market-order-components/_2_InputNumbersMarketOrder"), {
   fallback: <Loading />
 });
 
-const _3_InputLocationMarketOrder = loadable(() => import("./_3_InputLocationMarketOrder"), {
+const _3_InputLocationMarketOrder = loadable(() => import("./make-market-order-components/_3_InputLocationMarketOrder"), {
   fallback: <Loading />
 });
 

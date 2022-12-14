@@ -1,6 +1,4 @@
-
-
-
+// TODO make this to a stateless functional component
 class Map extends React.Component {
   constructor(props) {
     super(props)
