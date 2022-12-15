@@ -1,15 +1,16 @@
-import ROLE from '../../full-stack-libs/Types/Role'
+import ROLE from '../../../full-stack-libs/Types/Role'
 import './style/InformationDetailsDisplay.css'
-import BaseOrderInformation from './market-order-detail-information-components/BaseOrderInformation'
-import OrderNumbersInformation from './market-order-detail-information-components/OrderNumbersInformation'
-import ChainWalletInformation from './market-order-detail-information-components/ChainWalletInformation'
-import LocationInformation from './market-order-detail-information-components/LocationInformation'
-import OrderUserInfomation from './market-order-detail-information-components/OrderUserInfomation'
-import EditBaseOrderInformation from './market-order-detail-edit-components/EditBaseOrderInformation'
-import EditOrderNumbersInformation from './market-order-detail-edit-components/EditOrderNumbersInformation'
-import EditChainWalletInformation from './market-order-detail-edit-components/EditChainWalletInformation'
-import DeleteThisOrder from './market-order-detail-information-components/DeleteThisOrder'
-import Deal from './market-order-detail-information-components/Deal'
+
+import BaseOrderInformation from '../market-order-detail-information-components/BaseOrderInformation'
+import OrderNumbersInformation from '../market-order-detail-information-components/OrderNumbersInformation'
+import ChainWalletInformation from '../market-order-detail-information-components/ChainWalletInformation'
+import LocationInformation from '../market-order-detail-information-components/LocationInformation'
+import OrderUserInfomation from '../market-order-detail-information-components/OrderUserInfomation'
+import EditBaseOrderInformation from '../market-order-detail-edit-components/EditBaseOrderInformation'
+import EditOrderNumbersInformation from '../market-order-detail-edit-components/EditOrderNumbersInformation'
+import EditChainWalletInformation from '../market-order-detail-edit-components/EditChainWalletInformation'
+import DeleteThisOrder from '../market-order-detail-information-components/DeleteThisOrder'
+import Deal from '../market-order-detail-information-components/Deal'
 
 class InformationDetailsDisplay extends React.Component {
   constructor(props) {

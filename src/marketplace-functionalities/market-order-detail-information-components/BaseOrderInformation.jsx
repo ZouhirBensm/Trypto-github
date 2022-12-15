@@ -1,6 +1,3 @@
-import React from "react"
-
-
 class BaseOrderInformation extends React.Component {
   constructor(props){
     super(props)

@@ -1,5 +1,6 @@
 import ImagesScrollDisplay from './ImagesScrollDisplay'
 import InformationDetailsDisplay from './InformationDetailsDisplay'
+
 import './style/RetrievedMarketOrderData.css'
 
 

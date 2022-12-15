@@ -1,5 +1,3 @@
-
-
 class Deal extends React.Component {
   constructor(props){
     super(props)

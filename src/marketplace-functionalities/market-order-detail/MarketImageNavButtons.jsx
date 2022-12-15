@@ -1,7 +1,3 @@
-import React from "react"
-
-
-
 class MarketImageNavButtons extends React.Component {
   constructor(props){
     super(props)

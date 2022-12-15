@@ -1,5 +1,5 @@
 
-import RetrievedMarketOrderData from './RetrievedMarketOrderData'
+import RetrievedMarketOrderData from './market-order-detail/RetrievedMarketOrderData'
 
 
 
