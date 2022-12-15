@@ -1,4 +1,4 @@
-import ProvinceSelector from './ProvinceSelector'
+import StateProvinceSelector from './StateProvinceSelector'
 
 
 class MakeCurrencyOrderLocation extends React.Component {
@@ -47,7 +47,7 @@ class MakeCurrencyOrderLocation extends React.Component {
           <option value="United States">United States</option>
         </select> <br />
 
-        <ProvinceSelector
+        <StateProvinceSelector
           country={this.state.country}
           province_state={this.state.province_state}
           setProvinceOrState={this.setProvinceOrState}

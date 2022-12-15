@@ -69,7 +69,9 @@ class StateProvinceSelector extends React.Component {
         tag_options_arr_data = ["City37", "City38", "City39"]
         options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
         break;
-
+      case "Florida":
+        tag_options_arr_data = state_cities_map.Florida
+        options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
       default:
         break;
     }

@@ -1,6 +1,6 @@
 
 
-class ProvinceSelector extends React.Component {
+class StateProvinceSelector extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -8,7 +8,7 @@ class ProvinceSelector extends React.Component {
   }
 
   setProvinceSelector(){
-    console.log("ProvinceSelector->setProvinceSelector()->", this.props.country, this.props.province)
+    console.log("StateProvinceSelector->setProvinceSelector()->", this.props.country, this.props.province)
 
     let options
     let tag_options_arr_data = []
@@ -60,4 +60,4 @@ class ProvinceSelector extends React.Component {
   }
 }
 
-export default ProvinceSelector
+export default StateProvinceSelector

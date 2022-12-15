@@ -5,6 +5,7 @@ const path = require('path')
 const CoinGecko = require('coingecko-api');
 var { existsSync, mkdirSync } = require('fs');
 
+
 const {MarketOrderSubmissionError} = require('../custom-errors/custom-errors')
 
 // Initializations
@@ -24,6 +25,8 @@ const ENV = require('../config/base')
 const utils = require('../full-stack-libs/utils')
 const ROLE = require("../full-stack-libs/Types/Role")
 const NAVBAR = require('../full-stack-libs/Types/Navbar')
+
+// const state_cities_map = require('../full-stack-libs/Data/state_cities_map')
 
 
 // Custom Error
@@ -95,6 +98,37 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
   navBars = NAVBAR.CLIENTS
   next()
 })
+
+
+
+
+
+
+marketplaceBackend_app_router.get(['/', '/allmyorders', '/sellordersdata', '/makesell'], require_loggedin_for_pages(true), (req, res) => {
+
+
+  res.locals.popup = req.query.popup
+
+  console.log("\nDo we have any pop-up messages: \n", req.query.popup);
+
+  // console.log("paths:", res.locals.paths_URL)
+  res.locals.userId = req.session.userId
+
+
+  var JSX_to_load = 'MarketPlace';
+
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
+    JSX_to_load: JSX_to_load,
+  })
+})
+
+
+
+
+
+
+
+
 
 
 
@@ -183,22 +217,6 @@ marketplaceController.registerMarketOrderController)
 
 
 
-marketplaceBackend_app_router.get(['/', '/allmyorders', '/sellordersdata', '/makesell'], require_loggedin_for_pages(true), (req, res) => {
-
-  res.locals.popup = req.query.popup
-
-  console.log("\nDo we have any pop-up messages: \n", req.query.popup);
-
-  // console.log("paths:", res.locals.paths_URL)
-  res.locals.userId = req.session.userId
-
-
-  var JSX_to_load = 'MarketPlace';
-
-  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
-    JSX_to_load: JSX_to_load,
-  })
-})
 
 
 
