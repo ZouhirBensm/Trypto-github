@@ -12,7 +12,4 @@ const provinces_territories_map_JSON = BUFFER
 
 const provinces_territories_map = JSON.parse(provinces_territories_map_JSON)
 
-
-console.log(provinces_territories_map)
-
 module.exports = provinces_territories_map

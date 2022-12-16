@@ -26,7 +26,10 @@ const utils = require('../full-stack-libs/utils')
 const ROLE = require("../full-stack-libs/Types/Role")
 const NAVBAR = require('../full-stack-libs/Types/Navbar')
 
-// const state_cities_map = require('../full-stack-libs/Data/state_cities_map')
+const state_cities_map = require('../full-stack-libs/Data/state_cities_map')
+const provinces_territories_map = require('../full-stack-libs/Data/provinces_territories_map')
+const dfcec = require('../full-stack-libs/Data/provinces_territories_map')
+const {States, Provinces_Territories} = require('../full-stack-libs/Data/states_provinces_territories')
 
 
 // Custom Error
@@ -106,7 +109,19 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 marketplaceBackend_app_router.get('/json/agglomerates', (req,res)=>{
 
   console.log(req.query.PR_TERR_ST)
-  res.status(200).send("okok")
+
+  if (States.includes(req.query.PR_TERR_ST)) {
+    res.status(200).json({
+      ARR_cities: state_cities_map[req.query.PR_TERR_ST]
+    })
+  } else if (Provinces_Territories.includes(req.query.PR_TERR_ST)) {
+    res.status(200).json({
+      ARR_cities: provinces_territories_map[req.query.PR_TERR_ST]
+    })
+  } else {
+    // TODO some error with UI
+  }
+
 })
 
 
