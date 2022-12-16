@@ -6,6 +6,7 @@ class StateProvinceSelector extends React.Component {
     super(props)
     this.state = {}
     this.setCities = this.setCities.bind(this)
+
   }
 
 
@@ -76,14 +77,25 @@ class StateProvinceSelector extends React.Component {
         break;
     }
 
-    
+
 
     selector = <CitySelector
       options={options}
-      cityTerm={this.props.cityTerm}
+      // cityTerm={this.props.cityTerm}
+      stateProvinceTerm={this.props.stateProvinceTerm}
     />
 
     return selector
+
+
+    // let response
+    // response = await fetch(`/marketplace/json/agglomerates?PR_TERR_ST=${this.props.stateProvinceTerm}`)
+    // console.log(response)
+
+
+    // this.props.stateProvinceTerm
+    // tag_options_arr_data = ["City37", "City38", "City39"]
+    // options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
   }
 
   render() {
@@ -95,7 +107,7 @@ class StateProvinceSelector extends React.Component {
         <select className="location-class" name="state-province" id="state-province-select" defaultValue={this.props.stateProvinceTerm}>
           <option value="">N/A</option>
           {this.props.options}
-        </select> <br/>
+        </select> <br />
 
         {selector}
         <br />

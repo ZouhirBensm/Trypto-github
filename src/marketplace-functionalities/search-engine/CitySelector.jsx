@@ -8,7 +8,9 @@ class CitySelector extends React.Component {
     return (
       <React.Fragment>
         <label htmlFor="city-select">City</label>
-        <select className="location-class" name="city" id="city-select" defaultValue={this.props.cityTerm}>
+        <select className="location-class" name="city" id="city-select" 
+        // defaultValue={this.props.cityTerm}
+        >
           <option value="" defaultValue>N/A</option>
           {this.props.options}
         </select>
