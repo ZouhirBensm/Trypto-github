@@ -22,7 +22,7 @@ class LocalityFilter extends React.Component {
 
     }
     else if (this.props.countryTerm == "United States") {
-      tag_options_arr_data = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "MontanaNebraska", "Nevada", "Ohio", "Oklahoma", "Oregon", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "Wisconsin", "Wyoming", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "West Virginia", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota"]
+      tag_options_arr_data = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "Ohio", "Oklahoma", "Oregon", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "Wisconsin", "Wyoming", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "West Virginia", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota"]
 
       options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
     }
