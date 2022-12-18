@@ -10,7 +10,7 @@ import MarketOrderTable from './market-order-list-components/MarketOrderTable';
 
 // TODO #102 Add touch event to slide search engine
 
-
+// TODO !!!! Add, backend guards related to the search component 
 // TODO !! Add, when typing a locality, the ability to 
 // 1. Dynamicly display the options that match what is being typed
 // 2. Select one from the dynamic list
