@@ -8,7 +8,7 @@ class CitySelector extends React.Component {
 
   render(){
 
-    console.log("--->>>>",this.props.cityTerm)
+    // console.log("--->>>>", this.props.cityTerm)
     return (
       <React.Fragment>
         <label htmlFor="city-select">City</label>

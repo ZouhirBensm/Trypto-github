@@ -195,19 +195,12 @@ class SearchEngine extends React.Component {
                 cityTerm={this.props.searchEngineState.cityTerm}
               />
 
-              {
-                this.state.popup ?
-                  <span>{this.state.popup}</span>
-                  :
-                  null
-              }
-
+              { this.state.popup ? <span>{this.state.popup}</span> : null }
 
               <br /> <br />
 
 
-              <button id="filter-submit">Submit1</button>
-              {/* <input id="filter-submit" type="submit" value="Submit2" /> */}
+              <button id="filter-submit">Submit</button>
 
             </form> <br /><br />
 

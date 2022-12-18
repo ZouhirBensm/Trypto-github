@@ -1,9 +1,9 @@
 // Libraries
 const express = require('express')
-const multer = require('multer')
-const path = require('path')
-const CoinGecko = require('coingecko-api');
-var { existsSync, mkdirSync } = require('fs');
+// const multer = require('multer')
+// const path = require('path')
+// const CoinGecko = require('coingecko-api');
+// var { existsSync, mkdirSync } = require('fs');
 
 
 const {MarketOrderSubmissionError} = require('../custom-errors/custom-errors')
@@ -18,34 +18,34 @@ const multerinstance = new MulterSetup(`./public/img/temporal-new`, new MarketOr
 
 
 // ENV variables
-const ENV = require('../config/base')
+// const ENV = require('../config/base')
 
 
 // Utils
-const utils = require('../full-stack-libs/utils')
+// const utils = require('../full-stack-libs/utils')
 const ROLE = require("../full-stack-libs/Types/Role")
 const NAVBAR = require('../full-stack-libs/Types/Navbar')
 
 const state_cities_map = require('../full-stack-libs/Data/state_cities_map')
 const provinces_territories_map = require('../full-stack-libs/Data/provinces_territories_map')
-const dfcec = require('../full-stack-libs/Data/provinces_territories_map')
 const {States, Provinces_Territories} = require('../full-stack-libs/Data/states_provinces_territories')
 
 
 // Custom Error
-const { CustomError, DeleteAccountProcessError } = require("../custom-errors/custom-errors")
+// const { CustomError, DeleteAccountProcessError } = require("../custom-errors/custom-errors")
 
 
 
 // Controllers
 const marketplaceController = require("../controllers/marketplace-controllers/marketplace-controllers")
+const moreMarketplaceController = require("../controllers/marketplace-controllers/more-marketplace-controllers")
 
 const distributePaginatedDataController = require("../controllers/generic-controllers/distribute-paginated-data-controller")
 const distributeDataController = require('../controllers/articles-controllers/distribute-data-controller')
 
 
 // Middleware
-const requireRefererMiddleware = require('../middleware/generic-middleware/require-referer')
+// const requireRefererMiddleware = require('../middleware/generic-middleware/require-referer')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
 const paginatedOrdersSetupMiddleware = require('../middleware/home-currencyorders-middleware/paginated-orders-setup-middleware')
 
@@ -58,8 +58,8 @@ const paginatedOrdersSetupMiddleware = require('../middleware/home-currencyorder
 const marketplaceMiddleware = require('../middleware/marketplace-middleware/marketplace-middleware')
 
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
-const startEmptyNotificationsMiddleware = require('../middleware/generic-middleware/start-empty-notifications-middleware')
-const { getDetailedUserSubscriptionInfo } = require('../middleware/generic-middleware/get-detailed-user-subsciption-information-middleware')
+// const startEmptyNotificationsMiddleware = require('../middleware/generic-middleware/start-empty-notifications-middleware')
+// const { getDetailedUserSubscriptionInfo } = require('../middleware/generic-middleware/get-detailed-user-subsciption-information-middleware')
 
 
 const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
@@ -78,12 +78,12 @@ const { authenticate_role_for_pages, authenticate_role_for_data } = require("../
 
 
 // Database Models
-const User = require('../models/User')
-const BuyCryptoOrder = require('../models/home-currencyorders-models/BuyCryptoOrder');
-const SellCryptoOrder = require('../models/home-currencyorders-models/SellCryptoOrder');
-const Protagonist = require('../models/messaging-models/Protagonist')
-const Message = require('../models/messaging-models/Message')
-const Subscriber = require('../models/Subscriber')
+// const User = require('../models/User')
+// const BuyCryptoOrder = require('../models/home-currencyorders-models/BuyCryptoOrder');
+// const SellCryptoOrder = require('../models/home-currencyorders-models/SellCryptoOrder');
+// const Protagonist = require('../models/messaging-models/Protagonist')
+// const Message = require('../models/messaging-models/Message')
+// const Subscriber = require('../models/Subscriber')
 
 
 
@@ -105,26 +105,7 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
-marketplaceBackend_app_router.get('/json/agglomerates', (req,res,next)=>{
-
-  console.log(req.query.PR_TERR_ST)
-
-  req.query.PR_TERR_ST == "Québec"? req.query.PR_TERR_ST = "Quebec": null
-
-  if (States.includes(req.query.PR_TERR_ST)) {
-    res.status(200).json({
-      ARR_cities: state_cities_map[req.query.PR_TERR_ST]
-    })
-  } else if (Provinces_Territories.includes(req.query.PR_TERR_ST)) {
-    res.status(200).json({
-      ARR_cities: provinces_territories_map[req.query.PR_TERR_ST]
-    })
-  } else {
-    let error = new Error("The requested Province, Territory, or State did not match one of our lists.")
-    return next(error)
-  }
-
-})
+marketplaceBackend_app_router.get('/json/agglomerates', require_loggedin_for_data(true), moreMarketplaceController.retrieveCitiesPerPoliticalAreaController)
 
 
 
