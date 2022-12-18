@@ -18,6 +18,7 @@ class StateProvinceSelector extends React.Component {
 
         <CitySelector
           stateProvinceTerm={this.props.stateProvinceTerm}
+          cityTerm={this.props.cityTerm}
         />
         <br />
       </React.Fragment>

@@ -16,7 +16,7 @@ class LocalityFilter extends React.Component {
     let selector
 
     if (this.props.countryTerm == "Canada") {
-      tag_options_arr_data = ["Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Northwest Territories", "Nova Scotia", "Nunavut", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon"]
+      tag_options_arr_data = ["Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Northwest Territories", "Nova Scotia", "Nunavut", "Ontario", "Prince Edward Island", "Québec", "Saskatchewan", "Yukon"]
 
       options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
 

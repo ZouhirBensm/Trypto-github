@@ -10,23 +10,47 @@ class OptionsSetting extends React.Component {
 
   componentDidUpdate(prevProps){
     if(prevProps.stateProvinceTerm !== this.props.stateProvinceTerm){
-      this.setCities()
+      this.setCities().then((retrieved)=>{
+        if (retrieved) console.log(retrieved)
+      })
     }
+  }
+
+  componentDidMount(){
+    this.setCities().then((retrieved)=>{
+      if (retrieved) console.log(retrieved)
+    })
   }
 
 
   async setCities() {
+    if (!this.props.stateProvinceTerm){
+      this.setState(({
+        ARR_cities: undefined
+      }))
+      return
+    }
 
     let response
     response = await fetch(`/marketplace/json/agglomerates?PR_TERR_ST=${this.props.stateProvinceTerm}`)
+
     console.log(response)
 
-    let json
-    json = await response.json()
 
-    this.setState(({
-      ARR_cities: json.ARR_cities
-    }))
+    
+    if (response.status == 200 ) {
+      let json
+      json = await response.json()
+      console.log(json)
+      this.setState(({
+        ARR_cities: json.ARR_cities
+      }))
+      return
+    } else {
+      let text
+      text = await response.text()
+      return text
+    }
 
   }
 
@@ -39,6 +63,7 @@ class OptionsSetting extends React.Component {
       <React.Fragment>
         <Options
           ARR_cities={this.state.ARR_cities}
+          cityTerm={this.props.cityTerm}
         />
       </React.Fragment>
     )

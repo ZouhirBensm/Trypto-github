@@ -96,14 +96,14 @@ class MarketOrders extends React.Component {
     this.loadData(theUtilizedSearchQuery)
   }
 
-
+// TODO !!!! When toogling seach engine does not keep state of location to current query, FIX!
 
   async loadData(theUtilizedSearchQuery = undefined) {
 
     console.log("MarketOrders: loadData()->theUtilizedSearchQuery:", theUtilizedSearchQuery)
 
 
-    // console.log(`/marketplace/paginated-orders/sellordersdata?page=${this.state.page}&limit=${this.state.limit}${theUtilizedSearchQuery ? theUtilizedSearchQuery : ""}`)
+    console.log(`/marketplace/paginated-orders/sellordersdata?page=${this.state.page}&limit=${this.state.limit}${theUtilizedSearchQuery ? theUtilizedSearchQuery : ""}`)
 
 
     let response = await fetch(`/marketplace/paginated-orders/sellordersdata?page=${this.state.page}&limit=${this.state.limit}${theUtilizedSearchQuery ? theUtilizedSearchQuery : ""}`)

@@ -33,8 +33,7 @@ const {States, Provinces_Territories} = require('../full-stack-libs/Data/states_
 
 
 // Custom Error
-const { CustomError } = require('../custom-errors/custom-errors');
-const { DeleteAccountProcessError } = require("../custom-errors/custom-errors")
+const { CustomError, DeleteAccountProcessError } = require("../custom-errors/custom-errors")
 
 
 
@@ -106,9 +105,11 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
-marketplaceBackend_app_router.get('/json/agglomerates', (req,res)=>{
+marketplaceBackend_app_router.get('/json/agglomerates', (req,res,next)=>{
 
   console.log(req.query.PR_TERR_ST)
+
+  req.query.PR_TERR_ST == "Québec"? req.query.PR_TERR_ST = "Quebec": null
 
   if (States.includes(req.query.PR_TERR_ST)) {
     res.status(200).json({
@@ -119,7 +120,8 @@ marketplaceBackend_app_router.get('/json/agglomerates', (req,res)=>{
       ARR_cities: provinces_territories_map[req.query.PR_TERR_ST]
     })
   } else {
-    // TODO some error with UI
+    let error = new Error("The requested Province, Territory, or State did not match one of our lists.")
+    return next(error)
   }
 
 })

@@ -144,25 +144,17 @@ const errorResponderController = (err, req, res, next) => {
 
 
   console.log("\n\x1b[37;48;5;172;1mEnvironment", ENV.environment, '\x1b[0m\n\n')
-  // for (let i = 0; i < 256; ++i){
-  //   console.log(`\x1b[48;5;${i}m${i}\x1b[0m`)
-  // }
-  // Catches all errors, and as a consequence of responding to client, circumvents express' default error handler 
 
-
-  // res.header("Content-Type", "application/json")
   const errorStatus = httpStatus.StatusCodes.INTERNAL_SERVER_ERROR
 
   let error_sent
 
   ENV.environment === "developement" ?
-    error_sent = `On errorResponderController |\nAn Error has occured on the server please have a look!\n Error: ${err}` :
+    error_sent = `On errorResponderController.\nAn Error has occured on the server please have a look!\nError: ${err}` :
     error_sent = `${errorStatus} | Sorry, our web server is Down!`;
 
 
   return res.status(errorStatus).send(error_sent)
-
-  // Personal note: err is an object and JSON.stringify(err,null,4) is a string
 
 }
 

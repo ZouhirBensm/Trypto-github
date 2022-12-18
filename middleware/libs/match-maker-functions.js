@@ -85,6 +85,18 @@ function formLocalityFindFilter(searchEngineTerms = undefined){
               // "location.country": { $eq: value },
               "location.country": value,
             }
+            break;
+          case "stateProvinceTerm":
+            findObject = {
+              ...findObject,
+              "location.province_state": value,
+            }
+            break;
+          case "cityTerm":
+            findObject = {
+              ...findObject,
+              "location.city": value,
+            }
             break;     
           default:
             break;

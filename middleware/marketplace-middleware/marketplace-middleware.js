@@ -292,7 +292,7 @@ async function ordersRetrievalMiddleware(req, res, next) {
   let searchEngineTerms = req.query.search
   searchEngineTerms = searchEngineTerms ? JSON.parse(searchEngineTerms) : undefined
 
-  // console.log("ordersRetrievalMiddleware()->searchEngineTerms: ", searchEngineTerms)
+  console.log("ordersRetrievalMiddleware()->searchEngineTerms: ", searchEngineTerms)
 
   let baseFilter = formOrderFindFilter(searchEngineTerms)
   
@@ -328,16 +328,17 @@ async function ordersRetrievalMiddleware(req, res, next) {
   }
 
 
+  // If locality filter in place
+  // Rid of the sell orders without populated locality 
+  // Because when their is no match the sellmarketorderlocationID is set to null
   if (!isObjEmpty(localityFilter)) {
     sellOrders = sellOrders.filter(sellOrder=>!!sellOrder.sellmarketorderlocationID)
   }
 
 
-  sellOrders.forEach(sellOrder => {
-    console.log("\n\n_________", sellOrder)
-  });
-
-  // console.log("\n\n\n\nsellOrders!!\n\n", sellOrders)
+  // sellOrders.forEach(sellOrder => {
+  //   console.log("\n\n_________", sellOrder)
+  // });
 
 
 
