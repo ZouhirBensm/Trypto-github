@@ -2,6 +2,8 @@ import './style/SearchEngine.css'
 
 import LocalityFilter from '../search-engine/LocalityFilter'
 
+import { validateInputsAgainstInjection } from '../../../full-stack-libs/validations'
+
 
 const rangeMin = 10
 const rangeMax = 5000
@@ -12,13 +14,35 @@ class SearchEngine extends React.Component {
     super(props);
     this.state = {
       on_off: false,
+      popup: undefined
     }
     this.displayHideFilterEngine = this.displayHideFilterEngine.bind(this);
     this.rangeLimits = this.rangeLimits.bind(this);
-  
+
     // console.log("order_type=", this.props.order_type)
   }
 
+
+  validation() {
+    const filter_values = {
+      title: document.getElementById("my_form").elements["title"].value,
+      category: document.getElementById("my_form").elements["category"].value,
+      condition: document.getElementById("my_form").elements["condition"].value,
+      min_price: document.getElementById("my_form").elements["min-price"].value,
+      max_price: document.getElementById("my_form").elements["max-price"].value,
+      country: document.getElementById("my_form").elements["country"].value,
+      state_province: document.getElementById("my_form").elements["state-province"].value,
+      city: document.getElementById("my_form").elements["city"].value,
+    }
+
+    console.log("filter_values", filter_values)
+
+    let retrieved = validateInputsAgainstInjection(filter_values)
+    console.log("retrieved", retrieved)
+
+    return retrieved
+
+  }
 
 
 
@@ -48,9 +72,22 @@ class SearchEngine extends React.Component {
 
   displayHideFilterEngine(e = undefined) {
     e?.preventDefault()
+
     this.setState(prevState => ({
-      on_off: !prevState.on_off
-    }))
+      on_off: !prevState.on_off,
+      popup: undefined
+    }), () => {
+      if (this.state.on_off == true) {
+        let filterSubmitButton = document.getElementById("filter-submit")
+        filterSubmitButton.disabled = true
+        const rand_delta = Number((Math.random() * 100).toFixed(2))
+        const fake_delay = 1000 + rand_delta
+
+        setTimeout(() => {
+          filterSubmitButton.disabled = false
+        }, fake_delay)
+      }
+    })
   }
 
   render() {
@@ -63,8 +100,19 @@ class SearchEngine extends React.Component {
           <div className='search-inputs'>
 
             <form id="my_form" className='search-component' onSubmit={(e) => {
+              e.preventDefault(e)
+
+              let retrieved = this.validation()
+
+              if (retrieved) {
+                this.setState({
+                  popup: retrieved
+                })
+                return
+              }
               this.props.submitFilter(e);
               this.displayHideFilterEngine(e);
+
             }} onChange={this.props.searchEngineOnChange}>
 
 
@@ -100,7 +148,7 @@ class SearchEngine extends React.Component {
 
 
 
-              <label htmlFor="price-input">Price Range</label>
+              <label htmlFor="min-price-input">Price Range</label>
 
               <button onClick={(e) => {
                 e.preventDefault()
@@ -147,12 +195,19 @@ class SearchEngine extends React.Component {
                 cityTerm={this.props.searchEngineState.cityTerm}
               />
 
+              {
+                this.state.popup ?
+                  <span>{this.state.popup}</span>
+                  :
+                  null
+              }
 
 
               <br /> <br />
 
 
-              <input type="submit" value="Submit" />
+              <button id="filter-submit">Submit1</button>
+              {/* <input id="filter-submit" type="submit" value="Submit2" /> */}
 
             </form> <br /><br />
 

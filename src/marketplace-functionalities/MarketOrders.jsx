@@ -11,8 +11,6 @@ import MarketOrderTable from './market-order-list-components/MarketOrderTable';
 // TODO #102 Add touch event to slide search engine
 
 
-// TODO !!!! HERE In StateProvinceSelector figure out a way to load all the proper cities corresponding to the proper state and province.
-// TODO !!! Add search engine security validation on inputs
 // TODO !! Add, when typing a locality, the ability to 
 // 1. Dynamicly display the options that match what is being typed
 // 2. Select one from the dynamic list
@@ -96,7 +94,6 @@ class MarketOrders extends React.Component {
     this.loadData(theUtilizedSearchQuery)
   }
 
-// TODO !!!! When toogling seach engine does not keep state of location to current query, FIX!
 
   async loadData(theUtilizedSearchQuery = undefined) {
 
@@ -202,6 +199,7 @@ class MarketOrders extends React.Component {
 
   submitFilter(e = undefined) {
     e?.preventDefault()
+
     this.setState({
       page: 1
     }, () => {

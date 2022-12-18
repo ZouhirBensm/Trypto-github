@@ -85,13 +85,13 @@ function verifyPassword(_password) {
 
 function validateInputs(obj_input, err_msg = undefined) {
 
-  const preventInjectionsRegEx = /[<>;}(){\&]/;
+  const preventInjectionsRegEx = /[<>;`}(")'{\&]/;
 
   for (const property in obj_input) {
     console.log(`${property}: ${obj_input[property]}`);
 
     if (obj_input[property] == '' || preventInjectionsRegEx.test(obj_input[property])) {
-      err_msg = `This field: ${property}, inputed value is not proper, i.e. empty or contains these chars: ()<>;}{&. Please modify`
+      err_msg = `This field: ${property}, inputed value is not proper, i.e. empty or contains these chars: ()<>\`;"}'{&. Please modify`
       break
     }
 
@@ -158,5 +158,26 @@ function arePasswordsEqual(obj) {
 }
 
 
+function validateInputsAgainstInjection(obj_input, err_msg = undefined) {
 
-module.exports = { verifyUsername, verifyEmail, verifyPassword, validateInputs, validateExpiry, validateInputs_marketOrderTradeLocationSpecifics, arePasswordsEqual }
+  const preventInjectionsRegEx = /[<>;`}(")'{\&]/;
+
+  for (const property in obj_input) {
+    console.log(`${property}: ${obj_input[property]}`);
+
+    if (preventInjectionsRegEx.test(obj_input[property])) {
+      err_msg = `This field: ${property}, inputed value is not proper, i.e. Contains these chars: ()<>\`;"}'{&. Please modify.`
+      break
+    }
+  }
+
+  if (err_msg) {
+    return err_msg
+  } else {
+    return undefined
+  }
+}
+
+
+
+module.exports = { verifyUsername, verifyEmail, verifyPassword, validateInputs, validateExpiry, validateInputs_marketOrderTradeLocationSpecifics, arePasswordsEqual, validateInputsAgainstInjection }
