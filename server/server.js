@@ -193,7 +193,7 @@ express_server_app_router.use(express.static('public'));
 
 
 express_server_app_router.use((req, res, next) => {
-
+  console.log(req.url)
   URL_ = req.url.split("?")[0]
   res.locals.paths_URL = utils.URLpathDecomposer(URL_)
 
@@ -206,7 +206,7 @@ express_server_app_router.use((req, res, next) => {
 
   // navBars = NAVBAR.CLIENTS
   // res.locals.userId = req.session.userId
-  next()
+  return next()
 })
 
 

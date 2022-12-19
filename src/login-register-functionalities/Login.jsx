@@ -143,7 +143,6 @@ class Login extends React.Component {
     console.log("caught2---->", this.state.notification)
     // const notifyDisplays = <div dangerouslySetInnerHTML={{ __html:  this.state.notification}}></div>
     const notifyDisplays = <div> {this.state.notification} </div>
-    // TODO what is this: dangerouslySetInnerHTML, dangerous
 
 
     // console.log(notifyDisplays)

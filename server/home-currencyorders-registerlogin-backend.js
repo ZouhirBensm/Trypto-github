@@ -218,12 +218,6 @@ homeOrdersBackend_app_router.get(`/users/requestresetpasswordpage/:hex`, (req, r
 
 
 
-
-
-
-
-// TODO !!! resend confirm email on pop up in the login interface
-
 homeOrdersBackend_app_router.post('/users/requestpasswordresetbyemail', responseMessageSetterMiddleware("If a user under those credentials exists, an email with the reset link shall be sent."), destructureURLandRefererMiddleware, checkIfUserByEmailMiddleware, checkIfUserSetAndUsedRequestForPasswordResetMiddleware, createHashForPasswordResetLinkMiddleware, sendEmailToResetPasswordMiddleware, (req, res) => {
 
   // check if user is active if so proceed else popup with reason
@@ -560,7 +554,7 @@ homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (re
 
 
 
-// TODO needs renaming
+// TODO needs renaming, mismatch of middleware names and the functionality they are operating
 homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), verifyingAccountActiveMiddleware, verifyingPasswordMiddleware, LoginController.loginController)
 
 
@@ -572,7 +566,8 @@ homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware, requ
 
 
 // TODO add userID for articles
-homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), startEmptyNotificationsMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteMarketOrderMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware,
+
+homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), destructureURLandRefererMiddleware, startEmptyNotificationsMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteMarketOrderMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware,
 deleteUserProfileImageIfAnyMiddleware, deleteFSProfilePictureIfAnyMiddleware,
 sessionSubscriberMiddleware, deleteIfAgendaJobThatUnsubsUserOnBidBlockMiddleware, deleteHexMiddleware, deleteUserMiddleware, logoutMiddleware, (req, res, next) => {
 
@@ -586,9 +581,11 @@ sessionSubscriberMiddleware, deleteIfAgendaJobThatUnsubsUserOnBidBlockMiddleware
     return next(e)
   } 
 
+  console.log("THISSS", res.locals.paths_URL_fromReferer[0])
 
   return res.status(200).json({
-    srv_: "User account and linked data completly deleted."
+    srv_: "User account and linked data completly deleted.",
+    referer: res.locals.paths_URL_fromReferer[0]
   })
 
 })

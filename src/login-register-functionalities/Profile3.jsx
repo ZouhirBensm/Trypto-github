@@ -42,7 +42,8 @@ class Profile extends React.Component {
 
 
 
-
+  // TODO !!! Add the location of the user upon registration
+  // TODO !!! Then when above done, have item database reorganize based on the users registered locality
 
 
 
@@ -57,7 +58,7 @@ class Profile extends React.Component {
       })) : popups_div = <div className="popup">{this.state.popups}</div>
     }
 
-    // TODO going to need something similar to render the a tag
+    // TODO !!! going to need something similar to render the a tag
     // const notifyDisplays = <div dangerouslySetInnerHTML={{ __html:  this.state.notification}}></div>
 
 
@@ -162,17 +163,30 @@ class Profile extends React.Component {
     let srv_
     srv_ = await response.json()
 
-    console.log(response, srv_)
+    console.log("*****", response, srv_)
 
     if (response.status === 200) {
-      console.log("do we make it here?")
-      // TODO !! #137 Here depending on the page if user account:
-      window.location.href = `/?popup=${srv_.srv_}`;
-      // TODO !! #137 if /operations display pop up or go to other page with pop up
+
+      
+      if (srv_.referer === "users") {
+        window.location.href = `/?popup=${srv_.srv_}`;
+        return
+      }
+      
+      if (srv_.referer === "operations") {
+        window.location.href = `/operations/manage-subs`;
+        return
+      }
+
+      let error = new Error("Delete succeeded, but the response srv_.referer does not match the registed ones!")
+      console.error(error)
+      return
+
     } else {
       this.setState({
         popups: srv_.error.message.admin_message
       })
+      return
     }
   }
 

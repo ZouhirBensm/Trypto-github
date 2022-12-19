@@ -102,7 +102,11 @@ class UserInfo extends React.Component {
               </ul>
 
               <button onClick={(e) => {
-                this.props.section_btn(e)
+                try {
+                  this.props.section_btn(e)
+                } catch (error) {
+                  console.log("CASAAAAAAAA", error)
+                }
               }}>Delete Account</button>
             </div>
           </div>
