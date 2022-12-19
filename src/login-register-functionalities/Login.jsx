@@ -1,10 +1,10 @@
-// import React from 'react';
-import './styles/MgtUser.css' 
-import {verifyEmail, validateInputs} from '../../full-stack-libs/validations'
+import './styles/MgtUser.css'
+import { verifyEmail, validateInputs } from '../../full-stack-libs/validations'
+import React from 'react'
 
 class Login extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       // notification: '',
@@ -18,28 +18,28 @@ class Login extends React.Component {
     // this.functionneed()
   }
 
-  validateInputs(creds){
+  validateInputs(creds) {
     let flag = true, notification;
-    ({flag,notification} = verifyEmail(creds.email));
+    ({ flag, notification } = verifyEmail(creds.email));
     console.log(flag, notification)
 
-    if(!flag) {
+    if (!flag) {
       return this.setState({
         notification: notification[0]
-      })  
+      })
     }
 
     let err_msg
     err_msg = validateInputs(creds);
 
-    if(err_msg) {
+    if (err_msg) {
       flag = false
       return this.setState({
         notification: err_msg
-      })  
+      })
     }
 
-    console.log({flag})
+    console.log({ flag })
     return flag
 
   }
@@ -64,7 +64,7 @@ class Login extends React.Component {
   //   } else { return true }
 
   // }
-  
+
   // functionneed(){
   //   const params = new Proxy(new URLSearchParams(window.location.search), {
   //     get: (searchParams, prop) => searchParams.get(prop),
@@ -75,21 +75,21 @@ class Login extends React.Component {
   //   this.popup = value
   // }
 
-  async handleSubmit(e){
+  async handleSubmit(e) {
     e.preventDefault()
 
     let email = document.getElementById("loginregister").elements[0].value
     let password = document.getElementById("loginregister").elements[1].value
 
 
-    let validated = this.validateInputs({email, password})
-    console.log({validated})
+    let validated = this.validateInputs({ email, password })
+    console.log({ validated })
     if (!validated) return
 
 
     // TODO when registering need two inputs for the password (or not)
     // TODO in the forgot password process the app does not check that the newpassword is equal to the old one. This should be checked on the back end, and respond with an error "New Password cannot be set to the old one!"
-    
+
     console.log("FETCH")
 
     let response = await fetch(`${this.props.loginTo}`, {
@@ -111,44 +111,61 @@ class Login extends React.Component {
 
     if (response.status == 200) {
       window.location.href = `/?popup=You have successfully logged in!`;
+    } else if (response.status == 403) {
+      // Resends email
+      let response = await fetch(`/resend-user-email/${email}`, {
+        method: 'GET',
+      })
+      console.log("email response", response)
+
+      this.setState({
+        notification: data.error.message,
+      })
+
+
     } else {
-      if(data.error){
-        this.setState({
-          notification: data.error.message,
-        })
-      } else {
-        throw new Error(`Front end does not support failed POST ${this.props.loginTo} server response`)
-      }
+      this.setState({
+        notification: data.error.message,
+      })
     }
+
+    return response.status
   }
+
+  // throw new Error(`Front end does not support failed POST ${this.props.loginTo} server response`)
+
+
+
 
   render() {
 
-    // console.log(this.popup)
-    const notifyDisplays = <div>{this.state.notification}</div>
-  
+
+    console.log("caught2---->", this.state.notification)
+    // const notifyDisplays = <div dangerouslySetInnerHTML={{ __html:  this.state.notification}}></div>
+    const notifyDisplays = <div> {this.state.notification} </div>
+    // TODO what is this: dangerouslySetInnerHTML, dangerous
+
 
     // console.log(notifyDisplays)
-    
+
     return (
-      <div id="container-log-reg">
-        <form id="loginregister" className="form">
-          <h3>Login</h3>
-          <label>Email</label>
-          <input type="text" name="email"/> 
-          <label>Password</label>
-          <input type="text" name="password"/> 
-          <button type="submit" onClick={(e) => this.handleSubmit(e)}>Login</button>
-        </form>
-        <a href="/users/forgotpasswordpage">Forgot Password</a>
-        {/* display the notification from the server here! */}
-        { notifyDisplays }
+        <div id="container-log-reg">
+          <form id="loginregister" className="form">
+            <h3>Login</h3>
+            <label>Email</label>
+            <input type="text" name="email" />
+            <label>Password</label>
+            <input type="text" name="password" />
+            <button type="submit" onClick={async (e) => {
+              let statusCode = await this.handleSubmit(e)
+              console.log(statusCode)
+            }}>Login</button>
+          </form>
+          <a href="/users/forgotpasswordpage">Forgot Password</a>
 
-        {/* {this.popup?
-        <p>{this.popup}</p>
-        :null} */}
+        {notifyDisplays}
 
-      </div>
+        </div>
     );
   }
 }

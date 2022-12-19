@@ -57,6 +57,9 @@ class Profile extends React.Component {
       })) : popups_div = <div className="popup">{this.state.popups}</div>
     }
 
+    // TODO going to need something similar to render the a tag
+    // const notifyDisplays = <div dangerouslySetInnerHTML={{ __html:  this.state.notification}}></div>
+
 
     let selectedUser = this.props.selectedUser
     let userName = selectedUser.username
@@ -136,6 +139,7 @@ class Profile extends React.Component {
         popups: json.server.client_message
       })
     } else {
+      console.log("????", json.error.message.client_message, typeof json.error.message.client_message)
       this.setState({
         popups: json.error.message.client_message
       })
