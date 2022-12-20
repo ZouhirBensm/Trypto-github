@@ -1,3 +1,4 @@
+// Currently used
 // Asks the client for location and centers, else defaults to Ottawa
 let map, marker, autocomplete, geocoder
 

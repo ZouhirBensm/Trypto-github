@@ -39,7 +39,7 @@ class RegisterButton extends React.Component {
 
       setTimeout(()=>{
         this.props.setNotification([fake_success_message])
-        this.props.setStateStep(4)
+        this.props.setStateStep(5)
         return
       }, fake_api_delay)
       return
@@ -85,7 +85,7 @@ class RegisterButton extends React.Component {
 
     if (flag){
       this.props.setNotification(notification)
-      this.props.setStateStep(4)
+      this.props.setStateStep(5)
     } else {
       this.props.setNotification(notification)
     }

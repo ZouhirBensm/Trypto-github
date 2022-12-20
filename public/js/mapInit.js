@@ -1,3 +1,4 @@
+// Currently not used in ejs template file
 // Uses Ottawa a center init
 
 let map, marker, autocomplete, geocoder

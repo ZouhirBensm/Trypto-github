@@ -8,7 +8,7 @@ class Register extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      notification: []
+      notification: [],
     }
     this.setNotification = this.setNotification.bind(this)
     this.handleValidation = this.handleValidation.bind(this)
@@ -105,7 +105,7 @@ class Register extends React.Component {
         <RegisterNotification
           notification={this.state.notification}
         /> <br/>
-        <button onClick={(e) => this.props.setStateStep(1)}> Previous </button>
+        <button onClick={(e) => this.props.setStateStep(2)}> Previous </button>
       </div>
     );
   }

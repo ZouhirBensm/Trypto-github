@@ -124,7 +124,7 @@ class CardInfoSubmission extends React.Component {
         <hr />
         <p>You can unsubscribe anytime by a click of a button on the your profiles page!</p>
 
-        <button onClick={(e) => this.props.setStateStep(2)}> Previous </button>
+        <button onClick={(e) => this.props.setStateStep(3)}> Previous </button>
         {/* <button onClick={(e) => this.props.setStateStep(4)}> Next </button> */}
       </div>
     )
