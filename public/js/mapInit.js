@@ -1,9 +1,10 @@
+// Uses Ottawa a center init
+
 let map, marker, autocomplete, geocoder
 let lat = 45.41, lng = -75.70
 
-// map = 5
+
 map = new google.maps.Map(document.getElementById("the-map"), {
-  // Ottawa
   center: { lat: lat, lng: lng },
   zoom: 8,
 });
@@ -28,8 +29,6 @@ autocomplete = new google.maps.places.Autocomplete(document.getElementById('auto
 
 
 geocoder = new google.maps.Geocoder()
-
-
 
 window.map = map
 window.marker = marker

@@ -31,6 +31,7 @@ class _3_InputLocationMarketOrder extends React.Component {
 
 
 
+  // TODO !!!! Load the map with the clients location as the center
   render() {
 
     // _____________________________________________

@@ -1,14 +1,7 @@
-import { Link, Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import '../style/reactDivMobile.css'
-import utils from "../../full-stack-libs/utils"
 
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading"
-
-
-// import Register from "./login-register-functionalities/Register"
-// import ChoosePlan from "./subscription-functionalities/ChoosePlan"
-// import CardInfoSubmission from "./subscription-functionalities/CardInfoSubmission"
 
 const Register = loadable(() => import("../login-register-functionalities/Register2"),{
   fallback: <Loading/>
@@ -70,8 +63,6 @@ class Subscription extends React.Component {
 
 
   render() {
-    // let path = `/subscription/${this.state.step}`
-    // console.log("path: ", path)
     console.log("state: ", this.state)
     let component
     
