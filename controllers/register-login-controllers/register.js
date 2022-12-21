@@ -1,6 +1,9 @@
+const axios = require('axios');
 //We import the User model
 const User = require('../../models/User')
 const HexForUnactiveUser = require('../../models/HexForUnactiveUser')
+const UserAssociatedLocality = require('../../models/UserAssociatedLocality')
+
 const Subscriber = require('../../models/Subscriber')
 const ROLE = require('../../full-stack-libs/Types/Role')
 // const bcrypt = require('bcrypt')
@@ -12,16 +15,22 @@ var nodemailer = require('nodemailer');
 const httpStatus = require("http-status-codes")
 const { ValidationError, LoggingInError, MongoError } = require('../../custom-errors/custom-errors')
 
+const { utils } = require('../../full-stack-libs/utils.address')
+
 
 
 async function registerController(req, res, next) {
 
   console.log("\nin registerController:\n__________________________\n\n")
 
+
+  console.log("-----INFO!!!\n\n", req.body)
+
+
   let user_instance
   let hex_for_unactive_user_instance
   let subscriber_instance
-  let ret_hex_for_unactive_user_save, ret_user_save, ret_subinfo_save
+  let ret_hex_for_unactive_user_save, ret_user_save, ret_subinfo_save, ret_user_associated_locality_save
   let now
   let transporter
   let info
@@ -62,7 +71,86 @@ async function registerController(req, res, next) {
 
   user_instance.hexforunactiveuserID = hex_for_unactive_user_instance._id
   hex_for_unactive_user_instance.userID = user_instance._id
+  user_instance.userassociatedlocalityID = null
+  
 
+  if (req.body.lat && req.body.lng) {
+
+    const API_KEY = ENV.console_cloud_google_api_key;
+    const latitude = parseFloat(req.body.lat);
+    const longitude = parseFloat(req.body.lng);
+  
+  
+    let response
+    try {
+      response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${API_KEY}`)
+    } catch (error) {
+      // TODO add some error handling
+      console.log(error);
+    }
+  
+    let address = response.data.results[0].formatted_address
+    const addressArray = response.data.results[0].address_components;
+  
+    let st_number = utils.getStreetNumber(addressArray),
+      st = utils.getStreet(addressArray),
+      neigh = utils.getNeighborhood(addressArray),
+      province_state = utils.getProvinceState(addressArray),
+      city = utils.getCity(addressArray),
+      country = utils.getCountry(addressArray)
+  
+  
+    address = (address) ? address : undefined,
+    st_number = (st_number) ? st_number : undefined
+    st = (st) ? st : undefined
+    neigh = (neigh) ? neigh : undefined
+    province_state = (province_state) ? province_state : undefined
+    city = (city) ? city : undefined
+    country = (country) ? country : undefined
+  
+    console.log(address)
+    console.log(st_number)
+    console.log(st)
+    console.log(neigh)
+    console.log(province_state)
+    console.log(city)
+    console.log(country)
+
+
+    let user_associated_locality_instance = new UserAssociatedLocality({
+      geometry: {
+        lat: req.body.lat,
+        lng: req.body.lng
+      },
+      location: {
+        address: address,
+        st_number: st_number,
+        st: st,
+        neigh: neigh,
+        province_state: province_state,
+        city: city,
+        country: country
+      },
+      userID: user_instance._id
+    })
+
+
+    user_instance.userassociatedlocalityID = user_associated_locality_instance._id
+
+    try {
+      ret_user_associated_locality_save = await user_associated_locality_instance.save()
+    } catch (err) {
+      err = new MongoError(`Was Unable to save user_associated_locality_instance. Error: ${err.message}`, err.code)
+      return next(err)
+    }
+
+    
+  }
+
+
+
+
+  
 
 
   if (req.body.plan == ROLE.USER.SUBSCRIBER.BASIC) {
@@ -94,15 +182,21 @@ async function registerController(req, res, next) {
     err = new MongoError(`You have successfully subscribed on paypal's servers, but not on BidBlock's servers' because of this error: ${err.message}`, err.code)
     return next(err)
   }
-  // console.log("\n\n\nSaved user information\n\n", ret_user_save)
+
+  console.log("\n\n\nSaved user information\n\n", ret_user_save._id, ' vs ', user_instance._id)
 
 
 
-  let double_check_expression = ret_hex_for_unactive_user_save && ret_user_save && (req.body.plan == ROLE.USER.SUBSCRIBER.BASIC ? !!ret_subinfo_save : true)
+
+
+  
+
+
+  let double_check_expression = ret_hex_for_unactive_user_save && ret_user_save && (req.body.plan == ROLE.USER.SUBSCRIBER.BASIC ? !!ret_subinfo_save : true) && (req.body.lat && req.body.lng ? !!ret_user_associated_locality_save: true)
 
   // if (true) {
   if (!(double_check_expression)) {
-    let e = new MongoError(`The user,${req.body.plan == ROLE.USER.SUBSCRIBER.BASIC ? ' sub info' : ''} or hex save f'ed up!`)
+    let e = new MongoError(`The user,${req.body.plan == ROLE.USER.SUBSCRIBER.BASIC ? ' sub info,' : ''}, ${req.body.lat && req.body.lng ? ' locality info,' : ''}  or hex save f'ed up!`)
     return next(e)
   }
 

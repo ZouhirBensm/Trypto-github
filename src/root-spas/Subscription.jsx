@@ -37,8 +37,9 @@ class Subscription extends React.Component {
     }
     this.nextStep=this.nextStep.bind(this)
     this.previousStep=this.previousStep.bind(this)
-    this.handleChange=this.handleChange.bind(this)
     this.setStateStep=this.setStateStep.bind(this)
+    this.handleChange=this.handleChange.bind(this)
+    this.setLocality=this.setLocality.bind(this)
   }
 
   setStateStep(step){
@@ -66,6 +67,13 @@ class Subscription extends React.Component {
     })
   }
 
+  setLocality(lat, lng, e){
+    this.setState({
+      lat: lat,
+      lng: lng,
+    })
+  }
+
 
   render() {
     console.log("state: ", this.state)
@@ -76,13 +84,13 @@ class Subscription extends React.Component {
         component = <ChoosePlan handleChange={this.handleChange} setStateStep={this.setStateStep} step={this.state.step} plan={this.state.plan} nextStep={this.nextStep}/>
         break;
       case 2:
-        component = <AssociatedLocation handleChange={this.handleChange} setStateStep={this.setStateStep} step={this.state.step} plan={this.state.plan} nextStep={this.nextStep}/>
+        component = <AssociatedLocation setLocality={this.setLocality} setStateStep={this.setStateStep} step={this.state.step} nextStep={this.nextStep} lat={this.state.lat} lng={this.state.lng}/>
         break;
       case 3:
-        component = <Register plan={this.state.plan} setStateStep={this.setStateStep} username={this.state.username} email={this.state.email} password={this.state.password} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep} handleChange={this.handleChange}/>
+        component = <Register plan={this.state.plan} setStateStep={this.setStateStep} username={this.state.username} email={this.state.email} password={this.state.password} lat={this.state.lat} lng={this.state.lng} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep} handleChange={this.handleChange}/>
         break;
       case 4:
-        component = <CardInfoSubmission username={this.state.username} email={this.state.email} password={this.state.password} plan={this.state.plan} setStateStep={this.setStateStep} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep}/>
+        component = <CardInfoSubmission username={this.state.username} email={this.state.email} password={this.state.password} plan={this.state.plan} lat={this.state.lat} lng={this.state.lng} setStateStep={this.setStateStep} step={this.state.step} previousStep={this.previousStep} nextStep={this.nextStep}/>
         break;
       case 5:
         component = <Confirmation username={this.state.username} email={this.state.email} plan={this.state.plan} setStateStep={this.setStateStep} previousStep={this.previousStep}/>

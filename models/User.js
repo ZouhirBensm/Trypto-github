@@ -60,6 +60,10 @@ const UserSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'HexForUnactiveUser'
     },
+    userassociatedlocalityID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'UserAssociatedLocality'
+    }
 })
 
 //Before save any records into users collection, execute the 

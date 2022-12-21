@@ -33,6 +33,7 @@ class ChoosePlan extends React.Component {
       this.props.handleChange("plan", e)
       this.props.nextStep()
     } else {
+      // TODO !!! setup as a pop up
       console.log("Please select a plan before proceeding!")
     }
   }

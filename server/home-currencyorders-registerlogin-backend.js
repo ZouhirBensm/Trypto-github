@@ -255,7 +255,14 @@ homeOrdersBackend_app_router.post('/check/user/register', requireRefererMiddlewa
 
 
 
-homeOrdersBackend_app_router.post('/users/register', requireRefererMiddleware, require_loggedin_for_data(false), destructureURLandRefererMiddleware, LoginController.validateController, registerController)
+// TODO !!!! refactore into seperate middlewares
+homeOrdersBackend_app_router.post('/users/register',requireRefererMiddleware, 
+require_loggedin_for_data(false), 
+destructureURLandRefererMiddleware, 
+LoginController.validateController, 
+// registerController,
+registerController
+)
 
 
 

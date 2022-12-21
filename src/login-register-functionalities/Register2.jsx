@@ -97,6 +97,8 @@ class Register extends React.Component {
             username={this.props.username}
             plan={this.props.plan}
             email={this.props.email}
+            lat={this.props.lat}
+            lng={this.props.lng}
             password={this.props.password}
           />
           
