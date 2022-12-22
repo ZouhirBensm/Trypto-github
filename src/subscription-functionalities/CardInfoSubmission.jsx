@@ -20,7 +20,7 @@ class CardInfoSubmission extends React.Component {
     let flag, notification
 
 
-    ({ flag, notification } = await this.handleRegistrationCall(this.props.username, this.props.email, this.props.password, this.props.plan, paypal_subscriptionID, paypal_plan_id, paypal_product_id));
+    ({ flag, notification } = await this.handleRegistrationCall(this.props.username, this.props.email, this.props.password, this.props.plan, paypal_subscriptionID, paypal_plan_id, paypal_product_id, this.props.lat, this.props.lng));
 
 
     return {flag: flag, notification: notification}
@@ -28,7 +28,7 @@ class CardInfoSubmission extends React.Component {
   }
 
 
-  async handleRegistrationCall(_username, _email, _password, _plan, _paypal_subscriptionID, _paypal_plan_id, _paypal_product_id) {
+  async handleRegistrationCall(_username, _email, _password, _plan, _paypal_subscriptionID, _paypal_plan_id, _paypal_product_id, _lat, _lng) {
     console.log("Making API call!")
 
     const response = await fetch(`/users/register`, {
@@ -45,6 +45,8 @@ class CardInfoSubmission extends React.Component {
         paypal_subscriptionID: _paypal_subscriptionID,
         paypal_plan_id: _paypal_plan_id,
         paypal_product_id: _paypal_product_id,
+        lat: _lat,
+        lng: _lng,
       })
     })
 

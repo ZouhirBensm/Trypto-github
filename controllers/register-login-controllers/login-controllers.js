@@ -20,7 +20,6 @@ const { ValidationError, LoggingInError, MongoError } = require('../../custom-er
 
 
 function validateController(req, res, next) {
-  console.log("\n\nreq.body----->", req.body);
 
   let flag, notification = [];
 
@@ -46,10 +45,10 @@ function validateController(req, res, next) {
     return next(error)
   }
 
-
   return next()
-
 }
+
+
 
 async function checkRegisterController(req, res, next) {
   console.log("we got: ", req.body)

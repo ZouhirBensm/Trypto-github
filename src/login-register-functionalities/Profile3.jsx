@@ -42,7 +42,6 @@ class Profile extends React.Component {
 
 
 
-  // TODO !!!! Add the location of the user upon registration
   // TODO !!!! Then when above done, have item database reorganize based on the users registered locality
 
 

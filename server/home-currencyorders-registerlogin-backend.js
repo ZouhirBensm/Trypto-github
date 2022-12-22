@@ -50,7 +50,9 @@ const homeCurrencyOrdersController = require("../controllers/home-currencyorders
 const LoginController = require("../controllers/register-login-controllers/login-controllers")
 
 
-const { registerController } = require("../controllers/register-login-controllers/register")
+// const { registerController } = require("../controllers/register-login-controllers/register")
+const registerController = require("../controllers/register-login-controllers/register-controller")
+
 const distributePaginatedDataController = require("../controllers/generic-controllers/distribute-paginated-data-controller")
 const { resendConfirmationController } = require("../controllers/register-login-controllers/resend-confirmation-controller")
 
@@ -73,6 +75,7 @@ const deleteSellOrdersMiddleware = require('../middleware/delete-account-process
 const deleteProtagonistsMiddleware = require('../middleware/delete-account-process-middleware/delete-protagonists-middleware')
 const deleteMessagesMiddleware = require('../middleware/delete-account-process-middleware/delete-messages-middleware')
 const sessionSubscriberMiddleware = require('../middleware/paypal-middleware/session-subscriber-middleware')
+const registerMiddleware = require('../middleware/register-middleware/register-middleware')
 
 // RENAME
 const deleteIfAgendaJobThatUnsubsUserOnBidBlockMiddleware = require('../middleware/delete-account-process-middleware/delete-if-agenda-job-that-unsubs-user-on-bidblock-middleware')
@@ -137,7 +140,12 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
-// TODO !!!! if regitered user does not activate acount within 2 months, delete account, i.e. if not subed delete user and hex, if subed, then unsub, delete user and hex
+// TODO !!! if regitered user does not activate acount within 2 months, delete account, i.e. if not subed delete user and hex, if subed, then unsub, delete user and hex
+
+
+
+
+
 
 
 
@@ -255,16 +263,22 @@ homeOrdersBackend_app_router.post('/check/user/register', requireRefererMiddlewa
 
 
 
-// TODO !!!! refactore into seperate middlewares
-homeOrdersBackend_app_router.post('/users/register',requireRefererMiddleware, 
+
+homeOrdersBackend_app_router.post('/users/register',
+requireRefererMiddleware, 
 require_loggedin_for_data(false), 
 destructureURLandRefererMiddleware, 
-LoginController.validateController, 
-// registerController,
-registerController
+LoginController.validateController,
+registerMiddleware.instantiateHexForUnactiveUserMiddleware,
+registerMiddleware.instantiateUserMiddleware,
+registerMiddleware.ifLocalityOrganizeAssociatedLocalityMiddleware,
+registerMiddleware.ifSubscriberInstantiateSubscriberMiddleware,
+registerMiddleware.saveHex4UnactiveUserMiddleware,
+registerMiddleware.saveUserMiddleware,
+registerMiddleware.doubleCheckSaveMiddleware,
+registerMiddleware.mailConfirmLinkMiddleware,
+registerController.responseOnRegistrationController
 )
-
-
 
 
 
@@ -278,8 +292,13 @@ homeOrdersBackend_app_router.get('/resend-user-email/:userEmail', destructureURL
 
 
 
+
+
+
+
 homeOrdersBackend_app_router.get('/purge', async (req, res) => {
   const numRemoved = await agenda.purge();
+  res.status(200).json({message: `Done purge on Agenda!`})
 })
 
 

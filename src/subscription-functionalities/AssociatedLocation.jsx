@@ -8,7 +8,7 @@ class AssociatedLocation extends React.Component {
 
   componentDidMount(){
     if (this.props.lat && this.props.lng) {
-      // TODO setup Pop ups/ or display state in UI with a design?
+      // TODO !!!! setup Pop ups/ or display state in UI with a design?
       console.log("Coordinates set")
     } else {
       console.log("Coordinates not set")

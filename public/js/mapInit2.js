@@ -1,26 +1,52 @@
+// import ROLE from '../../full-stack-libs/Types/Role'
+// const ROLE = require("../../full-stack-libs/Types/Role")
+// console.log(ROLE)
+
+
+
+// TODO !!!! ENV variable should not be accessible on the front end
+// console.log(ENV)
+// console.log("--->", userId)
+
 // Currently used
 // Asks the client for location and centers, else defaults to Ottawa
 let map, marker, autocomplete, geocoder
 
-let asyncFunction = function() {
-  return new Promise(function(resolve, reject) {
-    
+
+
+
+
+
+
+
+let getLatLng = function () {
+  return new Promise(async function (resolve, reject) {
+
+    // Setting defaults locality
     let lat, lng
+    // Defaults to Ottawa
+    lat = 45.4
+    lng = -75.7
+
+    // Overwrite default if User has a associated locality
+    let response = await getUsersAssociatedLocality()
+
+    if (response.status == 200) {
+      let json = await response.json()
+      lat = json.lat
+      lng = json.lng
+    }
+
+    // Client Locality Determination
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         lat = position.coords.latitude
         lng = position.coords.longitude
         resolve([lat, lng])
       }, (error) => {
-        // Defaults to Ottawa
-        lat = 45.41
-        lng = -75.70
         resolve([lat, lng])
       });
-    } else {  
-      // Defaults to Ottawa
-      lat = 45.41
-      lng = -75.70
+    } else {
       resolve([lat, lng])
     };
 
@@ -28,39 +54,46 @@ let asyncFunction = function() {
 };
 
 
-(async ()=>{
+(async () => {
 
-  let [lat, lng] = await asyncFunction()
+  let [lat, lng] = await getLatLng()
 
   map = new google.maps.Map(document.getElementById("the-map"), {
     center: { lat: lat, lng: lng },
     zoom: 8,
   });
-  
+
   marker = new google.maps.Marker({
     position: { lat: lat, lng: lng },
     map,
     title: "Hello World!",
     draggable: true,
   });
-  
-  
+
+
   let options = {
     componentRestrictions: { country: ["us", "ca"] },
     fields: ["geometry"],
     strictBounds: false,
     types: ["address"],
   };
-  
+
   autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete-select'), options);
-  
+
   geocoder = new google.maps.Geocoder()
-  
-  
-  
+
+
+
   window.map = map
   window.marker = marker
   window.autocomplete = autocomplete
   window.geocoder = geocoder
 })();
 
+
+
+
+async function getUsersAssociatedLocality() {
+  let response = await fetch(`/marketplace/associated-user-locality/${userId}`)
+  return response
+}

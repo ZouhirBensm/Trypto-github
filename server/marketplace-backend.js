@@ -93,6 +93,8 @@ const { authenticate_role_for_pages, authenticate_role_for_data } = require("../
 
 
 
+
+
 // Start middleware for this marketplaceBackend_app_router
 marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
   // Might need this as a "script endpoint global" variable!
@@ -100,6 +102,10 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
   navBars = NAVBAR.CLIENTS
   next()
 })
+
+
+
+marketplaceBackend_app_router.get('/associated-user-locality/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(2), moreMarketplaceController.retrieveUserAssociatedLocalityIfAnyController)
 
 
 
