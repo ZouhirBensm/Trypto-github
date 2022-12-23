@@ -25,8 +25,6 @@ const Confirmation = loadable(() => import("../subscription-functionalities/Conf
 class Subscription extends React.Component {
   constructor(){
     super()
-    // let step = utils.parseFullPath4lastpath(window.location)
-    // console.log("constructor Subscription: step: ", step)
     this.state = {
       step: 1,
       username: "",

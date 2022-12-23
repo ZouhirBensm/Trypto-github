@@ -2,7 +2,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BidBlock <% locals.ENV.environment %>
+  <title>BidBlock <%= process.env.ENVIRONMENT %>
   </title>
 
 
@@ -28,9 +28,7 @@
 
 
   <%if(URL_=="/marketplace/makesell" ){%>
-    <!-- ENV DELETE NEEDED -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=<%=locals.ENV.console_cloud_google_api_key%>&libraries=places">
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%=process.env.CONSOLE_CLOUD_GOOGLE_API_KEY%>&libraries=places">
     </script>
     <%}%>
 

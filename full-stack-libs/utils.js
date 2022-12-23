@@ -26,6 +26,8 @@ module.exports = {
 
     return parsedFULLPATH[1]
   },
+
+
   parseFullPath4lastpath: (fullpath) => {
     // const parsedFULLPATH = /^(\w+)\:\/\/([^\/]+)\/(.*)$/.exec(url);
     const parsedFULLPATH = /\/?([^\/]+)$/.exec(fullpath);
@@ -37,6 +39,8 @@ module.exports = {
 
     return parsedFULLPATH[1]
   },
+
+  
   return_Authorization_header_value_4_fetch: () => {
     // Used in cURL
     // -u "Authorization: <client_id>:<secret>"
