@@ -1,49 +1,64 @@
 class AssociatedLocation extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
+      location_set: false,
+      notification: undefined,
     }
     this.retrieveAndSetCoords = this.retrieveAndSetCoords.bind(this)
   }
 
-  componentDidMount(){
+  componentDidMount() {
+
     if (this.props.lat && this.props.lng) {
-      // TODO !!!! setup Pop ups/ or display state in UI with a design?
       console.log("Coordinates set")
+      this.setState({
+        location_set: true,
+      })
+
     } else {
       console.log("Coordinates not set")
+      this.setState({
+        location_set: false,
+      })
     }
   }
 
-  componentDidUpdate(){
-    if (this.props.lat && this.props.lng) {
-      // Pop ups
-      console.log("Coordinates set")
-    }else {
-      console.log("Coordinates not set, browser deblock to enable location request.")
-    }
-  }
 
   async retrieveAndSetCoords() {
-    return new Promise(function(resolve, reject) {
+    var msg_deblock_loc = `Currently your browser blocks location access. Go to browser settings to enable location for ${process.env.DOMAIN_WITHOUT_PROTOCOL}`
+
+    var Componentthis = this
+    return new Promise(function (resolve, reject) {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
+          Componentthis.setState({
+            location_set: true,
+            notification: undefined,
+          })
           resolve([position.coords.latitude, position.coords.longitude])
         }, (error) => {
           // Client refuses
+          Componentthis.setState({
+            location_set: false,
+            notification: msg_deblock_loc,
+          })
           reject(undefined)
         });
-      } else {  
+      } else {
         // No API
-        return(undefined)
+        Componentthis.setState({
+          location_set: false,
+        })
+        return (undefined)
       };
     });
   }
 
-  render(){
+  render() {
     return (
       <React.Fragment>
-        <button onClick={async (e)=>{
+        <button onClick={async (e) => {
           let ret_retrieveAndSetCoords
           try {
             ret_retrieveAndSetCoords = await this.retrieveAndSetCoords()
@@ -55,13 +70,22 @@ class AssociatedLocation extends React.Component {
 
           if (ret_retrieveAndSetCoords) {
             this.props.setLocality(ret_retrieveAndSetCoords[0], ret_retrieveAndSetCoords[1], e)
-            this.props.setStateStep(3)
+            // this.props.setStateStep(3)
           }
           else {
             this.props.setLocality(ret_retrieveAndSetCoords, ret_retrieveAndSetCoords, e)
           }
 
         }}>Enable browser location (optional): For BidBlock to display relevant Market Orders.</button>
+
+        {this.state.notification ?
+          <div id="notif">{this.state.notification}</div>
+          : null}
+
+
+        
+        <div id="location-set">Location Set: {this.state.location_set ? "✅" : "❌"} </div>
+        
 
         <button onClick={(e) => this.props.setStateStep(1)}> Previous </button>
         <button onClick={(e) => this.props.setStateStep(3)}> Proceed </button>

@@ -42,7 +42,8 @@ class Profile extends React.Component {
 
 
 
-  // TODO !!!! Then when above done, have item database reorganize based on the users registered locality
+  // TODO !!!
+  // Have item database reorganize based on the users registered locality
 
 
 

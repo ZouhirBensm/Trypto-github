@@ -84,6 +84,7 @@ var config = {
         CONSOLE_CLOUD_GOOGLE_API_KEY: JSON.stringify(process.env.CONSOLE_CLOUD_GOOGLE_API_KEY),
         PAYPAL_PLAN_ID: JSON.stringify(process.env.PAYPAL_PLAN_ID),
         PAYPAL_PRODUCT_ID: JSON.stringify(process.env.PAYPAL_PRODUCT_ID),
+        DOMAIN_WITHOUT_PROTOCOL: JSON.stringify(process.env.DOMAIN_WITHOUT_PROTOCOL),
       }
     }),
     new ProvidePlugin({

@@ -3,6 +3,8 @@ import '../style/reactDivMobile.css'
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading"
 
+
+
 const Register = loadable(() => import("../login-register-functionalities/Register2"),{
   fallback: <Loading/>
 });

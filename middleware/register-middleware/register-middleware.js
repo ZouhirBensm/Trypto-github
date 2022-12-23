@@ -6,7 +6,7 @@ const User = require('../../models/User')
 const Subscriber = require('../../models/Subscriber')
 const UserAssociatedLocality = require('../../models/UserAssociatedLocality')
 
-const { MongoError } = require('../../custom-errors/custom-errors')
+const { MongoError, GoogleAPIError } = require('../../custom-errors/custom-errors')
 
 const ROLE = require('../../full-stack-libs/Types/Role')
 const ENV = require('../../config/base')
@@ -87,8 +87,8 @@ async function ifLocalityOrganizeAssociatedLocalityMiddleware(req, res, next) {
   try {
     response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${API_KEY}`)
   } catch (error) {
-    // TODO !!! add some error handling
-    console.log(error);
+    err = new GoogleAPIError(`Call to maps.googleapis.com error.`, error.code)
+    return next(err)
   }
 
   let address = response.data.results[0].formatted_address

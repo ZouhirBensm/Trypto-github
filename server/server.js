@@ -199,8 +199,9 @@ express_server_app_router.use((req, res, next) => {
 
   // console.log(URL_, res.locals.paths_URL)
 
+  // Bad idea to serve entire ENV variable!!!
   res.locals.ENV = ENV;
-  // console.log(ENV, "VS", res.locals.ENV)
+  
   loggedIn = req.session.userId
   
 

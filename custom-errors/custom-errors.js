@@ -36,6 +36,16 @@ class MongoError extends CustomError {
 }
 
 
+class GoogleAPIError extends CustomError {
+  constructor(message, code){
+    super()
+    this.type = this.constructor.name
+    this.message = message
+    this.usr_message = message
+  }
+}
+
+
 class ValidationError extends CustomError {
   constructor(notification, validatee, overwriteStatus = undefined){
     super()
@@ -69,7 +79,7 @@ class FirstPathNotRegistered extends CustomError {
     super()
     this.type = this.constructor.name
     this.path_received = path_received
-    this.message =  `no particular data identified to serve i.e first path: ${this.path_received} not registered in the distributePaginatedDataController.js. Please register ${this.path_received} in the controller, and define paginated served Data.`
+    this.message =  `No particular data identified to serve i.e first path: ${this.path_received} not registered in the distributePaginatedDataController.js. Please register ${this.path_received} in the controller, and define paginated served Data.`
   }
 }
 
@@ -171,5 +181,6 @@ module.exports = {
   ResetPasswordReset,
   MarketOrderSubmissionError,
   ProfileImageUploadError,
-  CreateArticleError
+  CreateArticleError,
+  GoogleAPIError
 }

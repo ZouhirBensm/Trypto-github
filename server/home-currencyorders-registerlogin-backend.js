@@ -269,14 +269,15 @@ requireRefererMiddleware,
 require_loggedin_for_data(false), 
 destructureURLandRefererMiddleware, 
 LoginController.validateController,
-registerMiddleware.instantiateHexForUnactiveUserMiddleware,
-registerMiddleware.instantiateUserMiddleware,
+
+// registerMiddleware.instantiateHexForUnactiveUserMiddleware,
+// registerMiddleware.instantiateUserMiddleware,
 registerMiddleware.ifLocalityOrganizeAssociatedLocalityMiddleware,
-registerMiddleware.ifSubscriberInstantiateSubscriberMiddleware,
-registerMiddleware.saveHex4UnactiveUserMiddleware,
-registerMiddleware.saveUserMiddleware,
-registerMiddleware.doubleCheckSaveMiddleware,
-registerMiddleware.mailConfirmLinkMiddleware,
+// registerMiddleware.ifSubscriberInstantiateSubscriberMiddleware,
+// registerMiddleware.saveHex4UnactiveUserMiddleware,
+// registerMiddleware.saveUserMiddleware,
+// registerMiddleware.doubleCheckSaveMiddleware,
+// registerMiddleware.mailConfirmLinkMiddleware,
 registerController.responseOnRegistrationController
 )
 

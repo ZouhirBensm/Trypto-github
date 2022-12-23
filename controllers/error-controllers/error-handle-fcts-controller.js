@@ -22,6 +22,13 @@ const errorResponseDispatcherController = async (err, req, res, next) => {
           message: err.usr_message,
         }
       })
+    case "GoogleAPIError":
+      return res.status(err.statusCode).json({
+        error: {
+          type: err.type,
+          message: err.usr_message,
+        }
+      })
     case "LoggingInError":
       return res.status(err.statusCode).send({
         error: {

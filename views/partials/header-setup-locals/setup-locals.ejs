@@ -64,6 +64,7 @@
       break;
 
     case '/subscription':
+      // ENV DELETE NEEDED
       bidblock_email = '<%-locals.ENV.bidblock_email%>'
       console.log("------------->>>>", bidblock_email)
       break
@@ -133,6 +134,7 @@
       currentUserEmail = '<%= locals.currentUserEmail  %>'
       currentUserName = '<%= locals.currentUserName  %>'
       user = <%-JSON.stringify(locals.user || {})%> 
+      // ENV DELETE NEEDED
       domain_without_protocol = '<%-locals.ENV.domain_without_protocol%>'
 
 
