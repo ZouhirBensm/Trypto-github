@@ -3,9 +3,6 @@
 // console.log(ROLE)
 
 
-
-// TODO !!!! ENV variable should not be accessible on the front end
-// console.log(ENV)
 // console.log("--->", userId)
 
 // Currently used

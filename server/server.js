@@ -198,9 +198,6 @@ express_server_app_router.use((req, res, next) => {
   res.locals.paths_URL = utils.URLpathDecomposer(URL_)
 
   // console.log(URL_, res.locals.paths_URL)
-
-  // Bad idea to serve entire ENV variable!!!
-  res.locals.ENV = ENV;
   
   loggedIn = req.session.userId
   

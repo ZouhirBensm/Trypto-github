@@ -9,7 +9,6 @@
 <div id="popup" style="display: none;"><%if(locals.popup){%><%=popup%><%}%></div> 
 <div id='demo'></div>
 
-<!-- ENV DELETE NEEDED -->
 <%if(locals.isPaypalScriptNeeded){%>
   <script src="https://www.paypal.com/sdk/js?client-id=<%-process.env.PAYPAL_CLIENT_ID%>&vault=true&intent=subscription"></script>
 <%}%>
