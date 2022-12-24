@@ -63,7 +63,11 @@ const UserSchema = new Schema({
     userassociatedlocalityID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'UserAssociatedLocality'
-    }
+    },
+    registrationDateTime: {
+        type: Date,
+        default: new Date(),
+    },
 })
 
 //Before save any records into users collection, execute the 

@@ -1,6 +1,8 @@
 const axios = require('axios');
 var nodemailer = require('nodemailer');
 
+const agendaDefineJobFunctions = require('../../full-stack-libs/define-agenda-job-functions/define-aganda-job-functions')
+
 const HexForUnactiveUser = require('../../models/HexForUnactiveUser')
 const User = require('../../models/User')
 const Subscriber = require('../../models/Subscriber')
@@ -233,6 +235,25 @@ function doubleCheckSaveMiddleware(req, res, next) {
 
 }
 
+async function setAgendaJobToDeleteUserIfStillNotActive(req, res, next) {
+
+  const jobname = `Delete registered user ${res.locals.ret_user_save._id}, if account stays unactive`
+
+  agendaDefineJobFunctions.deleteUserIfStillDidNotActivate(jobname, res.locals.ret_user_save._id)
+
+
+  // FOR TESTING
+  // var deleteUnactiveUserOn = new Date(res.locals.ret_user_save.registrationDateTime.setMinutes(res.locals.ret_user_save.registrationDateTime.getMinutes()+2));
+
+  // At 3 months mark, delete the user
+  var deleteUnactiveUserOn = new Date(res.locals.ret_user_save.registrationDateTime.setMonth(res.locals.ret_user_save.registrationDateTime.getMonth()+3));
+
+  await agenda.schedule(deleteUnactiveUserOn, jobname);
+
+  return next()
+}
+
+
 async function mailConfirmLinkMiddleware(req, res, next) {
   let now
   let transporter
@@ -287,6 +308,7 @@ registerMiddleware = {
   saveHex4UnactiveUserMiddleware: saveHex4UnactiveUserMiddleware,
   saveUserMiddleware: saveUserMiddleware,
   doubleCheckSaveMiddleware: doubleCheckSaveMiddleware,
+  setAgendaJobToDeleteUserIfStillNotActive: setAgendaJobToDeleteUserIfStillNotActive,
   mailConfirmLinkMiddleware: mailConfirmLinkMiddleware,
 }
 

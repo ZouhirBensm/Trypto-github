@@ -140,7 +140,7 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
-// TODO !!!! if regitered user does not activate acount within 2 months, delete account, i.e. if not subed delete user and hex, if subed, then unsub, delete user and hex
+
 
 
 
@@ -270,14 +270,15 @@ require_loggedin_for_data(false),
 destructureURLandRefererMiddleware, 
 LoginController.validateController,
 
-// registerMiddleware.instantiateHexForUnactiveUserMiddleware,
-// registerMiddleware.instantiateUserMiddleware,
+registerMiddleware.instantiateHexForUnactiveUserMiddleware,
+registerMiddleware.instantiateUserMiddleware,
 registerMiddleware.ifLocalityOrganizeAssociatedLocalityMiddleware,
-// registerMiddleware.ifSubscriberInstantiateSubscriberMiddleware,
-// registerMiddleware.saveHex4UnactiveUserMiddleware,
-// registerMiddleware.saveUserMiddleware,
-// registerMiddleware.doubleCheckSaveMiddleware,
-// registerMiddleware.mailConfirmLinkMiddleware,
+registerMiddleware.ifSubscriberInstantiateSubscriberMiddleware,
+registerMiddleware.saveHex4UnactiveUserMiddleware,
+registerMiddleware.saveUserMiddleware,
+registerMiddleware.doubleCheckSaveMiddleware,
+registerMiddleware.setAgendaJobToDeleteUserIfStillNotActive,
+registerMiddleware.mailConfirmLinkMiddleware,
 registerController.responseOnRegistrationController
 )
 
@@ -466,6 +467,13 @@ homeOrdersBackend_app_router.get('/confirm-user-email/:userID/:hexfield', async 
   }
 
   console.log("ret_delete_hex--->", ret_delete_hex)
+
+
+  // CANCEL AGENDA JOB THAT IS SUPPOSED TO DELETE THE UNACTIVE USER (BECAUSE JUST ACTIVATED)
+  const jobname = `Delete registered user ${ret_user._id}, if account stays unactive`
+  const numRemoved = await agenda.cancel({ name: jobname });
+
+  console.log("numRemoved: ", numRemoved)
 
 
   let sucess_message = `Congrats you have successfully confirmed your account!`
