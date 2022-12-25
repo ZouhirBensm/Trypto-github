@@ -5,16 +5,14 @@ class LocationInformation extends React.Component {
   }
 
   render() {
-
-    // TODO !!!!! If a prop field is undefined, skip/ do not render the div
     return (
       <React.Fragment>
         <div>LocationInformation...</div>
-        <div>Street: {this.props.st}</div>
-        <div>Neighbourhood: {this.props.neigh}</div>
-        <div>City: {this.props.city}</div>
-        <div>Province/State: {this.props.province_state}</div>
-        <div>Country: {this.props.country}</div>
+        {this.props.st && <div>Street: {this.props.st}</div>}
+        {this.props.neigh && <div>Neighbourhood: {this.props.neigh}</div>}        
+        {this.props.city && <div>City: {this.props.city}</div>}
+        {this.props.province_state && <div>Political Area: {this.props.province_state}</div>}
+        {this.props.country && <div>Country: {this.props.country}</div>}
       </React.Fragment>
     )
   }
