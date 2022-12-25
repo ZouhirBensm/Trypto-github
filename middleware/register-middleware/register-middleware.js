@@ -80,7 +80,7 @@ async function ifLocalityOrganizeAssociatedLocalityMiddleware(req, res, next) {
     return next()
   }
 
-  // TODO !!! have a lib for this type of functionality used on back and front end
+  // TODO ! have a lib for this type of functionality used on back and front end
   const API_KEY = ENV.console_cloud_google_api_key;
   const latitude = parseFloat(req.body.lat);
   const longitude = parseFloat(req.body.lng);

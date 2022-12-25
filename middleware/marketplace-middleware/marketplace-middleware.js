@@ -38,11 +38,14 @@ const agendaDefineJobFunctions = require('../../full-stack-libs/define-agenda-jo
 async function instantiateMarketOrderLocationMiddleware(req, res, next) {
   console.log("registering market order...")
 
+  console.log(req.body, '\n\n', req.files)
+
   req.body.expireAt = new Date(req.body.expirydate.slice(0, 4), req.body.expirydate.slice(5, 7) - 1, req.body.expirydate.slice(8, 10), req.body.expirytime.slice(0, 2), req.body.expirytime.slice(3, 5))
 
 
   let ret_sellmarketorderlocation_instance
 
+  
   ret_sellmarketorderlocation_instance = new SellMarketOrderLocation({
     geometry: {
       lat: req.body.lat,

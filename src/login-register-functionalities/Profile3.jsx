@@ -42,8 +42,10 @@ class Profile extends React.Component {
 
 
 
-  // TODO !!!
-  // Have item database reorganize based on the users registered locality
+  // TODO !!! Have item database reorganize based on the users registered locality
+  // TODO !!!! have script that populates the db of several market orders
+  // TODO !!!! Have the app adaptible to USD currency
+  // TODO !!!! Be able to change users associated locality in their profile
 
 
 
@@ -58,7 +60,7 @@ class Profile extends React.Component {
       })) : popups_div = <div className="popup">{this.state.popups}</div>
     }
 
-    // TODO !!! going to need something similar to render the a tag
+    // TODO ! going to need something similar to render the a tag
     // const notifyDisplays = <div dangerouslySetInnerHTML={{ __html:  this.state.notification}}></div>
 
 

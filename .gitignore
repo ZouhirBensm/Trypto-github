@@ -1,5 +1,6 @@
 node_modules
 public/dist
+seeds
 public/img/*/*
 webpack.dev.js
 package-lock.json

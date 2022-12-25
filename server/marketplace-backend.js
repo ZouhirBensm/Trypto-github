@@ -105,6 +105,39 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
+
+
+
+
+marketplaceBackend_app_router.post('/sellorders/save/:userID?', 
+require_loggedin_for_data(true), 
+requester_auth_middleware(2), 
+multerinstance.upload.array('image'), 
+marketplaceMiddleware.instantiateMarketOrderLocationMiddleware, 
+marketplaceMiddleware.instantiateMarketOrderMiddleware,
+marketplaceMiddleware.processImageFilesMiddleware,
+marketplaceMiddleware.instantiateMarketOrderImagesMiddleware,
+marketplaceMiddleware.saveAllMarketOrderMiddleware,
+marketplaceMiddleware.setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware,
+marketplaceController.registerMarketOrderController)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 marketplaceBackend_app_router.get('/associated-user-locality/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(2), moreMarketplaceController.retrieveUserAssociatedLocalityIfAnyController)
 
 
@@ -207,14 +240,6 @@ marketplaceBackend_app_router.patch('/:userId/update23', require_loggedin_for_da
 
 
 
-
-marketplaceBackend_app_router.post('/sellorders/save/:userID?', require_loggedin_for_data(true), requester_auth_middleware(2), multerinstance.upload.array('image'), marketplaceMiddleware.instantiateMarketOrderLocationMiddleware, 
-marketplaceMiddleware.instantiateMarketOrderMiddleware,
-marketplaceMiddleware.processImageFilesMiddleware,
-marketplaceMiddleware.instantiateMarketOrderImagesMiddleware,
-marketplaceMiddleware.saveAllMarketOrderMiddleware,
-marketplaceMiddleware.setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware,
-marketplaceController.registerMarketOrderController)
 
 
 
