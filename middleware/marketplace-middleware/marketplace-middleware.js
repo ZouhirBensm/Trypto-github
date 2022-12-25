@@ -38,6 +38,13 @@ const agendaDefineJobFunctions = require('../../full-stack-libs/define-agenda-jo
 async function instantiateMarketOrderLocationMiddleware(req, res, next) {
   console.log("registering market order...")
 
+  // if (req.body.st === "undefined") req.body.st = undefined
+  // if (req.body.neigh === "undefined") req.body.neigh = undefined
+  // if (req.body.province_state === "undefined") req.body.province_state = undefined
+  // if (req.body.city === "undefined") req.body.city = undefined
+  // if (req.body.country === "undefined") req.body.country = undefined
+
+
   console.log(req.body, '\n\n', req.files)
 
   req.body.expireAt = new Date(req.body.expirydate.slice(0, 4), req.body.expirydate.slice(5, 7) - 1, req.body.expirydate.slice(8, 10), req.body.expirytime.slice(0, 2), req.body.expirytime.slice(3, 5))
@@ -45,7 +52,7 @@ async function instantiateMarketOrderLocationMiddleware(req, res, next) {
 
   let ret_sellmarketorderlocation_instance
 
-  
+
   ret_sellmarketorderlocation_instance = new SellMarketOrderLocation({
     geometry: {
       lat: req.body.lat,
@@ -68,6 +75,9 @@ async function instantiateMarketOrderLocationMiddleware(req, res, next) {
 
   return next()
 
+  // return res.status(200).json({
+  //   message: "ok"
+  // })
 
 }
 

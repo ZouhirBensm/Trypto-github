@@ -14,6 +14,7 @@ class RetrievedMarketOrderData extends React.Component {
     let sellmarketorderImageID, order_infomation;
     this.props.order? ({sellmarketorderImageID, ...order_infomation} = this.props.order): null
     // console.log("order_infomation?._id", order_infomation?._id)
+    // console.log(sellmarketorderImageID)
     
     return (
       <React.Fragment>
@@ -21,6 +22,7 @@ class RetrievedMarketOrderData extends React.Component {
           <ImagesScrollDisplay 
             // pass orders images related data
             orderID={this.props.order?._id}
+            orderTitle={this.props.order?.title}
             images_names={this.props.order?.sellmarketorderImageID.images}
           />
           <InformationDetailsDisplay 

@@ -29,8 +29,7 @@ class MulterSetup {
       },
       filename: function (req, file, cb) {
         let p_error = null
-        // TODO prefix should have a constant number of digits
-        let prefix = Math.round(Math.random() * 10000)
+        let prefix = Math.floor(Math.random() * 9000) + 1000
         cb(p_error, `${prefix}-${file.originalname}`)
       }
     })

@@ -106,6 +106,7 @@ class MarketSubmissionButton extends React.Component {
             formData.append(name, parseFloat(value));
             break;
           default:
+            if (value === undefined) break;
             formData.append(name, value);
             break;
         }
@@ -117,6 +118,7 @@ class MarketSubmissionButton extends React.Component {
     let uuid = self.crypto.randomUUID();
     formData.append("req_uuid", uuid);
 
+
     let response
     let json
 
@@ -126,7 +128,6 @@ class MarketSubmissionButton extends React.Component {
     })
 
     json = await response.json()
-
 
     console.log("Server reponse object json:", json)
 

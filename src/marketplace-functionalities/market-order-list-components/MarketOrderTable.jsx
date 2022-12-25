@@ -51,7 +51,10 @@ class OrderRow extends React.Component {
 
 
     const order_first_image_name = order.sellmarketorderImageID.images[0].name
+    
+    const isMarketOrderFromSeed = /^\*\s/.test(this.props.order.title) 
 
+    const image_path = isMarketOrderFromSeed ? `/img/marketorder-images/seed-images/empty.jpeg` : `/img/marketorder-images/${order._id}/${order_first_image_name}`
     
     return (
 
@@ -64,7 +67,7 @@ class OrderRow extends React.Component {
         }}
         >
         <div>
-          <img src={`/img/marketorder-images/${order._id}/${order_first_image_name}`}></img>
+          <img src={image_path}></img>
           <div>Title: {order.title}</div>
           <div>Price: {order.price}</div>
           {/* TODO Add location and condition */}

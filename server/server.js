@@ -18,7 +18,7 @@ const limiter = rateLimit({
 
 
 
-// TODO !!!! make sure you use connection.close() the mongoose connection when ctrl + c the express app
+// TODO !!! make sure you use connection.close() the mongoose connection when ctrl + c the express app
 
 const ENV = require('../config/base')
 // console.log("------>", ENV)

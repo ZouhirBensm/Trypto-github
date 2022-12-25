@@ -5,6 +5,8 @@ class LocationInformation extends React.Component {
   }
 
   render() {
+
+    // TODO !!!!! If a prop field is undefined, skip/ do not render the div
     return (
       <React.Fragment>
         <div>LocationInformation...</div>

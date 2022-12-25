@@ -25,8 +25,6 @@ const _4_InputImagesMarketOrder = loadable(() => import("./make-market-order-com
 });
 
 
-
-
 class MakeMarketOrder extends React.Component {
   constructor(props) {
     super(props)
@@ -77,7 +75,7 @@ class MakeMarketOrder extends React.Component {
     console.log(userId)
   }
 
-  setpopup(message){
+  setpopup(message) {
     this.setState({
       popup_state: message
     })
@@ -224,7 +222,7 @@ class MakeMarketOrder extends React.Component {
 
         the_map.style.display = "block"
         autocomplete_block.style.display = "block"
-        
+
         break;
       case 4:
         component = <_4_InputImagesMarketOrder
@@ -303,7 +301,7 @@ class MakeMarketOrder extends React.Component {
     })
   }
 
-  async geolocateAndSetState(){
+  async geolocateAndSetState() {
     let geocoder = window.geocoder
 
     const latlng = {
@@ -324,11 +322,11 @@ class MakeMarketOrder extends React.Component {
     const address = response.results[0].formatted_address, addressArray = response.results[0].address_components;
 
     let st_number = utils.getStreetNumber(addressArray),
-    st = utils.getStreet(addressArray),
-    neigh = utils.getNeighborhood(addressArray),
-    province_state = utils.getProvinceState(addressArray),
-    city = utils.getCity(addressArray),
-    country = utils.getCountry(addressArray)
+      st = utils.getStreet(addressArray),
+      neigh = utils.getNeighborhood(addressArray),
+      province_state = utils.getProvinceState(addressArray),
+      city = utils.getCity(addressArray),
+      country = utils.getCountry(addressArray)
 
 
     st_number = (st_number) ? st_number : undefined
@@ -337,6 +335,17 @@ class MakeMarketOrder extends React.Component {
     province_state = (province_state) ? province_state : undefined
     city = (city) ? city : undefined
     country = (country) ? country : undefined
+
+
+    // console.log({
+    //   address: (address) ? address : undefined,
+    //   st_number: st_number,
+    //   st: st,
+    //   neigh: neigh,
+    //   province_state: province_state,
+    //   city: city,
+    //   country: country,
+    // })
 
     return this.setState({
       address: (address) ? address : undefined,
@@ -358,7 +367,7 @@ class MakeMarketOrder extends React.Component {
 
     if (this.state.lat == undefined ||
       this.state.lng == undefined) {
-      return 
+      return
     }
 
     if (this.state.lat !== prevState.lat ||
@@ -371,7 +380,7 @@ class MakeMarketOrder extends React.Component {
   }
 
 
-  firstPlacementMap(){
+  firstPlacementMap() {
     var a = document.querySelectorAll('a[href="/marketplace/makesell"]')[0]
     let the_map = document.getElementById('the-map');
     let autocomplete_block = document.getElementById('autocomplete-block');

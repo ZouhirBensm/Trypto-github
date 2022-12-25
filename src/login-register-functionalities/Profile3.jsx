@@ -42,8 +42,7 @@ class Profile extends React.Component {
 
 
 
-  // TODO !!! Have item database reorganize based on the users registered locality
-  // TODO !!!! have script that populates the db of several market orders
+  // TODO !!!! Have item database reorganize based on the users registered locality
   // TODO !!!! Have the app adaptible to USD currency
   // TODO !!!! Be able to change users associated locality in their profile
 

@@ -119,7 +119,8 @@ marketplaceMiddleware.processImageFilesMiddleware,
 marketplaceMiddleware.instantiateMarketOrderImagesMiddleware,
 marketplaceMiddleware.saveAllMarketOrderMiddleware,
 marketplaceMiddleware.setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware,
-marketplaceController.registerMarketOrderController)
+marketplaceController.registerMarketOrderController
+)
 
 
 
