@@ -1,10 +1,10 @@
 import './style/MarketOrders.css'
 
-
-import PageSelector from '../generic-components/PageSelector';
-
+import NavigationNew from './NavigationNew'
 import SearchEngine from './market-order-list-components/SearchEngine';
 import MarketOrderTable from './market-order-list-components/MarketOrderTable';
+import PageSelector from '../generic-components/PageSelector';
+
 
 
 
@@ -49,7 +49,7 @@ class MarketOrders extends React.Component {
     // console.log("---------->>>>>!!!", userId)
   }
 
-  resetPriceFilter(){
+  resetPriceFilter() {
     this.setState({
       minPriceTerm: undefined,
       maxPriceTerm: undefined,
@@ -160,6 +160,9 @@ class MarketOrders extends React.Component {
 
     return (
       <React.Fragment>
+
+        <NavigationNew/>
+
         <SearchEngine
           searchEngineState={searchEngineState}
           submitFilter={this.submitFilter}
@@ -169,7 +172,7 @@ class MarketOrders extends React.Component {
           maxPriceTerm={this.state.maxPriceTerm}
         />
 
-        <div id="market-order-table-wrapper" className='wrapper'>
+        <div className='market-main-component'>
 
           {this.popup ?
             <p>{this.popup}</p>
@@ -229,7 +232,7 @@ class MarketOrders extends React.Component {
       document.getElementById("my_form").elements["city"].value = ''
     }
 
-    
+
     let titleTerm_value = document.getElementById("my_form").elements["title"].value
     let categoryTerm_value = document.getElementById("my_form").elements["category"].value
     let conditionTerm_value = document.getElementById("my_form").elements["condition"].value
@@ -239,7 +242,7 @@ class MarketOrders extends React.Component {
     let maxPriceTerm_value = this.state.maxPriceTerm
 
     let countryTerm_value = document.getElementById("my_form").elements["country"].value
-    
+
     let stateProvinceTerm_value = document.getElementById("my_form").elements["state-province"].value
     let cityTerm_value = document.getElementById("my_form").elements["city"].value
 
@@ -249,7 +252,7 @@ class MarketOrders extends React.Component {
     }
 
 
- 
+
 
     this.setState({
       titleTerm: titleTerm_value == '' ? undefined : titleTerm_value,

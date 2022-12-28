@@ -1,6 +1,9 @@
-div#market-order-table-wrapper {
+/* TODO !!!! make this generic to all marketplace components, also change the id to something genric also */
+
+div.market-main-component {
   height: 70vh;
-  width: 94vw;
+  width: 94%;
+  /* width: 94vw; */
   overflow: scroll;
   border: 1px red solid;
   position: absolute;

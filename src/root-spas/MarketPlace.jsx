@@ -36,7 +36,6 @@ class MarketPlace extends React.Component {
       <div id="super-wrapper">
         <BrowserRouter>
           <Switch>
-            {/* /marketplace */}
             <Route exact path="/marketplace" render={
               (props) => <Navigation {...props} mode="marketplace" />
             } />

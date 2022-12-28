@@ -1,6 +1,9 @@
 
-import '../style/reactDivMobile.css'
+import NavigationNew from './NavigationNew'
+// import '../style/reactDivMobile.css'
+import './style/MarketOrders.css'
 import './style/googlemaps.css'
+
 
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading"
@@ -140,12 +143,16 @@ class MakeMarketOrder extends React.Component {
 
     return (
       <React.Fragment>
-        <a href="/marketplace/makesell"> Reset </a>
-        {component}
+        <NavigationNew/>
 
-        {this.state.popup_state ?
-          <p>{this.state.popup_state}</p>
-          : null}
+        <div className='market-main-component'>
+          <a href="/marketplace/makesell"> Reset </a>
+          {component}
+
+          {this.state.popup_state ?
+            <p>{this.state.popup_state}</p>
+            : null}
+        </div>
 
 
       </React.Fragment>
