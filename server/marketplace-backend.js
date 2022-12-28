@@ -100,7 +100,7 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
   // Might need this as a "script endpoint global" variable!
   // res.locals.userId = req.session.userId
   navBars = NAVBAR.CLIENTS
-  next()
+  return next()
 })
 
 
@@ -155,11 +155,12 @@ marketplaceBackend_app_router.get(['/', '/allmyorders', '/sellordersdata', '/mak
 
   res.locals.popup = req.query.popup
 
-  console.log("\nDo we have any pop-up messages: \n", req.query.popup);
+  // console.log("\nDo we have any pop-up messages: \n", req.query.popup);
 
-  // console.log("paths:", res.locals.paths_URL)
+  
   res.locals.userId = req.session.userId
-
+  
+  console.log("\n\n\nres.locals: ---->>>>>", res.locals)
 
   var JSX_to_load = 'MarketPlace';
 

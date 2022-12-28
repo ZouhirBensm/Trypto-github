@@ -84,10 +84,11 @@ class MyMarketOrders extends React.Component {
 
 
   render() {
-    console.log("popup:", this.popup)
+    console.log("popup:", this.popup, paths_URL)
     return (
       <React.Fragment>
-        <NavigationNew />
+        {paths_URL[0] == "operations"? null: paths_URL[0] == "marketplace" ? <NavigationNew /> : null}
+        
         <div className='market-main-component'>
           {this.popup ?
             <p>{this.popup}</p>
