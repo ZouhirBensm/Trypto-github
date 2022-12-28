@@ -32,14 +32,12 @@ class BTClayerexchange extends React.Component {
     }
   }
   render() {
-    // console.log("----->>>>>> ici", userId)
+    // console.log("\nuserId----->>>>>>", userId)
     return (
         <div>
         <BrowserRouter> 
           <Switch> 
-            <Route exact path="/btclayerexchange" render={
-              (props) => <Navigation {...props} mode="orders"/>
-            } />
+            <Route exact path="/btclayerexchange" component={Navigation} />
 
             <Route exact path="/btclayerexchange/makebuy" component={MakeCurrencyOrder} />
             <Route exact path="/btclayerexchange/makesell" component={MakeCurrencyOrder} />

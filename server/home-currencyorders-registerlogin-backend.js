@@ -355,21 +355,21 @@ homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(fal
 
 
 // Endpoints
-// /btclayerexchange/allmyorders, /btclayerexchange/matches, /btclayerexchange/buyordersdata, /btclayerexchange/sellordersdata
-// /btclayerexchange/makebuy, /btclayerexchange/makesell, 
+// /btclayerexchange/allmyorders, 
+// /btclayerexchange/matches, 
+// /btclayerexchange/buyordersdata, 
+// /btclayerexchange/sellordersdata,
+// /btclayerexchange/makebuy, 
+// /btclayerexchange/makesell
+
 homeOrdersBackend_app_router.get(['/btclayerexchange/:page?'], require_loggedin_for_pages(true), (req, res) => {
 
   // console.log("page: ", req.params.page)
-
-  console.log("paths:", res.locals.paths_URL)
-
-  // res.locals.paths_URL[0] == "btclayerexchange"? res.locals.userId = req.session.userId: null
+  // console.log("\npaths:---->", res.locals.paths_URL)
 
   res.locals.userId = req.session.userId
 
   var JSX_to_load = 'BTClayerexchange';
-
-  // console.log("\n\nResponse locals: ___________________/n", res.locals, "\n\n____________________\n\n")
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
     JSX_to_load: JSX_to_load,
   })
