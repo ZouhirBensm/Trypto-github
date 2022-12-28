@@ -1,4 +1,4 @@
-import './style/MarketOrders.css'
+import './style/market-main-component.css'
 
 import NavigationNew from './NavigationNew'
 

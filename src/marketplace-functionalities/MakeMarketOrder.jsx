@@ -1,7 +1,7 @@
 
 import NavigationNew from './NavigationNew'
 // import '../style/reactDivMobile.css'
-import './style/MarketOrders.css'
+import './style/market-main-component.css'
 import './style/googlemaps.css'
 
 
