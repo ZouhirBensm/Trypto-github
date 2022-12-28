@@ -108,6 +108,48 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
+marketplaceBackend_app_router.get(['/allmyorders', '/sellordersdata', '/makesell'], require_loggedin_for_pages(true), (req, res) => {
+
+  console.log("\n\nSimple\n\n")
+
+  res.locals.popup = req.query.popup
+  res.locals.userId = req.session.userId
+  
+  // console.log("\nDo we have any pop-up messages: \n", req.query.popup);
+  // console.log("\n\n\nres.locals: ---->>>>>", res.locals)
+
+  var JSX_to_load = 'MarketPlace';
+
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
+    JSX_to_load: JSX_to_load,
+  })
+})
+
+
+
+
+
+
+marketplaceBackend_app_router.get(['/sellordersdata/:orderID', '/allmyorders/:orderID'], require_loggedin_for_pages(true), (req, res) => {
+
+  console.log("\n\nDetailed\n\n")
+  // console.log("paths:", res.locals.paths_URL);
+
+  res.locals.userId = req.session.userId
+
+  var JSX_to_load = 'MarketPlace';
+
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
+    JSX_to_load: JSX_to_load,
+  })
+})
+
+
+
+
+
+
+
 
 marketplaceBackend_app_router.post('/sellorders/save/:userID?', 
 require_loggedin_for_data(true), 
@@ -150,24 +192,7 @@ marketplaceBackend_app_router.get('/json/agglomerates', require_loggedin_for_dat
 
 
 
-marketplaceBackend_app_router.get(['/', '/allmyorders', '/sellordersdata', '/makesell'], require_loggedin_for_pages(true), (req, res) => {
 
-
-  res.locals.popup = req.query.popup
-
-  // console.log("\nDo we have any pop-up messages: \n", req.query.popup);
-
-  
-  res.locals.userId = req.session.userId
-  
-  console.log("\n\n\nres.locals: ---->>>>>", res.locals)
-
-  var JSX_to_load = 'MarketPlace';
-
-  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
-    JSX_to_load: JSX_to_load,
-  })
-})
 
 
 
@@ -259,20 +284,6 @@ marketplaceBackend_app_router.patch('/:userId/update23', require_loggedin_for_da
 
 
 
-
-
-marketplaceBackend_app_router.get(['/sellordersdata/:orderID', '/allmyorders/:orderID'], require_loggedin_for_pages(true), (req, res) => {
-
-  console.log("paths:", res.locals.paths_URL);
-
-  (res.locals.paths_URL[1] == "allmyorders" || res.locals.paths_URL[1] == "sellordersdata") ? res.locals.userId = req.session.userId : null
-
-  var JSX_to_load = 'MarketPlace';
-
-  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
-    JSX_to_load: JSX_to_load,
-  })
-})
 
 
 

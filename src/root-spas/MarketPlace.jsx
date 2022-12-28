@@ -1,11 +1,6 @@
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
 
-
-const Navigation = loadable(() => import("../btclayerexchange-functionalities/Navigation"), {
-  fallback: <Loading />
-});
-
 const MakeMarketOrder = loadable(() => import("../marketplace-functionalities/MakeMarketOrder"), {
   fallback: <Loading />
 });
@@ -27,40 +22,23 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 class MarketPlace extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-    }
+    this.state = {}
     // console.log("userId", userId)
   }
+
   render() {
     return (
       <div id="super-wrapper">
         <BrowserRouter>
           <Switch>
-            <Route exact path="/marketplace" render={
-              (props) => <Navigation {...props} mode="marketplace" />
-            } />
-
-            <Route exact path="/marketplace/makesell" render={
-              (props) => <MakeMarketOrder {...props} />
-            } />
-
-
-
-
+            <Route exact path="/marketplace/makesell" component={MakeMarketOrder} />
             <Route exact path="/marketplace/sellordersdata" component={MarketOrders} />
 
             <Route exact path="/marketplace/allmyorders" render={
               (props) => <MyMarketOrders {...props} userID_toQueryWith={userId} />
             } />
 
-
-
-
-
-
-            <Route path="/marketplace/:order_type/:orderID" render={
-              (props) => <MarketOrderDetails {...props} />
-            } />
+            <Route exact path="/marketplace/:order_type/:orderID" component={MarketOrderDetails} />
 
           </Switch>
         </BrowserRouter>
