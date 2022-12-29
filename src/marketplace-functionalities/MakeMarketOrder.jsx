@@ -19,6 +19,7 @@ const _2_InputNumbersMarketOrder = loadable(() => import("./make-market-order-co
   fallback: <Loading />
 });
 
+// TODO !!!! the google map is not rendering properly, need to fix
 const _3_InputLocationMarketOrder = loadable(() => import("./make-market-order-components/_3_InputLocationMarketOrder"), {
   fallback: <Loading />
 });
