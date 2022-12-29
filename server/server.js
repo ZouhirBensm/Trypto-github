@@ -214,7 +214,8 @@ express_server_app_router.get('/ip', (request, response) => response.send(reques
 
 express_server_app_router.use('/', homeOrdersBackend_app_router)
 
-express_server_app_router.use('/currency', currencyBackend_app_router)
+// Disables the currency app
+// express_server_app_router.use('/currency', currencyBackend_app_router)
 
 express_server_app_router.use('/marketplace', marketplaceBackend_app_router)
 
