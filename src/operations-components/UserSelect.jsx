@@ -13,15 +13,14 @@ class UserSelect extends React.Component {
     this.state = {
       users: [],
       page: 1,
-      limit: 3, //Limit per page defined here!
+      limit: 3,
       nextPage: 2,
       previousPage: undefined,
       on_off_limit_next: false,
       on_off_limit_previous: true,
       number_of_pages: 1,
     }
-    this.controls = this.controls.bind(this);
-    
+    this.controls = this.controls.bind(this); 
   }
 
   controls(_page) {

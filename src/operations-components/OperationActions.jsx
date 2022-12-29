@@ -24,9 +24,10 @@ class OperationActions extends React.Component {
 
   setupTheProperComponent(_profileimagename){
     switch (this.state.mode) {
-      case "help-for-orders":
-        this.componentToRender = <HelpForOrders selected_userID={this.props.match.params.selected_userID}/>
-        break;
+      // Disables the currency app
+      // case "help-for-orders":
+      //   this.componentToRender = <HelpForOrders selected_userID={this.props.match.params.selected_userID}/>
+      //   break;
       case "monitor-messages":
         this.componentToRender = <MonitorForMessages
           comprehensiveSelectedUserInfoDataObj={this.comprehensiveSelectedUserInfoDataObj}

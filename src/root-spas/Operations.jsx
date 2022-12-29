@@ -18,6 +18,7 @@ const UserSelect = loadable(() => import("../operations-components/UserSelect"),
 const ScrollToTop = loadable(() => import("../generic-components/ScrollToTop"), {
   fallback: <Loading />
 });
+
 // const NotFound = loadable(() => import("../generic-components/NotFound"),{
 //   fallback: <Loading/>
 // });
@@ -45,7 +46,8 @@ class Operations extends React.Component {
           <Switch>
 
             <Route exact path="/">
-              <Admin_Block className="horders" title="Help for BTC currency orders" link="/help-for-orders" />
+              {/* Disables the currency app */}
+              {/* <Admin_Block className="horders" title="Help for BTC currency orders" link="/help-for-orders" /> */}
               <Admin_Block className="mmessages" title="Monitor Messages" link="/monitor-messages" />
               <Admin_Block className="msubs" title="Manage Subscriptions" link="/manage-subs" />
               <Admin_Block className="articlesd" title="Articles dashbord" link="/articles-dashboard" />
@@ -53,10 +55,10 @@ class Operations extends React.Component {
             </Route>
 
 
-            
-            <Route path="/help-for-orders" render={
+            {/* Disables the currency app */}
+            {/* <Route path="/help-for-orders" render={
               (props) => <UserSelect {...props} mode="help-for-orders" />
-            } />
+            } /> */}
             
             <Route path="/monitor-messages" render={
               (props) => <UserSelect {...props} mode="monitor-messages" />
