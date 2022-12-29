@@ -42,6 +42,7 @@ module.exports = async (req,res,next)=>{
   })
 
 
+
   // console.log("\n\nres.locals.URL_fromReferer->", res.locals.URL_fromReferer)
   // console.log("\n\nbuild->", `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/currency/btclayerexchange/%PAGE%`)
   
@@ -52,6 +53,7 @@ module.exports = async (req,res,next)=>{
       if(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/currency/btclayerexchange/matches`){
         console.log("MATCHES MODE")
         try {
+          // console.log("\n\ncurrencyordersRetrievalMiddleware()->mysellOrders, buyOrders, res.locals.path_param_userID: ", mysellOrders, buyOrders, res.locals.path_param_userID)
           orders = await buyMatchesFinder(mysellOrders, buyOrders, res.locals.path_param_userID)
           .then(
             (arrayOfarrayMatchesforEachSell) => {

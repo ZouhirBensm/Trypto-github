@@ -18,8 +18,8 @@ const requireRefererMiddleware = require('../middleware/generic-middleware/requi
 const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
-// TODO !!!! this middleware needs to be but in the generics folder throughout the app. Then chnge the paths respectivly
-const paginatedOrdersSetupMiddleware = require('../middleware/home-currencyorders-middleware/paginated-orders-setup-middleware')
+const paginatedOrdersSetupMiddleware = require('../middleware/generic-middleware/paginated-orders-setup-middleware')
+
 
 
 const currencyordersRetrievalMiddleware = require('../middleware/currencyorders-middleware/currencyorders-retrieval-middleware')

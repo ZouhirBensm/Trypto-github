@@ -9,14 +9,13 @@ class CurrencyOrderMatches extends React.Component {
       orders: [],
       orderstype: 'sellordersdata',
       page: 1,
-      limit: 2, //Limit per page defined here!
+      limit: 3,
       nextPage: 2,
       previousPage: undefined,
       on_off_limit_next: false,
       on_off_limit_previous: true,
       number_of_pages: 1,
     }
-    // this.userId = document.getElementById("userId").innerHTML
     this.userId = userId
     this.controls = this.controls.bind(this);
     this.handleToogleFound = this.handleToogleFound.bind(this)
@@ -37,10 +36,9 @@ class CurrencyOrderMatches extends React.Component {
   
   async loadData(_orderstype){
     
-    console.log(`/paginated-orders/${_orderstype}/${this.userId}?page=${this.state.page}&limit=${this.state.limit}`)
+    console.log("CurrencyOrderMatches: loadData()-> fetch\n", `/currency/paginated-orders/${_orderstype}/${this.userId}?page=${this.state.page}&limit=${this.state.limit}`)
 
-    // /${this.userId}
-    let response = await fetch(`/paginated-orders/${_orderstype}/${this.userId}?page=${this.state.page}&limit=${this.state.limit}`)
+    let response = await fetch(`/currency/paginated-orders/${_orderstype}/${this.userId}?page=${this.state.page}&limit=${this.state.limit}`)
     
     let serverOBJ = await response.json()
 
@@ -70,15 +68,14 @@ class CurrencyOrderMatches extends React.Component {
           })
         }
       })
-    // Custom Errors get spitted out here
     } else {
       console.error("Error: ", serverOBJ)
     }
 
     
   }
+
   componentDidUpdate(prevProps, prevState) {
-    // Typical usage (don't forget to compare props):
     if (this.state.orderstype !== prevState.orderstype) {
       this.loadData(this.state.orderstype);
     }
@@ -93,7 +90,7 @@ class CurrencyOrderMatches extends React.Component {
   }
 
   render() {
-    console.log("operating under: ", this.state.orderstype)
+    console.log("CurrencyOrderMatches: render()-> this.state.orderstype: ", this.state.orderstype)
 
 
     return (
@@ -123,9 +120,5 @@ class CurrencyOrderMatches extends React.Component {
     )
   }
 }
-
-// const element = <Matches />;
-
-// ReactDOM.render(element, document.getElementById('react-div'));
 
 export default CurrencyOrderMatches

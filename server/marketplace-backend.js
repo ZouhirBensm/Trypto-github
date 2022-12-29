@@ -47,7 +47,8 @@ const distributeDataController = require('../controllers/articles-controllers/di
 // Middleware
 // const requireRefererMiddleware = require('../middleware/generic-middleware/require-referer')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
-const paginatedOrdersSetupMiddleware = require('../middleware/home-currencyorders-middleware/paginated-orders-setup-middleware')
+
+const paginatedOrdersSetupMiddleware = require('../middleware/generic-middleware/paginated-orders-setup-middleware')
 
 
 
@@ -136,6 +137,7 @@ marketplaceBackend_app_router.get(['/sellordersdata/:orderID', '/allmyorders/:or
   // console.log("paths:", res.locals.paths_URL);
 
   res.locals.userId = req.session.userId
+
 
   var JSX_to_load = 'MarketPlace';
 
