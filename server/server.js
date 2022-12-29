@@ -103,6 +103,7 @@ const utils = require('../full-stack-libs/utils')
 
 
 const homeOrdersBackend_app_router = require('./home-currencyorders-registerlogin-backend')
+const currencyBackend_app_router = require('./currencyorders-backend')
 const marketplaceBackend_app_router = require('./marketplace-backend')
 const messagingBackend_app_router = require('./messaging-backend');
 const paypalBackend_app_router = require('./paypal-backend')
@@ -212,6 +213,8 @@ express_server_app_router.get('/ip', (request, response) => response.send(reques
 
 
 express_server_app_router.use('/', homeOrdersBackend_app_router)
+
+express_server_app_router.use('/currency', currencyBackend_app_router)
 
 express_server_app_router.use('/marketplace', marketplaceBackend_app_router)
 

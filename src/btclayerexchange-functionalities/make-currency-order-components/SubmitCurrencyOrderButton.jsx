@@ -10,6 +10,8 @@ class SubmitCurrencyOrderButton extends React.Component {
     this.createCurrencyOrder = this.createCurrencyOrder.bind(this)
   }
 
+  
+
   componentDidMount() {
 
     var currencySubmitButton = document.getElementById("currency-submit")
@@ -79,7 +81,7 @@ class SubmitCurrencyOrderButton extends React.Component {
       return
     }
 
-    let response = await fetch(`/${url_param_order_type_to_save}/save`, {
+    let response = await fetch(`/currency/${url_param_order_type_to_save}/save`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

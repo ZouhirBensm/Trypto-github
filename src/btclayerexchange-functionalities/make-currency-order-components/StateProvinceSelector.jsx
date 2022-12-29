@@ -8,7 +8,7 @@ class StateProvinceSelector extends React.Component {
   }
 
   setProvinceSelector(){
-    console.log("StateProvinceSelector->setProvinceSelector()->", this.props.country, this.props.province)
+    // console.log("StateProvinceSelector->setProvinceSelector()->", this.props.country, this.props.province)
 
     let options
     let tag_options_arr_data = []

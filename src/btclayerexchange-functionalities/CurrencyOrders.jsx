@@ -10,13 +10,12 @@ class CurrencyOrders extends React.Component {
     this.state = {
       orders: [],
       page: 1,
-      limit: 3, //Limit per page defined here!
+      limit: 3,
       nextPage: 2,
       previousPage: undefined,
       on_off_limit_next: false,
       on_off_limit_previous: true,
       crypto: undefined,
-      // searchTerm: '',
       searchEngineState: {
         chainTerm: undefined,
       },
@@ -27,10 +26,7 @@ class CurrencyOrders extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.userId = userId
 
-    // this.userId = document.getElementById("userId").innerHTML
-    // this.repairData = this.repairData.bind(this)
-
-    // console.log("CurrencyOrders: constructor()->", this.props.match.params.order_type)
+    console.log("CurrencyOrders: constructor()->this.props.match.params.order_type, userId", this.props.match.params.order_type, userId)
   }
 
 
@@ -44,20 +40,19 @@ class CurrencyOrders extends React.Component {
   }
 
   componentDidMount() {
-    //DOM is ready
     this.loadData()
   }
 
   async loadData() {
     let theUtilizedSearchQuery = this.setuptheSeachQuery(this.state.searchEngineState)
 
-    console.log("theUtilizedSearchQuery:", theUtilizedSearchQuery)
+    console.log("CurrencyOrders: loadData()->theUtilizedSearchQuery:", theUtilizedSearchQuery)
 
 
-    console.log(`/paginated-orders/${this.props.match.params.order_type}?page=${this.state.page}&limit=${this.state.limit}${theUtilizedSearchQuery ? theUtilizedSearchQuery : ""}`)
+    console.log(`/currency/paginated-orders/${this.props.match.params.order_type}?page=${this.state.page}&limit=${this.state.limit}${theUtilizedSearchQuery ? theUtilizedSearchQuery : ""}`)
 
 
-    let response = await fetch(`/paginated-orders/${this.props.match.params.order_type}?page=${this.state.page}&limit=${this.state.limit}${theUtilizedSearchQuery ? theUtilizedSearchQuery : ""}`)
+    let response = await fetch(`/currency/paginated-orders/${this.props.match.params.order_type}?page=${this.state.page}&limit=${this.state.limit}${theUtilizedSearchQuery ? theUtilizedSearchQuery : ""}`)
 
     let serverOBJ = await response.json()
 
@@ -65,7 +60,7 @@ class CurrencyOrders extends React.Component {
 
     if (response.ok) {
 
-      // console.log("serverOBJ: ", serverOBJ)
+      console.log("CurrencyOrders: loadData()->serverOBJ: ", serverOBJ)
 
       this.setState({
         orders: serverOBJ.srv_.ORDERS,
@@ -92,7 +87,6 @@ class CurrencyOrders extends React.Component {
           })
         }
       })
-      // Custom Errors get spitted out here
     } else {
       console.error("Error: ", serverOBJ)
     }
@@ -100,7 +94,6 @@ class CurrencyOrders extends React.Component {
   }
 
   render() {
-    // console.log("Here orders!: ", this.state.orders)
     return (
       <React.Fragment>
         {/* TODO #102 Add touch event to slide search engine */}
@@ -111,6 +104,7 @@ class CurrencyOrders extends React.Component {
           handleChange={this.handleChange}
           order_type={this.props.match.params.order_type}
         />
+
         <div className='wrapper'>
           <CurrencyOrderTable
             selected_userID={this.userId}
@@ -136,13 +130,9 @@ class CurrencyOrders extends React.Component {
 
 
   handleChange(e) {
-    console.log("The form is changing....")
-
-    // console.log(e.target.value)
+    console.log("CurrencyOrders: handleChange()->The form is changing....")
 
     let chainTerm_value = document.getElementById("my_form").elements["chain"].value
-    // console.log({chainTerm_value})
-
 
     this.setState({
       searchEngineState: {
@@ -164,9 +154,9 @@ class CurrencyOrders extends React.Component {
 
 
   setuptheSeachQuery(_searchEngineState) {
-    console.log("------------->>>> IN setuptheSeachQuery:::", _searchEngineState)
-    // let searchObjectFilteredFromUndefined = {}
+    console.log("CurrencyOrders: setuptheSeachQuery()-->_searchEngineState:", _searchEngineState)
 
+    // let searchObjectFilteredFromUndefined = {}
     for (const key in _searchEngineState) {
       // console.log("key", key)
       if (Object.hasOwnProperty.call(_searchEngineState, key)) {
@@ -176,8 +166,6 @@ class CurrencyOrders extends React.Component {
         }
       }
     }
-
-    console.log("------------->>>> IN setuptheSeachQuery:::", _searchEngineState)
 
     let _theUtilizedSearchQuery
 

@@ -2,39 +2,26 @@ const BuyCryptoOrder = require('../../models/home-currencyorders-models/BuyCrypt
 
 const SellCryptoOrder = require('../../models/home-currencyorders-models/SellCryptoOrder')
 
-var ObjectId = require('mongodb').ObjectId; 
-
 const ENV = require('../../config/base')
 
-const {filterObject, formOrderFindFilter, buyMatchesFinder, sellMatchesFinder} = require('../../middleware/libs/match-maker-functions')
+const {formOrderFindFilter, buyMatchesFinder, sellMatchesFinder} = require('../../middleware/libs/match-maker-functions')
 
 module.exports = async (req,res,next)=>{
-  console.log("\n\n\n______in ordersRetrievalMiddleware: \n\n")
 
-
-  // TODO !!!! delete this entire middleware, as it's functionality has been transfered and used in currencyorders-middleware/currencyorders-retrieval-midleware.js
-
-
-  // URL path parameters
-  // let type_orders = req.params.type_orders
-  // let path_param_userID = req.params.userID
-
-
-  // Query string parameters
   let searchEngineTerms = req.query.search
   searchEngineTerms = searchEngineTerms ? JSON.parse(searchEngineTerms) : undefined
 
-  console.log("currencyordersRetrievalMiddleware()->searchEngineTerms: ", searchEngineTerms)
+  // console.log("currencyordersRetrievalMiddleware()->searchEngineTerms: ", searchEngineTerms)
 
 
   
   let findObject = formOrderFindFilter(searchEngineTerms)
   
-  console.log("currencyordersRetrievalMiddleware()->findObject: ", findObject)
+  // console.log("currencyordersRetrievalMiddleware()->findObject: ", findObject)
 
 
 
-  let orders
+  let orders = []
 
 
 
@@ -55,12 +42,14 @@ module.exports = async (req,res,next)=>{
   })
 
 
+  // console.log("\n\nres.locals.URL_fromReferer->", res.locals.URL_fromReferer)
+  // console.log("\n\nbuild->", `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/currency/btclayerexchange/%PAGE%`)
   
   switch(res.locals.type_orders) {
 
     case 'buyordersdata':
 
-      if(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/matches`){
+      if(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/currency/btclayerexchange/matches`){
         console.log("MATCHES MODE")
         try {
           orders = await buyMatchesFinder(mysellOrders, buyOrders, res.locals.path_param_userID)
@@ -79,10 +68,10 @@ module.exports = async (req,res,next)=>{
           return next(err)
         }
 
-      } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/allmyorders` || res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`) {
+      } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/currency/btclayerexchange/allmyorders` || res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`) {
         console.log("MY MODE -> from path param")
         orders = mybuyOrders
-      } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/buyordersdata`) {        
+      } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/currency/btclayerexchange/buyordersdata`) {        
         console.log("NORMAL MODE")
         orders = buyOrders
       } else {
@@ -91,7 +80,7 @@ module.exports = async (req,res,next)=>{
       break
 
     case 'sellordersdata':
-      if(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/matches`){
+      if(res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/currency/btclayerexchange/matches`){
         console.log("\n MATCHES MODE:\n")
 
         try {
@@ -111,10 +100,10 @@ module.exports = async (req,res,next)=>{
           return next(err)
         }
 
-      } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/allmyorders` || res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`) {
+      } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/currency/btclayerexchange/allmyorders` || res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-orders/${res.locals.path_param_userID}`) {
         console.log("MY MODE -> from path param")
         orders = mysellOrders
-      } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/btclayerexchange/sellordersdata`) {        
+      } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/currency/btclayerexchange/sellordersdata`) {        
         console.log("NORMAL MODE")
         orders = sellOrders
       } else {

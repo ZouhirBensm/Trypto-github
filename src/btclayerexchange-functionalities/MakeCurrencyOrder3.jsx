@@ -13,7 +13,7 @@ class MakeCurrencyOrder extends React.Component {
       popup_state: null,
     }
     this.displayPopup = this.displayPopup.bind(this)
-    // console.log("MakeCurrencyOrder->constructor()", this.props.match.params.type, caseOptionBTClayerexchange, paths_URL, URL_)
+    console.log("MakeCurrencyOrder->constructor()", caseOptionBTClayerexchange, paths_URL, URL_, userId)
   }
 
   displayPopup(error = undefined) {
@@ -39,13 +39,9 @@ class MakeCurrencyOrder extends React.Component {
 
 
           <MakeCurrencyOrderExpiry/>
-
           <MakeCurrencyOrderLocation/>
-
           <MakeCurrencyOrderNumbers/>
-
           <MakeCurrencyOrderChainPayment/>
-
 
           <input type="text" name="hny_spm"/><br />
 
@@ -63,7 +59,6 @@ class MakeCurrencyOrder extends React.Component {
 
     );
   }
-  //_________________________________________________________________
 }
 
 export default MakeCurrencyOrder

@@ -29,17 +29,17 @@ class Navigation extends React.Component {
       case "Make":
         return (
           <div className="make">
-            <a href="/btclayerexchange/makebuy">Purchase</a>
-            <a href="/btclayerexchange/makesell">Sell</a>
+            <a href="/currency/btclayerexchange/makebuy">Purchase</a>
+            <a href="/currency/btclayerexchange/makesell">Sell</a>
           </div>
         )
       case "See":
         return (
           <div className="see"> 
-            <a href={`/btclayerexchange/buyordersdata`}>Clients</a>
-            <a href={`/btclayerexchange/sellordersdata`}>Sellers</a>
-            <a href="/btclayerexchange/allmyorders">My</a>
-            <a href="/btclayerexchange/matches">Matches</a>
+            <a href={`/currency/btclayerexchange/buyordersdata`}>Clients</a>
+            <a href={`/currency/btclayerexchange/sellordersdata`}>Sellers</a>
+            <a href="/currency/btclayerexchange/allmyorders">My</a>
+            <a href="/currency/btclayerexchange/matches">Matches</a>
           </div>
         )
       default:

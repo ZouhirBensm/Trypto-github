@@ -20,8 +20,6 @@ class CurrencyOrderTable extends React.Component {
   }
   
   handleToogleEdit(buttons, valueid, e) {
-    //e.preventDefault()
-    //console.log(e.target.value);
     this.setState(prevState => ({
       orderID_toToggle: valueid,
       buttons: buttons
@@ -29,9 +27,6 @@ class CurrencyOrderTable extends React.Component {
   }
 
   render() {
-    // console.log("Parent toogled id ", this.state.orderID_toToggle )
-    // console.log("buttons ", this.state.buttons )
-
     let ordersRow
 
     if (this.props.orders) {
@@ -51,7 +46,6 @@ class CurrencyOrderTable extends React.Component {
     } else {
       console.error(`this.props.orders resolved to a false for some reason`)
     }
-    // console.log("Does Not Require Keys: ", ordersRow)
 
     return (
       <table className="bordered-table">
@@ -66,8 +60,7 @@ class CurrencyOrderTable extends React.Component {
 class OrderRow extends React.Component {
   constructor(props) {
     super(props)
-    // this.state = {
-    // }
+    this.state = {}
     this.handleSubmit = this.handleSubmit.bind(this)
     this.deal = this.deal.bind(this)
     this.selected_userID = this.props.selected_userID
@@ -75,7 +68,6 @@ class OrderRow extends React.Component {
 
   deal(order, e) {
     e.preventDefault()
-    // console.log(`/messaging?orderId=${order._id}&userIdB=${order.userid._id}`)
     window.location.href = `/messaging?orderId=${order._id}&userIdB=${order.userid._id}`
   }
 
@@ -88,16 +80,14 @@ class OrderRow extends React.Component {
     if(!!(div.innerHTML)) return
     div.style.display = "block"
     wrapper2.insertBefore(div, wrapper2.firstChild);
-
-
   }
+
+
 
   displayEditPopUp(error = undefined) {
 
     let div = document.getElementById("popup");
-
     this.setupPopUpDiv()
-
 
     if (!error) {
       div.innerHTML = "Successful update!"
@@ -112,11 +102,7 @@ class OrderRow extends React.Component {
 
   async handleSubmit(_order, e) {
     e.preventDefault()
-    console.log("Testing handle submit")
-
     const orderType = document.getElementById("my_form").elements["OrderType"].value
-
-
     let amount_s = []
     orderType === "buyordersdata"? amount_s = ["amount"]: null
     orderType === "sellordersdata"? amount_s = ["minamount", "maxamount"]:
@@ -126,13 +112,8 @@ class OrderRow extends React.Component {
 
     for (const field of amount_s) {
       console.log("field", field)
-
       amount_fields_obj[field] = document.getElementById("my_form").elements[field].value
     }
-
-    console.log(amount_fields_obj)
-
-
 
     let hiddenFieldsNeededWhenPatchRequest = {
       OrderType: document.getElementById("my_form").elements["OrderType"].value,
@@ -140,7 +121,6 @@ class OrderRow extends React.Component {
     }
 
     let objectToPatchWith = {
-      // crypto: document.getElementById("my_form").elements["crypto"].value,
       chain: document.getElementById("my_form").elements["chain"].value,
       ...amount_fields_obj,
       rate: document.getElementById("my_form").elements["rate"].value,
@@ -148,46 +128,29 @@ class OrderRow extends React.Component {
       expirytime: document.getElementById("my_form").elements["expirytime"].value
     }
 
-
-
-
-    // console.log("working with object to patch with:", objectToPatchWith, {userId})
-
-    // console.log(objectToPatchWith)
-    // console.log(_order)
-
-
     const isEqual = (key) => objectToPatchWith[key] == _order[key];
     const isNotEdited = Object.keys(objectToPatchWith).every(isEqual)
     let first_msg_if_any = "Inputs haven't changed, therefor nothing to update!"
-    // console.log(isNotEdited)
     if (isNotEdited) return this.displayEditPopUp(first_msg_if_any)
-
-
 
     objectToPatchWith = {
       ...hiddenFieldsNeededWhenPatchRequest,
       ...objectToPatchWith,
     }
 
-
-    // console.log(objectToPatchWith)
-
-
+    // console.log("CurrencyOrderTable: handleSubmit()->objectToPatchWith", objectToPatchWith)
 
     let error = validateInputs(objectToPatchWith) || validateExpiry(objectToPatchWith)
 
-    console.log("error======>>>>>>>", error)
+    // console.log("CurrencyOrderTable: handleSubmit()->error", error)
 
-
-    // console.log("error", error)
     error = parseInt(objectToPatchWith.minamount)>parseInt(objectToPatchWith.maxamount) && !error ? "Min Amount Cannot be superior than Max Amount, please edit, and resubmit.": error
 
     if (error) return this.displayEditPopUp(error)
 
 
 
-    const response = await fetch(`/update/${userId}`, {
+    const response = await fetch(`/currency/update/${userId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -196,31 +159,23 @@ class OrderRow extends React.Component {
       body: JSON.stringify(objectToPatchWith)
     })
 
-    console.log("api ress: ", response);
+    
     const payload = await response.json()
-    console.log("payload: ", payload)
 
     if (response.status === 200) {
-      // window.location.href = `/?popup=${payload.srv_}`;
       this.displayEditPopUp()
-
       // Reset page display after the edit
       // Reload data from server
       this.props.loadData(this.props.order_type)
-
       const orderIDjust_clicked = document.getElementById("my_form").elements["OrderID"].value
 
-      console.log(orderIDjust_clicked)
       // Toogle back to default table
       this.props.handleToogleEdit("my", orderIDjust_clicked, e)
     } else {
       // For server errors
-
       let default_error_msg = "Something went wrong on the server, hence this message."
-
       this.displayEditPopUp((payload.error?.message?.client_message || payload.error?.message)|| default_error_msg)
     }
-
   }
 
   render() {

@@ -10,7 +10,7 @@
 <%if(locals.paths_URL!=null && locals.paths_URL[0] == 'operations'){%>
   <%- include("setup-locals-dependencies/setup-path-params/setupPathParams4operations") %>
 <%}%>
-<%if(locals.paths_URL!=null && locals.paths_URL[0] == 'btclayerexchange'){%>
+<%if(locals.paths_URL!=null && locals.paths_URL[0] == 'currency'){%>
   <%- include("setup-locals-dependencies/setup-path-params/setupPathParams4databases") %>
 <%}%>
 <%if(locals.paths_URL!=null && locals.paths_URL[0] == 'make'){%>
@@ -49,7 +49,7 @@
   switch (URL_) {
     case '/operations/articles-dashboard':
     case `/operations/monitor-messages/${caseUserID}/edit-see`:
-    case '/btclayerexchange':
+    case '/currency/btclayerexchange':
     // case '/users/login':
     // case `/make/${caseOptionMakes}`:
       break;
@@ -91,7 +91,7 @@
       break;
 
 
-    case `/btclayerexchange/${caseOptionBTClayerexchange}`:
+    case `/currency/btclayerexchange/${caseOptionBTClayerexchange}`:
       userId = '<%= locals.userId %>'
       console.log("------------->>>>>>", userId)
       break;

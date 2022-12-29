@@ -86,7 +86,7 @@ class MakeCurrencyOrderNumbers extends React.Component {
     let amountsTo_inBTC_msg, amountsTo_inSAT_msg
 
     if (caseOptionBTClayerexchange == "makebuy") {
-      console.log("makebuy")
+      // console.log("makebuy")
       amount_field =
         <React.Fragment>
           <label htmlFor="amount-select">Amount (CAD)</label>

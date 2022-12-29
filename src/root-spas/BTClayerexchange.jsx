@@ -1,5 +1,4 @@
 import loadable from "@loadable/component";
-// import Loading from "./Loading";
 import Loading from "../generic-components/Loading";
 
 
@@ -37,19 +36,25 @@ class BTClayerexchange extends React.Component {
         <div>
         <BrowserRouter> 
           <Switch> 
-            <Route exact path="/btclayerexchange" component={Navigation} />
+            <Route exact path="/currency/btclayerexchange" component={Navigation} />
 
-            <Route exact path="/btclayerexchange/makebuy" component={MakeCurrencyOrder} />
-            <Route exact path="/btclayerexchange/makesell" component={MakeCurrencyOrder} />
+            <Route exact path="/currency/btclayerexchange/makebuy" component={MakeCurrencyOrder} />
+            <Route exact path="/currency/btclayerexchange/makesell" component={MakeCurrencyOrder} />
 
-
-
-            <Route exact path="/btclayerexchange/allmyorders" render={
+            <Route exact path="/currency/btclayerexchange/allmyorders" render={
               (props) => <MyCurrencyOrders {...props} userID_toQueryWith={userId}/>
             } />
-            <Route exact path="/btclayerexchange/matches" component={CurrencyOrderMatches} />
+
+
             
-            <Route path="/btclayerexchange/:order_type" component={CurrencyOrders} />
+            {/* HERE NEED REAT THROUGHT */}
+            {/* HERE */}
+            <Route exact path="/currency/btclayerexchange/matches" component={CurrencyOrderMatches} />
+            
+
+            
+            <Route path="/currency/btclayerexchange/:order_type" component={CurrencyOrders} />
+
           </Switch>     
         </BrowserRouter> 
         </div>

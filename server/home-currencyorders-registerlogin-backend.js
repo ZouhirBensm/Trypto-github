@@ -77,7 +77,7 @@ const deleteMessagesMiddleware = require('../middleware/delete-account-process-m
 const sessionSubscriberMiddleware = require('../middleware/paypal-middleware/session-subscriber-middleware')
 const registerMiddleware = require('../middleware/register-middleware/register-middleware')
 
-// RENAME
+// TODO !!!! RENAME
 const deleteIfAgendaJobThatUnsubsUserOnBidBlockMiddleware = require('../middleware/delete-account-process-middleware/delete-if-agenda-job-that-unsubs-user-on-bidblock-middleware')
 
 
@@ -136,7 +136,7 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
   // Might need this as a "script endpoint global" variable!
   // res.locals.userId = req.session.userId
   navBars = NAVBAR.CLIENTS
-  next()
+  return next()
 })
 
 
@@ -150,6 +150,8 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
+// TODO !!!! Extract currency logic from home/ Delete logic
+// Then disable the currency app
 homeOrdersBackend_app_router.get('/paginated-orders/:type_orders/:data_of_userID?', 
 requireRefererMiddleware, 
 require_loggedin_for_data(true), 
@@ -589,7 +591,7 @@ homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (re
 
 
 
-// TODO needs renaming, mismatch of middleware names and the functionality they are operating
+// TODO !!!! needs renaming, mismatch of middleware names and the functionality they are operating
 homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), verifyingAccountActiveMiddleware, verifyingPasswordMiddleware, LoginController.loginController)
 
 
