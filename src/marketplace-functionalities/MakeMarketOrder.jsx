@@ -19,7 +19,6 @@ const _2_InputNumbersMarketOrder = loadable(() => import("./make-market-order-co
   fallback: <Loading />
 });
 
-// TODO !!!! the google map is not rendering properly, need to fix
 const _3_InputLocationMarketOrder = loadable(() => import("./make-market-order-components/_3_InputLocationMarketOrder"), {
   fallback: <Loading />
 });
@@ -389,7 +388,8 @@ class MakeMarketOrder extends React.Component {
 
 
   firstPlacementMap() {
-    var a = document.querySelectorAll('a[href="/marketplace/makesell"]')[0]
+    var a = document.querySelectorAll('a[href="/marketplace/makesell"]')[1]
+    console.log(a)
     let the_map = document.getElementById('the-map');
     let autocomplete_block = document.getElementById('autocomplete-block');
 

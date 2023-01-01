@@ -39,13 +39,15 @@ async function retrieveUserAssociatedLocalityIfAnyController(req, res) {
   try {
     ret_userassociatedlocality = await UserAssociatedLocality.find({userID: req.params.userID}).select("geometry -_id")
   } catch (error) {
-    return res.status(500)
+    let message = `UserAssociatedLocality.find failed`
+    return res.status(500).send(message)
   }
 
   console.log("found: ", ret_userassociatedlocality)
 
   if (!ret_userassociatedlocality[0]){
-    return res.status(500)
+    let message = `No associated locality to this user.`
+    return res.status(500).send(message)
   }
 
   return res.status(200).json({

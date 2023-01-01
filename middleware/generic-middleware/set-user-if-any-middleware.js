@@ -5,7 +5,7 @@ async function set_user_if_any(req, res, next) {
   let userfindOne
   try {
     userfindOne = await User.findById(req.session.userId).select("-password")
-    // console.log("USER:", userfindOne)
+    // console.log("\n\nUSER:", userfindOne)
     res.locals.user = userfindOne
   } catch (e) {
     return next(error)

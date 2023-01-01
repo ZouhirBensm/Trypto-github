@@ -107,6 +107,9 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
+marketplaceBackend_app_router.get('/associated-user-locality/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(2), moreMarketplaceController.retrieveUserAssociatedLocalityIfAnyController)
+
+
 
 
 marketplaceBackend_app_router.get(['/allmyorders', '/sellordersdata', '/makesell'], require_loggedin_for_pages(true), (req, res) => {
@@ -114,6 +117,7 @@ marketplaceBackend_app_router.get(['/allmyorders', '/sellordersdata', '/makesell
   console.log("\n\nSimple\n\n")
 
   res.locals.popup = req.query.popup
+
   res.locals.userId = req.session.userId
   
   // console.log("\nDo we have any pop-up messages: \n", req.query.popup);
@@ -183,7 +187,7 @@ marketplaceController.registerMarketOrderController
 
 
 
-marketplaceBackend_app_router.get('/associated-user-locality/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(2), moreMarketplaceController.retrieveUserAssociatedLocalityIfAnyController)
+
 
 
 

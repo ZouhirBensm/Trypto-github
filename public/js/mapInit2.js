@@ -26,10 +26,12 @@ let getLatLng = function () {
     lng = -75.7
 
     // Overwrite default if User has a associated locality
-    let response = await getUsersAssociatedLocality()
+    let response
+    response = await getUsersAssociatedLocality()
 
     if (response.status == 200) {
       let json = await response.json()
+      console.log(json)
       lat = json.lat
       lng = json.lng
     }
@@ -92,5 +94,12 @@ let getLatLng = function () {
 
 async function getUsersAssociatedLocality() {
   let response = await fetch(`/marketplace/associated-user-locality/${userId}`)
+  console.log(response)
+
+  if (response.status != 200){
+    let text = await response.text()
+    console.error(text)
+  }
+
   return response
 }
