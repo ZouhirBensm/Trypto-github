@@ -93,6 +93,7 @@ async function ifLocalityOrganizeAssociatedLocalityMiddleware(req, res, next) {
     return next(err)
   }
 
+
   let address = response.data.results[0].formatted_address
   const addressArray = response.data.results[0].address_components;
 

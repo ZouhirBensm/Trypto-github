@@ -4,7 +4,7 @@ import GetRecentMarketItems from '../home-functionalities/GetRecentMarketItems.j
 import '../style/reactDivMobile.css'
 
 
-
+// TODO !!!! popup after user deletion is not displaying
 
 class App extends React.Component {
   constructor(props){
