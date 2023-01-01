@@ -5,16 +5,17 @@ class PricesComponent extends React.Component {
     super(props)
     this.state = {
     }
+    // this.popup = popup
     // console.log(this.props)
   }
 
 
 
-  setTDs(){
+  setTDs() {
     let currencies, values
     currencies = Object.keys(this.props?.btc_gecko_prices)
     values = Object.values(this.props?.btc_gecko_prices)
-    
+
     let tds_currencies = []
     for (let i = 0; i < currencies.length; i++) {
       const currency = currencies[i];
@@ -38,17 +39,21 @@ class PricesComponent extends React.Component {
 
     return (
       <React.Fragment>
-      <h1>Bitcoin Prices</h1>
-      <table>
-        <tbody>
-          <tr>
-            {tds_currencies}
-          </tr>
-          <tr>
-            {tds_values}
-          </tr>
-        </tbody>
-      </table>
+        <h1>Bitcoin Prices</h1>
+        <table>
+          <tbody>
+            <tr>
+              {tds_currencies}
+            </tr>
+            <tr>
+              {tds_values}
+            </tr>
+          </tbody>
+        </table>
+
+        {/* {this.popup ?
+          <p>{this.popup}</p>
+          : null} */}
       </React.Fragment>
     );
   }

@@ -4,24 +4,30 @@ import GetRecentMarketItems from '../home-functionalities/GetRecentMarketItems.j
 import '../style/reactDivMobile.css'
 
 
-// TODO !!!! popup after user deletion is not displaying
-
 class App extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       prices: []
     }
-    // this.repairData = this.repairData.bind(this)
+    this.popup = popup
   }
 
 
-  componentDidMount(){
+  componentDidMount() {
     // console.log("in component: ", userId)
     this.loadData()
+    this.popup? this.displacePopup(): null
   }
-  
-  async loadData(){
+
+  displacePopup(){
+    let reactDiv = document.getElementById('react-div')
+    let popup = document.getElementById('popup')
+    popup.style.display = "block";
+    reactDiv.appendChild(popup)
+  }
+
+  async loadData() {
     let btc_gecko_prices = {}
     const response = await fetch(`/cryptoprice`)
     const data = await response.json()
@@ -30,21 +36,21 @@ class App extends React.Component {
 
     this.setState({
       prices: data.data.bitcoin
-    })   
+    })
   }
 
-    
+
   render() {
 
     return (
-      
+
       // Home
       <React.Fragment>
-        <PricesComponent btc_gecko_prices={this.state.prices}/>
-        <GetRecentArticles/>
-        <GetRecentMarketItems/>
-      </React.Fragment> 
-      
+        <PricesComponent btc_gecko_prices={this.state.prices} />
+        <GetRecentArticles />
+        <GetRecentMarketItems />
+      </React.Fragment>
+
     );
   }
 

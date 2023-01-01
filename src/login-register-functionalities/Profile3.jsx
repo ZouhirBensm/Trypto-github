@@ -170,6 +170,7 @@ class Profile extends React.Component {
 
       
       if (srv_.referer === "users") {
+        // console.log(`/?popup=${srv_.srv_}`)
         window.location.href = `/?popup=${srv_.srv_}`;
         return
       }
