@@ -78,11 +78,16 @@ const logoutMiddleware = require('../middleware/generic-middleware/logout-middle
 const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
 
 
-const verifyingPasswordMiddleware = require('../middleware/loggedin-middleware/verifying-password-middleware')
+
+
+const checkIfClientIsUserMiddleware = require('../middleware/loggedin-middleware/check-if-client-is-user-middleware')
+const checkClientIsActiveMiddleware = require('../middleware/loggedin-middleware/check-client-is-active-middleware')
+const passwordVerifierMiddleware = require('../middleware/loggedin-middleware/password-verifier-middleware')
 
 
 const {responseMessageSetterMiddleware} = require('../middleware/reset-password-middleware/response-message-middleware')
-const verifyingAccountActiveMiddleware = require('../middleware/loggedin-middleware/verifying-account-active-middleware')
+const checkCredentialsPresentMiddleware = require('../middleware/loggedin-middleware/check-credentials-present-middleware')
+
 const checkIfUserByEmailMiddleware = require('../middleware/generic-middleware/check-if-user-by-email-middleware')
 const checkIfUserSetAndUsedRequestForPasswordResetMiddleware = require('../middleware/generic-middleware/check-if-user-set-and-used-request-for-password-reset-middleware')
 const createHashForPasswordResetLinkMiddleware = require('../middleware/reset-password-middleware/create-hash-for-password-reset-link-middleware')
@@ -343,8 +348,13 @@ homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (re
 })
 
 
-// TODO !!!! needs renaming, mismatch of middleware names and the functionality they are operating
-homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), verifyingAccountActiveMiddleware, verifyingPasswordMiddleware, LoginController.loginController)
+
+homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware,require_loggedin_for_data(false), 
+checkCredentialsPresentMiddleware,
+checkIfClientIsUserMiddleware,
+checkClientIsActiveMiddleware,
+passwordVerifierMiddleware,
+LoginController.loginController)
 
 
 
