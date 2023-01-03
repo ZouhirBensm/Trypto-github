@@ -5,7 +5,7 @@ const path = require('path')
 
 
 
-const {reArrangeMOrdersByLocality} = require('../../services/additional-js-sorting-after-mongoose-queries/marketplace-orders-ordering-services.src')
+const RearrangeClass = require('../../services/additional-js-sorting-after-mongoose-queries/marketplace-orders-ordering-services.src')
 
 const { formOrderFindFilter, formLocalityFindFilter } = require('../../middleware/libs/match-maker-functions')
 
@@ -359,7 +359,7 @@ async function preset2(req, res, next) {
     // console.log(ret_user)
 
 
-    if (!!ret_user?.userassociatedlocalityID.location) {
+    if (!!ret_user?.userassociatedlocalityID?.location) {
       option = 2
       res.locals.ret_user = ret_user
     }
@@ -393,7 +393,7 @@ async function preset3(req, res, next) {
         path: "sellmarketorderlocationID",
         match: res.locals.localityFilter,
         // Fields allowed to populate with
-        select: "location.country location.province_state location.city -_id",
+        select: "location.country location.province_state location.city  location.neigh location.st -_id",
       })
 
   } catch (e) {
@@ -402,7 +402,9 @@ async function preset3(req, res, next) {
 
 
   if (res.locals.option == 2) {
-    sellOrders = await reArrangeMOrdersByLocality(sellOrders, res.locals.ret_user?.userassociatedlocalityID.location)
+    let reaarranger_instance = new RearrangeClass(sellOrders)
+    reaarranger_instance.LocalityArranger = res.locals.ret_user?.userassociatedlocalityID.location
+    sellOrders = reaarranger_instance.getArrangedSellOrders
   }
 
   // If locality filter in place
@@ -413,6 +415,11 @@ async function preset3(req, res, next) {
   }
 
   res.locals.sellOrders = sellOrders
+
+  sellOrders.forEach(order => {
+    console.log(order.sellmarketorderlocationID?.location)
+  });
+
 
   return next()
 }

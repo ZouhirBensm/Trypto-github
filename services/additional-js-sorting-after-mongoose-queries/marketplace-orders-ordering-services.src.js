@@ -1,14 +1,25 @@
+const sorting_algos = require('./sorting-functions2')
 
 
-async function reArrangeMOrdersByLocality(sellOrders, locationObject){
-  console.log(sellOrders.slice(0,2), locationObject)
+class RearrangeClass{
+  #sellOrders
+  constructor(sellOrders){
+    this.#sellOrders = sellOrders
+  }
+
+  set LocalityArranger(locationObject){
+    this.#sellOrders = sorting_algos.sortingSteps(this.#sellOrders, locationObject)
+  }
+
+  get getArrangedSellOrders(){
+    return this.#sellOrders
+  }
 
 
-  
-  return sellOrders
+
 }
 
 
 
 
-module.exports = {reArrangeMOrdersByLocality}
+module.exports = RearrangeClass
