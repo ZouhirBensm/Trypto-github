@@ -56,7 +56,7 @@ const paginatedOrdersSetupMiddleware = require('../middleware/generic-middleware
 // const ordersRetrievalMiddleware = require('../middleware/marketplace-middleware/orders-retrieval-middleware')
 // const uploadsMiddleware = require('../middleware/uploads-middleware/uploads-middleware')
 
-const marketplaceMiddleware = require('../middleware/marketplace-middleware/marketplace-middleware')
+const marketplaceMiddleware = require('../middleware/marketplace-middleware/marketplace-middleware2')
 
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 // const startEmptyNotificationsMiddleware = require('../middleware/generic-middleware/start-empty-notifications-middleware')
@@ -92,10 +92,6 @@ const { authenticate_role_for_pages, authenticate_role_for_data } = require("../
 
 
 
-
-
-
-
 // Start middleware for this marketplaceBackend_app_router
 marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
   // Might need this as a "script endpoint global" variable!
@@ -103,6 +99,31 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
   navBars = NAVBAR.CLIENTS
   return next()
 })
+
+
+
+
+
+
+
+
+marketplaceBackend_app_router.get(['/paginated-orders/sellordersdata/:data_of_userID?'], 
+require_loggedin_for_data(true), 
+authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
+requester_auth_middleware(5), 
+paginatingSetupMiddleware, 
+destructureURLandRefererMiddleware, 
+paginatedOrdersSetupMiddleware, 
+marketplaceMiddleware.preset1,
+marketplaceMiddleware.preset2,
+marketplaceMiddleware.preset3,
+marketplaceMiddleware.ordersRetrievalMiddleware, 
+distributePaginatedDataController)
+
+
+
+
+
 
 
 
@@ -219,15 +240,10 @@ marketplaceBackend_app_router.get(['/recent-marketorders'], marketplaceMiddlewar
 
 
 
-marketplaceBackend_app_router.get(['/paginated-orders/sellordersdata/:data_of_userID?'], 
-require_loggedin_for_data(true), 
-authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
-requester_auth_middleware(5), 
-paginatingSetupMiddleware, 
-destructureURLandRefererMiddleware, 
-paginatedOrdersSetupMiddleware, 
-marketplaceMiddleware.ordersRetrievalMiddleware, 
-distributePaginatedDataController)
+
+
+
+
 
 
 

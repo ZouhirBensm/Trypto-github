@@ -4,9 +4,12 @@ const fs = require('fs/promises')
 const path = require('path')
 
 
+
+const {reArrangeMOrdersByLocality} = require('../../services/additional-js-sorting-after-mongoose-queries/marketplace-orders-ordering-services.src')
+
 const { formOrderFindFilter, formLocalityFindFilter } = require('../../middleware/libs/match-maker-functions')
 
-const { determine_Sharp_toFormatOptions, isObjEmpty } = require('../../full-stack-libs/utils')
+const { determine_Sharp_toFormatOptions, isObjEmpty, isObjPresent } = require('../../full-stack-libs/utils')
 
 
 const { MarketOrderSubmissionError } = require('../../custom-errors/custom-errors')
@@ -16,6 +19,8 @@ const SellMarketOrderLocation = require('../../models/market-orders-models/SellM
 const SellMarketOrder = require('../../models/market-orders-models/SellMarketOrder')
 
 const SellMarketOrderImage = require('../../models/market-orders-models/SellMarketOrderImage')
+
+const User = require('../../models/User');
 
 
 
@@ -29,7 +34,8 @@ const SellMarketOrderImage = require('../../models/market-orders-models/SellMark
 const ENV = require('../../config/base')
 
 
-const agendaDefineJobFunctions = require('../../full-stack-libs/define-agenda-job-functions/define-aganda-job-functions')
+const agendaDefineJobFunctions = require('../../full-stack-libs/define-agenda-job-functions/define-aganda-job-functions');
+
 
 
 
@@ -296,34 +302,87 @@ async function recentOrdersRetrievalMiddleware(req, res, next) {
 
 
 
-
-async function ordersRetrievalMiddleware(req, res, next) {
-  console.log("\n\nmarketplaceMiddleware: ordersRetrievalMiddleware(): \n\n\n\n")
+async function preset1(req, res, next) {
+  console.log("\n\nmarketplaceMiddleware: preset1(): \n\n\n\n")
 
 
   // Query string parameters
   let searchEngineTerms = req.query.search
   searchEngineTerms = searchEngineTerms ? JSON.parse(searchEngineTerms) : undefined
 
-  console.log("ordersRetrievalMiddleware()->searchEngineTerms: ", searchEngineTerms)
+  console.log("preset1()->searchEngineTerms: ", searchEngineTerms)
 
   let baseFilter = formOrderFindFilter(searchEngineTerms)
 
-  console.log("\n\n\ncurrencyordersRetrievalMiddleware()->baseFilter: ", baseFilter)
-
+  console.log("\n\n\preset1()->baseFilter: ", baseFilter)
+  res.locals.baseFilter = baseFilter
 
   let localityFilter = formLocalityFindFilter(searchEngineTerms)
 
-  console.log("\n\n\ncurrencyordersRetrievalMiddleware()->localityFilter: ", localityFilter)
+  console.log("\n\n\preset1()->localityFilter: ", localityFilter)
+  res.locals.localityFilter = localityFilter
+
+
+  return next()
+}
 
 
 
-  let orders, sellOrders
 
-  // If locality filter use match in the query
-  try {
+
+
+
+
+
+
+
+async function preset2(req, res, next) {
+
+
+  let option = 1
+  let ret_user
+
+  if (isObjEmpty(res.locals.localityFilter)) {
+
+    try {
+      ret_user = await User.findById(req.session.userId)
+        .populate({
+          // Populate protagonists
+          path: "userassociatedlocalityID",
+          // Fields allowed to populate with
+          select: "location -_id",
+        })
+    } catch (error) {
+      console.error(error)
+    }
+
+    // console.log(ret_user)
+
+
+    if (!!ret_user?.userassociatedlocalityID.location) {
+      option = 2
+      res.locals.ret_user = ret_user
+    }
+  }
+
+
+  res.locals.option = option
+  return next()
+}
+
+
+
+async function preset3(req, res, next) {
+
+  // user Location not there
+  let sellOrders
+
+
+   // console.log(res.locals.ret_user?.userassociatedlocalityID.location)
+   try {
     // Descending: from newest to oldest
-    sellOrders = await SellMarketOrder.find(baseFilter).sort({ postedDate: -1 })
+    sellOrders = await SellMarketOrder
+      .find(res.locals.baseFilter).sort({ postedDate: -1 })
       .populate('userid')
       .populate({
         path: "sellmarketorderImageID",
@@ -332,32 +391,47 @@ async function ordersRetrievalMiddleware(req, res, next) {
       })
       .populate({
         path: "sellmarketorderlocationID",
-        match: localityFilter,
+        match: res.locals.localityFilter,
         // Fields allowed to populate with
         select: "location.country location.province_state location.city -_id",
       })
+
   } catch (e) {
     return next(e)
+  }
+
+
+  if (res.locals.option == 2) {
+    sellOrders = await reArrangeMOrdersByLocality(sellOrders, res.locals.ret_user?.userassociatedlocalityID.location)
   }
 
   // If locality filter in place
   // Rid of the sell orders without populated locality 
   // Because when their is no match the sellmarketorderlocationID is set to null
-  if (!isObjEmpty(localityFilter)) {
-    sellOrders = sellOrders.filter(sellOrder=>!!sellOrder.sellmarketorderlocationID)
+  if (!isObjEmpty(res.locals.localityFilter)) {
+    sellOrders = sellOrders.filter(sellOrder => !!sellOrder.sellmarketorderlocationID)
   }
 
+  res.locals.sellOrders = sellOrders
+
+  return next()
+}
 
 
 
 
 
 
-  // sellOrders.forEach(sellOrder => {
-  //   console.log("\n\n_________", sellOrder)
-  // });
 
-  let mysellOrders = sellOrders.filter((order_entry) => {
+
+
+
+async function ordersRetrievalMiddleware(req, res, next) {
+  console.log("\n\nmarketplaceMiddleware: ordersRetrievalMiddleware(): \n\n\n\n")
+
+  let orders
+
+  let mysellOrders = res.locals.sellOrders.filter((order_entry) => {
     console.log(order_entry.userid._id.toString() == res.locals.path_param_userID)
     return order_entry.userid._id.toString() == res.locals.path_param_userID
   })
@@ -369,7 +443,7 @@ async function ordersRetrievalMiddleware(req, res, next) {
     orders = mysellOrders
   } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/marketplace/sellordersdata`) {
     console.log("NORMAL MODE")
-    orders = sellOrders
+    orders = res.locals.sellOrders
   } else {
     const e = new Error("The path URL not identified to enable to return proper orders")
     return next(e)
@@ -399,6 +473,9 @@ marketplaceMiddleware = {
   instantiateMarketOrderImagesMiddleware: instantiateMarketOrderImagesMiddleware,
   saveAllMarketOrderMiddleware: saveAllMarketOrderMiddleware,
   setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware: setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware,
+  preset1: preset1,
+  preset2: preset2,
+  preset3: preset3,
 }
 
 

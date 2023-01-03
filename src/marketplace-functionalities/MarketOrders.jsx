@@ -5,23 +5,13 @@ import SearchEngine from './market-order-list-components/SearchEngine';
 import MarketOrderTable from './market-order-list-components/MarketOrderTable';
 import PageSelector from '../generic-components/PageSelector';
 
-
-
-
-// TODO #102 Add touch event to slide search engine
-
-// TODO !! Add, when typing a locality, the ability to 
-// 1. Dynamicly display the options that match what is being typed
-// 2. Select one from the dynamic list
-// TODO When done locality filter, Implement same solution for the currency orders search engine
-
 class MarketOrders extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       orders: [],
       page: 1,
-      limit: 3, //Limit per page defined here!
+      limit: 3,
       nextPage: 2,
       previousPage: undefined,
       on_off_limit_next: false,
@@ -46,7 +36,7 @@ class MarketOrders extends React.Component {
     this.resetPriceFilter = this.resetPriceFilter.bind(this)
     this.userId = userId
     this.popup = popup
-    // console.log("---------->>>>>!!!", userId)
+    // console.log("userId---------->>>>>", userId)
   }
 
   resetPriceFilter() {
@@ -297,3 +287,12 @@ class MarketOrders extends React.Component {
 }
 
 export default MarketOrders
+
+
+
+// TODO #102 Add touch event to slide search engine
+
+// TODO !! Add, when typing a locality, the ability to 
+// 1. Dynamicly display the options that match what is being typed
+// 2. Select one from the dynamic list
+// TODO When done locality filter, Implement same solution for the currency orders search engine
