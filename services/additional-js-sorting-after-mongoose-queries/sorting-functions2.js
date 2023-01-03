@@ -16,11 +16,11 @@ function sortingSteps(sellOrders, locationObject){
     sellOrders = SORT(sellOrders, "country", locationObject)
   }
 
-  // TODO slice sellOrders to the end of the SORT
+  // TODO !!!! slice sellOrders to the end of the SORT
 
   if (locationObject.country && locationObject.province_state) {
     console.log("...sorting for province_state")
-    // TODO sort only sliced piece and push/reassign to sellOrders
+    // TODO !!!! sort only sliced piece and push/reassign to sellOrders
     sellOrders = SORT(sellOrders, "province_state", locationObject)
   }
 
