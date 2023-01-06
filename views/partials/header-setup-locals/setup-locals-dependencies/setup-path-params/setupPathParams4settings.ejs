@@ -1,0 +1,19 @@
+caseSettingsPage
+]
+<script>
+  console.log("paths_URL", paths_URL)
+
+  if (paths_URL[0]) {
+    switch (paths_URL[1]) {
+      case 'set-users-associated-locality':
+      caseSettingsPage = 'set-users-associated-locality'
+        break;
+      default:
+        break;
+    }
+  }
+
+
+  console.log("\n\ncaseSettingsPage--->\n", caseSettingsPage)
+
+</script>

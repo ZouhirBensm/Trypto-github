@@ -30,6 +30,9 @@ settingsBackend_app_router.use(set_user_if_any, (req, res, next) => {
 settingsBackend_app_router.get(`/:page?`, (req, res) => {
 
   console.log(`settingsBackend_app_router: GET /: req.params.page`, req.params.page)
+  console.log(`settingsBackend_app_router: GET /: res.sessions.userId`, req.session.userId)
+
+  res.locals.userId = req.session.userId
 
   var JSX_to_load = 'Settings';
 

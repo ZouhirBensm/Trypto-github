@@ -13,6 +13,7 @@ class Settings extends React.Component {
   }
 
   render() {
+    // console.log("Settings: render()->userId: ", userId)
 
     return (
 
@@ -27,7 +28,9 @@ class Settings extends React.Component {
           <Switch>
 
             <Route path="/settings/set-users-associated-locality" render={
-              (props) => <SetAssociatedLocality {...props} />
+              (props) => <SetAssociatedLocality {...props} 
+              userID_toWorkWith={userId}
+              />
             } />
 
             <Route path="/settings/test2" render={

@@ -7,6 +7,9 @@
 <%if(locals.paths_URL!=null && locals.paths_URL[0] == 'articles'){%>
   <%- include("setup-locals-dependencies/setup-path-params/setupPathParams4articles") %> 
 <%}%>
+<%if(locals.paths_URL!=null && locals.paths_URL[0] == 'settings'){%>
+  <%- include("setup-locals-dependencies/setup-path-params/setupPathParams4settings") %> 
+<%}%>
 <%if(locals.paths_URL!=null && locals.paths_URL[0] == 'operations'){%>
   <%- include("setup-locals-dependencies/setup-path-params/setupPathParams4operations") %>
 <%}%>
@@ -150,6 +153,22 @@
 
       console.log("--------------->>>>>>", userId, currentUserName, currentUserEmail, user)
       break;
+
+
+
+      case `/settings`:
+        userId = '<%= locals.userId %>'
+        user = <%-JSON.stringify(locals.user || {})%> 
+
+        console.log(`setup-locals.ejs ROUTE /settings----------->> userId, user`, userId, user)
+        break;
+
+      case `/settings/${caseSettingsPage}`:
+        userId = '<%= locals.userId %>'
+        user = <%-JSON.stringify(locals.user || {})%> 
+
+        console.log(`setup-locals.ejs ROUTE /settings/${caseSettingsPage}----------->> userId, user`, userId, user)
+        break;
 
 
 
