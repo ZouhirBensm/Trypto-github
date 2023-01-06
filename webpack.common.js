@@ -67,6 +67,7 @@ var config = {
     CreateArticle: './src/root-spas/CreateArticle.jsx',
     ArticleSelector: './src/root-spas/ArticleSelector.jsx',
     ArticlesCategorySelector: './src/root-spas/ArticlesCategorySelector.jsx',
+    Settings: './src/root-spas/Settings.jsx',
   },
   output: {
     // Deletable libraryTarget: 'commonjs2',

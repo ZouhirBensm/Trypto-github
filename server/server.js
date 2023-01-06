@@ -104,6 +104,7 @@ const utils = require('../full-stack-libs/utils')
 
 const homeOrdersBackend_app_router = require('./home-currencyorders-registerlogin-backend')
 const currencyBackend_app_router = require('./currencyorders-backend')
+const settingsBackend_app_router = require('./settings-backend')
 const marketplaceBackend_app_router = require('./marketplace-backend')
 const messagingBackend_app_router = require('./messaging-backend');
 const paypalBackend_app_router = require('./paypal-backend')
@@ -218,6 +219,9 @@ express_server_app_router.use('/', homeOrdersBackend_app_router)
 // express_server_app_router.use('/currency', currencyBackend_app_router)
 
 express_server_app_router.use('/marketplace', marketplaceBackend_app_router)
+
+
+express_server_app_router.use('/settings', settingsBackend_app_router)
 
 // All routes that fall upon this router are appended by default the first path argument '/messaging'. 
 // Then within the router you only define from the 2nd layer directory
