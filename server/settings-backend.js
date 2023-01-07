@@ -10,6 +10,8 @@ const NAVBAR = require('../full-stack-libs/Types/Navbar')
 // Middleware
 const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
 
+const { getDetailedUserSubscriptionInfo } = require('../middleware/generic-middleware/get-detailed-user-subsciption-information-middleware')
+
 
 // Use this to check the role, requires a res.locals.user.role
 const { set_user_if_any } = require("../middleware/generic-middleware/set-user-if-any-middleware")
@@ -27,10 +29,13 @@ settingsBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
-settingsBackend_app_router.get(`/:page?`, (req, res) => {
+settingsBackend_app_router.get(`/:page?`, getDetailedUserSubscriptionInfo("SESSION", "userassociatedlocalityID"), (req, res) => {
 
-  console.log(`settingsBackend_app_router: GET /: req.params.page`, req.params.page)
-  console.log(`settingsBackend_app_router: GET /: res.sessions.userId`, req.session.userId)
+  console.log(`\n\nsettingsBackend_app_router: GET /: req.params.page`, req.params.page)
+  console.log(`\n\nsettingsBackend_app_router: GET /: res.sessions.userId`, req.session.userId)
+  console.log(`\n\nsettingsBackend_app_router: GET /: res.locals.user`, res.locals.user)
+  console.log(`\n\nsettingsBackend_app_router: GET /: res.locals.selectedUser`, res.locals.selectedUser)
+
 
   res.locals.userId = req.session.userId
 

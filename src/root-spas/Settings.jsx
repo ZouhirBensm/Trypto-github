@@ -1,5 +1,13 @@
 import '../style/reactDivMobile.css'
-import SetAssociatedLocality from '../settings-functionalities/SetAssociatedLocality'
+import '../style/googlemaps.css'
+
+import loadable from "@loadable/component";
+import Loading from "../generic-components/Loading";
+
+const SetAssociatedLocality = loadable(() => import('../settings-functionalities/SetAssociatedLocality'), {
+  fallback: <Loading />
+});
+
 import Test2 from '../settings-functionalities/Test2'
 import Test3 from '../settings-functionalities/Test3'
 import Test4 from '../settings-functionalities/Test4'
@@ -12,8 +20,27 @@ class Settings extends React.Component {
     this.state = {}
   }
 
+  componentDidMount() {
+    let the_map = document.getElementById('the-map');
+    let autocomplete_block = document.getElementById('autocomplete-block');
+    
+    the_map.style.display = "none"
+    autocomplete_block.style.display = "none"
+
+    var reactDiv = document.getElementById("react-div");
+    console.log(reactDiv, the_map, autocomplete_block)
+    
+    reactDiv.appendChild(autocomplete_block);
+    reactDiv.appendChild(the_map);
+
+  }
+
+
   render() {
+
     // console.log("Settings: render()->userId: ", userId)
+    // console.log("Settings: render()->user: ", user)
+    console.log("Settings: render()->selectedUser: ", selectedUser)
 
     return (
 
@@ -28,8 +55,9 @@ class Settings extends React.Component {
           <Switch>
 
             <Route path="/settings/set-users-associated-locality" render={
-              (props) => <SetAssociatedLocality {...props} 
-              userID_toWorkWith={userId}
+              (props) => <SetAssociatedLocality {...props}
+                userID_toWorkWith={userId}
+                selectedUser={selectedUser}
               />
             } />
 

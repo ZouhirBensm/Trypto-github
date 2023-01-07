@@ -2,12 +2,12 @@ const User = require('../../models/User')
 const {SessionRoleOrSentUIDnotAllowed} = require('../../custom-errors/custom-errors')
 
 
-function getDetailedUserSubscriptionInfo(_from) {
+function getDetailedUserSubscriptionInfo(userID_from, populate) {
   return async (req, res, next) => {
     let selectedUser = null
     let from
   
-    switch (_from) {
+    switch (userID_from) {
       case "PATHPARAM":
         from = req.params.userID
         break;
@@ -26,24 +26,29 @@ function getDetailedUserSubscriptionInfo(_from) {
     })
     .select('registrationDateTime username email subscriptionID')
   
+    let select
+    switch (populate) {
+      case "subscriptionID":
+        select = "plan subscriptionDateTime paypal_subscriptionID paypal_plan_id expireAt -_id"
+        break;
+      case "userassociatedlocalityID":
+        select = "location geometry -_id"
+      break;
+      default:
+        break;
+    }
+
     query = query.populate({
       // Populate protagonists
-      path: "subscriptionID",
+      path: populate,
       // Fields allowed to populate with
-      select: "-_id plan subscriptionDateTime paypal_subscriptionID paypal_plan_id expireAt",
+      select: select,
     })
-
-    // query = query.populate({
-    //   // Populate protagonists
-    //   path: "userprofileimageID",
-    //   // Fields allowed to populate with
-    //   select: "_id",
-    // })
 
   
     selectedUser = await query.exec()
 
-    console.log({ selectedUser })
+    // console.log({ selectedUser })
     
     res.locals.selectedUser = selectedUser
   

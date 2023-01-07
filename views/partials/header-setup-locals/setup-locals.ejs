@@ -160,14 +160,25 @@
         userId = '<%= locals.userId %>'
         user = <%-JSON.stringify(locals.user || {})%> 
 
-        console.log(`setup-locals.ejs ROUTE /settings----------->> userId, user`, userId, user)
+        if(`<%=locals.selectedUser%>`){
+          selectedUser = <%-JSON.stringify(locals.selectedUser || {})%> 
+        }
+        
+        // console.log(`\n\n*** setup-locals.ejs ROUTE /settings----------->> userId, user, selectedUser`, userId, user, selectedUser)
+
+        console.log(`\n\n*** setup-locals.ejs ROUTE /settings----------->> userId, selectedUser`, userId, selectedUser)
         break;
 
       case `/settings/${caseSettingsPage}`:
         userId = '<%= locals.userId %>'
         user = <%-JSON.stringify(locals.user || {})%> 
 
-        console.log(`setup-locals.ejs ROUTE /settings/${caseSettingsPage}----------->> userId, user`, userId, user)
+        if(`<%=locals.selectedUser%>`){
+          selectedUser = <%-JSON.stringify(locals.selectedUser || {})%> 
+        }
+
+        // console.log(`\n\n*** setup-locals.ejs ROUTE /settings/${caseSettingsPage}----------->> userId, user, selectedUser`, userId, user, selectedUser)
+        console.log(`\n\n*** setup-locals.ejs ROUTE /settings/${caseSettingsPage} ----------->> userId, selectedUser`, userId, selectedUser)
         break;
 
 

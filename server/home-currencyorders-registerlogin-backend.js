@@ -121,7 +121,12 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
-homeOrdersBackend_app_router.get('/users/profile', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), getDetailedUserSubscriptionInfo("SESSION"), getProfilePicNameIfAnyMiddleware("SESSION"), homeCurrencyOrdersController.renderMgtUserSPAController)
+homeOrdersBackend_app_router.get('/users/profile', 
+require_loggedin_for_pages(true), 
+authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), 
+getDetailedUserSubscriptionInfo("SESSION", "subscriptionID"), 
+getProfilePicNameIfAnyMiddleware("SESSION"),
+homeCurrencyOrdersController.renderMgtUserSPAController)
 
 
 homeOrdersBackend_app_router.post('/users/upload/userprofileimage/:selectedUserID', multerinstance.upload.single('image'), profileMiddleware.makeSureDestinationFolderPresentMiddleware, profileMiddleware.sharpAndDisplaceNewProfilePicMiddleware, profileMiddleware.isThereProfilePicAlreadyMiddleware, profileMiddleware.retrievePrevImageInfo_DeletePrevPic_DeletePicEntry_Middleware,profileMiddleware.instantiateNewImageMiddleware, profileMiddleware.editUsersLinkedImageIDMiddleare, profileMiddleware.saveNewImageEntryMiddleware, profileController.sucessUploadProfilePicController)

@@ -86,7 +86,7 @@ operationsBackend_app_router.get('/paginated-users/users-for-display', require_l
 
 
 
-operationsBackend_app_router.get('/detailed-user-information/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2), getDetailedUserSubscriptionInfo("PATHPARAM"), (req,res) => {
+operationsBackend_app_router.get('/detailed-user-information/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2), getDetailedUserSubscriptionInfo("PATHPARAM", "subscriptionID"), (req,res) => {
 
   res.status(200).json({
     selectedUser: res.locals.selectedUser

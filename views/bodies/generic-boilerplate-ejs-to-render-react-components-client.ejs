@@ -1,5 +1,5 @@
 <script>
-  console.log("WHERE THINGS NEED TO BE: ", user, currentUserEmail, userIdB, orderId, CATEGORY, selectedUser, userId, popup)
+  // console.log("WHERE THINGS NEED TO BE: ", user, currentUserEmail, userIdB, orderId, CATEGORY, selectedUser, userId, popup)
 </script>
 
 
@@ -14,11 +14,14 @@
 <%}%>
 
 
-<!-- Capable from server send data to determine what React base component to render: Either App.js or Databases.js -->
-<script type="text/javascript" src="/dist/<%= JSX_to_load %>.js"></script>
 
 
-<%if(URL_ == "/marketplace/makesell"){%>
+  <script>
+    console.log(caseSettingsPage)
+  </script>
+
+<%if(URL_ == "/marketplace/makesell" || URL_ == '/settings' || URL_ == `/settings/set-users-associated-locality` || URL_ == `/settings/test2` || URL_ == `/settings/test3` || URL_ == `/settings/test4`){%>
+<!-- < %if(URL_=="/marketplace/makesell" || URL_ == '/settings' || URL_ == `/settings/set-users-associated-locality`){%> -->
   <div id="autocomplete-block">
     <label htmlFor="autocomplete-select">Trade Location</label>
     <input id="autocomplete-select" type="text" name="autocomplete" required/><span>📍 is DRAG-ABLE!</span>
@@ -28,3 +31,6 @@
   <script src="/js/mapInit2.js"></script>
 <%}%>
 
+
+<!-- Capable from server send data to determine what React base component to render: Either App.js or Databases.js -->
+<script type="text/javascript" src="/dist/<%= JSX_to_load %>.js"></script>
