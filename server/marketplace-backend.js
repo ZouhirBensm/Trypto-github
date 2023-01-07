@@ -140,6 +140,7 @@ marketplaceBackend_app_router.get(['/allmyorders', '/sellordersdata', '/makesell
 
   res.locals.popup = req.query.popup
 
+  // Make sell user ID is the session's
   res.locals.userId = req.session.userId
   
   // console.log("\nDo we have any pop-up messages: \n", req.query.popup);

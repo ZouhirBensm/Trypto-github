@@ -1,26 +1,34 @@
+import { withRouter } from 'react-router-dom';
 
 class Test3 extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
+    this.goBack = this.goBack.bind(this)
   }
 
-  componentDidMount(){
-    let the_map = document.getElementById('the-map');
-    let autocomplete_block = document.getElementById('autocomplete-block');
-
-    the_map.style.display = "none"
-    autocomplete_block.style.display = "none"
+  goBack() {
+    this.props.history.goBack();
   }
-  
-  render(){
+
+  // componentDidMount(){
+  //   let the_map = document.getElementById('the-map');
+  //   let autocomplete_block = document.getElementById('autocomplete-block');
+
+  //   the_map.style.display = "none"
+  //   autocomplete_block.style.display = "none"
+  // }
+
+  render() {
     return (
       <React.Fragment>
-      <div>Test3...</div>
-      <a href="/settings">Back</a>
-    </React.Fragment>
+        <div>Test3...</div>
+        <button type="button" onClick={this.goBack}>
+          Go back
+        </button>
+      </React.Fragment>
     )
   }
 }
 
-export default Test3
+export default withRouter(Test3)
