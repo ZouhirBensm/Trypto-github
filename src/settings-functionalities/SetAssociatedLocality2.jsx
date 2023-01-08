@@ -1,5 +1,7 @@
 
 import LocationSelector from './LocationSelector'
+import SubmitNewAssociatedLocality from './SubmitNewAssociatedLocality'
+
 import { withRouter } from 'react-router-dom';
 
 class SetAssociatedLocality extends React.Component {
@@ -7,17 +9,23 @@ class SetAssociatedLocality extends React.Component {
     super(props)
     this.state = {
       lat: undefined,
-      lng: undefined
-      // lat: window.lat,
-      // lng: window.lng
+      lng: undefined,
+      popup: undefined
     }
 
-    
+
     this.locationGeometryinSetAssociatedLocality = this.locationGeometryinSetAssociatedLocality.bind(this)
     this.goBack = this.goBack.bind(this)
+    this.setpopup = this.setpopup.bind(this)
 
     // console.log(`SetAssociatedLocality: constructor()-> this.props: ${this.props.userID_toWorkWith}`)
     // console.log(this.props.selectedUser)
+  }
+
+  setpopup(popup) {
+    this.setState({
+      popup: popup
+    })
   }
 
   componentWillUnmount() {
@@ -52,25 +60,32 @@ class SetAssociatedLocality extends React.Component {
     })
   }
 
-
-
-  // When user edits the locality, through the pin or autocomplete
-  // Update the master components location state
-  // pass the state to the child Submit component and on every submit edit tge associated locality on the backend
-
   render() {
     return (
       <React.Fragment>
-        <div>SetAssociatedLocality...</div>
         <LocationSelector
-          lat = {this.state.lat}
-          lng = {this.state.lng}
+          lat={this.state.lat}
+          lng={this.state.lng}
           selectedUser={this.props.selectedUser}
           locationGeometryinSetAssociatedLocality={this.locationGeometryinSetAssociatedLocality}
+          setpopup={this.setpopup}
         />
+
+        {this.state.popup ?
+          <p>{this.state.popup}</p>
+          : null}
+
+
         <button type="button" onClick={this.goBack}>
           Go back
         </button>
+
+        <SubmitNewAssociatedLocality
+          lat={this.state.lat}
+          lng={this.state.lng}
+          userID_toWorkWith={this.props.userID_toWorkWith}
+          setpopup={this.setpopup}
+        />
       </React.Fragment>
     )
   }

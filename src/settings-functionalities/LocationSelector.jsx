@@ -16,6 +16,10 @@ class LocationSelector extends React.Component {
     return (
       <React.Fragment>
         <Autocomplete
+          lat={this.props.lat}
+          lng={this.props.lng}
+          locationGeometryinSetAssociatedLocality={this.props.locationGeometryinSetAssociatedLocality}
+          setpopup={this.props.setpopup}
         />
 
         <Map />
@@ -25,6 +29,7 @@ class LocationSelector extends React.Component {
           lng={this.props.lng}
           selectedUser={this.props.selectedUser}
           locationGeometryinSetAssociatedLocality={this.props.locationGeometryinSetAssociatedLocality}
+          setpopup={this.props.setpopup}
         />
 
         <CenterMap

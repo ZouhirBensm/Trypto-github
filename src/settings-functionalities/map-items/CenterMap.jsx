@@ -41,7 +41,6 @@ class CenterMap extends React.Component {
   render(){
     return (
       <React.Fragment>
-        <div>CenterMap...</div>
       </React.Fragment>
     )
   }

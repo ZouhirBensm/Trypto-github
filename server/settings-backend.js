@@ -55,4 +55,19 @@ settingsBackend_app_router.get(`/:page?`, getDetailedUserSubscriptionInfo("SESSI
 
 
 
+settingsBackend_app_router.post(`/set-users-associated-locality/:userID`, 
+
+
+async (req, res) => {
+
+  console.log(`POST /settings/set-users-associated-locality/${req.params.userID}`)
+
+  console.log(`POST`, req.body)
+
+  res.status(200).json({
+    message: "successful post!"
+  })
+})
+
+
 module.exports = settingsBackend_app_router

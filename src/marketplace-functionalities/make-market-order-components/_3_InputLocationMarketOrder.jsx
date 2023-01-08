@@ -1,4 +1,4 @@
-import {validateInputs_marketOrderTradeLocationSpecifics} from '../../../full-stack-libs/validations'
+import {validate_location_geometry_inputs} from '../../../full-stack-libs/validations'
 import LocationSelector from './LocationSelector'
 
 
@@ -17,7 +17,7 @@ class _3_InputLocationMarketOrder extends React.Component {
 
     let error_msg_retrieved_if_any
 
-    error_msg_retrieved_if_any = validateInputs_marketOrderTradeLocationSpecifics(_2_InputNumbersMarketOrder_data)
+    error_msg_retrieved_if_any = validate_location_geometry_inputs(_2_InputNumbersMarketOrder_data)
 
     console.log("_3_InputLocationMarketOrder: validation()-> error: ", error_msg_retrieved_if_any)
 

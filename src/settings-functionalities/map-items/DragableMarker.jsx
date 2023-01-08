@@ -7,13 +7,12 @@ class DragableMarker extends React.Component {
   }
 
   markerListener() {
+    this.props.setpopup(undefined)
     this.props.locationGeometryinSetAssociatedLocality( window.marker.getPosition().lat(), window.marker.getPosition().lng() )
   }
 
   componentDidMount(){
-    window.marker.addListener("dragend", () => {
-      this.props.locationGeometryinSetAssociatedLocality( marker.getPosition().lat(), marker.getPosition().lng() )
-    });
+    window.marker.addListener("dragend", this.markerListener);
   }
 
   componentWillUnmount(prevProps) {

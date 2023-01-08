@@ -7,7 +7,6 @@ class Map extends React.Component {
   render(){
     return (
       <React.Fragment>
-        <div>Map...</div>
       </React.Fragment>
     )
   }

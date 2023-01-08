@@ -45,7 +45,6 @@ class Autocomplete extends React.Component {
 
 
   componentDidMount(){
-
     let autocomplete = window.autocomplete
     autocomplete.addListener('place_changed', this.onPlacedChanged)
   }

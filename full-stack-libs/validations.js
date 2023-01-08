@@ -125,12 +125,12 @@ function validateExpiry(obj_input, err_msg = undefined) {
 
 
 
-function validateInputs_marketOrderTradeLocationSpecifics(_pkobmOr_LocationData, err_msg = undefined) {
+function validate_location_geometry_inputs(_pkobmOr_LocationData, err_msg = undefined) {
 
   const isUndefined = (currentValue) => currentValue == undefined;
 
   if (Object.values(_pkobmOr_LocationData.geometry).every(isUndefined) && !err_msg) {
-    err_msg = `Please, pick a location before submitting an order.`
+    err_msg = `Please, pick a location before submitting.`
   }
 
   console.log(err_msg)
@@ -180,4 +180,4 @@ function validateInputsAgainstInjection(obj_input, err_msg = undefined) {
 
 
 
-module.exports = { verifyUsername, verifyEmail, verifyPassword, validateInputs, validateExpiry, validateInputs_marketOrderTradeLocationSpecifics, arePasswordsEqual, validateInputsAgainstInjection }
+module.exports = { verifyUsername, verifyEmail, verifyPassword, validateInputs, validateExpiry, validate_location_geometry_inputs, arePasswordsEqual, validateInputsAgainstInjection }
