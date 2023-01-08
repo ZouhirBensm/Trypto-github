@@ -289,7 +289,6 @@ class MakeMarketOrder extends React.Component {
     this.setState({
       lat: geoloc.lat,
       lng: geoloc.lng,
-
     })
   }
 

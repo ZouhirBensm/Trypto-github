@@ -4,7 +4,7 @@ import '../style/googlemaps.css'
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
 
-const SetAssociatedLocality = loadable(() => import('../settings-functionalities/SetAssociatedLocality'), {
+const SetAssociatedLocality = loadable(() => import('../settings-functionalities/SetAssociatedLocality2'), {
   fallback: <Loading />
 });
 

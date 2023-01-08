@@ -6,15 +6,15 @@ class SetAssociatedLocality extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lat: this.props.selectedUser.userassociatedlocalityID?.geometry.lat,
-      lng: this.props.selectedUser.userassociatedlocalityID?.geometry.lng
+      lat: undefined,
+      lng: undefined
+      // lat: window.lat,
+      // lng: window.lng
     }
 
-
+    
     this.locationGeometryinSetAssociatedLocality = this.locationGeometryinSetAssociatedLocality.bind(this)
     this.goBack = this.goBack.bind(this)
-    
-    this.markerListener = this.markerListener.bind(this)
 
     // console.log(`SetAssociatedLocality: constructor()-> this.props: ${this.props.userID_toWorkWith}`)
     // console.log(this.props.selectedUser)
@@ -27,13 +27,8 @@ class SetAssociatedLocality extends React.Component {
     the_map.style.display = "none"
     autocomplete_block.style.display = "none"
 
-    google.maps.event.clearListeners(window.marker, 'dragend');
+    console.log("unmounting!")
 
-
-  }
-
-  markerListener() {
-    this.locationGeometryinSetAssociatedLocality( window.marker.getPosition().lat(), window.marker.getPosition().lng() )
   }
 
 
@@ -48,8 +43,6 @@ class SetAssociatedLocality extends React.Component {
 
     the_map.style.display = "block"
     autocomplete_block.style.display = "block"
-
-    window.marker.addListener("dragend", this.markerListener);
   }
 
   locationGeometryinSetAssociatedLocality(newlat, newlng) {
@@ -70,8 +63,9 @@ class SetAssociatedLocality extends React.Component {
       <React.Fragment>
         <div>SetAssociatedLocality...</div>
         <LocationSelector
-          lat={this.state.lat}
-          lng={this.state.lng}
+          lat = {this.state.lat}
+          lng = {this.state.lng}
+          selectedUser={this.props.selectedUser}
           locationGeometryinSetAssociatedLocality={this.locationGeometryinSetAssociatedLocality}
         />
         <button type="button" onClick={this.goBack}>

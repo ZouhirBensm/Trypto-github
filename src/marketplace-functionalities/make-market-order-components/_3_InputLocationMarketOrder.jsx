@@ -6,7 +6,6 @@ class _3_InputLocationMarketOrder extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
-
   }
 
   async validation(){
@@ -20,7 +19,7 @@ class _3_InputLocationMarketOrder extends React.Component {
 
     error_msg_retrieved_if_any = validateInputs_marketOrderTradeLocationSpecifics(_2_InputNumbersMarketOrder_data)
 
-    console.log("error======>>>>>>> ", error_msg_retrieved_if_any)
+    console.log("_3_InputLocationMarketOrder: validation()-> error: ", error_msg_retrieved_if_any)
 
     if (error_msg_retrieved_if_any) {
       this.props.setpopup(error_msg_retrieved_if_any)

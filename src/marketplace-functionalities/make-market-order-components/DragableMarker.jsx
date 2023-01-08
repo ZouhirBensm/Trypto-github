@@ -45,7 +45,6 @@ class DragableMarker extends React.Component {
       lng: lng
     })
 
-
   }
 
 

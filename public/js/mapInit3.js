@@ -70,6 +70,9 @@ let getLatLng = function () {
 
   let [lat, lng] = await getLatLng()
 
+  window.lat = lat
+  window.lng = lng
+
   map = new google.maps.Map(document.getElementById("the-map"), {
     center: { lat: lat, lng: lng },
     zoom: 8,
