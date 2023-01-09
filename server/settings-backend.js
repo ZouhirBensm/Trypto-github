@@ -12,11 +12,18 @@ const { requester_auth_middleware } = require('../middleware/generic-middleware/
 
 const { getDetailedUserSubscriptionInfo } = require('../middleware/generic-middleware/get-detailed-user-subsciption-information-middleware')
 
+const geocodeTheGeometryMiddleware = require('../middleware/settings-middleware/geocode-the-geometry-middleware')
+
+const updateUsersAssociatedLocalityMiddleware = require('../middleware/settings-middleware/update-users-associated-locality-middleware')
+
 
 // Use this to check the role, requires a res.locals.user.role
 const { set_user_if_any } = require("../middleware/generic-middleware/set-user-if-any-middleware")
 const { require_loggedin_for_pages, require_loggedin_for_data } = require("../middleware/generic-middleware/check-loggedin-middleware")
 const { authenticate_role_for_pages, authenticate_role_for_data } = require("../middleware/generic-middleware/authenticate-role-middleware")
+
+
+const settingsController = require('../controllers/settings-controllers/settings-controllers')
 
 
 
@@ -56,18 +63,14 @@ settingsBackend_app_router.get(`/:page?`, getDetailedUserSubscriptionInfo("SESSI
 
 
 settingsBackend_app_router.post(`/set-users-associated-locality/:userID`, 
-
-
-async (req, res) => {
-
-  console.log(`POST /settings/set-users-associated-locality/${req.params.userID}`)
-
-  console.log(`POST`, req.body)
-
-  res.status(200).json({
-    message: "successful post!"
-  })
-})
+geocodeTheGeometryMiddleware,
+// TODO !!!! HERE
+// doesUserHaveAnAssociatedLocalityMiddleware,
+// if has do this else return next
+updateUsersAssociatedLocalityMiddleware, 
+// if has not do this else return next
+// createUserAssociatedLocalityMiddleware
+settingsController.setUsersAssociatedLocalityResponderController)
 
 
 module.exports = settingsBackend_app_router
