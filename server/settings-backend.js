@@ -14,7 +14,11 @@ const { getDetailedUserSubscriptionInfo } = require('../middleware/generic-middl
 
 const geocodeTheGeometryMiddleware = require('../middleware/settings-middleware/geocode-the-geometry-middleware')
 
+const doesUserHaveAnAssociatedLocalityMiddleware = require('../middleware/generic-middleware/does-user-have-an-associated-locality-middleware')
+
 const updateUsersAssociatedLocalityMiddleware = require('../middleware/settings-middleware/update-users-associated-locality-middleware')
+
+const createUserAssociatedLocalityMiddleware = require('../middleware/settings-middleware/create-user-associated-locality-middleware')
 
 
 // Use this to check the role, requires a res.locals.user.role
@@ -61,15 +65,12 @@ settingsBackend_app_router.get(`/:page?`, getDetailedUserSubscriptionInfo("SESSI
 })
 
 
-
+// TODO !!!! add guards
 settingsBackend_app_router.post(`/set-users-associated-locality/:userID`, 
 geocodeTheGeometryMiddleware,
-// TODO !!!! HERE
-// doesUserHaveAnAssociatedLocalityMiddleware,
-// if has do this else return next
+doesUserHaveAnAssociatedLocalityMiddleware,
 updateUsersAssociatedLocalityMiddleware, 
-// if has not do this else return next
-// createUserAssociatedLocalityMiddleware
+createUserAssociatedLocalityMiddleware,
 settingsController.setUsersAssociatedLocalityResponderController)
 
 

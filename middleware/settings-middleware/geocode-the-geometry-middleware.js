@@ -5,9 +5,11 @@ const ENV = require('../../config/base')
 const { utils } = require('../../full-stack-libs/utils.address')
 
 
-const { MongoError, GoogleAPIError } = require('../../custom-errors/custom-errors')
+const { GoogleAPIError } = require('../../custom-errors/custom-errors')
 
 
+// TODO !!!! put this in own middleware if possible
+// TODO !!!! have a lib for this type of functionality used on back and front end
 let geocodeTheGeometryMiddleware = async function (req, res, next) {
   if (!(req.body.lat && req.body.lng)) {
     return next()
@@ -16,13 +18,14 @@ let geocodeTheGeometryMiddleware = async function (req, res, next) {
   console.log(`\n\nPOST /settings/set-users-associated-locality/${req.params.userID}`)
   console.log(`\n\nPOST`, req.body)
 
-  // TODO ! have a lib for this type of functionality used on back and front end
+  
   const API_KEY = ENV.console_cloud_google_api_key;
   const latitude = parseFloat(req.body.lat);
   const longitude = parseFloat(req.body.lng);
 
   let response
   try {
+    // TODO !!!! see if this is not an environment variable?
     response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${API_KEY}`)
   } catch (error) {
     err = new GoogleAPIError(`Call to maps.googleapis.com error.`, error.code)
@@ -50,7 +53,7 @@ let geocodeTheGeometryMiddleware = async function (req, res, next) {
   country = (country) ? country : undefined
 
 
-  res.locals.upd_UserAssociatedLocality = {
+  res.locals.new_usersAssociatedLocalityData = {
     geometry: {
       lat: req.body.lat,
       lng: req.body.lng
