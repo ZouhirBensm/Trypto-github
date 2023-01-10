@@ -73,7 +73,9 @@ operationsBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
-operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/help-for-market-orders/:userID'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), operationsControllers.getOperationsPagesController)
+operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/help-for-market-orders/:userID', '/set-settings/:userID'], require_loggedin_for_pages(true), 
+authenticate_role_for_pages([ROLE.MASTER]), 
+operationsControllers.getOperationsPagesController)
 
 
 
@@ -81,7 +83,12 @@ operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages
 
 
 
-operationsBackend_app_router.get('/paginated-users/users-for-display', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), paginatingSetupMiddleware, destructureURLandRefererMiddleware, usersRetrievalMiddleware, distributePaginatedDataController)
+operationsBackend_app_router.get('/paginated-users/users-for-display', require_loggedin_for_data(true), 
+authenticate_role_for_data([ROLE.MASTER]), 
+paginatingSetupMiddleware, 
+destructureURLandRefererMiddleware, 
+usersRetrievalMiddleware, 
+distributePaginatedDataController)
 
 
 

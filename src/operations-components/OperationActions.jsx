@@ -21,10 +21,10 @@ class OperationActions extends React.Component {
     this.componentToRender
     this.setupTheProperComponent = this.setupTheProperComponent.bind(this)
     this.setupTheProperComponent(profileimagename)
-    // console.log("OperationActions: constructor()->this.props", this.props)
+    console.log("OperationActions: constructor()->this.props", this.props)
   }
 
-  setupTheProperComponent(_profileimagename){
+  setupTheProperComponent(_profileimagename = undefined){
     switch (this.state.mode) {
       // Disables the currency app
       // case "help-for-orders":
