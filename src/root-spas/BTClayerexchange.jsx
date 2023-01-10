@@ -45,10 +45,6 @@ class BTClayerexchange extends React.Component {
               (props) => <MyCurrencyOrders {...props} userID_toQueryWith={userId}/>
             } />
 
-
-            
-            {/* HERE NEED REAT THROUGHT */}
-            {/* HERE */}
             <Route exact path="/currency/btclayerexchange/matches" component={CurrencyOrderMatches} />
             
 

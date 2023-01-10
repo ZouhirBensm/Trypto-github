@@ -54,10 +54,14 @@ class SubmitNewAssociatedLocality extends React.Component {
       },
       body: JSON.stringify(geometry)
     })
-
     json = await response.json()
 
-    console.log("SubmitNewAssociatedLocality: postNewAssociatedLocality(): json", json)
+    if (response.status == 200) {
+      window.location.href = `/settings/set-users-associated-locality?popup=${json.message}`
+    } else {
+      console.log(json)
+      this.props.setpopup(json.error.message)
+    }
   }
 
 
@@ -70,8 +74,6 @@ class SubmitNewAssociatedLocality extends React.Component {
           ret1 = await this.validation()
           console.log(ret1)
           if (ret1) {
-            // make api call
-            console.log("making api call")
             ret2 = await this.postNewAssociatedLocality()
           } else {
             return

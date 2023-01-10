@@ -7,16 +7,21 @@ import { withRouter } from 'react-router-dom';
 class SetAssociatedLocality extends React.Component {
   constructor(props) {
     super(props)
+    const queryParams = new URLSearchParams(this.props.location.search)
+    const popup = queryParams.get("popup")
+
     this.state = {
       lat: undefined,
       lng: undefined,
-      popup: undefined
+      popup: undefined || popup
     }
 
 
     this.locationGeometryinSetAssociatedLocality = this.locationGeometryinSetAssociatedLocality.bind(this)
     this.goBack = this.goBack.bind(this)
     this.setpopup = this.setpopup.bind(this)
+
+
 
     // console.log(`SetAssociatedLocality: constructor()-> this.props: ${this.props.userID_toWorkWith}`)
     // console.log(this.props.selectedUser)

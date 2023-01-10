@@ -38,9 +38,11 @@ settingsBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
-
-
-settingsBackend_app_router.get(`/:page?`, getDetailedUserSubscriptionInfo("SESSION", "userassociatedlocalityID"), (req, res) => {
+settingsBackend_app_router.get(`/:page?`, 
+require_loggedin_for_pages(true), 
+authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]),
+getDetailedUserSubscriptionInfo("SESSION", "userassociatedlocalityID"), 
+(req, res) => {
 
   console.log(`\n\nsettingsBackend_app_router: GET /: req.params.page`, req.params.page)
   console.log(`\n\nsettingsBackend_app_router: GET /: res.sessions.userId`, req.session.userId)
@@ -65,8 +67,11 @@ settingsBackend_app_router.get(`/:page?`, getDetailedUserSubscriptionInfo("SESSI
 })
 
 
-// TODO !!!! add guards
+
 settingsBackend_app_router.post(`/set-users-associated-locality/:userID`, 
+require_loggedin_for_data(true), 
+authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
+requester_auth_middleware(2),
 geocodeTheGeometryMiddleware,
 doesUserHaveAnAssociatedLocalityMiddleware,
 updateUsersAssociatedLocalityMiddleware, 
