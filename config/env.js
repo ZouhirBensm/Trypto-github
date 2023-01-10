@@ -15,4 +15,5 @@ module.exports = {
   console_cloud_google_api_key: process.env.CONSOLE_CLOUD_GOOGLE_API_KEY,
   bidblock_email: process.env.BIDBLOCK_EMAIL,
   bidblock_email_app_pass_code: process.env.BIDBLOCK_EMAIL_APP_PASS_CODE,
+  google_maps_api_url: process.env.GOOGLE_MAPS_API_URL,
 }

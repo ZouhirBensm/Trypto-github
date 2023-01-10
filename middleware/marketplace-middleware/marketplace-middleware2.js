@@ -302,7 +302,7 @@ async function recentOrdersRetrievalMiddleware(req, res, next) {
 
 
 
-async function preset1(req, res, next) {
+async function filterSetupsMiddleware(req, res, next) {
   console.log("\n\nmarketplaceMiddleware: preset1(): \n\n\n\n")
 
 
@@ -336,7 +336,7 @@ async function preset1(req, res, next) {
 
 
 
-async function preset2(req, res, next) {
+async function determineRearrangeDataOrNotMiddleware(req, res, next) {
 
 
   let option = 1
@@ -372,7 +372,7 @@ async function preset2(req, res, next) {
 
 
 
-async function preset3(req, res, next) {
+async function queryAndOrganizeDataMiddleware(req, res, next) {
 
   // user Location not there
   let sellOrders
@@ -480,9 +480,9 @@ marketplaceMiddleware = {
   instantiateMarketOrderImagesMiddleware: instantiateMarketOrderImagesMiddleware,
   saveAllMarketOrderMiddleware: saveAllMarketOrderMiddleware,
   setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware: setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware,
-  preset1: preset1,
-  preset2: preset2,
-  preset3: preset3,
+  filterSetupsMiddleware: filterSetupsMiddleware,
+  determineRearrangeDataOrNotMiddleware: determineRearrangeDataOrNotMiddleware,
+  queryAndOrganizeDataMiddleware: queryAndOrganizeDataMiddleware,
 }
 
 

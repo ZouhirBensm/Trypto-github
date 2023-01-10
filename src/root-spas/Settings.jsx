@@ -23,16 +23,9 @@ class Settings extends React.Component {
   componentDidMount() {
     let the_map = document.getElementById('the-map');
     let autocomplete_block = document.getElementById('autocomplete-block');
-    
+
     the_map.style.display = "none"
     autocomplete_block.style.display = "none"
-
-    var reactDiv = document.getElementById("react-div");
-    console.log(reactDiv, the_map, autocomplete_block)
-    
-    reactDiv.appendChild(autocomplete_block);
-    reactDiv.appendChild(the_map);
-
   }
 
 

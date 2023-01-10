@@ -1,6 +1,7 @@
 
 import LocationSelector from './LocationSelector'
 import SubmitNewAssociatedLocality from './SubmitNewAssociatedLocality'
+import DoesUserHaveAssociatedLocalitySet from './DoesUserHaveAssociatedLocalitySet'
 
 import { withRouter } from 'react-router-dom';
 
@@ -68,6 +69,10 @@ class SetAssociatedLocality extends React.Component {
   render() {
     return (
       <React.Fragment>
+        <DoesUserHaveAssociatedLocalitySet
+          selectedUser={this.props.selectedUser}
+        />
+
         <LocationSelector
           lat={this.state.lat}
           lng={this.state.lng}
@@ -81,16 +86,18 @@ class SetAssociatedLocality extends React.Component {
           : null}
 
 
-        <button type="button" onClick={this.goBack}>
-          Go back
-        </button>
+
 
         <SubmitNewAssociatedLocality
           lat={this.state.lat}
           lng={this.state.lng}
           userID_toWorkWith={this.props.userID_toWorkWith}
           setpopup={this.setpopup}
-        />
+        />  <br/>
+        
+        <button type="button" onClick={this.goBack}>
+          Go back
+        </button> <br/>
       </React.Fragment>
     )
   }

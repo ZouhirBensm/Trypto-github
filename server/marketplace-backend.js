@@ -114,10 +114,9 @@ requester_auth_middleware(5),
 paginatingSetupMiddleware, 
 destructureURLandRefererMiddleware, 
 paginatedOrdersSetupMiddleware, 
-// TODO !!!! rename these middleware
-marketplaceMiddleware.preset1,
-marketplaceMiddleware.preset2,
-marketplaceMiddleware.preset3,
+marketplaceMiddleware.filterSetupsMiddleware,
+marketplaceMiddleware.determineRearrangeDataOrNotMiddleware,
+marketplaceMiddleware.queryAndOrganizeDataMiddleware,
 marketplaceMiddleware.ordersRetrievalMiddleware, 
 distributePaginatedDataController)
 

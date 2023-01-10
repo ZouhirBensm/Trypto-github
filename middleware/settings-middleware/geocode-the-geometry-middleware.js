@@ -8,8 +8,8 @@ const { utils } = require('../../full-stack-libs/utils.address')
 const { GoogleAPIError } = require('../../custom-errors/custom-errors')
 
 
-// TODO !!!! put this in own middleware if possible
-// TODO !!!! have a lib for this type of functionality used on back and front end
+// TODO ! put this in own middleware if possible
+// TODO ! have a lib for this type of functionality used on back and front end
 let geocodeTheGeometryMiddleware = async function (req, res, next) {
   if (!(req.body.lat && req.body.lng)) {
     return next()
@@ -25,8 +25,8 @@ let geocodeTheGeometryMiddleware = async function (req, res, next) {
 
   let response
   try {
-    // TODO !!!! see if this is not an environment variable?
-    response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${API_KEY}`)
+    console.log(`${ENV.google_maps_api_url}?latlng=${latitude},${longitude}&key=${API_KEY}`)
+    response = await axios.get(`${ENV.google_maps_api_url}?latlng=${latitude},${longitude}&key=${API_KEY}`)
   } catch (error) {
     err = new GoogleAPIError(`Call to maps.googleapis.com error.`, error.code)
     return next(err)
