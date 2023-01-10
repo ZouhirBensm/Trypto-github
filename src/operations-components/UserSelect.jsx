@@ -1,10 +1,11 @@
-import React from 'react';
+// import React from 'react';
 import Operations from '../root-spas/Operations';
 import UsersList from './UsersList'
 import PageSelector from '../generic-components/PageSelector'
 import OperationActions from '../operations-components/OperationActions'
 import MarketOrderDetails from '../marketplace-functionalities/MarketOrderDetails'
-import { Link, BrowserRouter, Route, Switch, useRouteMatch } from 'react-router-dom';
+
+import { Link, BrowserRouter, Route, Switch } from 'react-router-dom';
 
 
 class UserSelect extends React.Component {
@@ -32,7 +33,6 @@ class UserSelect extends React.Component {
   }
 
   componentDidMount() {
-    //DOM is ready
     this.loadData()
   }
 
@@ -41,12 +41,9 @@ class UserSelect extends React.Component {
 
     let serverOBJ = await response.json()
 
-    // console.log(serverOBJ)
+    // console.log("UserSelect: loadData()->serverOBJ: " serverOBJ)
 
     if (response.ok) {
-
-      // console.log("serverOBJ: ", serverOBJ)
-
       this.setState({
         users: serverOBJ.srv_.USERS,
         nextPage: serverOBJ.srv_.next,
@@ -72,7 +69,6 @@ class UserSelect extends React.Component {
           })
         }
       })
-      // Custom Errors get spitted out here
     } else {
       console.error("Error: ", serverOBJ)
     }
@@ -80,7 +76,6 @@ class UserSelect extends React.Component {
   }
 
   render() {
-    // console.log("BEFORE", this.state.users)
     return (
 
       <React.Fragment>
@@ -88,6 +83,8 @@ class UserSelect extends React.Component {
         <BrowserRouter>
           <Switch>
             <Route exact path='/operations/:mode'>
+              <div>Component: UserSelect, this.props.mode: {this.props.mode}</div>
+ 
               <UsersList
                 users={this.state.users}
                 mode={this.props.mode}
@@ -102,12 +99,7 @@ class UserSelect extends React.Component {
                 controls={this.controls}
               />
 
-
-              <hr />
-              <div>Hello this is the user select component {this.props.mode}</div>
-              <ul>
-                <li><Link to='/operations'>Back</Link></li>
-              </ul>
+              <Link to='/operations'>Back</Link>
             </Route>
 
             <Route exact path="/operations" render={

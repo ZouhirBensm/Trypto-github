@@ -1,5 +1,5 @@
 import { parseFullPath4lastpath } from '../../full-stack-libs/utils'
-import { Link, BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 
@@ -9,18 +9,17 @@ class UsersList extends React.Component {
     this.state = {
     }
     this.mode = parseFullPath4lastpath(window.location.href)
-    // console.log("from path:", this.mode)
-    // console.log("from props:", this.props.mode)
+    // console.log("UsersList: constructor()-> this.mode:", this.mode)
+    // console.log("UsersList: constructor()-> this.props.mode:", this.props.mode)
     this.users = []
-    console.log("this.props.users: ", this.props.users)
-    console.log(this.props)
+    // console.log("UsersList: constructor()-> this.props.users:", this.props.users)
+    console.log("UsersList: constructor()-> this.props:", this.props)
     this.userElements = undefined
   }
 
   componentWillReceiveProps(newProps, prevProps) {
-    // console.log("what we got?", newProps)
+    console.log("UsersList: componentWillReceiveProps()-> newProps:", newProps)
     this.users = newProps
-    // console.log("this.users:", this.users)
     this.userElements = this.users.users.map((userElement, i) => {
       return (
         <Link to={{

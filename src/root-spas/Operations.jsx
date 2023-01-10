@@ -52,6 +52,7 @@ class Operations extends React.Component {
               <Admin_Block className="msubs" title="Manage Subscriptions" link="/manage-subs" />
               <Admin_Block className="articlesd" title="Articles dashbord" link="/articles-dashboard" />
               <Admin_Block className="hmorders" title="Help for Market orders" link="/help-for-market-orders" />
+              <Admin_Block className="ssettings" title="Set Settings" link="/set-settings" />
             </Route>
 
 
@@ -59,17 +60,21 @@ class Operations extends React.Component {
             {/* <Route path="/help-for-orders" render={
               (props) => <UserSelect {...props} mode="help-for-orders" />
             } /> */}
-            
+
             <Route path="/monitor-messages" render={
               (props) => <UserSelect {...props} mode="monitor-messages" />
             } />
-            
+
             <Route path="/manage-subs" render={
               (props) => <UserSelect {...props} mode="manage-subs" />
             } />
 
             <Route path="/help-for-market-orders" render={
               (props) => <UserSelect {...props} mode="help-for-market-orders" />
+            } />
+
+            <Route path="/set-settings" render={
+              (props) => <UserSelect {...props} mode="set-settings" />
             } />
 
 

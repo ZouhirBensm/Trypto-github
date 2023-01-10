@@ -152,7 +152,7 @@ operationsBackend_app_router.get('/article-selector', require_loggedin_for_pages
 })
 
 
-operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/manage-subs', '/help-for-market-orders'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
+operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/manage-subs', '/help-for-market-orders', '/set-settings'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
 
   // res.locals.CATEGORY = CATEGORY;
 
