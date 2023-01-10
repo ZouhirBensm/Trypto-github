@@ -4,7 +4,9 @@ async function getOperationsPagesController(req, res) {
   JSX_to_load = 'Operations';
 
 
-  console.log("\n\n\noperationsControllers.getOperationsPagesController() ->res.locals: ", res.locals)
+  // console.log("\n\n\noperationsControllers.getOperationsPagesController() ->res.locals: ", res.locals)
+
+  console.log("\n\n\noperationsControllers.getOperationsPagesController() ->res.locals.selectedUser:, \n\n***", res.locals.selectedUser)
 
   
   return res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {

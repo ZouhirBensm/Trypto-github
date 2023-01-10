@@ -73,9 +73,33 @@ operationsBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
+
+
+operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/manage-subs', '/help-for-market-orders', '/set-settings'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
+
+  // res.locals.CATEGORY = CATEGORY;
+
+  
+  var JSX_to_load
+  JSX_to_load = 'Operations';
+
+  // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
+    JSX_to_load: JSX_to_load,
+  })
+})
+
+
+
+
 operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/help-for-market-orders/:userID', '/set-settings/:userID'], require_loggedin_for_pages(true), 
 authenticate_role_for_pages([ROLE.MASTER]), 
 operationsControllers.getOperationsPagesController)
+
+
+
+
+
 
 
 
@@ -158,22 +182,6 @@ operationsBackend_app_router.get('/article-selector', require_loggedin_for_pages
   })
 })
 
-
-operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/manage-subs', '/help-for-market-orders', '/set-settings'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
-
-  // res.locals.CATEGORY = CATEGORY;
-
-  
-
-
-  var JSX_to_load
-  JSX_to_load = 'Operations';
-
-  // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
-  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
-    JSX_to_load: JSX_to_load,
-  })
-})
 
 
 

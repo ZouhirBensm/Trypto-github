@@ -62,7 +62,7 @@ class OperationActions extends React.Component {
       case "set-settings":
         this.componentToRender = <SetSettings
           // comprehensiveSelectedUserInfoDataObj={this.comprehensiveSelectedUserInfoDataObj}
-          // selected_userID={this.props.match.params.selected_userID}
+          selected_userID={this.props.match.params.selected_userID}
           // mode={this.props.match.params.mode} 
           // loggedinUserObjInfo={user}
         />

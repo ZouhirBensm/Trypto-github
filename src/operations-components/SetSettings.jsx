@@ -9,7 +9,7 @@ class SetSettings extends React.Component {
   render(){
     return (
       <React.Fragment>
-        <div>SetSettings...</div>
+        <div>SetSettings...{this.props.selected_userID}</div>
       </React.Fragment>
     )
   }

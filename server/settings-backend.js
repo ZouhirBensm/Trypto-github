@@ -38,6 +38,7 @@ settingsBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
+// TODO !!!! rename getDetailedUserSubscriptionInfo because in some instance its the locality info that is populated
 settingsBackend_app_router.get(`/:page?`, 
 require_loggedin_for_pages(true), 
 authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]),
