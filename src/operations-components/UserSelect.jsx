@@ -41,7 +41,7 @@ class UserSelect extends React.Component {
 
     let serverOBJ = await response.json()
 
-    // console.log("UserSelect: loadData()->serverOBJ: " serverOBJ)
+    // console.log("UserSelect: loadData()->serverOBJ: ", serverOBJ)
 
     if (response.ok) {
       this.setState({

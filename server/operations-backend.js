@@ -26,7 +26,7 @@ const UserProfileImage = require('../models/UserProfileImage')
 
 
 const operationsControllers = require('../controllers/operations-controllers/operations-controllers')
-
+const operationsSettingsControllers = require('../controllers/operations-controllers/operations-settings-controllers/operations-settings-controllers')
 
 const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
@@ -40,6 +40,9 @@ const destructureURLandRefererMiddleware = require('../middleware/generic-middle
 
 
 const distributePaginatedDataController = require('../controllers/generic-controllers/distribute-paginated-data-controller')
+
+
+const operationsSettingsMiddleware = require('../middleware/operations-middleware/operations-settings-middleware/operations-settings-middleware')
 
 const {getDetailedUserSubscriptionInfo} = require('../middleware/generic-middleware/get-detailed-user-subsciption-information-middleware')
 const {getProfilePicNameIfAnyMiddleware} = require('../middleware/generic-middleware/get-profile-pic-name-if-any-middleware')
@@ -89,6 +92,12 @@ operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/man
   })
 })
 
+
+
+operationsBackend_app_router.get('/set-settings/set-users-associated-locality',
+require_loggedin_for_pages(true), 
+authenticate_role_for_pages([ROLE.MASTER]), 
+operationsControllers.getOperationsPagesController)
 
 
 
@@ -207,6 +216,27 @@ operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', require_l
 
 
 operationsBackend_app_router.post('/create-article', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), multerinstance.upload.single('image'), articlesMiddleware.setTheExcerptMiddleware, articlesMiddleware.makeSureDestinationFolderPresentMiddleware,  articlesMiddleware.createArticleInstanceMiddleware, articlesMiddleware.processArticleImageMiddleware,  articlesMiddleware.createArticleEnclosureImageInstanceMiddleware, articlesMiddleware.saveTheArticleEntryMiddleware, articlesMiddleware.saveTheArticleEnclosureImageEntryMiddleware,  operationsControllers.responseCreateArticleController)
+
+
+
+
+
+operationsBackend_app_router.put('/set-settings/set-users-associated-locality/:userID', 
+require_loggedin_for_data(true), 
+authenticate_role_for_data([ROLE.MASTER]),
+operationsSettingsMiddleware.mid0,
+operationsSettingsMiddleware.mid1,
+operationsSettingsMiddleware.mid3,
+operationsSettingsControllers.cont1)
+
+
+operationsBackend_app_router.post('/set-settings/set-users-associated-locality/:userID', 
+require_loggedin_for_data(true), 
+authenticate_role_for_data([ROLE.MASTER]),
+operationsSettingsMiddleware.mid0,
+operationsSettingsMiddleware.mid2,
+operationsSettingsMiddleware.mid3,
+operationsSettingsControllers.cont1)
 
 
 

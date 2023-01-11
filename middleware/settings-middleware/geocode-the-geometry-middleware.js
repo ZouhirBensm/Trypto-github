@@ -12,6 +12,7 @@ const { GoogleAPIError } = require('../../custom-errors/custom-errors')
 // TODO ! have a lib for this type of functionality used on back and front end
 let geocodeTheGeometryMiddleware = async function (req, res, next) {
   if (!(req.body.lat && req.body.lng)) {
+    // TODO !!!! determine whether or not to throw an error at this point?
     return next()
   }
 

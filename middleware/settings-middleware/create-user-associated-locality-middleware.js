@@ -3,7 +3,6 @@ const User = require('../../models/User')
 
 const { MongoError } = require('../../custom-errors/custom-errors')
 const { ObjectId } = require('mongodb')
-ObjectId
 
 
 let createUserAssociatedLocalityMiddleware = async function (req, res, next) {
@@ -28,8 +27,6 @@ let createUserAssociatedLocalityMiddleware = async function (req, res, next) {
     return next(error)
   }
 
-  console.log("\n\n createUserAssociatedLocalityMiddleware() -> ret_save_userAssociatedLocality: ", ret_save_userAssociatedLocality)
-  console.log("\n\n createUserAssociatedLocalityMiddleware() -> userAssociatedLocality_instance._id: ", userAssociatedLocality_instance._id)
 
   let ret_updatedUsersAssociatedLocality
   try {

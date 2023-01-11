@@ -4,28 +4,57 @@ const User = require('../../models/User')
 module.exports = async (req,res,next)=>{
   let user = res.locals.user
   console.log("\n_______________\n")
-  console.log("in usersRetrievalMiddleware: ")
+  console.log("in usersRetrievalMiddleware: \n\n ")
+  
+  // console.log(res.locals.paths_URL_fromReferer[1])
+  
+  
+  let path, select
+
+  switch (res.locals.paths_URL_fromReferer[1]) {
+    case 'set-settings':
+      path = "userassociatedlocalityID"
+      select = "location geometry -_id"
+      break;
+    case 'manage-subs':
+      path = "userprofileimageID"
+      select = "image.name -_id"
+      break;
+    default:
+      // path = "userprofileimageID"
+      // select = "image.name -_id"
+      break;
+  }
 
 
-  // For on select
-  // Get rid of logged in user, and no password field
-  let users = await User.find({_id: {$ne: user._id}})
-  .populate({
-    // Populate protagonists
-    path: "userprofileimageID",
-    // Fields allowed to populate with
-    select: "image.name -_id",
-  })
-  .select('-password')
+  let query = User.find({_id: {$ne: user._id}})
+
+  if (path && select){
+    query = query.populate({
+      path: path,
+      select: select,
+    })
+    .select('-password')
+  }
+
+  let users = await query.exec()
+
+
+
+  // let users = await User.find({_id: {$ne: user._id}})
+  // .populate({
+  //   path: path,
+  //   select: select,
+  // })
+  // .select('-password')
 
 
   // users.forEach(user => {
   //   console.log(user)
-  //   console.log(user.userprofileimageID?.image.name)
   // });
 
   res.locals.data_to_be_paginated_and_served = users
 
   console.log("\n______________________________")
-  next()
+  return next()
 }
