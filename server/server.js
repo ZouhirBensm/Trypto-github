@@ -103,7 +103,7 @@ const utils = require('../full-stack-libs/utils')
 
 
 const homeOrdersBackend_app_router = require('./home-currencyorders-registerlogin-backend')
-const currencyBackend_app_router = require('./currencyorders-backend')
+// const currencyBackend_app_router = require('./currencyorders-backend')
 const settingsBackend_app_router = require('./settings-backend')
 const marketplaceBackend_app_router = require('./marketplace-backend')
 const messagingBackend_app_router = require('./messaging-backend');
@@ -195,7 +195,7 @@ express_server_app_router.use(express.static('public'));
 
 
 express_server_app_router.use((req, res, next) => {
-  console.log(req.url)
+  console.log("\n\n1st middleware: server.js -> req.url:\n", req.url)
   URL_ = req.url.split("?")[0]
   res.locals.paths_URL = utils.URLpathDecomposer(URL_)
 

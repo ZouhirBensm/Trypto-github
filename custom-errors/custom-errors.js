@@ -8,6 +8,16 @@ class CustomError extends Error {
   }
 }
 
+
+class PayloadInadequateError extends CustomError {
+  constructor(message, overwriteStatus = undefined) {
+    super()
+    this.type = this.constructor.name
+    this.statusCode = overwriteStatus || errorCode
+    this.message = message
+  }
+}
+
 // Kept as an example
 // class SubCustomError extends CustomError {
 //   constructor(){
@@ -182,5 +192,6 @@ module.exports = {
   MarketOrderSubmissionError,
   ProfileImageUploadError,
   CreateArticleError,
-  GoogleAPIError
+  GoogleAPIError,
+  PayloadInadequateError
 }

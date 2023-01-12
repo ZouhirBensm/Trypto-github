@@ -5,19 +5,19 @@ const ENV = require('../../config/base')
 const { utils } = require('../../full-stack-libs/utils.address')
 
 
-const { GoogleAPIError } = require('../../custom-errors/custom-errors')
+const { GoogleAPIError, PayloadInadequateError } = require('../../custom-errors/custom-errors')
 
 
 // TODO ! put this in own middleware if possible
 // TODO ! have a lib for this type of functionality used on back and front end
+
+
 let geocodeTheGeometryMiddleware = async function (req, res, next) {
   if (!(req.body.lat && req.body.lng)) {
-    // TODO !!!! determine whether or not to throw an error at this point?
-    return next()
+  // if (true) {
+    let error = new PayloadInadequateError("Request body is not adequate")
+    return next(error)
   }
-
-  console.log(`\n\nPOST /settings/set-users-associated-locality/${req.params.userID}`)
-  console.log(`\n\nPOST`, req.body)
 
   
   const API_KEY = ENV.console_cloud_google_api_key;

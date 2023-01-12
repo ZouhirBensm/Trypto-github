@@ -48,13 +48,16 @@ class SetLocationSetting extends React.Component {
     return (
       <React.Fragment>
         <div>SetLocationSetting...{this.props.comprehensiveSelectedUserInfoDataObj._id}</div>
+        <div>
+        Does this user have a associated locality? 
         {this.props.comprehensiveSelectedUserInfoDataObj.userassociatedlocalityID ?
-          "✅ " + this.props.comprehensiveSelectedUserInfoDataObj.userassociatedlocalityID.location.address
+          " ✅ " + this.props.comprehensiveSelectedUserInfoDataObj.userassociatedlocalityID.location.address
           :
-          "❌"}
+          " ❌"}
+        </div>
 
-        <h3>Edit:</h3>
-
+        <h3>Configure one: </h3>
+        <span>Entre wanted Lat, and Lng for this user:</span>
 
         <form className="form" id="edit-locality" onSubmit={this.makeRequest}>
           <label htmlFor="lat-input">Latitude:<input type="number" id="lat-input" name="lat" step="0.0000000001" required /></label><br />
@@ -70,7 +73,7 @@ class SetLocationSetting extends React.Component {
           <p>{this.props.popup}</p>
           : null}
 
-        <h3>Convert Address to Latitude & Longitude</h3>
+        <div><strong>Resource:</strong> convert address to LAT, and LNG: </div>
         <a href="https://www.google.com/maps" target="_blank">Google Maps</a> <br /><br />
 
 

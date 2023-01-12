@@ -4,12 +4,9 @@ var ObjectId = require('mongodb').ObjectId;
 
 
 module.exports = async (req,res,next)=>{
+
   
-  
-  console.log("\n_______________\n")
-  console.log("in usersRetrievalMiddleware: ")
-  
-  console.log(req.params.userID, res.locals.page, res.locals.limit, req.query.userIdB)
+  // console.log(req.params.userID, res.locals.page, res.locals.limit, req.query.userIdB)
 
 
   // console.log(res.locals.page, res.locals.limit, res.locals.startIndex, res.locals.endIndex)

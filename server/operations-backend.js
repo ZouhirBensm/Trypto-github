@@ -31,6 +31,11 @@ const operationsSettingsControllers = require('../controllers/operations-control
 const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
 
+
+const geocodeTheGeometryMiddleware = require('../middleware/settings-middleware/geocode-the-geometry-middleware')
+const updateUsersAssociatedLocalityMiddleware = require('../middleware/settings-middleware/update-users-associated-locality-middleware')
+const createUserAssociatedLocalityMiddleware = require('../middleware/settings-middleware/create-user-associated-locality-middleware')
+
 const articlesMiddleware = require('../middleware/articles-middleware/articles-middleware')
 
 const usersRetrievalMiddleware = require('../middleware/operations-middleware/users-retrieval-middleware')
@@ -44,7 +49,7 @@ const distributePaginatedDataController = require('../controllers/generic-contro
 
 const operationsSettingsMiddleware = require('../middleware/operations-middleware/operations-settings-middleware/operations-settings-middleware')
 
-const {getDetailedUserSubscriptionInfo} = require('../middleware/generic-middleware/get-detailed-user-subsciption-information-middleware')
+const {getPopulatedUser} = require('../middleware/generic-middleware/get-populated-user')
 const {getProfilePicNameIfAnyMiddleware} = require('../middleware/generic-middleware/get-profile-pic-name-if-any-middleware')
 
 
@@ -86,7 +91,8 @@ operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/man
   var JSX_to_load
   JSX_to_load = 'Operations';
 
-  // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
+  // console.log("\n\nGET /help-for-orders, /monitor-messages, /manage-subs, /help-for-market-orders, /set-settings ->\nres.locals, navBars, loggedIn\n\n", res.locals, navBars, loggedIn)
+
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
   })
@@ -126,7 +132,7 @@ distributePaginatedDataController)
 
 
 
-operationsBackend_app_router.get('/detailed-user-information/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2), getDetailedUserSubscriptionInfo("PATHPARAM", "subscriptionID"), (req,res) => {
+operationsBackend_app_router.get('/detailed-user-information/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2), getPopulatedUser("PATHPARAM", "subscriptionID"), (req,res) => {
 
   res.status(200).json({
     selectedUser: res.locals.selectedUser
@@ -224,19 +230,21 @@ operationsBackend_app_router.post('/create-article', require_loggedin_for_pages(
 operationsBackend_app_router.put('/set-settings/set-users-associated-locality/:userID', 
 require_loggedin_for_data(true), 
 authenticate_role_for_data([ROLE.MASTER]),
-operationsSettingsMiddleware.mid0,
-operationsSettingsMiddleware.mid1,
-operationsSettingsMiddleware.mid3,
-operationsSettingsControllers.cont1)
+operationsSettingsMiddleware.basedOnRequestAdapterToSettings,
+geocodeTheGeometryMiddleware,
+updateUsersAssociatedLocalityMiddleware,
+operationsSettingsMiddleware.getTheUpdatedUserToUseInQueryStringOnFrontEnd,
+operationsSettingsControllers.setAssociatedLocalityResponderController)
 
 
 operationsBackend_app_router.post('/set-settings/set-users-associated-locality/:userID', 
 require_loggedin_for_data(true), 
 authenticate_role_for_data([ROLE.MASTER]),
-operationsSettingsMiddleware.mid0,
-operationsSettingsMiddleware.mid2,
-operationsSettingsMiddleware.mid3,
-operationsSettingsControllers.cont1)
+operationsSettingsMiddleware.basedOnRequestAdapterToSettings,
+geocodeTheGeometryMiddleware,
+createUserAssociatedLocalityMiddleware,
+operationsSettingsMiddleware.getTheUpdatedUserToUseInQueryStringOnFrontEnd,
+operationsSettingsControllers.setAssociatedLocalityResponderController)
 
 
 

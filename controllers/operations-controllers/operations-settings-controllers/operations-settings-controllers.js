@@ -1,6 +1,6 @@
-async function cont1(req, res) {
+async function setAssociatedLocalityResponderController(req, res) {
   
-  const message = "Success, "
+  const message = "Successfully updated this users associated locality."
 
   res.status(200).json({
     message: message,
@@ -14,7 +14,7 @@ async function cont1(req, res) {
 
 
 const operationsSettingsControllers = {
-  cont1: cont1,
+  setAssociatedLocalityResponderController: setAssociatedLocalityResponderController,
 }
 
 

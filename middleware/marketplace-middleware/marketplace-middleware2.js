@@ -288,7 +288,7 @@ async function recentOrdersRetrievalMiddleware(req, res, next) {
     return next(e)
   }
 
-  console.log("\n\n\n\nsellOrders!!\n\n", sellOrders)
+  // console.log("\n\n\n\nsellOrders!!\n\n", sellOrders)
   res.locals.data_to_be_served = sellOrders.slice(0, 5)
 
   return next()

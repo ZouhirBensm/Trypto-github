@@ -10,7 +10,7 @@ const NAVBAR = require('../full-stack-libs/Types/Navbar')
 // Middleware
 const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
 
-const { getDetailedUserSubscriptionInfo } = require('../middleware/generic-middleware/get-detailed-user-subsciption-information-middleware')
+const { getPopulatedUser } = require('../middleware/generic-middleware/get-populated-user')
 
 const geocodeTheGeometryMiddleware = require('../middleware/settings-middleware/geocode-the-geometry-middleware')
 
@@ -38,11 +38,10 @@ settingsBackend_app_router.use(set_user_if_any, (req, res, next) => {
 })
 
 
-// TODO !!!! rename getDetailedUserSubscriptionInfo because in some instance its the locality info that is populated
 settingsBackend_app_router.get(`/:page?`, 
 require_loggedin_for_pages(true), 
 authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]),
-getDetailedUserSubscriptionInfo("SESSION", "userassociatedlocalityID"), 
+getPopulatedUser("SESSION", "userassociatedlocalityID"), 
 (req, res) => {
 
   console.log(`\n\nsettingsBackend_app_router: GET /: req.params.page`, req.params.page)

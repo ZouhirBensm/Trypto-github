@@ -51,7 +51,7 @@ const profileMiddleware = require('../middleware/profile-middleware/profile-midd
 const requireRefererMiddleware = require('../middleware/generic-middleware/require-referer')
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 const startEmptyNotificationsMiddleware = require('../middleware/generic-middleware/start-empty-notifications-middleware')
-const { getDetailedUserSubscriptionInfo } = require('../middleware/generic-middleware/get-detailed-user-subsciption-information-middleware')
+const { getPopulatedUser } = require('../middleware/generic-middleware/get-populated-user')
 const { getProfilePicNameIfAnyMiddleware } = require('../middleware/generic-middleware/get-profile-pic-name-if-any-middleware')
 
 const deleteMarketOrderMiddleware = require('../middleware/delete-account-process-middleware/delete-market-order-middleware.js')
@@ -124,7 +124,7 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 homeOrdersBackend_app_router.get('/users/profile', 
 require_loggedin_for_pages(true), 
 authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), 
-getDetailedUserSubscriptionInfo("SESSION", "subscriptionID"), 
+getPopulatedUser("SESSION", "subscriptionID"), 
 getProfilePicNameIfAnyMiddleware("SESSION"),
 homeCurrencyOrdersController.renderMgtUserSPAController)
 

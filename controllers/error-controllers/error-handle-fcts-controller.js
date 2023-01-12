@@ -139,6 +139,13 @@ const errorResponseDispatcherController = async (err, req, res, next) => {
           }
         }
       })
+    case "PayloadInadequateError":
+      return res.status(err.statusCode).json({
+        error: {
+          type: err.type,
+          message: err.message
+        }
+      })
     default:
       console.log("switch end")
       return next(err)

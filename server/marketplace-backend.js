@@ -60,7 +60,7 @@ const marketplaceMiddleware = require('../middleware/marketplace-middleware/mark
 
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 // const startEmptyNotificationsMiddleware = require('../middleware/generic-middleware/start-empty-notifications-middleware')
-// const { getDetailedUserSubscriptionInfo } = require('../middleware/generic-middleware/get-detailed-user-subsciption-information-middleware')
+// const { getPopulatedUser } = require('../middleware/generic-middleware/get-populated-user')
 
 
 const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')

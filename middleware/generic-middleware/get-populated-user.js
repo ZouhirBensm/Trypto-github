@@ -2,7 +2,7 @@ const User = require('../../models/User')
 const {SessionRoleOrSentUIDnotAllowed} = require('../../custom-errors/custom-errors')
 
 
-function getDetailedUserSubscriptionInfo(userID_from, populate) {
+function getPopulatedUser(userID_from, populate) {
   return async (req, res, next) => {
     let selectedUser = null
     let from
@@ -27,6 +27,7 @@ function getDetailedUserSubscriptionInfo(userID_from, populate) {
     .select('registrationDateTime username email subscriptionID')
   
     let select
+    // TODO ! have scenario where populate not necessary, e.g. populate is undefined by default and therefor no populate takes place.
     switch (populate) {
       case "subscriptionID":
         select = "plan subscriptionDateTime paypal_subscriptionID paypal_plan_id expireAt -_id"
@@ -56,7 +57,7 @@ function getDetailedUserSubscriptionInfo(userID_from, populate) {
     // if (false) {
       return next()
     } else {
-      let error = new SessionRoleOrSentUIDnotAllowed(`res.locals.selectedUser information could not be retrieved on the backend`, `In the middleware/generic-middleware/get-detailed-user-subsciption-information-middleware.js the res.locals.selectedUser resolved to ${res.locals.selectedUser}. A res.locals.selectedUser is required to proceed in the ${req.method} ${req.url}`)
+      let error = new SessionRoleOrSentUIDnotAllowed(`res.locals.selectedUser information could not be retrieved on the backend`, `In the middleware/generic-middleware/get-populated-user.js the res.locals.selectedUser resolved to ${res.locals.selectedUser}. A res.locals.selectedUser is required to proceed in the ${req.method} ${req.url}`)
 
       return next(error)
     }
@@ -64,4 +65,4 @@ function getDetailedUserSubscriptionInfo(userID_from, populate) {
 }
 
 
-module.exports = {getDetailedUserSubscriptionInfo}
+module.exports = {getPopulatedUser}

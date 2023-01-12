@@ -3,8 +3,8 @@ const User = require('../../models/User')
 
 module.exports = async (req,res,next)=>{
   let user = res.locals.user
-  console.log("\n_______________\n")
-  console.log("in usersRetrievalMiddleware: \n\n ")
+  // console.log("\n_______________\n")
+  // console.log("in usersRetrievalMiddleware: \n\n ")
   
   // console.log(res.locals.paths_URL_fromReferer[1])
   
