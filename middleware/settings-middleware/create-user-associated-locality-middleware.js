@@ -7,10 +7,6 @@ const { ObjectId } = require('mongodb')
 
 let createUserAssociatedLocalityMiddleware = async function (req, res, next) {
 
-  // If user does have an associated locality, then skip, because associated locality has already been updated, no need to create one
-  if (res.locals.does_have_userassociatedlocalityID) return next() 
-
-
   // Create the locality instance pointing to the proper user
   res.locals.new_usersAssociatedLocalityData.userID = new ObjectId(req.params.userID)
 

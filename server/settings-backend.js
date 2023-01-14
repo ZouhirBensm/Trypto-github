@@ -14,8 +14,6 @@ const { getPopulatedUser } = require('../middleware/generic-middleware/get-popul
 
 const geocodeTheGeometryMiddleware = require('../middleware/settings-middleware/geocode-the-geometry-middleware')
 
-const doesUserHaveAnAssociatedLocalityMiddleware = require('../middleware/generic-middleware/does-user-have-an-associated-locality-middleware')
-
 const updateUsersAssociatedLocalityMiddleware = require('../middleware/settings-middleware/update-users-associated-locality-middleware')
 
 const createUserAssociatedLocalityMiddleware = require('../middleware/settings-middleware/create-user-associated-locality-middleware')
@@ -69,15 +67,25 @@ getPopulatedUser("SESSION", "userassociatedlocalityID"),
 
 
 
+
+settingsBackend_app_router.put(`/set-users-associated-locality/:userID`, 
+require_loggedin_for_data(true), 
+authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
+requester_auth_middleware(2),
+geocodeTheGeometryMiddleware,
+updateUsersAssociatedLocalityMiddleware, 
+settingsController.setUsersAssociatedLocalityResponderController)
+
+
 settingsBackend_app_router.post(`/set-users-associated-locality/:userID`, 
 require_loggedin_for_data(true), 
 authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
 requester_auth_middleware(2),
 geocodeTheGeometryMiddleware,
-doesUserHaveAnAssociatedLocalityMiddleware,
-updateUsersAssociatedLocalityMiddleware, 
 createUserAssociatedLocalityMiddleware,
 settingsController.setUsersAssociatedLocalityResponderController)
+
+
 
 
 module.exports = settingsBackend_app_router

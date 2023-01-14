@@ -46,14 +46,17 @@ class SubmitNewAssociatedLocality extends React.Component {
 
     console.log(`postNewAssociatedLocality(): geometry:`, geometry)
 
+    
+
     response = await fetch(`/settings/set-users-associated-locality/${this.props.userID_toWorkWith}`, {
-      method: 'POST',
+      method: this.props.selectedUser.userassociatedlocalityID ? "PUT" : "POST",
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
       body: JSON.stringify(geometry)
     })
+
     json = await response.json()
 
     if (response.status == 200) {

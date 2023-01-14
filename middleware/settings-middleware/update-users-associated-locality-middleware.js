@@ -4,9 +4,6 @@ const { MongoError } = require('../../custom-errors/custom-errors')
 
 let updateUsersAssociatedLocalityMiddleware = async function (req, res, next) {
 
-  // If user does not have an associated locality, then skip
-  if (!res.locals.does_have_userassociatedlocalityID) return next() 
-
   let ret_updatedUserLocality
   try {
     ret_updatedUserLocality = await UserAssociatedLocality.updateOne({ userID: req.params.userID }, res.locals.new_usersAssociatedLocalityData, { upsert: false, new: true });

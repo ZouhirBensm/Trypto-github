@@ -91,6 +91,7 @@ class SetAssociatedLocality extends React.Component {
         <SubmitNewAssociatedLocality
           lat={this.state.lat}
           lng={this.state.lng}
+          selectedUser={this.props.selectedUser}
           userID_toWorkWith={this.props.userID_toWorkWith}
           setpopup={this.setpopup}
         />  <br/>
