@@ -77,7 +77,7 @@ class SetLocationSetting extends React.Component {
         <a href="https://www.google.com/maps" target="_blank">Google Maps</a> <br /><br />
 
 
-
+        <a href={`/operations/set-settings/${this.props.comprehensiveSelectedUserInfoDataObj._id}?comprehensiveSelectedUserInfo=${JSON.stringify(this.props.comprehensiveSelectedUserInfoDataObj)}`}>Back</a> <br/>
 
       </React.Fragment>
     )

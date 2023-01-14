@@ -292,7 +292,7 @@ export default MarketOrders
 
 // TODO #102 Add touch event to slide search engine
 
-// TODO !! Add, when typing a locality, the ability to 
+// TODO !!! Add, when typing a locality, the ability to 
 // 1. Dynamicly display the options that match what is being typed
 // 2. Select one from the dynamic list
 // TODO When done locality filter, Implement same solution for the currency orders search engine

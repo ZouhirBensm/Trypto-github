@@ -1,6 +1,6 @@
 
 
-function sortingSteps(sellOrders, locationObject){
+function sortingSteps(sellOrders, locationObject) {
   // sellOrders.forEach(order => {
   //   console.log(order.sellmarketorderlocationID?.location)
   // });
@@ -16,8 +16,11 @@ function sortingSteps(sellOrders, locationObject){
     sellOrders = SORT(sellOrders, "country", locationObject)
   }
 
+  // TODO !!!! Have item database reorganize in a optimized fashion i.e. with the slice function based on the users registered locality, if not default to ottawa
   // TODO !!!! slice sellOrders to the end of the SORT
-
+  
+  
+  // TODO !!!! Have the app adaptible to USD currency
   if (locationObject.country && locationObject.province_state) {
     console.log("...sorting for province_state")
     // TODO !!!! sort only sliced piece and push/reassign to sellOrders
@@ -44,9 +47,9 @@ function sortingSteps(sellOrders, locationObject){
 
 
 
-function SORT(sellOrders, area_level, locationObject){
+function SORT(sellOrders, area_level, locationObject) {
 
-  sellOrders.sort((a ,b)=>{
+  sellOrders.sort((a, b) => {
     if (
       a.sellmarketorderlocationID?.location[area_level] == locationObject[area_level] &&
       b.sellmarketorderlocationID?.location[area_level] != locationObject[area_level]
@@ -57,7 +60,7 @@ function SORT(sellOrders, area_level, locationObject){
     ) return 1
     return 0
   })
-  
+
   return sellOrders
 
 }

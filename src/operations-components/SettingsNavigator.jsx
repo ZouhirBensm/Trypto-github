@@ -1,5 +1,6 @@
 import { Link, BrowserRouter, Route, Switch } from 'react-router-dom';
 import SetLocationSetting from './operations-settings-components/SetLocationSetting'
+// import { withRouter } from 'react-router-dom';
 // import Test2 from './operations-settings-components/Test2'
 // import Test3 from './operations-settings-components/Test3'
 // import Test4 from './operations-settings-components/Test4'
@@ -7,7 +8,7 @@ import SetLocationSetting from './operations-settings-components/SetLocationSett
 class SettingsNavigator extends React.Component {
   constructor(props) {
     super(props)
-    // TODO !!!! see what is window.location.search
+    // TODO !!! see what is window.location.search
     const queryParams = new URLSearchParams(this.props.location?.search || window.location.search)
     const comprehensiveSelectedUserInfoDataJSON = queryParams.get("comprehensiveSelectedUserInfo")
     const popup = queryParams.get("popup")
@@ -19,7 +20,12 @@ class SettingsNavigator extends React.Component {
     }
     this.comprehensiveSelectedUserInfoDataObj = JSON.parse(comprehensiveSelectedUserInfoDataJSON)
     this.setpopup = this.setpopup.bind(this)
+    // this.goBack = this.goBack.bind(this)
   }
+
+  // goBack() {
+  //   this.props.history.goBack();
+  // }
 
 
   setpopup(popup) {
@@ -29,6 +35,8 @@ class SettingsNavigator extends React.Component {
   }
 
   render() {
+
+    
     return (
       <React.Fragment>
         <BrowserRouter>
@@ -42,7 +50,6 @@ class SettingsNavigator extends React.Component {
             <Route path="/operations/set-settings/set-users-associated-locality" render={
               (props) => <SetLocationSetting {...props}
                 comprehensiveSelectedUserInfoDataObj={this.props.comprehensiveSelectedUserInfoDataObj || this.comprehensiveSelectedUserInfoDataObj}
-                // selected_userID={this.props.selected_userID}
                 // mode={this.props.mode} 
                 // loggedinUserObjInfo={this.props.loggedinUserObjInfo}
                 popup={this.state.popup}
@@ -64,6 +71,11 @@ class SettingsNavigator extends React.Component {
         </BrowserRouter>
 
         {/* TODO !!!! add the back button */}
+        {/* <button type="button" onClick={this.goBack}>
+          Go back
+        </button> */}
+        <a href="/operations/set-settings">Back to UserList</a>
+
 
 
 
@@ -73,12 +85,14 @@ class SettingsNavigator extends React.Component {
   }
 }
 
+// export default withRouter(SettingsNavigator)
 export default SettingsNavigator
 
 
 
 
-// TODO !!!! look into
+
+// TODO !!! look into
 // From chatGPT
 // Note that URLSearchParams is not available in Internet Explorer, you will need to use a polyfill or a library like qs to parse the query string.
 // Also make sure that you are running this on the client side, window object is not defined on server side

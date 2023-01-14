@@ -15,7 +15,7 @@ class Confirmation extends React.Component {
 
 
     let response = await fetch(`/resend-user-email/${email}`, {
-      // TODO !!!! Make sure I am using the proper HTTP methods, status codes in all my fetch statements, and that they are not enclosed in trycatches
+      // TODO ! Make sure I am using the proper HTTP methods, status codes in all my fetch statements, and that they are not enclosed in trycatches
       method: 'GET',
     })
 

@@ -42,10 +42,6 @@ class Profile extends React.Component {
 
 
 
-  // TODO !!!! Have item database reorganize in a optimized fashion i.e. with the slice function based on the users registered locality, if not default to ottawa
-  // TODO !!!! Have the app adaptible to USD currency
-
-
 
 
   render() {

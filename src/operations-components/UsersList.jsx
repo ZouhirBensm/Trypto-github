@@ -22,6 +22,7 @@ class UsersList extends React.Component {
     this.users = newProps
     this.userElements = this.users.users.map((userElement, i) => {
       return (
+        // TODO !!!! figure out the link to set http://localhost:3000/operations/set-settings/set-users-associated-locality, is userElement._id needed! And how does it work
         <Link to={{
           pathname: `/operations/${this.props.mode}/${userElement._id}`,
           search: `?comprehensiveSelectedUserInfo=${JSON.stringify(userElement)}`
