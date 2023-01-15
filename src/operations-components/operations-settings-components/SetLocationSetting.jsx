@@ -6,8 +6,12 @@ class SetLocationSetting extends React.Component {
     this.state = {}
     console.log("SetLocationSetting: constructor()->this.props: ", this.props)
     this.makeRequest = this.makeRequest.bind(this)
+    this.goBack = this.goBack.bind(this)
   }
 
+  goBack() {
+    this.props.history.goBack();
+  }
 
   async makeRequest(e) {
     e.preventDefault()
@@ -18,7 +22,7 @@ class SetLocationSetting extends React.Component {
 
 
     let response, json
-    response = await fetch(`/operations/set-settings/set-users-associated-locality/${this.props.comprehensiveSelectedUserInfoDataObj._id}`, {
+    response = await fetch(`/operations/set-settings/${this.props.comprehensiveSelectedUserInfoDataObj._id}/set-users-associated-locality`, {
       method: this.props.comprehensiveSelectedUserInfoDataObj.userassociatedlocalityID ? 'PUT' : 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -34,7 +38,7 @@ class SetLocationSetting extends React.Component {
     json = await response.json()
 
     if (response.status == 200) {
-      window.location.href = `/operations/set-settings/set-users-associated-locality?comprehensiveSelectedUserInfo=${JSON.stringify(json.updated_user)}&popup=${json.message}`
+      window.location.href = `/operations/set-settings/${this.props.comprehensiveSelectedUserInfoDataObj._id}/set-users-associated-locality?comprehensiveSelectedUserInfo=${JSON.stringify(json.updated_user)}&popup=${json.message}`
       // this.props.setpopup(json.message)
     } else {
       console.log(json)
@@ -77,7 +81,13 @@ class SetLocationSetting extends React.Component {
         <a href="https://www.google.com/maps" target="_blank">Google Maps</a> <br /><br />
 
 
-        <a href={`/operations/set-settings/${this.props.comprehensiveSelectedUserInfoDataObj._id}?comprehensiveSelectedUserInfo=${JSON.stringify(this.props.comprehensiveSelectedUserInfoDataObj)}`}>Back</a> <br/>
+        {/* <a href={`/operations/set-settings/${this.props.comprehensiveSelectedUserInfoDataObj._id}?comprehensiveSelectedUserInfo=${JSON.stringify(this.props.comprehensiveSelectedUserInfoDataObj)}`}>Back</a> <br/> */}
+        <hr/>
+        <button type="button" onClick={this.goBack}>
+          Go back
+        </button>
+        
+        
 
       </React.Fragment>
     )
@@ -85,3 +95,4 @@ class SetLocationSetting extends React.Component {
 }
 
 export default SetLocationSetting
+// export default withRouter(SetLocationSetting)

@@ -3,6 +3,7 @@ import MonitorForMessages from './MonitorForMessages'
 import ManageSubscriptions from './ManageSubscriptions'
 import HelpForMarketOrders from './HelpForMarketOrders'
 import SettingsNavigator from './SettingsNavigator'
+import React from 'react'
 
 class OperationActions extends React.Component {
   constructor(props){
@@ -60,12 +61,13 @@ class OperationActions extends React.Component {
         />
           break;
       case "set-settings":
-        this.componentToRender = <SettingsNavigator
-          comprehensiveSelectedUserInfoDataObj={this.comprehensiveSelectedUserInfoDataObj}
-          selected_userID={this.props.match.params.selected_userID}
-          mode={this.props.match.params.mode} 
-          loggedinUserObjInfo={user}
-        />
+        this.componentToRender = 
+          <SettingsNavigator
+            comprehensiveSelectedUserInfoDataObj={this.comprehensiveSelectedUserInfoDataObj}
+            selected_userID={this.props.match.params.selected_userID}
+            mode={this.props.match.params.mode} 
+            loggedinUserObjInfo={user}
+          />
           break;
       default:
         break;

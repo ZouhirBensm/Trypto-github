@@ -100,7 +100,7 @@ operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/man
 
 
 
-operationsBackend_app_router.get('/set-settings/set-users-associated-locality',
+operationsBackend_app_router.get('/set-settings/:userID/set-users-associated-locality',
 require_loggedin_for_pages(true), 
 authenticate_role_for_pages([ROLE.MASTER]), 
 operationsControllers.getOperationsPagesController)
@@ -227,7 +227,7 @@ operationsBackend_app_router.post('/create-article', require_loggedin_for_pages(
 
 
 
-operationsBackend_app_router.put('/set-settings/set-users-associated-locality/:userID', 
+operationsBackend_app_router.put('/set-settings/:userID/set-users-associated-locality', 
 require_loggedin_for_data(true), 
 authenticate_role_for_data([ROLE.MASTER]),
 geocodeTheGeometryMiddleware,
@@ -236,7 +236,7 @@ operationsSettingsMiddleware.getTheUpdatedUserToUseInQueryStringOnFrontEnd,
 operationsSettingsControllers.setAssociatedLocalityResponderController)
 
 
-operationsBackend_app_router.post('/set-settings/set-users-associated-locality/:userID', 
+operationsBackend_app_router.post('/set-settings/:userID/set-users-associated-locality', 
 require_loggedin_for_data(true), 
 authenticate_role_for_data([ROLE.MASTER]),
 geocodeTheGeometryMiddleware,
