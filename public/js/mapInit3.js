@@ -65,9 +65,7 @@ let getLatLng = function () {
   });
 };
 
-
-(async () => {
-
+async function initMap() {
   let [lat, lng] = await getLatLng()
 
   window.lat = lat
@@ -103,7 +101,14 @@ let getLatLng = function () {
   window.marker = marker
   window.autocomplete = autocomplete
   window.geocoder = geocoder
-})();
+}
+
+
+// Note: If any issues with the loaded locality, I might need to revert to deleting this &callback=initMap, and placing it's content in the IIFE
+// (async () => {
+
+  
+// })();
 
 
 
