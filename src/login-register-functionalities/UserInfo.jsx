@@ -38,12 +38,16 @@ class UserInfo extends React.Component {
 
 
   exitUploadModal(e) {
+
+    const arr_of_HTMLElements_parents = e.path || e.composedPath()
     // e.stopPropagation()
-    let didFindModal = e.path.filter(element => { return element.id == 'myModal' })
+
+
+    let didFindModal = arr_of_HTMLElements_parents.filter(element => { return element.id == 'myModal' })
     // let didFindModal = e.composedPath().filter(element => { return element.id == 'myModal' })
 
 
-    console.log(didFindModal)
+    console.log("exitUploadModal->didFindModal:", didFindModal)
 
     if (!didFindModal[0]) {
       // Exterior click
