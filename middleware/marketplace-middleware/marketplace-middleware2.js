@@ -403,6 +403,7 @@ async function queryAndOrganizeDataMiddleware(req, res, next) {
 
   if (res.locals.option == 2) {
     let reaarranger_instance = new RearrangeClass(sellOrders)
+
     reaarranger_instance.LocalityArranger = res.locals.ret_user?.userassociatedlocalityID.location
     sellOrders = reaarranger_instance.getArrangedSellOrders
   }
@@ -416,9 +417,9 @@ async function queryAndOrganizeDataMiddleware(req, res, next) {
 
   res.locals.sellOrders = sellOrders
 
-  sellOrders.forEach(order => {
-    console.log(order.sellmarketorderlocationID?.location)
-  });
+  // sellOrders.forEach(order => {
+  //   console.log(order.sellmarketorderlocationID?.location)
+  // });
 
 
   return next()

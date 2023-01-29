@@ -101,7 +101,7 @@ class MarketOrders extends React.Component {
 
     if (response.ok) {
 
-      // console.log("MarketOrders: loadData()->serverOBJ", serverOBJ)
+      console.log("MarketOrders: loadData()->serverOBJ", serverOBJ)
 
       this.setState({
         orders: serverOBJ.srv_.ORDERS,

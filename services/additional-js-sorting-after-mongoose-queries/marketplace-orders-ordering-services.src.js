@@ -1,4 +1,4 @@
-const sorting_algos = require('./sorting-functions2')
+const sorting_algos = require('./sorting-functions4')
 
 
 class RearrangeClass{
