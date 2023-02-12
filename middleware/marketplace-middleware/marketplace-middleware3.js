@@ -11,6 +11,8 @@ const { formOrderFindFilter, formLocalityFindFilter } = require('../../middlewar
 
 const { determine_Sharp_toFormatOptions, isObjEmpty, isObjPresent } = require('../../full-stack-libs/utils')
 
+const sorting_algos = require('../../services/additional-js-sorting-after-mongoose-queries/sorting-functions5')
+
 
 const { MarketOrderSubmissionError } = require('../../custom-errors/custom-errors')
 
@@ -361,6 +363,7 @@ async function determineRearrangeDataOrNotMiddleware(req, res, next) {
 
     // option 2: No Locality filter, and user disposes of a locality
     if (!!ret_user?.userassociatedlocalityID?.location) {
+      // bump option 2 back in
       option = 2
       res.locals.ret_user = ret_user
     }
@@ -383,10 +386,7 @@ async function queryAndOrganizeDataMiddleware(req, res, next) {
   try {
     // Descending: from newest to oldest
     sellOrders = await SellMarketOrder
-      .find(res.locals.baseFilter).sort([
-        { "userid.role": "BASIC" },
-        { "postedDate": -1 }
-      ])
+      .find(res.locals.baseFilter).sort({ postedDate: -1 })
       .populate({
         path: 'userid',
         select: "-password",
@@ -413,6 +413,12 @@ async function queryAndOrganizeDataMiddleware(req, res, next) {
   // Because when their is no match the sellmarketorderlocationID is set to null
   if (!isObjEmpty(res.locals.localityFilter)) {
     sellOrders = sellOrders.filter(sellOrder => !!sellOrder.sellmarketorderlocationID)
+  }
+  
+  // If your are going to implement the priviledge BASIC user have, then keep this line of code. It works in conjuction with services/additional-js-sorting-after-mongoose-queries/sorting-functions5.js
+  // Now if you do not require priviledge for BASIC users, then use sorting-functions4.js
+  if (res.locals.option == 1) {
+    sellOrders = sorting_algos.SORT_BASIC(sellOrders)
   }
 
   // At this point the orders are arranged from recent to oldest, by possibly a search baseFilter, by no localityFilter, and the user has a registered locality

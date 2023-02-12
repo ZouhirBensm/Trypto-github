@@ -8,8 +8,7 @@ const ROLE = require('../../full-stack-libs/Types/Role')
 // TODO !!!! check when no user locality, what happens, defaults to Ottawa?
 // TODO !!!! determine why reruns on every page flip. Ideally it doesn't, look into cashing
 
-// TODO !!!! place basic subscribers first by locality, 
-// TODO !!!! For option 2 the BASIC placements need to be on sorting area step interval
+// default value to delete
 function sortingSteps(sellOrders, userLocalityObject) {
   let one, two, three, four, five
   let one_p1, one_p2, two_p1, two_p2, three_p1, three_p2, four_p1, four_p2, five_p1, five_p2
@@ -29,7 +28,7 @@ function sortingSteps(sellOrders, userLocalityObject) {
     // TODO !!!! Once sliced put BASIC on top of stack neglecting arrangement by recent/old, but the ones after BASIC are recent.
     one_p1_BASIC = SORT_BASIC(one_p1)
     one_p2 = one.slice(lastIndex+1,one.length)
-    one_BASIC = [...one_p1_BASIC, one_p2]
+    one_BASIC = [...one_p1_BASIC, ...one_p2]
   }
 
   
@@ -48,7 +47,7 @@ function sortingSteps(sellOrders, userLocalityObject) {
 
     two_p1_BASIC = SORT_BASIC(two_p1)
     two_p2 = two.slice(lastIndex2+1,two.length)
-    two_BASIC = [...two_p1_BASIC, two_p2]
+    two_BASIC = [...two_p1_BASIC, ...two_p2]
   }
 
 
@@ -67,7 +66,7 @@ function sortingSteps(sellOrders, userLocalityObject) {
     three_p1 = three.slice(0,lastIndex3+1)
     three_p1_BASIC = SORT_BASIC(three_p1)
     three_p2 = three.slice(lastIndex3+1,three.length)
-    three_BASIC = [...three_p1_BASIC, three_p2]
+    three_BASIC = [...three_p1_BASIC, ...three_p2]
   }
 
 
@@ -85,7 +84,7 @@ function sortingSteps(sellOrders, userLocalityObject) {
     four_p1 = four.slice(0,lastIndex4+1)
     four_p1_BASIC = SORT_BASIC(four_p1)
     four_p2 = four.slice(lastIndex4+1,four.length)
-    four_BASIC = [...four_p1_BASIC, four_p2]
+    four_BASIC = [...four_p1_BASIC, ...four_p2]
   }
   
 
@@ -103,7 +102,7 @@ function sortingSteps(sellOrders, userLocalityObject) {
     five_p1 = five.slice(0,lastIndex5+1)
     five_p1_BASIC = SORT_BASIC(five_p1)
     five_p2 = five.slice(lastIndex5+1,five.length)
-    five_BASIC = [...five_p1_BASIC, five_p2]
+    five_BASIC = [...five_p1_BASIC, ...five_p2]
   }
 
 
@@ -173,5 +172,6 @@ function SORT_BASIC(p1) {
 
 
 module.exports = {
-  sortingSteps: sortingSteps
+  sortingSteps: sortingSteps,
+  SORT_BASIC: SORT_BASIC
 }

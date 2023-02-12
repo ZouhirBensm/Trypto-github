@@ -56,10 +56,6 @@ const paginatedOrdersSetupMiddleware = require('../middleware/generic-middleware
 // const ordersRetrievalMiddleware = require('../middleware/marketplace-middleware/orders-retrieval-middleware')
 // const uploadsMiddleware = require('../middleware/uploads-middleware/uploads-middleware')
 
-// WORKS
-// const marketplaceMiddleware = require('../middleware/marketplace-middleware/marketplace-middleware2')
-
-// TESTING
 const marketplaceMiddleware = require('../middleware/marketplace-middleware/marketplace-middleware3')
 
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
