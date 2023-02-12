@@ -343,10 +343,12 @@ async function determineRearrangeDataOrNotMiddleware(req, res, next) {
 
   // Default
   let option = 1
-  let ret_user
+
+
   // Default is option 1, now, if there is no locality filter, and logged in user disposes of a locality, then go for option 2
   if (isObjEmpty(res.locals.localityFilter)) {
-
+    
+    let ret_user
     try {
       ret_user = await User.findById(req.session.userId)
         .populate({
@@ -370,6 +372,7 @@ async function determineRearrangeDataOrNotMiddleware(req, res, next) {
 
 
   res.locals.option = option
+  
   return next()
 }
 
