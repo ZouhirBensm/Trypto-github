@@ -1,4 +1,7 @@
-const sorting_algos = require('./sorting-functions4')
+// WORKS
+// const sorting_algos = require('./sorting-functions4')
+// TESTING Not sure whether this algo is prioritizing Locality, then ROLE
+const sorting_algos = require('./sorting-functions5')
 
 
 class RearrangeClass{

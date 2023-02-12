@@ -383,7 +383,10 @@ async function queryAndOrganizeDataMiddleware(req, res, next) {
   try {
     // Descending: from newest to oldest
     sellOrders = await SellMarketOrder
-      .find(res.locals.baseFilter).sort({ postedDate: -1 })
+      .find(res.locals.baseFilter).sort([
+        { "userid.role": "BASIC" },
+        { "postedDate": -1 }
+      ])
       .populate({
         path: 'userid',
         select: "-password",

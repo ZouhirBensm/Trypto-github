@@ -43,7 +43,6 @@ module.exports = (req, res, next)=>{
     default:
       let error = new FirstPathNotRegistered(firstPath)
       return next(error)
-      break;
   }
 
 

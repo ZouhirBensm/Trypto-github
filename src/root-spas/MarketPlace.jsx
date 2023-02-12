@@ -17,6 +17,7 @@ const MarketOrderDetails = loadable(() => import("../marketplace-functionalities
   fallback: <Loading />
 });
 
+
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 class MarketPlace extends React.Component {
