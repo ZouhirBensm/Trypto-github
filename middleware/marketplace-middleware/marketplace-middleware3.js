@@ -363,7 +363,6 @@ async function determineRearrangeDataOrNotMiddleware(req, res, next) {
 
     // option 2: No Locality filter, and user disposes of a locality
     if (!!ret_user?.userassociatedlocalityID?.location) {
-      // bump option 2 back in
       option = 2
       res.locals.ret_user = ret_user
     }

@@ -1,14 +1,10 @@
 const ROLE = require('../../full-stack-libs/Types/Role')
 
-// TODO !!!! Have item database reorganize in a optimized fashion i.e. with the slice function based on the users registered locality, if not default to ottawa
-// TODO !!!! slice sellOrders to the end of the SORT
+
+
 // TODO !!!! Have the app adaptible to USD currency
-
-
-// TODO !!!! check when no user locality, what happens, defaults to Ottawa?
 // TODO !!!! determine why reruns on every page flip. Ideally it doesn't, look into cashing
 
-// default value to delete
 function sortingSteps(sellOrders, userLocalityObject) {
   let one, two, three, four, five
   let one_p1, one_p2, two_p1, two_p2, three_p1, three_p2, four_p1, four_p2, five_p1, five_p2
