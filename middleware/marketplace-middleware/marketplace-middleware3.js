@@ -2,7 +2,11 @@ const sharp = require('sharp');
 var { existsSync, mkdirSync } = require('fs');
 const fs = require('fs/promises')
 const path = require('path')
+Cache = require("cache");
 
+
+
+c = new Cache(30* 60 * 1000);    // Create a cache with 30 minutes TTL
 
 
 const RearrangeClass = require('../../services/additional-js-sorting-after-mongoose-queries/marketplace-orders-ordering-services.src')
@@ -307,6 +311,21 @@ async function recentOrdersRetrievalMiddleware(req, res, next) {
 async function filterSetupsMiddleware(req, res, next) {
   console.log("\n\nmarketplaceMiddleware: preset1(): \n\n\n\n")
 
+  // 1 => false => regenerate cache and orders
+  // 2, 3, 4 => true
+  //   yes => true => use cache
+  //   no => false => regenerate cache and orders
+
+  if (res.locals.page > 1) {
+    const key = "sellOrders"
+    if(c.get(key)){
+      // retrieved sellOrders from cache
+      res.locals.sellOrders = c.get(key)
+      return next()
+    }
+
+  }
+
 
   // Query string parameters
   let searchEngineTerms = req.query.search
@@ -341,13 +360,19 @@ async function filterSetupsMiddleware(req, res, next) {
 // Better name: determineRearrangeDataBasedOffUserRegisteredLocality
 async function determineRearrangeDataOrNotMiddleware(req, res, next) {
 
+
+  if (res.locals.sellOrders) {
+    return next()
+  }
+
+
   // Default
   let option = 1
 
 
   // Default is option 1, now, if there is no locality filter, and logged in user disposes of a locality, then go for option 2
   if (isObjEmpty(res.locals.localityFilter)) {
-    
+
     let ret_user
     try {
       ret_user = await User.findById(req.session.userId)
@@ -372,13 +397,19 @@ async function determineRearrangeDataOrNotMiddleware(req, res, next) {
 
 
   res.locals.option = option
-  
+
   return next()
 }
 
 
 
 async function queryAndOrganizeDataMiddleware(req, res, next) {
+
+
+  if (res.locals.sellOrders) {
+    return next()
+  }
+
 
   // user Location not there
   let sellOrders
@@ -416,7 +447,7 @@ async function queryAndOrganizeDataMiddleware(req, res, next) {
   if (!isObjEmpty(res.locals.localityFilter)) {
     sellOrders = sellOrders.filter(sellOrder => !!sellOrder.sellmarketorderlocationID)
   }
-  
+
   // If your are going to implement the priviledge BASIC user have, then keep this line of code. It works in conjuction with services/additional-js-sorting-after-mongoose-queries/sorting-functions5.js
   // Now if you do not require priviledge for BASIC users, then use sorting-functions4.js
   if (res.locals.option == 1) {
@@ -438,10 +469,11 @@ async function queryAndOrganizeDataMiddleware(req, res, next) {
 
   res.locals.sellOrders = sellOrders
 
-  // sellOrders.forEach(order => {
-  //   console.log(order.sellmarketorderlocationID?.location)
-  // });
+  const key = "sellOrders"
 
+  // if we do not have a cache, put new value
+  c.del(key)
+  c.put(key, res.locals.sellOrders);
 
   return next()
 }

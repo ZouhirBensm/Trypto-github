@@ -33,6 +33,7 @@
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
     "buffer": "^6.0.3",
+    "cache": "^3.0.0",
     "coingecko-api": "^1.0.10",
     "connect-mongo": "^4.4.1",
     "css-loader": "^6.7.1",
