@@ -3,7 +3,6 @@ const ROLE = require('../../full-stack-libs/Types/Role')
 
 
 // TODO !!!! Have the app adaptible to USD currency
-// TODO !!!! determine why reruns on every page flip. Ideally it doesn't, look into cashing
 
 function sortingSteps(sellOrders, userLocalityObject) {
   let one, two, three, four, five
