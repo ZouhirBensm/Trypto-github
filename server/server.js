@@ -231,7 +231,6 @@ express_server_app_router.use('/messaging', messagingBackend_app_router)
 
 express_server_app_router.use('/paypal', paypalBackend_app_router)
 
-// TODO ! figure out how to set the /operations URL to the operations.bidblock.ca subdomain
 express_server_app_router.use('/operations', operationsBackend_app_router)
 
 

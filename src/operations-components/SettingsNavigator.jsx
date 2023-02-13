@@ -94,6 +94,8 @@ export default SettingsNavigator
 // export default withRouter(SettingsNavigator)
 
 
+// TODO !!
+// ChatGPT can be used for ordering data, and for newsletter
 
 
 

@@ -1,8 +1,9 @@
 const ROLE = require('../../full-stack-libs/Types/Role')
 
 
+// Locality arranged -> Basic on top -> after Basic, and Locality, most resent to oldest in silos
 
-// TODO !!!! Have the app adaptible to USD currency
+// TODO !!! Have the app adaptible to USD currency
 
 function sortingSteps(sellOrders, userLocalityObject) {
   let one, two, three, four, five
@@ -20,7 +21,6 @@ function sortingSteps(sellOrders, userLocalityObject) {
   
     // CUT IN 2 ORDERED, and UNORDERED
     one_p1 = one.slice(0,lastIndex+1)
-    // TODO !!!! Once sliced put BASIC on top of stack neglecting arrangement by recent/old, but the ones after BASIC are recent.
     one_p2 = one.slice(lastIndex+1,one.length)
     one_p2_BASIC = SORT_BASIC(one_p2)
     
