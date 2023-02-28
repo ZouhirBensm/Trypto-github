@@ -5,6 +5,5 @@ public/img/*/*
 webpack.dev.js
 package-lock.json
 .vscode/*
-.env
 
 !public/img/profile-images/square.png
