@@ -1,3 +1,23 @@
+require('dotenv').config()
+
+console.log("\n\n",process.env.NODE_ENV)
+console.log(process.env.DATABASE_LINK)
+console.log(process.env.EXPRESS_SECRET)
+console.log(process.env.PORT)
+console.log(process.env.DATABASE_NAME)
+console.log(process.env.ENVIRONMENT)
+console.log(process.env.PAYPAL_PRODUCT_ID)
+console.log(process.env.PAYPAL_CLIENT_ID)
+console.log(process.env.PAYPAL_SECRET)
+console.log(process.env.PAYPAL_API_ROOT)
+console.log(process.env.DOMAIN_WITHOUT_PROTOCOL)
+console.log(process.env.CONSOLE_CLOUD_GOOGLE_API_KEY)
+console.log(process.env.PAYPAL_PLAN_ID)
+console.log(process.env.PAYPAL_PRODUCT_ID)
+console.log(process.env.BIDBLOCK_EMAIL)
+console.log(process.env.BIDBLOCK_EMAIL_APP_PASS_CODE)
+console.log(process.env.GOOGLE_MAPS_API_URL, "\n\n")
+
 console.log(`Server starting with NODE_ENV=${process.env.NODE_ENV}`);
 
 const Agenda = require('agenda');
