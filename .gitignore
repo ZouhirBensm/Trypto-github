@@ -1,4 +1,4 @@
-.env_dev
+.env
 node_modules
 public/dist
 seeds
