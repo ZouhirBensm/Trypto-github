@@ -1,0 +1,35 @@
+name: bidblock.ca Continuous Integration
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  bidblockca_Automated_Deployment_Process:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Retrieve actions/checkout@v2 💻
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.ref }}
+
+    - name: Remove past build resources 🗑️, Check Repo and .env 👁️, Github pull origin master 🔽, Npm install 🔽, re-build with webpack in prod version 🔧, and PM2 restart needed process server 🔃
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_HOSTNAME }}
+        username: ${{ secrets.SERVER_USERNAME }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        port: ${{ secrets.SERVER_PORT }}
+        script: |
+          cd Trypto-github
+          rm package-lock.json
+          rm -r node_modules
+          rm -r public/dist
+          ls
+          cat .env
+          git pull https://${{ secrets.GITHUUB_USERNAME }}:${{ secrets.GITHUUB_PASSWORD }}@github.com/${{ secrets.GITHUUB_USERNAME }}/Trypto-github.git master
+          npm install
+          npm run build:prod
+          pm2 restart server
