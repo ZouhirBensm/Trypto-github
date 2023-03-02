@@ -49,7 +49,7 @@ function getPopulatedUser(userID_from, populate) {
   
     selectedUser = await query.exec()
 
-    // console.log({ selectedUser })
+    console.log("\n\n\n---->Data 1:\nselectedUser:\n\n\n", { selectedUser })
     
     res.locals.selectedUser = selectedUser
   

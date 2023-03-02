@@ -37,6 +37,8 @@ function getProfilePicNameIfAnyMiddleware(_from) {
       res.locals.profileimagename = 'square.png'
     }
 
+    console.log("\n\n\n---->Data 2:\nprofileimagename:\n\n\n", res.locals.profileimagename)
+
 
 
     return next()

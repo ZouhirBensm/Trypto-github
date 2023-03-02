@@ -4,7 +4,7 @@ class SubscriberInfo extends React.Component {
     super(props)
     this.state = {
     }
-    console.log(this.props)
+    // console.log(this.props)
   }
 
   render() {

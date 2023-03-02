@@ -19,6 +19,7 @@ class Profile extends React.Component {
     // console.log("usedUserID: ", this.props.usedUserID)
     // console.log("profileimagename: ", this.props.profileimagename)
     // console.log("selectedUser: ", this.props.selectedUser)
+
     this.handleProfileDeletion = this.handleProfileDeletion.bind(this)
     this.paypalUnSub = this.paypalUnSub.bind(this)
     this.setpopups = this.setpopups.bind(this)
@@ -44,7 +45,6 @@ class Profile extends React.Component {
 
 
   render() {
-    console.log("TRIGGER RERENDER!")
 
     let popups_div = null
     if (this.state.popups) {
