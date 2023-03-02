@@ -29,7 +29,7 @@ jobs:
           rm -r public/dist
           ls
           cat .env
-          git pull https://${{ secrets.GITHUUB_USERNAME }}:${{ secrets.GITHUUB_PASSWORD }}@github.com/${{ secrets.GITHUUB_USERNAME }}/Trypto-github.git master
+          git pull https://${{ secrets.GITHUUB_USERNAME }}:${{ secrets.GITHUUB_PASSWORD }}@github.com/${{ secrets.GITHUUB_USERNAME }}/Trypto-github.git master --force
           npm install
           npm run build:prod
           pm2 restart server
