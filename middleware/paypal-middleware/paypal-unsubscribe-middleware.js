@@ -20,14 +20,14 @@ module.exports = async (req,res, next) =>{
     method: "POST"
   })
 
-  console.log("response!!\n ", paypal_cancel_sub_response)
+  console.log("\nresponse!\n\n ", paypal_cancel_sub_response)
 
   
   res.locals.paypalCancelSubResponseStatus = paypal_cancel_sub_response.status
   // for testing
   // res.locals.paypalCancelSubResponseStatus = 400
 
-  next()
+  return next()
 
 
 

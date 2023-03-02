@@ -18,9 +18,9 @@ module.exports = async (req,res, next) =>{
   res.locals.subscriptionInfo = subscriptionInfo
   
 
-  console.log("\nsubscriptionInfo___________1\n", subscriptionInfo)
+  console.log("\n\nsubscriptionInfo___________\n", subscriptionInfo)
 
-  next()
+  return next()
 
 
 

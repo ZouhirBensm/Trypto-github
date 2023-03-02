@@ -16,7 +16,7 @@ module.exports = async (req, res, next)=>{
 
 
 
-  console.log("\n\n", {hasUnSubProcessStarted})
+  console.log("\n\n hasUnSubProcessStarted: \n", {hasUnSubProcessStarted})
 
   res.locals.hasUnSubProcessStarted = hasUnSubProcessStarted;
 
@@ -25,5 +25,5 @@ module.exports = async (req, res, next)=>{
     return next(error)
   }
 
-  next()
+  return next()
 }

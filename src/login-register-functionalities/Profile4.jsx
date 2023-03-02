@@ -3,7 +3,7 @@ import './styles/Profile.css'
 import './styles/UserInfo.css'
 import '../style/reactDivMobile.css'
 import UserInfo from './UserInfo'
-import SubscriberInfo from './SubscriberInfo'
+import SubscriberInfo from './SubscriberInfo2'
 
 import billing_utils from '../../full-stack-libs/utils.billing'
 
@@ -21,7 +21,6 @@ class Profile extends React.Component {
     // console.log("selectedUser: ", this.props.selectedUser)
 
     this.handleProfileDeletion = this.handleProfileDeletion.bind(this)
-    this.paypalUnSub = this.paypalUnSub.bind(this)
     this.setpopups = this.setpopups.bind(this)
     this.changeprofileimagename = this.changeprofileimagename.bind(this)
   }
@@ -84,6 +83,7 @@ class Profile extends React.Component {
           changeprofileimagename={this.changeprofileimagename}
 
         />
+
         {selectedUser.subscriptionID ?
           <SubscriberInfo
             plan={plan}
@@ -99,48 +99,17 @@ class Profile extends React.Component {
 
             registrationTimeDate={registrationTimeDate}
 
-            section_btn={this.paypalUnSub}
+            usedUserID={this.props.usedUserID}
+            setpopups={this.setpopups}
           /> : null
         }
+
+        
 
         {popups_div}
 
       </React.Fragment>
     );
-  }
-
-
-
-
-  async paypalUnSub(e) {
-    e.preventDefault()
-    let response
-    response = await fetch(`/paypal/unsubscribe`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        userId: this.props.usedUserID,
-        reason: "test_reason",
-      })
-    })
-
-    let json
-    json = await response.json()
-
-    if (response.status === 200 || response.status === 202) {
-      this.setState({
-        popups: json.server.client_message
-      })
-    } else {
-      console.log("????", json.error.message.client_message, typeof json.error.message.client_message)
-      this.setState({
-        popups: json.error.message.client_message
-      })
-    }
-
   }
 
 

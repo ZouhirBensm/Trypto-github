@@ -38,12 +38,27 @@ const paypalControllers = require('../controllers/paypal-controllers/paypal-cont
 // Start middleware for this paypalBackend_app_router
 // Route is called upon as request from browser as '/paypal'
 paypalBackend_app_router.use(set_user_if_any, (req, res, next) => {
-  next()
+  return next()
 })
 
 
 
-paypalBackend_app_router.post('/unsubscribe', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.USER.SUBSCRIBER.BASIC, ROLE.MASTER]), requester_auth_middleware(1), hasUnSubProcessStartedMiddleware, getRequestedSubscriptionInfoMiddleware, paypalUnsubscribeMiddleware, paypalControllers.paypalUnsubscribeController)
+
+
+
+paypalBackend_app_router.post('/unsubscribe', 
+require_loggedin_for_data(true), 
+authenticate_role_for_data([ROLE.USER.SUBSCRIBER.BASIC, ROLE.MASTER]), 
+requester_auth_middleware(1), 
+hasUnSubProcessStartedMiddleware, 
+getRequestedSubscriptionInfoMiddleware, 
+paypalUnsubscribeMiddleware, 
+paypalControllers.paypalUnsubscribeController)
+
+
+
+
+
 
 
 

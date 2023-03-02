@@ -10,6 +10,8 @@ import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading"
 
 
+// use Profile4 and SubscriberInfo if shit hits the fan
+
 const Login = loadable(() => import("../login-register-functionalities/Login"), {
   fallback: <Loading />
 });
@@ -64,7 +66,7 @@ class MgtUser extends React.Component {
             (props) => <PasswordResetComponent {...props}
             />
           } />
-          
+
         </Switch>
       </BrowserRouter>
     )
