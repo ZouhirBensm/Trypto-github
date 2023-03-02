@@ -1,4 +1,4 @@
-// 123456 for new deployment
+// 123 for new deployment
 require('dotenv').config()
 
 console.log("\n\n",process.env.NODE_ENV)
