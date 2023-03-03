@@ -368,7 +368,6 @@ homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (re
 })
 
 
-
 homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware,require_loggedin_for_data(false), 
 checkCredentialsPresentMiddleware,
 checkIfClientIsUserMiddleware,
@@ -378,10 +377,35 @@ LoginController.loginController)
 
 
 
+
+
+
+
+
+
+
+
+
+
 // TODO add userID for articles
-homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), destructureURLandRefererMiddleware, startEmptyNotificationsMiddleware, deleteBuyCryptoOrdersMiddleware, deleteSellOrdersMiddleware, deleteMarketOrderMiddleware, deleteProtagonistsMiddleware, deleteMessagesMiddleware,
-deleteUserProfileImageIfAnyMiddleware, deleteFSProfilePictureIfAnyMiddleware,
-sessionSubscriberMiddleware, conditional_Unsub_AgendaJobDel_SubDel_Middleware, deleteHexMiddleware, deleteUserMiddleware, logoutMiddleware, (req, res, next) => {
+homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), 
+authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
+requester_auth_middleware(4), 
+destructureURLandRefererMiddleware, 
+startEmptyNotificationsMiddleware, 
+deleteBuyCryptoOrdersMiddleware, 
+deleteSellOrdersMiddleware, 
+deleteMarketOrderMiddleware, 
+deleteProtagonistsMiddleware, 
+deleteMessagesMiddleware,
+deleteUserProfileImageIfAnyMiddleware, 
+deleteFSProfilePictureIfAnyMiddleware,
+sessionSubscriberMiddleware, 
+conditional_Unsub_AgendaJobDel_SubDel_Middleware, 
+deleteHexMiddleware, 
+deleteUserMiddleware, 
+logoutMiddleware, 
+(req, res, next) => {
 
   console.log("DELETE /users/profile/delete/:userId: -> res.locals.notifications.length: ", res.locals.notifications.length)
   if (res.locals.notifications.length !== 0) {
@@ -398,6 +422,15 @@ sessionSubscriberMiddleware, conditional_Unsub_AgendaJobDel_SubDel_Middleware, d
   })
 
 })
+
+
+
+
+
+
+
+
+
 
 
 module.exports = homeOrdersBackend_app_router

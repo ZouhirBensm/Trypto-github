@@ -7,6 +7,7 @@ import SubscriberInfo from './SubscriberInfo2'
 
 import billing_utils from '../../full-stack-libs/utils.billing'
 
+// HERE TODO !!!!! need to test delete and unsub from operations, then commit changes (commit message: prepared code to add upgrade component), create new branch, work on upgrade functionality!
 class Profile extends React.Component {
 
   constructor(props) {
@@ -20,7 +21,7 @@ class Profile extends React.Component {
     // console.log("profileimagename: ", this.props.profileimagename)
     // console.log("selectedUser: ", this.props.selectedUser)
 
-    this.handleProfileDeletion = this.handleProfileDeletion.bind(this)
+    
     this.setpopups = this.setpopups.bind(this)
     this.changeprofileimagename = this.changeprofileimagename.bind(this)
   }
@@ -76,12 +77,11 @@ class Profile extends React.Component {
           registrationTimeDate={registrationTimeDate}
 
           // NOT NEEDED
-          selectedUserID={selectedUser._id}
+          // selectedUserID={selectedUser._id}
 
           section_btn={this.handleProfileDeletion}
           setpopups={this.setpopups}
           changeprofileimagename={this.changeprofileimagename}
-
         />
 
         {selectedUser.subscriptionID ?
@@ -113,47 +113,6 @@ class Profile extends React.Component {
   }
 
 
-
-  async handleProfileDeletion(e) {
-    e.preventDefault()
-    const userId = this.props.usedUserID
-
-    let response
-    response = await fetch(`/users/profile/delete/${userId}`, {
-      method: 'DELETE',
-    })
-
-
-    let srv_
-    srv_ = await response.json()
-
-    console.log("*****", response, srv_)
-
-    if (response.status === 200) {
-
-      
-      if (srv_.referer === "users") {
-        // console.log(`/?popup=${srv_.srv_}`)
-        window.location.href = `/?popup=${srv_.srv_}`;
-        return
-      }
-      
-      if (srv_.referer === "operations") {
-        window.location.href = `/operations/manage-subs`;
-        return
-      }
-
-      let error = new Error("Delete succeeded, but the response srv_.referer does not match the registed ones!")
-      console.error(error)
-      return
-
-    } else {
-      this.setState({
-        popups: srv_.error.message.admin_message
-      })
-      return
-    }
-  }
 
 
 }
