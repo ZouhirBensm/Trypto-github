@@ -7,7 +7,7 @@ import SubscriberInfo from './SubscriberInfo2'
 
 import billing_utils from '../../full-stack-libs/utils.billing'
 
-// HERE TODO !!!!! need to test delete and unsub from operations, then commit changes (commit message: prepared code to add upgrade component), create new branch, work on upgrade functionality!
+// HERE TODO !!!!! need to test delete and unsub from operations, create new branch, work on upgrade functionality!
 class Profile extends React.Component {
 
   constructor(props) {
