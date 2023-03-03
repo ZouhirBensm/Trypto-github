@@ -76,6 +76,7 @@ class CardInfoSubmission extends React.Component {
 
 
   async createSubscription(data, actions) {
+    console.log("*** process.env.PAYPAL_PLAN_ID: ", process.env.PAYPAL_PLAN_ID)
     return actions.subscription.create({
       'plan_id': process.env.PAYPAL_PLAN_ID
     });

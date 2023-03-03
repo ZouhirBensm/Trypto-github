@@ -70,6 +70,7 @@
   },
   "devDependencies": {
     "browserify": "^17.0.0",
+    "dotenv-webpack": "^8.0.1",
     "watchify": "^4.0.0"
   }
 }

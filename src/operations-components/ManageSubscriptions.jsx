@@ -1,4 +1,4 @@
-import Profile from '../login-register-functionalities/Profile3'
+import Profile from '../login-register-functionalities/Profile4'
 class ManageSubscriptions extends React.Component {
   constructor(props){
     super(props)
