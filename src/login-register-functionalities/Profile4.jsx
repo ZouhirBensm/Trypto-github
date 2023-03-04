@@ -10,7 +10,6 @@ import DowngradeToFree from './DowngradeToFree'
 
 import billing_utils from '../../full-stack-libs/utils.billing'
 
-// HERE TODO !!!!! Create new branch, work on upgrade functionality!
 class Profile extends React.Component {
 
   constructor(props) {
