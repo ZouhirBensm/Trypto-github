@@ -78,8 +78,10 @@ var config = {
     // clean: true,
   },
   plugins: [
+    // First access env variables from .env
     new Dotenv(),
-    // env info: GIVES ACCESS TO REACT CODE TO BACKEND process.env variables
+    // Drawback to get environment variables for the front end, currently used in staging
+    // If issues with environment variables, would require to comment out!
     new DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
