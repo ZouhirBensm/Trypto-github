@@ -4,6 +4,9 @@ import './styles/UserInfo.css'
 import '../style/reactDivMobile.css'
 import UserInfo from './UserInfo'
 import SubscriberInfo from './SubscriberInfo2'
+import UpgradeToBasic from './UpgradeToBasic'
+import DowngradeToFree from './DowngradeToFree'
+
 
 import billing_utils from '../../full-stack-libs/utils.billing'
 
@@ -21,12 +24,12 @@ class Profile extends React.Component {
     // console.log("profileimagename: ", this.props.profileimagename)
     // console.log("selectedUser: ", this.props.selectedUser)
 
-    
+
     this.setpopups = this.setpopups.bind(this)
     this.changeprofileimagename = this.changeprofileimagename.bind(this)
   }
 
-  changeprofileimagename(newimageName){
+  changeprofileimagename(newimageName) {
     this.setState({
       profileimagename: newimageName,
       imageHash: Date.now()
@@ -104,7 +107,16 @@ class Profile extends React.Component {
           /> : null
         }
 
-        
+        <DowngradeToFree
+          clickable={!selectedUser.subscriptionID}
+        />
+        <UpgradeToBasic
+          clickable={!!selectedUser.subscriptionID}
+          usedUserID={this.props.usedUserID}
+        />
+
+
+
 
         {popups_div}
 

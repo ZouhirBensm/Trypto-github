@@ -63,7 +63,7 @@ class ProfileImageUpload extends React.Component {
       <div id="myModal" className="modal">
         <div className="modal-content">
           <span className="close" onClick={(e) => {
-            this.props.toogleImageUploadModal(e)
+            this.props.toogleProfilePicUploadModal(e)
           }}>&times;</span>
 
 

@@ -10,7 +10,6 @@ class CardShell extends React.Component {
     }
     this.initCardHTML()
     this.collapsableSetup()
-
   }
 
   initCardHTML() {
@@ -37,7 +36,6 @@ class CardShell extends React.Component {
 
 
   render() {
-
     return (
       <React.Fragment>
         {this.props.modal ?

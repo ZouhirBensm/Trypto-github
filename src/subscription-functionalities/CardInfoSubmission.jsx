@@ -15,7 +15,7 @@ class CardInfoSubmission extends React.Component {
 
 
   async BASICPlanRegistrationProcess(paypal_subscriptionID, paypal_plan_id, paypal_product_id) {
-    console.log("BASICPlanRegistrationProcess()->", { username: this.props.username, email: this.props.email, password: this.props.password, plan: this.props.plan });
+    // console.log("BASICPlanRegistrationProcess()->", { username: this.props.username, email: this.props.email, password: this.props.password, plan: this.props.plan });
 
     let flag, notification
 
@@ -29,7 +29,8 @@ class CardInfoSubmission extends React.Component {
 
 
   async handleRegistrationCall(_username, _email, _password, _plan, _paypal_subscriptionID, _paypal_plan_id, _paypal_product_id, _lat, _lng) {
-    console.log("Making API call!")
+    
+    // console.log("Making API call!")
 
     const response = await fetch(`/users/register`, {
       method: 'POST',
@@ -80,7 +81,6 @@ class CardInfoSubmission extends React.Component {
     return actions.subscription.create({
       'plan_id': process.env.PAYPAL_PLAN_ID
     });
-
   }
 
   async onApprove(data, actions) {

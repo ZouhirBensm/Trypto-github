@@ -1,0 +1,69 @@
+
+const PayPalButton = paypal.Buttons.driver("react", { React, ReactDOM });
+
+
+class PayToGoBasicModal extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+    }
+    console.log("process.env.PAYPAL_PLAN_ID: ", process.env.PAYPAL_PLAN_ID)
+    this.upgradeToBASICPlan = this.upgradeToBASICPlan.bind(this)
+  }
+
+  async createSubscription(data, actions) {
+    return actions.subscription.create({
+      'plan_id': process.env.PAYPAL_PLAN_ID
+    });
+  }
+
+  async onApprove(data, actions) {
+    console.log(data.subscriptionID, process.env.PAYPAL_PLAN_ID, process.env.PAYPAL_PRODUCT_ID)
+
+    const didUpgradeToBASICHappen = await this.upgradeToBASICPlan(data.subscriptionID, process.env.PAYPAL_PLAN_ID, process.env.PAYPAL_PRODUCT_ID)
+
+    console.log("\n\nonApprove()->didUpgradeToBASICHappen: ", didUpgradeToBASICHappen)
+  }
+
+
+  async upgradeToBASICPlan(_paypal_subscriptionID, _paypal_plan_id, _paypal_product_id) {
+
+    const response = await fetch(`/paypal/upgrade-plan-to-basic`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        userId: this.props.usedUserID,
+        paypal_subscriptionID: _paypal_subscriptionID,
+        paypal_plan_id: _paypal_plan_id,
+        paypal_product_id: _paypal_product_id,
+      })
+    })
+
+
+    const json = await response.json()
+
+    console.log("\n\nupgradeToBASICPlan()->response: ", response)
+    console.log("\n\nupgradeToBASICPlan()->json: ", json)
+
+    return
+
+  }
+
+  render() {
+    return (
+      <div id="myModal" className="modal">
+        <PayPalButton
+          createSubscription={async (data, actions) => {
+            return this.createSubscription(data, actions)
+          }}
+          onApprove={(data, actions) => this.onApprove(data, actions)}
+        />
+      </div>
+    )
+  }
+}
+
+export default PayToGoBasicModal

@@ -87,11 +87,11 @@ class UserInfo extends React.Component {
     // let didFindModal = e.composedPath().filter(element => { return element.id == 'myModal' })
 
 
-    console.log("exitUploadModal->didFindModal:", didFindModal)
+    // console.log("exitUploadModal->didFindModal:", didFindModal)
 
     if (!didFindModal[0]) {
       // Exterior click
-      console.log("BAM")
+      // console.log("BAM")
       if (this.state.modal == false) return
       // Modal visible
       return this.toogleProfilePicUploadModal(e)
@@ -106,6 +106,7 @@ class UserInfo extends React.Component {
 
     document.addEventListener('click', (e) => {
       const modal = document.getElementById("myModal")
+      // Click within modal, just return
       const contains = modal?.contains(e.target)
       if (contains) {
         return

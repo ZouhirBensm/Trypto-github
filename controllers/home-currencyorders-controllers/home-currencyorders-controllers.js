@@ -9,6 +9,8 @@ function renderMgtUserSPAController(req, res) {
   
   var JSX_to_load = 'MgtUser';
   
+  res.locals.isPaypalScriptNeeded = true
+
   return res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
     JSX_to_load: JSX_to_load,
   })

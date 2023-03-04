@@ -57,6 +57,20 @@ paypalControllers.paypalUnsubscribeController)
 
 
 
+paypalBackend_app_router.post('/upgrade-plan-to-basic', 
+require_loggedin_for_data(true), 
+authenticate_role_for_data([ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), 
+requester_auth_middleware(1), (req, res)=>{
+
+  console.log("\n\nreq.body: ", req.body)
+
+  res.status(200).json({
+    message: "Hello From the server!"
+  })
+})
+
+
+
 
 
 
