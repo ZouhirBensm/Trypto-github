@@ -48,8 +48,15 @@ class PayToGoBasicModal extends React.Component {
     console.log("\n\nupgradeToBASICPlan()->response: ", response)
     console.log("\n\nupgradeToBASICPlan()->json: ", json)
 
-    return
+    if(response.status == 200){
+      window.location.reload()
+    } else {
+      const message = "The upgrade has not been establised on bidblock.ca. Please contact customer service to set you up."
+      this.props.setpopups(message)
+    }
 
+    return
+ 
   }
 
   render() {

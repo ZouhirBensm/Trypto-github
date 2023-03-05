@@ -22,6 +22,8 @@ const hasUnSubProcessStartedMiddleware = require('../middleware/paypal-middlewar
 const getRequestedSubscriptionInfoMiddleware = require('../middleware/paypal-middleware/get-requested-subscription-info-middleware');
 const paypalUnsubscribeMiddleware = require('../middleware/paypal-middleware/paypal-unsubscribe-middleware');
 
+const upgradeToBasicMiddleware = require('../middleware/paypal-middleware/upgrade-to-basic-middleware')
+
 
 
 // Use this to check the role, requires a res.locals.user.role
@@ -32,6 +34,8 @@ const { authenticate_role_for_pages, authenticate_role_for_data } = require("../
 
 
 const paypalControllers = require('../controllers/paypal-controllers/paypal-controllers')
+
+const upgradeToBasicController = require('../controllers/paypal-controllers/upgrade-to-basic-controllers')
 
 
 
@@ -65,17 +69,15 @@ paypalControllers.paypalUnsubscribeController)
 // }
 
 // TODO !!!!! HERE figure out what differentiates a BASIC to a FREE user and edit the collections accordingly.
+
 paypalBackend_app_router.post('/upgrade-plan-to-basic', 
 require_loggedin_for_data(true), 
 authenticate_role_for_data([ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), 
-requester_auth_middleware(1), (req, res)=>{
+requester_auth_middleware(1), 
 
-  console.log("\n\nreq.body: ", req.body)
-
-  res.status(200).json({
-    message: "Hello From the server!"
-  })
-})
+upgradeToBasicMiddleware.createSubsciptionDocument,
+upgradeToBasicMiddleware.updateUserToBasic,
+upgradeToBasicController.upgradeToBasicResponder)
 
 
 

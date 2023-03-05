@@ -112,6 +112,7 @@ class Profile extends React.Component {
         <UpgradeToBasic
           clickable={!!selectedUser.subscriptionID}
           usedUserID={this.props.usedUserID}
+          setpopups={this.setpopups}
         />
 
 
