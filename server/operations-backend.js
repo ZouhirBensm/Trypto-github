@@ -76,7 +76,9 @@ operationsBackend_app_router.use(set_user_if_any, (req, res, next) => {
   // res.locals.CATEGORY = CATEGORY;
   res.locals.userId = req.session.userId
   navBars = NAVBAR.OPERATORS
-  next()
+
+  
+  return next()
 })
 
 
@@ -90,6 +92,8 @@ operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/man
   
   var JSX_to_load
   JSX_to_load = 'Operations';
+  res.locals.isPaypalScriptNeeded = true
+  
 
   // console.log("\n\nGET /help-for-orders, /monitor-messages, /manage-subs, /help-for-market-orders, /set-settings ->\nres.locals, navBars, loggedIn\n\n", res.locals, navBars, loggedIn)
 
@@ -158,6 +162,7 @@ operationsBackend_app_router.get(['/', '/articles-dashboard'], require_loggedin_
   console.log("\n\n\n_____________", req.session.userId)
   var JSX_to_load
   JSX_to_load = 'Operations';
+  res.locals.isPaypalScriptNeeded = true
 
   // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
   

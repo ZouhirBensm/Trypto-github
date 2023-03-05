@@ -9,5 +9,8 @@
 <div id="popup" style="display: none;"></div>
 <!-- ../dist /dist reference the same page, not sure thought, potential source of errors -->
 
+<%if(locals.isPaypalScriptNeeded){%>
+  <script src="https://www.paypal.com/sdk/js?client-id=<%-process.env.PAYPAL_CLIENT_ID%>&vault=true&intent=subscription"></script>
+<%}%>
 
 <script type="text/javascript" src="/dist/<%= JSX_to_load %>.js"></script>

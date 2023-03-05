@@ -43,10 +43,10 @@ class PayToGoBasicModal extends React.Component {
     })
 
 
-    const json = await response.json()
+    // const json = await response.json()
 
     console.log("\n\nupgradeToBASICPlan()->response: ", response)
-    console.log("\n\nupgradeToBASICPlan()->json: ", json)
+    // console.log("\n\nupgradeToBASICPlan()->json: ", json)
 
     if(response.status == 200){
       window.location.reload()
