@@ -60,16 +60,6 @@ paypalUnsubscribeMiddleware,
 paypalControllers.paypalUnsubscribeController)
 
 
-// Example of a body.
-// req.body:  {
-//   userId: '640295af979bcf46064af383',
-//   paypal_subscriptionID: 'I-55SDU2B9BGXC',
-//   paypal_plan_id: 'P-8K2448559P9609535MMAPYHA',
-//   paypal_product_id: 'PROD-6NP19803R0467982A'
-// }
-
-// TODO !!!!! HERE figure out what differentiates a BASIC to a FREE user and edit the collections accordingly.
-
 paypalBackend_app_router.post('/upgrade-plan-to-basic', 
 require_loggedin_for_data(true), 
 authenticate_role_for_data([ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), 
