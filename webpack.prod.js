@@ -1,7 +1,7 @@
 const { merge } = require('webpack-merge');
-// const common = require('./webpack.common.js');
 const config = require('./webpack.common.js');
-// const { EnvironmentPlugin, ProvidePlugin, DefinePlugin } = require("webpack")
+const { EnvironmentPlugin, ProvidePlugin, DefinePlugin } = require("webpack")
+const Dotenv = require('dotenv-webpack');
 
 // console.log(process.env)
 // let config_array = []
@@ -10,9 +10,10 @@ const config = require('./webpack.common.js');
 let prod_config = merge(config, {
   mode: 'production',
   plugins: [
-    // new ProvidePlugin({
-    //   Buffer: ['buffer', 'Buffer'],
-    // }),
+    new Dotenv(),
+    new ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
+    }),
   ],
   performance: {
     hints: false,
