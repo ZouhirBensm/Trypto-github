@@ -78,26 +78,6 @@ var config = {
     // clean: true,
   },
   // plugins: [
-  //   // First access env variables from .env
-  //   new Dotenv(),
-  //   // Drawback to get environment variables for the front end, currently used in staging
-  //   // If issues with environment variables, would require to comment out!
-  //   new DefinePlugin({
-  //     'process.env': {
-  //       NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-  //       PAYPAL_API_ROOT: JSON.stringify(process.env.PAYPAL_API_ROOT),
-  //       CONSOLE_CLOUD_GOOGLE_API_KEY: JSON.stringify(process.env.CONSOLE_CLOUD_GOOGLE_API_KEY),
-  //       PAYPAL_PLAN_ID: JSON.stringify(process.env.PAYPAL_PLAN_ID),
-  //       PAYPAL_PRODUCT_ID: JSON.stringify(process.env.PAYPAL_PRODUCT_ID),
-  //       PAYPAL_CLIENT_ID: JSON.stringify(process.env.PAYPAL_CLIENT_ID),
-  //       DOMAIN_WITHOUT_PROTOCOL: JSON.stringify(process.env.DOMAIN_WITHOUT_PROTOCOL),
-  //       BIDBLOCK_EMAIL: JSON.stringify(process.env.BIDBLOCK_EMAIL),
-  //       ENVIRONMENT: JSON.stringify(process.env.ENVIRONMENT),
-  //     }
-  //   }),
-  //   new ProvidePlugin({
-  //     Buffer: ['buffer', 'Buffer'],
-  //   }),
   // ],
 };
 
