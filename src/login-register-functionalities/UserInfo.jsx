@@ -1,4 +1,5 @@
 import ProfileImageUpload from '../login-register-functionalities/ProfileImageUpload'
+import ImageUploadModalFunction from '../login-register-functionalities/ImageUploadModalFunction'
 
 class UserInfo extends React.Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class UserInfo extends React.Component {
     }
     this.exitUploadModal = this.exitUploadModal.bind(this)
     this.toogleProfilePicUploadModal = this.toogleProfilePicUploadModal.bind(this)
+
     this.handleProfileDeletion = this.handleProfileDeletion.bind(this)
   }
 
@@ -113,10 +115,6 @@ class UserInfo extends React.Component {
       }
       this.exitUploadModal(e)
     })
-
-    // IN ORDER TO TOOGLE THE COMPONENT, NOT NEEDED
-    // let Section = document.getElementsByClassName('section')[0]
-    // Section.style.display = "none";
   }
 
 
@@ -126,19 +124,11 @@ class UserInfo extends React.Component {
     return (
       <React.Fragment>
         <div className="main-card user-info">
-          <div className="title-card" 
-          // IN ORDER TO TOOGLE THE COMPONENT, NOT NEEDED
-          // onClick={(e) => {
-          //   let Section = document.getElementsByClassName("section")[0]
-          //   if (Section.style.display === "none") {
-          //     Section.style.display = "block";
-          //   } else {
-          //     Section.style.display = "none";
-          //   }
-          // }}
-          >
+          <div className="title-card">
             <span>Logged in user: </span>
-            <img src={this.props.profile_image_path} alt="User's profile picture" />
+            <ImageUploadModalFunction
+              profile_image_path = {this.props.profile_image_path}
+            />
             <span> {this.props.userName}</span>
           </div>
           <div className="section">
