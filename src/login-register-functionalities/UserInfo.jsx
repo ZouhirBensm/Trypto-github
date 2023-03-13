@@ -114,8 +114,9 @@ class UserInfo extends React.Component {
       this.exitUploadModal(e)
     })
 
-    let Section = document.getElementsByClassName('section')[0]
-    Section.style.display = "none";
+    // IN ORDER TO TOOGLE THE COMPONENT, NOT NEEDED
+    // let Section = document.getElementsByClassName('section')[0]
+    // Section.style.display = "none";
   }
 
 
@@ -125,15 +126,17 @@ class UserInfo extends React.Component {
     return (
       <React.Fragment>
         <div className="main-card user-info">
-          <div className="title-card" onClick={(e) => {
-
-            let Section = document.getElementsByClassName("section")[0]
-            if (Section.style.display === "none") {
-              Section.style.display = "block";
-            } else {
-              Section.style.display = "none";
-            }
-          }}>
+          <div className="title-card" 
+          // IN ORDER TO TOOGLE THE COMPONENT, NOT NEEDED
+          // onClick={(e) => {
+          //   let Section = document.getElementsByClassName("section")[0]
+          //   if (Section.style.display === "none") {
+          //     Section.style.display = "block";
+          //   } else {
+          //     Section.style.display = "none";
+          //   }
+          // }}
+          >
             <span>Logged in user: </span>
             <img src={this.props.profile_image_path} alt="User's profile picture" />
             <span> {this.props.userName}</span>
