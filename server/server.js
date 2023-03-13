@@ -1,4 +1,4 @@
-// TODO !!!!! HERE 1. Add reason user deletes account 2. Add reason user usubscribes 3. Prune messages in chat to top 5 most recent 4. Have when on Basic, click on Free Unsubs
+// TODO !!!!! HERE 1. Add reason user deletes account 2. Add reason user usubscribes 3. Prune messages in chat to top 5 most recent
 
 // 1234567 for new deployment
 require('dotenv').config()

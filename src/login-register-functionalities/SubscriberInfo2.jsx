@@ -60,7 +60,7 @@ class SubscriberInfo extends React.Component {
                 : null}
               </ul>
 
-              <button onClick={(e) => {
+              <button id="onpage-unsubscirbe-button" onClick={(e) => {
                 this.paypalUnSub(e)
               }}>Unsubscribe</button>
             </div>

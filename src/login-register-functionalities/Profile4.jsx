@@ -108,6 +108,7 @@ class Profile extends React.Component {
 
         <DowngradeToFree
           clickable={!selectedUser.subscriptionID}
+          setpopups={this.setpopups}
         />
         <UpgradeToBasic
           clickable={!!selectedUser.subscriptionID}
