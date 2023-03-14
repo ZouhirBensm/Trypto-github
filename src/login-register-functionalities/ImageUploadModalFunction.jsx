@@ -1,5 +1,3 @@
-// import ProfileImageUpload from '../login-register-functionalities/ProfileImageUpload'
-
 class ImageUploadModalFunction extends React.Component {
   constructor(props) {
     super(props)
@@ -31,19 +29,7 @@ class ImageUploadModalFunction extends React.Component {
   }
 
 
-
-  // toogleProfilePicUploadModal(e = null) {
-  //   e?.preventDefault()
-  //   e?.stopPropagation()
-
-
-  //   const toogleWorked = this.props.toogleModal()
-
-  // }
-
-
   exitUploadModal(e) {
-
     const arr_of_HTMLElements_parents = e.path || e.composedPath()
     // e.stopPropagation()
 
@@ -70,18 +56,6 @@ class ImageUploadModalFunction extends React.Component {
     return (
       <React.Fragment>
         <img src={this.props.profile_image_path} alt="User's profile picture" />
-
-        {/* {this.state.modal ?
-          <ProfileImageUpload
-            toogleProfilePicUploadModal={this.toogleProfilePicUploadModal}
-            selectedUserID={this.props.usedUserID}
-            setpopups={this.props.setpopups}
-            changeprofileimagename={this.props.changeprofileimagename}
-          />
-          :
-          null
-        } */}
-
       </React.Fragment>
     )
   }

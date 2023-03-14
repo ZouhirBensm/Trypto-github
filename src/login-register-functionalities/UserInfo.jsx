@@ -8,9 +8,6 @@ class UserInfo extends React.Component {
       modal: false
     }
     this.toogleModal = this.toogleModal.bind(this)
-    // this.exitUploadModal = this.exitUploadModal.bind(this)
-    // this.toogleProfilePicUploadModal = this.toogleProfilePicUploadModal.bind(this)
-
     this.handleProfileDeletion = this.handleProfileDeletion.bind(this)
   }
 
@@ -78,73 +75,6 @@ class UserInfo extends React.Component {
     }
   }
 
-
-  // toogleProfilePicUploadModal(e = null) {
-  //   e?.preventDefault()
-  //   e?.stopPropagation()
-  //   let modal = this.state.modal
-
-
-  //   this.setState({
-  //     modal: !modal
-  //   }, () => {
-  //     let maincards = document.getElementsByClassName('main-card')
-
-  //     if (this.state.modal) {
-  //       for (let i = 0; i < maincards.length; i++) {
-  //         const maincard = maincards[i];
-  //         maincard.classList.add("disable");
-  //       }
-  //     } else {
-  //       for (let i = 0; i < maincards.length; i++) {
-  //         const maincard = maincards[i];
-  //         maincard.classList.remove("disable");
-  //       }
-  //     }
-  //   })
-  // }
-
-
-  // exitUploadModal(e) {
-
-  //   const arr_of_HTMLElements_parents = e.path || e.composedPath()
-  //   // e.stopPropagation()
-
-
-  //   let didFindModal = arr_of_HTMLElements_parents.filter(element => { return element.id == 'myModal' })
-  //   // let didFindModal = e.composedPath().filter(element => { return element.id == 'myModal' })
-
-
-  //   // console.log("exitUploadModal->didFindModal:", didFindModal)
-
-  //   if (!didFindModal[0]) {
-  //     // Exterior click
-  //     // console.log("BAM")
-  //     if (this.state.modal == false) return
-  //     // Modal visible
-  //     return this.toogleProfilePicUploadModal(e)
-  //   }
-  // }
-
-  // componentDidMount() {
-  //   let img = document.querySelector('img')
-  //   img.onclick = (e) => {
-  //     this.toogleProfilePicUploadModal(e)
-  //   }
-
-  //   document.addEventListener('click', (e) => {
-  //     const modal = document.getElementById("myModal")
-  //     // Click within modal, just return
-  //     const contains = modal?.contains(e.target)
-  //     if (contains) {
-  //       return
-  //     }
-  //     this.exitUploadModal(e)
-  //   })
-  // }
-
-
-
   render() {
 
     return (
@@ -156,9 +86,6 @@ class UserInfo extends React.Component {
               profile_image_path={this.props.profile_image_path}
               toogleModal={this.toogleModal}
               modal={this.state.modal}
-            // selectedUserID={this.props.usedUserID}
-            // setpopups={this.props.setpopups}
-            // changeprofileimagename={this.props.changeprofileimagename}
             />
             <span> {this.props.userName}</span>
           </div>
