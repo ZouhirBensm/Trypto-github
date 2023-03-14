@@ -111,3 +111,17 @@ async function getUsersAssociatedLocality() {
 
   return response
 }
+
+
+// Client Locality Determination
+// if (navigator.geolocation) {
+//   navigator.geolocation.getCurrentPosition((position) => {
+//     lat = position.coords.latitude
+//     lng = position.coords.longitude
+//     resolve([lat, lng])
+//   }, (error) => {
+//     resolve([lat, lng])
+//   });
+// } else {
+//   resolve([lat, lng])
+// };
