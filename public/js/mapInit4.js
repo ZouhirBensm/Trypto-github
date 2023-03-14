@@ -49,18 +49,7 @@ let getLatLng = function () {
         break;
     }
 
-    // Client Locality Determination
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        lat = position.coords.latitude
-        lng = position.coords.longitude
-        resolve([lat, lng])
-      }, (error) => {
-        resolve([lat, lng])
-      });
-    } else {
-      resolve([lat, lng])
-    };
+    resolve([lat, lng])
 
   });
 };

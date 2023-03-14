@@ -51,7 +51,7 @@ class SetAssociatedLocality extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
+    // console.log(this.props)
     let the_map = document.getElementById('the-map');
     let autocomplete_block = document.getElementById('autocomplete-block');
 

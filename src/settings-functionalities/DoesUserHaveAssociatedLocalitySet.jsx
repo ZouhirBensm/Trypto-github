@@ -4,7 +4,7 @@ class DoesUserHaveAssociatedLocalitySet extends React.Component {
   constructor(props){
     super(props)
     this.state = {}
-    console.log("\n\nDoesUserHaveAssociatedLocalitySet: constructor()-> this.props.selectedUser: ", this.props.selectedUser)
+    // console.log("\n\nDoesUserHaveAssociatedLocalitySet: constructor()-> this.props.selectedUser: ", this.props.selectedUser)
   }
 
   componentDidMount() {

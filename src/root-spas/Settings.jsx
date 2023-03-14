@@ -33,7 +33,7 @@ class Settings extends React.Component {
 
     // console.log("Settings: render()->userId: ", userId)
     // console.log("Settings: render()->user: ", user)
-    console.log("Settings: render()->selectedUser: ", selectedUser)
+    // console.log("Settings: render()->selectedUser: ", selectedUser)
 
     return (
 

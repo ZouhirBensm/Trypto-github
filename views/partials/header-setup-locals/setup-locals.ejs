@@ -1,6 +1,4 @@
-<!-- get rid of this -->
 <%- include("setup-locals-dependencies/pre-configurations/preconfigsURL") %>
-<!-- get rid of this -->
 <%- include("setup-locals-dependencies/pre-configurations/chopURL") %>
 <%- include("setup-locals-dependencies/pre-configurations/declarePathParams") %>
 
@@ -170,7 +168,9 @@
         
         // console.log(`\n\n*** setup-locals.ejs ROUTE /settings----------->> userId, user, selectedUser`, userId, user, selectedUser)
 
-        console.log(`\n\n*** setup-locals.ejs ROUTE /settings----------->> userId, selectedUser`, userId, selectedUser)
+        console.log(`\n\n*** setup-locals.ejs ROUTE /settings----------->>\n`)
+        console.log("* selectedUser", selectedUser)
+        console.log("* userId", userId)
         break;
 
       case `/settings/${caseSettingsPage}`:
@@ -182,7 +182,10 @@
         }
 
         // console.log(`\n\n*** setup-locals.ejs ROUTE /settings/${caseSettingsPage}----------->> userId, user, selectedUser`, userId, user, selectedUser)
-        console.log(`\n\n*** setup-locals.ejs ROUTE /settings/${caseSettingsPage} ----------->> userId, selectedUser`, userId, selectedUser)
+        console.log(`\n\n*** setup-locals.ejs ROUTE /settings/${caseSettingsPage}----------->>\n`)
+        console.log("* selectedUser", selectedUser)
+        console.log("* userId", userId)
+
         break;
 
 
