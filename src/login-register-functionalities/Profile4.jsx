@@ -6,6 +6,8 @@ import UserInfo from './UserInfo'
 import SubscriberInfo from './SubscriberInfo2'
 import UpgradeToBasic from './UpgradeToBasic'
 import DowngradeToFree from './DowngradeToFree'
+// import DeleteAccount from '../login-register-functionalities/DeleteAccount'
+import DeleteAccount from '../login-register-functionalities/DeleteAccount2'
 
 
 import billing_utils from '../../full-stack-libs/utils.billing'
@@ -86,6 +88,11 @@ class Profile extends React.Component {
           changeprofileimagename={this.changeprofileimagename}
         />
 
+        <DeleteAccount
+          usedUserID={this.props.usedUserID}
+          setpopups={this.setpopups}
+        />
+
         {selectedUser.subscriptionID ?
           <SubscriberInfo
             plan={plan}
@@ -110,6 +117,7 @@ class Profile extends React.Component {
           clickable={!selectedUser.subscriptionID}
           setpopups={this.setpopups}
         />
+        
         <UpgradeToBasic
           clickable={!!selectedUser.subscriptionID}
           usedUserID={this.props.usedUserID}

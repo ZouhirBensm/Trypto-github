@@ -1,23 +1,22 @@
-import PayToGoBasicModal from './PayToGoBasicModal'
 
+import React from 'react';
+import DeleteModal from './DeleteModal'
 
-class UpgradeToBasic extends React.Component {
+class DeleteAccount extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       modal: false
     }
-
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
-    // console.log(this.props.clickable)
   }
 
-  handleOutsideClick(event) {
 
+  handleOutsideClick(event) {
     const { modal } = this.state;
     if (
-      this.modalRef && // The modal is present
-      !this.modalRef.contains(event.target) && // If click outside ref
+      this.modalRef2 && // The modal is present
+      !this.modalRef2.contains(event.target) && // If click outside ref
       modal // Modal is displayed!
     ) {
       this.setState({ modal: false }, () => {
@@ -46,8 +45,9 @@ class UpgradeToBasic extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="main-card" ref={node => (this.modalRef = node)}>
-          <button disabled={this.props.clickable || this.state.modal} onClick={() => {
+        <div ref={node => (this.modalRef2 = node)}>
+
+          <button disabled={this.state.modal} onClick={() => {
             this.setState({ modal: !modal }, () => {
               let maincards = document.getElementsByClassName('main-card')
 
@@ -60,26 +60,31 @@ class UpgradeToBasic extends React.Component {
 
             })
           }}>
-            BASIC
+            DELETE ACCOUNT
           </button>
+          {modal && (
+            <React.Fragment>
+            <div className="close" onClick={(e)=>{
+              this.setState({ modal: false }, () => {
+                let maincards = document.getElementsByClassName('main-card')
+                for (let i = 0; i < maincards.length; i++) {
+                  const maincard = maincards[i];
+                  maincard.classList.remove("disable");
+                }
+              });
+            }}>&times;</div>
+            <DeleteModal
+              usedUserID={this.props.usedUserID}
+              setpopups={this.props.setpopups}
+            />
+            </React.Fragment>
+          )}
         </div>
-        {modal && (
-          <PayToGoBasicModal
-            usedUserID={this.props.usedUserID}
-            setpopups={this.props.setpopups}
-          />
-        )}
-
-
+        
 
       </React.Fragment>
     )
   }
-
 }
 
-export default UpgradeToBasic
-
-
-
-
+export default DeleteAccount
