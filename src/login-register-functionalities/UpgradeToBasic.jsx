@@ -46,7 +46,7 @@ class UpgradeToBasic extends React.Component {
 
     return (
       <React.Fragment>
-        <div ref={node => (this.modalRef = node)}>
+        <div className="main-card" ref={node => (this.modalRef = node)}>
           <button disabled={this.props.clickable || this.state.modal} onClick={() => {
             this.setState({ modal: !modal }, () => {
               let maincards = document.getElementsByClassName('main-card')

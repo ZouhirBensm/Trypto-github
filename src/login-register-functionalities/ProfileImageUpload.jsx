@@ -2,7 +2,7 @@ class ProfileImageUpload extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
-    console.log(this.props)
+    // console.log(this.props)
   }
 
   profilePicSaveValidation(){
@@ -44,7 +44,7 @@ class ProfileImageUpload extends React.Component {
       case 200:
         this.props.setpopups(json.message)
         this.props.changeprofileimagename(json.newprofileimagename)
-        this.props.toogleProfilePicUploadModal()
+        this.props.toogleModal()
         break;
       case 500:
         this.props.setpopups(json.error?.message.client_message)
@@ -58,12 +58,14 @@ class ProfileImageUpload extends React.Component {
 
   }
 
+
+
   render() {
     return (
       <div id="myModal" className="modal">
         <div className="modal-content">
           <span className="close" onClick={(e) => {
-            this.props.toogleProfilePicUploadModal(e)
+            this.props.toogleModal(e)
           }}>&times;</span>
 
 
