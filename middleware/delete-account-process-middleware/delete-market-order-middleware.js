@@ -31,12 +31,14 @@ module.exports = async (req, res, next) => {
   // TODO #95 Instead of deleting the locations one-by-one. Feed the SellMarketOrderLocation.deleteMany the array of IDs references and delete all at once i.e. the method itself loops
   for (const obj_ids of array_of_sellmarketorderlocationsandimages_ids_where_user_is_engaged) {
 
+    // Sellmarket order id
     const directory = `public/img/marketorder-images/${obj_ids._id}`
     console.log(obj_ids, directory)
 
 
     let locationDeletedRet
     try {
+      // SellmarketLocation ID 
       locationDeletedRet = await SellMarketOrderLocation.deleteOne({ _id: obj_ids.sellmarketorderlocationID })
     } catch (e) {
       res.locals.notifications.push(e)

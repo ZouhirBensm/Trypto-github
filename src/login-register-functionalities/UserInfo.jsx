@@ -1,5 +1,6 @@
 import ProfileImageUpload from '../login-register-functionalities/ProfileImageUpload'
 import ImageUploadModalFunction from '../login-register-functionalities/ImageUploadModalFunction'
+import DeleteAccount from '../login-register-functionalities/DeleteAccount'
 
 class UserInfo extends React.Component {
   constructor(props) {
@@ -8,7 +9,7 @@ class UserInfo extends React.Component {
       modal: false
     }
     this.toogleModal = this.toogleModal.bind(this)
-    this.handleProfileDeletion = this.handleProfileDeletion.bind(this)
+    // this.handleProfileDeletion = this.handleProfileDeletion.bind(this)
   }
 
   toogleModal(e = null) {
@@ -36,44 +37,44 @@ class UserInfo extends React.Component {
     })
   }
 
-  async handleProfileDeletion(e) {
-    e.preventDefault()
-    const userId = this.props.usedUserID
+  // async handleProfileDeletion(e) {
+  //   e.preventDefault()
+  //   const userId = this.props.usedUserID
 
-    let response
-    response = await fetch(`/users/profile/delete/${userId}`, {
-      method: 'DELETE',
-    })
-
-
-    let srv_
-    srv_ = await response.json()
-
-    console.log("handleProfileDeletion: response, srv_: ", response, srv_)
-
-    if (response.status === 200) {
+  //   let response
+  //   response = await fetch(`/users/profile/delete/${userId}`, {
+  //     method: 'DELETE',
+  //   })
 
 
-      if (srv_.referer === "users") {
-        // console.log(`/?popup=${srv_.srv_}`)
-        window.location.href = `/?popup=${srv_.srv_}`;
-        return
-      }
+  //   let srv_
+  //   srv_ = await response.json()
 
-      if (srv_.referer === "operations") {
-        window.location.href = `/operations/manage-subs`;
-        return
-      }
+  //   console.log("handleProfileDeletion: response, srv_: ", response, srv_)
 
-      let error = new Error("Delete succeeded, but the response srv_.referer does not match the registed ones!")
-      console.error(error)
-      return
+  //   if (response.status === 200) {
 
-    } else {
-      this.props.setpopups(srv_.error.message.admin_message)
-      return
-    }
-  }
+
+  //     if (srv_.referer === "users") {
+  //       // console.log(`/?popup=${srv_.srv_}`)
+  //       window.location.href = `/?popup=${srv_.srv_}`;
+  //       return
+  //     }
+
+  //     if (srv_.referer === "operations") {
+  //       window.location.href = `/operations/manage-subs`;
+  //       return
+  //     }
+
+  //     let error = new Error("Delete succeeded, but the response srv_.referer does not match the registed ones!")
+  //     console.error(error)
+  //     return
+
+  //   } else {
+  //     this.props.setpopups(srv_.error.message.admin_message)
+  //     return
+  //   }
+  // }
 
   render() {
 
@@ -97,13 +98,17 @@ class UserInfo extends React.Component {
                 <li>registrationDatetime: {this.props.registrationTimeDate}</li>
               </ul>
 
-              <button onClick={(e) => {
+              <DeleteAccount
+                usedUserID={this.props.usedUserID}
+                setpopups={this.props.setpopups}
+              />
+              {/* <button onClick={(e) => {
                 try {
                   this.handleProfileDeletion(e)
                 } catch (error) {
                   console.log("Error on delete button: ", error)
                 }
-              }}>Delete Account</button>
+              }}>Delete Account</button> */}
             </div>
           </div>
         </div>

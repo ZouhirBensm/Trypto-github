@@ -67,6 +67,7 @@ const conditional_Unsub_AgendaJobDel_SubDel_Middleware = require('../middleware/
 
 
 const deleteUserMiddleware = require('../middleware/delete-account-process-middleware/delete-user-middleware')
+const deleteUserAssociatedLocalityMiddleware = require('../middleware/delete-account-process-middleware/delete-user-associated-locality-middleware')
 const deleteHexMiddleware = require('../middleware/delete-account-process-middleware/delete-hex-middleware')
 
 const deleteUserProfileImageIfAnyMiddleware = require('../middleware/delete-account-process-middleware/delete-user-profile-image-ifany-middleware')
@@ -403,7 +404,8 @@ deleteFSProfilePictureIfAnyMiddleware,
 sessionSubscriberMiddleware, 
 conditional_Unsub_AgendaJobDel_SubDel_Middleware, 
 deleteHexMiddleware, 
-deleteUserMiddleware, 
+deleteUserMiddleware,
+deleteUserAssociatedLocalityMiddleware,
 logoutMiddleware, 
 (req, res, next) => {
 

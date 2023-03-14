@@ -12,5 +12,8 @@ module.exports = async (req,res,next)=>{
     res.locals.notifications.push(e);
   }
 
-  next()
+  console.log("userDeletionRet: ", userDeletionRet)
+
+  res.locals.userassociatedlocalityID = userDeletionRet.userassociatedlocalityID
+  return next()
 }
