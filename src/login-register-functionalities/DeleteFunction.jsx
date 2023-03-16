@@ -24,20 +24,20 @@ class DeleteFunction extends React.Component {
     let response
 
 
-    // response = await fetch(`/users/profile/delete/${userId}`, {
-    //   method: 'DELETE',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     reason: reason,
-    //   })
-    // })
+    response = await fetch(`/users/profile/delete/${userId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        reason: reason,
+      })
+    })
 
 
-    // let srv_
-    // srv_ = await response.json()
+    let srv_
+    srv_ = await response.json()
 
     // console.log("\n\nhandleProfileDeletion: response", response)
     // console.log("\n\nhandleProfileDeletion: srv_", srv_)
