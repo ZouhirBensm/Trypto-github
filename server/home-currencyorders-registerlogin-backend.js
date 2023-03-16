@@ -31,8 +31,7 @@ const utils = require('../full-stack-libs/utils')
 const ROLE = require("../full-stack-libs/Types/Role")
 const NAVBAR = require('../full-stack-libs/Types/Navbar')
 
-// Custom Error
-const { DeleteAccountProcessError } = require("../custom-errors/custom-errors")
+
 
 // Controllers
 const profileController = require('../controllers/profile-controllers/profile-controllers')
@@ -68,6 +67,8 @@ const conditional_Unsub_AgendaJobDel_SubDel_Middleware = require('../middleware/
 
 const deleteUserMiddleware = require('../middleware/delete-account-process-middleware/delete-user-middleware')
 const deleteUserAssociatedLocalityMiddleware = require('../middleware/delete-account-process-middleware/delete-user-associated-locality-middleware')
+
+const saveDeletionReasonMiddleware = require('../middleware/delete-account-process-middleware/save-deletion-reason-middleware')
 const deleteHexMiddleware = require('../middleware/delete-account-process-middleware/delete-hex-middleware')
 
 const deleteUserProfileImageIfAnyMiddleware = require('../middleware/delete-account-process-middleware/delete-user-profile-image-ifany-middleware')
@@ -389,6 +390,9 @@ LoginController.loginController)
 
 
 // TODO add userID for articles
+
+
+// TODO !!!! uncomment, real used endpoint needed
 homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), 
 authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
 requester_auth_middleware(4), 
@@ -406,24 +410,26 @@ conditional_Unsub_AgendaJobDel_SubDel_Middleware,
 deleteHexMiddleware, 
 deleteUserMiddleware,
 deleteUserAssociatedLocalityMiddleware,
+saveDeletionReasonMiddleware,
 logoutMiddleware, 
-(req, res, next) => {
+homeCurrencyOrdersController.deleteAccountController)
 
-  console.log("DELETE /users/profile/delete/:userId: -> res.locals.notifications.length: ", res.locals.notifications.length)
-  if (res.locals.notifications.length !== 0) {
-    let notifications_messages = res.locals.notifications.map(notification => notification.message);
-    let e = new DeleteAccountProcessError(notifications_messages)
-    return next(e)
-  } 
 
-  console.log("DELETE /users/profile/delete/:userId: ->res.locals.paths_URL_fromReferer[0]: ", res.locals.notifications.length)
+// homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', saveDeletionReasonMiddleware, (req,res)=>{
 
-  return res.status(200).json({
-    srv_: "User account and linked data completly deleted.",
-    referer: res.locals.paths_URL_fromReferer[0]
-  })
+//   console.log("\nEndpoint DELETE account: body: \n", req.body)
 
-})
+
+//   const mock_msg = "Mock User account and linked data completly deleted."
+//   const mock_referer = "users"
+
+//   return res.status(200).json({
+//     srv_: mock_msg,
+//     referer: mock_referer
+//   })
+
+
+// })
 
 
 

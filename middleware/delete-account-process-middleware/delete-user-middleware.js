@@ -14,6 +14,7 @@ module.exports = async (req,res,next)=>{
 
   console.log("userDeletionRet: ", userDeletionRet)
 
-  res.locals.userassociatedlocalityID = userDeletionRet.userassociatedlocalityID
+  res.locals.userDeletionRet = userDeletionRet
+
   return next()
 }
