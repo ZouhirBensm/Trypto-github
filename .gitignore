@@ -2,7 +2,11 @@
 node_modules
 public/dist
 seeds
-public/img/*/*
+public/img/bidblock-article-enclosure-images/*
+public/img/marketorder-images/*
+!public/img/marketorder-images/seed-images
+public/img/profile-images/*
+!public/img/profile-images/square.png
 webpack.dev.js
 package-lock.json
 .vscode/*
