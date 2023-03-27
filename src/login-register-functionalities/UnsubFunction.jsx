@@ -30,18 +30,15 @@ class UnsubFunction extends React.Component {
     json = await response.json()
 
     if (response.status === 200 || response.status === 202) {
-      this.props.handleOutsideClick(e) // Close modal
+      this.props.handleOutsideClick() // Close modal
       this.props.setpopups(json.server.client_message)
 
     } else {
       // console.log("paypalUnSub()->json:\n\n", json.error.message.client_message)
       // console.log("paypalUnSub()->typeof:\n\n", typeof json.error.message.client_message)
       
-      // Testing Purposes HERE!
       this.props.handleOutsideClick() // Close modal
       this.props.setpopups(json.error.message.client_message)
-
-      // this.props.setPopupModal(json.error.message.client_message)
     }
   }
 

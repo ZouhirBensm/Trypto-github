@@ -1,6 +1,8 @@
 
 import UnsubModal from './UnsubModal'
 
+// TODO !!!!! place better reasons, register reason on the backend, refactor, save, refactor, new branch, merge similar components to delete account modal and unsub modals, reason, pass the the reasons and more props needed
+
 class UnsubModalMeca extends React.Component {
   constructor(props) {
     super(props)
