@@ -17,7 +17,7 @@ class ChatContainer extends React.Component {
     this._userIDB = userIdB
     this._orderID = orderId
 
-    console.log("constructor()->", {
+    console.log("ChatContainer: constructor()->\n", {
       userId: this._userId, 
       currentUserEmail: this._currentUserEmail, 
       currentUserName: this.currentUserName, 
@@ -49,14 +49,14 @@ class ChatContainer extends React.Component {
     insertAfter(script1, script2)
 
     function insertAfter(referenceNode, newNode ) {
-      console.log(referenceNode.parentNode)
+      // console.log(referenceNode.parentNode)
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
     }
   }
 
 
   render() {
-    console.log("Do we have access to currentUserEmail??", currentUserEmail)
+    // console.log("ChatContainer: render()->currentUserEmail:", currentUserEmail)
     
     return (
       <React.Fragment>

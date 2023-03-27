@@ -17,7 +17,7 @@ console.log("socketio in the house!")
 
 
 // Instantiating a socket connection using TCP to the domain_without_protocol i.e. http://localhost:3000, with query params
-console.log("---->>>>>>#####", domain_without_protocol)
+console.log("/js/socketio.js: domain_without_protocol:", domain_without_protocol)
 
 const socket = io(`${window.location.protocol}//${domain_without_protocol}`, { query: `userAId=${userId}&userBId=${userIdB}&orderId=${orderId}` });
 

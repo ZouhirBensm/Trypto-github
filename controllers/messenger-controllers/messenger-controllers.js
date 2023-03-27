@@ -112,8 +112,15 @@ let chatControllers = (io) => {
       let message_entry_with_both_protagonists = await Message.find({protagonists: protagonistEntryIfAny[0]._id})
       .populate("msg_stream.sender")
 
-      // Loop through the message.msg_stream to emit it on the connected socket to display past conversation.
-      message_entry_with_both_protagonists[0].msg_stream.forEach(msg => {
+      // Loop through the message.msg_stream to emit it on the connected socket to display past conversation (5 most recent messages on load).
+      const msg_stream_length = message_entry_with_both_protagonists[0].msg_stream.length
+      // If msg stream bigger than 5, cut 5, else start from 0
+      const index_most_recent_start = msg_stream_length < 5 ? 0 : msg_stream_length-5
+      
+      for (let i = index_most_recent_start; i < message_entry_with_both_protagonists[0].msg_stream.length; i++) {
+
+        const msg = message_entry_with_both_protagonists[0].msg_stream[i];
+        console.log(i, msg)
         const format_for_UI_object = {
           content: msg.text,
           msgAuthorId: msg.sender._id,
@@ -122,7 +129,8 @@ let chatControllers = (io) => {
           datetime: msg.postedDate
         }
         socket.emit("broadcast", format_for_UI_object)
-      });
+      }
+
     } else {
       console.log("\nA: NO\n")
     }

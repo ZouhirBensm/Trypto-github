@@ -144,7 +144,9 @@
       userIdB = '<%= locals.userIdB  %>'
       orderId = '<%= locals.orderId  %>'
 
-      console.log("--------------->>>>>>", userId, currentUserName, currentUserEmail, userIdB, orderId, user, domain_without_protocol)
+      console.log("\n\nsetup-locals.ejs:")
+      
+      console.log({userId, currentUserName, currentUserEmail, userIdB, orderId, user, domain_without_protocol})
 
       break;
     case '/messaging/messages':

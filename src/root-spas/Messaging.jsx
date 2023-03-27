@@ -16,10 +16,10 @@ class Messaging extends React.Component {
   constructor(props){
     super(props)
     this.state = {}
-    console.log("THIS FUCKIN userId", userId)
-    console.log("THIS FUCKIN currentUserEmail", currentUserEmail)
-    console.log("THIS FUCKIN currentUserName", currentUserName)
-    console.log("THIS FUCKIN user", user)
+    // console.log("Messaging: userId", userId)
+    // console.log("Messaging: currentUserEmail", currentUserEmail)
+    // console.log("Messaging: currentUserName", currentUserName)
+    // console.log("Messaging: user", user)
   }
   render() {
     return (
