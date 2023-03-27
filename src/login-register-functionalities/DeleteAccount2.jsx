@@ -1,5 +1,3 @@
-
-import React from 'react';
 import DeleteModal from './DeleteModal'
 
 class DeleteAccount extends React.Component {
@@ -25,6 +23,8 @@ class DeleteAccount extends React.Component {
           const maincard = maincards[i];
           maincard.classList.remove("disable");
         }
+        let unsubButton = document.getElementById('unsub-id')
+        unsubButton.classList.remove("disable");
       });
 
     }
@@ -47,7 +47,7 @@ class DeleteAccount extends React.Component {
       <React.Fragment>
         <div ref={node => (this.modalRef2 = node)}>
 
-          <button disabled={this.state.modal} onClick={() => {
+          <button id='delete-id' disabled={this.state.modal} onClick={() => {
             this.setState({ modal: !modal }, () => {
               let maincards = document.getElementsByClassName('main-card')
 
@@ -56,6 +56,8 @@ class DeleteAccount extends React.Component {
                   const maincard = maincards[i];
                   maincard.classList.add("disable");
                 }
+                let unsubButton = document.getElementById('unsub-id')
+                unsubButton.classList.add("disable");
               }
 
             })
@@ -71,6 +73,8 @@ class DeleteAccount extends React.Component {
                   const maincard = maincards[i];
                   maincard.classList.remove("disable");
                 }
+                let unsubButton = document.getElementById('unsub-id')
+                unsubButton.classList.remove("disable");
               });
             }}>&times;</div>
             <DeleteModal

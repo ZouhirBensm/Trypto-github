@@ -1,4 +1,3 @@
-// import UnsubscribeButton from './UnsubscribeButton'
 class SubscriberInfo extends React.Component {
   constructor(props) {
     super(props)

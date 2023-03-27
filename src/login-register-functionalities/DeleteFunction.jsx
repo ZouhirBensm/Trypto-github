@@ -1,9 +1,7 @@
-
 class DeleteFunction extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-    }
+    this.state = {}
     this.handleProfileDeletion = this.handleProfileDeletion.bind(this)
   }
 
@@ -12,17 +10,10 @@ class DeleteFunction extends React.Component {
     e?.stopPropagation()
 
     if(!reason) return
-
-    
-
     const userId = this.props.usedUserID
-
-
-
     console.log(userId, reason)
 
     let response
-
 
     response = await fetch(`/users/profile/delete/${userId}`, {
       method: 'DELETE',
@@ -34,7 +25,6 @@ class DeleteFunction extends React.Component {
         reason: reason,
       })
     })
-
 
     let srv_
     srv_ = await response.json()

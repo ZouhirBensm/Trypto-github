@@ -1,8 +1,8 @@
-import DeleteFunction from "./DeleteFunction"
-import ReasonSelector from "./ReasonSelector"
+import UnsubFunction from "./UnsubFunction"
+import ReasonSelectorUnsub from "./ReasonSelectorUnsub"
 
 
-class DeleteModal extends React.Component {
+class UnsubModal extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -16,10 +16,9 @@ class DeleteModal extends React.Component {
     this.setPopupModal = this.setPopupModal.bind(this)
   }
 
-
   handleReasonChange = (changeEvent) => {
     const selectedReason = changeEvent.target.value;
-    return this.setState({ 
+    return this.setState({
       selectedReason: selectedReason,
       customReason: '',
       hasUserInput: false,
@@ -29,25 +28,23 @@ class DeleteModal extends React.Component {
 
   handleCustomReasonChange = (changeEvent) => {
     const customReason = changeEvent.target.value;
-    return this.setState({ 
+    return this.setState({
       customReason: customReason,
       hasUserInput: !!customReason,
       popup: ''
     });
   }
 
-  setPopupModal(popup){
+  setPopupModal(popup) {
     this.setState({
       popup: popup
     })
   }
 
-
   render() {
-
     return (
       <React.Fragment>
-        <ReasonSelector
+        <ReasonSelectorUnsub
           selectedReason={this.state.selectedReason}
           customReason={this.state.customReason}
           hasUserInput={this.state.hasUserInput}
@@ -55,12 +52,7 @@ class DeleteModal extends React.Component {
           handleCustomReasonChange={this.handleCustomReasonChange}
         />
 
-        {/* <p>selectedReason: {this.state.selectedReason}</p>
-        <p>customReason: {this.state.customReason}</p>
-        <p>hasUserInput: {this.state.hasUserInput}</p> */}
-
-
-        <DeleteFunction
+        <UnsubFunction
           usedUserID={this.props.usedUserID}
           setpopups={this.props.setpopups}
           disableDelete={!this.state.selectedReason}
@@ -68,13 +60,13 @@ class DeleteModal extends React.Component {
           customReason={this.state.customReason}
           hasUserInput={this.state.hasUserInput}
           setPopupModal={this.setPopupModal}
+          handleOutsideClick={this.props.handleOutsideClick}
         />
-        
-        {this.state.popup ? <p>{this.state.popup}</p>: null}
 
+        {this.state.popup ? <p>{this.state.popup}</p>: null}
       </React.Fragment>
     )
   }
 }
 
-export default DeleteModal
+export default UnsubModal

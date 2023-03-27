@@ -1,22 +1,20 @@
-class ReasonSelector extends React.Component {
+class ReasonSelectorUnsub extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = {};
+    super(props)
+    this.state = {}
   }
 
-
-
   render() {
-    const option1 = "This subscription is overpriced"
-    const option2 = "I currently have a second account"
-    const option3 = "This app is not performant enough for my taste"
-    const option4 = "I'm concerned about my data"
+    const option1 = "Because A"
+    const option2 = "Because B"
+    const option3 = "Because C"
+    const option4 = "Because D"
     const option5 = "Other"
+
 
     return (
       <React.Fragment>
-        <div>ReasonSelector</div>
-
+        <div>ReasonSelectorUnsub</div>
         <div className="radio-buttons">
           <label>
             <input
@@ -75,6 +73,7 @@ class ReasonSelector extends React.Component {
 
         </div>
 
+
         {this.props.selectedReason == option5 && (
           <div>
             <br />
@@ -91,4 +90,4 @@ class ReasonSelector extends React.Component {
   }
 }
 
-export default ReasonSelector
+export default ReasonSelectorUnsub

@@ -7,7 +7,7 @@ import SubscriberInfo from './SubscriberInfo2'
 import UpgradeToBasic from './UpgradeToBasic'
 import DowngradeToFree from './DowngradeToFree'
 // import DeleteAccount from '../login-register-functionalities/DeleteAccount'
-import DeleteAccount from '../login-register-functionalities/DeleteAccount2'
+import DeleteAccount from './DeleteAccount2'
 import UnsubModalMeca from './UnsubModalMeca'
 
 
@@ -95,6 +95,7 @@ class Profile extends React.Component {
         />
 
         {selectedUser.subscriptionID ?
+        <React.Fragment>
           <SubscriberInfo
             plan={plan}
             username={userName}
@@ -111,10 +112,14 @@ class Profile extends React.Component {
 
             usedUserID={this.props.usedUserID}
             setpopups={this.setpopups}
-          /> : null
+          /> 
+          <UnsubModalMeca
+            usedUserID={this.props.usedUserID}
+            setpopups={this.setpopups}
+          /> 
+        </React.Fragment>: null
         }
 
-        <UnsubModalMeca/>
 
         <DowngradeToFree
           clickable={!selectedUser.subscriptionID}
