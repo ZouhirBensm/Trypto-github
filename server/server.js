@@ -1,4 +1,4 @@
-// TODO !!!!! 1. Add reason user usubscribes 2. Prune messages in chat to top 5 most recent
+// TODO !!!!! 1. Add reason user usubscribes
 
 // 1234567 for new deployment
 require('dotenv').config()
