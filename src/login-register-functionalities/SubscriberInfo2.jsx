@@ -1,4 +1,4 @@
-import UnsubscribeButton from './UnsubscribeButton'
+// import UnsubscribeButton from './UnsubscribeButton'
 class SubscriberInfo extends React.Component {
   constructor(props) {
     super(props)
@@ -30,12 +30,10 @@ class SubscriberInfo extends React.Component {
                 : null}
               </ul>
 
-
-              
-              <UnsubscribeButton
+              {/* <UnsubscribeButton
                 usedUserID={this.props.usedUserID}
                 setpopups={this.props.setpopups}
-              />
+              /> */}
 
 
             </div>

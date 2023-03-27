@@ -8,6 +8,7 @@ import UpgradeToBasic from './UpgradeToBasic'
 import DowngradeToFree from './DowngradeToFree'
 // import DeleteAccount from '../login-register-functionalities/DeleteAccount'
 import DeleteAccount from '../login-register-functionalities/DeleteAccount2'
+import UnsubModalMeca from './UnsubModalMeca'
 
 
 import billing_utils from '../../full-stack-libs/utils.billing'
@@ -112,6 +113,8 @@ class Profile extends React.Component {
             setpopups={this.setpopups}
           /> : null
         }
+
+        <UnsubModalMeca/>
 
         <DowngradeToFree
           clickable={!selectedUser.subscriptionID}
