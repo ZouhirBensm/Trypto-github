@@ -2,6 +2,7 @@ const httpStatus = require("http-status-codes")
 const billing_utils = require('../../full-stack-libs/utils.billing')
 const Subscriber = require('../../models/Subscriber');
 const User = require('../../models/User');
+const ReasonUserUsub = require('../../models/when-user-unsubs/ReasonUserUsub')
 
 
 const ROLE = require('../../full-stack-libs/Types/Role')
@@ -29,9 +30,26 @@ async function paypalUnsubscribeController(req, res, next) {
       return next(error)
     }
 
+    // Set the nullify the subscription id on User and also switch plan name from BASIC to NOTSUBSCRIBER
     agendaDefineJobFunctions.unsubFromBidBlockOnCalendar(req.body.userId)
 
     await agenda.schedule(unsubscriptionTakesEffectOnBidBlock, `Nullify particular User: ${req.body.userId} subscriptionID field and set role to UNSUBSCRIBER`);
+
+    // Save the reason User Unsubscribed
+
+    let reasonuserunsub_ret
+
+    try {
+      reasonuserunsub_ret = await ReasonUserUsub.create({
+        userID: req.body.userId,
+        reason_for_deletion: req.body.reason,
+        plan_unsub_from: res.locals.subscriptionInfo.plan
+      })
+    } catch (error) {
+      // TODO !!!!! add some error handling!
+    }
+    
+
 
     res.status(httpStatus.StatusCodes.OK).json({
       server: {

@@ -12,12 +12,13 @@ module.exports = async (req, res, next)=>{
 
   try {
     reasonuserdelete_ret = await ReasonUserDelete.create({
+      userID: res.locals.userDeletionRet._id,
       username: res.locals.userDeletionRet.username,
       email: res.locals.userDeletionRet.email,
       reason_for_deletion: req.body.reason
     })
   } catch (error) {
-    // TODO add some error handling!!!!
+    // TODO !!!!! add some error handling!
   }
 
   return next()

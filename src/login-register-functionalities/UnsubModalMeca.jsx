@@ -1,7 +1,15 @@
 
 import UnsubModal from './UnsubModal'
 
-// TODO !!!!! place better reasons, register reason on the backend, refactor, save, refactor, new branch, merge similar components to delete account modal and unsub modals, reason, pass the the reasons and more props needed
+// TODO !!!!! HERE
+// Test the if the reason is being saved on paypal and bidblock, retest the delete user and see if still info correctly saved in DB.
+// some important todos for error handling need to be added, and tested
+
+// refactor, save, refactor, new branch, 
+
+// (refactoring) merge similar components in DeleteAccountModal and UnsubModals, by passing the reasons and more props needed to seperate the concerns
+
+// (refactoring) Try and place the disable and renable dom manipulations into their own functions, so that the code becomes easier to read
 
 class UnsubModalMeca extends React.Component {
   constructor(props) {
@@ -26,7 +34,7 @@ class UnsubModalMeca extends React.Component {
           const maincard = maincards[i];
           maincard.classList.remove("disable");
         }
-        let deleteButton = document.getElementById('delete-id')
+        const deleteButton = document.getElementById('delete-id')
         deleteButton.classList.remove("disable");
       });
     }
@@ -55,7 +63,7 @@ class UnsubModalMeca extends React.Component {
                   const maincard = maincards[i];
                   maincard.classList.add("disable");
                 }
-                let deleteButton = document.getElementById('delete-id')
+                const deleteButton = document.getElementById('delete-id')
                 deleteButton.classList.add("disable");
               }
             })
@@ -72,7 +80,7 @@ class UnsubModalMeca extends React.Component {
                   const maincard = maincards[i];
                   maincard.classList.remove("disable");
                 }
-                let deleteButton = document.getElementById('delete-id')
+                const deleteButton = document.getElementById('delete-id')
                 deleteButton.classList.remove("disable");
               });
             }}>&times;</div>

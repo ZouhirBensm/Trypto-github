@@ -13,6 +13,7 @@ class UnsubFunction extends React.Component {
     const userId = this.props.usedUserID
     console.log(userId, reason)
 
+
     let response
     response = await fetch(`/paypal/unsubscribe`, {
       method: 'POST',
@@ -40,6 +41,8 @@ class UnsubFunction extends React.Component {
       this.props.handleOutsideClick() // Close modal
       this.props.setpopups(json.error.message.client_message)
     }
+
+
   }
 
   render() {

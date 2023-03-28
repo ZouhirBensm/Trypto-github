@@ -5,10 +5,10 @@ class ReasonSelectorUnsub extends React.Component {
   }
 
   render() {
-    const option1 = "Because A"
-    const option2 = "Because B"
-    const option3 = "Because C"
-    const option4 = "Because D"
+    const option1 = "The benefits of the plan did not satisfy me."
+    const option2 = "For personal financal reasons."
+    const option3 = "I already have a subscription for the same service elsewhere."
+    const option4 = "I plan to re-subscribe later on. I'm only pausing my payments."
     const option5 = "Other"
 
 

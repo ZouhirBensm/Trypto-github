@@ -27,11 +27,19 @@ class UserInfo extends React.Component {
           const maincard = maincards[i];
           maincard.classList.add("disable");
         }
+        const deleteButton = document.getElementById('delete-id')
+        deleteButton.classList.add("disable");
+        const unsubButton = document.getElementById('unsub-id')
+        unsubButton.classList.add("disable");
       } else {
         for (let i = 0; i < maincards.length; i++) {
           const maincard = maincards[i];
           maincard.classList.remove("disable");
         }
+        const deleteButton = document.getElementById('delete-id')
+        deleteButton.classList.remove("disable");
+        const unsubButton = document.getElementById('unsub-id')
+        unsubButton.classList.remove("disable");
       }
     })
   }

@@ -56,7 +56,7 @@ class DeleteAccount extends React.Component {
                   const maincard = maincards[i];
                   maincard.classList.add("disable");
                 }
-                let unsubButton = document.getElementById('unsub-id')
+                const unsubButton = document.getElementById('unsub-id')
                 unsubButton.classList.add("disable");
               }
 
@@ -73,7 +73,7 @@ class DeleteAccount extends React.Component {
                   const maincard = maincards[i];
                   maincard.classList.remove("disable");
                 }
-                let unsubButton = document.getElementById('unsub-id')
+                const unsubButton = document.getElementById('unsub-id')
                 unsubButton.classList.remove("disable");
               });
             }}>&times;</div>
