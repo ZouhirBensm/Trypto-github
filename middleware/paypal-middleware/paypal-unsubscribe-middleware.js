@@ -19,6 +19,9 @@ module.exports = async (req,res, next) =>{
     },
     method: "POST"
   })
+  .catch((error)=>{ // Not sure about this error handler
+    return next(error)
+  })
 
   console.log("\nresponse!\n\n ", paypal_cancel_sub_response)
 

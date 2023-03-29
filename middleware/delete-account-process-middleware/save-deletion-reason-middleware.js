@@ -17,8 +17,8 @@ module.exports = async (req, res, next)=>{
       email: res.locals.userDeletionRet.email,
       reason_for_deletion: req.body.reason
     })
-  } catch (error) {
-    // TODO !!!!! add some error handling!
+  } catch (e) {
+    res.locals.notifications.push(e);
   }
 
   return next()

@@ -2,14 +2,11 @@
 import UnsubModal from './UnsubModal'
 
 // TODO !!!!! HERE
-// Test the if the reason is being saved on paypal and bidblock, retest the delete user and see if still info correctly saved in DB.
-// some important todos for error handling need to be added, and tested
+// save, refactor *, save new branch, 
 
-// refactor, save, refactor, new branch, 
+// * (refactoring) merge similar components in DeleteAccountModal and UnsubModals, by passing the reasons and more props needed to seperate the concerns
 
-// (refactoring) merge similar components in DeleteAccountModal and UnsubModals, by passing the reasons and more props needed to seperate the concerns
-
-// (refactoring) Try and place the disable and renable dom manipulations into their own functions, so that the code becomes easier to read
+// * (refactoring) Try and place the disable and renable dom manipulations into their own functions, so that the code becomes easier to read
 
 class UnsubModalMeca extends React.Component {
   constructor(props) {

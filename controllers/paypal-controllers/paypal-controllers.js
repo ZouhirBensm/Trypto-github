@@ -42,14 +42,15 @@ async function paypalUnsubscribeController(req, res, next) {
     try {
       reasonuserunsub_ret = await ReasonUserUsub.create({
         userID: req.body.userId,
-        reason_for_deletion: req.body.reason,
+        reason_for_unsub: req.body.reason,
         plan_unsub_from: res.locals.subscriptionInfo.plan
       })
     } catch (error) {
-      // TODO !!!!! add some error handling!
+      return next(error)
     }
     
 
+    console.log(reasonuserunsub_ret)
 
     res.status(httpStatus.StatusCodes.OK).json({
       server: {
