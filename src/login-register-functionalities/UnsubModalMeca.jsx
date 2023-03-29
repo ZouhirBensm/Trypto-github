@@ -2,7 +2,7 @@
 import UnsubModal from './UnsubModal'
 
 // TODO !!!!! HERE
-// save, refactor *, save new branch, 
+// new branch, refactor *, merge, save, 
 
 // * (refactoring) merge similar components in DeleteAccountModal and UnsubModals, by passing the reasons and more props needed to seperate the concerns
 
