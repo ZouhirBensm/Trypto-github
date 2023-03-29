@@ -14,11 +14,7 @@ import billing_utils from '../../full-stack-libs/utils.billing'
 
 
 // TODO !!!!! HERE
-// new branch, refactor *, merge, save, 
-
-// * (refactoring) Rename variable's adequatly
-
-// * (refactoring) Try and place the disable and renable dom manipulations into their own functions, so that the code becomes easier to read
+// test, refactor files, and folders, save, merge, save
 
 class Profile extends React.Component {
 
