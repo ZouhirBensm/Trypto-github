@@ -6,12 +6,19 @@ import UserInfo from './UserInfo'
 import SubscriberInfo from './SubscriberInfo2'
 import UpgradeToBasic from './UpgradeToBasic'
 import DowngradeToFree from './DowngradeToFree'
-// import DeleteAccount from '../login-register-functionalities/DeleteAccount'
-import DeleteAccount from './DeleteAccount2'
-import UnsubModalMeca from './UnsubModalMeca'
+
+import ModalPoper from './ModalPoper'
 
 
 import billing_utils from '../../full-stack-libs/utils.billing'
+
+
+// TODO !!!!! HERE
+// new branch, refactor *, merge, save, 
+
+// * (refactoring) Rename variable's adequatly
+
+// * (refactoring) Try and place the disable and renable dom manipulations into their own functions, so that the code becomes easier to read
 
 class Profile extends React.Component {
 
@@ -89,9 +96,13 @@ class Profile extends React.Component {
           changeprofileimagename={this.changeprofileimagename}
         />
 
-        <DeleteAccount
+        <ModalPoper
           usedUserID={this.props.usedUserID}
           setpopups={this.setpopups}
+          onModalToogle_button2Toogle='unsub-id'
+          component_id='delete-id'
+          button_display='DELETE ACOUNT'
+          modal_component_name='DeleteModal'
         />
 
         {selectedUser.subscriptionID ?
@@ -113,11 +124,17 @@ class Profile extends React.Component {
             usedUserID={this.props.usedUserID}
             setpopups={this.setpopups}
           /> 
-          <UnsubModalMeca
+
+          <ModalPoper
             usedUserID={this.props.usedUserID}
             setpopups={this.setpopups}
-          /> 
-        </React.Fragment>: null
+            onModalToogle_button2Toogle='delete-id'
+            component_id='unsub-id'
+            button_display='USUBSCRIBE'
+            modal_component_name='UnsubModal'
+          />
+
+          </React.Fragment> : null
         }
 
 
@@ -131,9 +148,6 @@ class Profile extends React.Component {
           usedUserID={this.props.usedUserID}
           setpopups={this.setpopups}
         />
-
-
-
 
         {popups_div}
 

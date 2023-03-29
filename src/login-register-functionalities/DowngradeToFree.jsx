@@ -1,3 +1,5 @@
+// TODO !!!!! Make sure this component still works as intended as onpage-unsubscribe-button might no longer exists
+
 class DowngradeToFree extends React.Component {
   constructor(props){
     super(props)
@@ -7,7 +9,7 @@ class DowngradeToFree extends React.Component {
   }
 
   downgradeToFree(){
-    const onPageUnsubButton = document.getElementById("onpage-unsubscirbe-button")
+    const onPageUnsubButton = document.getElementById("onpage-unsubscribe-button")
 
     console.log(onPageUnsubButton)
 

@@ -1,3 +1,5 @@
+import SameDisplays from "./SameDisplays"
+
 class DeleteFunction extends React.Component {
   constructor(props) {
     super(props)
@@ -9,7 +11,7 @@ class DeleteFunction extends React.Component {
     e?.preventDefault()
     e?.stopPropagation()
 
-    if(!reason) return
+    if (!reason) return
     const userId = this.props.usedUserID
     console.log(userId, reason)
 
@@ -31,10 +33,10 @@ class DeleteFunction extends React.Component {
 
     // console.log("\n\nhandleProfileDeletion: response", response)
     // console.log("\n\nhandleProfileDeletion: srv_", srv_)
-    
+
 
     if (response.status === 200) {
-    // if (false) {
+      // if (false) {
       if (srv_.referer === "users") {
         // console.log(`/?popup=${srv_.srv_}`)
         window.location.href = `/?popup=${srv_.srv_}`;
@@ -62,44 +64,20 @@ class DeleteFunction extends React.Component {
 
     return (
       <React.Fragment>
-        <button disabled={this.props.disableDelete} onClick={(e) => {
 
-          try {
-            const reason = this.reasonDeterminator(e)
-            this.handleProfileDeletion(reason, e)
-          } catch (error) {
-            console.log("Error on delete button: ", error)
-          }
-        }}>Delete Account</button>
+        <SameDisplays
+          disableDelete={this.props.disableDelete}
+          button_display={this.props.button_display}
+          selectedReason={this.props.selectedReason}
+          customReason={this.props.customReason}
+          hasUserInput={this.props.hasUserInput}
+          setPopupModal={this.props.setPopupModal}
+          // TODO !!!! beter name
+          function={this.handleProfileDeletion}
+        />
       </React.Fragment>
     )
   }
-
-
-  reasonDeterminator(e) {
-    // console.log(this.props.selectedReason)
-    // console.log(this.props.customReason)
-    // console.log(this.props.hasUserInput)
-
-    const option5 = 'Other'
-
-    let reason
-    if(this.props.selectedReason != option5) {
-      reason = this.props.selectedReason
-      return reason
-    }
-
-    if(!this.props.hasUserInput) {
-      const popup = "Please submit reason"
-      return this.props.setPopupModal(popup)
-    }
-
-    reason = this.props.customReason
-    return reason
-  }
-
-
-
 }
 
 export default DeleteFunction

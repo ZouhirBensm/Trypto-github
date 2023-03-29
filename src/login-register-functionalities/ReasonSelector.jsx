@@ -1,22 +1,29 @@
 class ReasonSelector extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = {};
+    super(props)
+    this.state = {}
   }
 
-
-
   render() {
-    const option1 = "This subscription is overpriced"
-    const option2 = "I currently have a second account"
-    const option3 = "This app is not performant enough for my taste"
-    const option4 = "I'm concerned about my data"
+    let option1, option2, option3, option4
+    if (this.props.modal_component_name == 'DeleteModal'){
+      option1 = "This subscription is overpriced"
+      option2 = "I currently have a second account"
+      option3 = "This app is not performant enough for my taste"
+      option4 = "I'm concerned about my data"
+    }
+    if (this.props.modal_component_name == 'UnsubModal'){
+      option1 = "The benefits of the plan did not satisfy me."
+      option2 = "For personal financal reasons."
+      option3 = "I already have a subscription for the same service elsewhere."
+      option4 = "I plan to re-subscribe later on. I'm only pausing my payments."
+    }
     const option5 = "Other"
+
 
     return (
       <React.Fragment>
         <div>ReasonSelector</div>
-
         <div className="radio-buttons">
           <label>
             <input
@@ -74,6 +81,7 @@ class ReasonSelector extends React.Component {
           </label> <br />
 
         </div>
+
 
         {this.props.selectedReason == option5 && (
           <div>

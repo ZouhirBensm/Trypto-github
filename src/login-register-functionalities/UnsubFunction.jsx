@@ -1,3 +1,5 @@
+import SameDisplays from "./SameDisplays"
+
 class UnsubFunction extends React.Component {
   constructor(props) {
     super(props)
@@ -48,43 +50,21 @@ class UnsubFunction extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <button disabled={this.props.disableDelete} id="onpage-unsubscirbe-button" onClick={(e) => {
 
-          try {
-            const reason = this.reasonDeterminator(e)
-            this.paypalUnSub(reason, e)
-          } catch (error) {
-            console.log("Error on delete button: ", error)
-          }
-          
-        }}>Unsubscribe</button>
+
+        <SameDisplays
+          disableDelete={this.props.disableDelete}
+          button_display={this.props.button_display}
+          selectedReason={this.props.selectedReason}
+          customReason={this.props.customReason}
+          hasUserInput={this.props.hasUserInput}
+          setPopupModal={this.props.setPopupModal}
+          // TODO !!!! beter name
+          function={this.paypalUnSub}
+        />
       </React.Fragment>
     )
   }
-
-  reasonDeterminator(e) {
-    // console.log(this.props.selectedReason)
-    // console.log(this.props.customReason)
-    // console.log(this.props.hasUserInput)
-
-    const option5 = 'Other'
-
-    let reason
-    if(this.props.selectedReason != option5) {
-      reason = this.props.selectedReason
-      return reason
-    }
-
-    if(!this.props.hasUserInput) {
-      const popup = "Please submit reason"
-      return this.props.setPopupModal(popup)
-    }
-
-    reason = this.props.customReason
-    return reason
-  }
-
-
 }
 
 export default UnsubFunction
