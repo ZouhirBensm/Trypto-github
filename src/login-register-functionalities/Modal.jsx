@@ -47,31 +47,32 @@ class Modal extends React.Component {
 
     let Function = null;
 
-    if (this.props.modal_component_name == 'DeleteModal') {
+    if (this.props.modal_type == 'DeleteModal') {
       Function = <DeleteFunction
         usedUserID={this.props.usedUserID}
         setpopups={this.props.setpopups}
-        disableDelete={!this.state.selectedReason}
+        disable={!this.state.selectedReason}
         selectedReason={this.state.selectedReason}
         customReason={this.state.customReason}
         hasUserInput={this.state.hasUserInput}
         setPopupModal={this.setPopupModal}
         handleOutsideClick={this.props.handleOutsideClick}
         button_display={this.props.button_display}
+        modal_type={this.props.modal_type}
       />
     }
-    if (this.props.modal_component_name == 'UnsubModal') {
+    if (this.props.modal_type == 'UnsubModal') {
       Function = <UnsubFunction
         usedUserID={this.props.usedUserID}
         setpopups={this.props.setpopups}
-        // TODO !!!!! rename to something adequate
-        disableDelete={!this.state.selectedReason}
+        disable={!this.state.selectedReason}
         selectedReason={this.state.selectedReason}
         customReason={this.state.customReason}
         hasUserInput={this.state.hasUserInput}
         setPopupModal={this.setPopupModal}
         handleOutsideClick={this.props.handleOutsideClick}
         button_display={this.props.button_display}
+        modal_type={this.props.modal_type}
       />
     }
 
@@ -83,7 +84,7 @@ class Modal extends React.Component {
           hasUserInput={this.state.hasUserInput}
           handleReasonChange={this.handleReasonChange}
           handleCustomReasonChange={this.handleCustomReasonChange}
-          modal_component_name={this.props.modal_component_name}
+          modal_type={this.props.modal_type}
         />
 
         {Function}

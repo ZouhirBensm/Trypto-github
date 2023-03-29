@@ -6,13 +6,13 @@ class ReasonSelector extends React.Component {
 
   render() {
     let option1, option2, option3, option4
-    if (this.props.modal_component_name == 'DeleteModal'){
+    if (this.props.modal_type == 'DeleteModal'){
       option1 = "This subscription is overpriced"
       option2 = "I currently have a second account"
       option3 = "This app is not performant enough for my taste"
       option4 = "I'm concerned about my data"
     }
-    if (this.props.modal_component_name == 'UnsubModal'){
+    if (this.props.modal_type == 'UnsubModal'){
       option1 = "The benefits of the plan did not satisfy me."
       option2 = "For personal financal reasons."
       option3 = "I already have a subscription for the same service elsewhere."

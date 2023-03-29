@@ -1,4 +1,5 @@
 import Modal from './Modal'
+import {disable_class_adder_remover_maincards,disable_class_adder_remover_button} from '../front-end-lib/dom-manips-utils/enable-disable-buttons'
 
 class ModalPoper extends React.Component {
   constructor(props) {
@@ -17,14 +18,9 @@ class ModalPoper extends React.Component {
       modal // Modal is displayed!
     ) {
       this.setState({ modal: false }, () => {
-        let maincards = document.getElementsByClassName('main-card')
-        for (let i = 0; i < maincards.length; i++) {
-          const maincard = maincards[i];
-          maincard.classList.remove("disable");
-        }
-        // TODO !!!!! Use this global
-        const button = document.getElementById(this.props.onModalToogle_button2Toogle)
-        button.classList.remove("disable");
+        const mode = 'remove'
+        disable_class_adder_remover_maincards(mode)
+        disable_class_adder_remover_button(mode, this.props.onModalToogle_button2Toogle)
       });
     }
   }
@@ -46,15 +42,12 @@ class ModalPoper extends React.Component {
 
           <button id={this.props.component_id} disabled={this.state.modal} onClick={() => {
             this.setState({ modal: !modal }, () => {
-              let maincards = document.getElementsByClassName('main-card')
               if (this.state.modal) {
-                for (let i = 0; i < maincards.length; i++) {
-                  const maincard = maincards[i];
-                  maincard.classList.add("disable");
-                }
-                const button = document.getElementById(this.props.onModalToogle_button2Toogle)
-                button.classList.add("disable");
+                const mode = 'add'
+                disable_class_adder_remover_maincards(mode)
+                disable_class_adder_remover_button(mode, this.props.onModalToogle_button2Toogle)
               }
+
             })
           }}>
             {this.props.button_display}
@@ -64,21 +57,16 @@ class ModalPoper extends React.Component {
             <React.Fragment>
             <div className="close" onClick={(e)=>{
               this.setState({ modal: false }, () => {
-                let maincards = document.getElementsByClassName('main-card')
-                for (let i = 0; i < maincards.length; i++) {
-                  const maincard = maincards[i];
-                  maincard.classList.remove("disable");
-                }
-                const button = document.getElementById(this.props.onModalToogle_button2Toogle)
-                button.classList.remove("disable");
+                const mode = 'remove'
+                disable_class_adder_remover_maincards(mode)
+                disable_class_adder_remover_button(mode, this.props.onModalToogle_button2Toogle)
               });
             }}>&times;</div>
               <Modal
                 usedUserID={this.props.usedUserID}
                 setpopups={this.props.setpopups}
                 handleOutsideClick={this.handleOutsideClick}
-                // TODO !!!!! change to modal_type
-                modal_component_name={this.props.modal_component_name}
+                modal_type={this.props.modal_type}
                 button_display={this.props.button_display}
               />
             </React.Fragment>

@@ -5,7 +5,7 @@ import '../style/reactDivMobile.css'
 import UserInfo from './UserInfo'
 import SubscriberInfo from './SubscriberInfo2'
 import UpgradeToBasic from './UpgradeToBasic'
-import DowngradeToFree from './DowngradeToFree'
+
 
 import ModalPoper from './ModalPoper'
 
@@ -102,7 +102,7 @@ class Profile extends React.Component {
           onModalToogle_button2Toogle='unsub-id'
           component_id='delete-id'
           button_display='DELETE ACOUNT'
-          modal_component_name='DeleteModal'
+          modal_type='DeleteModal'
         />
 
         {selectedUser.subscriptionID ?
@@ -131,17 +131,11 @@ class Profile extends React.Component {
             onModalToogle_button2Toogle='delete-id'
             component_id='unsub-id'
             button_display='USUBSCRIBE'
-            modal_component_name='UnsubModal'
+            modal_type='UnsubModal'
           />
 
           </React.Fragment> : null
         }
-
-
-        <DowngradeToFree
-          clickable={!selectedUser.subscriptionID}
-          setpopups={this.setpopups}
-        />
         
         <UpgradeToBasic
           clickable={!!selectedUser.subscriptionID}

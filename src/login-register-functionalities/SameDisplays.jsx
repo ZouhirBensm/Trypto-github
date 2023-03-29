@@ -7,11 +7,11 @@ class SameDisplays extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <button disabled={this.props.disableDelete} onClick={(e) => {
+        <button id={this.props.modal_type + '-ID'} disabled={this.props.disable} onClick={(e) => {
 
           try {
             const reason = this.reasonDeterminator(e)
-            this.props.function(reason, e)
+            this.props.button_function(reason, e)
           } catch (error) {
             console.log("Error on delete button: ", error)
           }

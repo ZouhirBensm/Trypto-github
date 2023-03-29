@@ -66,14 +66,14 @@ class DeleteFunction extends React.Component {
       <React.Fragment>
 
         <SameDisplays
-          disableDelete={this.props.disableDelete}
+          disable={this.props.disable}
           button_display={this.props.button_display}
           selectedReason={this.props.selectedReason}
           customReason={this.props.customReason}
           hasUserInput={this.props.hasUserInput}
           setPopupModal={this.props.setPopupModal}
-          // TODO !!!! beter name
-          function={this.handleProfileDeletion}
+          button_function={this.handleProfileDeletion}
+          modal_type={this.props.modal_type}
         />
       </React.Fragment>
     )

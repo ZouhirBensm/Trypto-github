@@ -1,5 +1,6 @@
 import ProfileImageUpload from '../login-register-functionalities/ProfileImageUpload'
 import ImageUploadModalFunction from '../login-register-functionalities/ImageUploadModalFunction'
+import {disable_class_adder_remover_maincards, disable_class_adder_remover_button} from '../front-end-lib/dom-manips-utils/enable-disable-buttons'
 
 
 class UserInfo extends React.Component {
@@ -20,26 +21,15 @@ class UserInfo extends React.Component {
     this.setState({
       modal: !modal
     }, () => {
-      let maincards = document.getElementsByClassName('main-card')
-
+      
       if (this.state.modal) {
-        for (let i = 0; i < maincards.length; i++) {
-          const maincard = maincards[i];
-          maincard.classList.add("disable");
-        }
-        const deleteButton = document.getElementById('delete-id')
-        deleteButton.classList.add("disable");
-        const unsubButton = document.getElementById('unsub-id')
-        unsubButton.classList.add("disable");
+        disable_class_adder_remover_maincards('add')
+        disable_class_adder_remover_button('add', 'delete-id')
+        disable_class_adder_remover_button('add', 'unsub-id')
       } else {
-        for (let i = 0; i < maincards.length; i++) {
-          const maincard = maincards[i];
-          maincard.classList.remove("disable");
-        }
-        const deleteButton = document.getElementById('delete-id')
-        deleteButton.classList.remove("disable");
-        const unsubButton = document.getElementById('unsub-id')
-        unsubButton.classList.remove("disable");
+        disable_class_adder_remover_maincards('remove')
+        disable_class_adder_remover_button('remove', 'delete-id')
+        disable_class_adder_remover_button('remove', 'unsub-id')
       }
     })
   }

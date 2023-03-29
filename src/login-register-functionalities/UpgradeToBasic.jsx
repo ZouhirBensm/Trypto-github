@@ -1,4 +1,5 @@
 import PayToGoBasicModal from './PayToGoBasicModal'
+import {disable_class_adder_remover_maincards, disable_class_adder_remover_button} from '../front-end-lib/dom-manips-utils/enable-disable-buttons'
 
 
 class UpgradeToBasic extends React.Component {
@@ -21,11 +22,8 @@ class UpgradeToBasic extends React.Component {
       modal // Modal is displayed!
     ) {
       this.setState({ modal: false }, () => {
-        let maincards = document.getElementsByClassName('main-card')
-        for (let i = 0; i < maincards.length; i++) {
-          const maincard = maincards[i];
-          maincard.classList.remove("disable");
-        }
+        disable_class_adder_remover_maincards('remove')
+        disable_class_adder_remover_button('remove', 'delete-id')
       });
 
     }
@@ -49,15 +47,10 @@ class UpgradeToBasic extends React.Component {
         <div className="main-card" ref={node => (this.modalRef = node)}>
           <button disabled={this.props.clickable || this.state.modal} onClick={() => {
             this.setState({ modal: !modal }, () => {
-              let maincards = document.getElementsByClassName('main-card')
-
               if (this.state.modal) {
-                for (let i = 0; i < maincards.length; i++) {
-                  const maincard = maincards[i];
-                  maincard.classList.add("disable");
-                }
+                disable_class_adder_remover_maincards('add')
+                disable_class_adder_remover_button('add', 'delete-id')
               }
-
             })
           }}>
             BASIC
