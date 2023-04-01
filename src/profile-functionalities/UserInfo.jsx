@@ -1,5 +1,6 @@
-import ProfileImageUpload from '../login-register-functionalities/ProfileImageUpload'
-import ImageUploadModalFunction from '../login-register-functionalities/ImageUploadModalFunction'
+import ProfileImageUpload from './ProfileImageUpload'
+import ImageUploadModalFunction from './ImageUploadModalFunction'
+
 import {disable_class_adder_remover_maincards, disable_class_adder_remover_button} from '../front-end-lib/dom-manips-utils/enable-disable-buttons'
 
 

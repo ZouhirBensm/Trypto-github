@@ -1,12 +1,10 @@
-import './styles/MgtUser.css'
 import './styles/Profile.css'
 import './styles/UserInfo.css'
 import '../style/reactDivMobile.css'
+
 import UserInfo from './UserInfo'
 import SubscriberInfo from './SubscriberInfo2'
 import UpgradeToBasic from './UpgradeToBasic'
-
-
 import ModalPoper from './ModalPoper'
 
 
@@ -14,7 +12,7 @@ import billing_utils from '../../full-stack-libs/utils.billing'
 
 
 // TODO !!!!! HERE
-// test, refactor files, and folders, save, merge, save
+// refactor files, and folders, save, merge, save
 
 class Profile extends React.Component {
 

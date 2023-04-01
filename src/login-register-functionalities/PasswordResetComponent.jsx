@@ -1,7 +1,5 @@
-
-import React from 'react'
 import '../style/reactDivMobile.css'
-import {verifyPassword, validateInputs, arePasswordsEqual} from '../../full-stack-libs/validations'
+import {verifyPassword, arePasswordsEqual} from '../../full-stack-libs/validations'
 
 class PasswordResetComponent extends React.Component {
   constructor(props){

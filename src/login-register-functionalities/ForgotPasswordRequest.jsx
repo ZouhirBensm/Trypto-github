@@ -1,5 +1,4 @@
 
-import React from 'react'
 import '../style/reactDivMobile.css'
 import {verifyEmail, validateInputs} from '../../full-stack-libs/validations'
 

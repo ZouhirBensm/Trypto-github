@@ -1,21 +1,12 @@
-
-// import React from 'react';
-// import ReactDOM from 'react-dom'
-
-// import Login from './login-register-functionalities/Login'
-// import Register from './login-register-functionalities/Register'
-// import Profile from './login-register-functionalities/Profile'
 import loadable from "@loadable/component";
-// import Loading from "./Loading";
 import Loading from "../generic-components/Loading"
 
-
-// use Profile4 and SubscriberInfo if shit hits the fan
 
 const Login = loadable(() => import("../login-register-functionalities/Login"), {
   fallback: <Loading />
 });
-const Profile = loadable(() => import("../login-register-functionalities/Profile4"), {
+
+const Profile = loadable(() => import("../profile-functionalities/Profile5"), {
   fallback: <Loading />
 });
 

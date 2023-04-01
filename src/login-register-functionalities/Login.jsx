@@ -1,6 +1,5 @@
-import './styles/MgtUser.css'
+import '../style/reactDivMobile.css'
 import { verifyEmail, validateInputs } from '../../full-stack-libs/validations'
-import React from 'react'
 
 class Login extends React.Component {
 
