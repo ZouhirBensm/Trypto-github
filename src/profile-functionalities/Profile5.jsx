@@ -11,9 +11,6 @@ import ModalPoper from './ModalPoper'
 import billing_utils from '../../full-stack-libs/utils.billing'
 
 
-// TODO !!!!! HERE
-// refactor files, and folders, save, merge, save
-
 class Profile extends React.Component {
 
   constructor(props) {
