@@ -1,4 +1,6 @@
 import '../style/reactDivMobile.css'
+import './styles/Login.css'
+import LogRegFooter from './LogRegFooter'
 import { verifyEmail, validateInputs } from '../../full-stack-libs/validations'
 
 class Login extends React.Component {
@@ -6,15 +8,11 @@ class Login extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      // notification: '',
       notification: popup,
     }
-    // this.functionneed = this.functionneed.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.validateInputs = this.validateInputs.bind(this)
-    // this.popup = null
-    console.log(this.props.loginTo)
-    // this.functionneed()
+    // console.log(this.props.loginTo)
   }
 
   validateInputs(creds) {
@@ -43,36 +41,6 @@ class Login extends React.Component {
 
   }
 
-  // validateInputs(_marketOrderBasicData, _marketOrderTradeLocationSpecifics) {
-  //   // console.log("validating inputs", _marketOrderBasicData)
-
-  //   let error_msg_retrieved_if_any
-  //   error_msg_retrieved_if_any = validateOrderInputs(_marketOrderBasicData, error_msg_retrieved_if_any)
-  //   error_msg_retrieved_if_any = validateInputs_marketOrderTradeLocationSpecifics(_marketOrderTradeLocationSpecifics, error_msg_retrieved_if_any)
-
-
-  //   if (error_msg_retrieved_if_any) {
-  //     this.setState({
-  //       popup_state: error_msg_retrieved_if_any
-  //     }, ()=>{
-  //       console.log("scroll down")
-  //       let container = document.getElementsByClassName("make-container")[0]
-  //       console.log('container', container)
-  //       container.scrollTo(0, container.scrollHeight);
-  //     })
-  //   } else { return true }
-
-  // }
-
-  // functionneed(){
-  //   const params = new Proxy(new URLSearchParams(window.location.search), {
-  //     get: (searchParams, prop) => searchParams.get(prop),
-  //   });
-  //   // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
-  //   let value = params.popup; // "some_value"
-  //   console.log(value)
-  //   this.popup = value
-  // }
 
   async handleSubmit(e) {
     e.preventDefault()
@@ -139,31 +107,56 @@ class Login extends React.Component {
   render() {
 
 
-    console.log("caught2---->", this.state.notification)
+    // console.log("caught2---->", this.state.notification)
     // const notifyDisplays = <div dangerouslySetInnerHTML={{ __html:  this.state.notification}}></div>
-    const notifyDisplays = <div> {this.state.notification} </div>
 
-
+    const notifyDisplays = <p className='popup'> {this.state.notification} </p>
     // console.log(notifyDisplays)
 
     return (
-        <div id="container-log-reg">
-          <form id="loginregister" className="form">
-            <h3>Login</h3>
-            <label>Email</label>
-            <input type="text" name="email" />
-            <label>Password</label>
-            <input type="text" name="password" />
-            <button type="submit" onClick={async (e) => {
-              let statusCode = await this.handleSubmit(e)
-              console.log(statusCode)
-            }}>Login</button>
-          </form>
-          <a href="/users/forgotpasswordpage">Forgot Password</a>
+      <React.Fragment>
 
-        {notifyDisplays}
+        <div id="container-log-reg">
+
+          <form id="loginregister" className="form">
+
+            <h3>Sign in</h3>
+
+            <p>Sign in into your account</p>
+
+            <label>Email</label>
+            <input type="text" name="email" placeholder='Your email' />
+
+            <div id='label'>
+              <label>Password</label>
+              <a href="/users/forgotpasswordpage">Forgot Password</a>
+            </div>
+
+            <input type="text" name="password" placeholder='Your password' />
+
+
+            {notifyDisplays}
+
+
+
+          </form>
+
+          <button type="submit" onClick={async (e) => {
+            let statusCode = await this.handleSubmit(e)
+            console.log(statusCode)
+          }}>CONTINUE</button>
+
+
+          <div id='more-log-reg'>
+            <p>Don't have an account?   </p>
+            <a href="/subscription">SIGN UP</a>
+          </div>
 
         </div>
+
+        <LogRegFooter />
+
+      </React.Fragment>
     );
   }
 }

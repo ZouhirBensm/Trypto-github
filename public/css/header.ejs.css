@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(204, 208, 167);
+  /* background-color: rgb(204, 208, 167); */
   height: 100vh;
   width: 100vw;
   position: relative;
@@ -111,4 +111,26 @@ ul.sidenav {
 
 div[onclick="toogleSideNav()"] {
   color: red;
+}
+
+
+:root {
+  --font-size-p: 1.3rem;
+  --font-size-input: 1.0rem;
+  --font-size-label: 0.8rem;
+  --font-size-extra: 0.8rem;
+  --font-size-header: 1.5rem;
+  --font-size-footer: 1.5rem;
+  --font-size-h1: 3rem;
+  --font-size-h1-smaller: 2.4rem;
+  --font-size-h2: 2.5rem;
+  --font-size-h3: 2.0rem;
+  --font-size-aside: 1.5rem;
+  --font-size-aside-title: 2.5rem;
+  --font-size-nav: 2.5rem;
+  --font-size-a: 2.0rem;
+  --font-size-button: 1.0rem;
+
+  --line-height-p: 2.5rem;
+  --line-height-ul: 2.5rem;
 }

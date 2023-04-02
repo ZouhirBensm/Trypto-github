@@ -1,0 +1,20 @@
+
+
+div#footer-log-reg {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  color: white;
+}
+
+div#footer-log-reg > * {
+  width: fit-content;
+}
+
+div#footer-log-reg a {
+  color: white;
+}
+
+
