@@ -8,11 +8,12 @@ Case also when you have component B (nested) in component A (parent) and A adds 
 
 div#react-div{
   height: 80vh;
-  overflow: scroll;
   border: 1px black solid;
   position: absolute;
   top: 10%;
   bottom: 10%;
   left: 3%;
   right: 3%;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }

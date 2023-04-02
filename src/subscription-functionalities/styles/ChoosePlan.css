@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@500;600;700&display=swap');
+
+
+/* font-family: 'Montserrat', sans-serif; */
+
+:root {
+  --card-header-margin: 1rem;
+}
+
+
+
+div#choose-plan > h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-h1);
+  width: fit-content;
+  margin: 0 auto;
+  color: #1266FC;
+}
+
+div#choose-plan-selector {
+  display: flex;
+  flex-flow: column nowrap;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+div#choose-plan-selector > button {
+  width: 308px;
+  background-image: url('/public/img/SVG/sub/card.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0px 6px 20px #1266FC4E;
+}
+
+div#choose-plan-selector > button > div {
+  font-size: var(--font-size-button);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  margin: 1.5rem;
+}
+
+div#choose-plan-selector > button > h3 {
+  font-size: var(--font-size-h3);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  margin: 0;
+}
+
+div#choose-plan-selector > button:first-of-type > h3 {
+  margin: var(--card-header-margin);
+}
+
+div#choose-plan-selector > button:last-of-type > h3 {
+  margin: var(--card-header-margin) var(--card-header-margin) 0 var(--card-header-margin);
+}
+
+div#choose-plan-selector > button > span {
+  font-size: var(--font-size-h4);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: block;
+  color: #1266FC;
+}
+
+div#choose-plan > div#proceed {
+  font-size: var(--font-size-button);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+div#choose-plan > div#proceed > button {
+  text-transform: uppercase;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: #00D1FF;
+  border: none;
+  background-color: transparent;
+  font-size: var(--font-size-h4);
+}
+
+
+div#choose-plan > div#notif {
+  margin: 0 auto;
+  width: fit-content;
+  color: red;
+  font-size: var(--font-size-extra);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}

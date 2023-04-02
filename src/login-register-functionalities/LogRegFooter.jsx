@@ -8,6 +8,7 @@ function LogRegFooter() {
         <div>© Bidblock</div>
         <div><a href="">Contact</a></div>
         <div><a href="">Privacy and terms</a></div>
+        <div><a href="">FAQ</a></div>
       </div>
     </React.Fragment>
   );

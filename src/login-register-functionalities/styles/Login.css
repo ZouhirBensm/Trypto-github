@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;500;700&display=swap');
 
 body {
-  background-image: linear-gradient(to right, #0048e49c, #80e8ffb0), url('/public/img/SVG/bk1.svg');
+  background-image: linear-gradient(to right, #0048e49c, #80e8ffb0), url('/public/img/SVG/signin/bk1.svg');
   background-repeat: no-repeat;
   background-size: 100% auto;
   background-position: center;

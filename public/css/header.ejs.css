@@ -130,6 +130,8 @@ div[onclick="toogleSideNav()"] {
   --font-size-nav: 2.5rem;
   --font-size-a: 2.0rem;
   --font-size-button: 1.0rem;
+  --font-size-h4: 1.5rem;
+  --font-size-footer: 1.2rem;
 
   --line-height-p: 2.5rem;
   --line-height-ul: 2.5rem;

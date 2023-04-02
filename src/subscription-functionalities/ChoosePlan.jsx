@@ -1,4 +1,5 @@
-
+import OnPageFooter from '../generic-components/OnPageFooter'
+import './styles/ChoosePlan.css'
 
 class ChoosePlan extends React.Component {
   constructor(props){
@@ -14,10 +15,11 @@ class ChoosePlan extends React.Component {
 
   select(e){
     console.log("in select")
-    console.log(e.target.value)
-    if(!this.state.plan || this.state.plan != e.target.value){
+    // console.log(e.target.value)
+    console.log(e.currentTarget.value)
+    if(!this.state.plan || this.state.plan != e.currentTarget.value){
       this.setState({
-        plan: e.target.value,
+        plan: e.currentTarget.value,
         notification: undefined,
       })
     } else {
@@ -44,18 +46,43 @@ class ChoosePlan extends React.Component {
 
   render(){
     return (
-      <div>
-        <h1>ChoosePlan</h1>
-        <button style={{ backgroundColor: this.state.plan == "NOTSUBSCRIBER"? 'red': ""}} onClick={(e) => this.select(e)} value="NOTSUBSCRIBER">NOTSUBSCRIBER Free</button>
-        <button style={{ backgroundColor: this.state.plan == "BASIC"? 'red': ""}} onClick={(e) => this.select(e)} value="BASIC">BASIC 5$/month</button>
-        
-        <button onClick={(e) => this.proceed(e)} value={this.state.plan}>Proceed</button>
-        
-        { this.state.notification ?
-        <div id="notif">{this.state.notification}</div>
-        : null }
+      <React.Fragment>
+        <div id='choose-plan'>
+          <h1>Choose a Plan</h1>
+          <div id='choose-plan-selector'>
+            <button style={{ backgroundColor: this.state.plan == "NOTSUBSCRIBER"? 'red': ""}} onClick={(e) => this.select(e)} value="NOTSUBSCRIBER">
+              <h3>Free</h3>
+              <div>
+                <div>Able to post the items you sell</div>
+                <div>Chat with other users to buy items they sell</div>
+                <div>Enjoy a Bitcoin Satochi denominated marketplace</div>
+                <div>Benefit from our upcomming features (newsletter, in app bitcoin transactions, and more)</div>
+              </div>
+            </button>
+            <button style={{ backgroundColor: this.state.plan == "BASIC"? 'red': ""}} onClick={(e) => this.select(e)} value="BASIC">
+              <h3>Basic</h3>
+              <span>5$ per month</span>
+              <div>
+                <div>All the above and,</div>
+                <div>The items you post for sale get placed on top of the stack</div>
+                <div>Priority for customer service</div>
+              </div>
+            </button>
+          </div>
+          
+          <div id='proceed'>
+            <button onClick={(e) => this.proceed(e)} value={this.state.plan}>Proceed</button>
+            <img src="/img/SVG/sub/proceed.svg" alt=""/>
+          </div>
+          
+          { this.state.notification ?
+          <div id="notif">{this.state.notification}</div>
+          : null }
 
-      </div>
+        </div>
+
+        <OnPageFooter/>
+      </React.Fragment>
     )
   }
 }

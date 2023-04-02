@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+#footer-on-page {
+  background-color: aquamarine;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  line-height: var(--line-height-p);
+  color: white;
+  font-size: var(--font-size-footer);
+}
+
+
+#footer-on-page > img {
+  margin: 0 auto;
+  display: block;
+}
+
+
+
+#footer-on-page > div#nav401 {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+#footer-on-page > div#nav401 > div > a {
+  text-transform: uppercase;
+  color: white;
+}
+
+

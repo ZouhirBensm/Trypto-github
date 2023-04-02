@@ -1,14 +1,15 @@
 import '../style/reactDivMobile.css'
+import './styles/Subscription.css'
 
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading"
 
 
 
-const Register = loadable(() => import("../login-register-functionalities/Register2"),{
+const ChoosePlan = loadable(() => import("../subscription-functionalities/ChoosePlan"),{
   fallback: <Loading/>
 });
-const ChoosePlan = loadable(() => import("../subscription-functionalities/ChoosePlan"),{
+const Register = loadable(() => import("../login-register-functionalities/Register2"),{
   fallback: <Loading/>
 });
 const AssociatedLocation = loadable(() => import("../subscription-functionalities/AssociatedLocation"),{
@@ -102,7 +103,12 @@ class Subscription extends React.Component {
     }
     return (
       <React.Fragment>
-        {this.state.step != 4? <a href="/subscription"> Reset </a>: null}
+        {this.state.step != 4? 
+        <a id='reset' href="/subscription">
+          <img src="/img/SVG/sub/reset.svg" alt="" />
+          <span>Reset</span>
+        </a>: null}
+        
         {component}
       </React.Fragment>
     )
