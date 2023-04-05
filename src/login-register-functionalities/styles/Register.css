@@ -2,7 +2,6 @@ input[name="hny_spm"] {
   display: none;
 }
 
-
 button:disabled {
   color: red;
 }

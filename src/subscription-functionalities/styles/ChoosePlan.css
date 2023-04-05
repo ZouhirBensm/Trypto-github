@@ -92,6 +92,7 @@ div#choose-plan > div#proceed > button {
 div#choose-plan > div#notif {
   margin: 0 auto;
   width: fit-content;
+  max-width: 500px;
   color: red;
   font-size: var(--font-size-extra);
   font-family: 'Poppins', sans-serif;

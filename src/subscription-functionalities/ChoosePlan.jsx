@@ -50,7 +50,7 @@ class ChoosePlan extends React.Component {
         <div id='choose-plan'>
           <h1>Choose a Plan</h1>
           <div id='choose-plan-selector'>
-            <button style={{ backgroundColor: this.state.plan == "NOTSUBSCRIBER"? 'red': ""}} onClick={(e) => this.select(e)} value="NOTSUBSCRIBER">
+            <button style={{ backgroundColor: this.state.plan == "NOTSUBSCRIBER"? '#0800ff': ""}} onClick={(e) => this.select(e)} value="NOTSUBSCRIBER">
               <h3>Free</h3>
               <div>
                 <div>Able to post the items you sell</div>
@@ -59,7 +59,7 @@ class ChoosePlan extends React.Component {
                 <div>Benefit from our upcomming features (newsletter, in app bitcoin transactions, and more)</div>
               </div>
             </button>
-            <button style={{ backgroundColor: this.state.plan == "BASIC"? 'red': ""}} onClick={(e) => this.select(e)} value="BASIC">
+            <button style={{ backgroundColor: this.state.plan == "BASIC"? '#0800ff': ""}} onClick={(e) => this.select(e)} value="BASIC">
               <h3>Basic</h3>
               <span>5$ per month</span>
               <div>

@@ -1,5 +1,7 @@
 import '../style/reactDivMobile.css'
 import './styles/Register.css'
+import './styles/Register2.css'
+
 import {verifyEmail, verifyPassword, verifyUsername} from '../../full-stack-libs/validations'
 import RegisterButton from './RegisterButton'
 import RegisterNotification from './RegisterNotification'
@@ -77,38 +79,50 @@ class Register extends React.Component {
 
   render() {
     return (
-      <div id="container-log-reg">
-        <form id="loginregister" className="form">
-          <h3>Register React</h3>
-          <label>Username</label>
-          <input type="text" name="username" value={this.props.username} onChange={(e) => this.props.handleChange("username", e)} placeholder="Zouhir"/> <br/>
-          <label>Email</label>
-          <input type="text" name="email" value={this.props.email} onChange={(e) => this.props.handleChange("email", e)} placeholder="z@example.com"/> <br/>
-          <label>Password</label>
-          <input type="text" name="password" value={this.props.password} onChange={(e) => this.props.handleChange("password", e)} placeholder="Zouhir123!"/> <br/>
+      <React.Fragment>
+        <div id="container-log-reg">
 
-          <input type="text" name="hny_spm"/>
+          <form id="loginregister" className="form">
 
-          <RegisterButton
-            asyncFunctionToreturnValidation={this.asyncFunctionToreturnValidation}
-            setNotification={this.setNotification}
-            setStateStep={this.props.setStateStep}
-            nextStep={this.props.nextStep}
-            username={this.props.username}
-            plan={this.props.plan}
-            email={this.props.email}
-            lat={this.props.lat}
-            lng={this.props.lng}
-            password={this.props.password}
+            <h3>Sign up</h3>
+
+            <label>Username</label>
+
+            <input type="text" name="username" value={this.props.username} onChange={(e) => this.props.handleChange("username", e)} placeholder="Zouhir"/>
+
+            <label>Email</label>
+
+            <input type="text" name="email" value={this.props.email} onChange={(e) => this.props.handleChange("email", e)} placeholder="z@example.com"/>
+
+            <label>Password</label>
+
+            <input type="text" name="password" value={this.props.password} onChange={(e) => this.props.handleChange("password", e)} placeholder="Zouhir123!"/>
+
+            <input type="text" name="hny_spm"/>
+
+            <RegisterButton
+              asyncFunctionToreturnValidation={this.asyncFunctionToreturnValidation}
+              setNotification={this.setNotification}
+              setStateStep={this.props.setStateStep}
+              nextStep={this.props.nextStep}
+              username={this.props.username}
+              plan={this.props.plan}
+              email={this.props.email}
+              lat={this.props.lat}
+              lng={this.props.lng}
+              password={this.props.password}
+            />
+            
+          </form>
+
+          <RegisterNotification
+            notification={this.state.notification}
           />
           
-        </form> <br/>
+          <button onClick={(e) => this.props.setStateStep(2)}> Previous </button>
 
-        <RegisterNotification
-          notification={this.state.notification}
-        /> <br/>
-        <button onClick={(e) => this.props.setStateStep(2)}> Previous </button>
-      </div>
+        </div>
+      </React.Fragment>
     );
   }
   // ___________________________________________________

@@ -1,3 +1,6 @@
+import OnPageFooter from '../generic-components/OnPageFooter'
+import './styles/AssociatedLocation.css'
+
 class AssociatedLocation extends React.Component {
   constructor(props) {
     super(props)
@@ -59,7 +62,15 @@ class AssociatedLocation extends React.Component {
     return (
       <React.Fragment>
 
-        <div id="location-set">Location Set: {this.state.location_set ? "✅" : "❌"} </div>
+        <div id="location-set">
+          <img src="/img/SVG/sub/step2/pin.svg" alt="" />
+          <span>Location Set:</span>
+          {this.state.location_set ?
+            <img src="/img/SVG/sub/step2/app-check.png" alt="" />
+            :
+            <img src="/img/SVG/sub/step2/check.png" alt="" />
+          }
+        </div>
 
         <button onClick={async (e) => {
           let ret_retrieveAndSetCoords
@@ -68,8 +79,7 @@ class AssociatedLocation extends React.Component {
           } catch (error) {
             console.log("error-->", error)
           }
-
-          console.log("ret_retrieveAndSetCoords--->", ret_retrieveAndSetCoords)
+          // console.log("ret_retrieveAndSetCoords--->", ret_retrieveAndSetCoords)
 
           if (ret_retrieveAndSetCoords) {
             this.props.setLocality(ret_retrieveAndSetCoords[0], ret_retrieveAndSetCoords[1], e)
@@ -79,19 +89,24 @@ class AssociatedLocation extends React.Component {
             this.props.setLocality(ret_retrieveAndSetCoords, ret_retrieveAndSetCoords, e)
           }
 
-        }}>Enable browser location (optional): For BidBlock to display relevant Market Orders.</button><br/>
+        }}>Enable browser location (optional): For BidBlock to display relevant Market Orders.</button>
+
+
 
         {this.state.notification ?
           <div id="notif">{this.state.notification}</div>
           : null}
 
 
-        
-        
-        
 
-        <button onClick={(e) => this.props.setStateStep(1)}> Previous </button>
-        <button onClick={(e) => this.props.setStateStep(3)}> Proceed </button>
+        <div id='pro-pre'>
+          <img src="/img/SVG/sub/previous.svg" alt="" />
+          <button onClick={(e) => this.props.setStateStep(1)}> Previous </button>
+          <button onClick={(e) => this.props.setStateStep(3)}> Proceed </button>
+          <img src="/img/SVG/sub/proceed.svg" alt="" />
+        </div>
+
+        <OnPageFooter/>
       </React.Fragment>
     )
   }
