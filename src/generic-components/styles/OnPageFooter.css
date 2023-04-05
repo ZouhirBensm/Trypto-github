@@ -1,32 +1,72 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
-#footer-on-page {
-  background-color: aquamarine;
+div#footer-on-page {
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
   letter-spacing: 1.4px;
   line-height: var(--line-height-p);
   color: white;
   font-size: var(--font-size-footer);
+  background: transparent linear-gradient(90deg, #80E8FF 0%, #0049E4 63%) 0% 0% no-repeat padding-box;
+  margin-top: 100px;
+
+  position: relative;
+  /* transform: skewY(-3deg);
+  transform-origin: 0% 0%; */
+  padding: 20px 0 50px 0;
+}
+
+div#footer-on-page::after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: '';
+  /* TODO !!!!! HERE Figure out tilt */
+  background: inherit;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  transform-origin: top left;
+  transform: skewY(-4deg);
+  z-index: -1;
 }
 
 
-#footer-on-page > img {
+
+
+div#footer-on-page > img {
   margin: 0 auto;
   display: block;
 }
 
 
 
-#footer-on-page > div#nav401 {
+div#footer-on-page > div#nav401 {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
 }
 
-#footer-on-page > div#nav401 > div > a {
+div#footer-on-page > div#nav401 > div > a {
   text-transform: uppercase;
   color: white;
 }
 
 
+div#footer-on-page > div#nav402 {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+div#footer-on-page > div#nav402 > * {
+  margin: 0 .5ch;
+}
+
+
+div#footer-on-page > img[src='/img/SVG/sub/group.svg'] {
+  bottom: 50px;
+  right: 50px;
+  position: absolute;
+}

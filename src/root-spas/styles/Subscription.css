@@ -3,7 +3,7 @@
 
 
 a#reset {
-  margin: 0 auto;
+  margin: 2vh auto;
   display: flex;
   width: fit-content;
   font-size: var(--font-size-a);

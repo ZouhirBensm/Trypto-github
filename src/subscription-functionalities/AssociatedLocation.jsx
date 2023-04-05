@@ -58,6 +58,9 @@ class AssociatedLocation extends React.Component {
   render() {
     return (
       <React.Fragment>
+
+        <div id="location-set">Location Set: {this.state.location_set ? "✅" : "❌"} </div>
+
         <button onClick={async (e) => {
           let ret_retrieveAndSetCoords
           try {
@@ -76,7 +79,7 @@ class AssociatedLocation extends React.Component {
             this.props.setLocality(ret_retrieveAndSetCoords, ret_retrieveAndSetCoords, e)
           }
 
-        }}>Enable browser location (optional): For BidBlock to display relevant Market Orders.</button>
+        }}>Enable browser location (optional): For BidBlock to display relevant Market Orders.</button><br/>
 
         {this.state.notification ?
           <div id="notif">{this.state.notification}</div>
@@ -84,7 +87,7 @@ class AssociatedLocation extends React.Component {
 
 
         
-        <div id="location-set">Location Set: {this.state.location_set ? "✅" : "❌"} </div>
+        
         
 
         <button onClick={(e) => this.props.setStateStep(1)}> Previous </button>

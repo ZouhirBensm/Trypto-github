@@ -14,7 +14,7 @@ div#choose-plan > h1 {
   font-weight: 700;
   font-size: var(--font-size-h1);
   width: fit-content;
-  margin: 0 auto;
+  margin: 5vh auto;
   color: #1266FC;
 }
 
@@ -34,6 +34,8 @@ div#choose-plan-selector > button {
   border: none;
   border-radius: 20px;
   box-shadow: 0px 6px 20px #1266FC4E;
+  color: white;
+  margin: 3vh auto;
 }
 
 div#choose-plan-selector > button > div {
@@ -83,6 +85,7 @@ div#choose-plan > div#proceed > button {
   border: none;
   background-color: transparent;
   font-size: var(--font-size-h4);
+  margin: 3vh auto;
 }
 
 
