@@ -7,17 +7,16 @@ const ReasonUserDeleteSchema = new Schema({
   userID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: true,
+    unique: true
   },
   username: {
     type: String,
     required: true,
-    unique: true
   },
   email: {
     type: String,
     required: true,
-    unique: true
   },
   reason_for_deletion: {
     type: String,

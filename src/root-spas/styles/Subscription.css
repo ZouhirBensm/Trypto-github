@@ -21,3 +21,22 @@ a#reset > span{
   font-weight: 300;
   color: #1266FC;
 }
+
+div#pro-pre {
+  font-size: var(--font-size-button);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+div#pro-pre > button {
+  text-transform: uppercase;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: #00D1FF;
+  border: none;
+  background-color: transparent;
+  font-size: var(--font-size-h4);
+  margin: 3vh auto;
+}

@@ -1,3 +1,6 @@
+
+
+
 // React way
 const PayPalButton = paypal.Buttons.driver("react", { React, ReactDOM });
 

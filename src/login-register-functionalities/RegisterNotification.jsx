@@ -1,7 +1,7 @@
 function RegisterNotification(props) {
   let notifyDisplays
   notifyDisplays = props.notification?.map((notification, index) => {
-    return <div key={index}>{notification}</div>
+    return <p className='popup' key={index}>{notification}</p>
   })
 
   return (

@@ -68,13 +68,12 @@ class RegisterButton extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <button id='register-button'
-          onClick={async (e) => {
-            e.preventDefault()
-            let returnedValue1 = await this.props.asyncFunctionToreturnValidation()
-            await this.planRegistrationFunction(returnedValue1)
-            return
-          }}>Register</button>
+        <button id='register-button' onClick={async (e) => {
+          e.preventDefault()
+          let returnedValue1 = await this.props.asyncFunctionToreturnValidation()
+          await this.planRegistrationFunction(returnedValue1)
+          return
+        }}>Register</button>
       </React.Fragment>
     )
   }

@@ -25,7 +25,10 @@ class AssociatedLocation extends React.Component {
         location_set: false,
       })
     }
+
   }
+
+
 
 
   async retrieveAndSetCoords() {
@@ -106,7 +109,7 @@ class AssociatedLocation extends React.Component {
           <img src="/img/SVG/sub/proceed.svg" alt="" />
         </div>
 
-        <OnPageFooter/>
+        <OnPageFooter />
       </React.Fragment>
     )
   }
