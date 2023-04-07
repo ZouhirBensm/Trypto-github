@@ -1,8 +1,18 @@
-
+import OnPageFooter from '../generic-components/OnPageFooter'
+import './styles/CardInfoSubmission.css'
 
 
 // React way
 const PayPalButton = paypal.Buttons.driver("react", { React, ReactDOM });
+
+
+const buttonStyle = {
+  color: "blue",
+  // shape: "rect",
+  // label: "paypal",
+  // tagline: false
+};
+
 
 class CardInfoSubmission extends React.Component {
   constructor(props) {
@@ -113,26 +123,32 @@ class CardInfoSubmission extends React.Component {
 
 
     return (
-      <div className="payment-component-wrapper">
-        <h1>CardInfoSubmission</h1>
+      <React.Fragment>
+        <div className="payment-component-wrapper">
+          <h1>Payment Information Submission</h1>
+          
+          {/* <div id="paypal-button-container"></div> */}
+          {notifyDisplays}
 
-        {/* <div id="paypal-button-container"></div> */}
-        {notifyDisplays} <br/>
+          <PayPalButton
+            createSubscription={async (data, actions) => {
+              return this.createSubscription(data, actions)
+            }}
+            onApprove={(data, actions) => this.onApprove(data, actions)}
+            style={buttonStyle}
+          />
 
-        <PayPalButton
-          createSubscription={async (data, actions) => {
-            return this.createSubscription(data, actions)
-          }}
-          onApprove={(data, actions) => this.onApprove(data, actions)}
-        />
+          <p id='extra'>You can unsubscribe anytime by a click of a button on the profiles page!</p>
 
+          <div id='pro-pre'>
+            <img src="/img/SVG/sub/previous.svg" alt="" />
+            <button onClick={(e) => this.props.setStateStep(3)}> Previous </button>
+          </div>
+        </div>
 
-        <hr />
-        <p>You can unsubscribe anytime by a click of a button on the your profiles page!</p>
+        <OnPageFooter />
 
-        <button onClick={(e) => this.props.setStateStep(3)}> Previous </button>
-        {/* <button onClick={(e) => this.props.setStateStep(4)}> Next </button> */}
-      </div>
+      </React.Fragment>
     )
   }
 }

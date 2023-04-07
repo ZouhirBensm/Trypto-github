@@ -1,0 +1,29 @@
+div.payment-component-wrapper>h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-h1);
+  width: fit-content;
+  margin: 5vh auto;
+  color: #1266FC;
+}
+
+
+div.payment-component-wrapper > div {
+  display: block;
+  margin: 0 auto;
+  max-width: 690px;
+}
+
+
+
+div.payment-component-wrapper > p#extra {
+  width: fit-content;
+  font-size: var(--font-size-extra); 
+  margin: 3vh auto;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  letter-spacing: 1px;
+  max-width: 400px;
+  line-height: 1.6rem;
+  color: #1266FC;
+}
