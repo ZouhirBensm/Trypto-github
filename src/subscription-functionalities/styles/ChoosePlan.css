@@ -9,14 +9,14 @@
 
 
 
-div#choose-plan > h1 {
+/* div#choose-plan > h1 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   font-size: var(--font-size-h1);
   width: fit-content;
   margin: 5vh auto;
   color: #1266FC;
-}
+} */
 
 div#choose-plan-selector {
   display: flex;

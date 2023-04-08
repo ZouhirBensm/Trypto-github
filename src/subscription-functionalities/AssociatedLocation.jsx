@@ -75,7 +75,7 @@ class AssociatedLocation extends React.Component {
           }
         </div>
 
-        <button onClick={async (e) => {
+        <button className='generic-button' onClick={async (e) => {
           let ret_retrieveAndSetCoords
           try {
             ret_retrieveAndSetCoords = await this.retrieveAndSetCoords()

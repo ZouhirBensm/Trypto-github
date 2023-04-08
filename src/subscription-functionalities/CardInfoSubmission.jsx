@@ -117,7 +117,7 @@ class CardInfoSubmission extends React.Component {
     console.log("render()->notification: ", this.state.notification)
 
     notifyDisplays = this.state.notification?.map((notification, index) => {
-      return <div key={index}>{notification}</div>
+      return <div id='notif' key={index}>{notification}</div>
     })
 
 
@@ -126,9 +126,9 @@ class CardInfoSubmission extends React.Component {
       <React.Fragment>
         <div className="payment-component-wrapper">
           <h1>Payment Information Submission</h1>
-          
+
           {/* <div id="paypal-button-container"></div> */}
-          {notifyDisplays}
+
 
           <PayPalButton
             createSubscription={async (data, actions) => {
@@ -137,6 +137,8 @@ class CardInfoSubmission extends React.Component {
             onApprove={(data, actions) => this.onApprove(data, actions)}
             style={buttonStyle}
           />
+
+          {notifyDisplays}
 
           <p id='extra'>You can unsubscribe anytime by a click of a button on the profiles page!</p>
 

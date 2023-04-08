@@ -26,6 +26,7 @@ function validateController(req, res, next) {
   ({ flag, notification } = verifyUsername(req.body.username))
 
   if (!flag) {
+  // if (true) {
     const error = new ValidationError(notification, "Username")
     return next(error)
   }

@@ -1,0 +1,11 @@
+div#confirmation-wrapper > p {
+  width: 80%;
+  max-width: 800px;
+  font-size: var(--font-size-p); 
+  margin: 3vh auto;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  color: #1266FC;
+}
+
+/* TODO !!!!! HERE Make Contrats confirmed account popup green */

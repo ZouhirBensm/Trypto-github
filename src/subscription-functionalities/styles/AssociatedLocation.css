@@ -12,7 +12,7 @@ div#location-set > * {
   margin: .5ch;
 }
 
-div#location-set+button {
+/* div#location-set+button {
   display: block;
   margin: 3vh auto;
   background: #1266FC 0% 0% no-repeat padding-box;
@@ -29,15 +29,4 @@ div#location-set+button {
   padding: 1.5rem;
   line-height: 1.6rem;
   font-size: var(--font-size-button);
-}
-
-
-div#notif {
-  margin: 0 auto;
-  width: fit-content;
-  color: red;
-  font-size: var(--font-size-extra);
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  max-width: 500px;
-}
+} */

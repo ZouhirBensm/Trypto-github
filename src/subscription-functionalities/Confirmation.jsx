@@ -1,4 +1,5 @@
-
+import OnPageFooter from '../generic-components/OnPageFooter'
+import './styles/Confirmation.css'
 
 
 class Confirmation extends React.Component {
@@ -12,6 +13,13 @@ class Confirmation extends React.Component {
 
   async resendConfirmEmail(email) {
     console.log("resendConfirmEmail()->email: ", email)
+
+    if (!email){
+      const notif = 'No email was set'
+      return this.setState({
+        popup: notif
+      })
+    }
 
 
     let response = await fetch(`/resend-user-email/${email}`, {
@@ -48,26 +56,32 @@ class Confirmation extends React.Component {
 
 
     return (
-      <div className="confirmation-wrapper">
-        <h1>Confirm email account!</h1>
-        <p>Success! Please check your inbox, spam, {this.props.username}, and click the provided link to confirm your account. This will enable login!</p>
-        <p>Note: The email issuer is {bidblock_email}</p>
-
-        <button onClick={async (e) => {
-          let isResent
-          try {
-            isResent = await this.resendConfirmEmail(this.props.email);
-          } catch (error) {
-            console.error("--->", error)
-          }
-          console.log({isResent})
-        }}>Re-send confirmation email</button>
-
-        {this.state.popup ?
-          <p>{this.state.popup}</p>
-          : null}
-
-      </div>
+      <React.Fragment>
+        <div id="confirmation-wrapper">
+          <h1>Confirm email account!</h1>
+  
+          <p>Success! Please check your inbox, spam, {this.props.username}, and click the provided link to confirm your account. This will enable login!<br/>
+         <b>Note</b>: The email issuer is {bidblock_email}</p>
+  
+          
+  
+          <button className='generic-button' onClick={async (e) => {
+            let isResent
+            try {
+              isResent = await this.resendConfirmEmail(this.props.email);
+            } catch (error) {
+              console.error("--->", error)
+            }
+            console.log({isResent})
+          }}>Re-send confirmation email</button>
+  
+          {this.state.popup ?
+            <div id='notif'>{this.state.popup}</div>
+            : null}
+  
+        </div>
+        <OnPageFooter/>
+      </React.Fragment>
     )
   }
 }
