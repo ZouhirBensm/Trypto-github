@@ -213,7 +213,8 @@ registerController.responseOnRegistrationController
 homeOrdersBackend_app_router.get('/resend-user-email/:userEmail', destructureURLandRefererMiddleware, resendConfirmationController)
 
 
-homeOrdersBackend_app_router.get('/purge', async (req, res) => {
+homeOrdersBackend_app_router.get('/purge', 
+require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), async (req, res) => {
   const numRemoved = await agenda.purge();
   res.status(200).json({message: `Done purge on Agenda!`})
 })
@@ -231,7 +232,7 @@ homeOrdersBackend_app_router.get('/', async (req, res) => {
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { JSX_to_load: JSX_to_load })
 })
 
-
+// TODO !  Make Contrats confirmed account popup green
 homeOrdersBackend_app_router.get('/users/login', require_loggedin_for_pages(false), (req, res, next) => {
   res.locals.popup = req.query.popup
   var JSX_to_load = 'MgtUser';
@@ -370,7 +371,7 @@ homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (re
 })
 
 
-homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware,require_loggedin_for_data(false), 
+homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), 
 checkCredentialsPresentMiddleware,
 checkIfClientIsUserMiddleware,
 checkClientIsActiveMiddleware,
