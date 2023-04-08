@@ -3,7 +3,7 @@ import '../style/reactDivMobile.css'
 import Articles from '../articles-functionalities/Articles';
 import Article from '../articles-functionalities/Article';
 import utils from '../../full-stack-libs/utils';
-import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
+import { Switch, Route, BrowserRouter } from "react-router-dom";
 
 class ArticlesCategorySelector extends React.Component {
   constructor(props) {
@@ -85,9 +85,11 @@ class ArticlesCategorySelector extends React.Component {
 
           <Switch>
             <Route exact path={`/articles/:category?`}>
+              <h1>Articles</h1>
               <div onClick={(e) => { this.toogleCategories() }}>Categories ↕️</div>
               <div className='category-nav'></div>
               <div className='articles-container'>
+
                 <Articles
                   category={this.category}
                 />

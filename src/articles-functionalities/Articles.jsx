@@ -65,7 +65,7 @@ class Articles extends React.Component {
         }
       })
     } else {
-      // TODO add some error handling with UI
+      // TODO !!!!! add some error handling with UI
     }
 
   }
@@ -74,10 +74,8 @@ class Articles extends React.Component {
     console.log("Here articles!: ", this.state.articles)
     return (
       <React.Fragment>
-        {/* <div>Articles.jsx test</div> */}
 
         <div className="wrapper">
-          Articles.jsx
           <AllArticlesList
             articles={this.state.articles}
           />

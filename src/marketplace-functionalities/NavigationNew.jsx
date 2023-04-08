@@ -10,9 +10,9 @@ class NavigationNew extends React.Component {
     return (
       <React.Fragment>
       <nav id="navigation">
-        <a href="/marketplace/makesell">Create +</a>
-        <a href="/marketplace/sellordersdata">All</a>
-        <a href="/marketplace/allmyorders">My</a>
+        <a href="/marketplace/makesell">Add Article</a>
+        <a href="/marketplace/sellordersdata">Explore Market</a>
+        <a href="/marketplace/allmyorders">My Posts</a>
       </nav>
       </React.Fragment>
     )

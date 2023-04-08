@@ -105,6 +105,37 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
+marketplaceBackend_app_router.get(['/allmyorders', '/sellordersdata', '/makesell'], require_loggedin_for_pages(true), (req, res) => {
+
+  console.log("\n\nSimple\n\n")
+
+  res.locals.popup = req.query.popup
+
+  // Make sell user ID is the session's
+  res.locals.userId = req.session.userId
+  
+  // console.log("\nDo we have any pop-up messages: \n", req.query.popup);
+  // console.log("\n\n\nres.locals: ---->>>>>", res.locals)
+
+  var JSX_to_load = 'MarketPlace';
+
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
+    JSX_to_load: JSX_to_load,
+  })
+  
+})
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 marketplaceBackend_app_router.get(['/paginated-orders/sellordersdata/:data_of_userID?'], 
@@ -131,26 +162,6 @@ distributePaginatedDataController)
 marketplaceBackend_app_router.get('/associated-user-locality/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(2), moreMarketplaceController.retrieveUserAssociatedLocalityIfAnyController)
 
 
-
-
-marketplaceBackend_app_router.get(['/allmyorders', '/sellordersdata', '/makesell'], require_loggedin_for_pages(true), (req, res) => {
-
-  console.log("\n\nSimple\n\n")
-
-  res.locals.popup = req.query.popup
-
-  // Make sell user ID is the session's
-  res.locals.userId = req.session.userId
-  
-  // console.log("\nDo we have any pop-up messages: \n", req.query.popup);
-  // console.log("\n\n\nres.locals: ---->>>>>", res.locals)
-
-  var JSX_to_load = 'MarketPlace';
-
-  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
-    JSX_to_load: JSX_to_load,
-  })
-})
 
 
 

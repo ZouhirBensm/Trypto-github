@@ -33,7 +33,6 @@ class AllArticlesList extends React.Component {
 
     return (
       <React.Fragment>
-        <h1>AllArticlesList</h1>
         <div className="wrapper-all-article-elements">
           {AllArticlesElements}
         </div>
