@@ -61,8 +61,10 @@ class ArticleElement extends React.Component {
           pathname: `/articles/individual_article/${this.props.article._id}`,
           search: `?article=${JSON.stringify(this.props.article)}`,
         }}>
+
+          {/* TODO !!!!! HERE Finish designing */}
+          
           <div>
-            <hr/>
             <img className="bidblock-article-enclosure" src={this.props.article.enclosure} alt="Blog image banner" />
             <h4>{this.props.article.title}</h4>
             <span>{this.props.article.publishedDate}</span> | <span>{this.props.article.category}</span>
@@ -73,12 +75,10 @@ class ArticleElement extends React.Component {
         :
         <a className='alink' href={this.props.article.link} target="_blank">
           <div>
-            <hr/>
             <img className="ext-rss-enclosure" src={this.props.article.enclosure} alt="Blog image banner" />
             <h4>{this.props.article.title}</h4>
             <span>{this.props.article.publishedDate}</span> | <span>{this.props.article.category}</span>
             <p>{this.props.article.excerpt}</p>
-            <hr/>
           </div>
         </a>
         }

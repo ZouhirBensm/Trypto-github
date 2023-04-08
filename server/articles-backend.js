@@ -1,6 +1,8 @@
 const express = require('express')
 const articlesBackend_app_router = express.Router()
 
+// TODO !!!!! Make sure all default images, and image that get uploaded are optimized in size and format
+
 
 // Environment variables and types
 const ENV = require('../config/base')

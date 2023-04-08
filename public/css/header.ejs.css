@@ -6,6 +6,16 @@ body {
   /* font-family: 'Roboto', sans-serif; */
   font-family: 'Gemunu Libre', sans-serif;
   margin: 0;
+  
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+  overflow: -moz-scrollbars-none; 
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background-color: transparent;
 }
 
 
