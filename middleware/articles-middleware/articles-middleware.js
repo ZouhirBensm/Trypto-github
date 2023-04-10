@@ -14,7 +14,7 @@ function setTheExcerptMiddleware(req, res, next) {
 
   let excerpt
   let split_content = req.body.content.split(" ")
-  let split_excerpt = split_content.slice(0, 10)
+  let split_excerpt = split_content.slice(0, 12)
   excerpt = split_excerpt.join(" ")
 
   req.body.excerpt = excerpt
@@ -28,6 +28,8 @@ function makeSureDestinationFolderPresentMiddleware(req, res, next) {
 
   let directory = `public/img/bidblock-article-enclosure-images`
   res.locals.directory = directory
+
+  
 
   if (!existsSync(directory)) {
     mkdirSync(directory, { recursive: true });
@@ -75,7 +77,7 @@ async function processArticleImageMiddleware(req, res, next) {
   res.locals.new_article_enclosure_image_name = new_article_enclosure_image_name
 
   // Set the Article.enclosure link
-  res.locals.ret_article_instance.enclosure = `../img/bidblock-article-enclosure-images/${new_article_enclosure_image_name}`
+  res.locals.ret_article_instance.enclosure = `/img/bidblock-article-enclosure-images/${new_article_enclosure_image_name}`
 
   try {
     sharp_returned = sharp(processing_file.path)

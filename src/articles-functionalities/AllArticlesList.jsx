@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import {THIRD_PARTY_CATEGORIES, EXTERNAL_READS_CATEGORIES} from '../../full-stack-libs/utils.arrays'
+import { THIRD_PARTY_CATEGORIES, EXTERNAL_READS_CATEGORIES } from '../../full-stack-libs/utils.arrays'
 import './style/AllArticlesList.css'
 
 // TODO !!!! make loading a spinner at the center of the application or reactdiv div
@@ -51,37 +51,42 @@ class ArticleElement extends React.Component {
     }
   }
 
+
   render() {
     // let stringy = JSON.stringify(this.props.article)
 
-    return (
-      <React.Fragment>
-        {!EXTERNAL_READS_CATEGORIES.includes(this.props.article.category)? 
-        <Link className='link' to={{
-          pathname: `/articles/individual_article/${this.props.article._id}`,
-          search: `?article=${JSON.stringify(this.props.article)}`,
-        }}>
+    const date = new Date(this.props.article.publishedDate);
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    const formattedDate = date.toLocaleDateString('en-US', options);
 
-          {/* TODO !!!!! HERE Finish designing */}
-          
-          <div>
-            <img className="bidblock-article-enclosure" src={this.props.article.enclosure} alt="Blog image banner" />
-            <h4>{this.props.article.title}</h4>
-            <span>{this.props.article.publishedDate}</span> | <span>{this.props.article.category}</span>
-            <p>{this.props.article.excerpt}</p>
-            <hr/>
+
+
+    return (
+
+      <React.Fragment>
+        <div className="article-card">
+          <div className="article-preview">
+            <img src={this.props.article.enclosure} alt="Blog image banner" />
+            <span>{formattedDate}</span>
+            <div>
+              <h4>{this.props.article.title}</h4>
+              <p>{this.props.article.excerpt}</p>
+            </div>
           </div>
-        </Link>
-        :
-        <a className='alink' href={this.props.article.link} target="_blank">
-          <div>
-            <img className="ext-rss-enclosure" src={this.props.article.enclosure} alt="Blog image banner" />
-            <h4>{this.props.article.title}</h4>
-            <span>{this.props.article.publishedDate}</span> | <span>{this.props.article.category}</span>
-            <p>{this.props.article.excerpt}</p>
-          </div>
-        </a>
-        }
+          {!EXTERNAL_READS_CATEGORIES.includes(this.props.article.category) ?
+            <Link className='link' to={{
+              pathname: `/articles/individual_article/${this.props.article._id}`,
+              search: `?article=${JSON.stringify(this.props.article)}`,
+            }}>
+              Read more
+            </Link>
+            :
+            <a className='link' href={this.props.article.link} target="_blank">
+              Read more
+            </a>
+          }
+
+        </div>
 
 
         {/* <Route path={`/articles/individual_article/${this.props.article._id}`} component={Article}/> */}

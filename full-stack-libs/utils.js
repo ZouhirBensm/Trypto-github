@@ -154,8 +154,28 @@ module.exports = {
 
   isObjPresent(obj){
     return !(obj && Object.keys(obj).length === 0 && Object.getPrototypeOf(obj) === Object.prototype)
-  }
+  },
 
+  countWords(str) {
+    // remove leading and trailing white space
+    str = str.trim();
+    // split the string into an array of words
+    var words = str.split(/\s+/);
+    // return the number of words
+    return words.length;
+  },
+
+  takeUntilWordNumber(str, number) {
+    // remove leading and trailing white space
+    str = str.trim();
+    // split the string into an array of words
+    var words = str.split(/\s+/);
+    // Slice sentence to the point of element number
+    var slicedstr = words.slice(0, number)
+    // Re-compose str to form shortened sentence
+    slicedstr = slicedstr.join(' ')
+    return slicedstr;
+  }
 
   
 }

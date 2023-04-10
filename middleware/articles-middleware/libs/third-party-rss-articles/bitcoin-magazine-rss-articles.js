@@ -1,6 +1,8 @@
 let Parser = require('rss-parser');
 let parser = new Parser();
 const CATEGORY = require('../../../../full-stack-libs/Types/ArticleCategories');
+
+const { countWords, takeUntilWordNumber } = require('../../../../full-stack-libs/utils');
 // let feed
 
 // KEPT FOR REFERENCE
@@ -28,13 +30,20 @@ module.exports = {functionBitcoinMagazineArticles}
 
 function articalizeForBidBlock(_MostRecentItems){
   let articlesFromBitcoinMagazine = _MostRecentItems.map(_item => {
+
+    const excerpt_word_count = countWords(_item.contentSnippet)
+    const excerpt_max_number_of_words = 12
+    let excerpt = excerpt_word_count > excerpt_max_number_of_words ? takeUntilWordNumber(_item.contentSnippet, excerpt_max_number_of_words) + ' ...' : _item.contentSnippet
+
+    console.log('\n\n', _item.contentSnippet, "\n<->\n", excerpt)
+
     return {
       _id: ObjectId(),
       publishedDate: _item.isoDate,
       title: _item.title,
       content: _item.content,
       category: CATEGORY.BITCOIN_MAGAZINE,
-      excerpt: _item.contentSnippet,
+      excerpt: excerpt,
       link: _item.link,
       enclosure: _item.enclosure.url
     }

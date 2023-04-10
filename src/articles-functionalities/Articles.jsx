@@ -1,6 +1,7 @@
 import PageSelector from '../generic-components/PageSelector';
 import AllArticlesList from '../articles-functionalities/AllArticlesList';
 import '../style/reactDivMobile.css'
+import './style/Articles.css'
 
 
 
