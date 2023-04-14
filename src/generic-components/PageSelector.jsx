@@ -66,9 +66,9 @@ class PageSelector extends React.Component {
     let numbered_list = pages_numbers.map(
       page_number => {
         if(this.state.page === page_number){
-          return <span data-key={page_number} onClick={this.handleClick} key={page_number} style={{color: "red"}}>    {page_number}    </span>
+          return <span className='selected ball' data-key={page_number} onClick={this.handleClick} key={page_number}></span>
         }
-        return <span data-key={page_number} onClick={this.handleClick} key={page_number}>    {page_number}    </span>
+        return <span className='not-selected ball' data-key={page_number} onClick={this.handleClick} key={page_number}></span>
       }
     )
 
@@ -77,16 +77,16 @@ class PageSelector extends React.Component {
       if(this.state.page === 1 || this.state.page === 2) {
         // console.log("not trimmed start")
         numbered_list = numbered_list.slice(0, 4)
-        numbered_list.push(<span data-key={props.number_of_pages} onClick={this.handleClick} key={++extra_span_keys}>    ...    </span>)
+        numbered_list.push(<span className='pad ball' data-key={props.number_of_pages} onClick={this.handleClick} key={++extra_span_keys}></span>)
       } else if (this.state.page === numbered_list.length || this.state.page === numbered_list.length-1 || this.state.page === numbered_list.length-2) {
         // console.log("not trimmed end")
         numbered_list = numbered_list.slice(-4)
-        numbered_list.unshift(<span data-key={1} onClick={this.handleClick} key={++extra_span_keys}>    ...    </span>)
+        numbered_list.unshift(<span className='pad ball' data-key={1} onClick={this.handleClick} key={++extra_span_keys}></span>)
       } else if (this.state.page-2 > 0 && this.state.page+2 < numbered_list.length) {
         // console.log("trimed")
         numbered_list = numbered_list.slice(this.state.page-2,this.state.page+2)
-        numbered_list.push(<span data-key={props.number_of_pages} onClick={this.handleClick} key={++extra_span_keys}>    ...    </span>)
-        numbered_list.unshift(<span data-key={1} onClick={this.handleClick} key={++extra_span_keys}>    ...    </span>)
+        numbered_list.push(<span className='pad ball' data-key={props.number_of_pages} onClick={this.handleClick} key={++extra_span_keys}></span>)
+        numbered_list.unshift(<span className='pad ball' data-key={1} onClick={this.handleClick} key={++extra_span_keys}></span>)
       }
     }
     return numbered_list
@@ -102,19 +102,25 @@ class PageSelector extends React.Component {
     //console.log("childs fucking page: ", this.state.page)
 
     return (
-      <div className="wrapper3">
+      <div id='pagination-fragment'>
         {this.props.number_of_pages === 0 ? <div>No entries avaible at the moment</div> : ''}
         {/* <h1>PageSelector</h1>
         <p>you are on page: {this.state.page}</p>
         <p>and their is: {this.props.number_of_pages}</p> */}
-        <div className="pagination">
-          <button disabled={this.props.on_off_limit_previous} id="previous" onClick={this.handleClick}>Previous Page</button>
-          <div className="page_numbers">
+        
+        <div id="pagination">
+
+          <button disabled={this.props.on_off_limit_previous} id="previous" onClick={this.handleClick}><img src="/img/SVG/sub/previous.svg" alt=""/></button>
+
+          <div id="page_numbers">
             {this.numbered_list.length === 0 ? '0': this.numbered_list}
           </div>
-          <button disabled={this.props.on_off_limit_next} id="next"  onClick={this.handleClick}>Next Page</button>
+
+          <button disabled={this.props.on_off_limit_next} id="next"  onClick={this.handleClick}><img src="/img/SVG/sub/proceed.svg" alt=""/></button>
+
         </div>
       </div>
+
     );
   }
 }

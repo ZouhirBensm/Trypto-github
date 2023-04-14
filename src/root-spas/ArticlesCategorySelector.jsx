@@ -2,6 +2,7 @@
 import '../style/reactDivMobile.css'
 import Articles from '../articles-functionalities/Articles';
 import Article from '../articles-functionalities/Article';
+import OnPageFooter from '../generic-components/OnPageFooter'
 import utils from '../../full-stack-libs/utils';
 
 
@@ -76,7 +77,7 @@ class ArticlesCategorySelector extends React.Component {
           </Switch>
         </BrowserRouter>
 
-
+        <OnPageFooter/>
       </React.Fragment>
 
     )

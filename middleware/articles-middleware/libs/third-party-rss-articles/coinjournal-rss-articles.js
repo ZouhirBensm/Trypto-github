@@ -29,7 +29,7 @@ function articalizeForBidBlock(_MostRecentItems){
     const excerpt_max_number_of_words = 12
     let excerpt = excerpt_word_count > excerpt_max_number_of_words ? takeUntilWordNumber(_item.contentSnippet, excerpt_max_number_of_words) + ' ...' : _item.contentSnippet
 
-    console.log('\n\n', _item.contentSnippet, "\n<->\n", excerpt)
+    // console.log('\n\n', _item.contentSnippet, "\n<->\n", excerpt)
 
 
     return {

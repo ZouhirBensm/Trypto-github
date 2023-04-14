@@ -90,6 +90,8 @@ class Articles extends React.Component {
             controls={this.controls}
           />
         </div>
+
+        
       </React.Fragment>
     )
   }

@@ -1,9 +1,52 @@
-div.page_numbers {
-  width: fit-content;
-  display: inline;
+div#pagination-fragment {
+  margin: 2vh auto;
 }
 
-div.pagination {
+div#page_numbers {
+  width: fit-content;
+  display: inline;
+  white-space: nowrap;
+}
+
+div#pagination {
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+
+
+div#pagination > button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  height: 24px;
+  margin: 5%;
+}
+
+div#pagination > button > img {
+  pointer-events: none;
+}
+
+
+div#pagination > div#page_numbers > span.ball {
+  border-radius: 7px;
+  height: 10px;
+  display: inline-block;
+  margin: 0 1px;
+}
+
+div#pagination > div#page_numbers > span.selected {
+  background-color: #1266FC;
+  width: 10px;
+}
+
+div#pagination > div#page_numbers > span.not-selected {
+  background-color: #B8CEF5;
+  width: 12px;
+}
+
+div#pagination > div#page_numbers > span.pad {
+  background-color: #B8CEF5;
+  width: 32px;
 }
