@@ -1,0 +1,48 @@
+div#article-banner {
+  color: white;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  height: fit-content;
+}
+
+div#article-banner > img {
+  width: 100%;
+  z-index: -1;
+}
+
+
+div#article-banner > div#article-data {
+  top: 30%;
+  left: 30%;
+  transform: translate(-30%, -30%);
+  position: absolute;
+}
+
+div#article-banner > div#article-data > h1 {
+  /* color: red; */
+  margin: 0;
+}
+
+div#article-banner > div#article-data > span {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  color: #1266FC;
+  font-size: var(--font-size-header);
+}
+
+
+p {
+  word-wrap: break-word;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: var(--font-size-p);
+  margin: 15vh auto;
+  width: 90%;
+  line-height: 2rem;
+}
+
+
+
+

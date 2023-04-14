@@ -20,6 +20,7 @@ class ArticlesCategorySelector extends React.Component {
   }
 
   componentDidMount() {
+    // TODO !!!! When backing from a BB article, this is not trigerring to populate the navigation, needs fixing
     this.buildArticleCategorySelectorList()
   }
 
@@ -45,7 +46,7 @@ class ArticlesCategorySelector extends React.Component {
         transformedText = transformedText.charAt(0) + transformedText.slice(1).toLowerCase();
         newDiv.innerHTML = transformedText
         newDiv.onclick = this.selectCategory
-        categoryNav.appendChild(newDiv)
+        categoryNav?.appendChild(newDiv)
       }
     }
   }

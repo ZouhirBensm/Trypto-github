@@ -31,7 +31,7 @@ class CreateArticle extends React.Component {
 
     error_message = validateInputs({
       title: document.getElementById("form_id").elements["title"].value,
-      content: document.getElementById("form_id").elements["content"].value,
+      // content: document.getElementById("form_id").elements["content"].value,
       category: document.getElementById("form_id").elements["category"].value
     })
 

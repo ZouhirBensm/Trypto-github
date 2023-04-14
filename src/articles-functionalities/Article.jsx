@@ -1,12 +1,12 @@
-
+import DOMPurify from 'dompurify';
+import './style/Article.css'
 
 class Article extends React.Component {
   constructor(props){
     super(props)
     const queryParams = new URLSearchParams(this.props.location.search)
 
-    this.state = {
-    }
+    this.state = {}
 
     const articleDataJSON = queryParams.get("article")
     console.log(articleDataJSON)
@@ -15,18 +15,30 @@ class Article extends React.Component {
     console.log(this.articleDataObj)
   }
   render(){
+
+    const date = new Date(this.articleDataObj.publishedDate);
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    const formattedDate = date.toLocaleDateString('en-US', options);
+
+
+    const sanitizedContent = DOMPurify.sanitize(this.articleDataObj.content);
+
     return (
-      <div>
-        <img className="bidblock-article-enclosure" src={`${this.articleDataObj.enclosure}`} alt="Blog image banner" />
-        <h3>Title:</h3>
-        <p>{this.articleDataObj.title}</p>
-        <h4>Category:</h4>
-        <p>{this.articleDataObj.category}</p>
-        <h4>Published Date</h4>
-        <span>{this.articleDataObj.publishedDate}</span>
-        <h5>content:</h5>
-        <p>{this.articleDataObj.content}</p>
-      </div>
+      <React.Fragment>
+        <div id="article-banner">
+
+          <img src={`${this.articleDataObj.enclosure}`} alt="Blog image banner" />
+
+          <div id="article-data">
+            <h1>{this.articleDataObj.title}</h1>
+            <span>{this.articleDataObj.category}</span>
+            <span>{formattedDate}</span>
+          </div>
+
+        </div>
+
+        <p dangerouslySetInnerHTML={{__html: sanitizedContent}} />
+      </React.Fragment>
     )
   }
 }
