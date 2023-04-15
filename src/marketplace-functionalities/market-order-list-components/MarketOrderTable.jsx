@@ -49,6 +49,33 @@ class OrderRow extends React.Component {
     let order = this.props.order;
 
 
+    console.log(order)
+
+    let price_raw = order.price / order.conversion
+    let price_btc = price_raw.toFixed(9)
+    let price_sat = Math.trunc(price_raw * 1000000000)
+
+
+    const date = new Date(order.postedDate);
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    const formattedDate = date.toLocaleDateString('en-US', options);
+
+    let chain_logo_img_src
+    switch (order.chain) {
+      case "Bitcoin Lightning":
+        chain_logo_img_src = '/img/PNG/chain-logo/lightning.png'
+        break;
+      case "Bitcoin Liquid":
+        chain_logo_img_src = '/img/PNG/chain-logo/liquid.png'
+        break;
+      case "Bitcoin Base Chain":
+        chain_logo_img_src = '/img/PNG/chain-logo/bitcoin.png'
+        break;
+    
+      default:
+        break;
+    }
+
     const order_first_image_name = order.sellmarketorderImageID.images[0].name
     
     const isMarketOrderFromSeed = /^\*\s/.test(this.props.order.title) 
@@ -60,18 +87,35 @@ class OrderRow extends React.Component {
 
       <React.Fragment>
 
+      <div className='item-card'>
+
+        <div className='item-preview'>
+          <img src={image_path}></img>
+          <span>{formattedDate}</span>
+
+          <span>{order.title}</span>
+
+          <div>
+            <span>{order.price}</span>
+            <span>{price_sat}</span>
+          </div>
+
+          {/* Grid */}
+          <div>
+            <span>{order.description}</span>
+            <img src={chain_logo_img_src}></img>
+            <span>{order.chain}</span>
+          </div>
+
+          {/* TODO Add location and condition */}
+        </div>
+
         <Link className='link' to={{
           pathname: `/marketplace/${this.props.order_type}/${order._id}`, 
           // search: `?order=${JSON.stringify(order)}`,
         }}
-        >
-        <div>
-          <img src={image_path}></img>
-          <div>Title: {order.title}</div>
-          <div>Price: {order.price}</div>
-          {/* TODO Add location and condition */}
-        </div>
-        </Link>
+        >Discover</Link>
+      </div>
       </React.Fragment>
 
     );

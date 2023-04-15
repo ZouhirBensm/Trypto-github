@@ -7,8 +7,7 @@ import './style/AllArticlesList.css'
 class AllArticlesList extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-    }
+    this.state = {}
     this.contructArticleList()
   }
 
@@ -73,6 +72,8 @@ class ArticleElement extends React.Component {
               <p>{this.props.article.excerpt}</p>
             </div>
           </div>
+
+          
           {!EXTERNAL_READS_CATEGORIES.includes(this.props.article.category) ?
             <Link className='link' to={{
               pathname: `/articles/individual_article/${this.props.article._id}`,

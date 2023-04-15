@@ -6,7 +6,7 @@ function OnPageFooter() {
       <div id='footer-on-page'>
 
 
-        <img src="/img/PNG/logoBLCSmall.png" alt="" />
+        <img src="/img/PNG/logo/logoBLCSmall.png" alt="" />
         <div id='nav401'>
           <div>© Bidblock</div>
           <div><a href="">Contact</a></div>
