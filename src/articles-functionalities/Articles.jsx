@@ -21,6 +21,11 @@ class Articles extends React.Component {
     this.controls = this.controls.bind(this);
   }
 
+  // shouldComponentUpdate(prevProps){
+  //   if(prevProps!=this.props) return true
+  //   return false
+  // }
+
   controls(_page) {
     this.setState({
       page: _page

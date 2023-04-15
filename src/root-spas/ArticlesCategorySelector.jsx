@@ -15,14 +15,32 @@ class ArticlesCategorySelector extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
-    this.category = utils.parseFullPath4lastpath(window.location.href)
-    if (this.category == 'articles') this.category = "RECENT"
+    let href = window.location.href.split('?')[0]
+    let parsedURL = utils.parseURL(href)
+    let paths = utils.URLpathDecomposer(parsedURL[3])
+
+    if (paths[1] =='individual_article' || !paths[1]){
+      this.category = "RECENT"
+    }
+
+    this.handleBrowserBackButton = this.handleBrowserBackButton.bind(this);
   }
 
+
   componentDidMount() {
-    // TODO !!!! When backing from a BB article, this is not trigerring to populate the navigation, needs fixing
-    this.buildArticleCategorySelectorList()
+    window.addEventListener("popstate", this.handleBrowserBackButton);
+    this.buildArticleCategorySelectorList();
   }
+
+
+  componentWillUnmount() {
+    window.removeEventListener("popstate", this.handleBrowserBackButton);
+  }
+
+  handleBrowserBackButton() {
+    this.buildArticleCategorySelectorList();
+  }
+
 
 
   selectCategory(e) {
@@ -78,7 +96,7 @@ class ArticlesCategorySelector extends React.Component {
           </Switch>
         </BrowserRouter>
 
-        <OnPageFooter/>
+        <OnPageFooter />
       </React.Fragment>
 
     )

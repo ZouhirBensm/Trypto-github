@@ -14,6 +14,8 @@ class Article extends React.Component {
     this.articleDataObj = JSON.parse(articleDataJSON)
     console.log(this.articleDataObj)
   }
+
+  
   render(){
 
     const date = new Date(this.articleDataObj.publishedDate);
