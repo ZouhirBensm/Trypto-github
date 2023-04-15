@@ -1,4 +1,5 @@
 import './style/market-main-component.css'
+import './style/MarketOrders.css'
 
 import NavigationNew from './NavigationNew'
 import SearchEngine from './market-order-list-components/SearchEngine';
@@ -151,7 +152,8 @@ class MarketOrders extends React.Component {
     return (
       <React.Fragment>
 
-        <NavigationNew/>
+        
+
 
         <SearchEngine
           searchEngineState={searchEngineState}
@@ -162,7 +164,15 @@ class MarketOrders extends React.Component {
           maxPriceTerm={this.state.maxPriceTerm}
         />
 
+        <hr/>
+
+        <NavigationNew
+          order_type="sellordersdata"
+        />
+
         <div className='market-main-component'>
+
+          <h1>Articles</h1>
 
           {this.popup ?
             <p>{this.popup}</p>

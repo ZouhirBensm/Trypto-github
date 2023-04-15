@@ -94,7 +94,7 @@ class SearchEngine extends React.Component {
     return (
       <React.Fragment>
         {!this.state.on_off ?
-          <button className='drop-down' onClick={this.displayHideFilterEngine}>Drop Down</button> :
+          <button id='drop-down' onClick={this.displayHideFilterEngine}>Filter</button> :
 
 
           <div className='search-inputs'>

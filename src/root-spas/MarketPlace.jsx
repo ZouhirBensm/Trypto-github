@@ -1,6 +1,8 @@
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
 
+import './styles/MarketPlace.css'
+
 const MakeMarketOrder = loadable(() => import("../marketplace-functionalities/MakeMarketOrder"), {
   fallback: <Loading />
 });
@@ -29,7 +31,7 @@ class MarketPlace extends React.Component {
 
   render() {
     return (
-      <div id="super-wrapper">
+      <div id="market">
         <BrowserRouter>
           <Switch>
             <Route exact path="/marketplace/makesell" component={MakeMarketOrder} />
