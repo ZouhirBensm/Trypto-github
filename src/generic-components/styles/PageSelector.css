@@ -22,6 +22,8 @@ div#pagination > button {
   padding: 0;
   height: 24px;
   margin: 5%;
+  width: fit-content;
+  height: fit-content;
 }
 
 div#pagination > button > img {
@@ -49,4 +51,9 @@ div#pagination > div#page_numbers > span.not-selected {
 div#pagination > div#page_numbers > span.pad {
   background-color: #B8CEF5;
   width: 32px;
+}
+
+div#pagination > div#page_numbers {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
 }
