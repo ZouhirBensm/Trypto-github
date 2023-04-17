@@ -118,11 +118,13 @@ class OrderRow extends React.Component {
 
           {/* Grid */}
 
-          <span>{order.description}</span>
-          <img src={chain_logo_img_src}></img>
-          <span>{order.chain}</span>
+          <div id="item-data">
+            <span>{order.description}</span>
+            <span id="item-published">{formattedDate}</span>
+            <img src={chain_logo_img_src}></img>
+            <span>{order.chain}</span>
+          </div>
 
-          <span>{formattedDate}</span>
 
           <Link className='link' to={{
             pathname: `/marketplace/${this.props.order_type}/${order._id}`,

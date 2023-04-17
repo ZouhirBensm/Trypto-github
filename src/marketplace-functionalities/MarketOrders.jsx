@@ -5,6 +5,7 @@ import NavigationNew from './NavigationNew'
 import SearchEngine from './market-order-list-components/SearchEngine';
 import MarketOrderTable from './market-order-list-components/MarketOrderTable';
 import PageSelector from '../generic-components/PageSelector';
+import OnPageFooter from '../generic-components/OnPageFooter'
 
 class MarketOrders extends React.Component {
   constructor(props) {
@@ -174,7 +175,11 @@ class MarketOrders extends React.Component {
             nextPage={this.state.nextPage}
             controls={this.controls}
           />
+
+          <OnPageFooter/>
+          
         </div>
+
 
       </React.Fragment>
     );

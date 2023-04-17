@@ -1,7 +1,7 @@
 div#market > hr {
   border: 2px solid #EEF5FE;
   position: absolute;
-  top: 70px;
+  top: 90px;
   width: 85%;
   left: 50%;
   transform: translate(-50%, 0);
@@ -12,9 +12,10 @@ div.market-main-component > h1 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   font-size: var(--font-size-h1);
-  width: fit-content;
-  margin: 5vh 0;
+  margin: 5vh auto;
   color: #1266FC;
+  display: block;
+  width: 90%;
 }
 
 

@@ -31,21 +31,23 @@ class MarketPlace extends React.Component {
 
   render() {
     return (
-      <div id="market">
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/marketplace/makesell" component={MakeMarketOrder} />
-            <Route exact path="/marketplace/sellordersdata" component={MarketOrders} />
+      <React.Fragment>
+        <div id="market">
+          <BrowserRouter>
+            <Switch>
+              <Route exact path="/marketplace/makesell" component={MakeMarketOrder} />
+              <Route exact path="/marketplace/sellordersdata" component={MarketOrders} />
 
-            <Route exact path="/marketplace/allmyorders" render={
-              (props) => <MyMarketOrders {...props} userID_toQueryWith={userId} />
-            } />
+              <Route exact path="/marketplace/allmyorders" render={
+                (props) => <MyMarketOrders {...props} userID_toQueryWith={userId} />
+              } />
 
-            <Route exact path="/marketplace/:order_type/:orderID" component={MarketOrderDetails} />
+              <Route exact path="/marketplace/:order_type/:orderID" component={MarketOrderDetails} />
 
-          </Switch>
-        </BrowserRouter>
-      </div>
+            </Switch>
+          </BrowserRouter>
+        </div>
+      </React.Fragment>
 
     )
   }

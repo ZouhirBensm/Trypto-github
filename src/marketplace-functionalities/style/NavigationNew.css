@@ -2,11 +2,12 @@ nav#navigation {
   display: flex;
   flex-flow: row nowrap;
   position: absolute;
-  top: 90px;
+  top: 110px;
   left: 0;
   right: 0;
   margin: 0 5%;
   justify-content: center;
+  font-size: var(--font-size-subsubnav);
 }
 
 

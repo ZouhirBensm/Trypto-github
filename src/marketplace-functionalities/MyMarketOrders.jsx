@@ -1,9 +1,11 @@
 import './style/market-main-component.css'
+import './style/MarketOrders.css'
 
 import NavigationNew from './NavigationNew'
 
 import PageSelector from '../generic-components/PageSelector';
 import MarketOrderTable from './market-order-list-components/MarketOrderTable';
+import OnPageFooter from '../generic-components/OnPageFooter'
 
 class MyMarketOrders extends React.Component {
   constructor(props) {
@@ -87,11 +89,17 @@ class MyMarketOrders extends React.Component {
     console.log("popup:", this.popup, paths_URL)
     return (
       <React.Fragment>
+
+        <hr/>
+
         {paths_URL[0] == "operations"? null: paths_URL[0] == "marketplace" ? <NavigationNew
           order_type="allmyorders"
         /> : null}
         
         <div className='market-main-component'>
+
+          <h1>My Posts</h1>
+
           {this.popup ?
             <p>{this.popup}</p>
             : null}
@@ -109,7 +117,11 @@ class MyMarketOrders extends React.Component {
             on_off_limit_next={this.state.on_off_limit_next}
             previousPage={this.state.previousPage}
             nextPage={this.state.nextPage}
-            controls={this.controls} />
+            controls={this.controls} 
+          />
+
+
+          <OnPageFooter/>
         </div>
       </React.Fragment>
 

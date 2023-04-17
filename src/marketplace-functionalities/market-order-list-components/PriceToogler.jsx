@@ -25,13 +25,13 @@ class PriceToogler extends React.Component {
 
     // console.log(this.state.checked)
 
-    const lr = this.state.checked ? "left": "right"
+    const lr = this.state.checked ? "flex-start": "flex-end"
 
     return (
       <React.Fragment>
         <div id="toogler1">
           <input type="checkbox" id={`id-${this.props.order_id}`} className="checkbox" checked={this.state.checked} onChange={this.handleCheck}/>
-          <label style={{textAlign: lr}} htmlFor={`id-${this.props.order_id}`} className="switch">
+          <label style={{justifyContent: lr}} htmlFor={`id-${this.props.order_id}`} className="switch">
             <span>{this.state.checked ? this.price_sat : this.props.price}</span>
           </label>
         </div>
