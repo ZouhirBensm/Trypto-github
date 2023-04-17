@@ -114,7 +114,7 @@ class MarketOrders extends React.Component {
         console.error("Error: ", serverOBJ)
       }
     })
-    
+
 
   }
 
@@ -134,7 +134,7 @@ class MarketOrders extends React.Component {
     return (
       <React.Fragment>
 
-        
+
 
 
         <SearchEngine
@@ -146,7 +146,7 @@ class MarketOrders extends React.Component {
           maxPriceTerm={this.state.maxPriceTerm}
         />
 
-        <hr/>
+        <hr />
 
         <NavigationNew
           order_type="sellordersdata"
@@ -176,8 +176,8 @@ class MarketOrders extends React.Component {
             controls={this.controls}
           />
 
-          <OnPageFooter/>
-          
+          <OnPageFooter />
+
         </div>
 
 

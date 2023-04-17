@@ -19,6 +19,17 @@ div.market-main-component > h1 {
 }
 
 
+div.market-main-component > p {
+  color: red;
+  width: 100%;
+  font-size: var(--line-height-generic);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  margin: 1rem auto;
+  width: fit-content;
+}
+
+
 
 
 
