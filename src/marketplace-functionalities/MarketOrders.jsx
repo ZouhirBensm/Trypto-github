@@ -100,39 +100,20 @@ class MarketOrders extends React.Component {
 
     // console.log("MarketOrders: loadData()->response", response)
 
-    if (response.ok) {
-
-      console.log("MarketOrders: loadData()->serverOBJ", serverOBJ)
-
-      this.setState({
-        orders: serverOBJ.srv_.ORDERS,
-        nextPage: serverOBJ.srv_.next,
-        previousPage: serverOBJ.srv_.previous,
-        number_of_pages: serverOBJ.srv_.number_of_pages.number
-      }, () => {
-        if (this.state.nextPage == undefined) {
-          this.setState({
-            on_off_limit_next: true
-          })
-        } else {
-          this.setState({
-            on_off_limit_next: false
-          })
-        }
-        if (this.state.previousPage == undefined) {
-          this.setState({
-            on_off_limit_previous: true
-          })
-        } else {
-          this.setState({
-            on_off_limit_previous: false
-          })
-        }
-      })
+    this.setState(prevState => ({
+      orders: serverOBJ.srv_.ORDERS,
+      nextPage: serverOBJ.srv_.next,
+      previousPage: serverOBJ.srv_.previous,
+      number_of_pages: serverOBJ.srv_.number_of_pages.number,
+      on_off_limit_next: prevState.nextPage === undefined,
+      on_off_limit_previous: prevState.previousPage === undefined
+    }), () => {
       // Custom Errors get spitted out here
-    } else {
-      console.error("Error: ", serverOBJ)
-    }
+      if (serverOBJ.error) {
+        console.error("Error: ", serverOBJ)
+      }
+    })
+    
 
   }
 

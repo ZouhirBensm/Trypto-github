@@ -16,7 +16,7 @@ div.wrapper-all-article-elements {
 
 
 
-div.article-card>div.article-preview h4 {
+div.article-card > div.article-preview h4 {
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
   text-transform: uppercase;
@@ -24,7 +24,7 @@ div.article-card>div.article-preview h4 {
   margin: .5rem;
 }
 
-div.article-card>div.article-preview p {
+div.article-card > div.article-preview p {
   word-wrap: break-word;
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
@@ -32,7 +32,7 @@ div.article-card>div.article-preview p {
   margin: .5rem;
 }
 
-div.article-card>div.article-preview>span {
+div.article-card > div.article-preview > span {
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -41,7 +41,7 @@ div.article-card>div.article-preview>span {
   font-size: var(--font-size-generic);
 }
 
-div.article-card>div.article-preview>div {
+div.article-card > div.article-preview > div {
   position: absolute;
   bottom: 0;
   width: 100%;
