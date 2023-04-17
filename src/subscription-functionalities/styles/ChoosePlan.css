@@ -27,7 +27,7 @@ div#choose-plan-selector {
 
 div#choose-plan-selector > button {
   width: 308px;
-  background-image: url('/public/img/SVG/sub/card.svg');
+  background-image: url('/public/img/SVG/sub/step1/card.svg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

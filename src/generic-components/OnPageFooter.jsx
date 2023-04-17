@@ -21,7 +21,7 @@ function OnPageFooter() {
           <a href="#"><img src="/img/SVG/social/twitter.svg" alt="" /></a>
         </div>
 
-        <img src="/img/SVG/sub/group.svg" alt="" />
+        <img src="/img/SVG/on-page-footer/group.svg" alt="" />
       </div>
     </React.Fragment>
   );

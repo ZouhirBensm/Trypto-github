@@ -1,15 +1,12 @@
 
 import NavigationNew from './NavigationNew'
-// import '../style/reactDivMobile.css'
 import './style/market-main-component.css'
 import './style/googlemaps.css'
-
 
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading"
 
 import { utils } from '../../full-stack-libs/utils.address'
-
 
 const _1_InputGeneralMarketOrder = loadable(() => import("./make-market-order-components/_1_InputGeneralMarketOrder"), {
   fallback: <Loading />
@@ -75,7 +72,7 @@ class MakeMarketOrder extends React.Component {
     this.changeStateLocationParent = this.changeStateLocationParent.bind(this)
     this.resetLocation = this.resetLocation.bind(this)
 
-    console.log(userId)
+    // console.log(userId)
   }
 
   setpopup(message) {
@@ -90,12 +87,14 @@ class MakeMarketOrder extends React.Component {
       popup_state: null
     })
   }
+
   nextStep(e) {
     this.setState({
       step: ++this.state.step,
       popup_state: null
     })
   }
+
   previousStep(e) {
     this.setState({
       step: --this.state.step,
@@ -110,23 +109,19 @@ class MakeMarketOrder extends React.Component {
       payment: ""
     }
 
-
     if (e) return this.setState({
       [input]: e.target.value,
       popup_state: null,
       ...payment
     });
 
-
     return this.setState({
       [input]: document.getElementById(`${input}-input`).value,
       popup_state: null,
     });
-
   }
 
   handleimages(newimages, newFileList, popup_state = null) {
-
     return this.setState({
       images: newimages,
       filelist: newFileList,
@@ -135,18 +130,20 @@ class MakeMarketOrder extends React.Component {
   }
 
 
-
-  // _____________________________________________
-
   render() {
     let component = this.determineComponent()
 
     return (
       <React.Fragment>
+
         <NavigationNew/>
 
         <div className='market-main-component'>
+          <h1>Add Article</h1>
+          <img src="/img/SVG/add-article/step1/reset.svg" alt=""/>
           <a href="/marketplace/makesell"> Reset </a>
+          <span>Please take your time to fill in the form</span>
+
           {component}
 
           {this.state.popup_state ?
@@ -159,8 +156,6 @@ class MakeMarketOrder extends React.Component {
     )
   }
 
-
-  // _____________________________________________
 
   determineComponent() {
     // default style hide map
@@ -254,6 +249,7 @@ class MakeMarketOrder extends React.Component {
     return component
   }
 
+
   componentDidMount() {
     this.clickGetCryptoPrice()
     this.firstPlacementMap()
@@ -277,8 +273,6 @@ class MakeMarketOrder extends React.Component {
       return this.setState({
         onBTCvaluation: market_price_btc
       })
-
-
     } else {
       console.error(`Error on the clickGetCryptoPrice() function response.status: ${response.status}`)
     }
@@ -363,26 +357,18 @@ class MakeMarketOrder extends React.Component {
       country: country,
       popup_state: null,
     })
-
-
-
-
   }
 
   componentDidUpdate(prevProp, prevState) {
-
     if (this.state.lat == undefined ||
       this.state.lng == undefined) {
       return
     }
-
     if (this.state.lat !== prevState.lat ||
       this.state.lng !== prevState.lng) {
       return this.geolocateAndSetState()
     }
-
     return
-
   }
 
 
