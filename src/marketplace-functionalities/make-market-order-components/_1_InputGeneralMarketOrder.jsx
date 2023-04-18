@@ -1,4 +1,7 @@
+import '../style/_1_InputGeneralMarketOrder.css'
+
 import {validateInputs, validateExpiry} from '../../../full-stack-libs/validations'
+
 
 
 class _1_InputGeneralMarketOrder extends React.Component {
@@ -7,6 +10,7 @@ class _1_InputGeneralMarketOrder extends React.Component {
     this.state = {}
 
   }
+
 
   async validation(){
     let _1_InputGeneralMarketOrder_data = {
@@ -42,14 +46,14 @@ class _1_InputGeneralMarketOrder extends React.Component {
           <form className="form" id="form_id">
 
             <label htmlFor="title-select">Title</label>
-            <input type="text" id="title-select" name="title" required value={this.props.title || ''} onChange={(e) => this.props.handleChange("title", e)}/><br />
+            <input type="text" id="title-select" name="title" required value={this.props.title || ''} onChange={(e) => this.props.handleChange("title", e)} placeholder='Article title'/>
 
             <label htmlFor="description-select">Description</label>
-            <textarea name="description" id="description-select" cols="30" rows="3" required value={this.props.description || ''} onChange={(e) => this.props.handleChange("description", e)}></textarea><br />
+            <textarea name="description" id="description-select" rows="3" required value={this.props.description || ''} onChange={(e) => this.props.handleChange("description", e)} placeholder='Article details'></textarea >
 
-            <label htmlFor="category-select">Category</label>
-            <select name="category" id="category-select" required value={this.props.category} onChange={(e) => this.props.handleChange("category", e)}>
-            <option value="">No Selection</option>
+            <label className='picker-label' htmlFor="category-select">Category</label>
+            <select className='picker' name="category" id="category-select" required value={this.props.category} onChange={(e) => this.props.handleChange("category", e)}>
+              <option value="">No Selection</option>
               <option value="Other">Other</option>
               <option value="Kitchen">Kitchen</option>
               <option value="Clothes">Clothes</option>
@@ -57,37 +61,40 @@ class _1_InputGeneralMarketOrder extends React.Component {
               <option value="Automobile">Automobile</option>
               <option value="Camping">Camping</option>
               <option value="Furniture">Furniture</option>
-            </select><br />
+            </select><br/>
 
 
-            <label htmlFor="condition-input">Condition</label>
-            <select name="condition" id="condition-input" required value={this.props.condition} onChange={(e) => this.props.handleChange("condition", e)}>
+            <label className='picker-label' htmlFor="condition-input">Condition</label>
+            <select className='picker' name="condition" id="condition-input" required value={this.props.condition} onChange={(e) => this.props.handleChange("condition", e)}>
               <option value="">No Selection</option>
               <option value={1}>Brand new</option>
               <option value={2}>Just opened</option>
               <option value={3}>In good condition</option>
               <option value={4}>Used</option>
-            </select><br />
+            </select>
 
 
             <label htmlFor="expirydate-select">Order Expiry Date</label>
-            <input id="expirydate-select" type="date" name="expirydate" required value={this.props.expirydate || ''} onChange={(e) => this.props.handleChange("expirydate", e)}/><br />
+            <input id="expirydate-select" type="date" name="expirydate" required value={this.props.expirydate || ''} onChange={(e) => this.props.handleChange("expirydate", e)}/>
 
             <label htmlFor="expirytime-select">Order Expiry Time</label>
-            <input id="expirytime-select" type="time" name="expirytime" required value={this.props.expirytime || ''} onChange={(e) => this.props.handleChange("expirytime", e)}/><br />
+            <input id="expirytime-select" type="time" name="expirytime" required value={this.props.expirytime || ''} onChange={(e) => this.props.handleChange("expirytime", e)}/>
 
-          </form><br />
+          </form>
         </div>
 
 
-        <button onClick={async (e) => {
-          let ret_validation = await this.validation()
-          if (ret_validation) {
-            return this.props.nextStep(e)
-          } else {
-            return
-          }
-        }}>Next</button>
+        <div id='proceed'>
+          <button onClick={async (e) => {
+            let ret_validation = await this.validation()
+            if (ret_validation) {
+              return this.props.nextStep(e)
+            } else {
+              return
+            }
+          }}>Proceed</button>
+          <img src="/img/SVG/sub/proceed.svg" alt=""></img>
+        </div>
 
       </React.Fragment>
     )

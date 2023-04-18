@@ -1,0 +1,142 @@
+div.make-container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+
+
+
+/* LABELS */
+div.make-container form#form_id > label {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  clear: right;
+  font-size: var(--font-size-label);
+  margin: 1vh 0;
+}
+
+
+
+/* PICKER LABELS */
+div.make-container form#form_id > label.picker-label {
+  display: inline-block;
+  width: 30%;
+  min-width: fit-content;
+  height: 2rem;
+  margin: .5rem 0;
+}
+
+
+
+/* SELECTS */
+div.make-container form#form_id > select.picker {
+  box-shadow: 0px 0px 20px #00000021;
+  border-radius: 21px;
+  color: #6B7FA2;
+  text-transform: capitalize;
+  float: right;
+  width: 60%;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+
+  border: none;
+  height: 2rem;
+  padding: 0 10px;
+  margin: .5rem 0;
+
+
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('/public/img/SVG/add-article/step1/drop.svg');
+  background-position: right 20px center;
+  background-repeat: no-repeat;
+}
+
+
+
+
+
+
+/* INPUT DATE */
+/* div.make-container form#form_id > input#expirydate-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('/public/img/SVG/add-article/step1/calendar.svg');
+  background-position: right 20px center;
+  background-repeat: no-repeat;
+} */
+
+div.make-container form#form_id > input#expirydate-select {
+  padding-right: 2%;
+  width: 98%;
+}
+
+/* INPUT TIME */
+/* div.make-container form#form_id > input#expirytime-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('/public/img/SVG/add-article/step1/clock.svg');
+  background-position: right 20px center;
+  background-repeat: no-repeat;
+} */
+
+div.make-container form#form_id > input#expirytime-select {
+  padding-right: 2%;
+  width: 98%;
+}
+
+
+/* input#expirydate-select::-webkit-calendar-picker-indicator,
+input#expirytime-select::-webkit-calendar-picker-indicator {
+  display: none;
+  color: #B8CEF5;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* INPUTS */
+div.make-container form#form_id > input,
+div.make-container form#form_id > textarea {
+  border: 1px solid #B8CEF5;
+  border-radius: 8px;
+  color: #B8CEF5;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  line-height: 2rem;
+  width: 100%;
+
+  margin: .5vh 0;
+}
+
+/* INPUT PLACEHOLDERS */
+div.make-container form#form_id > input::placeholder,
+div.make-container form#form_id > textarea::placeholder {
+  color: #B8CEF5;
+}
+
+
+
+
+
+
+
+
+
+
+

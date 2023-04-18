@@ -33,6 +33,7 @@ class MarketPlace extends React.Component {
     return (
       <React.Fragment>
         <div id="market">
+          
           <BrowserRouter>
             <Switch>
               <Route exact path="/marketplace/makesell" component={MakeMarketOrder} />

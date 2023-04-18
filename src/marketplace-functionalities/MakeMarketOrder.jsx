@@ -1,5 +1,6 @@
 
 import NavigationNew from './NavigationNew'
+import './style/MakeMarketOrder.css'
 import './style/market-main-component.css'
 import './style/googlemaps.css'
 
@@ -139,16 +140,22 @@ class MakeMarketOrder extends React.Component {
         <NavigationNew/>
 
         <div className='market-main-component'>
-          <h1>Add Article</h1>
-          <img src="/img/SVG/add-article/step1/reset.svg" alt=""/>
-          <a href="/marketplace/makesell"> Reset </a>
-          <span>Please take your time to fill in the form</span>
 
-          {component}
+          <div id='header-grid'>
+            <h1>Add Article</h1>
+            <div>
+              <img src="/img/SVG/add-article/step1/reset.svg" alt=""/>
+              <a href="/marketplace/makesell"> Reset </a>
+            </div>
+            <span>Please take your time to fill in the form.</span>
+          </div>
 
           {this.state.popup_state ?
             <p>{this.state.popup_state}</p>
             : null}
+
+          {component}
+
         </div>
 
 

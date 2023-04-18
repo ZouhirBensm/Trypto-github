@@ -4,8 +4,7 @@ class NavigationNew extends React.Component {
   constructor(props){
     super(props)
     this.state = {}
-
-    console.log("--->", this.props.order_type)
+    // console.log("--->", this.props.order_type)
   }
 
   render(){
