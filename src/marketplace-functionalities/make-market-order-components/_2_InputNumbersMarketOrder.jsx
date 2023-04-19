@@ -1,4 +1,5 @@
-import {validateInputs} from '../../../full-stack-libs/validations'
+import { validateInputs } from '../../../full-stack-libs/validations'
+import '../style/_2_InputNumbersMarketOrder.css'
 
 
 
@@ -13,7 +14,7 @@ class _2_InputNumbersMarketOrder extends React.Component {
     this.amountsToCalculatorChange = this.amountsToCalculatorChange.bind(this)
   }
 
-  async validation(){
+  async validation() {
     let _2_InputNumbersMarketOrder_data = {
       chain: document.getElementById("form_id").elements["chain"].value,
       price: document.getElementById("form_id").elements["price"].value,
@@ -55,15 +56,14 @@ class _2_InputNumbersMarketOrder extends React.Component {
 
     return (
       <React.Fragment>
-        <div>InputNumbersMarketOrder...</div>
 
         <div className="make-container">
 
           <form className="form" id="form_id">
 
-            <label htmlFor="chain-input">Chain Network</label>
+            <label className='picker-label' htmlFor="chain-input">Chain Network</label>
 
-            <select onChange={(e) => {
+            <select className='picker' onChange={(e) => {
               this.props.handleChange("chain", e);
             }} name="chain" id="chain-input" required value={this.props.chain}>
 
@@ -72,14 +72,14 @@ class _2_InputNumbersMarketOrder extends React.Component {
               <option value="Bitcoin Lightning">Bitcoin Lightning</option>
               <option value="Bitcoin Liquid">Bitcoin Liquid</option>
 
-            </select> <br />
+            </select>
 
 
             <label htmlFor="price-input">Price in CAD</label>
             <input onChange={(e) => {
               this.props.handleChange("price", e);
               this.amountsToCalculatorChange(e);
-            }} type="number" id="price-input" name="price" step="0.01" required  value={this.props.price || ''}/><br />
+            }} type="number" id="price-input" name="price" step="0.01" required value={this.props.price || ''} placeholder='CAD' />
 
 
             <label htmlFor="onBTCvaluation-input">Based on what BTC value</label>
@@ -87,41 +87,60 @@ class _2_InputNumbersMarketOrder extends React.Component {
               this.props.handleChange("onBTCvaluation", e);
               this.amountsToCalculatorChange(e);
             }} type="number" id="onBTCvaluation-input" name="conversion" step="0.01" required value={this.props.onBTCvaluation} />
-            <button onClick={(e) => { this.props.clickGetCryptoPrice(e) }}>Market</button><br />
 
 
-            <span>Amounts to: {this.state.unit == "BTC" ? `${this.state.amountsTo_inBTC} BTC` : this.state.unit == "SAT" ? `${this.state.amountsTo_inSAT} SAT` : null}</span><br />
-
-            <button onClick={(e) => { this.toogleUnits(e) }}>in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null}</button><br />
+            <button onClick={(e) => { this.props.clickGetCryptoPrice(e) }}>Market</button>
 
 
+            <label>Amounts to:</label>
+            <div id='amounts-to'>
+              <span>{this.state.unit == "BTC" ? `${this.state.amountsTo_inBTC} BTC` : this.state.unit == "SAT" ? `${this.state.amountsTo_inSAT} SAT` : null}</span>
 
-            <label htmlFor="payment-input">Payment on</label>
-            <select name="payment" id="payment-input" onChange={(e) => {
+              {/* <button onClick={(e) => { this.toogleUnits(e) }}>in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null}</button> */}
+
+              <button onClick={(e) => { this.toogleUnits(e) }}>
+                <span style={this.state.unit == "BTC" ? { fontWeight: 700, color: '#010757' } : null}>btc </span>
+                |
+                <span style={this.state.unit == "SAT" ? { fontWeight: 700, color: '#010757' } : null}> sat</span>
+
+                {/* {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null} */}
+              </button>
+            </div>
+
+
+
+            <label className='picker-label' htmlFor="payment-input">Payment on</label>
+            <select className='picker' name="payment" id="payment-input" onChange={(e) => {
               // this.change(); 
               this.props.handleChange("payment", e);
             }} required value={this.props.payment} >
 
               <option value="">No Selection</option>
               {options}
-            </select> <br />
+            </select>
 
 
-          </form><br />
+          </form>
         </div>
 
-        <button onClick={(e) => {
-          this.props.previousStep(e)
-        }}>Previous</button>
-        
-        <button onClick={async (e) => {
-          let ret_validation = await this.validation()
-          if (ret_validation) {
-            return this.props.nextStep(e)
-          } else {
-            return
-          }
-        }}>Next</button>
+
+
+        <div id='proceed'>
+          <img src="/img/SVG/sub/previous.svg" alt=""></img>
+          <button onClick={(e) => {
+            this.props.previousStep(e)
+          }}>Previous</button>
+
+          <button onClick={async (e) => {
+            let ret_validation = await this.validation()
+            if (ret_validation) {
+              return this.props.nextStep(e)
+            } else {
+              return
+            }
+          }}>Proceed</button>
+          <img src="/img/SVG/sub/proceed.svg" alt=""></img>
+        </div>
 
       </React.Fragment>
     )

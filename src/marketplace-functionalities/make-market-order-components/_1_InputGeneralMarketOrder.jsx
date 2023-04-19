@@ -1,18 +1,18 @@
 import '../style/_1_InputGeneralMarketOrder.css'
 
-import {validateInputs, validateExpiry} from '../../../full-stack-libs/validations'
+import { validateInputs, validateExpiry } from '../../../full-stack-libs/validations'
 
 
 
 class _1_InputGeneralMarketOrder extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {}
 
   }
 
 
-  async validation(){
+  async validation() {
     let _1_InputGeneralMarketOrder_data = {
       title: document.getElementById("form_id").elements["title"].value,
       description: document.getElementById("form_id").elements["description"].value,
@@ -46,7 +46,7 @@ class _1_InputGeneralMarketOrder extends React.Component {
           <form className="form" id="form_id">
 
             <label htmlFor="title-select">Title</label>
-            <input type="text" id="title-select" name="title" required value={this.props.title || ''} onChange={(e) => this.props.handleChange("title", e)} placeholder='Article title'/>
+            <input type="text" id="title-select" name="title" required value={this.props.title || ''} onChange={(e) => this.props.handleChange("title", e)} placeholder='Article title' />
 
             <label htmlFor="description-select">Description</label>
             <textarea name="description" id="description-select" rows="3" required value={this.props.description || ''} onChange={(e) => this.props.handleChange("description", e)} placeholder='Article details'></textarea >
@@ -61,7 +61,7 @@ class _1_InputGeneralMarketOrder extends React.Component {
               <option value="Automobile">Automobile</option>
               <option value="Camping">Camping</option>
               <option value="Furniture">Furniture</option>
-            </select><br/>
+            </select><br />
 
 
             <label className='picker-label' htmlFor="condition-input">Condition</label>
@@ -75,10 +75,10 @@ class _1_InputGeneralMarketOrder extends React.Component {
 
 
             <label htmlFor="expirydate-select">Order Expiry Date</label>
-            <input id="expirydate-select" type="date" name="expirydate" required value={this.props.expirydate || ''} onChange={(e) => this.props.handleChange("expirydate", e)}/>
+            <input id="expirydate-select" type="date" name="expirydate" required value={this.props.expirydate || ''} onChange={(e) => this.props.handleChange("expirydate", e)} />
 
             <label htmlFor="expirytime-select">Order Expiry Time</label>
-            <input id="expirytime-select" type="time" name="expirytime" required value={this.props.expirytime || ''} onChange={(e) => this.props.handleChange("expirytime", e)}/>
+            <input id="expirytime-select" type="time" name="expirytime" required value={this.props.expirytime || ''} onChange={(e) => this.props.handleChange("expirytime", e)} />
 
           </form>
         </div>

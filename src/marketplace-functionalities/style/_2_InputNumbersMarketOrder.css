@@ -1,0 +1,56 @@
+div.make-container form#form_id > input#onBTCvaluation-input {
+  width: 80%;
+}
+
+div.make-container form#form_id > input#onBTCvaluation-input + button {
+  float: right;
+  width: 17%;
+  height: 2rem;
+  border-radius: 8px;
+  margin: 0.5vh 0;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: #FFFFFF;
+  text-transform: capitalize;
+  background-color: #1266FC;
+  border: none;
+}
+
+
+div#amounts-to {
+  clear: right;
+}
+
+
+div#amounts-to > span {
+  
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: var(--font-size-extra);
+  min-width: fit-content;
+  display: inline-block;
+}
+
+
+div#amounts-to > button {
+  margin: 0 2rem;
+  color: #FFFFFF;
+  height: 2rem;
+  border-radius: 8px;
+  background-color: #B8CEF5;
+
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+
+  border: none;
+  padding: 0 1rem;
+}
+
+/* color: #010757; */
+
+
+

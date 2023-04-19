@@ -112,7 +112,7 @@ div.market-main-component > div#proceed > button {
   color: #00D1FF;
   border: none;
   background-color: transparent;
-  font-size: var(--font-size-h4);
+  font-size: var(--font-size-root);
   margin: 3vh auto;
 }
 
