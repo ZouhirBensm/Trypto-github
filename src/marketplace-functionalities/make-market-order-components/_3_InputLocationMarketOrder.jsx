@@ -1,5 +1,6 @@
-import {validate_location_geometry_inputs} from '../../../full-stack-libs/validations'
+import { validate_location_geometry_inputs } from '../../../full-stack-libs/validations'
 import LocationSelector from './LocationSelector'
+import '../style/_3_InputLocationMarketOrder.css'
 
 
 class _3_InputLocationMarketOrder extends React.Component {
@@ -8,7 +9,7 @@ class _3_InputLocationMarketOrder extends React.Component {
     this.state = {}
   }
 
-  async validation(){
+  async validation() {
     let _2_InputNumbersMarketOrder_data = {
       geometry: this.props.geometry,
     }
@@ -32,7 +33,7 @@ class _3_InputLocationMarketOrder extends React.Component {
 
   render() {
 
-    // _____________________________________________
+
 
     return (
       <React.Fragment>
@@ -47,28 +48,30 @@ class _3_InputLocationMarketOrder extends React.Component {
               setpopup={this.props.setpopup}
             />
 
-          </form><br />
+          </form>
         </div>
 
+        <div id='proceed'>
+          <img src="/img/SVG/sub/previous.svg" alt=""></img>
+          <button onClick={(e) => {
+            this.props.previousStep(e)
+          }}>Previous</button>
 
-
-        <button onClick={(e) => {
-          this.props.previousStep(e)
-        }}>Previous</button>
-
-        <button onClick={async (e) => {
-          let ret_validation = await this.validation()
-          if (ret_validation) {
-            return this.props.nextStep(e)
-          } else {
-            return
-          }
-        }}>Next</button>
+          <button onClick={async (e) => {
+            let ret_validation = await this.validation()
+            if (ret_validation) {
+              return this.props.nextStep(e)
+            } else {
+              return
+            }
+          }}>Proceed</button>
+          <img src="/img/SVG/sub/proceed.svg" alt=""></img>
+        </div>
 
       </React.Fragment>
     )
   }
-  // _____________________________________________
+
 }
 
 

@@ -16,13 +16,16 @@
 
 <!-- TODO ! figure out how to template caseSettingsPage variable -->
 <%if(URL_ == "/marketplace/makesell" || URL_ == '/settings' || URL_ == `/settings/set-users-associated-locality` || URL_ == `/settings/test2` || URL_ == `/settings/test3` || URL_ == `/settings/test4`){%>
+
   <div id="autocomplete-block">
     <label htmlFor="autocomplete-select">Location</label>
-    <input id="autocomplete-select" type="text" name="autocomplete" required/><span>📍 is DRAG-ABLE!</span>
+    <input id="autocomplete-select" type="text" name="autocomplete" required placeholder="Select your location"/>
   </div>
 
   <div id="the-map"></div>
   <script src="/js/mapInit4.js"></script>
+
+
 <%}%>
 
 

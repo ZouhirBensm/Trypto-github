@@ -164,29 +164,37 @@ class _4_InputImagesMarketOrder extends React.Component {
           />
         </div>
 
+        <div className="make-container">
+          <form className="form" id="form_id">
+            <label htmlFor="image-select">Upload Images</label>
+            <input type="file" name="image" id="image-select" multiple onChange={(e) => {
+              e.preventDefault()
+              let ret_addimages = this.addimages(e)
+              return
+            }}></input>
 
-        <form className="form" id="form_id">
-          <label htmlFor="image-select">Image(s)</label>
-          <input type="file" name="image" id="image-select" multiple onChange={(e) => {
-            e.preventDefault()
-            let ret_addimages = this.addimages(e)
-            return
-          }} />
-
-        <input type="text" name="hny_spm"/>
-
-
-          <MarketSubmissionButton
-            setpopup={this.props.setpopup}
-            formData={this.props.formData}
-          />
-
-        </form>
+            <input type="text" name="hny_spm" />
 
 
-        <button onClick={(e) => {
-          this.props.previousStep(e)
-        }}>Previous</button>
+            <MarketSubmissionButton
+              setpopup={this.props.setpopup}
+              formData={this.props.formData}
+            />
+
+          </form>
+
+        </div>
+
+
+        <div id='proceed'>
+          <img src="/img/SVG/sub/previous.svg" alt=""></img>
+          <button onClick={(e) => {
+            this.props.previousStep(e)
+          }}>Previous</button>
+
+        </div>
+
+
       </React.Fragment>
     )
   }

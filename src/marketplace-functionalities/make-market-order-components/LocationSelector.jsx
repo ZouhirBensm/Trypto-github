@@ -8,8 +8,8 @@ import CenterMap from './CenterMap'
 class LocationSelector extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-    }
+    this.state = {}
+    
   }
 
 

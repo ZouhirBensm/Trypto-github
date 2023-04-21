@@ -1,9 +1,7 @@
 class Autocomplete extends React.Component {
   constructor(props){
     super(props)
-    this.state = {
-
-    }
+    this.state = {}
     this.onPlacedChanged = this.onPlacedChanged.bind(this)
   }
 

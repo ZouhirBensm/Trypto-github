@@ -1,5 +1,6 @@
 
 import NavigationNew from './NavigationNew'
+
 import './style/MakeMarketOrder.css'
 import './style/market-main-component.css'
 import './style/googlemaps.css'
@@ -157,6 +158,8 @@ class MakeMarketOrder extends React.Component {
           {component}
 
         </div>
+
+        <div id="google-maps"></div>
 
 
       </React.Fragment>
@@ -379,14 +382,36 @@ class MakeMarketOrder extends React.Component {
   }
 
 
+  // firstPlacementMap() {
+
+  //   var a = document.querySelectorAll('a[href="/marketplace/makesell"]')[1]
+  //   console.log(a)
+
+    
+  //   let the_map = document.getElementById('the-map');
+  //   let autocomplete_block = document.getElementById('autocomplete-block');
+
+  //   a.parentNode.insertBefore(autocomplete_block, a.nextSibling);
+  //   autocomplete_block.parentNode.insertBefore(the_map, autocomplete_block.nextSibling);
+  // }
+
   firstPlacementMap() {
-    var a = document.querySelectorAll('a[href="/marketplace/makesell"]')[1]
-    console.log(a)
+    
+    
+    var div_google_maps = document.getElementById("google-maps")
+    console.log(div_google_maps)
+
+    
     let the_map = document.getElementById('the-map');
     let autocomplete_block = document.getElementById('autocomplete-block');
 
-    a.parentNode.insertBefore(autocomplete_block, a.nextSibling);
-    autocomplete_block.parentNode.insertBefore(the_map, autocomplete_block.nextSibling);
+    div_google_maps.appendChild(autocomplete_block)
+    div_google_maps.appendChild(the_map)
+
+
+    var mainMarketComponent = document.getElementsByClassName("market-main-component")
+    mainMarketComponent[0].appendChild(div_google_maps)
+
   }
 
 }

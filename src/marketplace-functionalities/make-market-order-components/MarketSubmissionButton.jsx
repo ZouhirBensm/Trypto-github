@@ -1,3 +1,6 @@
+import '../style/MarketSubmissionButton.css'
+
+
 class MarketSubmissionButton extends React.Component {
   constructor(props) {
     super(props)
@@ -61,7 +64,7 @@ class MarketSubmissionButton extends React.Component {
         } else {
           return
         }
-      }}>SUBMIT THE MARKET ORDER</button>
+      }}>Add Article</button>
     )
   }
 
