@@ -60,7 +60,7 @@ div.make-container form#form_id > select.picker {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-image: url('/public/img/SVG/add-article/step1/drop.svg');
+  background-image: url('/public/img/SVG/market/add-article/step1/drop.svg');
   background-position: right 20px center;
   background-repeat: no-repeat;
 }
@@ -75,7 +75,7 @@ div.make-container form#form_id > select.picker {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-image: url('/public/img/SVG/add-article/step1/calendar.svg');
+  background-image: url('/public/img/SVG/market/add-article/step1/calendar.svg');
   background-position: right 20px center;
   background-repeat: no-repeat;
 } */
@@ -90,7 +90,7 @@ div.make-container form#form_id > input#expirydate-select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-image: url('/public/img/SVG/add-article/step1/clock.svg');
+  background-image: url('/public/img/SVG/market/add-article/step1/clock.svg');
   background-position: right 20px center;
   background-repeat: no-repeat;
 } */
@@ -131,6 +131,7 @@ div.make-container form#form_id > textarea {
   width: 100%;
 
   margin: .5vh 0;
+  font-size: var(--font-size-smaller-input);
 }
 
 /* INPUT PLACEHOLDERS */

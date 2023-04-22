@@ -1,15 +1,4 @@
 div#react-div > div > button.drop-down {
-  /* margin: 0 auto;
-  display: block;
-  position: absolute;
-  top: 7vh;
-  bottom: 83vh;
-  left: 0;
-  right: 0;
-  width: fit-content; */
-  /* left: 30%;
-  right: 30%; */
-  /* min-width: fit-content; */
   margin: 0 auto;
   display: block;
   z-index: 10;
@@ -22,7 +11,7 @@ div#react-div > div > button.drop-down {
 } 
 
 div#react-div > div > div.search-inputs {
-  background-color: red;
+  background-color: white;
   position: absolute;
   top: 1.3em;
   bottom: 12vh;

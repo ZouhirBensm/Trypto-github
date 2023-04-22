@@ -146,8 +146,6 @@ class MarketOrders extends React.Component {
           maxPriceTerm={this.state.maxPriceTerm}
         />
 
-        <hr />
-
         <NavigationNew
           order_type="sellordersdata"
         />

@@ -145,7 +145,7 @@ class MakeMarketOrder extends React.Component {
           <div id='header-grid'>
             <h1>Add Article</h1>
             <div>
-              <img src="/img/SVG/add-article/step1/reset.svg" alt=""/>
+              <img src="/img/SVG/market/add-article/step1/reset.svg" alt=""/>
               <a href="/marketplace/makesell"> Reset </a>
             </div>
             <span>Please take your time to fill in the form.</span>

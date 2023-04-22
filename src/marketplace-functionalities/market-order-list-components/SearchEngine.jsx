@@ -117,15 +117,15 @@ class SearchEngine extends React.Component {
 
 
 
-              <h2>Filters:</h2>
+              <h2>Filters</h2>
 
-              <label htmlFor="title-select">Title</label>
-              <input type="text" id="title-select" name="title" defaultValue={this.props.searchEngineState.titleTerm} /><br />
+              {/* <label htmlFor="title-select">Title</label> */}
+              <input type="text" id="title-select" name="title" defaultValue={this.props.searchEngineState.titleTerm} placeholder='Search'/>
 
 
-              <label htmlFor="category-select">Category</label>
-              <select name="category" id="category-select" defaultValue={this.props.searchEngineState.categoryTerm}>
-                <option value="">No Selection</option>
+              {/* <label htmlFor="category-select">Category</label> */}
+              <select className='picker' name="category" id="category-select" defaultValue={this.props.searchEngineState.categoryTerm}>
+                <option value="">Category</option>
                 <option value="Other">Other</option>
                 <option value="Kitchen">Kitchen</option>
                 <option value="Clothes">Clothes</option>
@@ -133,24 +133,50 @@ class SearchEngine extends React.Component {
                 <option value="Automobile">Automobile</option>
                 <option value="Camping">Camping</option>
                 <option value="Furniture">Furniture</option>
-              </select><br />
+              </select>
 
 
 
-              <label htmlFor="condition-select">Condition</label>
-              <select name="condition" id="condition-select" defaultValue={this.props.searchEngineState.conditionTerm}>
-                <option value="">No Selection</option>
+              {/* <label htmlFor="condition-select">Condition</label> */}
+              <select className='picker' name="condition" id="condition-select" defaultValue={this.props.searchEngineState.conditionTerm}>
+                <option value="">Condition</option>
                 <option value={1}>Brand new</option>
                 <option value={2}>Just opened</option>
                 <option value={3}>In good condition</option>
                 <option value={4}>Used</option>
-              </select><br /> <br />
+              </select>
 
 
 
-              <label htmlFor="min-price-input">Price Range</label>
+              {/* <label htmlFor="chain-select">BTC Type/Chain</label> */}
+              <select className='picker' name="chain" id="chain-select" defaultValue={this.props.searchEngineState.chainTerm}>
+                <option value="">BTC Type/Chain</option>
+                <option value="Bitcoin Base Chain">Bitcoin Base Chain</option>
+                <option value="Bitcoin Lightning">Bitcoin Lightning</option>
+                <option value="Bitcoin Liquid">Bitcoin Liquid</option>
+              </select>
 
-              <button onClick={(e) => {
+
+
+              <label htmlFor="min-price-input">Price Range ($)</label>
+
+
+
+              <div id='relative-frame'>
+
+                {/* <span>{this.props.minPriceTerm}</span> */}
+
+                <input id="min-price-input" name="min-price" defaultValue={this.props.searchEngineState.minPriceTerm} type="range" min={`${rangeMin}`} max={`${rangeMax}`} step={`${rangeStep}`} onChange={this.rangeLimits} />
+
+                <input id="max-price-input" name="max-price" defaultValue={this.props.searchEngineState.maxPriceTerm} type="range" min={`${rangeMin}`} max={`${rangeMax}`} step={`${rangeStep}`} onChange={this.rangeLimits} />
+                
+                {/* <span>{this.props.maxPriceTerm}</span> */}
+
+              </div>
+
+
+
+              <button id='reset-price' onClick={(e) => {
                 e.preventDefault()
                 const range1 = document.getElementById("my_form").elements["min-price"]
                 const range2 = document.getElementById("my_form").elements["max-price"]
@@ -160,33 +186,13 @@ class SearchEngine extends React.Component {
                 range2.value = range_reset_value
 
                 this.props.resetPriceFilter()
-              }}>Reset Price Filter</button> <br /> <br />
-
-              {this.props.minPriceTerm} <br />
-              <input id="min-price-input" name="min-price" defaultValue={this.props.searchEngineState.minPriceTerm} type="range" min={`${rangeMin}`} max={`${rangeMax}`} step={`${rangeStep}`} onChange={this.rangeLimits} /> <br />
-
-              <input id="max-price-input" name="max-price" defaultValue={this.props.searchEngineState.maxPriceTerm} type="range" min={`${rangeMin}`} max={`${rangeMax}`} step={`${rangeStep}`} onChange={this.rangeLimits} /> <br />
-              {this.props.maxPriceTerm} <br />
+              }}>
+                <img src="/img/SVG/market/filter/reset.svg" alt="" />
+              </button>
 
 
 
-
-
-
-
-
-
-
-              <label htmlFor="chain-select">BTC Type/Chain</label>
-              <select name="chain" id="chain-select" defaultValue={this.props.searchEngineState.chainTerm}>
-                <option value="">No Selection</option>
-                <option value="Bitcoin Base Chain">Bitcoin Base Chain</option>
-                <option value="Bitcoin Lightning">Bitcoin Lightning</option>
-                <option value="Bitcoin Liquid">Bitcoin Liquid</option>
-              </select>  <br />
-
-
-
+              <br/><br/><br/><br/><br/><br/>
 
 
               <LocalityFilter
@@ -197,12 +203,10 @@ class SearchEngine extends React.Component {
 
               { this.state.popup ? <span>{this.state.popup}</span> : null }
 
-              <br /> <br />
-
 
               <button id="filter-submit">Submit</button>
 
-            </form> <br /><br />
+            </form>
 
             <button onClick={this.displayHideFilterEngine}>Drop Up</button>
 

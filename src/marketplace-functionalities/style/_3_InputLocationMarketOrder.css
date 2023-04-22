@@ -34,7 +34,7 @@ div#google-maps > div#autocomplete-block > input {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-image: url('/public/img/SVG/add-article/step3/pin.svg');
+  background-image: url('/public/img/SVG/market/add-article/step3/pin.svg');
   background-position: left 10px center;
   background-repeat: no-repeat;
 }
