@@ -3,6 +3,12 @@ div#google-maps {
   margin: 0 auto;
 }
 
+
+div#google-maps > div#autocomplete-block {
+  width: 100%;
+  margin: 0 auto;
+}
+
 div#google-maps > div#autocomplete-block > label {
   display: block;
   font-family: 'Poppins', sans-serif;
@@ -21,6 +27,8 @@ div#google-maps > div#autocomplete-block > input {
   line-height: 2rem;
   width: 100%;
   margin: 0.5vh 0;
+  padding-left: 30px;
+  box-sizing: border-box;
 
 
   -webkit-appearance: none;

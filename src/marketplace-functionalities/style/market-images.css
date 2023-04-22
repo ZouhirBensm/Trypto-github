@@ -1,22 +1,24 @@
-.fill {
+div.fill {
   cursor: pointer;
 }
 
-.img {
-  height: 100px;
-  width: 100px;
-  vertical-align: bottom;
+img.img {
+  max-width: 80%;
+  height: auto;
+  margin: 0 auto;
+  display: block;
 }
 
 /* .reduce-button {
   display: block;
 } */
 
-.empty {
+div.empty {
   background-color: white;
-  height: 150px;
-  width: 150px;
-  margin: 5px 0;
+  /* height: 150px;
+  width: 150px; */
+  margin: 3vh 0;
+  position: relative;
 }
 
 button {

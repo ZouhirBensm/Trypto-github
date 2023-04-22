@@ -136,7 +136,9 @@ class MarketSubmissionButton extends React.Component {
 
     switch (response.status) {
       case 200:
-        this.props.setpopup(json.server?.message)
+        // this.props.setpopup(json.server?.message)
+        // this.props.setStateStep(1, json.server?.message)
+        window.location.href = `/marketplace/sellordersdata?popup=${json.server?.message}`
         break;
       case 500:
         this.props.setpopup(json.error?.message?.client_message)

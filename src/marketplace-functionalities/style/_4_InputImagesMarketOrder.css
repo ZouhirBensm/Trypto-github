@@ -1,3 +1,43 @@
 input[name="hny_spm"] {
   display: none;
 }
+
+
+div#images-container {
+  width: 90%;
+
+  border: 1px solid #B8CEF5;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  margin: 0.5vh auto;
+
+  box-sizing: border-box;
+}
+
+
+div.make-container form#form_id > input#image-select {
+  /* Your styles here */
+  display: none;
+}
+
+div#images-container > label#upload-button {
+  /* Your styles here */
+  width: fit-content;
+  border: 1px solid #010757;
+  border-radius: 20px;
+  letter-spacing: 1.4px;
+  color: #010757;
+  text-transform: capitalize;
+
+  padding: 0.8rem;
+  margin: 2vh auto;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: var(--font-size-button);
+  display: block;
+}
+
+
+
+

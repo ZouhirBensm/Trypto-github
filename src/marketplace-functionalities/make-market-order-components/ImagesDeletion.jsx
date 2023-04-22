@@ -1,3 +1,6 @@
+import '../style/ImagesDeletion.css'
+
+
 class ImagesDeletion extends React.Component {
   constructor(props) {
     super(props)
@@ -42,18 +45,23 @@ class ImagesDeletion extends React.Component {
 
   render() {
     return (
-      <div id={`${this.props.file.name}-e`} className='empty'>
-        <div id={`${this.props.file.name}f`} className='fill'>
+      <React.Fragment>
+        <div id={`${this.props.file.name}-e`} className='empty'>
+          <div id={`${this.props.file.name}f`} className='fill'>
 
-          <div id={`inhere-${this.props.file.name}`}>{this.props.file.name}</div>
+            <div id={`inhere-${this.props.file.name}`}>
+              {this.props.file.name}
+            </div>
+            <button className='reduce-button' onClick={(e) => {
+              e.preventDefault()
+              let reduceimage = this.props.reduceimage(this.props.file.name, e)
+              return
+            }}></button>
 
-          <button className='reduce-button' onClick={(e) => {
-            e.preventDefault()
-            let reduceimage = this.props.reduceimage(this.props.file.name, e)
-            return
-          }}>Del {this.props.file.name}</button>
+
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     )
   }
 }

@@ -162,11 +162,15 @@ class _4_InputImagesMarketOrder extends React.Component {
             filelist={filelist}
             reduceimage={this.reduceimage}
           />
+          <label id='upload-button' htmlFor="image-select">Upload</label>
         </div>
 
         <div className="make-container">
           <form className="form" id="form_id">
-            <label htmlFor="image-select">Upload Images</label>
+            
+            {/* <label htmlFor="image-select">Upload Images</label> */}
+            
+
             <input type="file" name="image" id="image-select" multiple onChange={(e) => {
               e.preventDefault()
               let ret_addimages = this.addimages(e)
@@ -177,6 +181,7 @@ class _4_InputImagesMarketOrder extends React.Component {
 
 
             <MarketSubmissionButton
+              setStateStep={this.props.setStateStep}
               setpopup={this.props.setpopup}
               formData={this.props.formData}
             />

@@ -135,7 +135,8 @@ async function updateOrder23Controller(req, res, next) {
 
 function registerMarketOrderController(req, res) {
 
-  let success_message = "Done, success."
+  let success_message = `Congrats. Your item titled: ${res.locals.ret_sellmarketorder_save.title}, has been posted.`
+  
   res.status(200).json({
     server: {
       message: success_message

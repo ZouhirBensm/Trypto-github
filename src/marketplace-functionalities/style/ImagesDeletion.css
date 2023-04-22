@@ -1,0 +1,18 @@
+div.empty > div.fill > button.reduce-button {
+  position: absolute;
+  bottom: 4%;
+  right: 12%;
+
+
+  background-image: url('/public/img/SVG/add-article/step4/cross.svg');
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: rotate(45deg);
+
+  border: none;
+  background-color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}

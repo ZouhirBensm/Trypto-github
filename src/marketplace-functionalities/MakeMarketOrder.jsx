@@ -83,10 +83,10 @@ class MakeMarketOrder extends React.Component {
     })
   }
 
-  setStateStep(step) {
+  setStateStep(step, popup = null) {
     this.setState({
       step: step,
-      popup_state: null
+      popup_state: popup
     })
   }
 
