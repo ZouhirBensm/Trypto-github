@@ -9,6 +9,11 @@ class LocalityFilter extends React.Component {
     this.setProvinceOrState = this.setProvinceOrState.bind(this)
   }
 
+  shouldComponentUpdate(prevProps){
+    if(prevProps.countryTerm != this.props.countryTerm || prevProps.stateProvinceTerm != this.props.stateProvinceTerm || prevProps.cityTerm != this.props.cityTerm) {return true}
+    else {return false}
+  }
+
 
   setProvinceOrState() {
     let options

@@ -57,7 +57,7 @@ class OrderRow extends React.Component {
   render() {
     let order = this.props.order;
 
-    console.log('Re-render', order.title)
+    // console.log('Re-render', order.title)
 
     const date = new Date(order.postedDate);
     const options = { day: 'numeric', month: 'long', year: 'numeric' };

@@ -146,6 +146,33 @@ div#market > div.search-inputs > form#my_form > div#relative-frame > input {
   width: 100%;
 }
 
+div#market > div.search-inputs > form#my_form > div#relative-frame > input#max-price-input {
+  top: 100px;
+}
+
+
+/* DISABLE RANGE INPUT CLICKS, AND ALSO ONLY LET THE HANDLE CLICKABLE */
+div#market > div.search-inputs > form#my_form > div#relative-frame > input {
+  pointer-events: none;
+}
+
+div#market > div.search-inputs > form#my_form > div#relative-frame > input::-webkit-slider-thumb {
+  pointer-events: auto;
+}
+
+div#market > div.search-inputs > form#my_form > div#relative-frame > input::-moz-range-thumb {
+  pointer-events: auto;
+}
+
+div#market > div.search-inputs > form#my_form > div#relative-frame > input::-ms-thumb {
+  pointer-events: auto;
+}
+
+
+
+
 div#market > div.search-inputs > form#my_form > div#relative-frame > span {
   position: absolute;
 }
+
+

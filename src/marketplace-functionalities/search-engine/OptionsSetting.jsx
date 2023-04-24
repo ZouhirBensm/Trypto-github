@@ -57,7 +57,7 @@ class OptionsSetting extends React.Component {
 
 
   render() {
-    console.log("RERENDER")
+    // console.log("RERENDER")
     // let options = this.placeCities(this.state.ARR_cities)
     return (
       <React.Fragment>

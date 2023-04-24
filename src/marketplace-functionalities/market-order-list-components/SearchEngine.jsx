@@ -86,9 +86,13 @@ class SearchEngine extends React.Component {
         setTimeout(() => {
           filterSubmitButton.disabled = false
         }, fake_delay)
+
       }
     })
   }
+
+
+
 
   render() {
     return (
@@ -120,7 +124,7 @@ class SearchEngine extends React.Component {
               <h2>Filters</h2>
 
               {/* <label htmlFor="title-select">Title</label> */}
-              <input type="text" id="title-select" name="title" defaultValue={this.props.searchEngineState.titleTerm} placeholder='Search'/>
+              <input type="text" id="title-select" name="title" defaultValue={this.props.searchEngineState.titleTerm} placeholder='Search' />
 
 
               {/* <label htmlFor="category-select">Category</label> */}
@@ -169,10 +173,18 @@ class SearchEngine extends React.Component {
                 <input id="min-price-input" name="min-price" defaultValue={this.props.searchEngineState.minPriceTerm} type="range" min={`${rangeMin}`} max={`${rangeMax}`} step={`${rangeStep}`} onChange={this.rangeLimits} />
 
                 <input id="max-price-input" name="max-price" defaultValue={this.props.searchEngineState.maxPriceTerm} type="range" min={`${rangeMin}`} max={`${rangeMax}`} step={`${rangeStep}`} onChange={this.rangeLimits} />
-                
+
                 {/* <span>{this.props.maxPriceTerm}</span> */}
 
               </div>
+
+              <br />
+              <span>{this.props.minPriceTerm}</span>
+              <br />
+              <span>{this.props.maxPriceTerm}</span>
+              <br />
+
+
 
 
 
@@ -192,7 +204,8 @@ class SearchEngine extends React.Component {
 
 
 
-              <br/><br/><br/><br/><br/><br/>
+              <br /><br /><br /><br /><br /><br />
+
 
 
               <LocalityFilter
@@ -201,7 +214,8 @@ class SearchEngine extends React.Component {
                 cityTerm={this.props.searchEngineState.cityTerm}
               />
 
-              { this.state.popup ? <span>{this.state.popup}</span> : null }
+              {this.state.popup ? <span>{this.state.popup}</span> : null}
+
 
 
               <button id="filter-submit">Submit</button>
