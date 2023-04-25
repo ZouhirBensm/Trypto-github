@@ -14,20 +14,14 @@ class SearchEngine extends React.Component {
     super(props);
     this.state = {
       on_off: false,
-      popup: undefined
     }
     this.displayHideFilterEngine = this.displayHideFilterEngine.bind(this);
     // this.rangeLimits = this.rangeLimits.bind(this);
-    this.setPopup = this.setPopup.bind(this);
 
     // console.log("order_type=", this.props.order_type)
   }
 
-  setPopup(popup) {
-    this.setState({
-      popup: popup
-    })
-  }
+
 
 
   validation() {
@@ -111,7 +105,6 @@ class SearchEngine extends React.Component {
 
           <SearchWindow
             validation={this.validation}
-            setPopup={this.setPopup}
             submitFilter={this.props.submitFilter}
             displayHideFilterEngine={this.displayHideFilterEngine}
             searchEngineOnChange={this.props.searchEngineOnChange}

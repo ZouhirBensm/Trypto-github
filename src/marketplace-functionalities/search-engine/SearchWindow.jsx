@@ -11,13 +11,35 @@ const range = rangeMax - rangeMin
 const width = '90%'
 
 
+// let container = document.getElementsByClassName("make-container")[0]
+// container.scrollTo(0, container.scrollHeight);
+
+
+// document.getElementById("react-div").scrollTo(0, 0);
+// window.scrollTo(0, 0);
+
+// const reactDiv = document.getElementById("react-div")
+// reactDiv.scrollTo(0, reactDiv.scrollHeight);
+
+// const reactDiv = document.getElementById("react-div")
+// reactDiv.scrollTo(0, reactDiv.scrollHeight);
+
 class SearchWindow extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      popup: undefined
+    }
 
     this.onChangeCallerMin = this.onChangeCallerMin.bind(this);
     this.onChangeCallerMax = this.onChangeCallerMax.bind(this);
+    this.setPopup = this.setPopup.bind(this);
+  }
+
+  setPopup(popup) {
+    this.setState({
+      popup: popup
+    })
   }
 
   componentDidMount() {
@@ -146,13 +168,17 @@ class SearchWindow extends React.Component {
       <React.Fragment>
         <div className='search-inputs'>
 
+          
+
           <form id="my_form" className='search-component' onSubmit={(e) => {
             e.preventDefault(e)
 
             let retrieved = this.props.validation()
 
             if (retrieved) {
-              this.props.setPopup(retrieved)
+              this.setPopup(retrieved)
+              const searchInputs = document.getElementsByClassName('search-inputs')[0]
+              searchInputs.scrollTo(0, 0);
               return
             }
 
@@ -164,6 +190,8 @@ class SearchWindow extends React.Component {
 
 
             <h2>Filters</h2>
+
+            {this.state.popup ? <span id="popup">{this.state.popup}</span> : null}
 
 
             <input type="text" id="title-select" name="title" defaultValue={this.props.searchEngineState.titleTerm} placeholder='Search' />
@@ -263,7 +291,7 @@ class SearchWindow extends React.Component {
               cityTerm={this.props.searchEngineState.cityTerm}
             />
 
-            {this.state.popup ? <span>{this.state.popup}</span> : null}
+            
 
             {/* <button id="filter-submit">Submit</button> */}
 
