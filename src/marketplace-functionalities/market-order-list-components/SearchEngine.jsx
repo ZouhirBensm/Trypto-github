@@ -1,6 +1,6 @@
 import './style/SearchEngine.css'
 
-import LocalityFilter from '../search-engine/LocalityFilter'
+import SearchWindow from '../search-engine/SearchWindow'
 
 import { validateInputsAgainstInjection } from '../../../full-stack-libs/validations'
 
@@ -17,9 +17,16 @@ class SearchEngine extends React.Component {
       popup: undefined
     }
     this.displayHideFilterEngine = this.displayHideFilterEngine.bind(this);
-    this.rangeLimits = this.rangeLimits.bind(this);
+    // this.rangeLimits = this.rangeLimits.bind(this);
+    this.setPopup = this.setPopup.bind(this);
 
     // console.log("order_type=", this.props.order_type)
+  }
+
+  setPopup(popup) {
+    this.setState({
+      popup: popup
+    })
   }
 
 
@@ -46,28 +53,29 @@ class SearchEngine extends React.Component {
 
 
 
-  rangeLimits(e) {
-    // if (e.target.value < 2000) e.target.value = 2000
-
-    const liveValue = parseInt(e.target.value)
-
-    const minPriceTerm_value = parseInt(document.getElementById("my_form").elements["min-price"].value)
-    const maxPriceTerm_value = parseInt(document.getElementById("my_form").elements["max-price"].value)
 
 
-    if (e.target.name == "min-price") {
-      if (liveValue > maxPriceTerm_value) {
-        e.target.value = maxPriceTerm_value
-      }
-    }
+  // rangeLimits(e) {
+  //   // if (e.target.value < 2000) e.target.value = 2000
+  //   const liveValue = parseInt(e.target.value)
 
-    if (e.target.name == "max-price") {
-      if (liveValue < minPriceTerm_value) {
-        e.target.value = minPriceTerm_value
-      }
-    }
+  //   const minPriceTerm_value = parseInt(document.getElementById("my_form").elements["min-price"].value)
+  //   const maxPriceTerm_value = parseInt(document.getElementById("my_form").elements["max-price"].value)
 
-  }
+
+  //   if (e.target.name == "min-price") {
+  //     if (liveValue > maxPriceTerm_value) {
+  //       e.target.value = maxPriceTerm_value
+  //     }
+  //   }
+
+  //   if (e.target.name == "max-price") {
+  //     if (liveValue < minPriceTerm_value) {
+  //       e.target.value = minPriceTerm_value
+  //     }
+  //   }
+
+  // }
 
 
   displayHideFilterEngine(e = undefined) {
@@ -101,134 +109,19 @@ class SearchEngine extends React.Component {
         {!this.state.on_off ?
           <button id='drop-down' onClick={this.displayHideFilterEngine}>Filter</button> :
 
-          <React.Fragment>
-
-            {/* <SearchWindow/> */}
-            <div className='search-inputs'>
-
-              <form id="my_form" className='search-component' onSubmit={(e) => {
-                e.preventDefault(e)
-
-                let retrieved = this.validation()
-
-                if (retrieved) {
-                  this.setState({
-                    popup: retrieved
-                  })
-                  return
-                }
-                this.props.submitFilter(e);
-                this.displayHideFilterEngine(e);
-
-              }} onChange={this.props.searchEngineOnChange}>
+          <SearchWindow
+            validation={this.validation}
+            setPopup={this.setPopup}
+            submitFilter={this.props.submitFilter}
+            displayHideFilterEngine={this.displayHideFilterEngine}
+            searchEngineOnChange={this.props.searchEngineOnChange}
+            searchEngineState={this.props.searchEngineState}
+            resetPriceFilter={this.props.resetPriceFilter}
+            minPriceTerm={this.props.minPriceTerm}
+            maxPriceTerm={this.props.maxPriceTerm}
+          />
 
 
-
-                <h2>Filters</h2>
-
-                {/* <label htmlFor="title-select">Title</label> */}
-                <input type="text" id="title-select" name="title" defaultValue={this.props.searchEngineState.titleTerm} placeholder='Search' />
-
-
-                {/* <label htmlFor="category-select">Category</label> */}
-                <select className='picker' name="category" id="category-select" defaultValue={this.props.searchEngineState.categoryTerm}>
-                  <option value="">Category</option>
-                  <option value="Other">Other</option>
-                  <option value="Kitchen">Kitchen</option>
-                  <option value="Clothes">Clothes</option>
-                  <option value="Electronics">Electronics</option>
-                  <option value="Automobile">Automobile</option>
-                  <option value="Camping">Camping</option>
-                  <option value="Furniture">Furniture</option>
-                </select>
-
-
-
-                {/* <label htmlFor="condition-select">Condition</label> */}
-                <select className='picker' name="condition" id="condition-select" defaultValue={this.props.searchEngineState.conditionTerm}>
-                  <option value="">Condition</option>
-                  <option value={1}>Brand new</option>
-                  <option value={2}>Just opened</option>
-                  <option value={3}>In good condition</option>
-                  <option value={4}>Used</option>
-                </select>
-
-
-
-                {/* <label htmlFor="chain-select">BTC Type/Chain</label> */}
-                <select className='picker' name="chain" id="chain-select" defaultValue={this.props.searchEngineState.chainTerm}>
-                  <option value="">BTC Type/Chain</option>
-                  <option value="Bitcoin Base Chain">Bitcoin Base Chain</option>
-                  <option value="Bitcoin Lightning">Bitcoin Lightning</option>
-                  <option value="Bitcoin Liquid">Bitcoin Liquid</option>
-                </select>
-
-
-
-                <label htmlFor="min-price-input">Price Range ($)</label>
-
-
-
-                <div id='relative-frame'>
-
-                  {/* <span>{this.props.minPriceTerm}</span> */}
-
-                  <input id="min-price-input" name="min-price" defaultValue={this.props.searchEngineState.minPriceTerm} type="range" min={`${rangeMin}`} max={`${rangeMax}`} step={`${rangeStep}`} onChange={this.rangeLimits} />
-
-                  <input id="max-price-input" name="max-price" defaultValue={this.props.searchEngineState.maxPriceTerm} type="range" min={`${rangeMin}`} max={`${rangeMax}`} step={`${rangeStep}`} onChange={this.rangeLimits} />
-
-                  {/* <span>{this.props.maxPriceTerm}</span> */}
-
-                </div>
-
-                <br />
-                <span>{this.props.minPriceTerm}</span>
-                <br />
-                <span>{this.props.maxPriceTerm}</span>
-                <br />
-
-
-
-
-
-                <button id='reset-price' onClick={(e) => {
-                  e.preventDefault()
-                  const range1 = document.getElementById("my_form").elements["min-price"]
-                  const range2 = document.getElementById("my_form").elements["max-price"]
-                  const range_reset_value = parseInt(range1.min) + ((parseInt(range1.max) - parseInt(range1.min)) / 2)
-
-                  range1.value = range_reset_value
-                  range2.value = range_reset_value
-
-                  this.props.resetPriceFilter()
-                }}>
-                  <img src="/img/SVG/market/filter/reset.svg" alt="" />
-                </button>
-
-
-
-                <br /><br /><br /><br /><br /><br />
-
-
-
-                <LocalityFilter
-                  countryTerm={this.props.searchEngineState.countryTerm}
-                  stateProvinceTerm={this.props.searchEngineState.stateProvinceTerm}
-                  cityTerm={this.props.searchEngineState.cityTerm}
-                />
-
-                {this.state.popup ? <span>{this.state.popup}</span> : null}
-
-
-
-                <button id="filter-submit">Submit</button>
-
-              </form>
-
-              <button onClick={this.displayHideFilterEngine}>Drop Up</button>
-
-            </div>
-          </React.Fragment>
         }
       </React.Fragment>
     );

@@ -1,0 +1,18 @@
+div#container {
+  height: 200px;
+  position: relative;
+}
+
+div#container > input {
+  width: 90%;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+div#container > span {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}

@@ -125,6 +125,14 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
+homeOrdersBackend_app_router.get('/todelete', (req,res)=>{
+  var JSX_to_load = 'ToDelete';
+
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
+    JSX_to_load: JSX_to_load,
+  })
+})
+
 
 
 

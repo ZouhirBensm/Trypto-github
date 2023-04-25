@@ -1,0 +1,203 @@
+
+
+/* WHOLE */
+div#market>div.search-inputs {
+  background-color: #FFFFFF;
+  position: absolute;
+  top: 1.3em;
+  bottom: 12vh;
+  z-index: 2;
+  width: 100%;
+  overflow: scroll;
+
+  box-shadow: 0px 6px 20px #00000029;
+  border-radius: 0px 0px 21px 21px;
+}
+
+
+/* FORM */
+div#market>div.search-inputs>form#my_form {
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+
+
+/* H2 */
+div#market>div.search-inputs>form#my_form>h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-h2);
+  margin: 5vh auto;
+  color: #1266FC;
+  display: block;
+  width: fit-content;
+}
+
+
+/* SEARCH TEXT INPUT */
+div#market>div.search-inputs>form#my_form>input#title-select {
+  border: 1px solid #B8CEF5;
+  border-radius: 21px;
+  color: rgba(0, 0, 0, 0.766);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  line-height: 2rem;
+  width: 100%;
+  margin: 0.5vh 0;
+  text-indent: 40px;
+  font-size: var(--font-size-smaller-input);
+
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('/public/img/SVG/market/filter/chercher.svg');
+  background-position: left 10px center;
+  background-repeat: no-repeat;
+}
+
+
+div#market>div.search-inputs>form#my_form>input#title-select::placeholder {
+  text-align: center;
+  color: #B8CEF5;
+  font-size: var(--font-size-smaller-input);
+}
+
+
+
+
+/* PICKER CLASS */
+div#market>div.search-inputs>form#my_form>select.picker {
+  border-radius: 21px;
+  color: #010757;
+  text-transform: capitalize;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  height: 2rem;
+  padding: 0 10px;
+  margin: 0.5rem 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('/public/img/SVG/market/filter/drop.svg');
+  background-position: right 20px center;
+  background-repeat: no-repeat;
+  border: 1px solid #010757;
+
+  font-size: var(--font-size-smaller-input);
+}
+
+
+/* RESET BUTTON */
+div#market>div.search-inputs>form#my_form>button#reset-price {
+  all: unset;
+  display: block;
+}
+
+
+/* LABEL */
+div#market>div.search-inputs>form#my_form>label {
+  letter-spacing: 1.2px;
+  color: #010757;
+  text-transform: capitalize;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: var(--font-size-label);
+  display: block;
+}
+
+
+
+div#market>div.search-inputs>form#my_form>div#relative-frame {
+  position: relative;
+  /* height: 2rem; */
+  height: 200px;
+}
+
+div#market>div.search-inputs>form#my_form>div#relative-frame>input {
+  -webkit-appearance: none;
+  height: 6px;
+  background-color: #B8CEF5;
+  border-radius: 6px;
+  top: 50px;
+
+  width: 90%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+
+/* MIN INPUT RANGE */
+div#market>div.search-inputs>form#my_form>div#relative-frame>input#min-price-input {
+  /* z-index: 2; */
+  
+}
+
+div#market>div.search-inputs>form#my_form>div#relative-frame>input#min-price-input::-webkit-slider-thumb {
+  /* z-index: 10; */
+}
+
+
+
+/* MAX INPUT RANGE */
+div#market>div.search-inputs>form#my_form>div#relative-frame>input#max-price-input {
+  /* top: 100px; */
+  /* background-color: #6a6a6a; */
+  background-color: transparent !important;
+}
+
+
+/* DISABLE RANGE INPUT CLICKS, AND ALSO ONLY LET THE HANDLE CLICKABLE */
+div#market>div.search-inputs>form#my_form>div#relative-frame>input {
+  pointer-events: none;
+}
+
+div#market>div.search-inputs>form#my_form>div#relative-frame>input::-webkit-slider-thumb {
+  pointer-events: auto;
+}
+
+div#market>div.search-inputs>form#my_form>div#relative-frame>input::-moz-range-thumb {
+  pointer-events: auto;
+}
+
+div#market>div.search-inputs>form#my_form>div#relative-frame>input::-ms-thumb {
+  pointer-events: auto;
+}
+
+
+
+
+div#market>div.search-inputs>form#my_form>div#relative-frame>span {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+
+
+
+
+
+
+
+/* HANDLES */
+input[type=range]::-webkit-slider-thumb,
+input[type=range]::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  background-color: #1266FC;
+  border-radius: 50%;
+  border: none;
+}
+
+
+
+
+
+
+
+
