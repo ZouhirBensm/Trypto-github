@@ -11,9 +11,9 @@ class CitySelector extends React.Component {
     // console.log("--->>>>", this.props.cityTerm)
     return (
       <React.Fragment>
-        <label htmlFor="city-select">City</label>
-        <select className="location-class" name="city" id="city-select">
-          <option value="">N/A</option>
+        {/* <label htmlFor="city-select">City</label> */}
+        <select className="location-class picker" name="city" id="city-select">
+          <option value="">City</option>
           <OptionsSetting
             stateProvinceTerm={this.props.stateProvinceTerm}
             cityTerm={this.props.cityTerm}

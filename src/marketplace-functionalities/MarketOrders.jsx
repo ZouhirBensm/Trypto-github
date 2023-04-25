@@ -239,6 +239,7 @@ class MarketOrders extends React.Component {
     }
 
 
+    console.log("minPriceTerm_value", minPriceTerm_value)
 
 
     this.setState({

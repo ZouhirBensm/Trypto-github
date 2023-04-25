@@ -50,9 +50,8 @@ class LocalityFilter extends React.Component {
 
     return (
       <React.Fragment>
-        <label htmlFor="country-select">Country</label>
-        <select name="country" id="country-select" defaultValue={this.props.countryTerm}>
-          <option value="">No Selection</option>
+        <select className='picker' name="country" id="country-select" defaultValue={this.props.countryTerm}>
+          <option value="">Country</option>
           <option value="Canada">Canada</option>
           <option value="United States">United States</option>
         </select> <br />

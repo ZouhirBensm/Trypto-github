@@ -10,9 +10,9 @@ class StateProvinceSelector extends React.Component {
 
     return (
       <React.Fragment>
-        <label htmlFor="state-province-select">State/Province</label>
-        <select className="location-class" name="state-province" id="state-province-select" defaultValue={this.props.stateProvinceTerm}>
-          <option value="">N/A</option>
+        {/* <label htmlFor="state-province-select">State/Province</label> */}
+        <select className="location-class picker" name="state-province" id="state-province-select" defaultValue={this.props.stateProvinceTerm}>
+          <option value="">State/Province</option>
           {this.props.options}
         </select> <br />
 

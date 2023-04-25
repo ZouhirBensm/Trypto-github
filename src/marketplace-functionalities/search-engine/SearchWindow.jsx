@@ -23,6 +23,46 @@ class SearchWindow extends React.Component {
   componentDidMount() {
     console.log("SearchWindow just mounted! 🔺")
     // const minPriceInput = document.getElementById("min-price-input");
+
+    const minPriceTerm_value = parseInt(document.getElementById("my_form").elements["min-price"].value)
+    const maxPriceTerm_value = parseInt(document.getElementById("my_form").elements["max-price"].value)
+
+    let percentageMin = minPriceTerm_value * 100 / range
+    percentageMin = Math.round(percentageMin)
+
+
+    let percentageMax = maxPriceTerm_value * 100 / range
+    percentageMax = Math.round(percentageMax)
+
+
+    const containerSpanMin = {
+      width: width,
+    };
+
+    const spanStyleMin = {
+      left: `${percentageMin}%`,
+    };
+
+    const inputStyleMin = {
+      width: width,
+    };
+
+    const containerSpanMax = {
+      width: width,
+    };
+
+    const spanStyleMax = {
+      left: `${percentageMax}%`,
+    };
+
+    const inputStyleMax = {
+      width: width,
+    };
+
+
+  this.setState({ containerSpanMin, spanStyleMin, inputStyleMin, containerSpanMax, spanStyleMax, inputStyleMax });
+    
+
   }
 
 
@@ -48,17 +88,14 @@ class SearchWindow extends React.Component {
 
     const containerSpanMin = {
       width: width,
-      display: 'block'
     };
 
     const spanStyleMin = {
       left: `${percentage}%`,
-      position: 'absolute',
     };
 
     const inputStyleMin = {
       width: width,
-      position: 'absolute',
     };
 
     
@@ -84,17 +121,14 @@ class SearchWindow extends React.Component {
 
     const containerSpanMax = {
       width: width,
-      display: 'block'
     };
 
     const spanStyleMax = {
       left: `${percentage}%`,
-      position: 'absolute',
     };
 
     const inputStyleMax = {
       width: width,
-      position: 'absolute',
     };
     
     this.setState({ containerSpanMax, spanStyleMax, inputStyleMax });
@@ -172,42 +206,27 @@ class SearchWindow extends React.Component {
 
             <label htmlFor="min-price-input">Price Range ($)</label>
 
-
-
-            <div id='relative-frame'>
-
-              <span style={{...containerSpanMin, width: width}}>
-                <span style={spanStyleMin} id="min-price-value">{this.props.minPriceTerm}</span>
-              </span>
-
-              <input style={inputStyleMin} id="min-price-input" name="min-price" defaultValue={this.props.searchEngineState.minPriceTerm} type="range" min={`${rangeMin}`} max={`${rangeMax}`} step={`${rangeStep}`} onChange={this.onChangeCallerMin} />
-
-              <input style={inputStyleMax} id="max-price-input" name="max-price" defaultValue={this.props.searchEngineState.maxPriceTerm} type="range" min={`${rangeMin}`} max={`${rangeMax}`} step={`${rangeStep}`} onChange={this.onChangeCallerMax} />
-
-              <span style={{...containerSpanMax, width: width}}>
-                <span style={spanStyleMax} id="max-price-value">{this.props.maxPriceTerm}</span>
-              </span>
-
-            </div>
-
-            <br />
-            <span>{this.props.minPriceTerm}</span>
-            <br />
-            <span>{this.props.maxPriceTerm}</span>
-            <br />
-
-
-
-
-
             <button id='reset-price' onClick={(e) => {
               e.preventDefault()
               const range1 = document.getElementById("my_form").elements["min-price"]
               const range2 = document.getElementById("my_form").elements["max-price"]
               const range_reset_value = parseInt(range1.min) + ((parseInt(range1.max) - parseInt(range1.min)) / 2)
 
+              console.log(range_reset_value)
+
               range1.value = range_reset_value
               range2.value = range_reset_value
+
+              const containerSpanMax = { width: width };
+              const spanStyleMax = { left: `50%`};
+              const inputStyleMax = { width: width };
+
+              const containerSpanMin = { width: width };
+              const spanStyleMin = { left: `50%`};
+              const inputStyleMin = { width: width };
+              
+              this.setState({ containerSpanMax, spanStyleMax, inputStyleMax, containerSpanMin, spanStyleMin, inputStyleMin });
+
 
               this.props.resetPriceFilter()
             }}>
@@ -216,9 +235,27 @@ class SearchWindow extends React.Component {
 
 
 
-            <br /><br /><br /><br /><br /><br />
 
 
+            <div id='relative-frame'>
+
+              <span style={{...containerSpanMin, width: width}}>
+                <span style={spanStyleMin} id="min-price-value">{this.props.minPriceTerm ? `${this.props.minPriceTerm}$` : 'N/A'}</span>
+              </span>
+
+              <input style={inputStyleMin} id="min-price-input" name="min-price" defaultValue={this.props.searchEngineState.minPriceTerm} type="range" min={`${rangeMin}`} max={`${rangeMax}`} step={`${rangeStep}`} onChange={this.onChangeCallerMin} />
+
+              <input style={inputStyleMax} id="max-price-input" name="max-price" defaultValue={this.props.searchEngineState.maxPriceTerm} type="range" min={`${rangeMin}`} max={`${rangeMax}`} step={`${rangeStep}`} onChange={this.onChangeCallerMax} />
+
+              <span style={{...containerSpanMax, width: width}}>
+                <span style={spanStyleMax} id="max-price-value">{ this.props.maxPriceTerm? `${this.props.maxPriceTerm}$` : 'N/A'}</span>
+              </span>
+
+            </div>
+
+
+
+            <label>Location</label>
 
             <LocalityFilter
               countryTerm={this.props.searchEngineState.countryTerm}
@@ -228,13 +265,16 @@ class SearchWindow extends React.Component {
 
             {this.state.popup ? <span>{this.state.popup}</span> : null}
 
-
-
-            <button id="filter-submit">Submit</button>
+            {/* <button id="filter-submit">Submit</button> */}
 
           </form>
 
-          <button onClick={this.props.displayHideFilterEngine}>Drop Up</button>
+
+          <div id="bottom-filter-buttons">
+            <input type="submit" form="my_form" id="filter-submit" value="Submit"/>
+            <button onClick={this.props.displayHideFilterEngine}>Hide Filter</button>
+          </div>
+          
 
         </div>
       </React.Fragment>
