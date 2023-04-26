@@ -9,13 +9,18 @@ class ImageElement extends React.Component {
 
   render(){
 
-    const isMarketOrderFromSeed = /^\*\s/.test(this.props.orderTitle) 
-    const image_path = isMarketOrderFromSeed ? `../../img/marketorder-images/seed-images/${this.props.image_name}` : `../../img/marketorder-images/${this.props.orderID}/${this.props.image_name}`
+    let path
+    
+    if (/^\*\s/.test(this.props.orderTitle)) {
+      path = 'seed-images'
+    } else {
+      path = this.props.orderID
+    }
 
 
     return (
       <React.Fragment>
-        <img className="image-element" src={image_path} alt="test" />
+        <img className="image-element" src={`/img/marketorder-images/${path}/${this.props.image_name}`} alt="test" />
       </React.Fragment>
     )
   }
