@@ -1,0 +1,33 @@
+button.image-nav {
+  position: absolute;
+  z-index: 2;
+
+
+  border: none;
+  background-color: transparent;
+  padding: 0;
+
+  border-radius: 50%;
+
+
+  width: 32px;
+  height: 32px;
+
+
+  background-position: center;
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+
+
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+button#previous {
+  background-image: url('/public/img/SVG/market/individual-article/nav-previous.svg');
+}
+
+button#next {
+  background-image: url('/public/img/SVG/market/individual-article/nav-next.svg');
+}
+

@@ -33,26 +33,57 @@ class ImagesScrollDisplay extends React.Component {
 
     const imageScroll = document.getElementById("image-scroll")
 
-    const imagess = document.getElementsByClassName("image-element")
-    // console.log("--->>", imagess[this.state.scroll_number-1])
-    const image_to_display = imagess[this.state.scroll_number - 1]
+    const divImages = document.getElementsByClassName("image-element")
+    // console.log("--->>", divImages[this.state.scroll_number-1])
+    const image_to_display = divImages[this.state.scroll_number - 1]
 
-    for (let i = 0; i < imagess.length; i++) {
-      const image = imagess[i];
+    let buttonPrevious = document.querySelector('button#previous')
+    let buttonNext = document.querySelector('button#next')
+
+    for (let i = 0; i < divImages.length; i++) {
+      const divImage = divImages[i];
+      let image = divImage.firstChild
+
       if (i == this.state.scroll_number - 1) {
-        // set particular style
+
+        divImage.appendChild(buttonPrevious)
+        divImage.appendChild(buttonNext)
+
+        
         image.style.width = "100%"
-        image.style.height = "100px"
-        image.style.order = "-1"
+        image.style.height = "auto"
+
+
+        divImage.style.position = "relative"
+        divImage.style.order = "-1"
+        divImage.style.width = "100%"
+        divImage.style.overflow = 'unset'
+
+
+
+        buttonPrevious.style.top = '50%'
+        buttonNext.style.top = '50%'
+
+        buttonPrevious.style.left = 0
+        buttonNext.style.right = 0
+
         continue
       }
       
-      image.style.width = "100px"
+      // Leave comment
+      // image.style.backgroundSize = "cover"
+      
+      // image.style.width = "100px"
       image.style.height = "100px"
-      image.style.order = `${i}`
-      // set default styles
+      
+      divImage.style.position = "unset"
+      divImage.style.order = `${i}`
+      divImage.style.width = "100px"
+      divImage.style.overflow = 'hidden'
+
+
+
     }
-    // JS to display the correct image in the window
 
   }
 

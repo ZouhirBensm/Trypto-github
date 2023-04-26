@@ -10,7 +10,7 @@ class ImageElement extends React.Component {
   render(){
 
     let path
-    
+
     if (/^\*\s/.test(this.props.orderTitle)) {
       path = 'seed-images'
     } else {
@@ -20,7 +20,9 @@ class ImageElement extends React.Component {
 
     return (
       <React.Fragment>
-        <img className="image-element" src={`/img/marketorder-images/${path}/${this.props.image_name}`} alt="test" />
+        <div className="image-element">
+          <img src={`/img/marketorder-images/${path}/${this.props.image_name}`} alt="test"></img>
+        </div>
       </React.Fragment>
     )
   }

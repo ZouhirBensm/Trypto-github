@@ -3,7 +3,7 @@
 } */
 
 div#image-scroll {
-  height: 30vh;
+  /* height: 30vh; */
   border: 2px solid rgb(185, 121, 0);
 
   display: flex;
@@ -11,4 +11,7 @@ div#image-scroll {
   justify-content: flex-start;
   align-items: center;
 }
+
+
+
 
