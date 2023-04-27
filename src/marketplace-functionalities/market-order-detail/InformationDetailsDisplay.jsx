@@ -59,6 +59,7 @@ class InformationDetailsDisplay extends React.Component {
       <React.Fragment>
         <div id='order-information-wrapper'>
 
+        <div id="market-order-part1">
           {this.state.section_to_edit == "BaseOrderInformation" && isSuperUser ?
             <EditBaseOrderInformation
               orderID={this.props.order_information?._id}
@@ -86,85 +87,91 @@ class InformationDetailsDisplay extends React.Component {
               isSuperUser={isSuperUser}
             />
           }
-          <br />
-
-
-          {this.state.section_to_edit == "OrderNumbersInformation" && isSuperUser ?
-            <EditOrderNumbersInformation
-              orderID={this.props.order_information?._id}
-              conversion={this.props.order_information?.conversion}
-              price={this.props.order_information?.price}
-              handleToogleEdit={this.handleToogleEdit}
-              loadData={this.props.loadData}
-            />
-            :
-            <OrderNumbersInformation
-              conversion={this.props.order_information?.conversion}
-              price={this.props.order_information?.price}
-              handleToogleEdit={this.handleToogleEdit}
-              isSuperUser={isSuperUser}
-            />
-          }
-          <br />
-
-
-          {this.state.section_to_edit == "ChainWalletInformation" && isSuperUser ?
-            <EditChainWalletInformation
-              orderID={this.props.order_information?._id}
-              chain={this.props.order_information?.chain}
-              payment={this.props.order_information?.payment}
-              handleToogleEdit={this.handleToogleEdit}
-              loadData={this.props.loadData}
-            />
-            :
-            <ChainWalletInformation
-              chain={this.props.order_information?.chain}
-              payment={this.props.order_information?.payment}
-              handleToogleEdit={this.handleToogleEdit}
-              isSuperUser={isSuperUser}
-            />
-          }
-          <br />
-
-
-          <LocationInformation
-            st={this.props.order_information?.sellmarketorderlocationID.location.st}
-            neigh={this.props.order_information?.sellmarketorderlocationID.location.neigh}
-            city={this.props.order_information?.sellmarketorderlocationID.location.city}
-            province_state={this.props.order_information?.sellmarketorderlocationID.location.province_state}
-            country={this.props.order_information?.sellmarketorderlocationID.location.country}
-          />
-
-          <br />
-
-
-          <OrderUserInfomation
-            username={this.props.order_information?.userid.username}
-            // user_id={this.props.order_information?.userid._id}
-            // email={this.props.order_information?.userid.email}
-          />
-          <br />
-
-
-          {isSuperUser ?
-            <DeleteThisOrder
-              order_type={this.props.order_type}
-              order_owner_id={this.props.order_information?.userid._id}
-              orderID={this.props.order_information?._id}
-              // setpopup={this.setpopup}
-            />
-            :
-            <React.Fragment>
-              <Deal
-                orderID={this.props.order_information?._id}
-                order_owner_id={this.props.order_information?.userid._id}
-              />
-            </React.Fragment>
-          }
         </div>
 
 
-      </React.Fragment>
+        <br /><br />
+
+
+        {this.state.section_to_edit == "OrderNumbersInformation" && isSuperUser ?
+          <EditOrderNumbersInformation
+            orderID={this.props.order_information?._id}
+            conversion={this.props.order_information?.conversion}
+            price={this.props.order_information?.price}
+            handleToogleEdit={this.handleToogleEdit}
+            loadData={this.props.loadData}
+          />
+          :
+          <OrderNumbersInformation
+            conversion={this.props.order_information?.conversion}
+            price={this.props.order_information?.price}
+            handleToogleEdit={this.handleToogleEdit}
+            isSuperUser={isSuperUser}
+          />
+        }
+
+        <br /><br />
+
+
+        {this.state.section_to_edit == "ChainWalletInformation" && isSuperUser ?
+          <EditChainWalletInformation
+            orderID={this.props.order_information?._id}
+            chain={this.props.order_information?.chain}
+            payment={this.props.order_information?.payment}
+            handleToogleEdit={this.handleToogleEdit}
+            loadData={this.props.loadData}
+          />
+          :
+          <ChainWalletInformation
+            chain={this.props.order_information?.chain}
+            payment={this.props.order_information?.payment}
+            handleToogleEdit={this.handleToogleEdit}
+            isSuperUser={isSuperUser}
+          />
+        }
+
+        <br /><br />
+
+
+        <LocationInformation
+          st={this.props.order_information?.sellmarketorderlocationID.location.st}
+          neigh={this.props.order_information?.sellmarketorderlocationID.location.neigh}
+          city={this.props.order_information?.sellmarketorderlocationID.location.city}
+          province_state={this.props.order_information?.sellmarketorderlocationID.location.province_state}
+          country={this.props.order_information?.sellmarketorderlocationID.location.country}
+        />
+
+        <br /><br />
+
+
+        <OrderUserInfomation
+          username={this.props.order_information?.userid.username}
+          // user_id={this.props.order_information?.userid._id}
+          // email={this.props.order_information?.userid.email}
+        />
+        
+        <br /><br />
+
+
+        {isSuperUser ?
+          <DeleteThisOrder
+            order_type={this.props.order_type}
+            order_owner_id={this.props.order_information?.userid._id}
+            orderID={this.props.order_information?._id}
+            // setpopup={this.setpopup}
+          />
+          :
+          <React.Fragment>
+            <Deal
+              orderID={this.props.order_information?._id}
+              order_owner_id={this.props.order_information?.userid._id}
+            />
+          </React.Fragment>
+        }
+      </div>
+
+
+    </React.Fragment>
     )
   }
 }

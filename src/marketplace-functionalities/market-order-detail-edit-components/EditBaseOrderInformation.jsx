@@ -20,7 +20,7 @@ class EditBaseOrderInformation extends React.Component {
   EditValidation(EditBaseOrderInformation_data) {
     let error_msg_retrieved_if_any
 
-    if (EditBaseOrderInformation_data.newtitle === this.props.title && EditBaseOrderInformation_data.newdescription === this.props.description && EditBaseOrderInformation_data.newcategory === this.props.category && parseInt(EditBaseOrderInformation_data.newcondition) === this.props.condition &&  EditBaseOrderInformation_data.expirydate === this.props.expirationDate && EditBaseOrderInformation_data.expirytime === this.props.expirationTime) {
+    if (EditBaseOrderInformation_data.newtitle === this.props.title && EditBaseOrderInformation_data.newdescription === this.props.description && EditBaseOrderInformation_data.newcategory === this.props.category && parseInt(EditBaseOrderInformation_data.newcondition) === this.props.condition && EditBaseOrderInformation_data.expirydate === this.props.expirationDate && EditBaseOrderInformation_data.expirytime === this.props.expirationTime) {
       error_msg_retrieved_if_any = `Nothing has changed, therefor nothing to update!`
       this.setpopup(error_msg_retrieved_if_any)
       return false
@@ -31,9 +31,9 @@ class EditBaseOrderInformation extends React.Component {
     if (error_msg_retrieved_if_any) {
       this.setpopup(error_msg_retrieved_if_any)
       return false
-    } else { 
+    } else {
       this.setpopup(undefined)
-      return true 
+      return true
     }
   }
 
@@ -72,43 +72,64 @@ class EditBaseOrderInformation extends React.Component {
   render() {
     return (
       <React.Fragment>
+        {/* TODO !!!! need gray-box posted-date not comprised*/} 
+
 
         <form className="form" id="my_form">
-          <label htmlFor="title-select">Title</label>
-          <input type="text" id="title-select" name="title" defaultValue={this.props.title} /><br />
 
-          <label htmlFor="description-select">Description</label>
-          <textarea id="description-select" name="description" cols="30" rows="3" defaultValue={this.props.description}></textarea><br />
 
-          <label htmlFor="category-select">Category</label>
-            <select name="category" id="category-select" defaultValue={this.props.category}>
+
+          {/* <label htmlFor="title-select">Title</label> */}
+          <h1>
+            <input type="text" id="title-select" name="title" defaultValue={this.props.title} />
+          </h1>
+
+          <button style={{display: 'block'}} onClick={(e) => {
+            this.props.handleToogleEdit(undefined)
+          }}>Revert</button>
+
+
+          {/* <label htmlFor="category-select">Category</label> */}
+          <select style={{display: 'block'}} name="category" id="category-select" defaultValue={this.props.category}>
             <option value="">No Selection</option>
-              <option value="Other">Other</option>
-              <option value="Kitchen">Kitchen</option>
-              <option value="Clothes">Clothes</option>
-              <option value="Electronics">Electronics</option>
-              <option value="Automobile">Automobile</option>
-              <option value="Camping">Camping</option>
-              <option value="Furniture">Furniture</option>
-            </select><br />
+            <option value="Other">Other</option>
+            <option value="Kitchen">Kitchen</option>
+            <option value="Clothes">Clothes</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Automobile">Automobile</option>
+            <option value="Camping">Camping</option>
+            <option value="Furniture">Furniture</option>
+          </select>
 
 
-            <label htmlFor="condition-input">Condition</label>
-            <select name="condition" id="condition-input" defaultValue={parseInt(this.props.condition)}>
-              <option value="">No Selection</option>
-              <option value={1}>Brand new</option>
-              <option value={2}>Just opened</option>
-              <option value={3}>In good condition</option>
-              <option value={4}>Used</option>
-            </select><br />
+          <label style={{display: 'block'}} htmlFor="description-select">Description</label>
+          <textarea style={{display: 'block'}} id="description-select" name="description" cols="30" rows="3" defaultValue={this.props.description}></textarea>
 
-            <div>Posted Date: {this.props.postedDate}</div>
 
-            <label htmlFor="expirydate-select">Order Expiry Date</label>
-            <input id="expirydate-select" type="date" name="expirydate" defaultValue={this.props.expirationDate}/><br />
 
-            <label htmlFor="expirytime-select">Order Expiry Time</label>
-            <input id="expirytime-select" type="time" name="expirytime" defaultValue={this.props.expirationTime}/><br />
+
+          <label style={{display: 'block'}} htmlFor="condition-input">Condition</label>
+          <select name="condition" id="condition-input" defaultValue={parseInt(this.props.condition)}>
+            <option value="">No Selection</option>
+            <option value={1}>Brand new</option>
+            <option value={2}>Just opened</option>
+            <option value={3}>In good condition</option>
+            <option value={4}>Used</option>
+          </select>
+
+          
+
+          <label style={{display: 'block'}} htmlFor="expirydate-select">Expiry Date</label>
+          <input id="expirydate-select" type="date" name="expirydate" defaultValue={this.props.expirationDate} />
+
+          <label style={{display: 'block'}} htmlFor="expirytime-select">Expiry Time</label>
+          <input id="expirytime-select" type="time" name="expirytime" defaultValue={this.props.expirationTime} />
+
+
+          <h2>Posted Date</h2>
+          <div>{this.props.postedDate}</div>
+
+
 
           <button onClick={async (e) => {
 
@@ -134,13 +155,12 @@ class EditBaseOrderInformation extends React.Component {
 
         </form>
 
-        { this.state.popup ?
-        <div id="popup-section1">{this.state.popup}</div>
-        : null }
 
-        <button onClick={(e) => {
-          this.props.handleToogleEdit(undefined)
-        }}>Revert</button>
+
+        {this.state.popup ?
+          <div id="popup-section1">{this.state.popup}</div>
+          : null}
+
       </React.Fragment>
     )
   }

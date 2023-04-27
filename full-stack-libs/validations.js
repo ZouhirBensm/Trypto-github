@@ -85,7 +85,8 @@ function verifyPassword(_password) {
 
 function validateInputs(obj_input, err_msg = undefined) {
 
-  const preventInjectionsRegEx = /[<>;`}(")\*'{\&]/;
+  // \*
+  const preventInjectionsRegEx = /[<>;`}(")'{\&]/;
 
   for (const property in obj_input) {
     console.log(`${property}: ${obj_input[property]}`);

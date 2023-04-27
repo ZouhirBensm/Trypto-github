@@ -94,15 +94,6 @@ class ImagesScrollDisplay extends React.Component {
     // console.log(this.props.orderTitle)
     // console.log(this.props.images_names)
 
-    // const ImageScroll = this.props.images_names?.map((image_name, index) => {
-    //   return <ImageElement
-    //     key={index}
-    //     image_name={image_name.name}
-    //     orderTitle={this.props.orderTitle}
-    //     orderID={this.props.orderID}
-    //   />
-    // })
-
 
     return (
       <React.Fragment>
@@ -122,15 +113,12 @@ class ImagesScrollDisplay extends React.Component {
 
         </div>
 
-        <br /><br /><br />
-
         <MarketImageNavButtons
           scroll_number={this.state.scroll_number}
           last_scroll_number={this.props.images_names?.length}
           scrollImage={this.scrollImage}
         />
 
-        <br /><br /><br /><br /><br /><br />
       </React.Fragment>
     )
   }

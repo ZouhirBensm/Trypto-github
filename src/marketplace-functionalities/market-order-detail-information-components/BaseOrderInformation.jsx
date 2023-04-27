@@ -1,15 +1,15 @@
 class BaseOrderInformation extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {}
     this.getCondition = this.getCondition.bind(this)
   }
 
-  getCondition(){
+  getCondition() {
     let condition
     switch (this.props.condition) {
       case 1:
-        condition =  "Brand new"
+        condition = "Brand new"
         break;
       case 2:
         condition = "Just opened"
@@ -28,26 +28,37 @@ class BaseOrderInformation extends React.Component {
     return condition
   }
 
-  render(){
+  render() {
     const condition = this.getCondition()
     return (
       <React.Fragment>
-        <div>BaseOrderInformation...</div>
-        <div>Title: {this.props.title}</div>
-        <div>Description: {this.props.description}</div>
-        <div>Category: {this.props.category}</div>
-        <div>Condition: {condition}</div>
-        <div>Posted Date: {this.props.postedDate}</div>
-        <div>Expiration | {this.props.expirationAt} | {this.props.expirationDate} | {this.props.expirationTime}</div>
+
+        <div className="gray-box">
+          <h1>{this.props.title}</h1>
+          {/* Conditional Edit button */}
+          {this.props.isSuperUser ?
+            <button onClick={(e) => {
+              this.props.handleToogleEdit("BaseOrderInformation")
+            }}>Edit</button>
+            :
+            null
+          }
+
+          <div>{this.props.category}</div>
+          <h2>Description</h2>
+          <div>{this.props.description}</div>
+          <h2>Condition</h2>
+          <div>{condition}</div>
+          <h2>Expiry Date</h2>
+          {/* Whole date this.props.expirationAt */}
+          <div>{this.props.expirationDate}</div>
+          <h2>Expiry Time</h2>
+          <div>{this.props.expirationTime}</div>
+        </div>
+        <h2>Posted Date</h2>
+        <div>{this.props.postedDate}</div>
 
 
-        {this.props.isSuperUser? 
-          <button onClick={(e)=>{
-            this.props.handleToogleEdit("BaseOrderInformation")
-          }}>Edit</button>
-        :
-        null
-        }
       </React.Fragment>
     )
   }
