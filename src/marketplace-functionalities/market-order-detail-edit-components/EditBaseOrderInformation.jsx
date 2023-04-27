@@ -72,66 +72,14 @@ class EditBaseOrderInformation extends React.Component {
   render() {
     return (
       <React.Fragment>
-        {/* TODO !!!! need gray-box posted-date not comprised*/} 
 
-
-        <form className="form" id="my_form">
-
-
-
-          {/* <label htmlFor="title-select">Title</label> */}
-          <h1>
-            <input type="text" id="title-select" name="title" defaultValue={this.props.title} />
-          </h1>
-
-          <button style={{display: 'block'}} onClick={(e) => {
-            this.props.handleToogleEdit(undefined)
-          }}>Revert</button>
-
-
-          {/* <label htmlFor="category-select">Category</label> */}
-          <select style={{display: 'block'}} name="category" id="category-select" defaultValue={this.props.category}>
-            <option value="">No Selection</option>
-            <option value="Other">Other</option>
-            <option value="Kitchen">Kitchen</option>
-            <option value="Clothes">Clothes</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Automobile">Automobile</option>
-            <option value="Camping">Camping</option>
-            <option value="Furniture">Furniture</option>
-          </select>
-
-
-          <label style={{display: 'block'}} htmlFor="description-select">Description</label>
-          <textarea style={{display: 'block'}} id="description-select" name="description" cols="30" rows="3" defaultValue={this.props.description}></textarea>
-
-
-
-
-          <label style={{display: 'block'}} htmlFor="condition-input">Condition</label>
-          <select name="condition" id="condition-input" defaultValue={parseInt(this.props.condition)}>
-            <option value="">No Selection</option>
-            <option value={1}>Brand new</option>
-            <option value={2}>Just opened</option>
-            <option value={3}>In good condition</option>
-            <option value={4}>Used</option>
-          </select>
-
-          
-
-          <label style={{display: 'block'}} htmlFor="expirydate-select">Expiry Date</label>
-          <input id="expirydate-select" type="date" name="expirydate" defaultValue={this.props.expirationDate} />
-
-          <label style={{display: 'block'}} htmlFor="expirytime-select">Expiry Time</label>
-          <input id="expirytime-select" type="time" name="expirytime" defaultValue={this.props.expirationTime} />
-
-
-          <h2>Posted Date</h2>
-          <div>{this.props.postedDate}</div>
-
-
-
-          <button onClick={async (e) => {
+        {/* TODO !!!! notsure might require to place class gray-box in a div.gray-box in order for the style .gray-box{} to apply accross browsers */}
+        <form className="form gray-box" id="my_form"
+          // TODO !!!! notsure: configuration 2, kept, the onSubmit is linked to the inputs form='my_form' attribute. 
+          // My worry is that of edit part will trigger this same function instead of their defined onSubmit (as the id='myform' are the same)
+          // Temporarly kept configuration
+          // If does not work long term switch to configuration 1 for all parts
+          onSubmit={async (e) => {
 
             e.preventDefault()
             let EditBaseOrderInformation_data = {
@@ -151,15 +99,127 @@ class EditBaseOrderInformation extends React.Component {
             } else {
               return
             }
-          }}>Save Edits</button>
+          }}
+        >
+
+
+
+          {/* <label htmlFor="title-select">Title</label> */}
+          <h1>
+            <input type="text" id="title-select" name="title" defaultValue={this.props.title} />
+          </h1>
+
+          <button style={{ display: 'block' }} onClick={(e) => {
+            this.props.handleToogleEdit(undefined)
+          }}>Revert</button>
+
+
+          {/* <label htmlFor="category-select">Category</label> */}
+          <select style={{ display: 'block' }} name="category" id="category-select" defaultValue={this.props.category}>
+            <option value="">No Selection</option>
+            <option value="Other">Other</option>
+            <option value="Kitchen">Kitchen</option>
+            <option value="Clothes">Clothes</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Automobile">Automobile</option>
+            <option value="Camping">Camping</option>
+            <option value="Furniture">Furniture</option>
+          </select>
+
+
+          <label style={{ display: 'block' }} htmlFor="description-select">Description</label>
+          <textarea style={{ display: 'block' }} id="description-select" name="description" cols="30" rows="3" defaultValue={this.props.description}></textarea>
+
+
+
+
+          <label style={{ display: 'block' }} htmlFor="condition-input">Condition</label>
+          <select name="condition" id="condition-input" defaultValue={parseInt(this.props.condition)}>
+            <option value="">No Selection</option>
+            <option value={1}>Brand new</option>
+            <option value={2}>Just opened</option>
+            <option value={3}>In good condition</option>
+            <option value={4}>Used</option>
+          </select>
+
+
+
+          <label style={{ display: 'block' }} htmlFor="expirydate-select">Expiry Date</label>
+          <input id="expirydate-select" type="date" name="expirydate" defaultValue={this.props.expirationDate} />
+
+          <label style={{ display: 'block' }} htmlFor="expirytime-select">Expiry Time</label>
+          <input id="expirytime-select" type="time" name="expirytime" defaultValue={this.props.expirationTime} />
+
+
+
+
+          {/* configuration 3 */}
+          {/* <button onClick={async (e) => {
+
+            e.preventDefault()
+            let EditBaseOrderInformation_data = {
+              orderID: this.props.orderID,
+              newtitle: document.getElementById("my_form").elements["title"].value,
+              newdescription: document.getElementById("my_form").elements["description"].value,
+              newcategory: document.getElementById("my_form").elements["category"].value,
+              newcondition: document.getElementById("my_form").elements["condition"].value,
+              expirydate: document.getElementById("my_form").elements["expirydate"].value,
+              expirytime: document.getElementById("my_form").elements["expirytime"].value,
+            }
+
+            let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data)
+            if (ret_EditValidation) {
+              let ret_EditFunction1 = await this.EditFunction1(EditBaseOrderInformation_data)
+              return
+            } else {
+              return
+            }
+          }}>Save Edits</button> */}
+
+
+
+          {this.state.popup ?
+            <div id="popup-section1">{this.state.popup}</div>
+            : null}
+
 
         </form>
 
 
+        <h2>Posted Date</h2>
+        <div>{this.props.postedDate}</div>
 
-        {this.state.popup ?
-          <div id="popup-section1">{this.state.popup}</div>
-          : null}
+
+        {/* TODO !!!!! configuration 1 get rid of the form="my_form" and enable the onClick event on this input tag */}
+        <input type="submit" value="Save Edits" form="my_form"
+
+        // onClick={async (e) => {
+
+        //   e.preventDefault()
+        //   let EditBaseOrderInformation_data = {
+        //     orderID: this.props.orderID,
+        //     newtitle: document.getElementById("my_form").elements["title"].value,
+        //     newdescription: document.getElementById("my_form").elements["description"].value,
+        //     newcategory: document.getElementById("my_form").elements["category"].value,
+        //     newcondition: document.getElementById("my_form").elements["condition"].value,
+        //     expirydate: document.getElementById("my_form").elements["expirydate"].value,
+        //     expirytime: document.getElementById("my_form").elements["expirytime"].value,
+        //   }
+
+        //   let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data)
+        //   if (ret_EditValidation) {
+        //     let ret_EditFunction1 = await this.EditFunction1(EditBaseOrderInformation_data)
+        //     return
+        //   } else {
+        //     return
+        //   }
+        // }} 
+
+        />
+
+
+
+
 
       </React.Fragment>
     )

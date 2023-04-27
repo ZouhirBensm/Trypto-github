@@ -33,6 +33,7 @@ class BaseOrderInformation extends React.Component {
     return (
       <React.Fragment>
 
+        {/* TODO !!!! conditionally place the gray-box class if this.props.isSuperUser is true i.e. no need of a gray box when no edits are needed, to avoid styles of the gray box. Also consider the need for the gray box class in terms of layout mobile <-> desktop */}
         <div className="gray-box">
           <h1>{this.props.title}</h1>
           {/* Conditional Edit button */}
