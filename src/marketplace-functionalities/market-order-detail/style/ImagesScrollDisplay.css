@@ -10,6 +10,9 @@ div#image-scroll {
   flex-flow: row wrap;
   justify-content: flex-start;
   align-items: center;
+
+  width: 90%;
+  margin: 0 auto;
 }
 
 

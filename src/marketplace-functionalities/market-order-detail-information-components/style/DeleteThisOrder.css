@@ -1,0 +1,18 @@
+div#order-information-wrapper > button#market-item-delete-button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin: 1rem 0;
+
+  letter-spacing: 1.2px;
+  color: #010757;
+  text-transform: uppercase;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: var(--font-size-button);
+}
+
+
+div#order-information-wrapper > button#market-item-delete-button > span {
+  margin-left: 1ch;
+}

@@ -13,6 +13,7 @@ div#images-container {
   margin: 0.5vh auto;
 
   box-sizing: border-box;
+  display: block;
 }
 
 

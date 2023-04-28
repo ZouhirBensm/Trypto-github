@@ -127,6 +127,8 @@ div[onclick="toogleSideNav()"] {
 :root {
   --font-size-root: 1.0rem;
   --font-size-p: 1.3rem;
+  --font-size-p-smaller: 1.0rem;
+  --font-size-p-xsmaller: 0.8rem;
   --font-size-input: 1.0rem;
   --font-size-label: 0.8rem;
   --font-size-extra: 0.8rem;
@@ -149,6 +151,7 @@ div[onclick="toogleSideNav()"] {
   --font-size-footer: 1.2rem;
 
   --line-height-p: 2.5rem;
+  --line-height-p-smaller: 1.5rem;
   --line-height-ul: 2.5rem;
 
   --line-height-generic: 1.0rem;

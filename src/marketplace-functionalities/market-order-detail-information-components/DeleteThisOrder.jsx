@@ -1,3 +1,5 @@
+import './style/DeleteThisOrder.css'
+
 class DeleteThisOrder extends React.Component {
   constructor(props) {
     super(props)
@@ -49,9 +51,13 @@ class DeleteThisOrder extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <button onClick={(e) => {
+        <button id="market-item-delete-button" onClick={(e) => {
           this.deleteOrder(this.props.order_owner_id, this.props.orderID, e)
-        }}>Delete</button>
+        }}>
+          <img src="/img/SVG/market/individual-article/trash.svg" alt="" />
+          <span>Delete Item</span>
+          
+        </button>
 
         {this.state.popup ?
           <div id="popup-section1">{this.state.popup}</div>

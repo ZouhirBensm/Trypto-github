@@ -1,3 +1,6 @@
+import './style/BaseOrderInformation.css'
+
+
 class BaseOrderInformation extends React.Component {
   constructor(props) {
     super(props)
@@ -30,6 +33,13 @@ class BaseOrderInformation extends React.Component {
 
   render() {
     const condition = this.getCondition()
+
+    // TODO !!!! put this in a utils and use it across different components (articles, market, ...). Input: server date, time, Output: formated date time
+    const date = new Date(this.props.postedDate);
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    const formattedDate = date.toLocaleDateString('en-US', options);
+
+
     return (
       <React.Fragment>
 
@@ -38,26 +48,28 @@ class BaseOrderInformation extends React.Component {
           <h1>{this.props.title}</h1>
           {/* Conditional Edit button */}
           {this.props.isSuperUser ?
-            <button onClick={(e) => {
+            <button id="market-item-edit-button" onClick={(e) => {
               this.props.handleToogleEdit("BaseOrderInformation")
-            }}>Edit</button>
+            }}>
+              <img src="/img/SVG/market/individual-article/edit.svg" alt="" />
+            </button>
             :
             null
           }
 
-          <div>{this.props.category}</div>
+          <div id='category'>{this.props.category}</div>
           <h2>Description</h2>
-          <div>{this.props.description}</div>
+          <div>{this.props.description}</div><br />
           <h2>Condition</h2>
-          <div>{condition}</div>
+          <div>{condition}</div><br />
           <h2>Expiry Date</h2>
           {/* Whole date this.props.expirationAt */}
-          <div>{this.props.expirationDate}</div>
+          <div>{this.props.expirationDate}</div><br />
           <h2>Expiry Time</h2>
-          <div>{this.props.expirationTime}</div>
+          <div>{this.props.expirationTime}</div><br />
         </div>
         <h2>Posted Date</h2>
-        <div>{this.props.postedDate}</div>
+        <div>{formattedDate}</div>
 
 
       </React.Fragment>
