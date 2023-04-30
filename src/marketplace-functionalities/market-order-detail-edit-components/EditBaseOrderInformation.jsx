@@ -1,5 +1,6 @@
 
 import { validateInputs, validateExpiry } from '../../../full-stack-libs/validations'
+import './style/EditBaseOrderInformation.css'
 
 class EditBaseOrderInformation extends React.Component {
   constructor(props) {
@@ -8,6 +9,59 @@ class EditBaseOrderInformation extends React.Component {
       popup: undefined
     }
     this.setpopup = this.setpopup.bind(this)
+  }
+
+  componentDidMount(){
+    console.log("EditBaseOrderInformation just componentDidMount!")
+
+    const h1 = document.querySelector('div#market-order-part1 > form#my_form > h1')
+    console.log(h1.offsetWidth)
+    const textareaElement = document.querySelector('div#market-order-part1 h1 > textarea#title-select')
+
+    const containerWidth = h1.offsetWidth
+
+    let mock_H1 = document.createElement("span");
+    mock_H1.innerHTML = this.props.title
+
+    mock_H1.style.fontFamily = `Montserrat, sans-serif`
+    mock_H1.style.fontWeight = '700'
+    mock_H1.style.fontSize = 'var(--font-size-h1)'
+    mock_H1.style.whiteSpace = 'nowrap'
+
+
+    h1.appendChild(mock_H1)
+
+    console.log(containerWidth, mock_H1.offsetWidth)
+
+    
+    let rows_needed = Math.ceil(mock_H1.offsetWidth/ containerWidth)
+    console.log(rows_needed)
+    let cols_needed = rows_needed == 1 ?  this.props.title.length : undefined
+    
+    // rows_needed == 1 ? h1.style.width = 'fit-content' : null
+    
+
+    textareaElement.setAttribute('rows', rows_needed);
+
+    if (cols_needed) {
+      textareaElement.setAttribute('cols', cols_needed); 
+      textareaElement.style.width = 'fit-content'; 
+      textareaElement.style.margin = 'unset'; 
+      textareaElement.style.display='inline';
+    }
+    
+    mock_H1.style.display = 'none'
+  }
+
+  componentWillUnmount(){
+    console.log("EditBaseOrderInformation just componentWillUnmount!")
+
+    const textareaElement = document.querySelector('div#market-order-part1 h1 > textarea#title-select')
+
+    textareaElement.style.width = '100%'
+    textareaElement.style.margin = '0 auto'
+    textareaElement.style.display='block'
+
   }
 
   setpopup(error_message) {
@@ -70,6 +124,12 @@ class EditBaseOrderInformation extends React.Component {
   }
 
   render() {
+
+    const date = new Date(this.props.postedDate);
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    const formattedDate = date.toLocaleDateString('en-US', options);
+
+
     return (
       <React.Fragment>
 
@@ -79,39 +139,45 @@ class EditBaseOrderInformation extends React.Component {
           // My worry is that of edit part will trigger this same function instead of their defined onSubmit (as the id='myform' are the same)
           // Temporarly kept configuration
           // If does not work long term switch to configuration 1 for all parts
-          onSubmit={async (e) => {
 
-            e.preventDefault()
-            let EditBaseOrderInformation_data = {
-              orderID: this.props.orderID,
-              newtitle: document.getElementById("my_form").elements["title"].value,
-              newdescription: document.getElementById("my_form").elements["description"].value,
-              newcategory: document.getElementById("my_form").elements["category"].value,
-              newcondition: document.getElementById("my_form").elements["condition"].value,
-              expirydate: document.getElementById("my_form").elements["expirydate"].value,
-              expirytime: document.getElementById("my_form").elements["expirytime"].value,
-            }
+          // onSubmit={async (e) => {
 
-            let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data)
-            if (ret_EditValidation) {
-              let ret_EditFunction1 = await this.EditFunction1(EditBaseOrderInformation_data)
-              return
-            } else {
-              return
-            }
-          }}
+          //   e.preventDefault()
+          //   let EditBaseOrderInformation_data = {
+          //     orderID: this.props.orderID,
+          //     newtitle: document.getElementById("my_form").elements["title"].value,
+          //     newdescription: document.getElementById("my_form").elements["description"].value,
+          //     newcategory: document.getElementById("my_form").elements["category"].value,
+          //     newcondition: document.getElementById("my_form").elements["condition"].value,
+          //     expirydate: document.getElementById("my_form").elements["expirydate"].value,
+          //     expirytime: document.getElementById("my_form").elements["expirytime"].value,
+          //   }
+
+          //   let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data)
+          //   if (ret_EditValidation) {
+          //     let ret_EditFunction1 = await this.EditFunction1(EditBaseOrderInformation_data)
+          //     return
+          //   } else {
+          //     return
+          //   }
+          // }}
         >
 
 
 
           {/* <label htmlFor="title-select">Title</label> */}
           <h1>
-            <input type="text" id="title-select" name="title" defaultValue={this.props.title} />
+            {/* <input type="text" id="title-select" name="title" defaultValue={this.props.title} /> */}
+
+            <textarea id="title-select" name="title" defaultValue={this.props.title}></textarea>
+
+            <button onClick={(e) => {
+              this.props.handleToogleEdit(undefined)
+            }}>
+              <img src="/img/SVG/market/individual-article/revert2.svg" alt="" />
+            </button>
           </h1>
 
-          <button style={{ display: 'block' }} onClick={(e) => {
-            this.props.handleToogleEdit(undefined)
-          }}>Revert</button>
 
 
           {/* <label htmlFor="category-select">Category</label> */}
@@ -128,12 +194,12 @@ class EditBaseOrderInformation extends React.Component {
 
 
           <label style={{ display: 'block' }} htmlFor="description-select">Description</label>
-          <textarea style={{ display: 'block' }} id="description-select" name="description" cols="30" rows="3" defaultValue={this.props.description}></textarea>
+          <textarea style={{ display: 'block' }} id="description-select" name="description" rows="3" defaultValue={this.props.description}></textarea>
 
 
 
 
-          <label style={{ display: 'block' }} htmlFor="condition-input">Condition</label>
+          <label htmlFor="condition-input">Condition</label>
           <select name="condition" id="condition-input" defaultValue={parseInt(this.props.condition)}>
             <option value="">No Selection</option>
             <option value={1}>Brand new</option>
@@ -144,17 +210,21 @@ class EditBaseOrderInformation extends React.Component {
 
 
 
-          <label style={{ display: 'block' }} htmlFor="expirydate-select">Expiry Date</label>
+          <label htmlFor="expirydate-select">Expiry Date</label>
           <input id="expirydate-select" type="date" name="expirydate" defaultValue={this.props.expirationDate} />
 
-          <label style={{ display: 'block' }} htmlFor="expirytime-select">Expiry Time</label>
+          <label htmlFor="expirytime-select">Expiry Time</label>
           <input id="expirytime-select" type="time" name="expirytime" defaultValue={this.props.expirationTime} />
 
 
 
+          {this.state.popup ?
+            <span className="popup">{this.state.popup}</span>
+            : null}
+
 
           {/* configuration 3 */}
-          {/* <button onClick={async (e) => {
+          <button className='save-part' onClick={async (e) => {
 
             e.preventDefault()
             let EditBaseOrderInformation_data = {
@@ -174,48 +244,46 @@ class EditBaseOrderInformation extends React.Component {
             } else {
               return
             }
-          }}>Save Edits</button> */}
+          }}>Save</button>
 
 
 
-          {this.state.popup ?
-            <div id="popup-section1">{this.state.popup}</div>
-            : null}
+
 
 
         </form>
 
 
         <h2>Posted Date</h2>
-        <div>{this.props.postedDate}</div>
+        <div>{formattedDate}</div>
 
 
         {/* TODO !!!!! configuration 1 get rid of the form="my_form" and enable the onClick event on this input tag */}
-        <input type="submit" value="Save Edits" form="my_form"
+        {/* <input type="submit" value="Save Edits" form="my_form"
 
-        // onClick={async (e) => {
+        onClick={async (e) => {
 
-        //   e.preventDefault()
-        //   let EditBaseOrderInformation_data = {
-        //     orderID: this.props.orderID,
-        //     newtitle: document.getElementById("my_form").elements["title"].value,
-        //     newdescription: document.getElementById("my_form").elements["description"].value,
-        //     newcategory: document.getElementById("my_form").elements["category"].value,
-        //     newcondition: document.getElementById("my_form").elements["condition"].value,
-        //     expirydate: document.getElementById("my_form").elements["expirydate"].value,
-        //     expirytime: document.getElementById("my_form").elements["expirytime"].value,
-        //   }
+          e.preventDefault()
+          let EditBaseOrderInformation_data = {
+            orderID: this.props.orderID,
+            newtitle: document.getElementById("my_form").elements["title"].value,
+            newdescription: document.getElementById("my_form").elements["description"].value,
+            newcategory: document.getElementById("my_form").elements["category"].value,
+            newcondition: document.getElementById("my_form").elements["condition"].value,
+            expirydate: document.getElementById("my_form").elements["expirydate"].value,
+            expirytime: document.getElementById("my_form").elements["expirytime"].value,
+          }
 
-        //   let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data)
-        //   if (ret_EditValidation) {
-        //     let ret_EditFunction1 = await this.EditFunction1(EditBaseOrderInformation_data)
-        //     return
-        //   } else {
-        //     return
-        //   }
-        // }} 
+          let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data)
+          if (ret_EditValidation) {
+            let ret_EditFunction1 = await this.EditFunction1(EditBaseOrderInformation_data)
+            return
+          } else {
+            return
+          }
+        }} 
 
-        />
+        /> */}
 
 
 

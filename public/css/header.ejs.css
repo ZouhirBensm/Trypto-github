@@ -130,6 +130,7 @@ div[onclick="toogleSideNav()"] {
   --font-size-p-smaller: 1.0rem;
   --font-size-p-xsmaller: 0.8rem;
   --font-size-input: 1.0rem;
+  --font-size-textarea: 1.0rem;
   --font-size-label: 0.8rem;
   --font-size-extra: 0.8rem;
   --font-size-smaller-input: 0.8rem;

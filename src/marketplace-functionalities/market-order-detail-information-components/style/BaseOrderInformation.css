@@ -59,12 +59,13 @@ div#market-order-part1 h2 {
   color: #010757;
   text-transform: capitalize;
   font-size: var(--font-size-root);
-  display: inline;
   margin-right: 1ch;
+  display: inline;
 }
 
 div#market-order-part1 > div.gray-box > div,
-div#market-order-part1 div:last-of-type {
+div#market-order-part1 div:last-of-type 
+{
   display: inline;
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
