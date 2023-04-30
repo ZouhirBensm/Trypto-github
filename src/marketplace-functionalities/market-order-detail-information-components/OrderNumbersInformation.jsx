@@ -1,4 +1,4 @@
-
+import './style/OrderNumbersInformation.css'
 
 
 class OrderNumbersInformation extends React.Component {
@@ -27,15 +27,19 @@ class OrderNumbersInformation extends React.Component {
 
     return (
       <React.Fragment>
-        <div>OrderNumbersInformation...</div>
+
+        {/* ONE */}
         <div>Price: {this.props.price}</div>
-        <div>Conversion: {this.props.conversion}</div>
-        
+
+        <div>Rate: {this.props.conversion}</div>
+
+        {/* TWO */}
         <span>Amounts to: {this.state.unit == "BTC" ? `${amountsToBTC} ` : this.state.unit == "SAT" ? `${amountsToSAT} ` : null} {this.state.unit}</span><br />
 
-        <button onClick={(e) => { this.SATBTC(e) }}>in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null}</button><br />
-        
+        <button onClick={(e) => { this.SATBTC(e) }}>in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null}</button> <br />
 
+
+        {/* THREE */}
         {this.props.isSuperUser ?
           <button onClick={(e) => {
             this.props.handleToogleEdit("OrderNumbersInformation")
@@ -43,6 +47,7 @@ class OrderNumbersInformation extends React.Component {
           :
           null
         }
+
 
 
       </React.Fragment>

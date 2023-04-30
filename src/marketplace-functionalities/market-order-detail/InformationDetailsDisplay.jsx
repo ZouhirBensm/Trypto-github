@@ -163,24 +163,24 @@ class InformationDetailsDisplay extends React.Component {
 
 
 
-
-
-          {this.state.section_to_edit == "OrderNumbersInformation" && isSuperUser ?
-            <EditOrderNumbersInformation
-              orderID={this.props.order_information?._id}
-              conversion={this.props.order_information?.conversion}
-              price={this.props.order_information?.price}
-              handleToogleEdit={this.handleToogleEdit}
-              loadData={this.props.loadData}
-            />
-            :
-            <OrderNumbersInformation
-              conversion={this.props.order_information?.conversion}
-              price={this.props.order_information?.price}
-              handleToogleEdit={this.handleToogleEdit}
-              isSuperUser={isSuperUser}
-            />
-          }
+          <div id="market-order-part5">
+            {this.state.section_to_edit == "OrderNumbersInformation" && isSuperUser ?
+              <EditOrderNumbersInformation
+                orderID={this.props.order_information?._id}
+                conversion={this.props.order_information?.conversion}
+                price={this.props.order_information?.price}
+                handleToogleEdit={this.handleToogleEdit}
+                loadData={this.props.loadData}
+              />
+              :
+              <OrderNumbersInformation
+                conversion={this.props.order_information?.conversion}
+                price={this.props.order_information?.price}
+                handleToogleEdit={this.handleToogleEdit}
+                isSuperUser={isSuperUser}
+              />
+            }
+          </div>
 
           <br /><br />
 

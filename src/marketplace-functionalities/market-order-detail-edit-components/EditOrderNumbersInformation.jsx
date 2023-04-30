@@ -1,4 +1,5 @@
 import { validateInputs } from '../../../full-stack-libs/validations'
+import './style/EditOrderNumbersInformation.css'
 
 
 class EditOrderNumbersInformation extends React.Component {
@@ -37,9 +38,9 @@ class EditOrderNumbersInformation extends React.Component {
     if (error_msg_retrieved_if_any) {
       this.setpopup(error_msg_retrieved_if_any)
       return false
-    } else { 
+    } else {
       this.setpopup(undefined)
-      return true 
+      return true
     }
   }
 
@@ -101,28 +102,42 @@ class EditOrderNumbersInformation extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div>EditOrderNumbersInformation...</div>
 
         <form className="form" id="form_id">
-          <label htmlFor="price-input">Price</label>
+
+          {/* ONE */}
+
+          {/* <label htmlFor="price-input">Price</label> */}
           <input onChange={(e) => {
             this.amountsToCalculatorChange(e);
           }} type="number" id="price-input" name="price" step="0.01" defaultValue={this.props.price} />
           <span> CAD</span>
           <br />
 
-          <label htmlFor="conversion-input">@ 1 BTC =</label>
+
+
+          {/* <label htmlFor="conversion-input">@ 1 BTC =</label> */}
+          <button onClick={(e) => { this.clickGetBTCPrice(e) }}>Market</button><br />
+
           <input onChange={(e) => {
             this.amountsToCalculatorChange(e);
           }} type="number" id="conversion-input" name="conversion" step="0.01" defaultValue={this.props.conversion} />
           <span> CAD</span> <br />
-          <button onClick={(e) => { this.clickGetBTCPrice(e) }}>Market</button><br />
+
+
+
+          {/* TWO */}
 
           <span>Amounts to: {this.state.unit == "BTC" ? `${this.state.amountsToBTC} ` : this.state.unit == "SAT" ? `${this.state.amountsToSAT} ` : null} {this.state.unit}</span><br />
 
           <button onClick={(e) => { this.SATBTC(e) }}>in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null}</button><br />
 
 
+
+
+
+
+          {/* THREE */}
           <button onClick={async (e) => {
 
             e.preventDefault()
@@ -142,19 +157,20 @@ class EditOrderNumbersInformation extends React.Component {
           }}>Save Edits</button>
 
 
+          <button onClick={(e) => {
+            this.props.handleToogleEdit(undefined)
+          }}>Revert</button>
+
+
 
 
         </form><br />
 
-        { this.state.popup ?
-        <div id="popup-section1">{this.state.popup}</div>
-        : null }
 
+        {this.state.popup ?
+          <span className='popup'>{this.state.popup}</span>
+          : null}
 
-
-        <button onClick={(e) => {
-          this.props.handleToogleEdit(undefined)
-        }}>Revert</button>
       </React.Fragment>
     )
   }
