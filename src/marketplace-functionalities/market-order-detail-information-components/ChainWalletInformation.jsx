@@ -1,24 +1,66 @@
+import './style/ChainWalletInformation.css'
+
 class ChainWalletInformation extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
   }
 
+  // componentDidUpdate(){
+  //   console.log(this.props.chain)
+  // }
+
   render() {
+
+
+    let chain_logo_img_src;
+
+    switch (this.props.chain) {
+      case "Bitcoin Lightning":
+        chain_logo_img_src = '/img/PNG/chain-logo/lightning.png'
+        break;
+      case "Bitcoin Liquid":
+        chain_logo_img_src = '/img/PNG/chain-logo/liquid.png'
+        break;
+      case "Bitcoin Base Chain":
+        chain_logo_img_src = '/img/PNG/chain-logo/bitcoin.png'
+        break;
+      default:
+        break;
+    }
+
+
+
     return (
       <React.Fragment>
-        <div>ChainWalletInformation...</div>
-        <div>Chain: {this.props.chain}</div>
-        <div>Payment: {this.props.payment}</div>
+
+        <div className="gray-box">
 
 
-        {this.props.isSuperUser ?
-          <button onClick={(e) => {
-            this.props.handleToogleEdit("ChainWalletInformation")
-          }}>Edit</button>
-          :
-          null
-        }
+          <img src={chain_logo_img_src} alt="" />
+
+          {/* <h2>Chain</h2> */}
+          <div id='chain'>{this.props.chain}</div>
+
+          {this.props.isSuperUser ?
+              <button className="edit-button" onClick={(e) => {
+                this.props.handleToogleEdit("ChainWalletInformation")
+              }}>
+                <img src="/img/SVG/market/individual-article/edit.svg" alt="" />
+              </button>
+            :
+            null
+          }
+
+          <br />
+
+          <h2>Payment</h2>
+          <div id='payment'>{this.props.payment}</div> <br />
+
+        </div>
+
+
+
 
       </React.Fragment>
     )

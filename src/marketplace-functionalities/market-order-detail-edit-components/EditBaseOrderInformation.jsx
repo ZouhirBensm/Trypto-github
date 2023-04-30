@@ -200,7 +200,7 @@ class EditBaseOrderInformation extends React.Component {
 
 
           <label htmlFor="condition-input">Condition</label>
-          <select name="condition" id="condition-input" defaultValue={parseInt(this.props.condition)}>
+          <select className="drop-down-icon" name="condition" id="condition-input" defaultValue={parseInt(this.props.condition)}>
             <option value="">No Selection</option>
             <option value={1}>Brand new</option>
             <option value={2}>Just opened</option>

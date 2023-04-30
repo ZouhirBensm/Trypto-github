@@ -1,4 +1,7 @@
 import { validateInputs } from '../../../full-stack-libs/validations'
+import './style/EditChainWalletInformation.css'
+
+
 
 class EditChainWalletInformation extends React.Component {
   constructor(props) {
@@ -34,10 +37,10 @@ class EditChainWalletInformation extends React.Component {
       tag_options_arr_data = ["Wallet9", "Wallet10", "Wallet11", "Wallet12"]
       options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
     }
-    else { 
+    else {
       message = `Chain value is not valid `
     }
-    
+
     this.setpopup(message)
 
     this.setState({
@@ -72,10 +75,16 @@ class EditChainWalletInformation extends React.Component {
 
     return (
       <React.Fragment>
-        <div>EditChainWalletInformation...</div>
-        <form className="form" id="form_id">
+        <form className="form gray-box" id="my_form">
 
           <label htmlFor="chain-input">Chain Network</label>
+          <button onClick={(e) => {
+            this.props.handleToogleEdit(undefined)
+          }}>
+            <img src="/img/SVG/market/individual-article/revert2.svg" alt="" />  
+          </button> <br />
+
+
           <select name="chain" id="chain-input" defaultValue={this.props.chain} onChange={(e) => {
             this.onChange(e);
           }}>
@@ -87,6 +96,9 @@ class EditChainWalletInformation extends React.Component {
 
 
 
+
+
+
           <label htmlFor="payment-input">Payment on</label>
           <select name="payment" id="payment-input" defaultValue={this.props.payment} >
             <option value="">No Selection</option>
@@ -94,12 +106,19 @@ class EditChainWalletInformation extends React.Component {
           </select> <br />
 
 
-          <button onClick={async (e) => {
+
+          {this.state.popup ?
+          <span className='popup'>{this.state.popup}</span>
+          : null}
+
+
+
+          <button className='save-part' onClick={async (e) => {
             e.preventDefault()
             let EditBaseOrderInformation_data = {
               orderID: this.props.orderID,
-              chain: document.getElementById("form_id").elements["chain"].value,
-              payment: document.getElementById("form_id").elements["payment"].value,
+              chain: document.getElementById("my_form").elements["chain"].value,
+              payment: document.getElementById("my_form").elements["payment"].value,
             }
             let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data)
             if (ret_EditValidation) {
@@ -108,17 +127,11 @@ class EditChainWalletInformation extends React.Component {
             } else {
               return
             }
-          }}>Save Edits</button>
+          }}>Save</button>
         </form>
 
-        { this.state.popup ?
-        <div id="popup-section1">{this.state.popup}</div>
-        : null }
 
 
-        <button onClick={(e) => {
-          this.props.handleToogleEdit(undefined)
-        }}>Revert</button>
       </React.Fragment>
     )
   }
@@ -147,14 +160,14 @@ class EditChainWalletInformation extends React.Component {
     if (error_msg_retrieved_if_any) {
       this.setpopup(error_msg_retrieved_if_any)
       return false
-    } else { 
+    } else {
       this.setpopup(undefined)
-      return true 
+      return true
     }
   }
 
 
-  async EditFunction3(EditBaseOrderInformation_data){
+  async EditFunction3(EditBaseOrderInformation_data) {
     console.log("Making api call to edit this component!")
 
     const response = await fetch(`/marketplace/${userId}/update23`, {

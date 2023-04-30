@@ -52,6 +52,7 @@ class ImagesScrollDisplay extends React.Component {
         
         image.style.width = "100%"
         image.style.height = "auto"
+        image.style.borderRadius = "10px"
 
 
         divImage.style.position = "relative"
@@ -75,6 +76,7 @@ class ImagesScrollDisplay extends React.Component {
       
       // image.style.width = "100px"
       image.style.height = "100px"
+      image.style.borderRadius = "unset"
       
       divImage.style.position = "unset"
       divImage.style.order = `${i}`

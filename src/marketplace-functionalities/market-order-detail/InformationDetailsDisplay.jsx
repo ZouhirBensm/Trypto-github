@@ -12,6 +12,9 @@ import EditChainWalletInformation from '../market-order-detail-edit-components/E
 import DeleteThisOrder from '../market-order-detail-information-components/DeleteThisOrder'
 import Deal from '../market-order-detail-information-components/Deal'
 
+
+// TODO !!!! Refactor entire CSS
+
 class InformationDetailsDisplay extends React.Component {
   constructor(props) {
     super(props)
@@ -70,6 +73,12 @@ class InformationDetailsDisplay extends React.Component {
             null
           }
 
+
+
+
+
+
+
           <div id="market-order-part1">
             {this.state.section_to_edit == "BaseOrderInformation" && isSuperUser ?
               <EditBaseOrderInformation
@@ -104,6 +113,58 @@ class InformationDetailsDisplay extends React.Component {
           <br /><br />
 
 
+          <div id="market-order-part2">
+            {this.state.section_to_edit == "ChainWalletInformation" && isSuperUser ?
+              <EditChainWalletInformation
+                orderID={this.props.order_information?._id}
+                chain={this.props.order_information?.chain}
+                payment={this.props.order_information?.payment}
+                handleToogleEdit={this.handleToogleEdit}
+                loadData={this.props.loadData}
+              />
+              :
+              <ChainWalletInformation
+                chain={this.props.order_information?.chain}
+                payment={this.props.order_information?.payment}
+                handleToogleEdit={this.handleToogleEdit}
+                isSuperUser={isSuperUser}
+              />
+            }
+          </div>
+
+
+          <br /><br />
+
+          <div id="market-order-part3">
+            <OrderUserInfomation
+              username={this.props.order_information?.userid.username}
+            // user_id={this.props.order_information?.userid._id}
+            // email={this.props.order_information?.userid.email}
+            />
+          </div>
+
+          <br /><br />
+
+
+
+          <div id="market-order-part4">
+            <LocationInformation
+              st={this.props.order_information?.sellmarketorderlocationID.location.st}
+              neigh={this.props.order_information?.sellmarketorderlocationID.location.neigh}
+              city={this.props.order_information?.sellmarketorderlocationID.location.city}
+              province_state={this.props.order_information?.sellmarketorderlocationID.location.province_state}
+              country={this.props.order_information?.sellmarketorderlocationID.location.country}
+            />
+          </div>
+
+
+          <br /><br />
+
+
+
+
+
+
           {this.state.section_to_edit == "OrderNumbersInformation" && isSuperUser ?
             <EditOrderNumbersInformation
               orderID={this.props.order_information?._id}
@@ -124,44 +185,6 @@ class InformationDetailsDisplay extends React.Component {
           <br /><br />
 
 
-          {this.state.section_to_edit == "ChainWalletInformation" && isSuperUser ?
-            <EditChainWalletInformation
-              orderID={this.props.order_information?._id}
-              chain={this.props.order_information?.chain}
-              payment={this.props.order_information?.payment}
-              handleToogleEdit={this.handleToogleEdit}
-              loadData={this.props.loadData}
-            />
-            :
-            <ChainWalletInformation
-              chain={this.props.order_information?.chain}
-              payment={this.props.order_information?.payment}
-              handleToogleEdit={this.handleToogleEdit}
-              isSuperUser={isSuperUser}
-            />
-          }
-
-          <br /><br />
-
-
-          <LocationInformation
-            st={this.props.order_information?.sellmarketorderlocationID.location.st}
-            neigh={this.props.order_information?.sellmarketorderlocationID.location.neigh}
-            city={this.props.order_information?.sellmarketorderlocationID.location.city}
-            province_state={this.props.order_information?.sellmarketorderlocationID.location.province_state}
-            country={this.props.order_information?.sellmarketorderlocationID.location.country}
-          />
-
-          <br /><br />
-
-
-          <OrderUserInfomation
-            username={this.props.order_information?.userid.username}
-          // user_id={this.props.order_information?.userid._id}
-          // email={this.props.order_information?.userid.email}
-          />
-
-          <br /><br />
 
 
           {isSuperUser ?

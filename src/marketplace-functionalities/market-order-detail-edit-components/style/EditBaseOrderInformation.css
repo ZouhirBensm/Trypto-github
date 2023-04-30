@@ -33,6 +33,7 @@ div#market-order-part1>form#my_form>h1>button {
   border: none;
   background-color: transparent;
   padding: 0;
+  margin-left: 2ch;
 }
 
 div#market-order-part1>form#my_form>h1>button>img {
@@ -58,6 +59,8 @@ div#market-order-part1>form#my_form>select#category-select {
   background-image: url('/public/img/SVG/market/individual-article/edit.svg');
   background-position: right 10px center;
   background-repeat: no-repeat;
+
+  width: fit-content;
 }
 
 
@@ -77,7 +80,7 @@ div#market-order-part1>form#my_form>label {
 
 
 div#market-order-part1>form#my_form>textarea,
-div#market-order-part1>form#my_form>select#condition-input,
+div#market-order-part1>form#my_form>select,
 div#market-order-part1>form#my_form>input {
   border: 1px solid #B8CEF5;
   border-radius: 8px;
@@ -89,6 +92,8 @@ div#market-order-part1>form#my_form>input {
   color: #6B7FA2;
   width: 100%;
   display: block;
+
+  font-size: var(--font-size-input);
 }
 
 div#market-order-part1>form#my_form>textarea {
@@ -96,7 +101,6 @@ div#market-order-part1>form#my_form>textarea {
   padding: 0;
   width: 100%;
   margin: 0 auto;
-  font-size: var(--font-size-textarea);
   line-height: var(--line-height-p-smaller);
 }
 
@@ -104,11 +108,23 @@ div#market-order-part1>form#my_form>textarea {
 div#market-order-part1>form#my_form>input {
   width: 100%;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
-div#market-order-part1>form#my_form>select#condition-input,
+div#market-order-part1>form#my_form>select,
 div#market-order-part1>form#my_form>input {
   font-size: var(--font-size-input);
+}
+
+
+div#market-order-part1>form#my_form>select.drop-down-icon {
+  padding: 1px 10px 0 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('/public/img/SVG/market/individual-article/drop.svg');
+  background-position: right 2px center;
+  background-repeat: no-repeat;
 }
 
 

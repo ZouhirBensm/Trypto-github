@@ -48,7 +48,7 @@ class BaseOrderInformation extends React.Component {
           <h1>{this.props.title}</h1>
           {/* Conditional Edit button */}
           {this.props.isSuperUser ?
-            <button id="market-item-edit-button" onClick={(e) => {
+            <button className="edit-button" onClick={(e) => {
               this.props.handleToogleEdit("BaseOrderInformation")
             }}>
               <img src="/img/SVG/market/individual-article/edit.svg" alt="" />

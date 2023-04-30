@@ -36,7 +36,7 @@ div#market-order-part1 > div.gray-box > div#category {
 
 
 
-div#market-order-part1 > div.gray-box > button#market-item-edit-button {
+div#market-order-part1 > div.gray-box > button.edit-button {
   border: none;
   background-color: transparent;
   padding: 0;
@@ -44,7 +44,7 @@ div#market-order-part1 > div.gray-box > button#market-item-edit-button {
   margin-left: 2ch;
 }
 
-div#market-order-part1 > div.gray-box > button#market-item-edit-button > img {
+div#market-order-part1 > div.gray-box > button.edit-button > img {
   width: 36px;
   height: 36px;
 }

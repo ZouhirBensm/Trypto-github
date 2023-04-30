@@ -1,0 +1,68 @@
+/* GRAY BOX (REPEATED) */
+div#market-order-part2 > div.gray-box {
+  border: 2px solid #EEF5FE;
+  border-radius: 10px;
+  padding: 10px 2%;
+}
+
+
+/* CHAIN IMG */
+div#market-order-part2 > div.gray-box > img {
+  vertical-align: middle;
+  margin-right: 2ch;
+}
+
+/* FIELDS (REP)*/
+div#market-order-part2 h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  color: #010757;
+  text-transform: capitalize;
+  font-size: var(--font-size-root);
+  margin-right: 1ch;
+  display: inline;
+  vertical-align: middle;
+}
+
+
+/* FIELD VALUES (REP)*/
+
+div#market-order-part2 > div.gray-box > div {
+  display: inline;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0px;
+  font-size: var(--font-size-p-smaller);
+  line-height: var(--line-height-p-smaller);
+  vertical-align: middle;
+}
+
+
+div#market-order-part2 > div.gray-box > div#payment {
+  font-weight: 400;
+  color: #6B7FA2;
+}
+
+
+div#market-order-part2 > div.gray-box > div#chain {
+  font-weight: 600;
+  color: #1266FC;
+  text-transform: capitalize;
+}
+
+
+
+
+/* EDIT BUTTON (REP)*/
+div#market-order-part2 > div.gray-box > button.edit-button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  vertical-align: middle;
+  margin-left: 2ch;
+}
+
+div#market-order-part2 > div.gray-box > button.edit-button > img {
+  width: 13px;
+  height: 13px;
+}
