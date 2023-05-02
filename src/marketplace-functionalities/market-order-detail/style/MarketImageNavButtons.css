@@ -23,11 +23,11 @@ button.image-nav {
   -webkit-backdrop-filter: blur(4px);
 }
 
-button#previous {
+button#previous.image-nav {
   background-image: url('/public/img/SVG/market/individual-article/nav-previous.svg');
 }
 
-button#next {
+button#next.image-nav {
   background-image: url('/public/img/SVG/market/individual-article/nav-next.svg');
 }
 

@@ -1,10 +1,32 @@
 /* ENTIRE SECTION */
+
+
+
 div#market-order-part5 > div.flex {
   /* background-color: red; */
 
   display: flex;
   flex-flow: column nowrap;
+  box-shadow: 0px 0px 20px #00000029;
+
+  /* height: 500px; */
+
 }
+
+div#market-order-part5 > div.flex > * {
+  /* flex: 1; */
+  padding: 2vh 0;
+}
+
+
+
+
+/* EVEN DIVS */
+div#market-order-part5 > div.flex > div:nth-of-type(odd) {
+  background-color: #F1F4FC;
+}
+
+
 
 /* ALL BUTTONS */
 
@@ -17,8 +39,8 @@ div#market-order-part5 button {
 
 /* ALL IMAGES */
 div#market-order-part5 button > img {
-  height: 16px;
-  width: 16px;
+  height: 20px;
+  width: 20px;
 }
 
 
@@ -32,12 +54,13 @@ div#market-order-part5 div#p1 {
   letter-spacing: 1.4px;
   color: #010757;
   text-transform: capitalize;
+  /* border-radius: 10px 10px 0px 0px; */
 }
 
 
 /* P1 CHILDREN */
 div#market-order-part5 div#p1 > div {
-  display: inline;
+  display: inline-block;
 
 }
 

@@ -3,7 +3,22 @@ div#market-order-part5 > form.flex {
 
   display: flex;
   flex-flow: column nowrap;
+  box-shadow: 0px 0px 20px #00000029;
 }
+
+
+div#market-order-part5 > form.flex > * {
+  /* flex: 1; */
+  padding: 2vh 0;
+}
+
+
+/* EVEN DIVS */
+div#market-order-part5 > form.flex > div:nth-of-type(odd) {
+  background-color: #F1F4FC;
+}
+
+
 
 
 /* SAVE BUTTON (REP) */
@@ -40,4 +55,19 @@ div#market-order-part5 > form.flex > div#p1 > input {
   font-size: var(--font-size-input);
   /* display: block; */
   /* width: 100%; */
+}
+
+
+
+
+/* POPUP (REP) */
+div#market-order-part5 > form.form > div#p3 > span.popup {
+  color: red;
+  width: 100%;
+  font-size: var(--font-size-extra);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  max-width: 350px;
+  margin: 1rem auto;
+  display: block;
 }

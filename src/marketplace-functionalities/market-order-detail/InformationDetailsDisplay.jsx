@@ -60,6 +60,12 @@ class InformationDetailsDisplay extends React.Component {
 
     return (
       <React.Fragment>
+
+
+
+        {/* TODO !!!! Check all inline CSS in these components (in this file) and place them in respective css files */}
+
+
         <div id='order-information-wrapper'>
 
           {isSuperUser ?
@@ -72,6 +78,7 @@ class InformationDetailsDisplay extends React.Component {
             :
             null
           }
+
 
 
 
@@ -110,7 +117,7 @@ class InformationDetailsDisplay extends React.Component {
           </div>
 
 
-          <br /><br />
+          
 
 
           <div id="market-order-part2">
@@ -133,7 +140,7 @@ class InformationDetailsDisplay extends React.Component {
           </div>
 
 
-          <br /><br />
+          
 
           <div id="market-order-part3">
             <OrderUserInfomation
@@ -143,7 +150,7 @@ class InformationDetailsDisplay extends React.Component {
             />
           </div>
 
-          <br /><br />
+          
 
 
 
@@ -158,36 +165,47 @@ class InformationDetailsDisplay extends React.Component {
           </div>
 
 
-          <br /><br />
+          
 
 
 
 
-          <div id="market-order-part5">
-            {this.state.section_to_edit == "OrderNumbersInformation" && isSuperUser ?
-              <EditOrderNumbersInformation
-                orderID={this.props.order_information?._id}
-                conversion={this.props.order_information?.conversion}
-                price={this.props.order_information?.price}
-                handleToogleEdit={this.handleToogleEdit}
-                loadData={this.props.loadData}
-              />
-              :
-              <OrderNumbersInformation
-                conversion={this.props.order_information?.conversion}
-                price={this.props.order_information?.price}
-                handleToogleEdit={this.handleToogleEdit}
-                isSuperUser={isSuperUser}
-              />
-            }
-          </div>
-
-          <br /><br />
+          {/* PART NUMBERS */}
 
 
 
 
-          {isSuperUser ?
+
+
+
+        </div>
+
+
+
+        <div id="market-order-part5">
+          {this.state.section_to_edit == "OrderNumbersInformation" && isSuperUser ?
+            <EditOrderNumbersInformation
+              orderID={this.props.order_information?._id}
+              conversion={this.props.order_information?.conversion}
+              price={this.props.order_information?.price}
+              handleToogleEdit={this.handleToogleEdit}
+              loadData={this.props.loadData}
+            />
+            :
+            <OrderNumbersInformation
+              conversion={this.props.order_information?.conversion}
+              price={this.props.order_information?.price}
+              handleToogleEdit={this.handleToogleEdit}
+              isSuperUser={isSuperUser}
+            />
+          }
+        </div>
+
+
+        
+
+
+        {isSuperUser ?
             null
             :
             <React.Fragment>
@@ -198,8 +216,7 @@ class InformationDetailsDisplay extends React.Component {
             </React.Fragment>
           }
 
-        </div>
-
+          
 
       </React.Fragment>
     )

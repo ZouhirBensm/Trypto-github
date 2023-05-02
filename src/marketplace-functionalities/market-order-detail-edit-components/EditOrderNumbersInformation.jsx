@@ -27,7 +27,7 @@ class EditOrderNumbersInformation extends React.Component {
   EditValidation(EditBaseOrderInformation_data) {
     let error_msg_retrieved_if_any
 
-    if (EditBaseOrderInformation_data.price === this.props.price && EditBaseOrderInformation_data.conversion === this.props.conversion) {
+    if (parseInt(EditBaseOrderInformation_data.price) === this.props.price && EditBaseOrderInformation_data.conversion === this.props.conversion) {
       error_msg_retrieved_if_any = `Nothing has changed, therefor nothing to update!`
       this.setpopup(error_msg_retrieved_if_any)
       return false
@@ -103,8 +103,8 @@ class EditOrderNumbersInformation extends React.Component {
 
 
     let symbol
-    if(this.state.unit == 'BTC') { symbol = '₿' }
-    if(this.state.unit == 'SAT') { symbol = 'S' }
+    if (this.state.unit == 'BTC') { symbol = '₿' }
+    if (this.state.unit == 'SAT') { symbol = 'S' }
 
 
     return (
@@ -117,19 +117,19 @@ class EditOrderNumbersInformation extends React.Component {
 
           <div id='p1'>
             {/* <label htmlFor="price-input">Price</label> */}
-            <input onChange={(e) => {
+            <input style={{marginBottom: '.5rem'}} onChange={(e) => {
               this.amountsToCalculatorChange(e);
             }} type="number" id="price-input" name="price" step="0.01" defaultValue={this.props.price} />
-            <span>CA</span><span style={{backgroundColor: 'green', padding: '3px 5px 9px 6px'}} className='round-symbol'>$</span><br />
+            <span>CA</span><span style={{ backgroundColor: 'green', padding: '3px 5px 9px 6px' }} className='round-symbol'>$</span><br />
 
 
 
-            <label htmlFor="conversion-input">Rate </label>
-            <button onClick={(e) => { this.clickGetBTCPrice(e) }}>
+            <label htmlFor="conversion-input">Rate: </label>
+            <button style={{marginRight: '1ch'}} onClick={(e) => { this.clickGetBTCPrice(e) }}>
               <img src="/img/SVG/market/individual-article/graph.svg" alt="" />
             </button>
 
-            
+
             <input onChange={(e) => {
               this.amountsToCalculatorChange(e);
             }} type="number" id="conversion-input" name="conversion" step="0.01" defaultValue={this.props.conversion} />
@@ -144,10 +144,10 @@ class EditOrderNumbersInformation extends React.Component {
             <span>{this.state.unit == "BTC" ? `${this.state.amountsToBTC} ` : this.state.unit == "SAT" ? `${this.state.amountsToSAT} ` : null}</span>
 
 
-            <span style={{backgroundColor: '#80E8FF', padding: '3px 5px 9px'}} className='round-symbol'>{symbol}</span>
+            <span style={{ backgroundColor: '#80E8FF', padding: '3px 5px 9px' }} className='round-symbol'>{symbol}</span>
 
             {/* in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null} */}
-            <button onClick={(e) => { this.SATBTC(e) }}>
+            <button style={{marginLeft: '1ch'}} onClick={(e) => { this.SATBTC(e) }}>
               <img src="/img/SVG/market/individual-article/arrow-switch.svg" alt="" />
             </button>
 
@@ -161,7 +161,24 @@ class EditOrderNumbersInformation extends React.Component {
 
           {/* THREE */}
           <div id="p3">
-            <button className='save-part' onClick={async (e) => {
+
+            {this.state.popup ?
+              <span className='popup'>{this.state.popup}</span>
+              : null}
+
+
+
+            <button onClick={(e) => {
+              this.props.handleToogleEdit(undefined)
+            }}>
+              <img src="/img/SVG/market/individual-article/revert2.svg" alt="" />
+            </button>
+
+
+
+
+
+            <button style={{marginLeft: '1ch'}} className='save-part' onClick={async (e) => {
 
               e.preventDefault()
               let EditBaseOrderInformation_data = {
@@ -180,13 +197,8 @@ class EditOrderNumbersInformation extends React.Component {
             }}>Save</button>
 
 
-            <button onClick={(e) => {
-              this.props.handleToogleEdit(undefined)
-            }}>
-              <img src="/img/SVG/market/individual-article/revert2.svg" alt="" />
-            </button>
           </div>
-          
+
 
 
 
@@ -194,9 +206,7 @@ class EditOrderNumbersInformation extends React.Component {
         </form><br />
 
 
-        {this.state.popup ?
-          <span className='popup'>{this.state.popup}</span>
-          : null}
+
 
       </React.Fragment>
     )

@@ -1,6 +1,8 @@
 import ImagesScrollDisplay from './ImagesScrollDisplay'
 import InformationDetailsDisplay from './InformationDetailsDisplay'
 
+import OnPageFooter from '../../generic-components/OnPageFooter'
+
 import './style/RetrievedMarketOrderData.css'
 
 
@@ -31,7 +33,9 @@ class RetrievedMarketOrderData extends React.Component {
             loadData={this.props.loadData}
             order_type={this.props.order_type}
           />
+          <OnPageFooter/>
         </div>
+
       </React.Fragment>
     )
   }

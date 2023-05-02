@@ -37,10 +37,10 @@ class OrderNumbersInformation extends React.Component {
 
           {/* ONE */}
           <div id='p1'>
-            <div>{this.props.price} CA </div>
+            <div style={{marginBottom: '.5rem'}}>{this.props.price} CA </div>
             <span style={{backgroundColor: 'green', padding: '3px 5px 9px 6px'}} className='round-symbol'>$</span> <br />
 
-            <span>Rate </span>
+            <span>Rate: </span>
             <div>{this.props.conversion} CA$/BTC</div>
           </div>
 
@@ -54,7 +54,7 @@ class OrderNumbersInformation extends React.Component {
             
 
             {/* in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null} */}
-            <button onClick={(e) => { this.SATBTC(e) }}>
+            <button style={{marginLeft: '1ch'}} onClick={(e) => { this.SATBTC(e) }}>
               <img src="/img/SVG/market/individual-article/arrow-switch.svg" alt="" />
             </button>
 

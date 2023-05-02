@@ -44,7 +44,7 @@ class EditBaseOrderInformation extends React.Component {
     textareaElement.setAttribute('rows', rows_needed);
 
     if (cols_needed) {
-      textareaElement.setAttribute('cols', cols_needed); 
+      textareaElement.setAttribute('cols', (cols_needed+5)); 
       textareaElement.style.width = 'fit-content'; 
       textareaElement.style.margin = 'unset'; 
       textareaElement.style.display='inline';
