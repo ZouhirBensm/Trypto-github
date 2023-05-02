@@ -97,7 +97,7 @@ div#market-order-part1>form#my_form>input {
 }
 
 div#market-order-part1>form#my_form>textarea {
-  width: var(100%-2px);
+  /* width: var(100%-2px); */
   padding: 0;
   width: 100%;
   margin: 0 auto;

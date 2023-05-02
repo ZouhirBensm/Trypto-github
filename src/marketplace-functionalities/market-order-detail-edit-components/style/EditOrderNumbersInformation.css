@@ -1,0 +1,43 @@
+div#market-order-part5 > form.flex {
+  /* background-color: red; */
+
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+
+/* SAVE BUTTON (REP) */
+div#market-order-part5 > form.flex > div#p3 > button.save-part {
+  /* border: none; */
+  /* margin: 2rem; */
+  background: transparent linear-gradient(88deg, #80E8FF 0%, #0049E4 100%) 0% 0% no-repeat padding-box;
+  box-shadow: 0px 6px 20px #1266FC4E;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  padding: 0.8rem;
+  font-size: var(--font-size-button);
+}
+
+
+
+
+/* P1 INPUT EDITS (REP) */
+div#market-order-part5 > form.flex > div#p1 > input {
+  padding: 0;
+  margin: 0 auto;
+  line-height: var(--line-height-p-smaller);
+
+  border: 1px solid #B8CEF5;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #6B7FA2;
+  font-size: var(--font-size-input);
+  /* display: block; */
+  /* width: 100%; */
+}

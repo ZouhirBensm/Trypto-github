@@ -54,6 +54,18 @@ div#market-order-part2>form#my_form>select {
 }
 
 
+/* DROP STYLES (REP) */
+div#market-order-part2>form#my_form>select {
+  padding: 1px 10px 0 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('/public/img/SVG/market/individual-article/drop.svg');
+  background-position: right 2px center;
+  background-repeat: no-repeat;
+}
+
+
 
 /* REVERT */
 div#market-order-part2>form>button {

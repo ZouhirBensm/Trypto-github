@@ -1,0 +1,80 @@
+/* ENTIRE SECTION */
+div#market-order-part5 > div.flex {
+  /* background-color: red; */
+
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+/* ALL BUTTONS */
+
+div#market-order-part5 button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  vertical-align: middle;
+}
+
+/* ALL IMAGES */
+div#market-order-part5 button > img {
+  height: 16px;
+  width: 16px;
+}
+
+
+/* P1 */
+div#market-order-part5 div#p1 {
+  text-align: center;
+
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  color: #010757;
+  text-transform: capitalize;
+}
+
+
+/* P1 CHILDREN */
+div#market-order-part5 div#p1 > div {
+  display: inline;
+
+}
+
+div#market-order-part5 span.round-symbol {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+}
+
+
+
+/* P2 */
+div#market-order-part5 div#p2 {
+  text-align: center;
+}
+
+
+div#market-order-part5 div#p2 > span {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+
+  /* letter-spacing: 2.4px; */
+  text-transform: capitalize;
+}
+
+div#market-order-part5 div#p2 > span:first-of-type {
+  color: #010757;
+  letter-spacing: 2.4px;
+}
+
+
+
+/* P3 */
+div#market-order-part5 div#p3 {
+  text-align: center;
+}
+

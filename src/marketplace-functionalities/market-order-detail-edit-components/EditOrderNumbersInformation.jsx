@@ -100,37 +100,59 @@ class EditOrderNumbersInformation extends React.Component {
 
 
   render() {
+
+
+    let symbol
+    if(this.state.unit == 'BTC') { symbol = '₿' }
+    if(this.state.unit == 'SAT') { symbol = 'S' }
+
+
     return (
       <React.Fragment>
 
-        <form className="form" id="form_id">
+        <form className="form flex" id="form_id">
 
           {/* ONE */}
 
-          {/* <label htmlFor="price-input">Price</label> */}
-          <input onChange={(e) => {
-            this.amountsToCalculatorChange(e);
-          }} type="number" id="price-input" name="price" step="0.01" defaultValue={this.props.price} />
-          <span> CAD</span>
-          <br />
+
+          <div id='p1'>
+            {/* <label htmlFor="price-input">Price</label> */}
+            <input onChange={(e) => {
+              this.amountsToCalculatorChange(e);
+            }} type="number" id="price-input" name="price" step="0.01" defaultValue={this.props.price} />
+            <span>CA</span><span style={{backgroundColor: 'green', padding: '3px 5px 9px 6px'}} className='round-symbol'>$</span><br />
 
 
 
-          {/* <label htmlFor="conversion-input">@ 1 BTC =</label> */}
-          <button onClick={(e) => { this.clickGetBTCPrice(e) }}>Market</button><br />
+            <label htmlFor="conversion-input">Rate </label>
+            <button onClick={(e) => { this.clickGetBTCPrice(e) }}>
+              <img src="/img/SVG/market/individual-article/graph.svg" alt="" />
+            </button>
 
-          <input onChange={(e) => {
-            this.amountsToCalculatorChange(e);
-          }} type="number" id="conversion-input" name="conversion" step="0.01" defaultValue={this.props.conversion} />
-          <span> CAD</span> <br />
+            
+            <input onChange={(e) => {
+              this.amountsToCalculatorChange(e);
+            }} type="number" id="conversion-input" name="conversion" step="0.01" defaultValue={this.props.conversion} />
+            <span>CA$/BTC</span>
+
+          </div>
 
 
 
           {/* TWO */}
+          <div id="p2">
+            <span>{this.state.unit == "BTC" ? `${this.state.amountsToBTC} ` : this.state.unit == "SAT" ? `${this.state.amountsToSAT} ` : null}</span>
 
-          <span>Amounts to: {this.state.unit == "BTC" ? `${this.state.amountsToBTC} ` : this.state.unit == "SAT" ? `${this.state.amountsToSAT} ` : null} {this.state.unit}</span><br />
 
-          <button onClick={(e) => { this.SATBTC(e) }}>in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null}</button><br />
+            <span style={{backgroundColor: '#80E8FF', padding: '3px 5px 9px'}} className='round-symbol'>{symbol}</span>
+
+            {/* in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null} */}
+            <button onClick={(e) => { this.SATBTC(e) }}>
+              <img src="/img/SVG/market/individual-article/arrow-switch.svg" alt="" />
+            </button>
+
+          </div>
+
 
 
 
@@ -138,28 +160,33 @@ class EditOrderNumbersInformation extends React.Component {
 
 
           {/* THREE */}
-          <button onClick={async (e) => {
+          <div id="p3">
+            <button className='save-part' onClick={async (e) => {
 
-            e.preventDefault()
-            let EditBaseOrderInformation_data = {
-              orderID: this.props.orderID,
-              price: document.getElementById("form_id").elements["price"].value,
-              conversion: document.getElementById("form_id").elements["conversion"].value
-            }
+              e.preventDefault()
+              let EditBaseOrderInformation_data = {
+                orderID: this.props.orderID,
+                price: document.getElementById("form_id").elements["price"].value,
+                conversion: document.getElementById("form_id").elements["conversion"].value
+              }
 
-            let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data)
-            if (ret_EditValidation) {
-              let ret_EditFunction2 = await this.EditFunction2(EditBaseOrderInformation_data)
-              return
-            } else {
-              return
-            }
-          }}>Save Edits</button>
+              let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data)
+              if (ret_EditValidation) {
+                let ret_EditFunction2 = await this.EditFunction2(EditBaseOrderInformation_data)
+                return
+              } else {
+                return
+              }
+            }}>Save</button>
 
 
-          <button onClick={(e) => {
-            this.props.handleToogleEdit(undefined)
-          }}>Revert</button>
+            <button onClick={(e) => {
+              this.props.handleToogleEdit(undefined)
+            }}>
+              <img src="/img/SVG/market/individual-article/revert2.svg" alt="" />
+            </button>
+          </div>
+          
 
 
 

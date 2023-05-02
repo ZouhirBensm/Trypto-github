@@ -25,30 +25,62 @@ class OrderNumbersInformation extends React.Component {
     amountsToSAT = Math.trunc(amountsToRaw * 1000000000)
 
 
+    let symbol
+    if(this.state.unit == 'BTC') { symbol = '₿' }
+    if(this.state.unit == 'SAT') { symbol = 'S' }
+
+
     return (
       <React.Fragment>
 
-        {/* ONE */}
-        <div>Price: {this.props.price}</div>
+        <div className='flex'>
 
-        <div>Rate: {this.props.conversion}</div>
+          {/* ONE */}
+          <div id='p1'>
+            <div>{this.props.price} CA </div>
+            <span style={{backgroundColor: 'green', padding: '3px 5px 9px 6px'}} className='round-symbol'>$</span> <br />
 
-        {/* TWO */}
-        <span>Amounts to: {this.state.unit == "BTC" ? `${amountsToBTC} ` : this.state.unit == "SAT" ? `${amountsToSAT} ` : null} {this.state.unit}</span><br />
-
-        <button onClick={(e) => { this.SATBTC(e) }}>in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null}</button> <br />
-
-
-        {/* THREE */}
-        {this.props.isSuperUser ?
-          <button onClick={(e) => {
-            this.props.handleToogleEdit("OrderNumbersInformation")
-          }}>Edit</button>
-          :
-          null
-        }
+            <span>Rate </span>
+            <div>{this.props.conversion} CA$/BTC</div>
+          </div>
 
 
+          {/* TWO */}
+          <div id="p2">
+            <span>{this.state.unit == "BTC" ? `${amountsToBTC} ` : this.state.unit == "SAT" ? `${amountsToSAT} ` : null}</span>
+
+
+            <span style={{backgroundColor: '#80E8FF', padding: '3px 5px 9px 5px'}} className='round-symbol'>{symbol}</span>
+            
+
+            {/* in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null} */}
+            <button onClick={(e) => { this.SATBTC(e) }}>
+              <img src="/img/SVG/market/individual-article/arrow-switch.svg" alt="" />
+            </button>
+
+          </div>
+
+
+
+          {/* THREE */}
+
+
+          {this.props.isSuperUser ?
+            <React.Fragment>
+              <div id="p3">
+                <button onClick={(e) => {
+                  this.props.handleToogleEdit("OrderNumbersInformation")
+                }}>
+                  <img src="/img/SVG/market/individual-article/edit.svg" alt="" />
+                </button>
+              </div>
+            </React.Fragment>
+            :
+            null
+          }
+
+
+        </div>
 
       </React.Fragment>
     )
