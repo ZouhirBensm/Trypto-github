@@ -181,7 +181,7 @@ class EditBaseOrderInformation extends React.Component {
 
 
           {/* <label htmlFor="category-select">Category</label> */}
-          <select style={{ display: 'block' }} name="category" id="category-select" defaultValue={this.props.category}>
+          <select name="category" id="category-select" defaultValue={this.props.category}>
             <option value="">No Selection</option>
             <option value="Other">Other</option>
             <option value="Kitchen">Kitchen</option>
@@ -193,8 +193,8 @@ class EditBaseOrderInformation extends React.Component {
           </select>
 
 
-          <label style={{ display: 'block' }} htmlFor="description-select">Description</label>
-          <textarea style={{ display: 'block' }} id="description-select" name="description" rows="3" defaultValue={this.props.description}></textarea>
+          <label htmlFor="description-select">Description</label>
+          <textarea id="description-select" name="description" rows="3" defaultValue={this.props.description}></textarea>
 
 
 

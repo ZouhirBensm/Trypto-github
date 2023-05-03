@@ -59,6 +59,7 @@ div#market-order-part1>form#my_form>select#category-select {
   background-image: url('/public/img/SVG/market/individual-article/edit.svg');
   background-position: right 10px center;
   background-repeat: no-repeat;
+  display: block;
 
   width: fit-content;
 }
@@ -165,5 +166,8 @@ div#market-order-part1 > form.gray-box > button.save-part {
   margin: 2rem;
   font-size: var(--font-size-button);
 }
+
+
+
 
 

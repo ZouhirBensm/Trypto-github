@@ -37,6 +37,14 @@ div#market-order-part5 button {
   vertical-align: middle;
 }
 
+div#market-order-part5 button.margin-right {
+  margin-right: 1ch;
+}
+
+div#market-order-part5 button.margin-left {
+  margin-left: 1ch
+}
+
 /* ALL IMAGES */
 div#market-order-part5 button > img {
   height: 20px;
@@ -61,6 +69,7 @@ div#market-order-part5 div#p1 {
 /* P1 CHILDREN */
 div#market-order-part5 div#p1 > div {
   display: inline-block;
+  margin-bottom: .5rem;
 
 }
 
@@ -73,6 +82,13 @@ div#market-order-part5 span.round-symbol {
   text-align: center;
 }
 
+div#market-order-part5 span.green {
+  background-color: green;
+}
+
+div#market-order-part5 span.special-padding-1 {
+  padding: 3px 5px 9px 6px;
+}
 
 
 /* P2 */
@@ -88,6 +104,15 @@ div#market-order-part5 div#p2 > span {
   /* letter-spacing: 2.4px; */
   text-transform: capitalize;
 }
+
+
+div#market-order-part5 div#p2 > span.blue {
+  background-color: #80E8FF;
+}
+
+
+
+
 
 div#market-order-part5 div#p2 > span:first-of-type {
   color: #010757;

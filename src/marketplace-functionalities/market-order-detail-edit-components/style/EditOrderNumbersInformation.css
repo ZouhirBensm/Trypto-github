@@ -57,6 +57,10 @@ div#market-order-part5 > form.flex > div#p1 > input {
   /* width: 100%; */
 }
 
+div#market-order-part5 > form.flex > div#p1 > input:first-of-type {
+  margin-bottom: .5rem;
+}
+
 
 
 

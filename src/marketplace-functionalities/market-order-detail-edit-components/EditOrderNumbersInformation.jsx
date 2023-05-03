@@ -117,15 +117,15 @@ class EditOrderNumbersInformation extends React.Component {
 
           <div id='p1'>
             {/* <label htmlFor="price-input">Price</label> */}
-            <input style={{marginBottom: '.5rem'}} onChange={(e) => {
+            <input onChange={(e) => {
               this.amountsToCalculatorChange(e);
             }} type="number" id="price-input" name="price" step="0.01" defaultValue={this.props.price} />
-            <span>CA</span><span style={{ backgroundColor: 'green', padding: '3px 5px 9px 6px' }} className='round-symbol'>$</span><br />
+            <span>CA</span><span className='round-symbol green special-padding-1'>$</span><br />
 
 
 
             <label htmlFor="conversion-input">Rate: </label>
-            <button style={{marginRight: '1ch'}} onClick={(e) => { this.clickGetBTCPrice(e) }}>
+            <button className='margin-right' onClick={(e) => { this.clickGetBTCPrice(e) }}>
               <img src="/img/SVG/market/individual-article/graph.svg" alt="" />
             </button>
 
@@ -143,11 +143,10 @@ class EditOrderNumbersInformation extends React.Component {
           <div id="p2">
             <span>{this.state.unit == "BTC" ? `${this.state.amountsToBTC} ` : this.state.unit == "SAT" ? `${this.state.amountsToSAT} ` : null}</span>
 
-
-            <span style={{ backgroundColor: '#80E8FF', padding: '3px 5px 9px' }} className='round-symbol'>{symbol}</span>
+            <span className='round-symbol blue special-padding-1'>{symbol}</span>
 
             {/* in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null} */}
-            <button style={{marginLeft: '1ch'}} onClick={(e) => { this.SATBTC(e) }}>
+            <button className='margin-left' onClick={(e) => { this.SATBTC(e) }}>
               <img src="/img/SVG/market/individual-article/arrow-switch.svg" alt="" />
             </button>
 
@@ -178,7 +177,7 @@ class EditOrderNumbersInformation extends React.Component {
 
 
 
-            <button style={{marginLeft: '1ch'}} className='save-part' onClick={async (e) => {
+            <button className='save-part margin-left' onClick={async (e) => {
 
               e.preventDefault()
               let EditBaseOrderInformation_data = {
