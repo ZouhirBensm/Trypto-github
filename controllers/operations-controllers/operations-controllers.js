@@ -9,6 +9,8 @@ async function getOperationsPagesController(req, res) {
   console.log("\n\nGET /set-settings/set-users-associated-locality:\noperationsControllers.getOperationsPagesController() ->res.locals.selectedUser:\n\n***", res.locals.selectedUser, "\n\n-")
 
   
+  res.locals.isPaypalScriptNeeded = true
+
   return res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
   })
