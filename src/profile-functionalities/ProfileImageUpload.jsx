@@ -1,3 +1,6 @@
+import './styles/ProfileImageUpload.css'
+
+
 class ProfileImageUpload extends React.Component {
   constructor(props) {
     super(props)

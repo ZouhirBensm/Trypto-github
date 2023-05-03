@@ -1,6 +1,8 @@
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading"
 
+import './styles/MgtUser.css'
+
 
 const Login = loadable(() => import("../login-register-functionalities/Login"), {
   fallback: <Loading />

@@ -3,6 +3,9 @@ const httpStatus = require("http-status-codes")
 // Custom Error
 const { DeleteAccountProcessError } = require("../../custom-errors/custom-errors")
 
+
+
+
 function renderMgtUserSPAController(req, res) {
   
   res.locals.userId = req.session.userId

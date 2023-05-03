@@ -1,3 +1,5 @@
+import './styles/ImageUploadModalFunction.css'
+
 class ImageUploadModalFunction extends React.Component {
   constructor(props) {
     super(props)
@@ -11,8 +13,9 @@ class ImageUploadModalFunction extends React.Component {
 
 
   componentDidMount() {
-    let img = document.querySelector('img')
-    img.onclick = (e) => {
+    // let img = document.querySelector('img')
+    let profileImgContainer = document.getElementById('profile-image-container')
+    profileImgContainer.onclick = (e) => {
       // this.toogleProfilePicUploadModal(e)
       this.props.toogleModal(e)
     }
@@ -50,12 +53,16 @@ class ImageUploadModalFunction extends React.Component {
     }
   }
 
+  // TODO !!!! Forgot to set font-sizes for the market item details page
 
-
-  render(){
+  render() {
     return (
       <React.Fragment>
-        <img src={this.props.profile_image_path} alt="User's profile picture" />
+        <div id="profile-image-container">
+          <img src={this.props.profile_image_path} alt="User's profile picture" />
+          <span>{this.props.userName}</span>
+          <div>Change image <img src="/img/SVG/profile/user-info/upload.svg" alt=""/></div>
+        </div>
       </React.Fragment>
     )
   }

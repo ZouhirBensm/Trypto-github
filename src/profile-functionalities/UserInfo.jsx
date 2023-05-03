@@ -41,15 +41,27 @@ class UserInfo extends React.Component {
     return (
       <React.Fragment>
         <div className="main-card user-info">
-          <div className="title-card">
-            <span>Logged in user: </span>
-            <ImageUploadModalFunction
-              profile_image_path={this.props.profile_image_path}
-              toogleModal={this.toogleModal}
-              modal={this.state.modal}
-            />
-            <span> {this.props.userName}</span>
-          </div>
+
+
+
+          <ImageUploadModalFunction
+            profile_image_path={this.props.profile_image_path}
+            toogleModal={this.toogleModal}
+            modal={this.state.modal}
+            userName={this.props.userName}
+          />
+          {/* <span> {this.props.userName}</span> */}
+
+
+
+
+          <br />
+          <br />
+          <br />
+
+
+
+
           <div className="section">
             <div className="section-wrapper">
               <ul className="section-ul">

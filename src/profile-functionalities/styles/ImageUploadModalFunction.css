@@ -1,0 +1,58 @@
+div.main-card > div#profile-image-container {
+  width: 90%;
+  max-width: 313px;
+  margin: 0 auto;
+  padding-top: 50px;
+  padding-bottom: 20px;
+
+  /* background-image:url('/public/img/PNG/profile/user-info/logo-bk.png'); */
+  background-image: linear-gradient(104deg, #0048e49c, #80e8ffb0), url('/public/img/SVG/profile/user-info/logo-bk2.svg');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center;
+
+  border-radius: 15px;
+}
+
+
+
+
+div.main-card > div#profile-image-container > img:first-of-type {
+  display: block;
+  margin: 0 auto 20px auto;
+  width: 133px;
+  height: 133px;
+  border-radius: 50%;
+  border: 1px solid #80E8FF;
+}
+
+/* UPLOAD ICON */
+div.main-card > div#profile-image-container > div > img {
+  width: 20px;
+  height: 20px;
+  margin-left: 1ch;
+}
+
+div.main-card > div#profile-image-container > span {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 42px auto;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-header);
+  letter-spacing: 0px;
+  color: #FFFFFF;
+ }
+
+ div.main-card > div#profile-image-container > div {
+  width: fit-content;
+  margin: 0 auto;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-root);
+  letter-spacing: 1.3px;
+  color: #FFFFFF;
+  text-transform: uppercase;
+ }

@@ -1,0 +1,8 @@
+div#react-div {
+  position: relative;
+}
+
+div#react-div > div#myModal {
+  position: absolute;
+  top: 0;
+}

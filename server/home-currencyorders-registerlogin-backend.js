@@ -125,6 +125,27 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
+
+
+
+homeOrdersBackend_app_router.get('/users/profile', 
+require_loggedin_for_pages(true), 
+authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), 
+getPopulatedUser("SESSION", "subscriptionID"), 
+getProfilePicNameIfAnyMiddleware("SESSION"),
+homeCurrencyOrdersController.renderMgtUserSPAController)
+
+
+
+
+
+
+
+
+
+
+
+
 homeOrdersBackend_app_router.get('/todelete', (req,res)=>{
   var JSX_to_load = 'ToDelete';
 
@@ -137,12 +158,6 @@ homeOrdersBackend_app_router.get('/todelete', (req,res)=>{
 
 
 
-homeOrdersBackend_app_router.get('/users/profile', 
-require_loggedin_for_pages(true), 
-authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), 
-getPopulatedUser("SESSION", "subscriptionID"), 
-getProfilePicNameIfAnyMiddleware("SESSION"),
-homeCurrencyOrdersController.renderMgtUserSPAController)
 
 
 
