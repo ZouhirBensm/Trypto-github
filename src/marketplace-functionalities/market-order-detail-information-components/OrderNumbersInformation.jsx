@@ -37,11 +37,13 @@ class OrderNumbersInformation extends React.Component {
 
           {/* ONE */}
           <div id='p1'>
-            <div>{this.props.price} CA </div>
-            <span className='round-symbol green special-padding-1'>$</span> <br />
+            <span>{this.props.price} CA </span>
+            <span className='round-symbol green special-padding-1'>$</span>
 
+            <br />
             <span>Rate: </span>
-            <div>{this.props.conversion} CA$/BTC</div>
+            <span>{this.props.conversion} CA$/BTC</span>
+
           </div>
 
 

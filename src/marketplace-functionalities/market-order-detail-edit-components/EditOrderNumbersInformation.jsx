@@ -117,23 +117,29 @@ class EditOrderNumbersInformation extends React.Component {
 
           <div id='p1'>
             {/* <label htmlFor="price-input">Price</label> */}
+
             <input onChange={(e) => {
               this.amountsToCalculatorChange(e);
             }} type="number" id="price-input" name="price" step="0.01" defaultValue={this.props.price} />
-            <span>CA</span><span className='round-symbol green special-padding-1'>$</span><br />
+            <span className='margin-left'>
+              <span>CA</span><span className='round-symbol green special-padding-1'>$</span>
+            </span>
 
-
-
-            <label htmlFor="conversion-input">Rate: </label>
-            <button className='margin-right' onClick={(e) => { this.clickGetBTCPrice(e) }}>
-              <img src="/img/SVG/market/individual-article/graph.svg" alt="" />
-            </button>
-
+            
+            <div id="rate-label">
+              <label htmlFor="conversion-input">Rate: </label>
+              <button className='margin-right' onClick={(e) => { this.clickGetBTCPrice(e) }}>
+                <img src="/img/SVG/market/individual-article/graph.svg" alt="" />
+              </button>
+            </div>
 
             <input onChange={(e) => {
               this.amountsToCalculatorChange(e);
             }} type="number" id="conversion-input" name="conversion" step="0.01" defaultValue={this.props.conversion} />
-            <span>CA$/BTC</span>
+
+
+            <span className='margin-left' id='unit'>CA$/BTC</span>
+
 
           </div>
 

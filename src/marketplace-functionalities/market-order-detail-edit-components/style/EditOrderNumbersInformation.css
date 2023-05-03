@@ -41,9 +41,9 @@ div#market-order-part5 > form.flex > div#p3 > button.save-part {
 
 
 /* P1 INPUT EDITS (REP) */
-div#market-order-part5 > form.flex > div#p1 > input {
+div#market-order-part5 > form.flex > div#p1 input {
   padding: 0;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   line-height: var(--line-height-p-smaller);
 
   border: 1px solid #B8CEF5;
@@ -58,7 +58,7 @@ div#market-order-part5 > form.flex > div#p1 > input {
 }
 
 div#market-order-part5 > form.flex > div#p1 > input:first-of-type {
-  margin-bottom: .5rem;
+  /* margin-bottom: .5rem; */
 }
 
 
@@ -74,4 +74,54 @@ div#market-order-part5 > form.form > div#p3 > span.popup {
   max-width: 350px;
   margin: 1rem auto;
   display: block;
+}
+
+
+/* APPLY TO BOTH */
+/* div#market-order-part5 div#p1 > div:first-of-type {
+  background-color: red;
+}
+
+div#market-order-part5 div#p1 > div:nth-of-type(2) {
+  background-color: purple;
+} */
+
+
+/* APPLY ONLY TO EDIT */
+div#market-order-part5 > form.form > div#p1 {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+}
+
+
+div#market-order-part5 > form.form > div#p1> input#price-input {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+div#market-order-part5 > form.form > div#p1 > span:first-of-type {
+  grid-row: 1;
+  grid-column: 3;
+  text-align: left;
+}
+
+div#market-order-part5 > form.form > div#p1 > div#rate-label {
+  grid-row: 2;
+  grid-column: 1;
+  text-align: right;
+  white-space: nowrap;
+}
+
+
+div#market-order-part5 > form.form > div#p1 > input#conversion-input {
+  grid-row: 2;
+  grid-column: 2;
+}
+
+div#market-order-part5 > form.form > div#p1 span#unit {
+  grid-row: 2;
+  grid-column: 3;
+  text-align: left;
 }
