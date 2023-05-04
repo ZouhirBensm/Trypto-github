@@ -89,44 +89,43 @@ class Profile extends React.Component {
 
 
         {selectedUser.subscriptionID ?
-          <React.Fragment>
-            <SubscriberInfo
-              plan={plan}
-              username={userName}
-              paypalsubscriptionID={paypalsubscriptionID}
+          <SubscriberInfo
+            plan={plan}
+            username={userName}
+            paypalsubscriptionID={paypalsubscriptionID}
 
-              subscriptionDateTime={subscriptionDateTime}
-              current_billing_cycle_botom_datetime={current_billing_cycle_botom_datetime.toString()}
+            subscriptionDateTime={subscriptionDateTime}
+            current_billing_cycle_botom_datetime={current_billing_cycle_botom_datetime.toString()}
 
-              current_billing_cycle_top_datetime={current_billing_cycle_top_datetime.toString()}
+            current_billing_cycle_top_datetime={current_billing_cycle_top_datetime.toString()}
 
-              subscriptionExpiresAt={selectedUser.subscriptionID?.expireAt}
+            subscriptionExpiresAt={selectedUser.subscriptionID?.expireAt}
 
-              registrationTimeDate={registrationTimeDate}
+            registrationTimeDate={registrationTimeDate}
 
-              usedUserID={this.props.usedUserID}
-              setpopups={this.setpopups}
-            />
-
-
-            <br />
-            <br />
-            <br />
-
-            <ModalPoper
-              usedUserID={this.props.usedUserID}
-              setpopups={this.setpopups}
-              onModalToogle_button2Toogle='delete-id'
-              component_id='unsub-id'
-              button_display='Usubscribe'
-              modal_type='UnsubModal'
-            />
-
-          </React.Fragment> : null
+            usedUserID={this.props.usedUserID}
+            setpopups={this.setpopups}
+          />
+          : null
         }
 
 
-        {selectedUser.subscriptionID ? null : 
+        {selectedUser.subscriptionID ?
+          <ModalPoper
+            usedUserID={this.props.usedUserID}
+            setpopups={this.setpopups}
+            onModalToogle_button2Toogle='delete-id'
+            component_id='unsub-id'
+            button_display='Usubscribe'
+            modal_type='UnsubModal'
+          />
+          : 
+          null
+        }
+
+
+        {selectedUser.subscriptionID ? null :
+        
           <ModalPoper
             clickable={!!selectedUser.subscriptionID}
             usedUserID={this.props.usedUserID}
@@ -134,7 +133,7 @@ class Profile extends React.Component {
 
             onModalToogle_button2Toogle='delete-id'
             component_id='upgrade-id'
-            
+
             button_display='Basic'
             modal_type='PayToGoBasicModal'
           />

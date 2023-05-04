@@ -158,3 +158,8 @@ div[onclick="toogleSideNav()"] {
 
   --line-height-generic: 1.0rem;
 }
+
+
+:root {
+  --card-header-margin: 1rem;
+}
