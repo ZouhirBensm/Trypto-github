@@ -87,6 +87,52 @@ class Profile extends React.Component {
           changeprofileimagename={this.changeprofileimagename}
         />
 
+
+
+        {selectedUser.subscriptionID ?
+          <React.Fragment>
+            <SubscriberInfo
+              plan={plan}
+              username={userName}
+              paypalsubscriptionID={paypalsubscriptionID}
+
+              subscriptionDateTime={subscriptionDateTime}
+              current_billing_cycle_botom_datetime={current_billing_cycle_botom_datetime.toString()}
+
+              current_billing_cycle_top_datetime={current_billing_cycle_top_datetime.toString()}
+
+              subscriptionExpiresAt={selectedUser.subscriptionID?.expireAt}
+
+              registrationTimeDate={registrationTimeDate}
+
+              usedUserID={this.props.usedUserID}
+              setpopups={this.setpopups}
+            />
+
+
+            <br />
+            <br />
+            <br />
+
+            <ModalPoper
+              usedUserID={this.props.usedUserID}
+              setpopups={this.setpopups}
+              onModalToogle_button2Toogle='delete-id'
+              component_id='unsub-id'
+              button_display='USUBSCRIBE'
+              modal_type='UnsubModal'
+            />
+
+          </React.Fragment> : null
+        }
+
+        <UpgradeToBasic
+          clickable={!!selectedUser.subscriptionID}
+          usedUserID={this.props.usedUserID}
+          setpopups={this.setpopups}
+        />
+
+
         <ModalPoper
           usedUserID={this.props.usedUserID}
           setpopups={this.setpopups}
@@ -94,44 +140,6 @@ class Profile extends React.Component {
           component_id='delete-id'
           button_display='DELETE ACOUNT'
           modal_type='DeleteModal'
-        />
-
-        {selectedUser.subscriptionID ?
-        <React.Fragment>
-          <SubscriberInfo
-            plan={plan}
-            username={userName}
-            paypalsubscriptionID={paypalsubscriptionID}
-
-            subscriptionDateTime={subscriptionDateTime}
-            current_billing_cycle_botom_datetime={current_billing_cycle_botom_datetime.toString()}
-
-            current_billing_cycle_top_datetime={current_billing_cycle_top_datetime.toString()}
-
-            subscriptionExpiresAt={selectedUser.subscriptionID?.expireAt}
-
-            registrationTimeDate={registrationTimeDate}
-
-            usedUserID={this.props.usedUserID}
-            setpopups={this.setpopups}
-          /> 
-
-          <ModalPoper
-            usedUserID={this.props.usedUserID}
-            setpopups={this.setpopups}
-            onModalToogle_button2Toogle='delete-id'
-            component_id='unsub-id'
-            button_display='USUBSCRIBE'
-            modal_type='UnsubModal'
-          />
-
-          </React.Fragment> : null
-        }
-        
-        <UpgradeToBasic
-          clickable={!!selectedUser.subscriptionID}
-          usedUserID={this.props.usedUserID}
-          setpopups={this.setpopups}
         />
 
         {popups_div}

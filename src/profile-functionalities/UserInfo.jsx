@@ -1,7 +1,8 @@
 import ProfileImageUpload from './ProfileImageUpload'
 import ImageUploadModalFunction from './ImageUploadModalFunction'
+import './styles/UserInfo.css'
 
-import {disable_class_adder_remover_maincards, disable_class_adder_remover_button} from '../front-end-lib/dom-manips-utils/enable-disable-buttons'
+import { disable_class_adder_remover_maincards, disable_class_adder_remover_button } from '../front-end-lib/dom-manips-utils/enable-disable-buttons'
 
 
 class UserInfo extends React.Component {
@@ -22,7 +23,7 @@ class UserInfo extends React.Component {
     this.setState({
       modal: !modal
     }, () => {
-      
+
       if (this.state.modal) {
         disable_class_adder_remover_maincards('add')
         disable_class_adder_remover_button('add', 'delete-id')
@@ -37,6 +38,10 @@ class UserInfo extends React.Component {
 
 
   render() {
+
+    const date = new Date(this.props.registrationTimeDate);
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    const formattedDate = date.toLocaleDateString('en-US', options);
 
     return (
       <React.Fragment>
@@ -62,17 +67,23 @@ class UserInfo extends React.Component {
 
 
 
-          <div className="section">
-            <div className="section-wrapper">
-              <ul className="section-ul">
-                <li>email: {this.props.userEmail}</li>
-                <li>userId: {this.props.usedUserID}</li>
-                <li>registrationDatetime: {this.props.registrationTimeDate}</li>
-              </ul>
+          <div id="profile-info-container">
 
-            </div>
+            <h2>Email</h2>
+            <div>{this.props.userEmail}</div> <br />
+            <h2>User ID</h2>
+            <div>{this.props.usedUserID}</div> <br />
+            <h2>Sign up date</h2>
+            <div>{formattedDate}</div> <br />
+
           </div>
+
         </div>
+
+
+        <br />
+        <br />
+        <br />
 
 
         {this.state.modal ?

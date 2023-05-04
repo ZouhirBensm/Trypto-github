@@ -1,5 +1,5 @@
 div#react-div {
-  position: relative;
+  /* position: relative; */
 }
 
 div#react-div > div#myModal {

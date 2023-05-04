@@ -1,7 +1,7 @@
 div.main-card > div#profile-image-container {
   width: 90%;
   max-width: 313px;
-  margin: 0 auto;
+  margin: 2vh auto;
   padding-top: 50px;
   padding-bottom: 20px;
 
@@ -12,6 +12,7 @@ div.main-card > div#profile-image-container {
   background-position: center;
 
   border-radius: 15px;
+  overflow: hidden;
 }
 
 
@@ -43,6 +44,7 @@ div.main-card > div#profile-image-container > span {
   font-size: var(--font-size-header);
   letter-spacing: 0px;
   color: #FFFFFF;
+  padding: 0 1ch;
  }
 
  div.main-card > div#profile-image-container > div {
@@ -55,4 +57,5 @@ div.main-card > div#profile-image-container > span {
   letter-spacing: 1.3px;
   color: #FFFFFF;
   text-transform: uppercase;
+  padding: 0 1ch;
  }

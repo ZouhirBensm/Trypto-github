@@ -1,0 +1,66 @@
+/* SUBSCRIPTION TITLE SECTION */
+
+div#subscription-title-container {
+  display: flex;
+  width: 90%;
+  margin: 2vh auto;
+}
+
+div#subscription-title-container>span {
+  letter-spacing: 0px;
+  color: #010757;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-root);
+  width: auto;
+  margin-right: 1ch;
+}
+
+
+div#subscription-title-container>hr {
+  display: inline-block;
+  flex-grow: 1;
+  vertical-align: middle;
+  /* border: 2px solid #EEF5FE; */
+  border: none;
+  background-color: #EEF5FE;
+  height: 2px;
+  /* flex-shrink: 0; */
+}
+
+
+
+
+
+
+/* SUB INFO CONTAINER */
+div#subscription-info-container {
+  width: 90%;
+  margin: 0 auto;
+  line-height: var(--line-height-list);
+}
+
+
+
+/* SUB INFO KEYS (REP) */
+div#subscription-info-container>h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  color: #010757;
+  font-size: var(--font-size-root);
+  margin-right: 1ch;
+  display: inline;
+  /* text-transform: capitalize; */
+}
+
+/* SUB INFO VALUES (REP) */
+div#subscription-info-container>div {
+  display: inline;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #6B7FA2;
+  font-size: var(--font-size-p-smaller);
+  line-height: var(--line-height-p-smaller);
+}
