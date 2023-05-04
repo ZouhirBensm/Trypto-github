@@ -1,4 +1,5 @@
 import Modal from './Modal'
+import './styles/ModalPoper.css'
 import {disable_class_adder_remover_maincards,disable_class_adder_remover_button} from '../front-end-lib/dom-manips-utils/enable-disable-buttons'
 
 class ModalPoper extends React.Component {
@@ -11,6 +12,7 @@ class ModalPoper extends React.Component {
   }
 
   handleOutsideClick(event = null) {
+    console.log(event)
     const { modal } = this.state;
     if (
       this.modalRef && // The modal is present
@@ -19,7 +21,9 @@ class ModalPoper extends React.Component {
     ) {
       this.setState({ modal: false }, () => {
         const mode = 'remove'
+        // Enable main cards
         disable_class_adder_remover_maincards(mode)
+        // Enable concerned button
         disable_class_adder_remover_button(mode, this.props.onModalToogle_button2Toogle)
       });
     }
@@ -38,21 +42,26 @@ class ModalPoper extends React.Component {
 
     return (
       <React.Fragment>
-        <div ref={node => (this.modalRef = node)}>
+        
+        <button id={this.props.component_id} disabled={this.state.modal} onClick={(e) => {
+          console.log("click event: ", e)
+          this.setState({ modal: !modal }, () => {
+            if (this.state.modal) {
+              const mode = 'add'
+              // Disable Main cards
+              disable_class_adder_remover_maincards(mode)
+              // Disable concerned button
+              disable_class_adder_remover_button(mode, this.props.onModalToogle_button2Toogle)
+            }
+          })
+        }}>
+          {this.props.button_display}
+        </button>
+        
 
-          <button id={this.props.component_id} disabled={this.state.modal} onClick={() => {
-            this.setState({ modal: !modal }, () => {
-              if (this.state.modal) {
-                const mode = 'add'
-                disable_class_adder_remover_maincards(mode)
-                disable_class_adder_remover_button(mode, this.props.onModalToogle_button2Toogle)
-              }
 
-            })
-          }}>
-            {this.props.button_display}
-          </button>
 
+        <div id={`${this.props.component_id}-modal`} ref={node => (this.modalRef = node)}>
           {modal && (
             <React.Fragment>
             <div className="close" onClick={(e)=>{
@@ -72,6 +81,8 @@ class ModalPoper extends React.Component {
             </React.Fragment>
           )}
         </div>
+
+
       </React.Fragment>
     )
   }

@@ -119,7 +119,7 @@ class Profile extends React.Component {
               setpopups={this.setpopups}
               onModalToogle_button2Toogle='delete-id'
               component_id='unsub-id'
-              button_display='USUBSCRIBE'
+              button_display='Usubscribe'
               modal_type='UnsubModal'
             />
 
@@ -138,7 +138,7 @@ class Profile extends React.Component {
           setpopups={this.setpopups}
           onModalToogle_button2Toogle='unsub-id'
           component_id='delete-id'
-          button_display='DELETE ACOUNT'
+          button_display='Delete Account'
           modal_type='DeleteModal'
         />
 

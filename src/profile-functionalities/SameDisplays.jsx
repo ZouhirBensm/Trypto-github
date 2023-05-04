@@ -16,7 +16,7 @@ class SameDisplays extends React.Component {
             console.log("Error on delete button: ", error)
           }
           
-        }}>{this.props.button_display}</button>
+        }}>{`${this.props.button_display} Submit`}</button>
       </React.Fragment>
     )
   }
