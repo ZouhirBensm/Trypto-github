@@ -4,7 +4,6 @@ import '../style/reactDivMobile.css'
 
 import UserInfo from './UserInfo'
 import SubscriberInfo from './SubscriberInfo2'
-import UpgradeToBasic from './UpgradeToBasic'
 import ModalPoper from './ModalPoper'
 
 
@@ -126,17 +125,17 @@ class Profile extends React.Component {
           </React.Fragment> : null
         }
 
-        
-        {/* <UpgradeToBasic
-          clickable={!!selectedUser.subscriptionID}
-          usedUserID={this.props.usedUserID}
-          setpopups={this.setpopups}
-        /> */}
 
-        <UpgradeToBasic
+        <ModalPoper
           clickable={!!selectedUser.subscriptionID}
           usedUserID={this.props.usedUserID}
           setpopups={this.setpopups}
+
+          onModalToogle_button2Toogle='delete-id'
+          component_id='upgrade-id'
+          
+          button_display='Basic'
+          modal_type='PayToGoBasicModal'
         />
 
 
