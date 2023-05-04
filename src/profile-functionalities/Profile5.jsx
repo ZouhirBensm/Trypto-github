@@ -126,6 +126,13 @@ class Profile extends React.Component {
           </React.Fragment> : null
         }
 
+        
+        {/* <UpgradeToBasic
+          clickable={!!selectedUser.subscriptionID}
+          usedUserID={this.props.usedUserID}
+          setpopups={this.setpopups}
+        /> */}
+
         <UpgradeToBasic
           clickable={!!selectedUser.subscriptionID}
           usedUserID={this.props.usedUserID}

@@ -1,6 +1,7 @@
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
 import '../style/reactDivMobile.css'
+import './styles/Operations.css'
 
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 

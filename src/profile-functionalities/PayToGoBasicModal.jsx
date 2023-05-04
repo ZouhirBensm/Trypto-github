@@ -52,6 +52,7 @@ class PayToGoBasicModal extends React.Component {
       window.location.reload()
     } else {
       const message = "The upgrade has not been establised on bidblock.ca. Please contact customer service to set you up."
+      this.props.handleOutsideClick() // Close modal
       this.props.setpopups(message)
     }
 

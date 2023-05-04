@@ -2,6 +2,8 @@ import PayToGoBasicModal from './PayToGoBasicModal'
 import {disable_class_adder_remover_maincards, disable_class_adder_remover_button} from '../front-end-lib/dom-manips-utils/enable-disable-buttons'
 
 
+// TODO !!!! look into having this component transformed into the exact same (but with different props) as ModalPopper
+
 class UpgradeToBasic extends React.Component {
   constructor(props) {
     super(props)
@@ -13,7 +15,7 @@ class UpgradeToBasic extends React.Component {
     // console.log(this.props.clickable)
   }
 
-  handleOutsideClick(event) {
+  handleOutsideClick(event = null) {
 
     const { modal } = this.state;
     if (
@@ -22,8 +24,9 @@ class UpgradeToBasic extends React.Component {
       modal // Modal is displayed!
     ) {
       this.setState({ modal: false }, () => {
-        disable_class_adder_remover_maincards('remove')
-        disable_class_adder_remover_button('remove', 'delete-id')
+        const mode = 'remove'
+        disable_class_adder_remover_maincards(mode)
+        disable_class_adder_remover_button(mode, 'delete-id')
       });
 
     }
@@ -44,25 +47,37 @@ class UpgradeToBasic extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="main-card" id='excecd' ref={node => (this.modalRef = node)}>
-          <button disabled={this.props.clickable || this.state.modal} onClick={() => {
-            this.setState({ modal: !modal }, () => {
-              if (this.state.modal) {
-                disable_class_adder_remover_maincards('add')
-                disable_class_adder_remover_button('add', 'delete-id')
-              }
-            })
-          }}>
-            BASIC
-          </button>
-        </div>
-        {modal && (
-          <PayToGoBasicModal
-            usedUserID={this.props.usedUserID}
-            setpopups={this.props.setpopups}
-          />
-        )}
+        <button disabled={this.props.clickable || this.state.modal} onClick={() => {
+          this.setState({ modal: !modal }, () => {
+            if (this.state.modal) {
+              disable_class_adder_remover_maincards('add')
+              disable_class_adder_remover_button('add', 'delete-id')
+            }
+          })
+        }}>
+          BASIC
+        </button>
 
+        <div id='XXXXX' ref={node => (this.modalRef = node)}>
+        
+        {modal && (
+          <React.Fragment>
+            <div className="close" onClick={(e)=>{
+              this.setState({ modal: false }, () => {
+                const mode = 'remove'
+                disable_class_adder_remover_maincards(mode)
+                disable_class_adder_remover_button(mode, this.props.onModalToogle_button2Toogle)
+              });
+            }}>&times;</div>
+            <PayToGoBasicModal
+              usedUserID={this.props.usedUserID}
+              setpopups={this.props.setpopups}
+              handleOutsideClick={this.handleOutsideClick}
+            />
+          </React.Fragment>
+        )}
+        
+        </div>
 
 
       </React.Fragment>

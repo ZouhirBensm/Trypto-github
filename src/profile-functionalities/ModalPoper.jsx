@@ -12,7 +12,7 @@ class ModalPoper extends React.Component {
   }
 
   handleOutsideClick(event = null) {
-    console.log(event)
+
     const { modal } = this.state;
     if (
       this.modalRef && // The modal is present
@@ -43,7 +43,7 @@ class ModalPoper extends React.Component {
     return (
       <React.Fragment>
         
-        <button id={this.props.component_id} disabled={this.state.modal} onClick={(e) => {
+        <button id={this.props.component_id} disabled={this.props.clickable || this.state.modal} onClick={(e) => {
           console.log("click event: ", e)
           this.setState({ modal: !modal }, () => {
             if (this.state.modal) {
