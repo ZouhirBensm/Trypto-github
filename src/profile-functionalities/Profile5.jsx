@@ -126,17 +126,20 @@ class Profile extends React.Component {
         }
 
 
-        <ModalPoper
-          clickable={!!selectedUser.subscriptionID}
-          usedUserID={this.props.usedUserID}
-          setpopups={this.setpopups}
+        {selectedUser.subscriptionID ? null : 
+          <ModalPoper
+            clickable={!!selectedUser.subscriptionID}
+            usedUserID={this.props.usedUserID}
+            setpopups={this.setpopups}
 
-          onModalToogle_button2Toogle='delete-id'
-          component_id='upgrade-id'
-          
-          button_display='Basic'
-          modal_type='PayToGoBasicModal'
-        />
+            onModalToogle_button2Toogle='delete-id'
+            component_id='upgrade-id'
+            
+            button_display='Basic'
+            modal_type='PayToGoBasicModal'
+          />
+        }
+
 
 
         <ModalPoper

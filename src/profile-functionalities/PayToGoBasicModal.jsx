@@ -1,5 +1,11 @@
 
 const PayPalButton = paypal.Buttons.driver("react", { React, ReactDOM });
+const buttonStyle = {
+  color: "blue",
+  // shape: "rect",
+  // label: "paypal",
+  // tagline: false
+};
 
 
 class PayToGoBasicModal extends React.Component {
@@ -68,6 +74,7 @@ class PayToGoBasicModal extends React.Component {
             return this.createSubscription(data, actions)
           }}
           onApprove={(data, actions) => this.onApprove(data, actions)}
+          style={buttonStyle}
         />
       </React.Fragment>
       // <div id="myModal" className="modal">

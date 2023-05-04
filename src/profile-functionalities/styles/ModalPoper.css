@@ -1,5 +1,10 @@
 div#unsub-id-modal,
-div#delete-id-modal{
+div#delete-id-modal,
+div#upgrade-id-modal{
   position: absolute;
   top: 0;
+}
+
+div#upgrade-id-modal{
+  width: 100%;
 }
