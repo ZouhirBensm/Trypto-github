@@ -2,7 +2,61 @@ div#react-div {
   /* position: relative; */
 }
 
-div#react-div > div#myModal {
+/* MODAL CONTAINER FOR UPLOAD IMAGE */
+div#react-div > div#image-upload-id {
   position: absolute;
-  top: 0;
+  top: 20px;
+  right: 5%;
+  left: 5%;
+  bottom: 50%;
+}
+
+
+/* CROSS */
+div#image-upload-id > div.modal-content > img {
+  display: inline-block;
+  transform: rotate(45deg);
+  width: 30px;
+  height: 30px;
+  padding: .7ch;
+  border-radius: 50%;
+  box-shadow: 0px 3px 6px #00000029;
+}
+
+/* H1 */
+div#image-upload-id > div.modal-content > h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0px;
+  color: #1266FC;
+  text-transform: capitalize;
+  font-size: var(--font-size-h1);
+  display: block;
+  margin: 2rem auto;
+  width: fit-content;
+}
+
+
+/* INPUT */
+
+/* TODO !!!! HERE DECIDING BETWEEN UNSTYLABLE INPUT OR LABEL */
+div#image-upload-id form#form_id > input#image-select {
+  /* display: none; */
+  display: block;
+
+  color: red;
+  background-color: black;
+
+  border: 2px green solid;
+
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+
+  /* cursor: pointer; */
+
+
+}
+
+div#image-upload-id form#form_id > input#image-select::before {
+  content: 'test';
 }

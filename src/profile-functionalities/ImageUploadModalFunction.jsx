@@ -21,7 +21,7 @@ class ImageUploadModalFunction extends React.Component {
     }
 
     document.addEventListener('click', (e) => {
-      const modal = document.getElementById("myModal")
+      const modal = document.getElementById("image-upload-id")
       // Click within modal, just return
       const contains = modal?.contains(e.target)
       if (contains) {
@@ -37,8 +37,8 @@ class ImageUploadModalFunction extends React.Component {
     // e.stopPropagation()
 
 
-    let didFindModal = arr_of_HTMLElements_parents.filter(element => { return element.id == 'myModal' })
-    // let didFindModal = e.composedPath().filter(element => { return element.id == 'myModal' })
+    let didFindModal = arr_of_HTMLElements_parents.filter(element => { return element.id == 'image-upload-id' })
+    // let didFindModal = e.composedPath().filter(element => { return element.id == 'image-upload-id' })
 
 
     // console.log("exitUploadModal->didFindModal:", didFindModal)

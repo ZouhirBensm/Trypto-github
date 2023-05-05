@@ -77,7 +77,7 @@ class PayToGoBasicModal extends React.Component {
           style={buttonStyle}
         />
       </React.Fragment>
-      // <div id="myModal" className="modal">
+      // <div id="image-upload-id" className="modal">
       // </div>
     )
   }

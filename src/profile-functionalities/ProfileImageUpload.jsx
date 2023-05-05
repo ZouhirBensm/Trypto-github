@@ -65,17 +65,31 @@ class ProfileImageUpload extends React.Component {
 
   render() {
     return (
-      <div id="myModal" className="modal">
+      <div id="image-upload-id" className="modal">
+
         <div className="modal-content">
-          <span className="close" onClick={(e) => {
+
+          {/* <span className="close" onClick={(e) => {
             this.props.toogleModal(e)
-          }}>&times;</span>
+          }}>&times;</span> */}
+
+          <img src="/img/SVG/profile/image-upload-modal/x.svg" alt="" className="close" onClick={(e) => {
+            this.props.toogleModal(e)
+          }}/>
+
+          <h1>Change Image</h1>
 
 
             
           {/* Original */}
           {/* action={`/users/upload/userprofileimage/${this.props.selectedUserID}`} method="post" encType="multipart/form-data" */}
           <form className="form" id="form_id">
+
+
+            {/* LABEL: MIGHT USE INSTEAD OF INPUT, if so, set input to display: none */}
+            {/* <label id='upload-button2' htmlFor="image-select">Label</label>
+            <br /><br /><br /> */}
+
             <input id="image-select" type="file" name="image"/>
 
             <button type="submit" onClick={ async (e) => {
@@ -91,10 +105,12 @@ class ProfileImageUpload extends React.Component {
               }
 
             }}>Save</button>
+
           </form>
 
 
         </div>
+
       </div>
     )
   }
