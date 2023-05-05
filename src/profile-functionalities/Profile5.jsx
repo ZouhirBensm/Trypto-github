@@ -114,7 +114,7 @@ class Profile extends React.Component {
           <ModalPoper
             usedUserID={this.props.usedUserID}
             setpopups={this.setpopups}
-            onModalToogle_button2Toogle='delete-id'
+            onModalToogle_button2Toogle={['delete-id']}
             component_id='unsub-id'
             button_display='Usubscribe'
             modal_type='UnsubModal'
@@ -127,11 +127,11 @@ class Profile extends React.Component {
         {selectedUser.subscriptionID ? null :
         
           <ModalPoper
-            clickable={!!selectedUser.subscriptionID}
+            // clickable={!!selectedUser.subscriptionID}
             usedUserID={this.props.usedUserID}
             setpopups={this.setpopups}
 
-            onModalToogle_button2Toogle='delete-id'
+            onModalToogle_button2Toogle={['delete-id']}
             component_id='upgrade-id'
 
             button_display='Basic'
@@ -144,7 +144,9 @@ class Profile extends React.Component {
         <ModalPoper
           usedUserID={this.props.usedUserID}
           setpopups={this.setpopups}
-          onModalToogle_button2Toogle='unsub-id'
+          // TODO !!!! HERE NEEDS to be a array because in delete mode unsubscrible button is not disabling (class)
+          onModalToogle_button2Toogle={['upgrade-id', 'unsub-id']}
+
           component_id='delete-id'
           button_display='Delete Account'
           modal_type='DeleteModal'

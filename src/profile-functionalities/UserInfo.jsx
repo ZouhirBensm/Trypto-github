@@ -28,10 +28,12 @@ class UserInfo extends React.Component {
         disable_class_adder_remover_maincards('add')
         disable_class_adder_remover_button('add', 'delete-id')
         disable_class_adder_remover_button('add', 'unsub-id')
+        disable_class_adder_remover_button('add', 'upgrade-id')
       } else {
         disable_class_adder_remover_maincards('remove')
         disable_class_adder_remover_button('remove', 'delete-id')
         disable_class_adder_remover_button('remove', 'unsub-id')
+        disable_class_adder_remover_button('remove', 'upgrade-id')
       }
     })
   }
