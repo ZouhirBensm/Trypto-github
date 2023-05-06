@@ -4,7 +4,9 @@ import './styles/ProfileImageUpload.css'
 class ProfileImageUpload extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      image_name_about_to_save: undefined
+    }
     // console.log(this.props)
   }
 
@@ -62,6 +64,15 @@ class ProfileImageUpload extends React.Component {
   }
 
 
+  inputBufferOnChange(e){
+    // console.log("onChange!!!", e, '\n', e.target)
+    console.log(e.currentTarget.files[0].name)
+    this.setState({
+      image_name_about_to_save: e.currentTarget.files[0].name
+    })
+  }
+
+
 
   render() {
 
@@ -88,11 +99,17 @@ class ProfileImageUpload extends React.Component {
 
 
             {/* LABEL: MIGHT USE INSTEAD OF INPUT, if so, set input to display: none */}
-            <label id='upload-button2' htmlFor="image-select">Label</label>
-            <div></div>
+            <label id='upload-button2' htmlFor="image-select">Choose File</label>
+            <div>
+            {this.state.image_name_about_to_save? 
+            this.state.image_name_about_to_save
+            :
+            'No file Chosen'
+            }
+            </div>
             <br /><br /><br />
 
-            <input id="image-select" type="file" name="image"/>
+            <input id="image-select" type="file" name="image" onChange={(e)=>{this.inputBufferOnChange(e)}}/>
 
             <button type="submit" onClick={ async (e) => {
               e.preventDefault()
