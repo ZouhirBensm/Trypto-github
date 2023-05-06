@@ -38,25 +38,18 @@ div#image-upload-id > div.modal-content > h1 {
 
 
 /* INPUT */
-
-/* TODO !!!! HERE DECIDING BETWEEN UNSTYLABLE INPUT OR LABEL */
 div#image-upload-id form#form_id > input#image-select {
-  /* display: none; */
-  display: block;
+  display: none;
 
+  display: block;
   color: red;
   background-color: black;
-
   border: 2px green solid;
-
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-
   /* cursor: pointer; */
-
-
 }
 
-div#image-upload-id form#form_id > input#image-select::before {
-  content: 'test';
+div#image-upload-id form#form_id > label {
+  
 }

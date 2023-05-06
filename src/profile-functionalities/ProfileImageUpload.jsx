@@ -64,6 +64,7 @@ class ProfileImageUpload extends React.Component {
 
 
   render() {
+
     return (
       <div id="image-upload-id" className="modal">
 
@@ -87,8 +88,9 @@ class ProfileImageUpload extends React.Component {
 
 
             {/* LABEL: MIGHT USE INSTEAD OF INPUT, if so, set input to display: none */}
-            {/* <label id='upload-button2' htmlFor="image-select">Label</label>
-            <br /><br /><br /> */}
+            <label id='upload-button2' htmlFor="image-select">Label</label>
+            <div></div>
+            <br /><br /><br />
 
             <input id="image-select" type="file" name="image"/>
 

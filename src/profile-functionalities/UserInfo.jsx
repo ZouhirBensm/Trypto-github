@@ -90,6 +90,7 @@ class UserInfo extends React.Component {
 
         {this.state.modal ?
           <ProfileImageUpload
+            profile_image_path={this.props.profile_image_path}
             toogleModal={this.toogleModal}
             selectedUserID={this.props.usedUserID}
             setpopups={this.props.setpopups}
