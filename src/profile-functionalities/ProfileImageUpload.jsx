@@ -111,7 +111,7 @@ class ProfileImageUpload extends React.Component {
 
   render() {
 
-
+    // TODO !!!! HERE finish styling all the rest of this modal
 
 
     const displayNoFileChosen = 'No file Chosen'

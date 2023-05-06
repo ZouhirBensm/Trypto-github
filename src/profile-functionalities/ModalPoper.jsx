@@ -30,6 +30,9 @@ class ModalPoper extends React.Component {
         this.props.onModalToogle_button2Toogle.forEach(onModalToogle_button2Toogle => {
           disable_class_adder_remover_button(mode, onModalToogle_button2Toogle)
         });
+
+        // Rid of all popups
+        this.props.setpopups(undefined)
       });
     }
   }
@@ -56,6 +59,7 @@ class ModalPoper extends React.Component {
         <button style={this.state.modal ? { pointerEvents: 'none' } : null} id={this.props.component_id} disabled={this.state.modal} onClick={(e) => {
 
           this.setState({ modal: !modal }, () => {
+            // TODO !!!! repetitive code, need to place in own function (#3 repeated)
             if (this.state.modal) {
               const mode = 'add'
               // Disable Main cards
@@ -67,6 +71,8 @@ class ModalPoper extends React.Component {
                 disable_class_adder_remover_button(mode, onModalToogle_button2Toogle)
               });
 
+              // Rid of all popups
+              this.props.setpopups(undefined)
             }
           })
         }}>
@@ -94,6 +100,8 @@ class ModalPoper extends React.Component {
                   this.props.onModalToogle_button2Toogle.forEach(onModalToogle_button2Toogle => {
                     disable_class_adder_remover_button(mode, onModalToogle_button2Toogle)
                   });
+                  // Rid of all popups
+                  this.props.setpopups(undefined)
                 });
               }}>&times;</div>
               {this.props.modal_type === 'PayToGoBasicModal' ?

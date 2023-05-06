@@ -56,6 +56,7 @@ class UserInfo extends React.Component {
             toogleModal={this.toogleModal}
             modal={this.state.modal}
             userName={this.props.userName}
+            setpopups={this.props.setpopups}
           />
           {/* <span> {this.props.userName}</span> */}
 
@@ -83,9 +84,6 @@ class UserInfo extends React.Component {
         </div>
 
 
-        <br />
-        <br />
-        <br />
 
 
         {this.state.modal ?

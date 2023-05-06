@@ -49,6 +49,7 @@ class Profile extends React.Component {
 
   render() {
 
+    // TODO !!!! Place this as a utils and load on all needed components
     let popups_div = null
     if (this.state.popups) {
       Array.isArray(this.state.popups) ? popups_div = (this.state.popups.map((popup, i) => {

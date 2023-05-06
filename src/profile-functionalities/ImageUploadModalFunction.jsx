@@ -18,6 +18,7 @@ class ImageUploadModalFunction extends React.Component {
     profileImgContainer.onclick = (e) => {
       // this.toogleProfilePicUploadModal(e)
       this.props.toogleModal(e)
+      this.props.setpopups(undefined)
     }
 
     document.addEventListener('click', (e) => {
