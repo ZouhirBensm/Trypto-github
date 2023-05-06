@@ -25,7 +25,7 @@ class ImagesDeletion extends React.Component {
 
 
     let divChildren = div.children
-    console.log(div.id, div.parentElement.parentElement.id, divChildren)
+    // console.log(div.id, div.parentElement.parentElement.id, divChildren)
 
     div.innerHTML = ""
 

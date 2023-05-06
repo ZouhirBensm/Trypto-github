@@ -5,7 +5,8 @@ class ProfileImageUpload extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      image_name_about_to_save: undefined
+      image_name_about_to_save: undefined,
+      // file_about_to_save: undefined
     }
     // console.log(this.props)
   }
