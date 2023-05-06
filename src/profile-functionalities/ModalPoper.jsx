@@ -83,7 +83,7 @@ class ModalPoper extends React.Component {
 
 
 
-        <div id={`${this.props.component_id}-modal`} ref={node => (this.modalRef = node)}>
+        <div id={`${this.props.component_id}-modal`} className="modal-top-container" ref={node => (this.modalRef = node)}>
           {modal && (
             <React.Fragment>
               <div className="close" onClick={(e) => {

@@ -1,0 +1,12 @@
+
+
+div#about-to-save-profile-image-id {
+  /* position: absolute; */
+  /* z-index: 1; */
+}
+
+
+div#about-to-save-profile-image-id > img {
+  width: 195px;
+  height: 195px;
+}

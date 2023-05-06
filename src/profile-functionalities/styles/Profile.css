@@ -3,3 +3,15 @@ img {
   height: 50px; */
 }
 
+/* CSS not applied to Profile.jsx, but globally to modal containers */
+div#react-div div.modal-top-container {
+  position: absolute;
+  top: 20px;
+  right: 5%;
+  left: 5%;
+  /* TODO !!!! determine the proper limit 60% for example with a stroll for the content */
+  /* bottom: 50%; */
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+

@@ -1,18 +1,3 @@
-
-
-/* MODAL POSITIONING */
-div#react-div > div#unsub-id-modal,
-div#react-div > div#delete-id-modal,
-div#react-div > div#upgrade-id-modal{
-  position: absolute;
-  top: 0;
-}
-
-div#react-div > div#upgrade-id-modal{
-  width: 100%;
-}
-
-
 /* ALL BUTTONS */
 div#react-div > button {
   display: block;

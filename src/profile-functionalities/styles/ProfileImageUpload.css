@@ -3,12 +3,9 @@ div#react-div {
 }
 
 /* MODAL CONTAINER FOR UPLOAD IMAGE */
-div#react-div > div#image-upload-id {
-  position: absolute;
-  top: 20px;
-  right: 5%;
-  left: 5%;
-  bottom: 50%;
+
+div#react-div > div.modal-top-container {
+
 }
 
 
@@ -40,16 +37,10 @@ div#image-upload-id > div.modal-content > h1 {
 /* INPUT */
 div#image-upload-id form#form_id > input#image-select {
   display: none;
-
-  display: block;
-  color: red;
-  background-color: black;
-  border: 2px green solid;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
   /* cursor: pointer; */
 }
 
+/* LABEL BUTTON */
 div#image-upload-id form#form_id > label {
   
 }

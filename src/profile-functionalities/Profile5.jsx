@@ -37,6 +37,7 @@ class Profile extends React.Component {
 
 
   setpopups(popups) {
+    // TODO !!!! need to add scroll to proper place when this happens
     this.setState({
       popups: popups
     })
@@ -70,6 +71,7 @@ class Profile extends React.Component {
     let [current_billing_cycle_botom_datetime, current_billing_cycle_top_datetime] = billing_utils.BillingDateTimeCalculator(selectedUser.subscriptionID?.subscriptionDateTime)
 
     return (
+      // TODO !!!! Add a scroll up when modal pops up
       <React.Fragment>
         <UserInfo
           userName={userName}
@@ -83,6 +85,7 @@ class Profile extends React.Component {
 
           section_btn={this.handleProfileDeletion}
           setpopups={this.setpopups}
+          // popups={this.state.popups}
           changeprofileimagename={this.changeprofileimagename}
         />
 

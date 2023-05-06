@@ -94,6 +94,7 @@ class UserInfo extends React.Component {
             toogleModal={this.toogleModal}
             selectedUserID={this.props.usedUserID}
             setpopups={this.props.setpopups}
+            // popups={this.props.popups}
             changeprofileimagename={this.props.changeprofileimagename}
           />
           :
