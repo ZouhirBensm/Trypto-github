@@ -4,13 +4,11 @@ div#react-div {
 
 /* MODAL CONTAINER FOR UPLOAD IMAGE */
 
-div#react-div > div.modal-top-container {
-
-}
+div#react-div>div.modal-top-container {}
 
 
 /* CROSS */
-div#image-upload-id > div.modal-content > img {
+div#image-upload-id>div.modal-content>img {
   display: inline-block;
   transform: rotate(45deg);
   width: 30px;
@@ -18,10 +16,16 @@ div#image-upload-id > div.modal-content > img {
   padding: .7ch;
   border-radius: 50%;
   box-shadow: 0px 3px 6px #00000029;
+
+
+  margin: 15px 0 0 15px;
+  /* bottom: 4%; */
+  /* right: 12%; */
+  /* position: absolute; */
 }
 
 /* H1 */
-div#image-upload-id > div.modal-content > h1 {
+div#image-upload-id>div.modal-content>h1 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   letter-spacing: 0px;
@@ -29,18 +33,87 @@ div#image-upload-id > div.modal-content > h1 {
   text-transform: capitalize;
   font-size: var(--font-size-h1);
   display: block;
-  margin: 2rem auto;
+  margin: 0 auto 1rem auto;
+  clear: left;
   width: fit-content;
 }
 
 
 /* INPUT */
-div#image-upload-id form#form_id > input#image-select {
+div#image-upload-id form#form_id>input#image-select {
   display: none;
   /* cursor: pointer; */
 }
 
 /* LABEL BUTTON */
-div#image-upload-id form#form_id > label {
+div#image-upload-id form#form_id>label {
+  margin: 1rem auto 0 auto;
+  width: fit-content;
+  display: block;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+
+  font-size: var(--font-size-input);
+
+
+  letter-spacing: 1.4px;
+  color: #1266FC;
+  text-transform: uppercase;
+}
+
+
+
+div#image-upload-id form#form_id>label+div {
+  margin: 0 auto;
+  width: fit-content;
+  display: block;
+
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+
+  font-size: var(--font-size-button);
+
+  letter-spacing: 1.2px;
+  color: #B8CEF5;
+
   
+  margin: 0 auto 1rem auto;
+}
+
+
+
+/* CENTER BOTTOM BUTTONS */
+div#image-upload-id form#form_id>div#bottom-buttons {
+  text-align: center;
+  margin: 2vh 0;
+}
+
+
+
+
+div#image-upload-id form#form_id>div#bottom-buttons>button {
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+
+  padding: 0.5rem;
+  margin: 0 0.2rem;
+
+  box-shadow: 0px 6px 20px #1266FC4E;
+}
+
+
+div#image-upload-id form#form_id>div#bottom-buttons>button:first-of-type {
+  border: 1px solid #1266FC;
+  color: #1266FC;
+}
+
+div#image-upload-id form#form_id>div#bottom-buttons>button:nth-of-type(2) {
+  border: none;
+  color: white;
+  background: transparent linear-gradient(89deg, #80E8FF 0%, #0049E4 100%) 0% 0% no-repeat padding-box;
 }

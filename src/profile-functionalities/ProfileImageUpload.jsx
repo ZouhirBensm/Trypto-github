@@ -14,7 +14,7 @@ class ProfileImageUpload extends React.Component {
     // console.log(this.props)
   }
 
-  setPopup(popup){
+  setPopup(popup) {
     // TODO !!!! need to add scroll to proper place when this happens
     this.setState({
       popup: popup
@@ -144,10 +144,10 @@ class ProfileImageUpload extends React.Component {
               profile_image_path={this.props.profile_image_path}
             />
 
-            <br /><br /><br />
-
             {/* LABEL: MIGHT USE INSTEAD OF INPUT, if so, set input to display: none */}
-            <label id='upload-button2' htmlFor="image-select">Choose File</label>
+            <label id='upload-button2' htmlFor="image-select">File
+              <img src="/img/SVG/profile/image-upload-modal/upload.svg" alt="" />
+            </label>
             <div>
               {this.state.image_name_about_to_save ?
                 this.state.image_name_about_to_save
@@ -155,33 +155,49 @@ class ProfileImageUpload extends React.Component {
                 displayNoFileChosen
               }
             </div>
-            
-
-
-
-            <br /><br /><br />
 
             <input id="image-select" type="file" name="image" onChange={(e) => { this.inputBufferOnChange(e) }} />
 
-            <button type="submit" onClick={async (e) => {
-              e.preventDefault()
-              let ret_validation = this.profilePicSaveValidation()
-              if (ret_validation) {
-                let ret_apiMakeMarketOrder = await this.saveProfilePicture(e)
-                return
-              } else {
-                const error_msg = `No file was loaded. Please load a file before saving.`
-                // this.props.setpopups(error_msg)
-                this.setPopup(error_msg)
-                return
-              }
 
-            }}>Save</button>
+
+            <div id="bottom-buttons">
+
+              <button type="submit" onClick={(e) => {
+                this.props.toogleModal(e)
+              }}>Cancel</button>
+
+              <button type="submit" onClick={async (e) => {
+                e.preventDefault()
+                let ret_validation = this.profilePicSaveValidation()
+                if (ret_validation) {
+                  let ret_apiMakeMarketOrder = await this.saveProfilePicture(e)
+                  return
+                } else {
+                  const error_msg = `No file was loaded. Please load a file before saving.`
+                  // this.props.setpopups(error_msg)
+                  this.setPopup(error_msg)
+                  return
+                }
+
+              }}>Save New Image</button>
+
+            </div>
+
+
+
+
+
+
+
+
 
           </form>
 
+
+
+
           <span>
-            {this.state.popup? this.state.popup: null}
+            {this.state.popup ? this.state.popup : null}
           </span>
 
 
