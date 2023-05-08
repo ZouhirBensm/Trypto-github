@@ -63,13 +63,6 @@ class UserInfo extends React.Component {
 
 
 
-          <br />
-          <br />
-          <br />
-
-
-
-
           <div id="profile-info-container">
 
             <h2>Email</h2>

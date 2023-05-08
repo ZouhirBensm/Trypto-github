@@ -1,5 +1,8 @@
+import './styles/PayToGoBasicModal.css'
+
 
 const PayPalButton = paypal.Buttons.driver("react", { React, ReactDOM });
+
 const buttonStyle = {
   color: "blue",
   // shape: "rect",

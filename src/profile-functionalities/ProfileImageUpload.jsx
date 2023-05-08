@@ -126,7 +126,7 @@ class ProfileImageUpload extends React.Component {
             this.props.toogleModal(e)
           }}>&times;</span> */}
 
-          <img src="/img/SVG/profile/image-upload-modal/x.svg" alt="" className="close" onClick={(e) => {
+          <img src="/img/SVG/profile/image-upload-modal/x.svg" alt="" onClick={(e) => {
             this.props.toogleModal(e)
           }} />
 
@@ -159,6 +159,9 @@ class ProfileImageUpload extends React.Component {
             <input id="image-select" type="file" name="image" onChange={(e) => { this.inputBufferOnChange(e) }} />
 
 
+            <span id='popup'>
+              {this.state.popup ? this.state.popup : null}
+            </span>
 
             <div id="bottom-buttons">
 
@@ -196,9 +199,7 @@ class ProfileImageUpload extends React.Component {
 
 
 
-          <span>
-            {this.state.popup ? this.state.popup : null}
-          </span>
+
 
 
         </div>

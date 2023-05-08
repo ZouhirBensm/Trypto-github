@@ -79,7 +79,7 @@ div#image-upload-id form#form_id>label+div {
   color: #B8CEF5;
 
   
-  margin: 0 auto 1rem auto;
+  margin: 0 auto 2vh auto;
 }
 
 
@@ -87,12 +87,11 @@ div#image-upload-id form#form_id>label+div {
 /* CENTER BOTTOM BUTTONS */
 div#image-upload-id form#form_id>div#bottom-buttons {
   text-align: center;
-  margin: 2vh 0;
+  margin: 2rem 0;
 }
 
 
-
-
+/* UPLOAD MODAL BUTTONS GENERIC STYLES */
 div#image-upload-id form#form_id>div#bottom-buttons>button {
   border-radius: 8px;
   font-family: 'Poppins', sans-serif;
@@ -107,13 +106,31 @@ div#image-upload-id form#form_id>div#bottom-buttons>button {
 }
 
 
+
+/* BUTTON 1 */
 div#image-upload-id form#form_id>div#bottom-buttons>button:first-of-type {
   border: 1px solid #1266FC;
   color: #1266FC;
 }
 
+
+/* BUTTON 2 */
 div#image-upload-id form#form_id>div#bottom-buttons>button:nth-of-type(2) {
   border: none;
   color: white;
   background: transparent linear-gradient(89deg, #80E8FF 0%, #0049E4 100%) 0% 0% no-repeat padding-box;
+}
+
+
+
+/* POPUP (REPEATED)*/
+div#image-upload-id form#form_id>span#popup {
+  color: red;
+  width: 100%;
+  font-size: var(--font-size-extra);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  margin: 0 auto;
+  max-width: 350px;
+  display: block;
 }

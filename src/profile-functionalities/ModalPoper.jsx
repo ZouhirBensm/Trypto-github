@@ -103,13 +103,18 @@ class ModalPoper extends React.Component {
                   // Rid of all popups
                   this.props.setpopups(undefined)
                 });
-              }}>&times;</div>
+              }}><img src="/img/SVG/profile/image-upload-modal/x.svg" alt=""/></div>
+
               {this.props.modal_type === 'PayToGoBasicModal' ?
-                <PayToGoBasicModal
-                  usedUserID={this.props.usedUserID}
-                  setpopups={this.props.setpopups}
-                  handleOutsideClick={this.handleOutsideClick}
-                />
+                <React.Fragment>
+                  <div id='paypal-button-ID'>
+                    <PayToGoBasicModal
+                      usedUserID={this.props.usedUserID}
+                      setpopups={this.props.setpopups}
+                      handleOutsideClick={this.handleOutsideClick}
+                    />
+                  </div>
+                </React.Fragment>
                 :
                 <Modal
                   usedUserID={this.props.usedUserID}
