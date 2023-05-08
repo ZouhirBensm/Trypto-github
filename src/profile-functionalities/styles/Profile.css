@@ -28,7 +28,7 @@ div#react-div div.modal-top-container > div.close {
   margin-bottom: 1rem;
 }
 
-/* CLOSE IMAGE */
+/* CLOSE IMAGE GLOBAL */
 div.modal-top-container > div.close > img {
   display: inline-block;
   transform: rotate(45deg);
@@ -38,4 +38,19 @@ div.modal-top-container > div.close > img {
   border-radius: 50%;
   box-shadow: 0px 3px 6px #00000029;
    margin: 15px 0 0 15px;
+}
+
+
+/* H1 MODALS GLOBAL */
+div.modal-top-container>div.modal-content>h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0px;
+  color: #1266FC;
+  text-transform: capitalize;
+  font-size: var(--font-size-h1);
+  display: block;
+  margin: 0 auto 1rem auto;
+  clear: left;
+  width: fit-content;
 }

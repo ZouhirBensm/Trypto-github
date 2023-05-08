@@ -24,20 +24,6 @@ div#image-upload-id>div.modal-content>img {
   /* position: absolute; */
 }
 
-/* H1 */
-div#image-upload-id>div.modal-content>h1 {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  letter-spacing: 0px;
-  color: #1266FC;
-  text-transform: capitalize;
-  font-size: var(--font-size-h1);
-  display: block;
-  margin: 0 auto 1rem auto;
-  clear: left;
-  width: fit-content;
-}
-
 
 /* INPUT */
 div#image-upload-id form#form_id>input#image-select {

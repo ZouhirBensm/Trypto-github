@@ -72,13 +72,20 @@ class PayToGoBasicModal extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <PayPalButton
-          createSubscription={async (data, actions) => {
-            return this.createSubscription(data, actions)
-          }}
-          onApprove={(data, actions) => this.onApprove(data, actions)}
-          style={buttonStyle}
-        />
+        <div id='paypal-button-ID' className='modal-content'>
+          
+          <h1>Upgrade: Basic</h1>
+
+          <PayPalButton
+            createSubscription={async (data, actions) => {
+              return this.createSubscription(data, actions)
+            }}
+            onApprove={(data, actions) => this.onApprove(data, actions)}
+            style={buttonStyle}
+          />
+
+        </div>
+
       </React.Fragment>
       // <div id="image-upload-id" className="modal">
       // </div>

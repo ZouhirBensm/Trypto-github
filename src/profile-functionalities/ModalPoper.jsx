@@ -107,13 +107,11 @@ class ModalPoper extends React.Component {
 
               {this.props.modal_type === 'PayToGoBasicModal' ?
                 <React.Fragment>
-                  <div id='paypal-button-ID'>
-                    <PayToGoBasicModal
-                      usedUserID={this.props.usedUserID}
-                      setpopups={this.props.setpopups}
-                      handleOutsideClick={this.handleOutsideClick}
-                    />
-                  </div>
+                  <PayToGoBasicModal
+                    usedUserID={this.props.usedUserID}
+                    setpopups={this.props.setpopups}
+                    handleOutsideClick={this.handleOutsideClick}
+                  />
                 </React.Fragment>
                 :
                 <Modal
