@@ -70,6 +70,7 @@ div#bottom-buttons > button {
   padding: 0.5rem;
   box-shadow: 0px 6px 20px #1266FC4E;
   margin: 0 auto;
+  font-size: var(--font-size-button);
 }
 
 div#bottom-buttons > button:disabled,
