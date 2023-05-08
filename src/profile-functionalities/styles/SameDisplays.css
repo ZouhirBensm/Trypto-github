@@ -1,0 +1,9 @@
+
+
+/* MODAL BUTTON (REP) */
+
+/* MODAL BUTTON STYLES (REP) */
+div.modal-top-container > div#bottom-buttons > button {
+  border: 1px solid #1266FC;
+  color: #1266FC;
+}

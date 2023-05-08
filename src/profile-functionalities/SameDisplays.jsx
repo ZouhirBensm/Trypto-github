@@ -1,3 +1,6 @@
+import './styles/SameDisplays.css'
+
+
 class SameDisplays extends React.Component {
   constructor(props) {
     super(props)
@@ -7,16 +10,19 @@ class SameDisplays extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <button id={this.props.modal_type + '-ID'} disabled={this.props.disable} onClick={(e) => {
+        <div id='bottom-buttons'>
+          <button id={this.props.modal_type + '-ID'} disabled={this.props.disable} onClick={(e) => {
 
-          try {
-            const reason = this.reasonDeterminator(e)
-            this.props.button_function(reason, e)
-          } catch (error) {
-            console.log("Error on delete button: ", error)
-          }
-          
-        }}>{`${this.props.button_display} Submit`}</button>
+            try {
+              const reason = this.reasonDeterminator(e)
+              this.props.button_function(reason, e)
+            } catch (error) {
+              console.log("Error on delete button: ", error)
+            }
+            
+          }}>{`${this.props.button_display} Submit`}</button>
+        </div>
+        
       </React.Fragment>
     )
   }

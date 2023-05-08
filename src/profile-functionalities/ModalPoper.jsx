@@ -84,8 +84,6 @@ class ModalPoper extends React.Component {
         </button>
 
 
-        <br />
-
 
 
 

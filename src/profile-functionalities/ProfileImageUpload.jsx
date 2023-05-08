@@ -158,49 +158,34 @@ class ProfileImageUpload extends React.Component {
 
             <input id="image-select" type="file" name="image" onChange={(e) => { this.inputBufferOnChange(e) }} />
 
-
-            <span id='popup'>
-              {this.state.popup ? this.state.popup : null}
-            </span>
-
-            <div id="bottom-buttons">
-
-              <button type="submit" onClick={(e) => {
-                this.props.toogleModal(e)
-              }}>Cancel</button>
-
-              <button type="submit" onClick={async (e) => {
-                e.preventDefault()
-                let ret_validation = this.profilePicSaveValidation()
-                if (ret_validation) {
-                  let ret_apiMakeMarketOrder = await this.saveProfilePicture(e)
-                  return
-                } else {
-                  const error_msg = `No file was loaded. Please load a file before saving.`
-                  // this.props.setpopups(error_msg)
-                  this.setPopup(error_msg)
-                  return
-                }
-
-              }}>Save New Image</button>
-
-            </div>
-
-
-
-
-
-
-
-
-
           </form>
+          
+          <span id='popup'>
+            {this.state.popup ? this.state.popup : null}
+          </span>
 
+          <div id="bottom-buttons">
 
+            <button type="submit" onClick={(e) => {
+              this.props.toogleModal(e)
+            }}>Cancel</button>
 
+            <button type="submit" onClick={async (e) => {
+              e.preventDefault()
+              let ret_validation = this.profilePicSaveValidation()
+              if (ret_validation) {
+                let ret_apiMakeMarketOrder = await this.saveProfilePicture(e)
+                return
+              } else {
+                const error_msg = `No file was loaded. Please load a file before saving.`
+                // this.props.setpopups(error_msg)
+                this.setPopup(error_msg)
+                return
+              }
 
+            }}>Save New Image</button>
 
-
+          </div>
 
         </div>
 

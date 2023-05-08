@@ -1,0 +1,51 @@
+
+
+div.modal-top-container > div.modal-content > div.radio-buttons {
+  max-width: 500px;
+  line-height: var(--line-height-generic);
+}
+
+
+div.modal-top-container > div.modal-content > div.radio-buttons > label {
+  display: block;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: var(--font-size-root);
+  line-height: var(--line-height-list);
+}
+
+
+div.modal-top-container > div#custom-reason-input-container {
+  width: 90%;
+  margin: 1rem auto;
+  max-width: 500px;
+}
+
+
+/* CUSTOM REASON SELECT INPUT */
+div.modal-top-container > div#custom-reason-input-container > input{
+  display: block;
+  /* margin: 0 5%;
+  width: 90%; */
+  width: 100%;
+
+  /* SAME STYLES AS FILTER INPUTS (REP) */
+  border: 1px solid #B8CEF5;
+  border-radius: 21px;
+  color: rgba(0, 0, 0, 0.766);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  line-height: 2rem;
+  margin: 0.5vh 0;
+  text-indent: 2ch;
+  font-size: var(--font-size-smaller-input);
+}
+
+/* SAME STYLES AS FILTER INPUTS (REP) */
+div.modal-top-container > div#custom-reason-input-container > input::placeholder {
+  /* text-align: center; */
+  color: #B8CEF5;
+  text-indent: 2ch;
+  font-size: var(--font-size-smaller-input);
+}

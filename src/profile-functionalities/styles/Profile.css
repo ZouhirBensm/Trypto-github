@@ -47,10 +47,62 @@ div.modal-top-container>div.modal-content>h1 {
   font-weight: 700;
   letter-spacing: 0px;
   color: #1266FC;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
   font-size: var(--font-size-h1);
   display: block;
-  margin: 0 auto 1rem auto;
+  margin: 0 5% 1rem 5%;
   clear: left;
-  width: fit-content;
+  text-align: center;
+  width: unset;
+}
+
+
+
+
+/* MODAL BUTTONS GLOBAL */
+/* div.modal-top-container >  */
+div#bottom-buttons > button {
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  padding: 0.5rem;
+  box-shadow: 0px 6px 20px #1266FC4E;
+  margin: 0 auto;
+}
+
+div#bottom-buttons > button:disabled,
+div#bottom-buttons > button[disabled] {
+  opacity: 0.5;
+}
+
+
+
+/* div.modal-top-container >  */
+div#bottom-buttons {
+  text-align: center;
+  margin: 2rem 5%;
+}
+
+
+
+div.modal-top-container span#popup {
+  color: red;
+  font-size: var(--font-size-extra);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  margin: 0 5%;
+  /* max-width: 350px;
+  width: 100%; */
+}
+
+
+
+div.modal-top-container>div.modal-content > * {
+  width: 90%;
+  margin: 0 auto;
 }

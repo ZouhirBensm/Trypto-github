@@ -86,10 +86,11 @@ class Modal extends React.Component {
           handleCustomReasonChange={this.handleCustomReasonChange}
           modal_type={this.props.modal_type}
         />
+        {this.state.popup ? <span id="popup">{this.state.popup}</span> : null}
+
 
         {Function}
 
-        {this.state.popup ? <p>{this.state.popup}</p> : null}
       </React.Fragment>
     )
   }
