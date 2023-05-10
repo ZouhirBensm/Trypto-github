@@ -38,7 +38,7 @@ module.exports = async (req,res,next)=>{
 
   //FILTER
   protagonists_communications = protagonists_communications.filter(element => element.protagonists != null)
-  console.log("\n\nLogged in user's convos\n\n", protagonists_communications)
+  // console.log("\n\nLogged in user's convos\n\n", protagonists_communications)
 
   // console.log(`entries with my protagonist ${req.session.userId}:`,protagonists_communications)
 
@@ -53,7 +53,7 @@ module.exports = async (req,res,next)=>{
 
   res.locals.data_to_be_paginated_and_served = protagonists_communications
 
-  console.log("in intermediateMiddlewareMess: ", res.locals.data_to_be_paginated_and_served)
+  // console.log("in intermediateMiddlewareMess: ", res.locals.data_to_be_paginated_and_served)
 
   next()
 }

@@ -18,12 +18,12 @@ function disconnect_evt(socket){
       all_sessions = sessionCollection.find()
       sessions = await all_sessions.toArray()
 
-      console.log("\n\nSessions collection:\n\n", sessions)
+      // console.log("\n\nSessions collection:\n\n", sessions)
       
       // Identify my session and de-append the entire socket field as user exits
       let mongo_update_ret_obj = await sessionCollection.updateOne({"session.userId": ObjectId(socket.request.session.userId)}, {$unset: {"session.socket":1}}, { upsert: false, new: true });
       
-      console.log("\nPromise return resolved value for de-appending the socket:\n", mongo_update_ret_obj)
+      // console.log("\nPromise return resolved value for de-appending the socket:\n", mongo_update_ret_obj)
 
     } catch (e) {
       console.error(e);

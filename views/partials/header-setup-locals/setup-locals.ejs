@@ -33,6 +33,8 @@
 
   var popup
   var currentUserEmail
+  var userUsernameB
+  var userB_profile_image_path
   var currentUserName
   var userIdB
   var orderId
@@ -135,6 +137,8 @@
 
     case '/messaging':
       userId = '<%= locals.userId %>'
+      userUsernameB = '<%= locals.userUsernameB %>'
+      userB_profile_image_path = '<%= locals.userB_profile_image_path %>'
       currentUserEmail = '<%= locals.currentUserEmail  %>'
       currentUserName = '<%= locals.currentUserName  %>'
       user = <%-JSON.stringify(locals.user || {})%> 
@@ -146,7 +150,7 @@
 
       console.log("\n\nsetup-locals.ejs:")
       
-      console.log({userId, currentUserName, currentUserEmail, userIdB, orderId, user, domain_without_protocol})
+      console.log({userId, currentUserName, currentUserEmail, userIdB, userUsernameB, orderId, user, domain_without_protocol})
 
       break;
     case '/messaging/messages':

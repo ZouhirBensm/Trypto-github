@@ -27,7 +27,7 @@ let chatControllers = (io) => {
     console.log("\n\n\n\n\n____'connection' EVENT____\n\n\n\n\n")
 
     // Actual Session
-    console.log("\n\nActual Session wrapped in socketIO:\n\n", socket.request.session);
+    // console.log("\n\nActual Session wrapped in socketIO:\n\n", socket.request.session);
     
     // Connection Socket IO Query Data
     const userAId = socket.request._query['userAId']
@@ -37,7 +37,7 @@ let chatControllers = (io) => {
     // Current Socket ID
     const sckIdA = socket.id
 
-    console.log(`\n\nInfos sent from front end socket io connection query\norderId: ${orderId}\nuser A: (id: ${userAId}, socketID: ${sckIdA})\nuser B: (id: ${userBId}, socketID: Determined in messaging event)\n\n`);
+    // console.log(`\n\nInfos sent from front end socket io connection query\norderId: ${orderId}\nuser A: (id: ${userAId}, socketID: ${sckIdA})\nuser B: (id: ${userBId}, socketID: Determined in messaging event)\n\n`);
 
 
     // Connected Sockets to the socket server instance
@@ -53,7 +53,7 @@ let chatControllers = (io) => {
       all_sessions = sessionCollection.find()
       sessions = await all_sessions.toArray()
 
-      console.log("\n\nSessions collection:\n\n", sessions)
+      // console.log("\n\nSessions collection:\n\n", sessions)
       
 
       for(let session of sessions) {
@@ -66,7 +66,7 @@ let chatControllers = (io) => {
           // With await the promise is resolved, then proceeds to 1,2,3,4
           let my_session_entry = await sessionCollection.findOneAndUpdate({"session.userId": ObjectId(socket.request.session.userId)}, {$set: {"session.socket.id": socket.id, "session.socket.appendedUserB": userBId}}, { upsert: true, new: true })
 
-          console.log("\nPromise resolved of a my connected session socket thread instance:\n", my_session_entry.value)
+          // console.log("\nPromise resolved of a my connected session socket thread instance:\n", my_session_entry.value)
           // 1
         }
         // 2
@@ -90,7 +90,7 @@ let chatControllers = (io) => {
     }
 
     // Array of Socket ID's connected Array<String>
-    console.log("\n\nArray of Connected socket ID's:\n\n", connected_sockets);
+    // console.log("\n\nArray of Connected socket ID's:\n\n", connected_sockets);
     
 
     // Query the protagonists collection, to see if any entry with BOTH protagonists, if any.
@@ -102,11 +102,11 @@ let chatControllers = (io) => {
     
     // .populate("msg_stream.sender")
     
-    console.log("\n\nAny found entry of the the 2 protagonist's in the protagonists collection?:\n")
+    // console.log("\n\nAny found entry of the the 2 protagonist's in the protagonists collection?:\n")
     
     if(protagonistEntryIfAny[0]){
-      console.log("\nA: YES\n")
-      console.log("Found entry:\n\n", protagonistEntryIfAny[0])
+      // console.log("\nA: YES\n")
+      // console.log("Found entry:\n\n", protagonistEntryIfAny[0])
 
       // Find the message entry that references both protagonists
       let message_entry_with_both_protagonists = await Message.find({protagonists: protagonistEntryIfAny[0]._id})
@@ -120,7 +120,7 @@ let chatControllers = (io) => {
       for (let i = index_most_recent_start; i < message_entry_with_both_protagonists[0].msg_stream.length; i++) {
 
         const msg = message_entry_with_both_protagonists[0].msg_stream[i];
-        console.log(i, msg)
+        // console.log(i, msg)
         const format_for_UI_object = {
           content: msg.text,
           msgAuthorId: msg.sender._id,

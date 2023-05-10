@@ -2,6 +2,7 @@
 // import './styles/MgtUser.css' 
 import MsgInputSubmit from './MsgInputSubmit';
 import MsgsBox from './MsgsBox';
+import DisplayOtherCard from './DisplayOtherCard'
 import './styles/ChatContainer.css';
 import utils from "../../full-stack-libs/utils"
 
@@ -13,8 +14,10 @@ class ChatContainer extends React.Component {
     }
     this._userID = userId
     this._currentUserEmail = currentUserEmail
+    this._userB_profile_image_path = userB_profile_image_path
     this.currentUserName = currentUserName
     this._userIDB = userIdB
+    this._userUsernameB = userUsernameB
     this._orderID = orderId
 
     console.log("ChatContainer: constructor()->\n", {
@@ -22,6 +25,8 @@ class ChatContainer extends React.Component {
       currentUserEmail: this._currentUserEmail, 
       currentUserName: this.currentUserName, 
       userIdB: this._userIdB, 
+      userUsernameB: this._userUsernameB,
+      userB_profile_image_path: this._userB_profile_image_path,
       orderId: this._orderId, 
     })
 
@@ -57,20 +62,30 @@ class ChatContainer extends React.Component {
 
   render() {
     // console.log("ChatContainer: render()->currentUserEmail:", currentUserEmail)
+
+    console.log(this._userB_profile_image_path)
     
     return (
       <React.Fragment>
-        <div className="wrapper-chat">
-          <h1>Chat:</h1>
-          <p>LoggedIn as</p>
-          <p>{this._userID}</p>
-          <p><strong>{this._currentUserEmail}</strong></p>
-          <h1>Communicating to:</h1>
-          <p>{this._userIDB}</p>
-          <h1>Order ID:</h1>
-          <p>{this._orderID}</p>
-          <MsgInputSubmit/>
+        {/* <h1>LoggedIn as</h1>
+        <p>{this._userID}</p>
+        <p><strong>{this._currentUserEmail}</strong></p>
+
+        <h1>Communicating to:</h1>
+        <p>{this._userIDB}</p>
+
+        <h1>Order ID:</h1>
+        <p>{this._orderID}</p> */}
+
+        <div id="chat">
+          <h1>Chat</h1>
+          <DisplayOtherCard
+            userIdB={this._userIDB}
+            userUsernameB={this._userUsernameB}
+            userB_profile_image_path={this._userB_profile_image_path}
+          />
           <MsgsBox/>
+          <MsgInputSubmit/>
         </div>
       </React.Fragment>
     );
