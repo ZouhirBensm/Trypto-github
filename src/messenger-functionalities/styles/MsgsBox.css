@@ -23,6 +23,7 @@ div#msg-box li {
 
 div#msg-box > li > div.message > div.content{
   padding: 10px;
+  overflow-x: scroll;
 }
 
 
@@ -32,7 +33,7 @@ div#msg-box > li > div.message > div.content > span.content {
   letter-spacing: 1.2px;
   color: #010757;
   display: block;
-  font-size: var(--font-size-p);
+  font-size: var(--font-size-p-smaller);
 }
 
 div#msg-box > li > div.message > div.content > span.time{
