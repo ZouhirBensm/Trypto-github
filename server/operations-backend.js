@@ -102,6 +102,9 @@ operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/man
   })
 })
 
+operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/help-for-market-orders/:userID', '/set-settings/:userID'], require_loggedin_for_pages(true), 
+authenticate_role_for_pages([ROLE.MASTER]), 
+operationsControllers.getOperationsPagesController)
 
 
 operationsBackend_app_router.get('/set-settings/:userID/set-users-associated-locality',
@@ -111,9 +114,7 @@ operationsControllers.getOperationsPagesController)
 
 
 
-operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/help-for-market-orders/:userID', '/set-settings/:userID'], require_loggedin_for_pages(true), 
-authenticate_role_for_pages([ROLE.MASTER]), 
-operationsControllers.getOperationsPagesController)
+
 
 
 
@@ -216,7 +217,8 @@ operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', require_l
   var JSX_to_load
   JSX_to_load = 'Operations';
 
-  
+
+  res.locals.isPaypalScriptNeeded = true
   // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
