@@ -63,7 +63,9 @@ chatForm.addEventListener("submit", (e)=>{
 // Process one message at a time
 socket.on("broadcast", (SentObjectPackaged) => {
   console.log("\n\n\n\n\n___new message___\n\n\n\n")
-  // console.log("from the server SentObjectPackaged: ", SentObjectPackaged)
+  
+  console.log("from the server SentObjectPackaged: ", SentObjectPackaged)
+
   // console.log("\nreceived from this sender: ", SentObjectPackaged.msgAuthorId, " supposed channelled with: ", userIdB)
 
 
@@ -74,8 +76,30 @@ socket.on("broadcast", (SentObjectPackaged) => {
     // New message item
     var item = document.createElement("li")
 
+    // Convert the Date time to 00:00 AM format
+    const datetime = new Date(SentObjectPackaged.datetime);
+    const timeString = datetime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    const formattedTimeString = timeString.replace(/(\d{1,2}):(\d{2})\s(.*)/, function(_, hh, mm, a) {
+      return `${hh}:${mm} ${a.toUpperCase()}`;
+    });
+
+
+  
     // Define HTML and add class if logged in user is the author.
-    item.innerHTML = `<strong class="message${window.utils.equalityCheck_LogInID_to_msgUserID(SentObjectPackaged.msgAuthorId, userId)}">${SentObjectPackaged.msgAuthorUsername}</strong>: ${SentObjectPackaged.content}`
+    item.innerHTML = `
+    <div class="message${window.utils.equalityCheck_LogInID_to_msgUserID(SentObjectPackaged.msgAuthorId, userId)}">
+
+       <!-- <strong>
+        ${SentObjectPackaged.msgAuthorUsername}
+      </strong> -->
+      <div class='content'>
+        <span class='content'>${SentObjectPackaged.content}</span>
+        <span class='time'>
+          ${formattedTimeString}
+        </span>
+      </div>
+    </div>
+    `
 
     // Append item and scroll
     msgBox.appendChild(item)
