@@ -2,3 +2,72 @@ img {
   /* width: 24px;
   height: 24px; */
 }
+
+div#messages>table>tbody {
+  display: block;
+  cursor: pointer;
+}
+
+/* ROW */
+div#messages>table>tbody>tr {
+  display: flex;
+  flex-flow: column nowrap;
+  border-bottom: 3px white solid;
+}
+
+div#messages>table>tbody>tr:hover {
+  background: transparent linear-gradient(180deg, #EEF5FE00 0%, #B8CEF5 100%) 0% 0% no-repeat padding-box;
+}
+
+div#messages>table>tbody>tr:last-of-type {
+  border-bottom: unset
+}
+
+
+/* PART 1 OF THE ROW */
+div#messages>table>tbody>tr>td:first-of-type {
+  padding: 1rem 2% 0 2%;
+}
+
+div#messages>table>tbody>tr>td:first-of-type>img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid #80E8FF;
+  vertical-align: middle;
+  margin-right: 1ch;
+}
+
+div#messages>table>tbody>tr>td:first-of-type>span {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: #010757;
+  font-size: var(--font-size-root);
+  vertical-align: middle;
+}
+
+
+
+/* PART 2 OF THE ROW */
+div#messages>table>tbody>tr>td:nth-of-type(2) {
+  padding: .5rem 2% 1.5rem 2%;
+}
+
+
+div#messages>table>tbody>tr>td:nth-of-type(2)>span:first-of-type {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: #010757;
+  margin-right: 1ch;
+  font-size: var(--font-size-root);
+}
+
+div#messages>table>tbody>tr>td:nth-of-type(2)>span:nth-of-type(2) {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  color: #010757;
+  font-size: var(--font-size-extra);
+}

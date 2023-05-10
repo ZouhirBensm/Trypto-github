@@ -1,18 +1,26 @@
-div.wrapper {
-  height: 80vh;
-  overflow: scroll;
-  border: 1px black solid;
-  position: absolute;
-  top: 10%;
-  bottom: 10%;
-  left: 3%;
-  right: 3%;
+div#messages {
+  width: 90%;
+  margin: 0 auto;
 }
 
-table.bordered-table {
-  border: 1px solid green;
-  width: 100%;
+
+/* TITLE (REP) */
+div#messages > h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-h1);
+  width: fit-content;
+  margin: 5vh 0;
+  color: #1266FC;
 }
+
+
+div#messages > table {
+  width: 100%;
+  background-color: #EEF5FE;
+  border-radius: 10px;
+}
+
 
 /* div.wrapper tr {
   display: grid;

@@ -7,6 +7,8 @@
 import PageSelector from '../generic-components/PageSelector'
 import MessageTable from '../messenger-functionalities/MessageTable';
 
+import OnPageFooter from '../generic-components/OnPageFooter'
+
 import './styles/Messages.css' 
 
 class Messages extends React.Component {
@@ -104,9 +106,10 @@ class Messages extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="wrapper">
-          <h2>Messages Component</h2>
-          <h4>Logged in as: {this._PassedUserName}</h4>
+        <div id='messages'>
+          <h1>Chat</h1>
+          {/* <h2>Messages Component</h2>
+          <h4>Logged in as: {this._PassedUserName}</h4> */}
           <MessageTable 
           comprehensiveSelectedUserInfoDataObj={this.props.comprehensiveSelectedUserInfoDataObj}
           loggedinUserObjInfo={this.loggedinUserObjInfo}
@@ -125,6 +128,10 @@ class Messages extends React.Component {
           controls={this.controls}
           />
         </div>
+
+        <OnPageFooter/>
+        
+        
       </React.Fragment>
     )
   }

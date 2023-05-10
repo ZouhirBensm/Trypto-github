@@ -2,6 +2,8 @@
 import './styles/MessageTable.css' 
 import utils from '../../full-stack-libs/utils'
 
+import './styles/MessageTable.css'
+
 class MessageTable extends React.Component {
 
   constructor(props){
@@ -31,7 +33,7 @@ class MessageTable extends React.Component {
     }
 
     return(
-      <table className="bordered-table">
+      <table>
         <tbody>
           {convosRow}
         </tbody>
@@ -119,14 +121,25 @@ class MessageRow extends React.Component {
     // console.log("Require Keys: ", display_editing)
     return(
       <tr onClick={(e) => this.handleClick(this.props.comprehensiveSelectedUserInfoDataObj, communicating_with_ID, e)}>
+
         <td id="comm-with">
           <img src={`../img/profile-images/${comunicating_with_profile_image_name}`} alt="" />
           <span> {communicating_with_username}</span>
         </td>
-        <td id="last-message"> 💬.. {most_recent_convo_sender_username}: {most_recent_convo_text} </td>
 
-        <td id="comm-with-ID" style={{"display": "none"}}>Com w\ ID: {communicating_with_ID}</td>
-        <td id="msg-notifications" style={{"display": "none"}}>#</td>
+        <td id="last-message">
+          <span>
+            {most_recent_convo_sender_username}:
+          </span>
+          <span>
+            {most_recent_convo_text}
+          </span>
+        </td>
+
+        {/* TODO !! To be added, do NOT DELETE */}
+        {/* <td id="comm-with-ID" style={{"display": "none"}}>Com w\ ID: {communicating_with_ID}</td>
+
+        <td id="msg-notifications" style={{"display": "none"}}>#</td> */}
 
       </tr>
     );
