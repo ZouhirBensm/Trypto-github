@@ -17,10 +17,15 @@ class MsgInputSubmit extends React.Component {
     
     return (
         <form id="chatForm">
-          <input id="chat-input" type="text" name=""/>
-          {/* <input  id="chat-user-id" type="hidden" value={this._userID} name=""/> */}
-          {/* <input  id="chat-user-email" type="hidden" value={this._currentUserEmail} name=""/> */}
-          <input className="button" type="submit" value="Send"/>
+          <div id='input-collector'>
+            <input id="chat-input" type="text" name="" placeholder='Your message'/>
+            {/* <input  id="chat-user-id" type="hidden" value={this._userID} name=""/> */}
+            {/* <input  id="chat-user-email" type="hidden" value={this._currentUserEmail} name=""/> */}
+
+
+            <input className="button" type="submit" value=''/>
+          </div>
+
         </form>
     );
   }

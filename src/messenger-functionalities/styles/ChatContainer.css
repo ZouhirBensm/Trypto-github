@@ -21,14 +21,21 @@ div#chat > div#display {
   border-radius: 10px 10px 0 0;
   font-size: var(--font-size-root);
   border-bottom: 3px solid white;
+
+  white-space: nowrap;
+  overflow: scroll;
 }
 
-div#chat > div#display > * {
+div#chat > div#display > div#col * {
   vertical-align: middle;
 }
 
+div#chat > div#display > div#col {
+  overflow: scroll;
+}
 
-div#chat > div#display > img {
+
+div#chat > div#display > div#col > img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -37,7 +44,7 @@ div#chat > div#display > img {
 }
 
 
-div#chat > div#display > span {
+div#chat > div#display > div#col > span {
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
   letter-spacing: 1.4px;
