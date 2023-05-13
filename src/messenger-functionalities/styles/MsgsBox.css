@@ -4,6 +4,7 @@ div#msg-box {
   height: 50vh;
   overflow: scroll;
   background-color: #EEF5FE;
+  flex-grow: 1;
 }
 
 div#msg-box > li > div.message {

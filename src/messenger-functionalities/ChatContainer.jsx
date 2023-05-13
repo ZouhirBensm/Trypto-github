@@ -78,15 +78,14 @@ class ChatContainer extends React.Component {
         <p>{this._orderID}</p> */}
 
         <div id="chat">
-          <h1>Chat</h1>
           <DisplayOtherCard
             userIdB={this._userIDB}
             userUsernameB={this._userUsernameB}
             userB_profile_image_path={this._userB_profile_image_path}
           />
           <MsgsBox/>
-          <MsgInputSubmit/>
         </div>
+        <MsgInputSubmit/>
       </React.Fragment>
     );
   }

@@ -57,3 +57,15 @@ div#pagination > div#page_numbers {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
 }
+
+
+div#pagination-fragment > span#popup {
+  color: red;
+  width: 100%;
+  font-size: var(--font-size-extra);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  margin: 1rem 0;
+  max-width: 350px;
+  display: block;
+}

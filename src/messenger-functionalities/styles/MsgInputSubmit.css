@@ -1,45 +1,53 @@
-div#messaging>div#chat>form#chatForm {
+div#messaging form#chatForm {
   background-color: #EEF5FE;
   border-top: 3px solid white;
-  border-radius: 0 0 10px 10px;
   white-space: nowrap;
-  margin-bottom: 100px;
+  /* margin-bottom: 100px; */
+  /* border-radius: 0 0 30px 30px; */
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  left: 0;
+  /* bottom: 64px; */
+  width: 90%;
+  margin: 0 auto;
+
+  border-radius: 0 0 10px 10px;
 }
 
 
-div#messaging>div#chat>form#chatForm>div#input-collector {
+div#messaging form#chatForm>div#input-collector {
   padding: 1rem 1rem;
-  margin: 0 auto;
   display: block;
   text-align: center;
   overflow: hidden;
 
-  
+
 }
 
 
-div#messaging>div#chat>form#chatForm input[type="text"] {
+div#messaging form#chatForm input[type="text"] {
   border-radius: 22px 0 0 22px;
   line-height: 2rem;
   height: 2rem;
   border: none;
   text-indent: 2ch;
-  
+
   vertical-align: middle;
   padding: 0;
 
   width: 80%;
-  
+
   border-right: 1px solid #EEF5FE;
 
 
 
-  
+
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
   font-size: var(--font-size-smaller-input);
   color: #010757;
-  
+
   /* -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -50,7 +58,7 @@ div#messaging>div#chat>form#chatForm input[type="text"] {
 
 
 /* TODO !!!! HERE NOT RENDERING */
-div#messaging>div#chat>form#chatForm input[type="text"]::placeholder {
+div#messaging form#chatForm input[type="text"]::placeholder {
   /* color: #6B7FA2; */
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
@@ -61,7 +69,7 @@ div#messaging>div#chat>form#chatForm input[type="text"]::placeholder {
 
 
 
-div#messaging>div#chat>form#chatForm input[type="submit"] {
+div#messaging form#chatForm input[type="submit"] {
   height: 2rem;
   /* width: 30px; */
   border-radius: 0 22px 22px 0;

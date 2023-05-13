@@ -103,7 +103,7 @@ class PageSelector extends React.Component {
 
     return (
       <div id='pagination-fragment'>
-        {this.props.number_of_pages === 0 ? <div>No entries avaible at the moment</div> : ''}
+        {this.props.number_of_pages === 0 ? <span id='popup'>No entries avaible at the moment</span> : ''}
         {/* <h1>PageSelector</h1>
         <p>you are on page: {this.state.page}</p>
         <p>and their is: {this.props.number_of_pages}</p> */}
