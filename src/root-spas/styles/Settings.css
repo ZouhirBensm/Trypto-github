@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+/* H1 */
+div#react-div>h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-h1);
+  color: #1266FC;
+  margin: 0;
+  /* display: inline; */
+  margin: 3vh auto;
+  vertical-align: middle;
+  width: 90%;
+}
+
+/* NAVIGATION */
+div#react-div> div.settings-nav {
+  width: 90%;
+  margin: 0 auto;
+}
+
+
+/* A NAV ITEMS */
+div#react-div> div.settings-nav > a {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+
+  letter-spacing: 0px;
+  
+  color: #B8CEF5;
+  text-transform: capitalize;
+
+  margin-right: 1ch;
+}
+
+div#react-div> div.settings-nav > a.active {
+  color: #010757;
+}

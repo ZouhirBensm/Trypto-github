@@ -1,6 +1,8 @@
 import '../style/reactDivMobile.css'
 import '../style/googlemaps.css'
 
+import './styles/Settings.css'
+
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
 
@@ -8,11 +10,11 @@ const SetAssociatedLocality = loadable(() => import('../settings-functionalities
   fallback: <Loading />
 });
 
-// import Test2 from '../settings-functionalities/Test2'
+import Test2 from '../settings-functionalities/Test2'
 // import Test3 from '../settings-functionalities/Test3'
 // import Test4 from '../settings-functionalities/Test4'
 
-import { Link, BrowserRouter, Route, Switch } from 'react-router-dom';
+import { NavLink, Link, BrowserRouter, Route, Switch } from 'react-router-dom';
 
 class Settings extends React.Component {
   constructor(props) {
@@ -41,14 +43,20 @@ class Settings extends React.Component {
       <React.Fragment>
         <h1>Settings</h1>
         <BrowserRouter>
-          <Link to='/settings/set-users-associated-locality'>Location Settings</Link>
+          <div className="settings-nav">
+            <NavLink activeClassName="active" to='/settings/set-users-associated-locality'>Location Settings</NavLink>
 
-          {/* <Link to='/settings/test2'>Test2</Link>
-          <Link to='/settings/test3'>Test3</Link>
-          <Link to='/settings/test4'>Test4</Link> */}
+            <NavLink activeClassName="active" to='/settings/test2'>Test2</NavLink>
+            {/* <Link to='/settings/test3'>Test3</Link>
+            <Link to='/settings/test4'>Test4</Link> */}
+
+            {/* <Link to='/settings/set-users-associated-locality'>Location Settings</Link>
+
+            <Link to='/settings/test2'>Test2</Link> */}
+
+          </div>
 
           <Switch>
-
             <Route path="/settings/set-users-associated-locality" render={
               (props) => <SetAssociatedLocality {...props}
                 userID_toWorkWith={userId}
@@ -56,16 +64,15 @@ class Settings extends React.Component {
               />
             } />
 
-            {/* <Route path="/settings/test2" render={
+            <Route path="/settings/test2" render={
               (props) => <Test2 {...props} />
             } />
-            <Route path="/settings/test3" render={
+            {/* <Route path="/settings/test3" render={
               (props) => <Test3 {...props} />
             } />
             <Route path="/settings/test4" render={
               (props) => <Test4 {...props} />
             } /> */}
-
           </Switch>
 
         </BrowserRouter>
