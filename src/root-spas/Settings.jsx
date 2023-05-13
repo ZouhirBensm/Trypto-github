@@ -8,9 +8,9 @@ const SetAssociatedLocality = loadable(() => import('../settings-functionalities
   fallback: <Loading />
 });
 
-import Test2 from '../settings-functionalities/Test2'
-import Test3 from '../settings-functionalities/Test3'
-import Test4 from '../settings-functionalities/Test4'
+// import Test2 from '../settings-functionalities/Test2'
+// import Test3 from '../settings-functionalities/Test3'
+// import Test4 from '../settings-functionalities/Test4'
 
 import { Link, BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -39,11 +39,13 @@ class Settings extends React.Component {
 
       // Home
       <React.Fragment>
+        <h1>Settings</h1>
         <BrowserRouter>
-          <Link to='/settings/set-users-associated-locality'>Associated Locality</Link> <br />
-          <Link to='/settings/test2'>Test2</Link> <br />
-          <Link to='/settings/test3'>Test3</Link> <br />
-          <Link to='/settings/test4'>Test4</Link> <br />
+          <Link to='/settings/set-users-associated-locality'>Location Settings</Link>
+
+          {/* <Link to='/settings/test2'>Test2</Link>
+          <Link to='/settings/test3'>Test3</Link>
+          <Link to='/settings/test4'>Test4</Link> */}
 
           <Switch>
 
@@ -54,7 +56,7 @@ class Settings extends React.Component {
               />
             } />
 
-            <Route path="/settings/test2" render={
+            {/* <Route path="/settings/test2" render={
               (props) => <Test2 {...props} />
             } />
             <Route path="/settings/test3" render={
@@ -62,9 +64,10 @@ class Settings extends React.Component {
             } />
             <Route path="/settings/test4" render={
               (props) => <Test4 {...props} />
-            } />
+            } /> */}
 
           </Switch>
+
         </BrowserRouter>
 
 

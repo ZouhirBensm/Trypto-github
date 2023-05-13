@@ -82,7 +82,7 @@ class SubmitNewAssociatedLocality extends React.Component {
             return
           }
         }}>
-          Post New Locality
+          Submit
         </button>
       </React.Fragment>
     )

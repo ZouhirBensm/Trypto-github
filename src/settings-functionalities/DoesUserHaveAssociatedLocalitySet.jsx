@@ -8,6 +8,7 @@ class DoesUserHaveAssociatedLocalitySet extends React.Component {
   }
 
   componentDidMount() {
+    // let referenceElement = document.getElementById('setting-header-location');
     let referenceElement = document.getElementById('does-have-locality');
     let the_map = document.getElementById('the-map');
     let autocomplete_block = document.getElementById('autocomplete-block');
@@ -19,14 +20,13 @@ class DoesUserHaveAssociatedLocalitySet extends React.Component {
   render(){
     return (
       <React.Fragment>
-        <br/>
-        <br/>
-        <div id="does-have-locality">Has Associated Locality: {this.props.selectedUser.userassociatedlocalityID ? 
-        "✅ " + this.props.selectedUser.userassociatedlocalityID.location.address
-        : 
-        "❌"} 
-        
+
+        <h3 className="h3-bold">Associated Locality</h3>
+
+        <div id="does-have-locality">
+          {this.props.selectedUser.userassociatedlocalityID ? `✅ ${this.props.selectedUser.userassociatedlocalityID.location.address}` : "❌" }
         </div>
+
       </React.Fragment>
     )
   }

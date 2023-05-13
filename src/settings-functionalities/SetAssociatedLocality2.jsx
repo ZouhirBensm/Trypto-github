@@ -3,7 +3,10 @@ import LocationSelector from './LocationSelector'
 import SubmitNewAssociatedLocality from './SubmitNewAssociatedLocality'
 import DoesUserHaveAssociatedLocalitySet from './DoesUserHaveAssociatedLocalitySet'
 
+
 import { withRouter } from 'react-router-dom';
+
+
 
 class SetAssociatedLocality extends React.Component {
   constructor(props) {
@@ -69,9 +72,20 @@ class SetAssociatedLocality extends React.Component {
   render() {
     return (
       <React.Fragment>
+
+        <div id='setting-header-location'>
+          <img src="" alt="" />
+          <h2>Location</h2>
+          <hr />
+        </div>
+
+
+
         <DoesUserHaveAssociatedLocalitySet
           selectedUser={this.props.selectedUser}
         />
+
+
 
         <LocationSelector
           lat={this.state.lat}
@@ -81,24 +95,37 @@ class SetAssociatedLocality extends React.Component {
           setpopup={this.setpopup}
         />
 
+
+
+
+
+
+
+
+
+
+
         {this.state.popup ?
-          <p>{this.state.popup}</p>
+          <span id='popup'>{this.state.popup}</span>
           : null}
 
 
+        <br /><br />
+        <div id='locality-settings-buttons'>
+          <button type="button" onClick={this.goBack}>
+            Go back
+          </button>
 
 
-        <SubmitNewAssociatedLocality
-          lat={this.state.lat}
-          lng={this.state.lng}
-          selectedUser={this.props.selectedUser}
-          userID_toWorkWith={this.props.userID_toWorkWith}
-          setpopup={this.setpopup}
-        />  <br/>
-        
-        <button type="button" onClick={this.goBack}>
-          Go back
-        </button> <br/>
+          <SubmitNewAssociatedLocality
+            lat={this.state.lat}
+            lng={this.state.lng}
+            selectedUser={this.props.selectedUser}
+            userID_toWorkWith={this.props.userID_toWorkWith}
+            setpopup={this.setpopup}
+          />
+        </div>
+
       </React.Fragment>
     )
   }
