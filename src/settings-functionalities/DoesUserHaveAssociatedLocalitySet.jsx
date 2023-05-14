@@ -1,4 +1,4 @@
-
+import './styles/DoesUserHaveAssociatedLocalitySet.css'
 
 class DoesUserHaveAssociatedLocalitySet extends React.Component {
   constructor(props){
@@ -24,7 +24,15 @@ class DoesUserHaveAssociatedLocalitySet extends React.Component {
         <h3 className="h3-bold">Associated Locality</h3>
 
         <div id="does-have-locality">
-          {this.props.selectedUser.userassociatedlocalityID ? `✅ ${this.props.selectedUser.userassociatedlocalityID.location.address}` : "❌" }
+          {this.props.selectedUser.userassociatedlocalityID ?
+          <div>
+            <img src="/img/SVG/settings/box.svg" alt="" />
+            <span>{this.props.selectedUser.userassociatedlocalityID.location.address}</span>
+          </div> : 
+          
+          <img src="/img/SVG/settings/unbox.svg" alt="" />
+
+          }
         </div>
 
       </React.Fragment>

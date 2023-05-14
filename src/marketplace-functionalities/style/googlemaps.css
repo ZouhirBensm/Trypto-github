@@ -3,8 +3,18 @@
  * that contains the map. 
  */
  
- #the-map {
-  height: 50vh;
+
+
+div#the-map {
+  /* height: 50vh; */
   margin: 5vh 0;
+
+  height: 40vh;
+  /* width: 90%; */
+  display: block;
+
+  
+
+
 }
 

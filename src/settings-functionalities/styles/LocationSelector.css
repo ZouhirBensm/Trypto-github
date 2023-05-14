@@ -1,0 +1,8 @@
+div#autocomplete-block>label.h3-bold {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #010757;
+  text-transform: capitalize;
+}

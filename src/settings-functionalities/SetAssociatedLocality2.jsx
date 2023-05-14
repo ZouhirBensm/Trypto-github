@@ -4,6 +4,11 @@ import SubmitNewAssociatedLocality from './SubmitNewAssociatedLocality'
 import DoesUserHaveAssociatedLocalitySet from './DoesUserHaveAssociatedLocalitySet'
 
 
+import './styles/SetAssociatedLocality.css'
+
+
+
+
 import { withRouter } from 'react-router-dom';
 
 
@@ -74,7 +79,7 @@ class SetAssociatedLocality extends React.Component {
       <React.Fragment>
 
         <div id='setting-header-location'>
-          <img src="" alt="" />
+          <img src="/img/SVG/settings/pin.svg" alt="" />
           <h2>Location</h2>
           <hr />
         </div>
@@ -110,7 +115,7 @@ class SetAssociatedLocality extends React.Component {
           : null}
 
 
-        <br /><br />
+        
         <div id='locality-settings-buttons'>
           <button type="button" onClick={this.goBack}>
             Go back

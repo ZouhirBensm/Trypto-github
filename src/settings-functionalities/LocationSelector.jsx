@@ -3,6 +3,8 @@ import Autocomplete from './map-items/Autocomplete'
 import DragableMarker from './map-items/DragableMarker'
 import CenterMap from './map-items/CenterMap'
 
+import './styles/LocationSelector.css'
+
 
 class LocationSelector extends React.Component {
   constructor(props) {

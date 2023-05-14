@@ -3,7 +3,12 @@
  * that contains the map. 
  */
  
- #the-map {
+ div#the-map {
   height: 40vh;
+  width: 90%;
+  display: block;
+  margin: 0 auto;
+
+  border-radius: 8px;
 }
 
