@@ -1,6 +1,7 @@
 import PricesComponent from '../home-functionalities/PricesComponent.jsx';
 import GetRecentArticles from '../home-functionalities/GetRecentArticles.jsx';
 import GetRecentMarketItems from '../home-functionalities/GetRecentMarketItems.jsx';
+
 import '../style/reactDivMobile.css'
 
 

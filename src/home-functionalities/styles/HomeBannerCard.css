@@ -1,0 +1,42 @@
+div#header {
+  /* background: linear-gradient(170deg, rgb(235 249 255), rgb(0 182 253)); */
+  /* margin: 2vh auto; */
+  /* padding-top: 50px; */
+  /* padding-bottom: 20px; */
+  /* background-image: url(/public/img/PNG/profile/user-info/logo-bk.png); */
+  
+  background-image: linear-gradient(170deg, rgb(235 249 255), rgb(0 182 253));
+  /* , url('/public/img/SVG/home/bitcoin-big.svg') */
+
+  /* background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center; */
+
+  /* border-radius: 15px; */
+  /* overflow: hidden; */
+
+  /* height: 100vh; */
+  height: 100%;
+}
+
+
+div#header > img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  background-size: 100% auto;
+}
+
+div#header > img[src='/img/SVG/home/rbitcoin-inner2.svg'] {
+  width: 90%;
+}
+
+
+
+/* H1 */
+div#header>div#home-header-text>h1 {
+  margin: 0;
+}

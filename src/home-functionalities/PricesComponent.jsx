@@ -1,4 +1,7 @@
-import React from "react"
+import HomeBannerCard from './HomeBannerCard'
+
+
+// !!!! TODO rename this Component, because holds more than prices
 
 class PricesComponent extends React.Component {
   constructor(props) {
@@ -39,21 +42,65 @@ class PricesComponent extends React.Component {
 
     return (
       <React.Fragment>
-        <h1>Bitcoin Prices</h1>
-        <table>
-          <tbody>
-            <tr>
-              {tds_currencies}
-            </tr>
-            <tr>
-              {tds_values}
-            </tr>
-          </tbody>
-        </table>
+        <div id='header'>
 
-        {/* {this.popup ?
-          <p>{this.popup}</p>
-          : null} */}
+          <img src="/img/SVG/home/rbitcoin-inner2.svg" alt="" />
+
+          <div id="home-header-text">
+            <h1>Buy, Sell, Trade</h1>
+            <div>In Bitcoin and Sats</div>
+            <div>Welcome to Bidblock, we are currently building the most ethical market that integrates a system to facilite bitcoin transactions on upcomming bitcoin technologies.</div>
+          </div>
+
+
+          <br />
+          <br />
+          <br />
+
+          <div id="home-header-cards">
+            <HomeBannerCard
+              icon_path='/img/SVG/home/home-cards/downwallet.svg'
+              text='Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, quas. A odit officia quia perferendis?'
+            />
+            <HomeBannerCard
+              icon_path='/img/SVG/home/home-cards/credit-card.svg'
+              text='Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, quas. A odit officia quia perferendis?'
+            />
+            <HomeBannerCard
+              icon_path='/img/SVG/home/home-cards/wallet.svg'
+              text='Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, quas. A odit officia quia perferendis?'
+            />
+
+          </div>
+
+          <br />
+          <br />
+          <br />
+
+          <div id="home-header-prices">
+            <table>
+              <tbody>
+                <tr>
+                  {tds_currencies}
+                </tr>
+                <tr>
+                  {tds_values}
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+          <br />
+          <br />
+          <br />
+
+
+
+        </div>
+
+
+
       </React.Fragment>
     );
   }
