@@ -4,6 +4,8 @@ import GetRecentMarketItems from '../home-functionalities/GetRecentMarketItems.j
 
 import '../style/reactDivMobile.css'
 
+import './styles/App.css'
+
 
 class App extends React.Component {
   constructor(props) {
@@ -18,10 +20,10 @@ class App extends React.Component {
   componentDidMount() {
     // console.log("in component: ", userId)
     this.loadData()
-    this.popup? this.displacePopup(): null
+    this.popup ? this.displacePopup() : null
   }
 
-  displacePopup(){
+  displacePopup() {
     let reactDiv = document.getElementById('react-div')
     let popup = document.getElementById('popup')
     popup.style.display = "block";
@@ -48,6 +50,18 @@ class App extends React.Component {
       // Home
       <React.Fragment>
         <PricesComponent btc_gecko_prices={this.state.prices} />
+
+        <br />
+        <br />
+        <br />
+
+        <br />
+        <br />
+        <br />
+
+        <br />
+        <br />
+        <br />
         <GetRecentArticles />
         <GetRecentMarketItems />
       </React.Fragment>

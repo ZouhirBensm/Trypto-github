@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1120" height="187.572" viewBox="0 0 1120 187.572">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="192.001" height="147.102" viewBox="0 0 192.001 147.102">
   <defs>
-    <linearGradient id="linear-gradient" x1="-0.177" y1="0.5" x2="1.025" y2="1" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#1266fc"/>
-      <stop offset="1" stop-color="#80e8ff"/>
+    <linearGradient id="linear-gradient" x1="-1.52" y1="-2.414" x2="0" y2="1.051" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#80e8ff"/>
+      <stop offset="1" stop-color="#fff"/>
     </linearGradient>
   </defs>
-  <path id="Intersection_2" data-name="Intersection 2" d="M15,187.572a15,15,0,0,1-15-15V67.67q6.656-9.146,14.683-19.233C135.391-103.055,1120,149.2,1120,149.2v23.371a15,15,0,0,1-15,15Z" transform="translate(0 0)" opacity="0.405" fill="url(#linear-gradient)"/>
+  <path id="Intersection_1" data-name="Intersection 1" d="M-1867.208-1166a15,15,0,0,1-15-15v-64.647q1.109-6.234,2.517-13.12C-1859-1359.773-1690.207-1289-1690.207-1289v108a15,15,0,0,1-15,15Z" transform="translate(1882.208 1313.102)" fill="url(#linear-gradient)"/>
 </svg>

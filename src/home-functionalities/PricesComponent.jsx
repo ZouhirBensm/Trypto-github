@@ -1,4 +1,5 @@
 import HomeBannerCard from './HomeBannerCard'
+import './styles/PricesComponent.css'
 
 
 // !!!! TODO rename this Component, because holds more than prices
@@ -48,7 +49,7 @@ class PricesComponent extends React.Component {
 
           <div id="home-header-text">
             <h1>Buy, Sell, Trade</h1>
-            <div>In Bitcoin and Sats</div>
+            <h2>In Bitcoin and Sats</h2>
             <div>Welcome to Bidblock, we are currently building the most ethical market that integrates a system to facilite bitcoin transactions on upcomming bitcoin technologies.</div>
           </div>
 
@@ -73,9 +74,7 @@ class PricesComponent extends React.Component {
 
           </div>
 
-          <br />
-          <br />
-          <br />
+
 
           <div id="home-header-prices">
             <table>
@@ -91,9 +90,7 @@ class PricesComponent extends React.Component {
 
           </div>
 
-          <br />
-          <br />
-          <br />
+
 
 
 

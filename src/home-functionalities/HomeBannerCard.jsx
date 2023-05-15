@@ -10,7 +10,10 @@ class HomeBannerCard extends React.Component {
       <React.Fragment>
 
         <div id='home-card'>
+
           <img src={this.props.icon_path} alt="" />
+          {/* <img src="/img/SVG/home/home-cards/small-ball.svg" alt="" />
+          <img src="/img/SVG/home/home-cards/intersection.svg" alt="" /> */}
           <span>{this.props.text}</span>
 
         </div>
