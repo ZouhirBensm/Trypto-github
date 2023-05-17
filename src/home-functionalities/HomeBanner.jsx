@@ -21,13 +21,16 @@ class HomeBanner extends React.Component {
 
   componentDidMount() {
 
+    
     console.log("this.scrollChildManagerInstance", this.scrollChildManagerInstance)
-
+    
     const homeHeaderPrices2 = document.getElementById("home-header-prices2")
     const scrollBar2 = document.getElementById("scroll-bar2")
-
+    
     console.log(scrollBar2)
-
+    
+    
+    // TODO !!!! HERE
     // SET THE FIRST CHILD ELEMENT INSTANCE
 
 
