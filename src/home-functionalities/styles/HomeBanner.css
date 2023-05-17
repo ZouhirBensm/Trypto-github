@@ -1,0 +1,202 @@
+div#header>div#home-header-text {
+  z-index: 1;
+  position: relative;
+}
+
+
+
+div#header {
+  /* background: linear-gradient(170deg, rgb(235 249 255), rgb(0 182 253)); */
+  /* margin: 2vh auto; */
+  /* padding-top: 50px; */
+  /* padding-bottom: 20px; */
+  /* background-image: url(/public/img/PNG/profile/user-info/logo-bk.png); */
+
+  background-image: linear-gradient(170deg, rgb(235 249 255), rgb(0 182 253));
+  /* , url('/public/img/SVG/home/bitcoin-big.svg') */
+
+  /* background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center; */
+
+  /* border-radius: 15px; */
+  /* overflow: hidden; */
+
+  /* height: 100vh; */
+
+  /* height: 100%; */
+
+  height: fit-content;
+}
+
+
+div#header>img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  background-size: 100% auto;
+}
+
+div#header>img[src='/img/SVG/home/rbitcoin-inner2.svg'] {
+  width: 90%;
+}
+
+
+
+/* H1 */
+div#header>div#home-header-text>h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 1.8px;
+  color: #010757;
+  text-transform: capitalize;
+  font-size: var(--font-size-h1);
+}
+
+
+div#header>div#home-header-text>* {
+  letter-spacing: 1.2px;
+  color: #010757;
+  text-transform: capitalize;
+}
+
+div#header>div#home-header-text>h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-h2);
+}
+
+div#header>div#home-header-text>div {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: var(--font-size-p);
+}
+
+
+div#header>div#home-header-prices {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+
+}
+
+
+
+
+
+
+div#header>div#home-header-prices>div#scroll-bar {
+  padding: 1rem 0;
+  display: flex;
+
+  flex-flow: row nowrap;
+  overflow-x: scroll;
+
+
+
+
+}
+
+
+
+div#header>div#home-header-prices>div#scroll-bar>div.price-element {
+
+  display: inline-block;
+  height: fit-content;
+  box-sizing: border-box;
+  white-space: nowrap;
+
+  margin: 0 100px;
+}
+
+/* ANIMATION */
+div#header>div#home-header-prices>div#scroll-bar>div.price-element:first-child {
+  margin-left: unset;
+}
+
+
+div#header>div#home-header-prices>div#scroll-bar>div.price-element:last-child {
+  margin-right: unset;
+}
+
+
+div#header>div#home-header-prices>div#scroll-bar>div.price-element>img {
+  width: 32.5px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+div#header>div#home-header-prices>div#scroll-bar>div.price-element>img {
+  width: 32.5px;
+  height: 30px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+
+
+div#header>div#home-header-prices>div#scroll-bar>div.price-element>span {
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  vertical-align: middle;
+
+}
+
+
+div#header>div#home-header-prices>div#scroll-bar>div#scroll-bar> div.price-element>span:first-of-type {
+  font-weight: 400;
+}
+
+
+
+div#header>div#home-header-prices>div#scroll-bar>div.price-element>span:nth-of-type(2) {
+  font-weight: 500;
+
+  background: rgb(18, 102, 252, 0.25);
+  border-radius: 22px;
+  backdrop-filter: blur(31px);
+  -webkit-backdrop-filter: blur(31px);
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: var(--font-size-generic);
+
+  padding: .5rem .2rem;
+
+  display: inline-block;
+}
+
+
+
+
+.scroll-container {
+  width: 100%;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+.scroll-content {
+  display: inline-block;
+}
+
+/* Optional: Adjust the appearance of the scrollbar */
+.scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+
+

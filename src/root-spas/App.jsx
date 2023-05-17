@@ -1,4 +1,4 @@
-import PricesComponent from '../home-functionalities/PricesComponent.jsx';
+import HomeBanner from '../home-functionalities/HomeBanner.jsx';
 import GetRecentArticles from '../home-functionalities/GetRecentArticles.jsx';
 import GetRecentMarketItems from '../home-functionalities/GetRecentMarketItems.jsx';
 
@@ -49,7 +49,7 @@ class App extends React.Component {
 
       // Home
       <React.Fragment>
-        <PricesComponent btc_gecko_prices={this.state.prices} />
+        <HomeBanner btc_gecko_prices={this.state.prices} />
 
         <br />
         <br />

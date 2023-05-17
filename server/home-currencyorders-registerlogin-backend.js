@@ -369,7 +369,7 @@ homeOrdersBackend_app_router.get('/cryptoprice', async (req, res, next) => {
 
   let params = {
     ids: ['bitcoin'],
-    vs_currencies: ['cad', 'usd', 'eur']
+    vs_currencies: ['cad', 'usd', 'eur', 'mxn']
   }
 
   let data
