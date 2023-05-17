@@ -17,12 +17,12 @@ class GetRecentMarketItems extends React.Component {
 
     response = await fetch(`/marketplace/recent-marketorders`)
 
-    console.log(response)
+    // console.log(response)
     
     let json
     json = await response.json()
     
-    console.log(json)
+    // console.log(json)
   }
 
   render(){

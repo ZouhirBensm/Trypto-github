@@ -35,7 +35,7 @@ class App extends React.Component {
     const response = await fetch(`/cryptoprice`)
     const data = await response.json()
 
-    console.log(btc_gecko_prices, data.data.bitcoin)
+    // console.log(btc_gecko_prices, data.data.bitcoin)
 
     this.setState({
       prices: data.data.bitcoin

@@ -16,12 +16,12 @@ class GetRecentArticles extends React.Component {
 
     response = await fetch(`/articles/recent-articles`)
 
-    console.log(response)
+    // console.log(response)
     
     let json
     json = await response.json()
     
-    console.log(json)
+    // console.log(json)
     return 
   }
 
