@@ -13,57 +13,8 @@ class HomeBanner extends React.Component {
     }
     // this.popup = popup
     // console.log(this.props)
-    this.ulRef = React.createRef();
   }
 
-  componentDidMount() {
-    var scrollContainer = document.querySelector('.scroll-container');
-    var scrollContent = document.querySelector('.scroll-content');
-
-    scrollContainer.addEventListener('scroll', function () {
-      // console.log(scrollContainer.scrollLeft)
-      // console.log(Math.ceil(scrollContainer.scrollLeft + scrollContainer.offsetWidth))
-      // console.log(Math.floor(scrollContainer.scrollWidth))
-      // if (scrollContainer.scrollLeft + scrollContainer.offsetWidth >= scrollContainer.scrollWidth) {
-
-      if (Math.ceil(scrollContainer.scrollLeft + scrollContainer.offsetWidth) >= Math.floor(scrollContainer.scrollWidth)) {
-
-        scrollContainer.scrollLeft = 0;
-      }
-
-      
-      // var newScrollLeft = scrollContainer.scrollLeft;
-      // var divWidth = scrollContainer.offsetWidth;
-      // var scrollWidth = scrollContainer.scrollWidth;
-  
-      // console.log(Math.ceil(newScrollLeft), Math.floor(scrollWidth - divWidth))
-  
-      // if (Math.ceil(newScrollLeft) === Math.floor(scrollWidth - divWidth)) {
-      //   scrollContainer.scrollLeft = 0;
-      // }
-      
-    });
-    
-    
-
-
-    
-
-
-  }
-
-  scrollContent = () => {
-    const { scrollHeight, clientHeight, scrollTop } = this.scrollContainer;
-    const scrollDistance = scrollHeight - clientHeight;
-
-    // Scroll to the top if we have reached the bottom
-    if (scrollTop >= scrollDistance) {
-      this.scrollContainer.scrollTop = 0;
-    } else {
-      // Otherwise, scroll to the next position
-      this.scrollContainer.scrollTop += clientHeight;
-    }
-  };
 
 
 
@@ -171,13 +122,6 @@ class HomeBanner extends React.Component {
 
 
 
-
-
-        <div className="scroll-container">
-          <div className="scroll-content">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quo fugit laboriosam consequuntur id similique eum explicabo ipsa adipisci, aliquam neque minus numquam, deserunt cupiditate nesciunt quis molestiae facilis impedit. Dolor expedita sequi at. Molestiae aliquam obcaecati excepturi et perferendis omnis id vitae enim culpa?
-          </div>
-        </div>
 
       </React.Fragment>
     );
