@@ -3,6 +3,9 @@ import '../style/googlemaps.css'
 
 import './styles/Settings.css'
 
+
+import OnPageFooter from '../generic-components/OnPageFooter'
+
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
 
@@ -41,41 +44,47 @@ class Settings extends React.Component {
 
       // Home
       <React.Fragment>
-        <h1>Settings</h1>
-        <BrowserRouter>
-          <div className="settings-nav">
-            <NavLink activeClassName="active" to='/settings/set-users-associated-locality'>Location Settings</NavLink>
+        <main>
+          <h1>Settings</h1>
+          <BrowserRouter>
+            <div className="settings-nav">
+              <NavLink activeClassName="active" to='/settings/set-users-associated-locality'>Location Settings</NavLink>
 
-            <NavLink activeClassName="active" to='/settings/test2'>Test2</NavLink>
-            {/* <Link to='/settings/test3'>Test3</Link>
-            <Link to='/settings/test4'>Test4</Link> */}
+              <NavLink activeClassName="active" to='/settings/test2'>Test2</NavLink>
+              {/* <Link to='/settings/test3'>Test3</Link>
+              <Link to='/settings/test4'>Test4</Link> */}
 
-            {/* <Link to='/settings/set-users-associated-locality'>Location Settings</Link>
+              {/* <Link to='/settings/set-users-associated-locality'>Location Settings</Link>
 
-            <Link to='/settings/test2'>Test2</Link> */}
+              <Link to='/settings/test2'>Test2</Link> */}
 
-          </div>
+            </div>
 
-          <Switch>
-            <Route path="/settings/set-users-associated-locality" render={
-              (props) => <SetAssociatedLocality {...props}
-                userID_toWorkWith={userId}
-                selectedUser={selectedUser}
-              />
-            } />
+            <Switch>
+              <Route path="/settings/set-users-associated-locality" render={
+                (props) => <SetAssociatedLocality {...props}
+                  userID_toWorkWith={userId}
+                  selectedUser={selectedUser}
+                />
+              } />
 
-            <Route path="/settings/test2" render={
-              (props) => <Test2 {...props} />
-            } />
-            {/* <Route path="/settings/test3" render={
-              (props) => <Test3 {...props} />
-            } />
-            <Route path="/settings/test4" render={
-              (props) => <Test4 {...props} />
-            } /> */}
-          </Switch>
+              <Route path="/settings/test2" render={
+                (props) => <Test2 {...props} />
+              } />
+              {/* <Route path="/settings/test3" render={
+                (props) => <Test3 {...props} />
+              } />
+              <Route path="/settings/test4" render={
+                (props) => <Test4 {...props} />
+              } /> */}
+            </Switch>
 
-        </BrowserRouter>
+          </BrowserRouter>
+        </main>
+
+
+
+        <OnPageFooter/>
 
 
       </React.Fragment>

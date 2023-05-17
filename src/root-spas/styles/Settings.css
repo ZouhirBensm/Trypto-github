@@ -1,8 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap');
 
 
+/* ARRANGING THE LAYOUT: FOOTER AT BOTTOM */
+div#react-div {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+div#react-div> main {
+  flex: 1
+}
+
+
 /* H1 */
-div#react-div>h1 {
+div#react-div>main>h1 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   font-size: var(--font-size-h1);
@@ -15,14 +26,14 @@ div#react-div>h1 {
 }
 
 /* NAVIGATION */
-div#react-div> div.settings-nav {
+div#react-div> main>div.settings-nav {
   width: 90%;
   margin: 0 auto;
 }
 
 
 /* A NAV ITEMS */
-div#react-div> div.settings-nav > a {
+div#react-div> main> div.settings-nav > a {
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
 
@@ -34,6 +45,6 @@ div#react-div> div.settings-nav > a {
   margin-right: 1ch;
 }
 
-div#react-div> div.settings-nav > a.active {
+div#react-div> main> div.settings-nav > a.active {
   color: #010757;
 }

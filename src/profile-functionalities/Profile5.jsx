@@ -6,6 +6,8 @@ import UserInfo from './UserInfo'
 import SubscriberInfo from './SubscriberInfo2'
 import ModalPoper from './ModalPoper'
 
+import OnPageFooter from '../generic-components/OnPageFooter'
+
 
 import billing_utils from '../../full-stack-libs/utils.billing'
 
@@ -157,6 +159,10 @@ class Profile extends React.Component {
         />
 
         {popups_div}
+
+
+
+        <OnPageFooter/>
 
       </React.Fragment>
     );
