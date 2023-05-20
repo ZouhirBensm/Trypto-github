@@ -80,6 +80,9 @@ class HomeBanner extends React.Component {
       <React.Fragment>
         <div id='header'>
 
+          <span id="vertical-rect"></span>
+          <span id="vertical-rect"></span>
+
           <img src="/img/SVG/home/rbitcoin-inner2.svg" alt="" />
 
           <div id="home-header-text">
@@ -91,9 +94,6 @@ class HomeBanner extends React.Component {
           </div>
 
 
-          <br />
-          <br />
-          <br />
 
           <div id="home-header-cards">
             <HomeBannerCard

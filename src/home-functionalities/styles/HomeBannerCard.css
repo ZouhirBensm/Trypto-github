@@ -62,10 +62,31 @@ div#home-header-cards>div#home-card > span.small-ball {
   position: absolute;
 }
 
+div#header>span#vertical-rect {
+  display: inline-block;
+  width: 7px;
+  height: 55px;
+  background-color: #9dedff;
+  position: absolute;
+  border-radius: 6px;
+  opacity: 0.16;
+}
+
+div#header>span#vertical-rect:first-of-type {
+  left: 15%;
+  top: 80%;
+}
+div#header>span#vertical-rect:nth-of-type(2) {
+  right: 15%;
+  top: 85%;
+}
+
 div#home-header-cards>div#home-card:nth-of-type(odd) > span.small-ball {
   left: 30%;
   top: 20%;
 }
+
+
 div#home-header-cards>div#home-card:nth-of-type(even) > span.small-ball {
   left: 65%;
   top: 25%;

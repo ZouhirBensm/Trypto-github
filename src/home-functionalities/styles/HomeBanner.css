@@ -30,7 +30,8 @@ div#header {
   height: fit-content;
 
 
-  
+  overflow: hidden;
+  position: relative;
 }
 
 
@@ -41,7 +42,6 @@ div#header>img {
   margin: auto;
   top: 0;
   bottom: 0;
-  background-size: 100% auto;
 }
 
 div#header>img[src='/img/SVG/home/rbitcoin-inner2.svg'] {
@@ -113,9 +113,9 @@ div#header>div#home-header-prices>div#scroll-bar {
   overflow-x: scroll; */
 
 
-  position:absolute; 
+  position: absolute;
   /* top:0px; */
-  left:0px; 
+  left: 0px;
   bottom: 0px;
   white-space: nowrap;
   animation: bannermove 20s linear infinite;
@@ -187,9 +187,10 @@ div#header>div#home-header-prices>div#scroll-bar>div.price-element>span:nth-of-t
 
 @keyframes bannermove {
   0% {
-      transform: translate(0, 0);
+    transform: translate(0, 0);
   }
+
   100% {
-      transform: translate(-33.33%, 0);
+    transform: translate(-33.33%, 0);
   }
 }
