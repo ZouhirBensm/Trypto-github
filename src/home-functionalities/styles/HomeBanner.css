@@ -1,6 +1,7 @@
 div#header>div#home-header-text {
   z-index: 1;
   position: relative;
+  /* margin: 90%; */
 }
 
 
@@ -27,6 +28,9 @@ div#header {
   /* height: 100%; */
 
   height: fit-content;
+
+
+  
 }
 
 
@@ -47,7 +51,7 @@ div#header>img[src='/img/SVG/home/rbitcoin-inner2.svg'] {
 
 
 /* H1 */
-div#header>div#home-header-text>h1 {
+div#header>div#home-header-text h1 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   margin: 0;
@@ -58,13 +62,21 @@ div#header>div#home-header-text>h1 {
 }
 
 
-div#header>div#home-header-text>* {
+div#header>div#home-header-text>div {
+  width: 90%;
+  margin: 0 auto 0 auto;
+  padding: 20px;
+}
+
+
+
+div#header>div#home-header-text>div>* {
   letter-spacing: 1.2px;
   color: #010757;
   text-transform: capitalize;
 }
 
-div#header>div#home-header-text>h2 {
+div#header>div#home-header-text h2 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   font-size: var(--font-size-h2);
@@ -78,10 +90,13 @@ div#header>div#home-header-text>div {
 
 
 div#header>div#home-header-prices {
-  width: 100%;
-  overflow: hidden;
+  /* width: 100%; */
+  /* overflow: hidden; */
   position: relative;
 
+  /* NEEDS EDIT */
+  height: 75px;
+  /* height: 56px; */
 }
 
 
@@ -91,14 +106,19 @@ div#header>div#home-header-prices {
 
 div#header>div#home-header-prices>div#scroll-bar {
   padding: 1rem 0;
-  display: flex;
-
+  /* display: flex; */
   flex-flow: row nowrap;
-  overflow-x: scroll;
+  /* overflow-x: scroll; */
+  /* overflow:hidden; 
+  overflow-x: scroll; */
 
 
-
-
+  position:absolute; 
+  /* top:0px; */
+  left:0px; 
+  bottom: 0px;
+  white-space: nowrap;
+  animation: bannermove 20s linear infinite;
 }
 
 
@@ -106,21 +126,13 @@ div#header>div#home-header-prices>div#scroll-bar {
 div#header>div#home-header-prices>div#scroll-bar>div.price-element {
 
   display: inline-block;
-  height: fit-content;
-  box-sizing: border-box;
-  white-space: nowrap;
 
-  margin: 0 100px;
+  margin: 0 50px;
 }
 
-/* ANIMATION */
-div#header>div#home-header-prices>div#scroll-bar>div.price-element:first-child {
-  margin-left: unset;
-}
+div#header>div#home-header-prices>div#scroll-bar>div.price-element>* {
 
-
-div#header>div#home-header-prices>div#scroll-bar>div.price-element:last-child {
-  margin-right: unset;
+  margin: .5ch;
 }
 
 
@@ -166,38 +178,18 @@ div#header>div#home-header-prices>div#scroll-bar>div.price-element>span:nth-of-t
   font-weight: 600;
   font-size: var(--font-size-generic);
 
-  padding: .5rem .2rem;
+  padding: .2rem .9rem;
 
   display: inline-block;
 }
 
 
 
-
-
-/* TESTING INFINITE SCROLL */
-#scroll-bar2 {
-  white-space: nowrap;
-  overflow-x: scroll;
-  /* display: flex; */
-}
-
-
-.price-element2 {
-  display: inline-block;
-  background-color: rgba(172, 255, 47, 0.725);
-  padding: 0 300px;
-}
-
-.price-element2:first-of-type {
-  border-left: 6px blue solid;
-}
-
-.price-element2:last-of-type {
-  border-right: 6px purple solid;
-}
-
-.price-element2 img {
-  width: 50px;
-  height: 50px;
+@keyframes bannermove {
+  0% {
+      transform: translate(0, 0);
+  }
+  100% {
+      transform: translate(-33.33%, 0);
+  }
 }
