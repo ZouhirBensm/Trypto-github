@@ -158,11 +158,11 @@ class MarketOrders extends React.Component {
           <h1>Articles</h1>
 
           {this.popup ?
-            <p>{this.popup}</p>
+            <span className='popup'>{this.popup}</span>
             : null}
 
           <MarketOrderTable
-            selected_userID={this.userId}
+            // selected_userID={this.userId}
             orders={this.state.orders}
             order_type="sellordersdata"
           />

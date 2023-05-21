@@ -105,7 +105,7 @@ class MyMarketOrders extends React.Component {
             : null}
 
           <MarketOrderTable
-            selected_userID={this.props.userID_toQueryWith}
+            // selected_userID={this.props.userID_toQueryWith}
             order_type="allmyorders"
             orders={this.state.orders}
           />

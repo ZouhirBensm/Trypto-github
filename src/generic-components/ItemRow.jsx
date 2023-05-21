@@ -1,53 +1,8 @@
-import {countWords, takeUntilWordNumber} from '../../full-stack-libs/utils'
-
-import './styles/MockMarketOrderTable.css'
-
-class MockMarketOrderTable extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-    this.constructItemRows = this.constructItemRows.bind(this)
-  }
-
-  constructItemRows() {
-    let ordersItem
-
-    if (this.props.orders) {
-      ordersItem = this.props.orders.map((order, i) => {
-        return <ItemRow
-          key={order._id}
-          order={order}
-        />
-      })
-      return ordersItem
-    } else {
-      const msg = `this.props.orders resolved to a false for some reason`
-      console.error(msg)
-      return
-    }
-  }
+import { Link } from "react-router-dom";
+import PriceToogler from '../marketplace-functionalities/market-order-list-components/PriceToogler'
 
 
-
-  render() {
-    let ordersItem = this.constructItemRows()
-
-    return (
-      <React.Fragment>
-        <div>
-          {ordersItem}
-        </div>
-      </React.Fragment>
-    )
-  }
-
-}
-
-
-
-
-
-
+import { countWords, takeUntilWordNumber } from '../../full-stack-libs/utils'
 
 
 
@@ -58,6 +13,7 @@ class ItemRow extends React.Component {
   }
 
   render() {
+
     let order = this.props.order;
 
     const date = new Date(order.postedDate);
@@ -102,20 +58,44 @@ class ItemRow extends React.Component {
         <div className="item-card">
 
           <div className="item-preview">
-            <img src={image_path}/>
-            <div id="item-title"><span>{order.title}</span></div>
+            <img src={image_path} />
+
+            <div id="item-title">
+              <span>{order.title}</span>
+            </div>
+
+
+            <PriceToogler
+              price={order.price}
+              conversion={order.conversion}
+              order_id={order._id}
+            />
+
           </div>
+
+
+
 
           <div id="item-data">
 
             <span>{description}</span>
-
             <span id="item-published">{formattedDate}</span>
             <img src={chain_logo_img_src} />
             <span>{order.chain}</span>
           </div>
 
-          <a className='link' href="">Discover</a>
+
+          {this.props.order_type ?
+            <Link className='link' to={{
+              pathname: `/marketplace/${this.props.order_type}/${order._id}`,
+              // search: `?order=${JSON.stringify(order)}`,
+            }}
+            >Discover</Link>
+            :
+            <a className='link' href={userId ? `/marketplace/sellordersdata/${order._id}` : `/subscription`}>Discover</a>
+          }
+
+
 
         </div>
         {/* ITEM CARD */}
@@ -127,14 +107,4 @@ class ItemRow extends React.Component {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-export default MockMarketOrderTable
+export default ItemRow

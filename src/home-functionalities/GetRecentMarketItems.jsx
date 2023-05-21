@@ -1,7 +1,6 @@
 import './styles/GetRecentMarketItems.css'
 
-
-import MockMarketOrderTable from './MockMarketOrderTable'
+import MarketOrderTable from '../marketplace-functionalities/market-order-list-components/MarketOrderTable'
 
 class GetRecentMarketItems extends React.Component {
   constructor(){
@@ -46,7 +45,7 @@ class GetRecentMarketItems extends React.Component {
 
 
 
-          <MockMarketOrderTable
+          <MarketOrderTable
             orders={this.state.orders}
           />
 

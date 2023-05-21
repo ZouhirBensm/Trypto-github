@@ -19,7 +19,7 @@ div.market-main-component > h1 {
 }
 
 
-div.market-main-component > p {
+div.market-main-component > span.popup {
   color: red;
   width: 100%;
   font-size: var(--line-height-generic);

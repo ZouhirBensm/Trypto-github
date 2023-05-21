@@ -44,6 +44,7 @@ class App extends React.Component {
 
 
   render() {
+    console.log(userId)
 
     return (
 
@@ -61,7 +62,7 @@ class App extends React.Component {
         <br />
         <br />
         <br />
-        
+
         <GetRecentArticles />
       </React.Fragment>
 
