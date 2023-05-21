@@ -1,9 +1,13 @@
+import './styles/GetRecentMarketItems.css'
+
+
+import MockMarketOrderTable from './MockMarketOrderTable'
 
 class GetRecentMarketItems extends React.Component {
   constructor(){
     super()
     this.state = {
-      orders: undefined
+      orders: []
     }
     this.loadRecentMarketItems = this.loadRecentMarketItems.bind(this)
   }
@@ -22,13 +26,35 @@ class GetRecentMarketItems extends React.Component {
     let json
     json = await response.json()
     
-    // console.log(json)
+    console.log(json)
+
+    this.setState({
+      orders: json.srv_
+    })
+
   }
 
   render(){
     return (
+      // TODO REPETED CODE
       <React.Fragment>
-        <div>GetRecentMarketItems...</div>
+
+        
+        {/* MARKET MAIN COMPONENT */}
+        <div className="market-main-component">
+          <h1>Trending Items</h1>
+
+
+
+          <MockMarketOrderTable
+            orders={this.state.orders}
+          />
+
+
+        </div>
+        {/* MARKET MAIN COMPONENT */}
+
+
       </React.Fragment>
     )
   }

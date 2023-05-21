@@ -1,0 +1,16 @@
+/* TODO REPETED CODE */
+div.market-main-component {
+  width: 90%;
+  margin: 0 auto;
+}
+
+
+div.market-main-component > h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-h1);
+  margin: 5vh auto;
+  color: #1266FC;
+  display: block;
+  width: 90%;
+}

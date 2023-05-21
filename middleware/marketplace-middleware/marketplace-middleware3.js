@@ -281,7 +281,7 @@ async function recentOrdersRetrievalMiddleware(req, res, next) {
   try {
     // Descending: from newest to oldest
     sellOrders = await SellMarketOrder.find().sort({ postedDate: -1 })
-      .select("title price conversion chain sellmarketorderImageID -_id")
+      .select("title description price conversion chain postedDate sellmarketorderImageID")
       .populate({
         // Populate protagonists
         path: "sellmarketorderImageID",

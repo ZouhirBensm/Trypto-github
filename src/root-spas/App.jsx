@@ -50,20 +50,19 @@ class App extends React.Component {
       // Home
       <React.Fragment>
         <HomeBanner btc_gecko_prices={this.state.prices} />
-
-        <br />
-        <br />
-        <br />
-
-        <br />
-        <br />
-        <br />
-
-        <br />
-        <br />
-        <br />
-        <GetRecentArticles />
         <GetRecentMarketItems />
+
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        
+        <GetRecentArticles />
       </React.Fragment>
 
     );

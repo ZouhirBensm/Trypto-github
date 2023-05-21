@@ -93,7 +93,7 @@ class OrderRow extends React.Component {
         <div className='item-card'>
 
           <div className='item-preview'>
-            <img src={image_path}></img>
+            <img src={image_path}/>
 
             <div id="item-title">
               <span>{order.title}</span>
@@ -121,7 +121,7 @@ class OrderRow extends React.Component {
           <div id="item-data">
             <span>{order.description}</span>
             <span id="item-published">{formattedDate}</span>
-            <img src={chain_logo_img_src}></img>
+            <img src={chain_logo_img_src}/>
             <span>{order.chain}</span>
           </div>
 
