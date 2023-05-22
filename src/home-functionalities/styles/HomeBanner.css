@@ -73,7 +73,7 @@ div#header>div#home-header-text>div {
 div#header>div#home-header-text>div>* {
   letter-spacing: 1.2px;
   color: #010757;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
 }
 
 div#header>div#home-header-text h2 {

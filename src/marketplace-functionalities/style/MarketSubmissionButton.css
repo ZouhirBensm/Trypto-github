@@ -1,4 +1,4 @@
-div.market-main-component button#market-submit{
+div#market-main-component button#market-submit{
   background: transparent linear-gradient(88deg, #80E8FF 0%, #0049E4 100%) 0% 0% no-repeat padding-box;
   box-shadow: 0px 6px 20px #1266FC4E;
   border-radius: 8px;

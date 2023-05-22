@@ -153,7 +153,7 @@ class MarketOrders extends React.Component {
           order_type="sellordersdata"
         />
 
-        <div className='market-main-component'>
+        <div id='market-main-component'>
 
           <h1>Articles</h1>
 

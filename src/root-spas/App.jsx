@@ -64,6 +64,15 @@ class App extends React.Component {
         <br />
 
         <GetRecentArticles />
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
       </React.Fragment>
 
     );

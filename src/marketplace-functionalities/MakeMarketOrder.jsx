@@ -140,7 +140,7 @@ class MakeMarketOrder extends React.Component {
 
         <NavigationNew/>
 
-        <div className='market-main-component'>
+        <div id='market-main-component'>
 
           <div id='header-grid'>
             <h1>Add Article</h1>

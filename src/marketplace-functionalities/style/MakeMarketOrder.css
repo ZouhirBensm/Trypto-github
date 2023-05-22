@@ -51,13 +51,13 @@ div#header-grid {
 }
 
 
-div.market-main-component > div#header-grid > div{
+div#market-main-component > div#header-grid > div{
   display: flex;
   align-items: center;
 }
 
 
-div.market-main-component > div#header-grid > h1 {
+div#market-main-component > div#header-grid > h1 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   color: #1266FC;
@@ -65,7 +65,7 @@ div.market-main-component > div#header-grid > h1 {
 }
 
 
-div.market-main-component > div#header-grid > div > a {
+div#market-main-component > div#header-grid > div > a {
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
   letter-spacing: 1.4px;
@@ -74,12 +74,12 @@ div.market-main-component > div#header-grid > div > a {
   font-size: var(--font-size-root);
 }
 
-div.market-main-component > div#header-grid > div > img {
+div#market-main-component > div#header-grid > div > img {
   margin: .5rem;
 }
 
 
-div.market-main-component > div#header-grid > span {
+div#market-main-component > div#header-grid > span {
   font-family: 'Poppins', sans-serif;
   font-weight: 300;
   letter-spacing: 0px;
@@ -97,7 +97,7 @@ div.market-main-component > div#header-grid > span {
 
 
 /* PROCEED, BACK */
-div.market-main-component > div#proceed {
+div#market-main-component > div#proceed {
   font-size: var(--font-size-button);
   margin: 0 auto;
   display: flex;
@@ -105,7 +105,7 @@ div.market-main-component > div#proceed {
   width: fit-content;
 }
 
-div.market-main-component > div#proceed > button {
+div#market-main-component > div#proceed > button {
   text-transform: uppercase;
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
@@ -120,7 +120,7 @@ div.market-main-component > div#proceed > button {
 
 
 /* POPUP */
-div.market-main-component > p {
+div#market-main-component > p {
   color: red;
   font-size: var(--line-height-generic);
   font-family: 'Poppins', sans-serif;

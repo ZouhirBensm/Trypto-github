@@ -96,7 +96,7 @@ class MyMarketOrders extends React.Component {
           order_type="allmyorders"
         /> : null}
         
-        <div className='market-main-component'>
+        <div id='market-main-component'>
 
           <h1>My Posts</h1>
 

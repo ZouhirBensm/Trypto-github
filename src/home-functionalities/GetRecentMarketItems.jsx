@@ -25,7 +25,7 @@ class GetRecentMarketItems extends React.Component {
     let json
     json = await response.json()
     
-    console.log(json)
+    // console.log(json)
 
     this.setState({
       orders: json.srv_
@@ -34,13 +34,14 @@ class GetRecentMarketItems extends React.Component {
   }
 
   render(){
+
     return (
       // TODO REPETED CODE
       <React.Fragment>
 
         
         {/* MARKET MAIN COMPONENT */}
-        <div className="market-main-component">
+        <div id="market-main-component">
           <h1>Trending Items</h1>
 
 
@@ -50,8 +51,11 @@ class GetRecentMarketItems extends React.Component {
           />
 
 
+          <a href={userId ? '/marketplace/sellordersdata' : '/subscription'}>View all</a>
+
         </div>
         {/* MARKET MAIN COMPONENT */}
+
 
 
       </React.Fragment>

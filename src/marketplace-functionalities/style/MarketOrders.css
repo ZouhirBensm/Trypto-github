@@ -8,7 +8,7 @@ div#market > hr {
 }
 
 
-div.market-main-component > h1 {
+div#market-main-component > h1 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   font-size: var(--font-size-h1);
@@ -19,7 +19,7 @@ div.market-main-component > h1 {
 }
 
 
-div.market-main-component > span.popup {
+div#market-main-component > span.popup {
   color: red;
   width: 100%;
   font-size: var(--line-height-generic);
