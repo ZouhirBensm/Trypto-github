@@ -4,7 +4,9 @@ div#header>div#home-header-text {
   /* margin: 90%; */
 }
 
-
+div#header>div#home-header-cards {
+  opacity: 1;
+}
 
 div#header {
   /* background: linear-gradient(170deg, rgb(235 249 255), rgb(0 182 253)); */
@@ -35,18 +37,72 @@ div#header {
 }
 
 
-div#header>img {
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin: auto;
-  top: 0;
-  bottom: 0;
+
+
+
+
+
+
+div#header>img[src='/img/SVG/home/inner/bitcoin-symbol.svg'] {
+  width: 20%;
+  min-width: 250px;
 }
 
-div#header>img[src='/img/SVG/home/rbitcoin-inner2.svg'] {
-  width: 90%;
+div#header>img[src='/img/SVG/home/outer/clean.svg'],
+div#header>img[src='/img/SVG/home/outer/broken.svg'] {
+  width: 65%;
+  min-width: 800px;
 }
+
+
+/* ALL IMAGES */
+div#header>img {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+
+
+
+
+/* ----> NORMAL <---- */
+
+/* BROKEN */
+img.broken {
+  opacity: 0;
+  transform: scale(1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* CLEAN */
+img.clean {
+  opacity: .7;
+  transform: scale(1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+
+
+/* ----> HOVER <----- */
+
+/* BROKEN */
+div#header:hover > img.broken {
+  opacity: .7;
+  transform: translate(-50%, -50%) scale(1.3);
+}
+
+/* CLEAN */
+div#header:hover > img.clean {
+  opacity: 0;
+  /* transform: scale(0); */
+}
+
+
 
 
 

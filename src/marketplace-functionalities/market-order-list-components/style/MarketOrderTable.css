@@ -80,19 +80,23 @@ div.item-card > div#item-data {
   position: relative;
 }
 
-div.item-card > div#item-data > span#item-published {
-  position: absolute;
+div.item-card > span#item-published {
+  /* position: absolute;
   right: 0;
-  top: 0;
+  top: 0; */
+  display: block;
+  text-align: right;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
   color: #B8CEF5;
   font-size: var(--font-size-extra);
+  padding: .5rem;
 }
 
 div.item-card > div#item-data > span {
-  padding: 0.5rem;
+  padding: .5rem;
 }
+
 
 
 div.item-card > a.link {

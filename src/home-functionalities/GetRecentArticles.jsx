@@ -25,8 +25,6 @@ class GetRecentArticles extends React.Component {
     
     let json
     json = await response.json()
-    
-    console.log(json)
 
     this.setState({
       articles: json.srv_
@@ -37,10 +35,16 @@ class GetRecentArticles extends React.Component {
     return (
       <React.Fragment>
         <div id="articles-main-component">
-          <h1>Latest News</h1>
-          <p>Get your latest news in the bitcoin and altcoin world from Bidblock. Plus read from insighful authors, that make your orange pill journey easier.</p>
-          <a href="">See all</a>
+          <div>
+            <h1>Latest News</h1>
+            <p>Get your latest news in the bitcoin and altcoin world from Bidblock. Plus read from insighful authors, that make your orange pill journey easier.</p>
+            <a href="">See all</a>
+          </div>
 
+          <br />
+          <br />
+          <br />
+          <br />
 
           <ArticlesMobileCarousel
             articles={this.state.articles}

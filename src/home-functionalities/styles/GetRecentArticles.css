@@ -1,15 +1,22 @@
+div#articles-main-component {
+  width: 90%;
+  margin: 0 auto;
+}
+
 /* REP */
-div#articles-main-component>h1 {
+div#articles-main-component>div>h1 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   letter-spacing: 1.8px;
   color: #010757;
   text-transform: capitalize;
+  margin: 0;
+  text-align: center;
 }
 
 
 
-div#articles-main-component>p {
+div#articles-main-component>div>p {
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
   letter-spacing: 0px;
@@ -17,7 +24,7 @@ div#articles-main-component>p {
 }
 
 
-div#articles-main-component>a {
+div#articles-main-component>div>a {
   background: #1266FC;
   box-shadow: 0px 6px 20px #1266FC4E;
   border-radius: 8px;

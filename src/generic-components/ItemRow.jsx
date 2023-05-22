@@ -76,10 +76,10 @@ class ItemRow extends React.Component {
 
 
 
+          <span id="item-published">{formattedDate}</span>
           <div id="item-data">
 
             <span>{description}</span>
-            <span id="item-published">{formattedDate}</span>
             <img src={chain_logo_img_src} />
             <span>{order.chain}</span>
           </div>

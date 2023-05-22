@@ -10,9 +10,10 @@ div#market-main-component>h1 {
   font-weight: 700;
   font-size: var(--font-size-h1);
   margin: 5vh auto;
-  color: #1266FC;
+  color: #010757;
   display: block;
-  width: 90%;
+  text-align: center;
+  margin: 0;
 }
 
 

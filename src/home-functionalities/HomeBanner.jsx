@@ -83,7 +83,11 @@ class HomeBanner extends React.Component {
           <span id="vertical-rect"></span>
           <span id="vertical-rect"></span>
 
-          <img src="/img/SVG/home/rbitcoin-inner2.svg" alt="" />
+          <img className='symbol' src="/img/SVG/home/inner/bitcoin-symbol.svg" alt="" />
+          <img className="clean symbol" src="/img/SVG/home/outer/clean.svg" alt="" />
+
+          <img className="broken symbol" src="/img/SVG/home/outer/broken.svg" alt="" />
+
 
           <div id="home-header-text">
             <div>
