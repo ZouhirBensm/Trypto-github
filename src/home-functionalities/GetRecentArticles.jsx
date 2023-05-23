@@ -38,7 +38,7 @@ class GetRecentArticles extends React.Component {
           <div>
             <h1>Latest News</h1>
             <p>Get your latest news in the bitcoin and altcoin world from Bidblock. Plus read from insighful authors, that make your orange pill journey easier.</p>
-            <a href="">See all</a>
+            <a href="/articles">See all</a>
           </div>
 
           <br />

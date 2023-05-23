@@ -1,3 +1,5 @@
+import './styles/ArticleItem.css'
+
 class ArticleItem extends React.Component {
   constructor(props) {
     super(props)
@@ -10,7 +12,16 @@ class ArticleItem extends React.Component {
 
     return (
       <React.Fragment>
-        <h1>{this.props.article.title}</h1>
+        <div className="article-item">
+          <div className='inner-article-item'>
+            <div>
+              <h1>{this.props.article.title}</h1>
+              <span>{this.props.article.excerpt}</span>
+            </div>
+            <img src={this.props.article.enclosure} alt="" />
+          </div>
+
+        </div>
       </React.Fragment>
     )
   }

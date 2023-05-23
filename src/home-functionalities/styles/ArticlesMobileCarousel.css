@@ -1,0 +1,8 @@
+div#article-carousel-container {
+  display: flex;
+  flex-flow: row nowrap;
+  overflow-x: scroll;
+  /* padding-left: 5%; */
+
+  scroll-snap-type: x mandatory;
+}

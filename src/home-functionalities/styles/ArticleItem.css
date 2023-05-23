@@ -1,0 +1,70 @@
+/* ITEM CARD */
+div.article-item {
+  flex: 0 0 100%;
+  max-width: 100%;
+  padding: 0 5%;
+  box-sizing: border-box;
+
+  scroll-snap-align: start;
+}
+
+
+/* INNER */
+div.article-item>div.inner-article-item {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+
+
+  background: linear-gradient(to top, #010757, #1268fc00);
+  border-radius: 18px;
+}
+
+
+
+
+/* IMG */
+div.article-item>div.inner-article-item>img:last-of-type {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+
+
+/* WORDS IN CARD */
+div.article-item>div.inner-article-item>div {
+  position: absolute;
+  bottom: 0;
+  margin: 20px 5%;
+  color: white;
+
+}
+
+
+
+/* H1 */
+div.article-item>div.inner-article-item>div>h1 {
+  margin: 0;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+}
+
+
+/* SPAN */
+div.article-item>div.inner-article-item>div>span {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+

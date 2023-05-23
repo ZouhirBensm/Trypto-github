@@ -1,4 +1,9 @@
 div#articles-main-component {
+  /* width: 90%;
+  margin: 0 auto; */
+}
+
+div#articles-main-component>div:first-of-type {
   width: 90%;
   margin: 0 auto;
 }
