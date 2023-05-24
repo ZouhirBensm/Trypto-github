@@ -7,9 +7,17 @@ class GetRecentArticles extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      articles: []
+      articles: [],
+      renderrender: true
     }
     this.loadRecentArticles = this.loadRecentArticles.bind(this)
+    this.unmount = this.unmount.bind(this)
+  }
+
+  unmount(e){
+    this.setState({
+      renderrender: false
+    })
   }
 
   componentDidMount(){
@@ -46,9 +54,13 @@ class GetRecentArticles extends React.Component {
           <br />
           <br />
 
+          <button onClick={(e)=>{this.unmount(e)}}>Unmount</button>
+          {this.state.renderrender?
           <ArticlesMobileCarousel
             articles={this.state.articles}
-          />
+          />:
+          null          
+        }
 
         </div>
     </React.Fragment>

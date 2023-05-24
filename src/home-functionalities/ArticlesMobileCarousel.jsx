@@ -8,54 +8,21 @@ class ArticlesMobileCarousel extends React.Component {
     this.state = {}
     this.buildArticleCards = this.buildArticleCards.bind(this)
 
-    this.myInterval
+    
 
   }
 
   componentDidMount(){
-    
-    let counter = 0;
-    let isScrollingForward = true;
-    
-    this.myInterval = setInterval(() => {
-      
-      console.log('scrolllll')
-
-      var articleCarouselContainer = document.getElementById('article-carousel-container')
-      var articleitems = document.getElementsByClassName('article-item')
-
-      const articleitemWidth = articleitems[0].clientWidth
-      const numberOfScrolls = articleitems.length - 1
-
-
-
-      if (isScrollingForward) {
-        articleCarouselContainer.scroll({
-          left: articleCarouselContainer.scrollLeft + articleitemWidth,
-          behavior: 'smooth'
-        });
-      } else {
-        articleCarouselContainer.scroll({
-          left: articleCarouselContainer.scrollLeft - articleitemWidth,
-          behavior: 'smooth'
-        });
-      }
-
-      counter++;
-
-
-      if (counter === numberOfScrolls) {
-        isScrollingForward = !isScrollingForward;
-        counter = 0;
-      }
-
-
-    }, 5000)
+    ArticleItem.staticMethod()
   }
 
 
   componentWillUnmount() {
-    clearInterval(this.myInterval);
+    console.log("Unmounting component! 1", ArticleItem.myInterval)
+
+    clearInterval(ArticleItem.myInterval);
+
+    console.log("Unmounting component! 2", ArticleItem.myInterval)
   }
 
 
