@@ -4,33 +4,33 @@ import './styles/GetRecentArticles.css'
 
 
 class GetRecentArticles extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       articles: [],
-      renderrender: true
+      // renderrender: true
     }
     this.loadRecentArticles = this.loadRecentArticles.bind(this)
     this.unmount = this.unmount.bind(this)
   }
 
-  unmount(e){
+  unmount(e) {
     this.setState({
       renderrender: false
     })
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.loadRecentArticles()
   }
 
-  async loadRecentArticles(){
+  async loadRecentArticles() {
     let response
 
     response = await fetch(`/articles/recent-articles`)
 
     // console.log(response)
-    
+
     let json
     json = await response.json()
 
@@ -39,7 +39,7 @@ class GetRecentArticles extends React.Component {
     })
   }
 
-  render(){
+  render() {
     return (
       <React.Fragment>
         <div id="articles-main-component">
@@ -54,16 +54,20 @@ class GetRecentArticles extends React.Component {
           <br />
           <br />
 
-          <button onClick={(e)=>{this.unmount(e)}}>Unmount</button>
-          {this.state.renderrender?
+          {/* <button onClick={(e) => { this.unmount(e) }}>Unmount</button>
+          {this.state.renderrender ?
+            <ArticlesMobileCarousel
+              articles={this.state.articles}
+            /> :
+            null
+          } */}
+
           <ArticlesMobileCarousel
             articles={this.state.articles}
-          />:
-          null          
-        }
+          />
 
         </div>
-    </React.Fragment>
+      </React.Fragment>
     )
   }
 }

@@ -1,8 +1,14 @@
+
+/* SNAP */
 div#article-carousel-container {
   display: flex;
   flex-flow: row nowrap;
-  overflow-x: scroll;
+  overflow-x: hidden;
   /* padding-left: 5%; */
 
   scroll-snap-type: x mandatory;
+}
+
+div#article-carousel-container.scroll-blocked {
+  overflow-x: hidden;
 }
