@@ -11,8 +11,7 @@ class ArticlesMobileCarousel extends React.Component {
     super(props)
     this.state = {
       card_number_on: 0,
-      counter: 0,
-      isScrollingForward: true,
+      sense: true
     }
 
     // this.buildArticleCards = this.buildArticleCards.bind(this)
@@ -32,7 +31,7 @@ class ArticlesMobileCarousel extends React.Component {
 
 
 
-  card_number_on_manager(directionRight = undefined) {
+  card_number_on_manager(rightLeft) {
 
 
 
@@ -50,18 +49,16 @@ class ArticlesMobileCarousel extends React.Component {
     this.numberOfScrolls = numberOfScrolls
 
 
-    console.log('scrolllll')
-
-    if (directionRight || this.state.isScrollingForward) {
+    if (rightLeft) {
 
       articleCarouselContainer.scroll({
         left: articleCarouselContainer.scrollLeft + articleitemWidth,
         behavior: 'smooth'
       });
 
-      this.setState({
-        card_number_on: ++this.state.card_number_on,
-      })
+      this.setState(prevState => ({
+        card_number_on: ++prevState.card_number_on,
+      }))
 
     } else {
 
@@ -70,24 +67,29 @@ class ArticlesMobileCarousel extends React.Component {
         behavior: 'smooth'
       });
 
-      this.setState({
-        card_number_on: --this.state.card_number_on,
-      })
+      this.setState(prevState => ({
+        card_number_on: --prevState.card_number_on,
+      }))
 
     }
 
-    this.setState({
-      counter: ++this.state.counter
-    })
 
 
-    if (this.state.counter === this.numberOfScrolls) {
+    if(
 
-      this.setState({
-        isScrollingForward: !this.state.isScrollingForward,
-        counter: 0,
-      })
-    }
+      (this.state.sense && (this.state.card_number_on == this.numberOfScrolls)) 
+      || 
+      (!this.state.sense && (this.state.card_number_on == 0))
+
+      ){
+
+        this.setState(prevState => ({
+          sense: !prevState.sense,
+        }))
+
+      }
+
+
 
 
   }
@@ -97,11 +99,26 @@ class ArticlesMobileCarousel extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
 
+    var articleCarouselContainer = document.getElementById('article-carousel-container')
+    var articleitems = document.getElementsByClassName('article-item')
+
+
+    if (articleitems.length == 0 && this.myInterval) return
+
+    const numberOfScrolls = articleitems.length - 1
+    this.numberOfScrolls = numberOfScrolls
+
+
 
     if (this.myInterval) return
 
 
-    // this.myInterval = setInterval(() => this.card_number_on_manager(), 7000)
+    this.myInterval = setInterval(() => {
+      console.log(this.state.card_number_on)
+
+      this.card_number_on_manager(this.state.sense)
+
+    }, 5000)
 
   }
 
@@ -134,8 +151,9 @@ class ArticlesMobileCarousel extends React.Component {
               article={article}
             />
           ))}
-
         </div>
+
+
         <div id='article-nav'>
           <button value='previous'
             disabled={this.state.card_number_on === 0}
@@ -156,12 +174,34 @@ class ArticlesMobileCarousel extends React.Component {
 
 
   next() {
-    this.card_number_on_manager(true)
+    if(this.state.sense && (this.state.card_number_on == this.numberOfScrolls-1)) {
+
+        this.setState(prevState => ({
+          sense: false,
+        }))
+        return
+      }
+
+      this.card_number_on_manager(true)
+      
   }
 
+
   previous() {
+
+    if(!this.state.sense && (this.state.card_number_on == 0 +1)) {
+
+      this.setState(prevState => ({
+        sense: true,
+      }))
+      return
+    }
+
     this.card_number_on_manager(false)
   }
+
+
+
 }
 
 export default ArticlesMobileCarousel
