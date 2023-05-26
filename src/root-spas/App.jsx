@@ -4,6 +4,8 @@ import GetRecentMarketItems from '../home-functionalities/GetRecentMarketItems.j
 import FAQ from '../home-functionalities/FAQ'
 import OnPageFooter from '../generic-components/OnPageFooter'
 
+import EmailMarketingCollector from '../home-functionalities/EmailMarketingCollector'
+
 import '../style/reactDivMobile.css'
 
 import './styles/App.css'
@@ -53,6 +55,29 @@ class App extends React.Component {
       // Home
       <React.Fragment>
         <HomeBanner btc_gecko_prices={this.state.prices} />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        
+        <EmailMarketingCollector />
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+
+
         <GetRecentMarketItems />
 
 
@@ -87,8 +112,10 @@ class App extends React.Component {
         <br />
         <br />
 
+
+
         <OnPageFooter />
-        
+
       </React.Fragment>
 
     );
