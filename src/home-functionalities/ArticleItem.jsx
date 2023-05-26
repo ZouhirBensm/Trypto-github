@@ -1,5 +1,4 @@
 import './styles/ArticleItem.css'
-import { isInViewport } from '../../full-stack-libs/utils'
 
 class ArticleItem extends React.Component {
   constructor(props) {

@@ -73,6 +73,9 @@ class App extends React.Component {
         <br />
         <br />
         <br />
+
+        {/* <FAQ /> */}
+        
       </React.Fragment>
 
     );
