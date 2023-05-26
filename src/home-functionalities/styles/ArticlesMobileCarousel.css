@@ -1,3 +1,8 @@
+div#absolute-container {
+  position: relative;
+}
+
+
 
 /* SNAP */
 div#article-carousel-container {
@@ -12,3 +17,48 @@ div#article-carousel-container {
 div#article-carousel-container.scroll-blocked {
   overflow-x: hidden;
 }
+
+
+
+div#absolute-container > div#article-nav > button {
+  position: absolute;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 50%;
+  width: 76px;
+  height: 76px;
+  background-position: center;
+  background-size: 30px 30px;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: unset;
+}
+
+div#absolute-container > div#article-nav > button:hover {
+  cursor: pointer;
+}
+
+div#absolute-container > div#article-nav > button:first-of-type {
+    background-image: url('/public/img/SVG/home/articles/navL.svg');
+    top: 50%;
+    left: 0px;
+}
+
+/* div#articles-main-component > div#absolute-container > div#article-nav > button.disabled-button {
+  opacity: 0.4;
+}
+
+div#articles-main-component > div#absolute-container > div#article-nav > button.enabled-button {
+  opacity: unset;
+} */
+
+
+
+div#absolute-container > div#article-nav > button:last-of-type {
+    background-image: url('/public/img/SVG/home/articles/navR.svg');
+    top: 50%;
+    right: 0px;
+}
+

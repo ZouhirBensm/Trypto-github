@@ -114,7 +114,7 @@ class ArticlesMobileCarousel extends React.Component {
 
 
     this.myInterval = setInterval(() => {
-      console.log(this.state.card_number_on)
+      // console.log(this.state.card_number_on)
 
       this.card_number_on_manager(this.state.sense)
 
@@ -139,33 +139,44 @@ class ArticlesMobileCarousel extends React.Component {
 
 
   render() {
+    const isPreviousButtonDisabled = this.state.card_number_on === 0;
+    const isNextButtonDisabled = this.state.card_number_on === this.numberOfScrolls
 
     return (
       <React.Fragment>
-        <div id='article-carousel-container'>
+        <div id='absolute-container'>
 
-          {this.props.articles.map((article, i) => (
-            <ArticleItem
-              key={article._id}
-              card_number={i}
-              article={article}
-            />
-          ))}
+          <div id='article-carousel-container'>
+
+            {this.props.articles.map((article, i) => (
+              <ArticleItem
+                key={article._id}
+                card_number={i}
+                article={article}
+              />
+            ))}
+          </div>
+
+
+          <div id='article-nav'>
+            <button value='previous'
+              disabled={isPreviousButtonDisabled}
+              // className={isPreviousButtonDisabled ? "disabled-button" : "enabled-button"}
+              style={isPreviousButtonDisabled ? {opacity: 0.4} : null}
+              onClick={(e) => {
+                this.previous(e)
+              }}></button>
+            <button
+              disabled={isNextButtonDisabled}
+              style={isNextButtonDisabled ? {opacity: 0.4} : null}
+              // className={isNextButtonDisabled ? "disabled-button" : "enabled-button"}
+              value='next' onClick={(e) => {
+                this.next(e)
+              }}></button>
+          </div>
+
         </div>
-
-
-        <div id='article-nav'>
-          <button value='previous'
-            disabled={this.state.card_number_on === 0}
-            onClick={(e) => {
-              this.previous(e)
-            }}>Previous</button>
-          <button
-            disabled={this.state.card_number_on === this.numberOfScrolls}
-            value='next' onClick={(e) => {
-              this.next(e)
-            }}>Next</button>
-        </div>
+        
       </React.Fragment>
     )
   }
