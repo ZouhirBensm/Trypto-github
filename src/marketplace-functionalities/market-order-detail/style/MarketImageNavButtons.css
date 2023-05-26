@@ -21,6 +21,7 @@ button.image-nav {
 
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  transform: translateY(-50%);
 }
 
 button#previous.image-nav {

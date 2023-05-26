@@ -34,6 +34,7 @@ div#absolute-container > div#article-nav > button {
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   opacity: unset;
+  transform: translateY(-50%);
 }
 
 div#absolute-container > div#article-nav > button:hover {
