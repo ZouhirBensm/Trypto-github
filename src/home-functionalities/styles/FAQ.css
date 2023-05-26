@@ -1,0 +1,15 @@
+div#FAQ-main-component {
+  width: 90%;
+  margin: 0 auto;
+}
+
+div#FAQ-main-component > h1 {
+  text-align: left;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  letter-spacing: 2.9px;
+  color: #010757;
+  margin: 0;
+}
+
+

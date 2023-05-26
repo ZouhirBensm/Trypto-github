@@ -1,6 +1,8 @@
 import HomeBanner from '../home-functionalities/HomeBanner.jsx';
 import GetRecentArticles from '../home-functionalities/GetRecentArticles.jsx';
 import GetRecentMarketItems from '../home-functionalities/GetRecentMarketItems.jsx';
+import FAQ from '../home-functionalities/FAQ'
+import OnPageFooter from '../generic-components/OnPageFooter'
 
 import '../style/reactDivMobile.css'
 
@@ -74,7 +76,18 @@ class App extends React.Component {
         <br />
         <br />
 
-        {/* <FAQ /> */}
+        <FAQ />
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <OnPageFooter />
         
       </React.Fragment>
 
