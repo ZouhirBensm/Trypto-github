@@ -155,6 +155,7 @@ div[onclick="toogleSideNav()"] {
   --line-height-list: 2.0rem;
   --line-height-p-smaller: 1.5rem;
   --line-height-ul: 2.5rem;
+  --line-height-input: 1.6rem;
 
   --line-height-generic: 1.0rem;
 }
