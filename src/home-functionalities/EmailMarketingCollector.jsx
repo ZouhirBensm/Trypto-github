@@ -74,7 +74,7 @@ class EmailMarketingCollector extends React.Component {
 
     return (
       <React.Fragment>
-        <div id="email-marketing-main-component">
+        <div id="email-marketing-main-component" className='higher-level-div'>
           <img src="/img/SVG/home/email-collector/bk2.svg" alt="" />
 
           <div id='element-1'>

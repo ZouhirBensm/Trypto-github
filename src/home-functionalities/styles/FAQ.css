@@ -1,6 +1,6 @@
 div#FAQ-main-component {
   width: 90%;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 
 div#FAQ-main-component > h1 {

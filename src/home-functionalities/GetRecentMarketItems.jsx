@@ -41,7 +41,7 @@ class GetRecentMarketItems extends React.Component {
 
         
         {/* MARKET MAIN COMPONENT */}
-        <div id="market-main-component">
+        <div id="market-main-component" className='higher-level-div'>
           <h1>Trending Items</h1>
 
 

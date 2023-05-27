@@ -30,7 +30,7 @@ class FAQ extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div id="FAQ-main-component">
+        <div id="FAQ-main-component" className='higher-level-div'>
 
           <h1>FAQ</h1>
 

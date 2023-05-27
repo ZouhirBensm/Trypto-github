@@ -2,7 +2,7 @@ div#email-marketing-main-component {
   width: 90%;
   /* height: 257px; */
   height: fit-content;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   position: relative;
 
   overflow: hidden;

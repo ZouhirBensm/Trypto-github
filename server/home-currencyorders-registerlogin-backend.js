@@ -94,6 +94,7 @@ const checkIfUserByEmailMiddleware = require('../middleware/generic-middleware/c
 const checkIfUserSetAndUsedRequestForPasswordResetMiddleware = require('../middleware/generic-middleware/check-if-user-set-and-used-request-for-password-reset-middleware')
 const createHashForPasswordResetLinkMiddleware = require('../middleware/reset-password-middleware/create-hash-for-password-reset-link-middleware')
 const sendEmailToResetPasswordMiddleware = require('../middleware/reset-password-middleware/send-email-to-reset-password-middleware')
+const marketingMiddleware = require('../middleware/home-currencyorders-middleware/marketing-middleware')
 
 
 const reHachHexForPassResetMiddleware = require('../middleware/reset-password-middleware/re-hach-hex-for-pass-reset-middleware')
@@ -101,6 +102,7 @@ const reHachHexForPassResetMiddleware = require('../middleware/reset-password-mi
 const markHashForPasswordResetAsUsedMiddleware = require('../middleware/reset-password-middleware/mark-hash-forpassword-reset-as-used-middleware')
 const retrieveTheHashForPasswordResetMiddleware = require('../middleware/reset-password-middleware/retrieve-the-hash-for-password-reset-middleware')
 const createAndUpdateNewPasswordController = require('../controllers/reset-password-controllers/create-and-update-new-password-controller')
+const marketingController = require('../controllers/home-currencyorders-controllers/marketing-controllers')
 
 
 
@@ -113,7 +115,7 @@ const { authenticate_role_for_pages, authenticate_role_for_data } = require("../
 
 
 
-const {verifyEmail} = require('../full-stack-libs/validations')
+
 
 
 // Database Models
@@ -463,34 +465,7 @@ homeCurrencyOrdersController.deleteAccountController)
 
 
 
-homeOrdersBackend_app_router.post('/marketing/email', requireRefererMiddleware, require_loggedin_for_data(false), (req,res)=>{
-
-  console.log(req.body)
-
-  
-  if(!req.body.email) {
-    const error_message = 'No email payload not retrieved or empty.'
-    return res.status(500).json({
-      message: error_message
-    })
-  }
-  
-  ({ flag, notification } = verifyEmail(req.body.email));
-
-  if(!flag) {
-    return res.status(500).json({
-      message: notification
-    })
-  }
-
-
-
-  const message = "Congrats, you will receive Bidblock's the most recent updates."
-  return res.status(200).json({
-    message: message
-  })
-
-})
+homeOrdersBackend_app_router.post('/marketing/email', requireRefererMiddleware, require_loggedin_for_data(false), marketingMiddleware.emailValidationMidleware, marketingController.emailSubmitController)
 
 
 

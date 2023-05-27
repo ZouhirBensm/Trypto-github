@@ -42,7 +42,7 @@ class GetRecentArticles extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div id="articles-main-component">
+        <div id="articles-main-component" className='higher-level-div'>
           <div>
             <h1>Latest News</h1>
             <p>Get your latest news in the bitcoin and altcoin world from Bidblock. Plus read from insighful authors, that make your orange pill journey easier.</p>
