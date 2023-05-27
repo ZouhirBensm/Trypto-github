@@ -112,6 +112,10 @@ const { require_loggedin_for_pages, require_loggedin_for_data } = require("../mi
 const { authenticate_role_for_pages, authenticate_role_for_data } = require("../middleware/generic-middleware/authenticate-role-middleware")
 
 
+
+const {verifyEmail} = require('../full-stack-libs/validations')
+
+
 // Database Models
 const User = require('../models/User')
 const HexForUnactiveUser = require('../models/HexForUnactiveUser');
@@ -456,6 +460,37 @@ homeCurrencyOrdersController.deleteAccountController)
 
 
 
+
+
+
+homeOrdersBackend_app_router.post('/marketing/email', requireRefererMiddleware, require_loggedin_for_data(false), (req,res)=>{
+
+  console.log(req.body)
+
+  
+  if(!req.body.email) {
+    const error_message = 'No email payload not retrieved or empty.'
+    return res.status(500).json({
+      message: error_message
+    })
+  }
+  
+  ({ flag, notification } = verifyEmail(req.body.email));
+
+  if(!flag) {
+    return res.status(500).json({
+      message: notification
+    })
+  }
+
+
+
+  const message = "Congrats, you will receive the most recent updates."
+  return res.status(200).json({
+    message: message
+  })
+
+})
 
 
 

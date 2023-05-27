@@ -130,6 +130,12 @@ div#element-2>div.content>button {
   text-transform: uppercase;
 
   border: none;
+  cursor: pointer;
+}
+
+div#element-2>div.content>button:hover {
+  background-color: rgba(18, 104, 252, 0.431);
+  color: white;
 }
 
 
@@ -140,4 +146,18 @@ div#email-marketing-main-component>img {
   position: absolute;
   width: 100%;
   bottom: 0;
+}
+
+
+
+
+div#element-2>div.content>span.popup {
+  color: rgb(255, 141, 141);
+  width: 100%;
+  font-size: var(--font-size-extra);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  margin: 1rem 0;
+  display: block;
+  text-align: center;
 }
