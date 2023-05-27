@@ -118,7 +118,7 @@ class ArticlesMobileCarousel extends React.Component {
 
       this.card_number_on_manager(this.state.sense)
 
-    }, 5000)
+    }, 20000)
 
   }
 

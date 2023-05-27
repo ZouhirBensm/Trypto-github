@@ -94,11 +94,22 @@ class EmailMarketingCollector extends React.Component {
               }
 
               <button onClick={async (e)=>{
+
+
+
                 const email = document.getElementById("email-for-marketing").value;
 
                 const flag = this.validation(email, e)
 
                 if (!flag) {return}
+
+
+                const isTimedOut = this.checktimer()
+                console.log(isTimedOut)
+
+                if (!isTimedOut) return
+
+
                 
                 let isEmailSent = false
 
@@ -115,6 +126,51 @@ class EmailMarketingCollector extends React.Component {
       </React.Fragment>
 
     );
+  }
+
+  checktimer(){
+    let timedOutUntil = localStorage.getItem('timedOutUntil');
+
+    let enabled
+    const timeOffset = parseInt(5 * 60 * 1000) // 5 MIN
+    // NO TIMER WAS SET
+    if (!timedOutUntil) {
+      // SETTING TIMER 1 MIN
+      timedOutUntil = new Date().getTime() + timeOffset;
+      localStorage.removeItem('timedOutUntil');
+      localStorage.setItem('timedOutUntil', timedOutUntil);
+      enabled = true
+
+      return enabled
+    } else {
+      // A TIMER WAS SET
+      
+      if (new Date().getTime() > timedOutUntil) {
+
+        enabled = true
+        
+        // SET NEW TIMER
+        timedOutUntil = new Date().getTime() + timeOffset;
+        localStorage.removeItem('timedOutUntil');
+        localStorage.setItem('timedOutUntil', timedOutUntil);
+
+      } else {
+        enabled = false
+        const message = "Please do not try to spam our website. If you persist you will get flagged and declared to the governement's anti fraud department."
+        this.setState({
+          popup: message
+        })
+      }
+      // TIME HAS NOT ELAPSED, TIME HAS ELAPSED
+      return enabled
+    }
+    
+  }
+
+
+
+  purgeTimer(){
+    localStorage.removeItem('timedOutUntil');
   }
 
 }

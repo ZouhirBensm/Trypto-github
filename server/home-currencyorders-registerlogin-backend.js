@@ -485,7 +485,7 @@ homeOrdersBackend_app_router.post('/marketing/email', requireRefererMiddleware, 
 
 
 
-  const message = "Congrats, you will receive the most recent updates."
+  const message = "Congrats, you will receive Bidblock's the most recent updates."
   return res.status(200).json({
     message: message
   })
