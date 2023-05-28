@@ -22,7 +22,7 @@ body {
 ul.home,
 ul.iflog {
   list-style: none;
-  background-color: black;
+  background-color: white;
   position: fixed;
   width: 100vw;
   padding: 0;
@@ -34,11 +34,21 @@ ul.iflog {
   /* display: none; */
 }
 
+ul.home{
+  border-top: 1px solid black;
+}
+
+ul.iflog {
+  border-bottom: 1px solid black;
+}
+
 ul.home>li {
   display: inline;
   position: sticky;
   margin: 0 auto;
 }
+
+
 
 ul.home {
   bottom: 0;
@@ -53,11 +63,29 @@ ul.iflog {
 }
 
 
+
+
+
+
 ul.iflog>li {
   display: inline;
   position: sticky;
   margin: 0 auto;
 }
+
+
+ul.iflog>li>a[href='/users/login']>img {
+  width: 24px;
+  height: 24px;
+}
+
+ul.iflog>li>a[href='/subscription']>img {
+  width: 24px;
+  height: 24px;
+}
+
+
+
 
 a {
   text-decoration: none;

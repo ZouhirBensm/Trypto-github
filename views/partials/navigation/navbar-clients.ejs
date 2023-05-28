@@ -5,17 +5,33 @@
 </script> -->
 
 <ul class="home">
-  <li><a href="/">Home</a></li>
+  <li>
+    <a href="/">
+      <img src="/img/SVG/home/nav-icons/home1.svg" alt="">
+    </a>
+  </li>
   <%if(loggedIn){%>
     <!-- <li><a href="/users/profile">Profile</a></li> -->
     <li><a href="/messaging/messages">Messages</a></li>
     <%}%>
   </ul>
   <ul class="iflog">
-  <li><div onclick="toogleSideNav()">Toogle</div></li>
+    <li>
+      <div onclick="toogleSideNav()">
+        <img src="/img/SVG/home/nav-icons/toogle.svg" alt="">
+      </div>
+    </li>
   <%if(!loggedIn){%>
-    <li><a href="/users/login">Login</a></li>
-    <li><a href="/subscription">Subscribe</a></li>
+    <li>
+      <a href="/users/login">
+        <img src="/img/SVG/home/nav-icons/login1.svg" alt="">
+      </a>
+    </li>
+    <li>
+      <a href="/subscription">
+        <img src="/img/SVG/home/nav-icons/sub2.svg" alt="">
+      </a>
+    </li>
   <%}%>
   <%if(loggedIn){%>
     <!-- <li><a href="/databases">OrdersApp</a></li>   -->

@@ -18,7 +18,8 @@ div.item-card {
 div.item-preview {
   position: relative;
   color: white;
-  height: 250px;
+  height: 500px;
+  /* height: 250px; */
   width: 100%;
   overflow: hidden;
   background: linear-gradient(to bottom, #1266FC5C, #010757);
@@ -29,6 +30,9 @@ div.item-preview img {
   width: 100%;
   height: 100%;
   opacity: 0.77;
+
+  /* Can comment out */
+  object-fit: none;
 }
 
 div.item-card > div.item-preview > div#item-title {
