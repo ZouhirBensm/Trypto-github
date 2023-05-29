@@ -123,6 +123,7 @@ const User = require('../models/User')
 const HexForUnactiveUser = require('../models/HexForUnactiveUser');
 
 
+// TODO !!!! Overuse of set_user_if_any, Figure out endpoints that require it and implement set_user_if_any in cases when needed
 homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
   navBars = NAVBAR.CLIENTS
   return next()

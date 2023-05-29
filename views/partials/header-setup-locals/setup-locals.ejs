@@ -46,6 +46,9 @@
   var bidblock_email
   // var hash_of_user_to_reset_password
 
+  var loggedInUserImgProfilePath = '<%= locals.loggedInUserImgProfilePath%>'
+  var loggedInUserName = '<%= locals.loggedInUserName%>'
+
 
 
 
@@ -74,12 +77,16 @@
     case '/':
       userId = '<%= locals.userId %>'
       popup = '<%= locals.popup %>'
+      user = <%-JSON.stringify(locals.user || {})%> 
 
       // if(`< %=locals.selectedUser%>`){
       //   selectedUser = < %-JSON.stringify(locals.selectedUser || {})%> 
       // }
       // selectedUser
-      console.log("------------->>>>>>", userId)
+
+      console.log("------------->>>>>>userId: ", userId)
+      console.log("------------->>>>>>popup: ", popup)
+      console.log("------------->>>>>>user: ", user)
       break;
 
 

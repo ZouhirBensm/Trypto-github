@@ -6,10 +6,10 @@ body {
   /* font-family: 'Roboto', sans-serif; */
   font-family: 'Gemunu Libre', sans-serif;
   margin: 0;
-  
-  scrollbar-width: none; 
-  -ms-overflow-style: none; 
-  overflow: -moz-scrollbars-none; 
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
 }
 
 ::-webkit-scrollbar {
@@ -34,7 +34,7 @@ ul.iflog {
   /* display: none; */
 }
 
-ul.home{
+ul.home {
   border-top: 1px solid black;
 }
 
@@ -74,15 +74,15 @@ ul.iflog>li {
 }
 
 
-ul.iflog>li>a[href='/users/login']>img {
+ul.iflog>li>a[href='/users/login']>img,
+ul.iflog>li>a[href='/subscription']>img,
+ul.iflog>li>a[href='/logout']>img,
+
+ul.home>li>a[href='/messaging/messages']>img {
   width: 24px;
   height: 24px;
 }
 
-ul.iflog>li>a[href='/subscription']>img {
-  width: 24px;
-  height: 24px;
-}
 
 
 
@@ -119,13 +119,19 @@ li a:active {
 
 div.sidebar-container {
   display: none;
-  flex-direction: column;
+
+  /* flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+
   color: white;
-  background-color: rgb(12, 66, 113);
-  width: 80%;
-  border: 1px black solid;
+  background-color: #010757;
+  opacity: 1;
+  /* ONE OR THE OTHER */
+  /* width: 80%; */
+  right: 0;
+
+  /* border: 1px black solid; */
   position: absolute;
   top: 2em;
   bottom: 2em;
@@ -135,11 +141,69 @@ div.sidebar-container {
   padding: 0;
 }
 
+
+
+
+
+
 ul.sidenav {
   padding: 0;
   margin: 0;
   list-style-type: none;
+
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
 }
+
+
+/* THE PROFILE DIV */
+ul.sidenav>div>img {
+  width: 61px;
+  height: 61px;
+  border-radius: 50%;
+  border: 1px solid #80E8FF;
+  vertical-align: middle;
+  margin-right: 1ch;
+}
+
+ul.sidenav>div>span {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  font-size: var(--font-size-subnav);
+  /* text-transform: capitalize; */
+  vertical-align: middle;
+}
+
+ul.sidenav>div>hr {
+  border: 1px solid #B8CEF543;
+  width: 60%;
+  margin-top: 1.5rem;
+}
+
+
+
+ul.sidenav>li {
+  width: fit-content;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  margin: 2rem 0;
+}
+
+ul.sidenav>li>a {
+  color: #FFFFFF;
+}
+
+
 
 .disable {
   pointer-events: none;

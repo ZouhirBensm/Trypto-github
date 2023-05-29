@@ -12,7 +12,11 @@
   </li>
   <%if(loggedIn){%>
     <!-- <li><a href="/users/profile">Profile</a></li> -->
-    <li><a href="/messaging/messages">Messages</a></li>
+    <li>
+      <a href="/messaging/messages">
+        <img src="/img/SVG/home/nav-icons/chat2.svg" alt="">
+      </a>
+    </li>
     <%}%>
   </ul>
   <ul class="iflog">
@@ -35,12 +39,26 @@
   <%}%>
   <%if(loggedIn){%>
     <!-- <li><a href="/databases">OrdersApp</a></li>   -->
-    <li><a href="/logout">Log out</a></li>
+    <li>
+      <a href="/logout">
+        <img src="/img/SVG/home/nav-icons/logout1dark.svg" alt="">
+      </a>
+    </li>
   <%}%>
 </ul>
 
 <div class="sidebar-container">
+
+  
   <ul class="sidenav">
+    <% if(typeof userId !== 'undefined' && userId) { %>
+      <div>
+        <img src='<%=loggedInUserImgProfilePath%>' alt="">
+        <span><%=loggedInUserName%></span>
+        <hr />
+      </div>
+    <%}%>
+
     <%if(!loggedIn){%>
       <li><a href="#">Template</a></li>
     <%}%>

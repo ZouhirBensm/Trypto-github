@@ -3,10 +3,11 @@
 // TODO #102 Add touch event to slide main left nav bar
 function toogleSideNav() {
   let sideNav = document.getElementsByClassName("sidebar-container")[0]
-  console.log("toogle!", sideNav.style.display, sideNav.style.display=='')
   
   sideNav.style.display==''? sideNav.style.display = "none": null
   
+  console.log("toogle!", sideNav.style.display, sideNav.style.display=='')
+
   console.log(sideNav)
   if (sideNav.style.display === "none") {
     sideNav.style.display = "flex";

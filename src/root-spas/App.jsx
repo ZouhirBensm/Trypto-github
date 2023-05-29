@@ -48,7 +48,7 @@ class App extends React.Component {
 
 
   render() {
-    // console.log(userId)
+    console.log(userId, '<<<<<--------USERID')
 
     return (
 
