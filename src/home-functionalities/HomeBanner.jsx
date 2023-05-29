@@ -18,8 +18,12 @@ class HomeBanner extends React.Component {
 
   componentDidMount() {
 
-    const homeHeaderPrices2 = document.getElementById("home-header-prices2")
-    const scrollBar2 = document.getElementById("scroll-bar2")
+
+    // let reactDiv = document.getElementById('react-div')
+    // let header = document.getElementById('header')
+
+
+    // reactDiv.insertBefore(header, reactDiv.firstChild);
   }
 
 

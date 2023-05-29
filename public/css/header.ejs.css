@@ -10,6 +10,10 @@ body {
   scrollbar-width: none;
   -ms-overflow-style: none;
   overflow: -moz-scrollbars-none;
+
+  background-color: rgb(235 249 255);
+
+  
 }
 
 ::-webkit-scrollbar {
@@ -21,6 +25,7 @@ body {
 
 ul.home,
 ul.iflog {
+
   list-style: none;
   background-color: white;
   position: fixed;
@@ -28,32 +33,47 @@ ul.iflog {
   padding: 0;
   display: flex;
   align-items: center;
-  height: fit-content;
   z-index: 1;
+  /* height: fit-content; */
   /* Temporary measure */
   /* display: none; */
 }
 
+
 ul.home {
+  height: 30px;
+}
+
+ul.iflog {
+  height: 30px;
+}
+
+/* ul.home {
   border-top: 1px solid black;
 }
 
 ul.iflog {
   border-bottom: 1px solid black;
-}
+} */
 
 ul.home>li {
   display: inline;
-  position: sticky;
-  margin: 0 auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  /* position: absolute; */
 }
 
 
 
 ul.home {
   bottom: 0;
-  justify-content: center;
-  margin: 0;
+  /* margin: 0; */
+  margin-top: 0;
+  margin-bottom: 0;
+  
+  position: absolute;
+  justify-content: space-around;
+
 }
 
 ul.iflog {
@@ -77,7 +97,6 @@ ul.iflog>li {
 ul.iflog>li>a[href='/users/login']>img,
 ul.iflog>li>a[href='/subscription']>img,
 ul.iflog>li>a[href='/logout']>img,
-
 ul.home>li>a[href='/messaging/messages']>img {
   width: 24px;
   height: 24px;
@@ -255,4 +274,17 @@ div[onclick="toogleSideNav()"] {
 
 :root {
   --card-header-margin: 1rem;
+}
+
+
+
+div#header > span#popup {
+  color: red;
+  width: 90%;
+  font-size: var(--font-size-extra);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  margin: 1rem auto;
+  display: block;
+  text-align: center;
 }

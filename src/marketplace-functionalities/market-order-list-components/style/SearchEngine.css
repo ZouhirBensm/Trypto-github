@@ -3,7 +3,7 @@ div#market>button#drop-down {
   display: block;
   z-index: 10;
   position: absolute;
-  top: 1.4em;
+  top: 45px;
   width: fit-content;
   left: 0;
   right: 0;

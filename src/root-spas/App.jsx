@@ -23,15 +23,21 @@ class App extends React.Component {
 
   componentDidMount() {
     // console.log("in component: ", userId)
+
     this.loadData()
     this.popup ? this.displacePopup() : null
   }
 
   displacePopup() {
-    let reactDiv = document.getElementById('react-div')
+    let header = document.getElementById('header')
     let popup = document.getElementById('popup')
+
     popup.style.display = "block";
-    reactDiv.appendChild(popup)
+
+    header.insertBefore(popup, header.firstChild);
+
+
+    // reactDiv.appendChild(popup)
   }
 
   async loadData() {
@@ -54,6 +60,8 @@ class App extends React.Component {
 
       // Home
       <React.Fragment>
+
+
         <HomeBanner btc_gecko_prices={this.state.prices} />
 
         <EmailMarketingCollector />
