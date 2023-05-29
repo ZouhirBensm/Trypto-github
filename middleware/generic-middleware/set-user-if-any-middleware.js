@@ -30,6 +30,8 @@ async function set_user_if_any(req, res, next) {
 
   res.locals.loggedInUserName = userfindOne?.username
 
+  res.locals.loggedInUserId = userfindOne?._id
+
 
   // res.locals.userId = req.session.userId
 
