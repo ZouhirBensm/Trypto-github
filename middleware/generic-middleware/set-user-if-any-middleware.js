@@ -30,6 +30,9 @@ async function set_user_if_any(req, res, next) {
 
   res.locals.loggedInUserName = userfindOne?.username
 
+
+  // res.locals.userId = req.session.userId
+
   // console.log('res.locals.loggedInUserImgProfilePath: ', res.locals.loggedInUserImgProfilePath)
 
 

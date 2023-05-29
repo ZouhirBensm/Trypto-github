@@ -51,7 +51,8 @@
 
   
   <ul class="sidenav">
-    <% if(typeof userId !== 'undefined' && userId) { %>
+    <!-- < % if(typeof userId !== 'undefined' && userId) { %> -->
+    <% if(loggedIn) { %>
       <div>
         <img src='<%=loggedInUserImgProfilePath%>' alt="">
         <span><%=loggedInUserName%></span>
