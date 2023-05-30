@@ -1,10 +1,10 @@
 div.wrapper {
-  height: 80vh;
+  /* height: 80vh; */
   overflow: scroll;
-  border: 1px black solid;
+  /* border: 1px black solid; */
   position: absolute;
-  top: 10%;
-  bottom: 10%;
-  left: 3%;
-  right: 3%;
+  top: 50px;
+  bottom: 30px;
+  left: 0%;
+  right: 0%;
 }

@@ -4,7 +4,8 @@
 
 div#image-scroll {
   /* height: 30vh; */
-  border: 2px solid rgb(185, 121, 0);
+  
+  /* border: 2px solid rgb(185, 121, 0); */
 
   display: flex;
   flex-flow: row wrap;
