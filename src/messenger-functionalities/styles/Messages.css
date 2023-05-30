@@ -8,6 +8,7 @@ div#messaging {
   bottom: 30px;
   left: 0%;
   right: 0%; */
+  flex-grow: 1;
 }
 
 

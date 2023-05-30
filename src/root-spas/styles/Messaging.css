@@ -9,6 +9,8 @@ div#react-div>div {
   top: 40px;
   bottom: 40px;
   left: 0%;
-  right: 0%;
+  right: 0%; 
+  display: flex;
+  flex-flow: column nowrap;
 
 }
