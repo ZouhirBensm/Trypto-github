@@ -1,4 +1,5 @@
 import { withRouter } from 'react-router-dom';
+import './styles/Test2.css'
 
 class Test2 extends React.Component {
   constructor(props) {
@@ -23,10 +24,12 @@ class Test2 extends React.Component {
     return (
 
       <React.Fragment>
-        <div>Test2...</div>
-        <button type="button" onClick={this.goBack}>
-          Go back
-        </button>
+        <div id='settings-2'>
+          <div>Test 2</div>
+          <button type="button" onClick={this.goBack}>
+            Go back
+          </button>
+        </div>
       </React.Fragment>
     )
   }
