@@ -97,7 +97,8 @@ ul.iflog>li {
 ul.iflog>li>a[href='/users/login']>img,
 ul.iflog>li>a[href='/subscription']>img,
 ul.iflog>li>a[href='/logout']>img,
-ul.home>li>a[href='/messaging/messages']>img {
+ul.home>li>a[href='/messaging/messages']>img,
+ul.home>li>a[href='/operations']>img {
   width: 24px;
   height: 24px;
 }
@@ -249,6 +250,7 @@ div[onclick="toogleSideNav()"] {
   --font-size-footer: 1.5rem;
   --font-size-h1: 2rem;
   --font-size-h1-smaller: 1.8rem;
+  --font-size-h1-xsmaller: 1.3rem;
   --font-size-h2: 1.5rem;
   --font-size-h3: 1.3rem;
   --font-size-h4: 1.2rem;

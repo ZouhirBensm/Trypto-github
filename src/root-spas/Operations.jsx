@@ -42,49 +42,56 @@ class Operations extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <BrowserRouter basename="/operations">
-          <ScrollToTop />
-          <Switch>
+        <div id="operations-main-menu">
 
-            <Route exact path="/">
+          <BrowserRouter basename="/operations">
+            <ScrollToTop />
+            <Switch>
+
+              <Route exact path="/">
+                {/* Disables the currency app */}
+                {/* <Admin_Block className="horders" title="Help for BTC currency orders" link="/help-for-orders" /> */}
+                <div id="menu">
+                  <Admin_Block className="mmessages" title="Monitor Messages" link="/monitor-messages" />
+                  <Admin_Block className="msubs" title="Manage Subscriptions" link="/manage-subs" />
+                  <Admin_Block className="articlesd" title="Articles dashbord" link="/articles-dashboard" />
+                  <Admin_Block className="hmorders" title="Help for Market orders" link="/help-for-market-orders" />
+                  <Admin_Block className="ssettings" title="Set Settings" link="/set-settings" />
+
+                </div>
+              </Route>
+
+
               {/* Disables the currency app */}
-              {/* <Admin_Block className="horders" title="Help for BTC currency orders" link="/help-for-orders" /> */}
-              <Admin_Block className="mmessages" title="Monitor Messages" link="/monitor-messages" />
-              <Admin_Block className="msubs" title="Manage Subscriptions" link="/manage-subs" />
-              <Admin_Block className="articlesd" title="Articles dashbord" link="/articles-dashboard" />
-              <Admin_Block className="hmorders" title="Help for Market orders" link="/help-for-market-orders" />
-              <Admin_Block className="ssettings" title="Set Settings" link="/set-settings" />
-            </Route>
+              {/* <Route path="/help-for-orders" render={
+                (props) => <UserSelect {...props} mode="help-for-orders" />
+              } /> */}
+
+              <Route path="/monitor-messages" render={
+                (props) => <UserSelect {...props} mode="monitor-messages" />
+              } />
+
+              <Route path="/manage-subs" render={
+                (props) => <UserSelect {...props} mode="manage-subs" />
+              } />
+
+              <Route path="/help-for-market-orders" render={
+                (props) => <UserSelect {...props} mode="help-for-market-orders" />
+              } />
+
+              <Route path="/set-settings" render={
+                (props) => <UserSelect {...props} mode="set-settings" />
+              } />
 
 
-            {/* Disables the currency app */}
-            {/* <Route path="/help-for-orders" render={
-              (props) => <UserSelect {...props} mode="help-for-orders" />
-            } /> */}
+              <Route path="/articles-dashboard" render={
+                (props) => <ArticlesDashboard {...props} />
+              } />
 
-            <Route path="/monitor-messages" render={
-              (props) => <UserSelect {...props} mode="monitor-messages" />
-            } />
+            </Switch>
+          </BrowserRouter>
 
-            <Route path="/manage-subs" render={
-              (props) => <UserSelect {...props} mode="manage-subs" />
-            } />
-
-            <Route path="/help-for-market-orders" render={
-              (props) => <UserSelect {...props} mode="help-for-market-orders" />
-            } />
-
-            <Route path="/set-settings" render={
-              (props) => <UserSelect {...props} mode="set-settings" />
-            } />
-
-
-            <Route path="/articles-dashboard" render={
-              (props) => <ArticlesDashboard {...props} />
-            } />
-
-          </Switch>
-        </BrowserRouter>
+        </div>
 
 
       </React.Fragment>

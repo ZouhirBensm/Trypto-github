@@ -1,1 +1,64 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+
+div#operations-main-menu > div#menu {
+  display: flex;
+  flex-flow: row wrap;
+  position: relative;
+}
+
+
+div#operations-main-menu>div#menu>a {
+  width: 46%;
+  height: 200px;
+  display: inline;
+  margin: 1rem 2%;
+
+  /* position: absolute;
+  top: 50%;
+  transform: translateY(-50%); */
+  position: relative;
+
+
+  background-image: url('/public/img/SVG/operations/menu/card.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0px 6px 20px #1266FC4E;
+  color: white;
+}
+
+div#operations-main-menu>div#menu>a:hover {
+  background-color: rgb(8, 0, 255);
+}
+
+
+
+div#operations-main-menu>div#menu>a>div {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  text-align: center;
+}
+
+
+div#operations-main-menu>div#menu>a>div {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+}
+
+
+div#operations-main-menu>div#menu>a>div>h1 {
+  font-size: var(--font-size-h1-xsmaller);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+}
+

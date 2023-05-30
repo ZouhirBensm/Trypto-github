@@ -1,19 +1,44 @@
 <ul class="home">
-  <li><a href="/">Home</a></li>
-  <li><a href="/operations">Operations Main</a></li>
+  <li>
+    <a href="/">
+      <img src="/img/SVG/home/nav-icons/home1.svg" alt="">
+    </a>
+  </li>
+  <li>
+    <a href="/operations">
+      <img src="/img/SVG/operations/icons/admin.svg" alt="">
+    </a>
+  </li>
 </ul>
 
 <ul class="iflog">
-  <li><div onclick="toogleSideNav()">Toogle</div></li>
+  <li>
+    <div onclick="toogleSideNav()">
+      <img src="/img/SVG/home/nav-icons/toogle.svg" alt="">
+    </div>
+  </li>
   <!-- <li><a href="#">Link 1</a></li>
   <li><a href="#">Link 2</a></li> -->
-  <li><a href="/logout">Logout</a></li>
+  <li>
+    <a href="/logout">
+      <img src="/img/SVG/home/nav-icons/logout1dark.svg" alt="">
+    </a>
+  </li>
 </ul>
 
 <div class="sidebar-container">
   <ul class="sidenav">
     <!-- Disables the currency app -->
     <!-- <li><a href="/operations/help-for-orders">Help for Orders</a></li> -->
+    <% if(typeof loggedInUserId !== 'undefined' && loggedInUserId) { %>
+    <!-- < % if(loggedIn) { %> -->
+      <div>
+        <img src='<%=loggedInUserImgProfilePath%>' alt="">
+        <span><%=loggedInUserName%></span>
+        <hr />
+      </div>
+    <%}%>
+
     <li><a href="/operations/articles-dashboard">Articles Dashboard</a></li>
     <li><a href="/operations/monitor-messages">Monitor Messages</a></li>
     <li><a href="/operations/manage-subs">Manage Accounts/Subscriptions</a></li>

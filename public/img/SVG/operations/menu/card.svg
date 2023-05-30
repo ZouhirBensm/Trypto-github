@@ -1,0 +1,15 @@
+<svg id="Group_36" data-name="Group 36" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="308" height="245.87" viewBox="0 0 308 245.87">
+  <defs>
+    <linearGradient id="linear-gradient" y1="0.067" x2="3.927" y2="3.077" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#80e8ff"/>
+      <stop offset="0.634" stop-color="#1266fc" stop-opacity="0"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="-1.52" y1="-2.414" x2="0" y2="1.051" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#80e8ff"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+  </defs>
+  <rect id="Rectangle_30" data-name="Rectangle 30" width="307.963" height="245.869" rx="15" transform="translate(0)" fill="url(#linear-gradient)"/>
+  <path id="Intersection_2" data-name="Intersection 2" d="M15,179.373a15,15,0,0,1-15-15V82.25q1.78-7.6,4.037-15.995C37.232-56.91,308,29.39,308,29.39V164.373a15,15,0,0,1-15,15Z" transform="translate(0 66.497)" opacity="0.17" fill="url(#linear-gradient-2)"/>
+</svg>
