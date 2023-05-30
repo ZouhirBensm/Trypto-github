@@ -67,25 +67,29 @@ class ChatContainer extends React.Component {
     
     return (
       <React.Fragment>
-        {/* <h1>LoggedIn as</h1>
-        <p>{this._userID}</p>
-        <p><strong>{this._currentUserEmail}</strong></p>
+        <div id="chat-total">
+          
+          {/* <h1>LoggedIn as</h1>
+          <p>{this._userID}</p>
+          <p><strong>{this._currentUserEmail}</strong></p>
 
-        <h1>Communicating to:</h1>
-        <p>{this._userIDB}</p>
+          <h1>Communicating to:</h1>
+          <p>{this._userIDB}</p>
 
-        <h1>Order ID:</h1>
-        <p>{this._orderID}</p> */}
+          <h1>Order ID:</h1>
+          <p>{this._orderID}</p> */}
 
-        <div id="chat">
-          <DisplayOtherCard
-            userIdB={this._userIDB}
-            userUsernameB={this._userUsernameB}
-            userB_profile_image_path={this._userB_profile_image_path}
-          />
-          <MsgsBox/>
+          <div id="chat">
+            <DisplayOtherCard
+              userIdB={this._userIDB}
+              userUsernameB={this._userUsernameB}
+              userB_profile_image_path={this._userB_profile_image_path}
+            />
+            <MsgsBox/>
+          </div>
+          <MsgInputSubmit/>
+
         </div>
-        <MsgInputSubmit/>
       </React.Fragment>
     );
   }

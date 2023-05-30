@@ -28,7 +28,7 @@ class Messaging extends React.Component {
     return (
       // <ChatContainer/>
       <React.Fragment>
-        <div id="messaging">
+        <div>
           <BrowserRouter>
             <Switch>
               <Route exact path="/messaging/messages" render={

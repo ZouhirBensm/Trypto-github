@@ -106,6 +106,8 @@ class Messages extends React.Component {
 
     return (
       <React.Fragment>
+      <div id="messaging">
+        
         <div id='messages'>
           <h1>Chat</h1>
           {/* <h2>Messages Component</h2>
@@ -128,6 +130,8 @@ class Messages extends React.Component {
           controls={this.controls}
           />
         </div>
+        
+      </div>
 
         <OnPageFooter/>
         

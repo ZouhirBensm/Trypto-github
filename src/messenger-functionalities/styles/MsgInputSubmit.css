@@ -1,11 +1,11 @@
-div#messaging form#chatForm {
+div#chat-total form#chatForm {
   background-color: #EEF5FE;
   border-top: 3px solid white;
   white-space: nowrap;
   /* margin-bottom: 100px; */
   /* border-radius: 0 0 30px 30px; */
   position: absolute;
-  bottom: 10px;
+  bottom: 0;
   right: 0;
   left: 0;
   /* bottom: 64px; */
@@ -16,7 +16,7 @@ div#messaging form#chatForm {
 }
 
 
-div#messaging form#chatForm>div#input-collector {
+div#chat-total form#chatForm>div#input-collector {
   padding: 1rem 1rem;
   display: block;
   text-align: center;
@@ -26,7 +26,7 @@ div#messaging form#chatForm>div#input-collector {
 }
 
 
-div#messaging form#chatForm input[type="text"] {
+div#chat-total form#chatForm input[type="text"] {
   border-radius: 22px 0 0 22px;
   line-height: 2rem;
   height: 2rem;
@@ -58,7 +58,7 @@ div#messaging form#chatForm input[type="text"] {
 
 
 /* TODO !!!! HERE NOT RENDERING */
-div#messaging form#chatForm input[type="text"]::placeholder {
+div#chat-total form#chatForm input[type="text"]::placeholder {
   /* color: #6B7FA2; */
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
@@ -69,7 +69,7 @@ div#messaging form#chatForm input[type="text"]::placeholder {
 
 
 
-div#messaging form#chatForm input[type="submit"] {
+div#chat-total form#chatForm input[type="submit"] {
   height: 2rem;
   /* width: 30px; */
   border-radius: 0 22px 22px 0;

@@ -1,3 +1,16 @@
+div#messaging {
+  /* height: 80vh; */
+  overflow: scroll;
+  /* border: 1px black solid; */
+  
+  /* position: absolute;
+  top: 30px;
+  bottom: 30px;
+  left: 0%;
+  right: 0%; */
+}
+
+
 div#messages {
   width: 90%;
   margin: 0 auto;
