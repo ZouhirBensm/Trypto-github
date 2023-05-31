@@ -10,8 +10,8 @@ function OnPageFooter() {
         <div id='nav401'>
           <div>© Bidblock</div>
           <div><a href="">Contact</a></div>
-          <div><a href="">Privacy and Terms</a></div>
-          <div><a href="">FAQ</a></div>
+          <div><a href="/terms-conditions">Terms and Conditions</a></div>
+          <div><a href="/FAQ">FAQ</a></div>
         </div>
 
         <div id='nav402'>

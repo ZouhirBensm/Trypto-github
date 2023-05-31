@@ -20,6 +20,10 @@
 <%if(locals.paths_URL!=null && locals.paths_URL[0] == 'marketplace'){%>
   <%- include("setup-locals-dependencies/setup-path-params/setupPathParams4marketplace") %>
 <%}%>
+
+<%if(locals.paths_URL!=null && locals.paths_URL[0] == 'FAQ'){%>
+  <%- include("setup-locals-dependencies/setup-path-params/setupPathParams4FAQ") %>
+<%}%>
 <!-- < %if(locals.paths_URL!=null && locals.paths_URL[0] == 'users'){%>
   < %- include("setup-locals-dependencies/setup-path-params/setupPathParams4users") %>
 < %}%> -->
@@ -58,6 +62,7 @@
     case '/operations/articles-dashboard':
     case `/operations/monitor-messages/${caseUserID}/edit-see`:
     case '/currency/btclayerexchange':
+    case '/FAQ':
     // case '/users/login':
     // case `/make/${caseOptionMakes}`:
       break;
@@ -241,4 +246,6 @@
     default:
       break;
   }
+
+  
 </script>

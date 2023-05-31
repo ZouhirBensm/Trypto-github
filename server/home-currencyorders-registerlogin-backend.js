@@ -472,6 +472,29 @@ homeOrdersBackend_app_router.post('/marketing/email', requireRefererMiddleware, 
 
 
 
+homeOrdersBackend_app_router.get('/FAQ', requireRefererMiddleware, require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), (req,res)=>{
+
+
+  var JSX_to_load = 'FAQPage';
+
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
+    JSX_to_load: JSX_to_load,
+    // selectedUser: undefined
+  })
+})
+
+homeOrdersBackend_app_router.get('/terms-conditions', requireRefererMiddleware, require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), (req,res)=>{
+
+  var JSX_to_load = 'TermsConditions';
+
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
+    JSX_to_load: JSX_to_load,
+    // selectedUser: undefined
+  })
+})
+
+
+
 
 
 

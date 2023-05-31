@@ -70,6 +70,8 @@ var config = {
     ArticlesCategorySelector: './src/root-spas/ArticlesCategorySelector.jsx',
     Settings: './src/root-spas/Settings.jsx',
     ToDelete: './src/root-spas/ToDelete.jsx',
+    FAQPage: './src/root-spas/FAQPage.jsx',
+    TermsConditions: './src/root-spas/TermsConditions.jsx',
   },
   output: {
     // Deletable libraryTarget: 'commonjs2',

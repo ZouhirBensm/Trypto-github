@@ -45,7 +45,7 @@ class FAQ extends React.Component {
           </div>
 
 
-          <a href="#">See all topics</a>
+          <a href="/FAQ">See all topics</a>
 
         </div>
       </React.Fragment>
