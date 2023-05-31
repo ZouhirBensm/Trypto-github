@@ -396,8 +396,7 @@ class MakeMarketOrder extends React.Component {
   // }
 
   firstPlacementMap() {
-    
-    
+
     var div_google_maps = document.getElementById("google-maps")
     console.log(div_google_maps)
 
@@ -409,8 +408,10 @@ class MakeMarketOrder extends React.Component {
     div_google_maps.appendChild(the_map)
 
 
-    var mainMarketComponent = document.getElementsByClassName("market-main-component")
-    mainMarketComponent[0].appendChild(div_google_maps)
+    var mainMarketComponent = document.getElementById("market-main-component")
+    console.log(mainMarketComponent)
+
+    mainMarketComponent.appendChild(div_google_maps)
 
   }
 

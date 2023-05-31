@@ -8,9 +8,9 @@ class MessageTable extends React.Component {
 
   constructor(props){
     super(props)
-    this.state = {
-    }
+    this.state = {}
     // console.log("QWQEWEREWGRGRGRGTGTGHT____", this.props.loggedinUserObjInfo)
+
   }
 
   render(){
@@ -105,6 +105,7 @@ class MessageRow extends React.Component {
     let comunicating_with_profile_image_name = `square.png`
     
     if (comunicating_with_userprofileimageID) {
+
       comunicating_with_profile_image_name = comunicating_with_userprofileimageID.image.name
     } 
 
@@ -116,6 +117,8 @@ class MessageRow extends React.Component {
       most_recent_convo_sender_username = "You"
     }
 
+    console.log(`/img/profile-images/${comunicating_with_profile_image_name}`)
+
 
 
     // console.log("Require Keys: ", display_editing)
@@ -123,7 +126,7 @@ class MessageRow extends React.Component {
       <tr onClick={(e) => this.handleClick(this.props.comprehensiveSelectedUserInfoDataObj, communicating_with_ID, e)}>
 
         <td id="comm-with">
-          <img src={`../img/profile-images/${comunicating_with_profile_image_name}`} alt="" />
+          <img src={`/img/profile-images/${comunicating_with_profile_image_name}`} alt="" />
           <span> {communicating_with_username}</span>
         </td>
 

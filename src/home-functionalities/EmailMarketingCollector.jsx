@@ -1,5 +1,6 @@
 import './styles/EmailMarketingCollector.css'
 import { verifyEmail } from '../../full-stack-libs/validations'
+import Operations from '../root-spas/Operations'
 
 class EmailMarketingCollector extends React.Component {
   constructor(props) {
@@ -95,7 +96,9 @@ class EmailMarketingCollector extends React.Component {
 
               <button onClick={async (e)=>{
 
-
+                // TODO !!!!! Image render on the chat interface in the admin Operations
+                // Change chat icon
+                // Price display edit BTC real value
 
                 const email = document.getElementById("email-for-marketing").value;
 
