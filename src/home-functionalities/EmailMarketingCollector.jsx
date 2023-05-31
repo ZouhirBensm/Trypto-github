@@ -71,6 +71,8 @@ class EmailMarketingCollector extends React.Component {
   }
 
 
+  
+
   render() {
 
     return (
@@ -95,10 +97,6 @@ class EmailMarketingCollector extends React.Component {
               }
 
               <button onClick={async (e)=>{
-
-                // TODO !!!!! Image render on the chat interface in the admin Operations
-                // Change chat icon
-                // Price display edit BTC real value
 
                 const email = document.getElementById("email-for-marketing").value;
 

@@ -13,13 +13,15 @@ label.switch {
   position: relative;
   display: inline-flex;
   align-items: center;
-  width: 140px;
+  width: 200px;
+  /* width: 140px; */
   height: 35px;
   border-radius: 20px;
   transition: all 0.3s;
   text-align: right;
   background-color: rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(31px);
+  overflow: hidden;
 
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
@@ -29,6 +31,7 @@ label.switch {
 
 label.switch > span {
   margin: 0 10px;
+  white-space: nowrap;
 }
 
 
@@ -52,7 +55,7 @@ label.switch::after {
 }
 
 input.checkbox:checked + label.switch::after {
-  left : 105px;
+  left : 165px;
   content: "₿";
   font-size: 0.7rem;
 }

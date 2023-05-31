@@ -10,8 +10,8 @@ class PriceToogler extends React.Component {
     }
 
     this.handleCheck = this.handleCheck.bind(this)
-    let price_raw = this.props.price / this.props.conversion
-    this.price_sat = Math.trunc(price_raw * 1000000000)
+    this.price_raw = this.props.price / this.props.conversion
+    this.price_sat = Math.trunc(this.price_raw * 1000000000)
   }
 
 
@@ -30,10 +30,15 @@ class PriceToogler extends React.Component {
     return (
       <React.Fragment>
         <div id="toogler1">
+
           <input type="checkbox" id={`id-${this.props.order_id}`} className="checkbox" checked={this.state.checked} onChange={this.handleCheck}/>
+
           <label style={{justifyContent: lr}} htmlFor={`id-${this.props.order_id}`} className="switch">
-            <span>{this.state.checked ? this.price_sat : this.props.price}</span>
+            <span>{this.state.checked ? `${this.price_sat.toLocaleString()} Satoshis` : this.props.price}</span>
           </label>
+
+
+
         </div>
       </React.Fragment>
     )
