@@ -1,3 +1,4 @@
+import OnPageFooter from '../generic-components/OnPageFooter'
 import '../style/reactDivMobile.css'
 import './styles/TermsConditions.css'
 
@@ -22,7 +23,7 @@ class TermsConditions extends React.Component {
               <span>These terms and conditions (The 'Terms and conditions') govern using Bidblock registered and identified:</span>
               <ul>
                 <li>at the Canadian Government: 12910713 Canada Inc</li>
-                <li>at the world wide web by https://bidblock.ca (1)</li>
+                <li>at the world wide web by https://bidblock.ca <b>(1)</b></li>
               </ul>
               <span>This site is owned and operated by Bidblock. This site is an e-commerce website.</span>
               <span>By using this site, you indicate that you have read and understand these terms and conditions and agree to abide by them at all times.</span>
@@ -52,7 +53,7 @@ class TermsConditions extends React.Component {
                 <li>Items for sale</li>
                 <li>Photos</li>
               </ul>
-              <span>By posting publicly on our website, you agree not to act illegally (2) or violate these terms and conditions.</span>
+              <span>By posting publicly on our website, you agree not to act illegally <b>(2)</b> or violate these terms and conditions.</span>
 
             </div>
           </section>
@@ -79,7 +80,7 @@ class TermsConditions extends React.Component {
               <span>Our website allows users to sell goods and services.</span>
               <span>We do not assume responsibility for the goods and services users sell on our website. </span>
               <span>Therefore, we cannot guarantee the quality or accuracy of the descriptions of any goods and services sold by users on our website.</span>
-              <span>When a user violates these Terms and Conditions, we reserve the right to delete or suspend the concerned user's account. (3)</span>
+              <span>When a user violates these Terms and Conditions, we reserve the right to delete or suspend the concerned user's account. <b>(3)</b></span>
             </div>
           </section>
 
@@ -97,7 +98,7 @@ class TermsConditions extends React.Component {
           <section>
             <h2>Limitation of Liability</h2>
             <div>
-              <span>Bidblock (4) and our directors, officers, agents, employees, subsidiaries, and affiliates will not be liable for any actions, claims, losses, damages, liabilities and expenses, including legal fees, from your website's use.</span>
+              <span>Bidblock <b>(4)</b> and our directors, officers, agents, employees, subsidiaries, and affiliates will not be liable for any actions, claims, losses, damages, liabilities and expenses, including legal fees, from your website's use.</span>
             </div>
           </section>
 
@@ -143,7 +144,7 @@ class TermsConditions extends React.Component {
 
 
           <aside>
-            <h2>Annexe</h2>
+            <h2>Foot Notes</h2>
             <ul>
               <li>
                 <span>
@@ -177,6 +178,8 @@ class TermsConditions extends React.Component {
           </aside>
 
         </main>
+
+        <OnPageFooter/>
       </React.Fragment>
 
     );

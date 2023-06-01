@@ -1,36 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+
 main#terms-conditions-high-component {
 
+  width: 90%;
+  margin: 0 auto;
 }
 
 
-main#terms-conditions-high-component > h1 {
-  
+main#terms-conditions-high-component>h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 1.8px;
+  color: #010757;
+  text-transform: capitalize;
+  font-size: var(--font-size-h1-smaller);
+  margin-top: 50px;
 }
 
-main#terms-conditions-high-component > section {
-  
+main#terms-conditions-high-component>section {}
+
+main#terms-conditions-high-component>aside>h2,
+main#terms-conditions-high-component>section>h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-h2-smaller);
 }
 
-main#terms-conditions-high-component > section > h2 {
-  
+
+
+main#terms-conditions-high-component>aside>ul,
+main#terms-conditions-high-component>section>div {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #6B7FA2;
+  font-size: var(--font-size-p-xsmaller);
 }
 
-
-
-
-main#terms-conditions-high-component > section > div {
-  
-}
-
-main#terms-conditions-high-component > section span {
+main#terms-conditions-high-component>section span {
   display: block;
   margin: 1rem 0;
 }
 
-main#terms-conditions-high-component > section ul {
+main#terms-conditions-high-component>section ul {
   /* margin: 1rem 0; */
 }
 
-main#terms-conditions-high-component > section li {
-  
-}
+main#terms-conditions-high-component>section li {}
