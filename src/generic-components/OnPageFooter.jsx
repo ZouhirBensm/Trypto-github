@@ -1,6 +1,9 @@
 import './styles/OnPageFooter.css'
 
 function OnPageFooter() {
+
+  console.log("loggedInUserId: ", loggedInUserId)
+
   return (
     <React.Fragment>
       <div id='footer-on-page'>
@@ -10,7 +13,12 @@ function OnPageFooter() {
         <div id='nav401'>
           <div>© Bidblock</div>
           <div><a href="">Contact</a></div>
-          <div><a href="/terms-conditions">Terms and Conditions</a></div>
+          {
+            loggedInUserId ?
+            <div><a href="/terms-conditions">Terms and Conditions</a></div> :
+            null
+          }
+
           <div><a href="/FAQ">FAQ</a></div>
         </div>
 
