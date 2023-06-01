@@ -4,6 +4,8 @@ import './styles/Subscription.css'
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading"
 
+import OnPageFooter from '../generic-components/OnPageFooter'
+
 
 
 const ChoosePlan = loadable(() => import("../subscription-functionalities/ChoosePlan"), {
@@ -104,15 +106,20 @@ class Subscription extends React.Component {
     }
     return (
       <React.Fragment>
+        <div id="sub-box">
+          <div id="sub-p1">
+            {this.state.step != 5 ?
+              <a id='reset' href="/subscription">
+                <img src="/img/SVG/sub/reset.svg" alt="" />
+                <span>Reset</span>
+              </a> : null}
 
+            {component}
+          </div>
+
+          <OnPageFooter/>
+        </div>
         
-        {this.state.step != 5 ?
-          <a id='reset' href="/subscription">
-            <img src="/img/SVG/sub/reset.svg" alt="" />
-            <span>Reset</span>
-          </a> : null}
-
-        {component}
       </React.Fragment>
     )
   }

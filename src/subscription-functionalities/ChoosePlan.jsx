@@ -1,4 +1,4 @@
-import OnPageFooter from '../generic-components/OnPageFooter'
+// import OnPageFooter from '../generic-components/OnPageFooter'
 import './styles/ChoosePlan.css'
 
 class ChoosePlan extends React.Component {
@@ -82,7 +82,7 @@ class ChoosePlan extends React.Component {
 
         </div>
 
-        <OnPageFooter/>
+        {/* <OnPageFooter/> */}
       </React.Fragment>
     )
   }

@@ -1,4 +1,4 @@
-import OnPageFooter from '../generic-components/OnPageFooter'
+// import OnPageFooter from '../generic-components/OnPageFooter'
 import './styles/CardInfoSubmission.css'
 
 
@@ -148,7 +148,7 @@ class CardInfoSubmission extends React.Component {
           </div>
         </div>
 
-        <OnPageFooter />
+        {/* <OnPageFooter /> */}
 
       </React.Fragment>
     )

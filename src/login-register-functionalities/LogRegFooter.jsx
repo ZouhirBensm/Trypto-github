@@ -1,5 +1,8 @@
 import './styles/LogRegFooter.css'
 
+
+// TODO !!!!! Component can be deleted
+
 function LogRegFooter() {
   return (
     <React.Fragment>

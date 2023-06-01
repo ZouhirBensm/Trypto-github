@@ -6,7 +6,7 @@ import '../root-spas/styles/Sign-in-up.css'
 import { verifyEmail, verifyPassword, verifyUsername } from '../../full-stack-libs/validations'
 import RegisterButton from './RegisterButton'
 import RegisterNotification from './RegisterNotification'
-import LogRegFooter from './LogRegFooter'
+// import LogRegFooter from './LogRegFooter'
 
 
 
@@ -27,6 +27,10 @@ class Register extends React.Component {
     
     const previous = document.querySelector('div#pro-pre > button')
     previous.classList.add('dark-blue')
+
+    const footerOnPage = document.getElementById('footer-on-page')
+    footerOnPage.classList.add('transparent-bk')
+
   }
 
   componentWillUnmount() {
@@ -35,6 +39,9 @@ class Register extends React.Component {
 
     const previous = document.querySelector('div#pro-pre > button')
     previous.classList.remove('dark-blue')
+
+    const footerOnPage = document.getElementById('footer-on-page')
+    footerOnPage.classList.remove('transparent-bk')
   }
 
 
@@ -158,7 +165,7 @@ class Register extends React.Component {
         </div>
 
 
-        <LogRegFooter />
+        {/* <LogRegFooter /> */}
 
 
 

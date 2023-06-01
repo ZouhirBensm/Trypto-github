@@ -1,4 +1,4 @@
-import OnPageFooter from '../generic-components/OnPageFooter'
+// import OnPageFooter from '../generic-components/OnPageFooter'
 import './styles/AssociatedLocation.css'
 
 class AssociatedLocation extends React.Component {
@@ -109,7 +109,7 @@ class AssociatedLocation extends React.Component {
           <img src="/img/SVG/sub/proceed.svg" alt="" />
         </div>
 
-        <OnPageFooter />
+        {/* <OnPageFooter /> */}
       </React.Fragment>
     )
   }

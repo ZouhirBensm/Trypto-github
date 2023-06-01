@@ -1,4 +1,4 @@
-import OnPageFooter from '../generic-components/OnPageFooter'
+// import OnPageFooter from '../generic-components/OnPageFooter'
 import './styles/Confirmation.css'
 
 
@@ -80,7 +80,7 @@ class Confirmation extends React.Component {
             : null}
   
         </div>
-        <OnPageFooter/>
+        {/* <OnPageFooter/> */}
       </React.Fragment>
     )
   }
