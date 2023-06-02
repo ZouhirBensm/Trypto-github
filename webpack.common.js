@@ -72,6 +72,7 @@ var config = {
     ToDelete: './src/root-spas/ToDelete.jsx',
     FAQPage: './src/root-spas/FAQPage.jsx',
     TermsConditions: './src/root-spas/TermsConditions.jsx',
+    AddFAQ: './src/root-spas/AddFAQ.jsx'
   },
   output: {
     // Deletable libraryTarget: 'commonjs2',

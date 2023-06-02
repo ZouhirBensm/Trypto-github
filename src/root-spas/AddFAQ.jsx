@@ -1,4 +1,5 @@
-
+import '../style/reactDivMobile.css'
+import SubmitFAQ from '../operations-components/SubmitFAQ'
 
 class AddFAQ extends React.Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class AddFAQ extends React.Component {
 
   handleChangeTitle = () => (event) => {
 
-    console.log(event)
+    // console.log(event)
 
     const { value } = event.target;
 
@@ -81,7 +82,11 @@ class AddFAQ extends React.Component {
         </div>
         <br />
 
-        <button>Submit</button>
+        <SubmitFAQ
+          title={this.state.title}
+          inputs={this.state.inputs}
+        />
+
         <br />
         <br />
         <a href='/operations'>Back</a>

@@ -226,7 +226,7 @@
       if (caseOperationsTask == "create-article") {
         CATEGORY = <%-JSON.stringify(locals.CATEGORY || {})%> 
       }
-      console.log("--------->>>>(2222)", user, CATEGORY, userId)
+      console.log("/partials/header-setup-locals/setup-locals.ejs: ", {user, CATEGORY, userId})
 
       break;
     case `/operations/${caseOperationsTask}/${caseUserID}`:

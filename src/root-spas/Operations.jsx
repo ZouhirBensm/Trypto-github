@@ -14,7 +14,7 @@ const ArticlesDashboard = loadable(() => import("../operations-components/Articl
   fallback: <Loading />
 });
 
-const AddFAQ = loadable(() => import("../operations-components/AddFAQ"), {
+const ControlFAQ = loadable(() => import("../operations-components/ControlFAQ"), {
   fallback: <Loading />
 });
 
@@ -62,7 +62,7 @@ class Operations extends React.Component {
                   <Admin_Block className="articlesd" title="Articles dashbord" link="/articles-dashboard" />
                   <Admin_Block className="hmorders" title="Help for Market orders" link="/help-for-market-orders" />
                   <Admin_Block className="ssettings" title="Set Settings" link="/set-settings" />
-                  <Admin_Block className="addfaq" title="Add a FAQ" link="/add-faq" />
+                  <Admin_Block className="addfaq" title="Control FAQ" link="/control-faq" />
 
                 </div>
               </Route>
@@ -94,8 +94,8 @@ class Operations extends React.Component {
                 (props) => <ArticlesDashboard {...props} />
               } />
 
-              <Route path="/add-faq" render={
-                (props) => <AddFAQ {...props} />
+              <Route path="/control-faq" render={
+                (props) => <ControlFAQ {...props} />
               } />
 
             </Switch>

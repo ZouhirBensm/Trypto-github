@@ -49,6 +49,10 @@ const distributePaginatedDataController = require('../controllers/generic-contro
 
 const operationsSettingsMiddleware = require('../middleware/operations-middleware/operations-settings-middleware/operations-settings-middleware')
 
+const controlfaqMiddleware = require('../middleware/operations-middleware/operations-control-faq-middleware/control-faq-middleware')
+
+const controlfaqController = require('../controllers/operations-controllers/operations-control-faq-controllers/control-faq-controllers')
+
 const {getPopulatedUser} = require('../middleware/generic-middleware/get-populated-user')
 const {getProfilePicNameIfAnyMiddleware} = require('../middleware/generic-middleware/get-profile-pic-name-if-any-middleware')
 
@@ -80,6 +84,24 @@ operationsBackend_app_router.use(set_user_if_any, (req, res, next) => {
   
   return next()
 })
+
+
+
+
+operationsBackend_app_router.post('/create-faq', 
+require_loggedin_for_pages(true), 
+authenticate_role_for_pages([ROLE.MASTER]), 
+controlfaqMiddleware.saveNewfaqMiddleware,
+controlfaqController.responseController)
+
+
+
+
+
+
+
+
+
 
 
 
@@ -157,7 +179,7 @@ operationsBackend_app_router.get('/manage-subs/:userID', require_loggedin_for_pa
 
 
 
-operationsBackend_app_router.get(['/', '/articles-dashboard', '/add-faq'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
+operationsBackend_app_router.get(['/', '/articles-dashboard', '/control-faq'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
 
 
   console.log("\n\n\n_____________", req.session.userId)
@@ -182,6 +204,18 @@ operationsBackend_app_router.get('/create-article', require_loggedin_for_pages(t
 
   var JSX_to_load
   JSX_to_load = 'CreateArticle';
+
+  // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
+    JSX_to_load: JSX_to_load,
+  })
+})
+
+
+operationsBackend_app_router.get('/add-faq', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
+
+  var JSX_to_load
+  JSX_to_load = 'AddFAQ';
 
   // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
@@ -250,6 +284,12 @@ geocodeTheGeometryMiddleware,
 createUserAssociatedLocalityMiddleware,
 operationsSettingsMiddleware.getTheUpdatedUserToUseInQueryStringOnFrontEnd,
 operationsSettingsControllers.setAssociatedLocalityResponderController)
+
+
+
+
+
+
 
 
 

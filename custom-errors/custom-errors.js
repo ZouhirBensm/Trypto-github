@@ -9,6 +9,17 @@ class CustomError extends Error {
 }
 
 
+class GenericJSONError extends CustomError {
+  constructor(message, overwriteStatus = undefined) {
+    super()
+    this.type = this.constructor.name
+    this.statusCode = overwriteStatus || errorCode
+    this.message = message
+  }
+}
+
+
+
 class PayloadInadequateError extends CustomError {
   constructor(message, overwriteStatus = undefined) {
     super()
@@ -180,6 +191,7 @@ module.exports = {
   // SubCustomError,
   MongoError,
   CustomError,
+  GenericJSONError,
   ValidationError,
   LoggingInError,
   NoRefererError,

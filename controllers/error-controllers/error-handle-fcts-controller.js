@@ -15,6 +15,13 @@ const errorResponseDispatcherController = async (err, req, res, next) => {
           message: err.client_message,
         }
       })
+    case "GenericJSONError":
+      return res.status(err.statusCode).json({
+        error: {
+          type: err.type,
+          message: err.message,
+        }
+      })
     case "MongoError":
       return res.status(err.statusCode).json({
         error: {
