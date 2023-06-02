@@ -14,6 +14,11 @@ const FAQSchema = new Schema({
         type: Date,
         default: new Date(),
     },
+    link: {
+        type: String,
+        required: true,
+        unique: true
+    },
 })
 
 

@@ -1,7 +1,7 @@
 .env
 node_modules
 public/dist
-seeds
+seeds/dev
 public/img/bidblock-article-enclosure-images/*
 public/img/marketorder-images/*
 !public/img/marketorder-images/seed-images

@@ -1,19 +1,27 @@
-const {MongoError, GenericJSONError} = require('../../../custom-errors/custom-errors')
+const { MongoError, GenericJSONError } = require('../../../custom-errors/custom-errors')
 const FAQ = require('../../../models/operations-models/FAQ')
 const httpStatus = require("http-status-codes")
 
 
-async function saveNewfaqMiddleware(req, res, next){
+async function saveNewfaqMiddleware(req, res, next) {
 
   console.log(req.body)
 
-  
+  const url_path = req.body.title.toLowerCase()
+    .replace(/[^\w\s]|_/g, '') // Remove punctuation
+    .toLowerCase()
+    .replace(/\s+/g, '-');
+
+  console.log(url_path);
+
+
   let FAQ_ret
 
   try {
     FAQ_ret = await FAQ.create({
       title: req.body.title,
       inputs: req.body.inputs,
+      link: `/FAQ/${url_path}`
     })
   } catch (e) {
     const message_error = 'Was unable to save the FAQ on the backend.'
@@ -24,7 +32,7 @@ async function saveNewfaqMiddleware(req, res, next){
   // console.log("FAQ_ret:\n", FAQ_ret)
 
   if (!FAQ_ret) {
-  // if (true) {
+    // if (true) {
     const message_error = "FAQ_ret variable was not assigned/"
     const error = new GenericJSONError(message_error)
     return next(error)

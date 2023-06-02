@@ -7,6 +7,19 @@ class FAQ extends React.Component {
     super(props)
     this.state = {}
 
+    // TODO !!!!! give public access to market pages all
+    // get rid of userID on the profiles page
+    // couleurs des popups
+    // user needs to accept terms and conditions on sign up
+    // add bid block logo en haut a gauche
+    // Desktop dashboards on home banner
+    // Spelling errors
+    // home banner: facilitate
+    // home banner: upcoming
+    // home banner cards: on in app: deposit in bitcoin wallet
+    // home banner cards Upcomming: Upcoming
+
+    
     // TODO !!!!
     // Temporarly getting the data from this Element, but going to use a database in the future or something
     this.FAQ_datas = [
@@ -23,6 +36,8 @@ class FAQ extends React.Component {
         link: '#',
       }
     ]
+
+    // this.loadFAQtitles = this.loadFAQtitles.bind(this)
 
   }
 
