@@ -13,6 +13,11 @@ const Admin_Block = loadable(() => import("../operations-components/Admin-Block"
 const ArticlesDashboard = loadable(() => import("../operations-components/ArticlesDashboard"), {
   fallback: <Loading />
 });
+
+const AddFAQ = loadable(() => import("../operations-components/AddFAQ"), {
+  fallback: <Loading />
+});
+
 const UserSelect = loadable(() => import("../operations-components/UserSelect"), {
   fallback: <Loading />
 });
@@ -57,6 +62,7 @@ class Operations extends React.Component {
                   <Admin_Block className="articlesd" title="Articles dashbord" link="/articles-dashboard" />
                   <Admin_Block className="hmorders" title="Help for Market orders" link="/help-for-market-orders" />
                   <Admin_Block className="ssettings" title="Set Settings" link="/set-settings" />
+                  <Admin_Block className="addfaq" title="Add a FAQ" link="/add-faq" />
 
                 </div>
               </Route>
@@ -86,6 +92,10 @@ class Operations extends React.Component {
 
               <Route path="/articles-dashboard" render={
                 (props) => <ArticlesDashboard {...props} />
+              } />
+
+              <Route path="/add-faq" render={
+                (props) => <AddFAQ {...props} />
               } />
 
             </Switch>

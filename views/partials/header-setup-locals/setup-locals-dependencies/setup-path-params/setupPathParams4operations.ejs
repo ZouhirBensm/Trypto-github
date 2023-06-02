@@ -1,6 +1,6 @@
 <script>
 
-  if(paths_URL[1]){
+  if (paths_URL[1]) {
     switch (paths_URL[1]) {
       case 'create-article':
         caseOperationsTask = 'create-article'
@@ -24,12 +24,15 @@
       case 'set-settings':
         caseOperationsTask = 'set-settings'
         break;
-    
+      case 'add-faq':
+        caseOperationsTask = 'add-faq'
+        break;
+
       default:
         break;
     }
 
-    if(paths_URL[2]){
+    if (paths_URL[2]) {
       caseUserID = paths_URL[2]
     }
   }

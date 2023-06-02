@@ -157,7 +157,7 @@ operationsBackend_app_router.get('/manage-subs/:userID', require_loggedin_for_pa
 
 
 
-operationsBackend_app_router.get(['/', '/articles-dashboard'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
+operationsBackend_app_router.get(['/', '/articles-dashboard', '/add-faq'], require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
 
 
   console.log("\n\n\n_____________", req.session.userId)
