@@ -11,7 +11,8 @@ const FAQ = require('../../models/operations-models/FAQ')
 
 
 const ENV = require('../../config/base');
-const { populate } = require('../../models/User');
+
+console.log(ENV)
 
 mongoose.set('strictQuery', true);
 
