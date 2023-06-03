@@ -2,6 +2,8 @@
 import { withRouter } from 'react-router-dom';
 import FAQItem from '../home-functionalities/FAQItem'
 
+import './styles/RootFAQ.css'
+
 class RootFAQ extends React.Component {
   constructor(props) {
     super(props)
@@ -51,9 +53,8 @@ class RootFAQ extends React.Component {
     return (
 
       <React.Fragment>
-        <div>Root FAQ</div>
 
-        <div id="FAQ-main-component" className='higher-level-div'>
+        <div id="FAQ-main-component" className='higher-level-div RootFAQ'>
 
           <h1>FAQ</h1>
 
@@ -67,7 +68,9 @@ class RootFAQ extends React.Component {
             })}
           </div>
 
-          <button onClick={this.goBack}>Go Back</button>
+          <button onClick={this.goBack}>
+            <img src="/img/SVG/home/faq/back.svg" alt="" />
+          </button>
 
 
         </div>

@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+div#FAQ-main-component {
+  width: 90%;
+  margin: 0 auto;
+}
+
+div#FAQ-main-component > h1 {
+  text-align: left;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  letter-spacing: 2.9px;
+  color: #010757;
+  margin: 0;
+}
+
+
+div#FAQ-main-component > button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  /* vertical-align: middle; */
+  margin: 0 auto;
+  display: block;
+}
+
+div#FAQ-main-component > button > img {
+  width: 40px;
+  height: 40px;
+}
+
+
+
+
+

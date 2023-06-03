@@ -495,6 +495,10 @@ homeOrdersBackend_app_router.get('/FAQ/:faq?', requireRefererMiddleware, require
   })
 })
 
+
+
+
+
 homeOrdersBackend_app_router.get('/terms-conditions', requireRefererMiddleware, require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), (req,res)=>{
 
   var JSX_to_load = 'TermsConditions';
