@@ -1,0 +1,8 @@
+div#react-div {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+div#FAQ-high-component {
+  flex-grow: 1;
+}

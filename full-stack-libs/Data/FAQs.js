@@ -1,7 +1,7 @@
 const FAQs = [
   {
     title: 'Why Bidblock?',
-    inputs: ['BidBlock SAAS platform is the first Canadian-based marketplace using cryptocurrency, where sellers can meet buyers through the platform and get connected through the messaging portal to facilitate trading.']
+    inputs: ['BidBlock SAAS platform is the first Canadian-based marketplace using bitcoin, where sellers can meet buyers through the platform and get connected through the messaging portal to facilitate trading.']
   },
   {
     title: 'Which platforms are supported?',

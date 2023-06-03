@@ -1,4 +1,5 @@
 import { Link, withRouter } from 'react-router-dom';
+import './styles/ParticularFAQ.css'
 
 // import '../style/reactDivMobile.css'
 
@@ -11,11 +12,9 @@ class ParticularFAQ extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
-    console.log('\n\nthis.props.testabc: ', this.props.testabc)
   }
 
   goBack = () => {
-    console.log(this.props.history)
     this.props.history.goBack();
   };
 
@@ -25,14 +24,24 @@ class ParticularFAQ extends React.Component {
     return (
 
       <React.Fragment>
-        <div>
+        <div id='faq-particular'>
 
-          <div>Particualr FAQ</div>
-          <Link to='/FAQ'>Root FAQ</Link>
-          <br />
-          <button onClick={this.goBack}>Go Back</button>
+          <h1>{this.props.faq?.title}</h1>
 
-        </div>
+          {this.props.faq?.inputs.map((input, index)=>{
+            return <p key={index}>{input}</p>
+          })}
+
+        <Link to='/FAQ'>FAQs</Link>
+        <br />
+
+        <button onClick={this.goBack}>
+          <img src="/img/SVG/home/faq/back.svg" alt=""/>
+        </button>
+
+        
+      </div>
+
       </React.Fragment>
 
     );
