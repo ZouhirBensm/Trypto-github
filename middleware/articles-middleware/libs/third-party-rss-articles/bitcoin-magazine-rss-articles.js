@@ -37,6 +37,10 @@ function articalizeForBidBlock(_MostRecentItems){
     let excerpt = excerpt_word_count > excerpt_max_number_of_words ? takeUntilWordNumber(_item.contentSnippet, excerpt_max_number_of_words) + ' ...' : _item.contentSnippet
 
     // console.log('\n\n', _item.contentSnippet, "\n<->\n", excerpt)
+    // console.log("_item.enclosure.url: \n", _item.enclosure.url)
+
+    const _itemEnclosureUrl = _item.enclosure.url.replace('http://', 'https://')
+    // console.log("_itemEnclosureUrl: \n", _itemEnclosureUrl)
 
     return {
       _id: ObjectId(),
@@ -46,7 +50,7 @@ function articalizeForBidBlock(_MostRecentItems){
       category: CATEGORY.BITCOIN_MAGAZINE,
       excerpt: excerpt,
       link: _item.link,
-      enclosure: _item.enclosure.url
+      enclosure: _itemEnclosureUrl
     }
   })
   return articlesFromBitcoinMagazine
