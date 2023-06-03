@@ -2,7 +2,7 @@ import './styles/OnPageFooter.css'
 
 function OnPageFooter() {
 
-  console.log("loggedInUserId: ", loggedInUserId)
+  // console.log("loggedInUserId: ", loggedInUserId)
 
   return (
     <React.Fragment>

@@ -1,3 +1,4 @@
+
 import FAQItem from './FAQItem'
 import './styles/FAQ.css'
 
@@ -5,7 +6,7 @@ import './styles/FAQ.css'
 class FAQ extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {faqs: []}
 
     // TODO !!!!! give public access to market pages all
     // get rid of userID on the profiles page
@@ -19,28 +20,40 @@ class FAQ extends React.Component {
     // home banner cards: on in app: deposit in bitcoin wallet
     // home banner cards Upcomming: Upcoming
 
-    
-    // TODO !!!!
-    // Temporarly getting the data from this Element, but going to use a database in the future or something
-    this.FAQ_datas = [
-      {
-        title: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla, libero?',
-        link: '#',
-      },
-      {
-        title: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla, libero?',
-        link: '#',
-      },
-      {
-        title: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla, libero?',
-        link: '#',
-      }
-    ]
-
-    // this.loadFAQtitles = this.loadFAQtitles.bind(this)
+    this.loadFAQtitles = this.loadFAQtitles.bind(this)
 
   }
 
+  componentDidMount(){
+    this.loadFAQtitles()
+  }
+
+
+  async loadFAQtitles(){
+    let response
+
+    response = await fetch(`/faqs?limit=5`)
+
+
+    const contentType = response.headers.get('Content-Type')
+    // console.log(contentType)
+
+    let json
+    if (contentType && contentType.includes('application/json')){
+      json = await response.json()
+    }
+
+    if(response.status !== 200) {
+      let err = 'Response not 200 and not in JSON format.'
+      if(json) err =  json.error.message
+      console.error(err)
+      return
+    }
+
+    this.setState({faqs: json.srv_})
+    return
+
+  }
 
   render() {
     return (
@@ -50,7 +63,7 @@ class FAQ extends React.Component {
           <h1>FAQ</h1>
 
           <div id="FAQ-container">
-            {this.FAQ_datas.map((FAQ_data, i)=>{
+            {this.state.faqs.map((FAQ_data, i)=>{
               return <FAQItem
                 key={i}
                 title={FAQ_data.title}

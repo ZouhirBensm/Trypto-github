@@ -1,6 +1,5 @@
 import './styles/EmailMarketingCollector.css'
 import { verifyEmail } from '../../full-stack-libs/validations'
-import Operations from '../root-spas/Operations'
 
 class EmailMarketingCollector extends React.Component {
   constructor(props) {

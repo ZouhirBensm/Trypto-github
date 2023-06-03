@@ -105,6 +105,10 @@ const createAndUpdateNewPasswordController = require('../controllers/reset-passw
 const marketingController = require('../controllers/home-currencyorders-controllers/marketing-controllers')
 
 
+const faqDataMiddleware = require('../middleware/home-currencyorders-middleware/faq-data-middleware')
+const faqResponseControllers = require('../controllers/home-currencyorders-controllers/faq-response-controllers')
+
+
 
 // Use this to check the role, requires a res.locals.user.role
 const { set_user_if_any } = require("../middleware/generic-middleware/set-user-if-any-middleware")
@@ -129,6 +133,14 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
   return next()
 })
 
+
+
+
+// TODO !!!! when closing the process, properly close the mongoose connection or something. Look into earnanswers
+
+
+
+homeOrdersBackend_app_router.get('/faqs/:faq_title?', faqDataMiddleware.retrieveFAQsMiddleware, faqResponseControllers.responseFAQsController)
 
 
 
@@ -472,7 +484,7 @@ homeOrdersBackend_app_router.post('/marketing/email', requireRefererMiddleware, 
 
 
 
-homeOrdersBackend_app_router.get('/FAQ', requireRefererMiddleware, require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), (req,res)=>{
+homeOrdersBackend_app_router.get('/FAQ/:faq?', requireRefererMiddleware, require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), (req,res)=>{
 
 
   var JSX_to_load = 'FAQPage';
