@@ -19,6 +19,7 @@ class FAQ extends React.Component {
     // home banner: upcoming
     // home banner cards: on in app: deposit in bitcoin wallet
     // home banner cards Upcomming: Upcoming
+    // Make the app USA dollar adapted
 
     this.loadFAQtitles = this.loadFAQtitles.bind(this)
 
