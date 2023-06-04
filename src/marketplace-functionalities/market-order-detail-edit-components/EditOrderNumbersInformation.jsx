@@ -229,7 +229,7 @@ class EditOrderNumbersInformation extends React.Component {
 
     if (response.ok) {
       json = await response.json()
-      actual_BTC_value = json.data["bitcoin"]?.cad
+      actual_BTC_value = json.data["bitcoin"]?.usd
 
       console.log(actual_BTC_value)
       conversionInput.value = actual_BTC_value

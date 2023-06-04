@@ -278,7 +278,7 @@ class MakeMarketOrder extends React.Component {
     }
     if (response.ok) {
       pkg_prices = await response.json()
-      market_price_btc = pkg_prices.data[_crypto.toLowerCase()]?.cad
+      market_price_btc = pkg_prices.data[_crypto.toLowerCase()]?.usd
 
       return this.setState({
         onBTCvaluation: market_price_btc

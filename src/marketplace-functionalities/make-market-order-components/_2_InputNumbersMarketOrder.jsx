@@ -75,11 +75,11 @@ class _2_InputNumbersMarketOrder extends React.Component {
             </select>
 
 
-            <label htmlFor="price-input">Price in CAD</label>
+            <label htmlFor="price-input">Price in USD</label>
             <input onChange={(e) => {
               this.props.handleChange("price", e);
               this.amountsToCalculatorChange(e);
-            }} type="number" id="price-input" name="price" step="0.01" required value={this.props.price || ''} placeholder='CAD' />
+            }} type="number" id="price-input" name="price" step="0.01" required value={this.props.price || ''} placeholder='USD' />
 
 
             <label htmlFor="onBTCvaluation-input">Based on what BTC value</label>

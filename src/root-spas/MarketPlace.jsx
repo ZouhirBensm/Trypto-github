@@ -20,6 +20,14 @@ const MarketOrderDetails = loadable(() => import("../marketplace-functionalities
 });
 
 
+// TODO !!!!! HERE
+// When making a order, enter price in USD or CAD
+// Simultaneously show the update the other as it changes
+// make the market amount in USD
+// update make UIs
+// Then post
+// Update view UIs
+
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 class MarketPlace extends React.Component {
