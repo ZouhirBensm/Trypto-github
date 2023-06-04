@@ -10,7 +10,7 @@ class OrderNumbersInformation extends React.Component {
     this.SATBTC = this.SATBTC.bind(this)
   }
 
-  SATBTC(e){
+  SATBTC(e) {
     e.preventDefault()
     this.setState({
       unit: this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null
@@ -26,8 +26,10 @@ class OrderNumbersInformation extends React.Component {
 
 
     let symbol
-    if(this.state.unit == 'BTC') { symbol = '₿' }
-    if(this.state.unit == 'SAT') { symbol = 'S' }
+    if (this.state.unit == 'BTC') {
+      symbol = <img src="/img/SVG/market/individual-article/bitcoin.svg" alt="" />
+    }
+    if (this.state.unit == 'SAT') { symbol = 'Sats' }
 
 
     return (
@@ -38,8 +40,7 @@ class OrderNumbersInformation extends React.Component {
           {/* ONE */}
           <div id='p1'>
             <span>{this.props.price} </span>
-            <span className='round-symbol green special-padding-1'>$</span>
-
+            <img src="/img/SVG/market/individual-article/dollar.svg" alt="" />
             <br />
             <span>Rate: </span>
             <span>{this.props.conversion} $/BTC</span>
@@ -49,16 +50,29 @@ class OrderNumbersInformation extends React.Component {
 
           {/* TWO */}
           <div id="p2">
-            <span>{this.state.unit == "BTC" ? `${amountsToBTC} ` : this.state.unit == "SAT" ? `${amountsToSAT} ` : null}</span>
+            <div>
+
+              <span>{this.state.unit == "BTC" ? `${amountsToBTC} ` : this.state.unit == "SAT" ? `${amountsToSAT} ` : null}</span>
 
 
-            <span className='round-symbol blue special-padding-1'>{symbol}</span>
-            
+              <span>{symbol}</span>
 
-            {/* in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null} */}
-            <button className='margin-left' onClick={(e) => { this.SATBTC(e) }}>
-              <img src="/img/SVG/market/individual-article/arrow-switch.svg" alt="" />
-            </button>
+
+              {/* in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null} */}
+              <button className='margin-left' onClick={(e) => { this.SATBTC(e) }}>
+                <img src="/img/SVG/market/individual-article/arrow-switch.svg" alt="" />
+              </button>
+
+            </div>
+
+
+            <div>
+              <span> {(this.props.price * 1.34).toFixed(2)} </span>
+              <img src="/img/SVG/market/individual-article/maple.svg" alt="" />
+              <span> Dollar's</span>
+              {/* <img src="/img/SVG/market/individual-article/dollar2.svg" alt="" /> */}
+
+            </div>
 
           </div>
 

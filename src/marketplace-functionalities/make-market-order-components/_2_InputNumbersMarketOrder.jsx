@@ -54,6 +54,8 @@ class _2_InputNumbersMarketOrder extends React.Component {
   render() {
     let options = this.setOptions(this.props.chain)
 
+    const CADPrice = (this.props.price * 1.34).toFixed(2)
+
     return (
       <React.Fragment>
 
@@ -81,6 +83,11 @@ class _2_InputNumbersMarketOrder extends React.Component {
               this.amountsToCalculatorChange(e);
             }} type="number" id="price-input" name="price" step="0.01" required value={this.props.price || ''} placeholder='USD' />
 
+            <label>Price in CAD</label>
+            <div className='display'>
+              <span>{isNaN(CADPrice) ? '' : CADPrice } CAD </span>
+            </div>
+
 
             <label htmlFor="onBTCvaluation-input">Based on what BTC value</label>
             <input onChange={(e) => {
@@ -93,7 +100,7 @@ class _2_InputNumbersMarketOrder extends React.Component {
 
 
             <label>Amounts to:</label>
-            <div id='amounts-to'>
+            <div id='amounts-to' className='display'>
               <span>{this.state.unit == "BTC" ? `${this.state.amountsTo_inBTC} BTC` : this.state.unit == "SAT" ? `${this.state.amountsTo_inSAT} SAT` : null}</span>
 
               {/* <button onClick={(e) => { this.toogleUnits(e) }}>in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null}</button> */}

@@ -101,10 +101,18 @@ div#market-order-part5 > form.form > div#p1> input#price-input {
   grid-column: 2;
 }
 
+
+
 div#market-order-part5 > form.form > div#p1 > span:first-of-type {
   grid-row: 1;
   grid-column: 3;
   text-align: left;
+}
+
+div#market-order-part5 > form.form > div#p1 > span:first-of-type > img {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
 }
 
 div#market-order-part5 > form.form > div#p1 > div#rate-label {
@@ -125,3 +133,8 @@ div#market-order-part5 > form.form > div#p1 span#unit {
   grid-column: 3;
   text-align: left;
 }
+
+/* div#market-order-part5 > form.form > div#p1 span#unit > img {
+  width: 30px;
+  height: 30px;
+} */

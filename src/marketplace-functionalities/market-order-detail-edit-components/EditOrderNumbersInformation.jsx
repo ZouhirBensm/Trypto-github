@@ -9,7 +9,8 @@ class EditOrderNumbersInformation extends React.Component {
       amountsToBTC: undefined,
       amountsToSAT: undefined,
       unit: "BTC",
-      popup: undefined
+      popup: undefined,
+      price: undefined
     }
     this.SATBTC = this.SATBTC.bind(this)
     this.amountsToCalculatorChange = this.amountsToCalculatorChange.bind(this)
@@ -103,8 +104,8 @@ class EditOrderNumbersInformation extends React.Component {
 
 
     let symbol
-    if (this.state.unit == 'BTC') { symbol = '₿' }
-    if (this.state.unit == 'SAT') { symbol = 'S' }
+    if (this.state.unit == 'BTC') { symbol = <img src="/img/SVG/market/individual-article/bitcoin.svg" alt="" /> }
+    if (this.state.unit == 'SAT') { symbol = 'Sats' }
 
 
     return (
@@ -122,10 +123,11 @@ class EditOrderNumbersInformation extends React.Component {
               this.amountsToCalculatorChange(e);
             }} type="number" id="price-input" name="price" step="0.01" defaultValue={this.props.price} />
             <span className='margin-left'>
-              <span>CA</span><span className='round-symbol green special-padding-1'>$</span>
+              {/* <span>$</span> */}
+              <img src="/img/SVG/market/individual-article/dollar.svg" alt="" />
             </span>
 
-            
+
             <div id="rate-label">
               <label htmlFor="conversion-input">Rate: </label>
               <button className='margin-right' onClick={(e) => { this.clickGetBTCPrice(e) }}>
@@ -138,7 +140,7 @@ class EditOrderNumbersInformation extends React.Component {
             }} type="number" id="conversion-input" name="conversion" step="0.01" defaultValue={this.props.conversion} />
 
 
-            <span className='margin-left' id='unit'>CA$/BTC</span>
+            <span className='margin-left' id='unit'>$/BTC</span>
 
 
           </div>
@@ -147,14 +149,27 @@ class EditOrderNumbersInformation extends React.Component {
 
           {/* TWO */}
           <div id="p2">
-            <span>{this.state.unit == "BTC" ? `${this.state.amountsToBTC} ` : this.state.unit == "SAT" ? `${this.state.amountsToSAT} ` : null}</span>
 
-            <span className='round-symbol blue special-padding-1'>{symbol}</span>
+            <div>
 
-            {/* in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null} */}
-            <button className='margin-left' onClick={(e) => { this.SATBTC(e) }}>
-              <img src="/img/SVG/market/individual-article/arrow-switch.svg" alt="" />
-            </button>
+              <span>{this.state.unit == "BTC" ? `${this.state.amountsToBTC} ` : this.state.unit == "SAT" ? `${this.state.amountsToSAT} ` : null}</span>
+
+              <span className='round-symbol blue special-padding-1'>{symbol}</span>
+
+              {/* in {this.state.unit == "BTC" ? "SAT" : this.state.unit == "SAT" ? "BTC" : null} */}
+              <button className='margin-left' onClick={(e) => { this.SATBTC(e) }}>
+                <img src="/img/SVG/market/individual-article/arrow-switch.svg" alt="" />
+              </button>
+            </div>
+
+
+            <div>
+              <span> {((this.state.price || this.props.price) * 1.34).toFixed(2)} </span>
+              <img src="/img/SVG/market/individual-article/maple.svg" alt="" />
+              <span> Dollar's</span>
+              {/* <img src="/img/SVG/market/individual-article/dollar2.svg" alt="" /> */}
+            </div>
+
 
           </div>
 
@@ -276,6 +291,7 @@ class EditOrderNumbersInformation extends React.Component {
     this.setState({
       amountsToBTC: amountsToBTC,
       amountsToSAT: amountsToSAT,
+      price: realtime_price
     })
   }
 

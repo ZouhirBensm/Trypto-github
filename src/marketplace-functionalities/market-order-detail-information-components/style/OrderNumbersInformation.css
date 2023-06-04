@@ -67,6 +67,22 @@ div#market-order-part5 div#p1 {
   /* border-radius: 10px 10px 0px 0px; */
 }
 
+div#market-order-part5 div#p1 > img {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
+
+
+
+
+
+div#market-order-part5 div#p1 > span {
+  vertical-align: middle;
+}
+
+
+
 
 /* P1 CHILDREN */
 /* div#market-order-part5 div#p1 > div:first-of-type {
@@ -82,22 +98,7 @@ div#market-order-part5 div#p1 > div > div {
 
 }
 
-div#market-order-part5 span.round-symbol {
-  width: 16px;
-  height: 16px;
-  display: inline-block;
-  color: white;
-  border-radius: 50%;
-  text-align: center;
-}
 
-div#market-order-part5 span.green {
-  background-color: green;
-}
-
-div#market-order-part5 span.special-padding-1 {
-  padding: 3px 5px 9px 6px;
-}
 
 
 /* P2 */
@@ -105,27 +106,30 @@ div#market-order-part5 div#p2 {
   text-align: center;
 }
 
+div#market-order-part5 div#p2 > div img {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
 
-div#market-order-part5 div#p2 > span {
+
+div#market-order-part5 div#p2 > div > span {
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
 
   /* letter-spacing: 2.4px; */
   text-transform: capitalize;
-}
-
-
-div#market-order-part5 div#p2 > span.blue {
-  background-color: #80E8FF;
+  vertical-align: middle;
 }
 
 
 
 
 
-div#market-order-part5 div#p2 > span:first-of-type {
+div#market-order-part5 div#p2 > div > span:first-of-type {
   color: #010757;
   letter-spacing: 2.4px;
+  vertical-align: middle;
 }
 
 

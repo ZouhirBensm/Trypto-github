@@ -105,6 +105,8 @@ class MakeMarketOrder extends React.Component {
   }
 
   handleChange(input, e = undefined) {
+
+    console.log(input)
     let payment = null
 
     if (input == "chain") payment = {
