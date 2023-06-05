@@ -1,5 +1,6 @@
 import { parseFullPath4lastpath } from '../../full-stack-libs/utils'
 import { Link } from 'react-router-dom';
+import './styles/UsersList.css'
 
 
 
@@ -25,7 +26,7 @@ class UsersList extends React.Component {
         <Link to={{
           pathname: `/operations/${this.props.mode}/${userElement._id}`,
           search: `?comprehensiveSelectedUserInfo=${JSON.stringify(userElement)}`
-          }} key={i}>
+        }} key={i}>
           <UserElement
             user={userElement}
           />
@@ -37,8 +38,7 @@ class UsersList extends React.Component {
   }
   render() {
     return (
-      <div>
-        UserList...
+      <div id='user-list'>
         {this.userElements}
       </div>
     )
@@ -57,9 +57,16 @@ class UserElement extends React.Component {
   }
   render() {
     return (
-      <div className='user-element-wrapper'>
-        <p>{this.props.user.email} ➡️ username: {this.props.user.username}</p>
-      </div>
+
+      <React.Fragment>
+        <div className='user-item'>
+          <span> {this.props.user.username}</span>
+          <span> {this.props.user.email}</span>
+        </div>
+
+      </React.Fragment>
+
+
     )
   }
 }

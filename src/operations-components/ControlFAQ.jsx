@@ -1,6 +1,8 @@
 import { Link, BrowserRouter, Route, Switch } from 'react-router-dom';
 import Operations from '../root-spas/Operations';
 
+// import './styles/ControlFAQ.css'
+
 class ControlFAQ extends React.Component {
   constructor(props) {
     super(props);
@@ -18,10 +20,20 @@ class ControlFAQ extends React.Component {
         <BrowserRouter>
           <Switch>
             <Route exact path='/operations/control-faq/'>
-              <ul>
-                <li><a href='/operations/edit-delete-faq'>Edit or delete a FAQ</a></li>
-                <li><a href='/operations/add-faq'>Add a FAQ</a></li>
-                <li><Link to='/operations'>Back</Link></li>
+              <ul className='operation-ul'>
+                <li>
+                  <a href='/operations/edit-delete-faq'>Edit or delete a FAQ</a>
+                  <img src="/img/SVG/operations/articles-dashboard/proceed.svg" alt="" />
+                </li>
+                <li>
+                  <a href='/operations/add-faq'>Add a FAQ</a>
+                  <img src="/img/SVG/operations/articles-dashboard/proceed.svg" alt="" />
+                </li>
+                <li>
+                  <Link to='/operations'>
+                    <img src="/img/SVG/operations/user-list/back.svg" alt="" />
+                  </Link>
+                </li>
               </ul>
             </Route>
 

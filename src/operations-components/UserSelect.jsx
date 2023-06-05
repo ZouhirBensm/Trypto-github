@@ -5,6 +5,8 @@ import PageSelector from '../generic-components/PageSelector'
 import OperationActions from '../operations-components/OperationActions'
 import MarketOrderDetails from '../marketplace-functionalities/MarketOrderDetails'
 
+import './styles/UserSelect.css'
+
 import { Link, BrowserRouter, Route, Switch } from 'react-router-dom';
 
 
@@ -83,7 +85,14 @@ class UserSelect extends React.Component {
         <BrowserRouter>
           <Switch>
             <Route exact path='/operations/:mode'>
-              <div>Component: UserSelect, this.props.mode: {this.props.mode}</div>
+              <dl>
+                <dt>Component:</dt>
+                <dd>UserSelect</dd>
+                <dt>this.props.mode:</dt>
+                <dd>{this.props.mode}</dd>
+              </dl>
+
+
  
               <UsersList
                 users={this.state.users}
@@ -99,7 +108,9 @@ class UserSelect extends React.Component {
                 controls={this.controls}
               />
 
-              <Link to='/operations'>Back</Link>
+              <Link to='/operations'>
+                <img src="/img/SVG/operations/user-list/back.svg" alt="" />
+              </Link>
             </Route>
 
             <Route exact path="/operations" render={

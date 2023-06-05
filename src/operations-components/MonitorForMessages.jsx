@@ -12,7 +12,7 @@ class MonitorForMessages extends React.Component {
   render(){
     return (
       <React.Fragment>
-        <div>MonitorForMessages...{this.props.selected_userID}</div>
+        {/* <div>MonitorForMessages...{this.props.selected_userID}</div> */}
         <BrowserRouter>
         <Switch>
           <Route exact path="/operations/monitor-messages/:userId" render={

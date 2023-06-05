@@ -1,3 +1,4 @@
+// import './styles/ArticlesDashboard.css'
 
 import { Link, BrowserRouter, Route, Switch } from 'react-router-dom';
 import Operations from '../root-spas/Operations';
@@ -18,10 +19,20 @@ class ArticlesDashboard extends React.Component {
         <BrowserRouter>
           <Switch>
             <Route exact path='/operations/articles-dashboard/'>
-              <ul>
-                <li><a href='/operations/create-article'>Create an Article</a></li>
-                <li><a href='/operations/article-selector'>Article Selector</a></li>
-                <li><Link to='/operations'>Back</Link></li>
+              <ul className='operation-ul'>
+                <li>
+                  <a href='/operations/create-article'>Create an Article</a>
+                  <img src="/img/SVG/operations/articles-dashboard/proceed.svg" alt="" />
+                </li>
+                <li>
+                  <a href='/operations/article-selector'>Article Selector</a>
+                  <img src="/img/SVG/operations/articles-dashboard/proceed.svg" alt="" />
+                </li>
+                <li>
+                  <Link to='/operations'>
+                    <img src="/img/SVG/operations/user-list/back.svg" alt="" />
+                  </Link>
+                </li>
               </ul>
             </Route>
 

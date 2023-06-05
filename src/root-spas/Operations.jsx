@@ -59,9 +59,9 @@ class Operations extends React.Component {
                 <div id="menu">
                   <Admin_Block className="mmessages" title="Monitor Messages" link="/monitor-messages" />
                   <Admin_Block className="msubs" title="Manage Subscriptions" link="/manage-subs" />
-                  <Admin_Block className="articlesd" title="Articles dashbord" link="/articles-dashboard" />
                   <Admin_Block className="hmorders" title="Help for Market orders" link="/help-for-market-orders" />
                   <Admin_Block className="ssettings" title="Set Settings" link="/set-settings" />
+                  <Admin_Block className="articlesd" title="Articles dashbord" link="/articles-dashboard" />
                   <Admin_Block className="addfaq" title="Control FAQ" link="/control-faq" />
 
                 </div>
