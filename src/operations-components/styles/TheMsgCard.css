@@ -1,0 +1,11 @@
+div.wrapper-page-convo-elements>div.section>button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  /* margin: 1rem 0; */
+}
+
+div.wrapper-page-convo-elements>div.section>button>img {
+  width: 30px;
+  height: 30px;
+}

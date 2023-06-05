@@ -1,5 +1,6 @@
 import PageSelector from "../generic-components/PageSelector";
 import CRUDConvoList from "./CRUDConvoList";
+import './styles/CRUDMessages.css'
 
 class CRUDMessages extends React.Component {
   constructor(props){
@@ -167,13 +168,14 @@ class CRUDMessages extends React.Component {
     console.log("parent render: ", this.state.msg_stream)
     return (
       <React.Fragment>
-        <div >CRUDMessages...</div>
+        {/* <div >CRUDMessages...</div> */}
         <CRUDConvoList
           // userID = {this.userId}
           // buttons='normal' 
           // order_type={this.props.match.params.order_type} 
           msg_stream={this.state.msg_stream}
           handleClick={this.handleClick}
+          page={this.state.page} 
         />
 
 

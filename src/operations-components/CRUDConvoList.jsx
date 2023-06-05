@@ -1,5 +1,6 @@
 import React from "react"
 import TheMsgCard from "./TheMsgCard"
+import './styles/CRUDConvoList.css'
 
 class CRUDConvoList extends React.Component {
   constructor(props) {
@@ -8,6 +9,8 @@ class CRUDConvoList extends React.Component {
     }
     // console.log("constructor: ", this.props)
   }
+
+
 
   // shouldComponentUpdate(nextProps, nextState) {
   //   console.log("shouldComponentUpdate: ", nextProps.msg_stream)
@@ -31,6 +34,7 @@ class CRUDConvoList extends React.Component {
           msg={msg}
           handleClick={this.props.handleClick}
           position={i}
+          page={this.props.page}
         />
       })
       return PageConvoElements
@@ -47,7 +51,7 @@ class CRUDConvoList extends React.Component {
     console.log(PageConvoElements)
     return (
       <React.Fragment>
-        <div>CRUDConvoList...</div>
+        {/* <div>CRUDConvoList...</div> */}
         <div className="wrapper-page-convo-elements">
           {PageConvoElements}
         </div>
@@ -100,6 +104,7 @@ class ConvoElement extends React.Component {
           msg={this.props.msg}
           position={this.props.position}
           handleClick={this.props.handleClick}
+          page={this.props.page}
         />
 
 

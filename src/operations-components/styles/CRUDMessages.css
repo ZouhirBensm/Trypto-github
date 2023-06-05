@@ -1,0 +1,9 @@
+div#popup {
+  color: red;
+  width: 90%;
+  font-size: var(--font-size-extra);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  margin: 1rem auto;
+  text-align: center;
+}
