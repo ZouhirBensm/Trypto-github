@@ -3,12 +3,16 @@ import {validateInputs} from '../../full-stack-libs/validations'
 import CATEGORY from '../../full-stack-libs/Types/ArticleCategories';
 import THIRD_PARTY_CATEGORY from '../../full-stack-libs/Types/ArticleThirdPartyCategories';
 
+import './styles/CreateArticle.css'
+
 
 class CreateArticle extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      popup: null
+      popup: null,
+      image_name_about_to_save: undefined,
+      file_about_to_save: undefined,
     }
     this.clickCreateArticle = this.clickCreateArticle.bind(this)
     this.setpopups = this.setpopups.bind(this)
@@ -19,10 +23,15 @@ class CreateArticle extends React.Component {
   componentDidMount() {
     this.buildCategorySelect()
 
+    const imageSelect = document.getElementById('image-select')
     let popup = document.getElementById('popup')
+
     popup.style.display = "block";
-    let form = document.getElementById("form_id")
-    form.append(popup)
+    imageSelect.parentNode.insertBefore(popup, imageSelect.nextSibling);
+    
+
+    // let form = document.getElementById("form_id")
+    // form.append(popup)
   }
 
 
@@ -39,12 +48,19 @@ class CreateArticle extends React.Component {
       return error_message
     }
 
-    let input = document.getElementById('image-select')
-    let selectedFile = input.files[0]
-    const isThereAFile = !!selectedFile
+    // let input = document.getElementById('image-select')
+    // let selectedFile = input.files[0]
+    // const isThereAFile = !!selectedFile
     // console.log(isThereAFile)
 
-    if(!isThereAFile) {
+
+    // if(!isThereAFile) {
+    //   error_message = `Please upload a associated image before making a save request to the server!`
+    //   return error_message
+    // }
+    // return
+
+    if(!this.state.file_about_to_save) {
       error_message = `Please upload a associated image before making a save request to the server!`
       return error_message
     }
@@ -74,7 +90,7 @@ class CreateArticle extends React.Component {
 
   async clickCreateArticle(e) {
     e.preventDefault()
-    console.log("Creating an article...")
+    // console.log("Creating an article...")
 
     let input = document.getElementById('image-select')
     let selectedFile = input.files[0]
@@ -128,29 +144,62 @@ class CreateArticle extends React.Component {
   }
 
 
+  inputBufferOnChange(e = null) {
+    if (!e) return
+    // Only triggers on file change (therefor a file is always present), so this guard is not necessary
+    if (!e.currentTarget.files[0]) return
+
+    // console.log("onChange!!!", e, '\n', e.target)
+    console.log(e.currentTarget.files[0].name)
+
+    this.setState({
+      image_name_about_to_save: e.currentTarget.files[0].name,
+      file_about_to_save: e.currentTarget.files[0],
+      popup: null
+    })
+  }
+
+  componentWillUnmount() {
+    let input = document.getElementById('image-select')
+    let dt = new DataTransfer()
+    input.files = dt.files
+  }
+
+
   render() {
     let popup = document.getElementById('popup')
     popup.innerHTML = this.state.popup
+
+    const displayNoFileChosen = 'No file Chosen'
 
 
     return (
       <React.Fragment>
 
-        <div className="create-article-container">
+        <div id="create-article-container">
           <form className="form" id="form_id">
-            <h3>Creating an article...</h3>
+            <h1>Create an article</h1>
 
             <label htmlFor="crypto-select">Select Category</label>
             <select name="category" id="category-select" required>
-            </select> <br/>
+            </select> 
 
             <label htmlFor="title-id">Title</label>
-            <input type="text" name='title' id='title-id' required /> <br/>
+            <input type="text" name='title' id='title-id' required placeholder='Your title'/> 
 
             <label htmlFor="content-id">Content</label>
-            <textarea name="content" id="content-id" cols="30" rows="5" required></textarea> <br/>
+            <textarea name="content" id="content-id" cols="30" rows="20" required></textarea> 
 
-            <input id="image-select" type="file" name="image" /> <br/>
+            <label id='upload-button' htmlFor="image-select">Upload</label>
+            <div>
+              {this.state.image_name_about_to_save ?
+                this.state.image_name_about_to_save
+                :
+                displayNoFileChosen
+              }
+            </div>
+
+            <input id="image-select" type="file" name="image" onChange={(e) => { this.inputBufferOnChange(e) }}/>
 
             <button type='submit' onClick={async (e) => {
               e.preventDefault()
@@ -164,11 +213,15 @@ class CreateArticle extends React.Component {
                 this.setpopups(ret_clickCreateArticle)
                 return
               }
-            }}>Create Article</button> <br/>
+            }}>Create</button>
+
+            <a href="/operations/articles-dashboard">
+              <img src="/img/SVG/operations/global/back.svg" alt="" />
+            </a>
+
           </form>
         </div>
 
-        <a href="/operations/articles-dashboard">Back</a>
 
       </React.Fragment>
     )

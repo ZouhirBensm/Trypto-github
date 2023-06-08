@@ -35,6 +35,7 @@ class UserSelect extends React.Component {
   }
 
   componentDidMount() {
+    console.log('component did mount!!')
     this.loadData()
   }
 
@@ -108,8 +109,8 @@ class UserSelect extends React.Component {
                 controls={this.controls}
               />
 
-              <Link to='/operations'>
-                <img src="/img/SVG/operations/user-list/back.svg" alt="" />
+              <Link id='user-list-back' to='/operations'>
+                <img src="/img/SVG/operations/global/back.svg" alt="" />
               </Link>
             </Route>
 

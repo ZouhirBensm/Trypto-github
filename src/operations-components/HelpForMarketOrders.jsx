@@ -13,7 +13,13 @@ class HelpForMarketOrders extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div>HelpForMarketOrders...{this.props.selected_userID}</div>
+        <dl>
+          <dt>Component:</dt>
+          <dd>{this.constructor.name}</dd>
+          <dt>Selected user ID:</dt>
+          <dd>{this.props.selected_userID}</dd>
+        </dl>
+
         <MyMarketOrders
           userID_toQueryWith={this.props.selected_userID}
         />

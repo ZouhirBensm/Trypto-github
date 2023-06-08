@@ -56,7 +56,7 @@ class ModalPoper extends React.Component {
 
 
         {/* this.props.clickable || */}
-        <button style={this.state.modal ? { pointerEvents: 'none' } : null} id={this.props.component_id} disabled={this.state.modal} onClick={(e) => {
+        <button style={this.state.modal ? { pointerEvents: 'none' } : null} id={this.props.component_id} class='modal-poper-button' disabled={this.state.modal} onClick={(e) => {
 
           this.setState({ modal: !modal }, () => {
             // TODO !!!! repetitive code, need to place in own function (#3 repeated)
@@ -87,7 +87,7 @@ class ModalPoper extends React.Component {
 
 
 
-        <div id={`${this.props.component_id}-modal`} className="modal-top-container" ref={node => (this.modalRef = node)}>
+        <div id={`${this.props.component_id}-modal` } className="modal-top-container" ref={node => (this.modalRef = node)}>
           {modal && (
             <React.Fragment>
               <div className="close" onClick={(e) => {

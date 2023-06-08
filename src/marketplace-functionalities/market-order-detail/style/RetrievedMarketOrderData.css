@@ -1,9 +1,7 @@
 div.wrapper {
-  /* height: 80vh; */
   overflow: scroll;
-  /* border: 1px black solid; */
   position: absolute;
-  top: 50px;
+  top: 30px;
   bottom: 30px;
   left: 0%;
   right: 0%;

@@ -1,8 +1,8 @@
 import Profile from '../profile-functionalities/Profile5'
 class ManageSubscriptions extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
-    this.state={
+    this.state = {
       selectedUser: undefined,
       error_popup: undefined
     }
@@ -10,11 +10,11 @@ class ManageSubscriptions extends React.Component {
     this.loadData = this.loadData.bind(this)
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.loadData()
   }
 
-  async loadData(){
+  async loadData() {
     console.log("LOAD F IN DATA!!!!")
     let response
     response = await fetch(`/operations/detailed-user-information/${this.props.selected_userID}`, {
@@ -27,8 +27,8 @@ class ManageSubscriptions extends React.Component {
     serverOBJ = await response.json()
     console.log(serverOBJ)
 
-    if(response.ok) {
-  
+    if (response.ok) {
+
       this.setState({
         selectedUser: serverOBJ.selectedUser
       })
@@ -41,9 +41,9 @@ class ManageSubscriptions extends React.Component {
 
   }
 
-  render(){
+  render() {
     let error_div = null
-    if(this.state.error_popup) {
+    if (this.state.error_popup) {
       error_div = <div className="error-popup">{this.state.error_popup}</div>
     }
 
@@ -51,14 +51,19 @@ class ManageSubscriptions extends React.Component {
 
     return (
       <React.Fragment>
-        <div>ManageSubscriptions...</div>
+        {/* <div>ManageSubscriptions...</div> */}
+        <dl>
+          <dt>Component:</dt>
+          <dd>{this.constructor.name}</dd>
+        </dl>
+        
         {error_div}
-        {this.state.selectedUser?
+        {this.state.selectedUser ?
           // <h1>Bam</h1>
-          <Profile 
-          usedUserID={this.props.selected_userID} 
-          selectedUser={this.state.selectedUser}
-          profileimagename={this.props.profileimagename}
+          <Profile
+            usedUserID={this.props.selected_userID}
+            selectedUser={this.state.selectedUser}
+            profileimagename={this.props.profileimagename}
           />
           :
           null

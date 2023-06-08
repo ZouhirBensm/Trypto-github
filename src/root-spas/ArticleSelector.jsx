@@ -1,14 +1,14 @@
 // import React from "react"
 import '../style/reactDivMobile.css'
-
-import { Link, BrowserRouter, Route, Switch} from 'react-router-dom';
+import './styles/ArticleSelector.css'
 
 class ArticleSelector extends React.Component {
   render(){
     return (
       <React.Fragment>
-        <div>Mock ArticleSelector component...</div>
-        <a href="/operations/articles-dashboard">Back</a>
+        <a id='article-select-back' href="/operations/articles-dashboard">
+          <img src="/img/SVG/operations/global/back.svg" alt="" />
+        </a>
       </React.Fragment>
     )
   }

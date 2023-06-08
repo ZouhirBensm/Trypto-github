@@ -47,13 +47,13 @@ class Operations extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div id="operations-main-menu">
 
-          <BrowserRouter basename="/operations">
-            <ScrollToTop />
-            <Switch>
+        <BrowserRouter basename="/operations">
+          <ScrollToTop />
+          <Switch>
 
-              <Route exact path="/">
+            <Route exact path="/">
+              <div id="operations-main-menu">
                 {/* Disables the currency app */}
                 {/* <Admin_Block className="horders" title="Help for BTC currency orders" link="/help-for-orders" /> */}
                 <div id="menu">
@@ -65,43 +65,45 @@ class Operations extends React.Component {
                   <Admin_Block className="addfaq" title="Control FAQ" link="/control-faq" />
 
                 </div>
-              </Route>
+              </div>
+
+            </Route>
 
 
-              {/* Disables the currency app */}
-              {/* <Route path="/help-for-orders" render={
+            {/* Disables the currency app */}
+            {/* <Route path="/help-for-orders" render={
                 (props) => <UserSelect {...props} mode="help-for-orders" />
               } /> */}
 
-              <Route path="/monitor-messages" render={
-                (props) => <UserSelect {...props} mode="monitor-messages" />
-              } />
+            <Route path="/monitor-messages" render={
+              (props) => <UserSelect {...props} mode="monitor-messages" />
+            } />
 
-              <Route path="/manage-subs" render={
-                (props) => <UserSelect {...props} mode="manage-subs" />
-              } />
+            <Route path="/manage-subs" render={
+              (props) => <UserSelect {...props} mode="manage-subs" />
+            } />
 
-              <Route path="/help-for-market-orders" render={
-                (props) => <UserSelect {...props} mode="help-for-market-orders" />
-              } />
+            <Route path="/help-for-market-orders" render={
+              (props) => <UserSelect {...props} mode="help-for-market-orders" />
+            } />
 
-              <Route path="/set-settings" render={
-                (props) => <UserSelect {...props} mode="set-settings" />
-              } />
+            <Route path="/set-settings" render={
+              (props) => <UserSelect {...props} mode="set-settings" />
+            } />
 
 
-              <Route path="/articles-dashboard" render={
-                (props) => <ArticlesDashboard {...props} />
-              } />
+            <Route path="/articles-dashboard" render={
+              (props) => <ArticlesDashboard {...props} />
+            } />
 
-              <Route path="/control-faq" render={
-                (props) => <ControlFAQ {...props} />
-              } />
+            <Route path="/control-faq" render={
+              (props) => <ControlFAQ {...props} />
+            } />
 
-            </Switch>
-          </BrowserRouter>
+          </Switch>
+        </BrowserRouter>
 
-        </div>
+
 
 
       </React.Fragment>

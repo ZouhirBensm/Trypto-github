@@ -90,7 +90,6 @@ class MyMarketOrders extends React.Component {
     return (
       <React.Fragment>
 
-        <hr/>
 
         {paths_URL[0] == "operations"? null: paths_URL[0] == "marketplace" ? <NavigationNew
           order_type="allmyorders"

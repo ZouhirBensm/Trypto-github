@@ -122,16 +122,10 @@ a.button {
   font-family: 'Gemunu Libre', sans-serif;
 }
 
-li a:link:hover {
-  color: white;
-}
+
 
 li a:visited {
   color: red;
-}
-
-li a:active {
-  color: lightblue;
 }
 
 

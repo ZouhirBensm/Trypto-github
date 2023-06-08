@@ -1,5 +1,20 @@
+import '../styles/SetLocationSetting.css'
 
 
+// Default image is pixelated profile image
+// uploaded image profile is pixelated
+// email edit
+// first name, last name phone number
+
+// Sign in with google and meta
+
+// empty chat threads page
+
+// order of faqs
+// email border focus is black home page
+// social media share market items
+// bidblock bottom misalligned
+// favicon and title on prod
 class SetLocationSetting extends React.Component {
   constructor(props) {
     super(props)
@@ -51,43 +66,82 @@ class SetLocationSetting extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div>SetLocationSetting...{this.props.comprehensiveSelectedUserInfoDataObj._id}</div>
-        <div>
-        Does this user have a associated locality? 
-        {this.props.comprehensiveSelectedUserInfoDataObj.userassociatedlocalityID ?
-          " ✅ " + this.props.comprehensiveSelectedUserInfoDataObj.userassociatedlocalityID.location.address
-          :
-          " ❌"}
+
+        <div id="set-users-location">
+
+
+          <dl>
+            <dt>Component:</dt>
+            <dd>{this.constructor.name}</dd>
+            <dt>User ID Setting:</dt>
+            <dd>{this.props.comprehensiveSelectedUserInfoDataObj._id}</dd>
+          </dl>
+
+
+          <h3 className="h3-bold">Associated Locality</h3>
+
+
+          <div id="does-have-locality">
+          {this.props.comprehensiveSelectedUserInfoDataObj.userassociatedlocalityID ?
+          <div>
+            <img src="/img/SVG/settings/box.svg" alt="" />
+            <span>{this.props.comprehensiveSelectedUserInfoDataObj.userassociatedlocalityID.location.address}</span>
+          </div> : 
+          
+          <img src="/img/SVG/settings/unbox.svg" alt="" />
+
+          }
         </div>
 
-        <h3>Configure one: </h3>
-        <span>Entre wanted Lat, and Lng for this user:</span>
-
-        <form className="form" id="edit-locality" onSubmit={this.makeRequest}>
-          <label htmlFor="lat-input">Latitude:<input type="number" id="lat-input" name="lat" step="0.0000000001" required /></label><br />
-
-          <label htmlFor="lng-input">Longitude:<input type="number" id="lng-input" name="lng" step="0.0000000001" required /></label><br />
-          <input type="submit" value="Post!" onClick={(e)=>{
-            this.props.setpopup(undefined)
-          }}/>
-        </form> <br /><br />
 
 
-        {this.props.popup ?
-          <p>{this.props.popup}</p>
-          : null}
+          <h3 className="h3-bold">Configure one</h3>
 
-        <div><strong>Resource:</strong> convert address to LAT, and LNG: </div>
-        <a href="https://www.google.com/maps" target="_blank">Google Maps</a> <br /><br />
+          <form className="form" id="edit-locality" onSubmit={this.makeRequest}>
+            <label htmlFor="lat-input">Latitude:</label>
+            <input type="number" id="lat-input" name="lat" step="0.0000000001" required placeholder='latitude'/>
 
 
-        {/* <a href={`/operations/set-settings/${this.props.comprehensiveSelectedUserInfoDataObj._id}?comprehensiveSelectedUserInfo=${JSON.stringify(this.props.comprehensiveSelectedUserInfoDataObj)}`}>Back</a> <br/> */}
-        <hr/>
-        <button type="button" onClick={this.goBack}>
-          Go back
-        </button>
-        
-        
+            <label htmlFor="lng-input">Longitude:</label>
+            <input type="number" id="lng-input" name="lng" step="0.0000000001" required placeholder='longitude'/>
+
+
+            <button onClick={(e) => {
+              this.props.setpopup(undefined)
+            }}>Post</button>
+
+          </form>
+
+
+
+          {this.props.popup ?
+            <span id='popup'>{this.props.popup}</span>
+            : null}
+
+
+
+          <div id='resource-latlng'>
+            <strong>Resource: </strong>
+            <span>
+              Address  LAT, and LNG:
+            </span>
+            <a href="https://www.google.com/maps" target="_blank">Google Maps</a>
+          </div>
+
+
+
+
+
+
+          {/* <a href={`/operations/set-settings/${this.props.comprehensiveSelectedUserInfoDataObj._id}?comprehensiveSelectedUserInfo=${JSON.stringify(this.props.comprehensiveSelectedUserInfoDataObj)}`}>Back</a> <br/> */}
+
+          <button type="button" onClick={this.goBack}>
+            <img src="/img/SVG/operations/global/back.svg" alt="" />
+          </button>
+
+        </div>
+
+
 
       </React.Fragment>
     )

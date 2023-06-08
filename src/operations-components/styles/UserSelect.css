@@ -1,11 +1,11 @@
-div#operations-main-menu > a {
+a#user-list-back {
   height: fit-content;
   display: block;
   text-align: center;
 }
 
 
-div#operations-main-menu > a > img{
+a#user-list-back > img{
   width: 40px;
   height: 40px;
 }

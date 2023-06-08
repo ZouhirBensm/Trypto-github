@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+div#create-article-container>form#form_id {
+  width: 90%;
+  margin: 0 auto;
+}
+
+
+div#create-article-container>form#form_id>h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-h1);
+  color: #1266FC;
+  margin: 0;
+  /* display: inline; */
+  margin: 3vh auto;
+  vertical-align: middle;
+}
+
+div#create-article-container>form#form_id>label {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  color: #010757;
+  text-transform: capitalize;
+  font-size: var(--font-size-label);
+  /* margin-right: 1ch; */
+  /* display: inline; */
+  display: block;
+  width: fit-content;
+}
+
+div#create-article-container>form#form_id>select {
+  padding: 1px 10px 0 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('/public/img/SVG/operations/global/drop.svg');
+  background-position: right 2px center;
+  background-repeat: no-repeat;
+
+  font-size: var(--font-size-input);
+
+  border: 1px solid #B8CEF5;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #6B7FA2;
+  width: 50%;
+  display: block;
+  font-size: var(--font-size-input);
+  text-indent: 1ch;
+}
+
+
+
+div#create-article-container>form#form_id>label {
+  display: block;
+}
+
+div#create-article-container>form#form_id>input:first-of-type {
+  width: 49.5%;
+}
+
+div#create-article-container>form#form_id>textarea {
+  width: 80%;
+}
+
+div#create-article-container>form#form_id>input:first-of-type,
+div#create-article-container>form#form_id>textarea {
+  border: 1px solid #B8CEF5;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #6B7FA2;
+  display: block;
+  font-size: var(--font-size-input);
+  text-indent: 1ch;
+}
+
+div#create-article-container>form#form_id>label#upload-button {
+  width: fit-content;
+  border: 1px solid #010757;
+  border-radius: 20px;
+  letter-spacing: 1.4px;
+  color: #010757;
+  text-transform: capitalize;
+  padding: 0.8rem;
+  margin: 2vh 0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: var(--font-size-button);
+  display: block;
+}
+
+
+div#create-article-container>form#form_id>label#upload-button+div {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-button);
+  letter-spacing: 1.2px;
+  color: #B8CEF5;
+  margin: 2vh auto;
+}
+
+
+
+div#create-article-container>form#form_id>button{
+  background: transparent linear-gradient(88deg, #80E8FF 0%, #0049E4 100%) 0% 0% no-repeat padding-box;
+  box-shadow: 0px 6px 20px #1266FC4E;
+  border-radius: 8px;
+  border: none;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  display: block;
+  font-size: var(--font-size-button);
+  /* margin: 2rem auto; */
+  padding: 0.8rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 1.4px;
+}
+
+
+
+div#create-article-container>form#form_id>a{
+  display: block;
+  text-align: center;
+}
+
+
+
+div#create-article-container>form#form_id>a>img{
+  margin: 2vh auto;
+  width: 40px;
+  height: 40px;
+}
+
+
+
+
+div#create-article-container>form#form_id>input#image-select {
+  /* Your styles here */
+  display: none;
+}
+
+
+div#create-article-container>form#form_id>button {
+  display: block;
+}
+
+
+div#create-article-container>form#form_id > div#popup {
+  color: red;
+  font-size: var(--font-size-extra);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  margin: 1rem 0;
+  display: block;
+}  

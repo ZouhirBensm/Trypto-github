@@ -2,7 +2,12 @@
 
 
 div#react-div {
-  padding-top: 5vh;
+  /* padding-top: 5vh; */
+}
+
+div#operations-main-menu {
+  width: 90%;
+  margin: 0 auto;
 }
 
 div#operations-main-menu > div#menu {

@@ -1,5 +1,10 @@
-import { Link, BrowserRouter, Route, Switch } from 'react-router-dom';
+import { NavLink, Link, BrowserRouter, Route, Switch } from 'react-router-dom';
 import SetLocationSetting from './operations-settings-components/SetLocationSetting'
+import './styles/SettingsNavigator.css'
+
+import './styles/Tag.css'
+
+
 // import { withRouter } from 'react-router-dom';
 // import full_stack_utils from '../../full-stack-libs/utils'
 
@@ -54,7 +59,9 @@ class SettingsNavigator extends React.Component {
         <ShowTagContext.Provider value={true}>
           <BrowserRouter>
 
-            <Link to={`/operations/set-settings/${this.props.selected_userID}/set-users-associated-locality?comprehensiveSelectedUserInfo=${JSON.stringify(this.props.comprehensiveSelectedUserInfoDataObj)}`}>Set Users Associated Locality</Link> <br />
+            <NavLink id='nav' activeClassName="active" to={`/operations/set-settings/${this.props.selected_userID}/set-users-associated-locality?comprehensiveSelectedUserInfo=${JSON.stringify(this.props.comprehensiveSelectedUserInfoDataObj)}`}>
+              Set Users Locality
+            </NavLink>
             {/* <Link to='/settings/test2'>Test2</Link> <br />
           <Link to='/settings/test3'>Test3</Link> <br />
           <Link to='/settings/test4'>Test4</Link> <br /> */}
@@ -81,6 +88,8 @@ class SettingsNavigator extends React.Component {
             } /> */}
 
               <Tag />
+
+
             </Switch>
           </BrowserRouter>
         </ShowTagContext.Provider>
@@ -111,7 +120,9 @@ class Tag extends React.Component {
   render() {
     console.log(this.context)
     return (
-      this.context && <a href="/operations/set-settings">Back to UserList</a>
+      this.context && <a id='tag-back' href="/operations/set-settings">
+        <img src="/img/SVG/operations/global/back.svg" alt="" />
+      </a>
     )
   }
 }

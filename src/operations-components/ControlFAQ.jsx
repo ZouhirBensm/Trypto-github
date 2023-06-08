@@ -31,7 +31,7 @@ class ControlFAQ extends React.Component {
                 </li>
                 <li>
                   <Link to='/operations'>
-                    <img src="/img/SVG/operations/user-list/back.svg" alt="" />
+                    <img src="/img/SVG/operations/global/back.svg" alt="" />
                   </Link>
                 </li>
               </ul>

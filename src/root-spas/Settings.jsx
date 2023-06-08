@@ -13,7 +13,7 @@ const SetAssociatedLocality = loadable(() => import('../settings-functionalities
   fallback: <Loading />
 });
 
-import Test2 from '../settings-functionalities/Test2'
+// import Test2 from '../settings-functionalities/Test2'
 // import Test3 from '../settings-functionalities/Test3'
 // import Test4 from '../settings-functionalities/Test4'
 
@@ -63,11 +63,11 @@ class Settings extends React.Component {
                   selectedUser={selectedUser}
                 />
               } />
-{/* 
+              {/* 
               <Route path="/settings/test2" render={
                 (props) => <Test2 {...props} />
               } /> */}
-  
+
             </Switch>
 
           </BrowserRouter>
@@ -75,7 +75,7 @@ class Settings extends React.Component {
 
 
 
-        <OnPageFooter/>
+        <OnPageFooter />
 
 
       </React.Fragment>

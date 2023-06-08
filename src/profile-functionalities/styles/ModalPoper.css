@@ -1,5 +1,6 @@
 /* ALL BUTTONS */
-div#react-div > button {
+/* div#react-div >  */
+button.modal-poper-button {
   display: block;
   border: none;
   background-color: transparent;
@@ -7,7 +8,8 @@ div#react-div > button {
 }
 
 /* UPGRADE BASIC BUTTON STYLES (REP) */
-div#react-div > button#upgrade-id {
+/* div#react-div >  */
+button#upgrade-id {
   background-image: url('/public/img/SVG/profile/upgrade-button/bk-logo-card2.svg');
   background-repeat: no-repeat;
   background-size: cover;
@@ -22,14 +24,16 @@ div#react-div > button#upgrade-id {
   width: 90%;
 }
 
-div#react-div > button#upgrade-id > h3 {
+/* div#react-div >  */
+button#upgrade-id > h3 {
   margin: var(--card-header-margin) var(--card-header-margin) 0 var(--card-header-margin);
   font-size: var(--font-size-h3);
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
 }
 
-div#react-div > button#upgrade-id > span {
+/* div#react-div >  */
+button#upgrade-id > span {
   font-size: var(--font-size-h4);
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
@@ -38,7 +42,8 @@ div#react-div > button#upgrade-id > span {
   color: #1266FC;
 }
 
-div#react-div > button#upgrade-id > div {
+/* div#react-div >  */
+button#upgrade-id > div {
   font-size: var(--font-size-button);
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
@@ -48,7 +53,8 @@ div#react-div > button#upgrade-id > div {
 
 
 /* DELETE BUTTON */
-div#react-div > button#delete-id {
+/* div#react-div >  */
+button#delete-id {
   margin: 2vh auto;
   padding: 0.8rem;
   background: #010757;
@@ -69,7 +75,8 @@ div#react-div > button#delete-id {
 
 
 /* UNSUB BUTTON */
-div#react-div > button#unsub-id {
+/* div#react-div >  */
+button#unsub-id {
   width: 90%;
   text-align: left;
   margin: 2vh auto;
