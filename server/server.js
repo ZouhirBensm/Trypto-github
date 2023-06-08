@@ -82,7 +82,6 @@ db.once("open", () => {
 })
 
 
-// TODO have a opt in page on bidblock.ca that takes email list, look into 
 // TODO network in groups to see if audience would pay for a bidblock platform
 // TODO look into kickstarter to fund the app: https://www.kickstarter.com/, look into crowdfunding
 

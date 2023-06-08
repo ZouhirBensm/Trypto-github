@@ -13,7 +13,7 @@ import DeleteThisOrder from '../market-order-detail-information-components/Delet
 import Deal from '../market-order-detail-information-components/Deal'
 
 
-// TODO !!!! Refactor entire CSS
+// TODO !!! Refactor entire CSS
 
 class InformationDetailsDisplay extends React.Component {
   constructor(props) {
@@ -63,7 +63,7 @@ class InformationDetailsDisplay extends React.Component {
 
 
 
-        {/* TODO !!!! Check all inline CSS in these components (in this file) and place them in respective css files */}
+        {/* TODO !!! Check all inline CSS in these components (in this file) and place them in respective css files */}
 
 
         <div id='order-information-wrapper'>

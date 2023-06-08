@@ -15,7 +15,7 @@ class ProfileImageUpload extends React.Component {
   }
 
   setPopup(popup) {
-    // TODO !!!! need to add scroll to proper place when this happens
+    // TODO !!! need to add scroll to proper place when this happens
     this.setState({
       popup: popup
     })
@@ -68,7 +68,7 @@ class ProfileImageUpload extends React.Component {
         // this.props.setpopups(json.error?.message.client_message)
         popup = json.error?.message.client_message
 
-        // TODO !!!! make this into a utils function and use accross all components
+        // TODO !! make this into a utils function and use accross all components
         // This is an example of how to determine if array or string, then if array, assign into a string that concatenates the str elements
         // Kept as reference
 
@@ -110,9 +110,6 @@ class ProfileImageUpload extends React.Component {
 
 
   render() {
-
-    // TODO !!!! HERE finish styling all the rest of this modal
-
 
     const displayNoFileChosen = 'No file Chosen'
 

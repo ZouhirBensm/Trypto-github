@@ -4,7 +4,7 @@ import HomeBannerCard from './HomeBannerCard'
 import './styles/HomeBanner.css'
 
 
-// !!!! TODO rename this Component, because holds more than prices
+// TODO !!! rename this Component, because holds more than prices
 
 class HomeBanner extends React.Component {
   constructor(props) {

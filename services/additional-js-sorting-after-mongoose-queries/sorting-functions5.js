@@ -3,8 +3,6 @@ const ROLE = require('../../full-stack-libs/Types/Role')
 
 // Locality arranged -> Basic on top -> after Basic, and Locality, most resent to oldest in silos
 
-// TODO !!! Have the app adaptible to USD currency
-
 function sortingSteps(sellOrders, userLocalityObject) {
   let one, two, three, four, five
   let one_p1, one_p2, two_p1, two_p2, three_p1, three_p2, four_p1, four_p2, five_p1, five_p2

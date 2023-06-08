@@ -39,7 +39,7 @@ class Profile extends React.Component {
 
 
   setpopups(popups) {
-    // TODO !!!! need to add scroll to proper place when this happens
+    // TODO !!! need to add scroll to proper place when this happens
     this.setState({
       popups: popups
     })
@@ -51,7 +51,7 @@ class Profile extends React.Component {
 
   render() {
 
-    // TODO !!!! Place this as a utils and load on all needed components
+    // TODO !!! Place this as a utils and load on all needed components
     let popups_div = null
     if (this.state.popups) {
       Array.isArray(this.state.popups) ? popups_div = (this.state.popups.map((popup, i) => {
@@ -74,7 +74,7 @@ class Profile extends React.Component {
     let [current_billing_cycle_botom_datetime, current_billing_cycle_top_datetime] = billing_utils.BillingDateTimeCalculator(selectedUser.subscriptionID?.subscriptionDateTime)
 
     return (
-      // TODO !!!! Add a scroll up when modal pops up
+      // TODO !!! Add a scroll up when modal pops up
       <React.Fragment>
         <UserInfo
           userName={userName}
@@ -150,7 +150,6 @@ class Profile extends React.Component {
         <ModalPoper
           usedUserID={this.props.usedUserID}
           setpopups={this.setpopups}
-          // TODO !!!! HERE NEEDS to be a array because in delete mode unsubscrible button is not disabling (class)
           onModalToogle_button2Toogle={['upgrade-id', 'unsub-id']}
 
           component_id='delete-id'

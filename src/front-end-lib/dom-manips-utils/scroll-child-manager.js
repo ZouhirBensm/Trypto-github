@@ -3,7 +3,7 @@
 
 
 
-// TODO !!!! HERE
+// KEPT AS REFERENCE
 class ScrollChildManager {
 
   constructor(node = undefined, number = 0) {
@@ -69,7 +69,7 @@ class ScrollChildManager {
     // console.log("remainingLeftVariableScroll: ", remainingLeftVariableScroll)
 
 
-    // TODO!!!! TRANFORM TO CLASS: STATIC METHODS APPEND CHILD, and SCROLL EVENT, DATASET PROPERTY
+    // TRANFORM TO CLASS: STATIC METHODS APPEND CHILD, and SCROLL EVENT, DATASET PROPERTY
 
     this.triggerDown(remainingRightVariableScroll)
     this.triggerUp(remainingLeftVariableScroll)

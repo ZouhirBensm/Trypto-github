@@ -133,9 +133,9 @@ class EditBaseOrderInformation extends React.Component {
     return (
       <React.Fragment>
 
-        {/* TODO !!!! notsure might require to place class gray-box in a div.gray-box in order for the style .gray-box{} to apply accross browsers */}
+        {/* KEPT AS REFERENCE notsure might require to place class gray-box in a div.gray-box in order for the style .gray-box{} to apply accross browsers */}
         <form className="form gray-box" id="my_form"
-          // TODO !!!! notsure: configuration 2, kept, the onSubmit is linked to the inputs form='my_form' attribute. 
+          // KEPT AS REFERENCE notsure: configuration 2, kept, the onSubmit is linked to the inputs form='my_form' attribute. 
           // My worry is that of edit part will trigger this same function instead of their defined onSubmit (as the id='myform' are the same)
           // Temporarly kept configuration
           // If does not work long term switch to configuration 1 for all parts
@@ -258,7 +258,7 @@ class EditBaseOrderInformation extends React.Component {
         <div>{formattedDate}</div>
 
 
-        {/* TODO !!!!! configuration 1 get rid of the form="my_form" and enable the onClick event on this input tag */}
+        {/* KEPT AS REFERENCE configuration 1 get rid of the form="my_form" and enable the onClick event on this input tag */}
         {/* <input type="submit" value="Save Edits" form="my_form"
 
         onClick={async (e) => {

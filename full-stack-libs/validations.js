@@ -66,7 +66,7 @@ function verifyPassword(_password) {
 
 // TODO maintainers, process to allow the orders to go through
 // + 
-// TODO design= logo, icons/font awsome, dimmensions, implementation css mobile/desktop, customs pictogrammes, animations, mobile touch events
+// TODO  implementation css desktop, animations, mobile touch events
 
 
 // V2
@@ -85,7 +85,7 @@ function verifyPassword(_password) {
 
 function validateInputs(obj_input, err_msg = undefined) {
 
-  // TODO !!!! not sure to keep or not long term in regex concerning regex expression \*
+  // TODO !!! not sure to keep or not long term in regex concerning regex expression \*
   const preventInjectionsRegEx = /[<>;`}(")'{\&]/;
 
   for (const property in obj_input) {

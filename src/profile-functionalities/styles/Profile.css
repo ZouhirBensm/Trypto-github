@@ -8,10 +8,12 @@ img {
 div#react-div div.modal-top-container {
   position: absolute;
   top: 20px;
-  right: 5%;
-  left: 5%;
-  /* TODO !!!! determine the proper limit 60% for example with a stroll for the content */
-  /* bottom: 50%; */
+  right: 10%;
+  left: 10%;
+  /* right: 0;
+  left: 0; */
+  margin: auto;
+  max-width: 600px;
   overflow-x: hidden;
   overflow-y: scroll;
 
@@ -99,6 +101,15 @@ div.modal-top-container span#popup {
   margin: 0 5%;
   /* max-width: 350px;
   width: 100%; */
+}
+
+div#react-div > div.popup {
+  color: red;
+  font-size: var(--font-size-extra);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  display: block;
+  text-align: center;
 }
 
 

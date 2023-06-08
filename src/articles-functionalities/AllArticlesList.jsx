@@ -3,7 +3,7 @@ import { THIRD_PARTY_CATEGORIES, EXTERNAL_READS_CATEGORIES } from '../../full-st
 import './style/AllArticlesList.css'
 
 // TODO !!!! make loading a spinner at the center of the application or reactdiv div
-// TODO ! While articles are loading load the loading component in the meantime
+// TODO !!!! While articles are loading load the loading component in the meantime
 class AllArticlesList extends React.Component {
   constructor(props) {
     super(props)

@@ -56,10 +56,10 @@ class ModalPoper extends React.Component {
 
 
         {/* this.props.clickable || */}
-        <button style={this.state.modal ? { pointerEvents: 'none' } : null} id={this.props.component_id} class='modal-poper-button' disabled={this.state.modal} onClick={(e) => {
+        <button style={this.state.modal ? { pointerEvents: 'none' } : null} id={this.props.component_id} className='modal-poper-button' disabled={this.state.modal} onClick={(e) => {
 
           this.setState({ modal: !modal }, () => {
-            // TODO !!!! repetitive code, need to place in own function (#3 repeated)
+            // TODO !!! repetitive code, need to place in own function (#3 repeated)
             if (this.state.modal) {
               const mode = 'add'
               // Disable Main cards

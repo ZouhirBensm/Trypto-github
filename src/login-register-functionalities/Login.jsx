@@ -1,7 +1,7 @@
 import '../style/reactDivMobile.css'
 import '../root-spas/styles/Sign-in-up.css'
 import './styles/Login.css'
-import LogRegFooter from './LogRegFooter'
+// import LogRegFooter from './LogRegFooter'
 import { verifyEmail, validateInputs } from '../../full-stack-libs/validations'
 
 class Login extends React.Component {
@@ -155,7 +155,7 @@ class Login extends React.Component {
 
         </div>
 
-        <LogRegFooter />
+        {/* <LogRegFooter /> */}
 
       </React.Fragment>
     );

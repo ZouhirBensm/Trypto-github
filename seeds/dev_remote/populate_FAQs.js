@@ -3,8 +3,6 @@ const mongoose = require('mongoose')
 require('dotenv').config();
 
 
-// TODO !!!!! Make this script delete the entire collection and populate. Then, make it part of the production CI,CD process
-
 const FAQs = require('../../full-stack-libs/Data/FAQs')
 
 const FAQ = require('../../models/operations-models/FAQ')

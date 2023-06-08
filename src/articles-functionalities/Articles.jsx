@@ -71,7 +71,7 @@ class Articles extends React.Component {
         }
       })
     } else {
-      // TODO !!!!! add some error handling with UI
+      console.error("response.ok is false")
     }
 
   }

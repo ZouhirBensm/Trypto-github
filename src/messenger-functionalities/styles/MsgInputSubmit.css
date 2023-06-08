@@ -57,7 +57,6 @@ div#chat-total form#chatForm input[type="text"] {
 }
 
 
-/* TODO !!!! HERE NOT RENDERING */
 div#chat-total form#chatForm input[type="text"]::placeholder {
   /* color: #6B7FA2; */
   font-family: 'Poppins', sans-serif;
