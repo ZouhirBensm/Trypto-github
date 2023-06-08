@@ -22,7 +22,7 @@ class ControlFAQ extends React.Component {
             <Route exact path='/operations/control-faq/'>
               <ul className='operation-ul'>
                 <li>
-                  <a href='/operations/edit-delete-faq'>Edit or delete a FAQ</a>
+                  <a href='#'>Edit or delete a FAQ</a>
                   <img src="/img/SVG/operations/articles-dashboard/proceed.svg" alt="" />
                 </li>
                 <li>

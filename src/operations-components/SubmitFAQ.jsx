@@ -1,4 +1,4 @@
-
+import './styles/SubmitFAQ.css'
 
 class SubmitFAQ extends React.Component {
   constructor(props) {
@@ -63,7 +63,7 @@ class SubmitFAQ extends React.Component {
     return (
       <React.Fragment>
         <span id="popup">{this.state.popup}</span>
-        <br />
+
 
         <button onClick={this.submitFAQ}>
           Submit

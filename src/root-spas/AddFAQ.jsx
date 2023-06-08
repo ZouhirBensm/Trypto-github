@@ -1,5 +1,6 @@
 import '../style/reactDivMobile.css'
 import SubmitFAQ from '../operations-components/SubmitFAQ'
+import './styles/AddFAQ.css'
 
 class AddFAQ extends React.Component {
   constructor(props) {
@@ -53,43 +54,45 @@ class AddFAQ extends React.Component {
 
     return (
       <React.Fragment>
-        <div>
-          <h1>FAQ</h1>
+        <div id='add-faq-container'>
 
-          <label htmlFor="title">Title</label>
-          <br />
-          <input type="text" onChange={this.handleChangeTitle()} name='title'/>
-          <br />
-          <br />
-          <br />
+          <div>
 
-          <label>Inputs</label>
-          <br />
-          {inputs.map((input, index) => (
-            <React.Fragment key={index}>
-              <input value={input} onChange={this.handleChangeInputs(index)} />
-              {
-                this.state.inputs.length === 1 ? 
-                null
-                :
-                <button onClick={() => this.deleteInput(index)}>Delete</button>
-              }
-              <br />
-            </React.Fragment>
-          ))}
-          <br />
-          <button onClick={this.addInput}>Add Input</button>
+            <h1>FAQ</h1>
+
+            <label htmlFor="title">Title</label>
+            <input type="text" onChange={this.handleChangeTitle()} name='title' placeholder='FAQ Title'/>
+
+            <label>Inputs</label>
+            {inputs.map((input, index) => (
+              <React.Fragment key={index}>
+                <input value={input} onChange={this.handleChangeInputs(index)} placeholder={`Input ${index+1}`}/>
+                {
+                  this.state.inputs.length === 1 ? 
+                  null
+                  :
+                  <button className='trash' onClick={() => this.deleteInput(index)}>
+                    <img src="/img/SVG/operations/global/trash.svg" alt="" />
+                  </button>
+                }
+                <br />
+              </React.Fragment>
+            ))}
+            <button className='add' onClick={this.addInput}>
+              <img src="/img/SVG/operations/global/aadd.svg" alt="" />
+            </button>
+          </div>
+
+          <SubmitFAQ
+            title={this.state.title}
+            inputs={this.state.inputs}
+          />
+
+          <a href='/operations'>
+            <img src="/img/SVG/operations/global/back.svg" alt="" />
+          </a>
         </div>
-        <br />
 
-        <SubmitFAQ
-          title={this.state.title}
-          inputs={this.state.inputs}
-        />
-
-        <br />
-        <br />
-        <a href='/operations'>Back</a>
       </React.Fragment>
     );
   }

@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+div#add-faq-container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+
+div#add-faq-container>div>h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-h1);
+  margin: 5vh auto;
+  color: #1266FC;
+  display: block;
+}
+
+
+div#add-faq-container>div>label {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  color: #010757;
+  text-transform: capitalize;
+  font-size: var(--font-size-label);
+  display: block;
+  width: fit-content;
+}
+
+div#add-faq-container>div>input {
+  border: 1px solid #B8CEF5;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0px;
+  color: #6B7FA2;
+  display: inline-block;
+  font-size: var(--font-size-input);
+  text-indent: 1ch;
+  width: 50%;
+}
+
+
+div#add-faq-container>div>button {
+  border: none;
+  background-color: transparent;
+}
+
+div#add-faq-container>div>button.add {
+  display: block;
+}
+
+div#add-faq-container>div>button.add>img {
+  width: 40px;
+  height: 40px;
+}
+
+div#add-faq-container>div>button.trash {
+
+}
+
+div#add-faq-container>a {
+  display: block;
+}
+
+
+div#add-faq-container>a {
+  display: block;
+  margin: 1rem 0;
+}
+
+div#add-faq-container>a>img {
+  width: 40px;
+  height: 40px;
+}
+
+
+
+
+
+

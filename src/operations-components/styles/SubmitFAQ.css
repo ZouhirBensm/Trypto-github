@@ -1,0 +1,26 @@
+div#add-faq-container>button {
+  background: transparent linear-gradient(88deg, #80E8FF 0%, #0049E4 100%) 0% 0% no-repeat padding-box;
+  box-shadow: 0px 6px 20px #1266FC4E;
+  border-radius: 8px;
+  border: none;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  display: block;
+  font-size: var(--font-size-button);
+  padding: 0.8rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 1.4px;
+}
+
+
+div#add-faq-container > span#popup {
+  color: red;
+  width: 90%;
+  font-size: var(--font-size-extra);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  margin: 1rem 0;
+  display: block;
+}
