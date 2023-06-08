@@ -13,7 +13,7 @@ body {
 
   /* background-color: rgb(235 249 255); */
 
-  
+
 }
 
 ::-webkit-scrollbar {
@@ -23,13 +23,30 @@ body {
 }
 
 
-ul.home,
+
 ul.iflog {
 
   list-style: none;
   background-color: white;
   position: fixed;
-  width: 100vw;
+  width: 100%;
+  /* width: 80%; */
+  padding: 0;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  /* height: fit-content; */
+  /* Temporary measure */
+  /* display: none; */
+}
+
+ul.home {
+
+  list-style: none;
+  background-color: white;
+  position: fixed;
+  width: 100%;
+  /* width: 80%; */
   padding: 0;
   display: flex;
   align-items: center;
@@ -41,11 +58,11 @@ ul.iflog {
 
 
 ul.home {
-  height: 30px;
+  height: 50px;
 }
 
 ul.iflog {
-  height: 30px;
+  height: 50px;
 }
 
 /* ul.home {
@@ -67,10 +84,9 @@ ul.home>li {
 
 ul.home {
   bottom: 0;
-  /* margin: 0; */
-  margin-top: 0;
-  margin-bottom: 0;
-  
+
+  margin: 0;
+
   position: absolute;
   justify-content: space-around;
 
@@ -78,7 +94,7 @@ ul.home {
 
 ul.iflog {
   top: 0;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: 0;
 }
 
@@ -90,7 +106,41 @@ ul.iflog {
 ul.iflog>li {
   display: inline;
   position: sticky;
-  margin: 0 auto;
+  /* margin: 0 auto; */
+}
+
+ul.iflog>li:first-of-type {
+  margin-left: 5%;
+}
+
+ul.iflog>li:last-of-type {
+  margin-right: 5%;
+}
+
+ul.iflog>li>a[href='/users/login'] {
+  background: #1266FC;
+  box-shadow: 0px 6px 20px #1266FC4E;
+  border-radius: 8px;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+}
+
+ul.iflog>li>a[href='/subscription'],
+ul.iflog>li>a[href='/logout'] {
+  border: 2px solid #1266FC;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: #1266FC;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
 }
 
 
@@ -100,6 +150,10 @@ ul.iflog>li>a[href='/logout']>img,
 ul.home>li>a[href='/messaging/messages']>img,
 ul.home>li>a[href='/operations']>img {
   width: 24px;
+  height: 24px;
+}
+
+ul.iflog>li>div>img {
   height: 24px;
 }
 
@@ -147,8 +201,8 @@ div.sidebar-container {
 
   /* border: 1px black solid; */
   position: absolute;
-  top: 2em;
-  bottom: 2em;
+  top: 3.4em;
+  bottom: 3.4em;
   margin: 0;
   left: 0;
   z-index: 2;
@@ -275,7 +329,7 @@ div[onclick="toogleSideNav()"] {
 
 
 
-div#header > span#popup {
+div#header>span#popup {
   color: red;
   width: 90%;
   font-size: var(--font-size-extra);

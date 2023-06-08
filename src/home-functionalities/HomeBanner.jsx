@@ -60,7 +60,7 @@ class HomeBanner extends React.Component {
           span1.innerHTML = country_name;
           priceElement.appendChild(span1);
           const span2 = document.createElement('span');
-          span2.innerHTML = `${price} ${currency_symbol}`;
+          span2.innerHTML = `${price.toLocaleString()} ${currency_symbol}`;
           priceElement.appendChild(span2);
           homeHeaderPrices.appendChild(priceElement);
   
@@ -97,7 +97,7 @@ class HomeBanner extends React.Component {
             <div>
               <h1>Buy, Sell, Trade</h1>
               <h2>In Bitcoin and Sats</h2>
-              <div>Welcome to Bidblock, we are currently building the most ethical market that integrates a system to facilite bitcoin transactions using upcomming bitcoin technologies.</div>
+              <div>Welcome to Bidblock, we are currently building the most ethical market that integrates a system to facilitate bitcoin transactions using upcomming bitcoin technologies.</div>
             </div>
           </div>
 
@@ -106,15 +106,15 @@ class HomeBanner extends React.Component {
           <div id="home-header-cards">
             <HomeBannerCard
               icon_path='/img/SVG/home/home-cards/downwallet.svg'
-              text='Deposit your Bitcoin on in app wallets that leverage layer 1, 2 protocols. Upcomming.'
+              text='Deposit on Bitcoin wallets, then transact by leveraging layer 1 and 2 BTC protocols. Upcoming.'
             />
             <HomeBannerCard
               icon_path='/img/SVG/home/home-cards/credit-card.svg'
-              text='In app transaction software on layer 2 protocol in order to facilite peer to peer trade. Upcomming.'
+              text='In-app transaction software on layer 2 Bitcoin protocols to facilitate peer-to-peer trade. Upcoming.'
             />
             <HomeBannerCard
               icon_path='/img/SVG/home/home-cards/wallet.svg'
-              text='Sales dashboards to keep track of financial progess. Upcomming.'
+              text='Sales dashboards to keep track of financial progress. Upcoming.'
             />
 
           </div>

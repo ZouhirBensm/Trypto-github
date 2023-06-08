@@ -48,8 +48,8 @@ class SubscriberInfo extends React.Component {
             {/* this.props.userName */}
             <div>{this.props.plan}</div> <br />
 
-            <h2>PayPal Subscription ID</h2>
-            <div>{this.props.paypalsubscriptionID}</div> <br />
+            {/* <h2>PayPal Subscription ID</h2>
+            <div>{this.props.paypalsubscriptionID}</div> <br /> */}
 
             <h2>Subscription date</h2>
             <div>{formattedDate_subscriptionDateTime}</div> <br />

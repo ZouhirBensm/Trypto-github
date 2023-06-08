@@ -34,7 +34,7 @@ class PriceToogler extends React.Component {
           <input type="checkbox" id={`id-${this.props.order_id}`} className="checkbox" checked={this.state.checked} onChange={this.handleCheck}/>
 
           <label style={{justifyContent: lr}} htmlFor={`id-${this.props.order_id}`} className="switch">
-            <span>{this.state.checked ? `${this.price_sat.toLocaleString()} Satoshis` : this.props.price}</span>
+            <span>{this.state.checked ? `${this.price_sat.toLocaleString()} Satoshis` : this.props.price.toLocaleString()}</span>
           </label>
 
 

@@ -67,8 +67,10 @@ class UserInfo extends React.Component {
 
             <h2>Email</h2>
             <div>{this.props.userEmail}</div> <br />
-            <h2>User ID</h2>
-            <div>{this.props.usedUserID}</div> <br />
+
+            {/* <h2>User ID</h2>
+            <div>{this.props.usedUserID}</div> <br /> */}
+            
             <h2>Sign up date</h2>
             <div>{formattedDate}</div> <br />
 
