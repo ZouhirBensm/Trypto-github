@@ -3,7 +3,7 @@ import './styles/Register.css'
 import './styles/Register2.css'
 import '../root-spas/styles/Sign-in-up.css'
 
-import { verifyEmail, verifyPassword, verifyUsername } from '../../full-stack-libs/validations'
+import { verifyEmail, verifyPassword, verifyUsername, verifyTermsConditionsClicked } from '../../full-stack-libs/validations'
 import RegisterButton from './RegisterButton'
 import RegisterNotification from './RegisterNotification'
 // import LogRegFooter from './LogRegFooter'
@@ -56,6 +56,8 @@ class Register extends React.Component {
   //generator function
   async *handleValidation() {
 
+    const steps_number = 5
+
     const hny_spm = document.getElementById("loginregister").elements["hny_spm"].value
     const username = document.getElementById("loginregister").elements[0].value
     const email = document.getElementById("loginregister").elements[1].value
@@ -67,14 +69,14 @@ class Register extends React.Component {
 
     if (!flag) {
       this.setState({ notification: notification })
-      yield { status: "failed", yield_level: 1 / 4, broke_and_caughtOnChecking: "username", message: notification }
+      yield { status: "failed", yield_level: 1 / steps_number, broke_and_caughtOnChecking: "username", message: notification }
     }
 
     ({ flag, notification } = verifyEmail(email))
 
     if (!flag) {
       this.setState({ notification: notification })
-      yield { status: "failed", yield_level: 2 / 4, broke_and_caughtOnChecking: "email", message: notification }
+      yield { status: "failed", yield_level: 2 / steps_number, broke_and_caughtOnChecking: "email", message: notification }
     }
 
     // EMAIL GOOD
@@ -82,8 +84,20 @@ class Register extends React.Component {
 
     if (!flag) {
       this.setState({ notification: notification })
-      yield { status: "failed", yield_level: 3 / 4, broke_and_caughtOnChecking: "password", message: notification }
+      yield { status: "failed", yield_level: 3 / steps_number, broke_and_caughtOnChecking: "password", message: notification }
     }
+
+
+
+    // TERMS READ
+    const checkbox_input_id = 'terms-conditions-checkbox-id';
+    ({ flag, notification } = verifyTermsConditionsClicked(checkbox_input_id))
+
+    if (!flag) {
+      this.setState({ notification: notification })
+      yield { status: "failed", yield_level: 4 / steps_number, broke_and_caughtOnChecking: "terms", message: notification }
+    }
+
 
     // PASSWORD GOOD
     if (hny_spm == "") {
@@ -92,13 +106,18 @@ class Register extends React.Component {
 
     if (!flag) {
       this.setState({ notification: notification })
-      yield { status: "failed", yield_level: 4 / 4, broke_and_caughtOnChecking: "checking email, or, and username duplicates", message: notification }
+      yield { status: "failed", yield_level: 5 / steps_number, broke_and_caughtOnChecking: "checking email, or, and username duplicates", message: notification }
     }
 
     // NO EMAIL DUPLICATE
     this.setState({ notification: [] })
-    return { status: "success", yield_level: 4 / 4, broke_and_caughtOnChecking: null, message: notification }
+    return { status: "success", yield_level: 5 / steps_number, broke_and_caughtOnChecking: null, message: notification }
   }
+
+
+
+
+
 
   setNotification(notification) {
     this.setState({
@@ -126,6 +145,11 @@ class Register extends React.Component {
             <label>Password</label>
 
             <input type="password" name="password" value={this.props.password} onChange={(e) => this.props.handleChange("password", e)} placeholder="Enter your password" />
+
+            <label>
+              I read and accept the <a target="_blank" href="/terms-conditions">terms and conditions.</a>
+            </label>
+            <input id='terms-conditions-checkbox-id' type="checkbox" />
 
             <input type="text" name="hny_spm" />
 

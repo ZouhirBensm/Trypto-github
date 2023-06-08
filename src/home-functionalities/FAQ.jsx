@@ -11,7 +11,6 @@ class FAQ extends React.Component {
     // TODO !!!!! 
     // give public access to market pages all
     // couleurs des popups
-    // user needs to accept terms and conditions on sign up
 
     this.loadFAQtitles = this.loadFAQtitles.bind(this)
 

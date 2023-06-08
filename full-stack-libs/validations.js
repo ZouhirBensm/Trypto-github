@@ -13,6 +13,28 @@ function verifyUsername(_username){
 }
 
 
+function verifyTermsConditionsClicked(checkbox_input_id){
+
+  let flag = undefined, notification = [];
+
+  console.log('checkbox_input_id: ', checkbox_input_id)
+
+  let checkbox = document.getElementById(checkbox_input_id)
+
+  console.log('checkbox: ', checkbox)
+
+  if (checkbox.checked) {
+    flag = true
+  } else {
+    flag = false
+    notification = ['Please read, accept, and check the terms and conditions.']
+  }
+
+  return { flag, notification }
+
+}
+
+
 
 function verifyEmail(_emailstr) {
   // console.log("verifying this email: ", _emailstr);
@@ -181,4 +203,4 @@ function validateInputsAgainstInjection(obj_input, err_msg = undefined) {
 
 
 
-module.exports = { verifyUsername, verifyEmail, verifyPassword, validateInputs, validateExpiry, validate_location_geometry_inputs, arePasswordsEqual, validateInputsAgainstInjection }
+module.exports = { verifyUsername, verifyEmail, verifyPassword, validateInputs, validateExpiry, validate_location_geometry_inputs, arePasswordsEqual, validateInputsAgainstInjection, verifyTermsConditionsClicked }

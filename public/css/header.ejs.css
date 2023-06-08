@@ -153,8 +153,8 @@ ul.home>li>a[href='/operations']>img {
   height: 24px;
 }
 
-ul.iflog>li>div>img {
-  height: 24px;
+ul.iflog>li>a>img {
+  height: 35px;
 }
 
 

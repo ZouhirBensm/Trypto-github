@@ -5,3 +5,8 @@ form#loginregister > input[name="hny_spm"] {
 button:disabled {
   color: red;
 }
+
+
+form#loginregister > label > a[href='/terms-conditions'] {
+  color: #1266FC;
+}
