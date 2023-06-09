@@ -6,8 +6,8 @@ div#react-div>div {
   overflow: scroll;
   /* border: 1px black solid; */
   position: absolute;
-  top: 40px;
-  bottom: 40px;
+  top: 60px;
+  bottom: 60px;
   left: 0%;
   right: 0%; 
   display: flex;
