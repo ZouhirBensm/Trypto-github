@@ -1,20 +1,6 @@
 import '../styles/SetLocationSetting.css'
 
 
-// Default image is pixelated profile image
-// uploaded image profile is pixelated
-// email edit
-// first name, last name phone number
-
-// Sign in with google and meta
-
-// empty chat threads page
-
-// order of faqs
-// email border focus is black home page
-// social media share market items
-// bidblock bottom misalligned
-// favicon and title on prod
 class SetLocationSetting extends React.Component {
   constructor(props) {
     super(props)

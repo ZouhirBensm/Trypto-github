@@ -93,6 +93,7 @@ class ItemRow extends React.Component {
             >Discover</Link>
             :
             <a className='link' href={userId ? `/marketplace/sellordersdata/${order._id}` : `/subscription`}>Discover</a>
+            // <a className='link' href={`/marketplace/sellordersdata/${order._id}`}>Discover</a>
           }
 
 

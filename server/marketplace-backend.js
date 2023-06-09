@@ -104,8 +104,10 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
-
-marketplaceBackend_app_router.get(['/allmyorders', '/sellordersdata', '/makesell'], require_loggedin_for_pages(true), (req, res) => {
+// require_loggedin_for_pages(true)
+marketplaceBackend_app_router.get(['/allmyorders', '/sellordersdata', '/makesell'], 
+require_loggedin_for_pages(true), 
+(req, res) => {
 
   console.log("\n\nSimple\n\n")
 

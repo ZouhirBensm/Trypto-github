@@ -52,6 +52,7 @@ class GetRecentMarketItems extends React.Component {
 
 
           <a href={userId ? '/marketplace/sellordersdata' : '/subscription'}>View all</a>
+          {/* <a href={'/marketplace/sellordersdata'}>View all</a> */}
 
         </div>
         {/* MARKET MAIN COMPONENT */}
