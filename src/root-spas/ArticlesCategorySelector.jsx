@@ -92,6 +92,7 @@ class ArticlesCategorySelector extends React.Component {
             </Route>
 
             <Route path={`/articles/individual_article/:article_title`} component={Article}>
+
             </Route>
           </Switch>
         </BrowserRouter>

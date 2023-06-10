@@ -32,6 +32,9 @@ const { authenticate_role_for_pages, authenticate_role_for_data } =  require("..
 const { require_loggedin_for_pages, require_loggedin_for_data } =  require("../middleware/generic-middleware/check-loggedin-middleware")
 
 
+const Article = require('../models/articles-models/Article')
+
+
 
 // Start middleware for this articlesBackend_app_router
 // Route is called upon as request from browser as '/articles'
@@ -53,10 +56,29 @@ articlesBackend_app_router.get(['/:category?', '/individual_article/:article_tit
 
   res.locals.CATEGORY = CATEGORY;
 
+  res.locals.article_title
+  res.locals.article_title = req.params.article_title ? undefined : req.params.article_title
+
   var JSX_to_load = 'ArticlesCategorySelector';
 
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
     JSX_to_load : JSX_to_load, 
+  })
+})
+
+
+articlesBackend_app_router.get('/data/:article_title', async (req,res)=>{
+
+  let ret_article
+
+  try {
+    ret_article = await Article.findOne({link: `/articles/individual_article/${req.params.article_title}`})
+  } catch (error) {
+    
+  }
+
+  res.status(200).json({
+    article: ret_article
   })
 })
 

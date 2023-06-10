@@ -50,6 +50,7 @@
   var user
   var orderId
   var bidblock_email
+  var article_title
   // var hash_of_user_to_reset_password
 
   var loggedInUserImgProfilePath = '<%= locals.loggedInUserImgProfilePath%>'
@@ -142,9 +143,15 @@
 
     case '/articles':
     case `/articles/${caseCategory}`:
-    case `/articles/individual_article/${caseArticleID}`:
       CATEGORY = <%-JSON.stringify(locals.CATEGORY || {})%> 
       console.log(CATEGORY)
+      break;
+
+    case `/articles/individual_article/${caseArticleTitle}`:
+      CATEGORY = <%-JSON.stringify(locals.CATEGORY || {})%> 
+      article_title = '<%=locals.article_title%>'
+      
+      console.log(CATEGORY, article_title)
       break;
     
 
