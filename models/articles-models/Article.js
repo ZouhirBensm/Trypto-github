@@ -1,5 +1,7 @@
 const ENV = require('../../config/base')
 
+const SOURCES = require('../../full-stack-libs/Types/ArticleSources')
+
 const mongoose = require('mongoose')
 
 // const db = mongoose.connection
@@ -20,6 +22,10 @@ const ArticleSchema = new Schema({
   excerpt: String,
   link: String,
   enclosure: String,
+  source: {
+    type: String,
+    default: SOURCES.BIDBLOCK,
+  },
   // Author: {
   //   type: mongoose.Schema.Types.ObjectId,
   //   ref: 'User',

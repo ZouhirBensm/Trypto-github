@@ -6,6 +6,7 @@ const CATEGORY = require('../../full-stack-libs/Types/ArticleCategories')
 const {THIRD_PARTY_CATEGORIES} = require('../../full-stack-libs/utils.arrays')
 
 const {functionArticleAggregator} = require('./libs/rss-article-aggregator/rss-article-aggregator')
+const SOURCES = require('../../full-stack-libs/Types/ArticleSources')
 
 
 module.exports = async (req,res,next)=>{
@@ -37,6 +38,14 @@ module.exports = async (req,res,next)=>{
     var dateA = new Date(a.publishedDate);
     var dateB = new Date(b.publishedDate);
     return dateB - dateA;
+  });
+
+  articles.sort(function compare(a, b) {
+    var sourceA = a.source;
+    var sourceB = b.source;
+
+    if(sourceA == SOURCES.BIDBLOCK && sourceB != SOURCES.BIDBLOCK) return -1;
+    return 1
   });
   
   

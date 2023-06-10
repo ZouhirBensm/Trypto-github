@@ -1,6 +1,8 @@
 let Parser = require('rss-parser');
 let parser = new Parser();
 const CATEGORY = require('../../../../full-stack-libs/Types/ArticleCategories');
+const SOURCES = require('../../../../full-stack-libs/Types/ArticleSources');
+
 const { countWords, takeUntilWordNumber } = require('../../../../full-stack-libs/utils');
 
 
@@ -35,6 +37,7 @@ function articalizeForBidBlock(_MostRecentItems){
       _id: ObjectId(),
       publishedDate: _item.isoDate,
       title: _item.title,
+      source: SOURCES.COINDESK,
       content: _item.content,
       category: CATEGORY.COINDESK,
       excerpt: excerpt,
