@@ -9,22 +9,24 @@ class FAQ extends React.Component {
     this.state = { faqs: [] }
 
     // TODO !!!!! 
-    // give public access to market pages all
-    // couleurs des popups
-    // Default image is pixelated profile image
-    // uploaded image profile is pixelated
+    // SEO register, video adaptability
+
+
+    // order of faqs
     // email edit
     // first name, last name phone number
+    // couleurs des popups
+    // email border focus is black home page
+
+
+    // Default image is pixelated profile image
+    // uploaded image profile is pixelated
 
     // Sign in with google and meta
 
-    // empty chat threads page
-
-    // order of faqs
-    // email border focus is black home page
     // social media share market items
-    // bidblock bottom misalligned
-    // favicon and title on prod
+    // Social media: Pinterest, Reddit, Quora, Slack, Facebook, Discord
+    // Add contact page
 
     this.loadFAQtitles = this.loadFAQtitles.bind(this)
 

@@ -20,25 +20,29 @@
     <%}%>
   </ul>
   <ul class="iflog">
-    <li>
-      <a href="/">
-        <img src="/img/SVG/home/nav-icons/logo.svg" alt="">
-      </a>
-    </li>
 
     <li>
       <div onclick="toogleSideNav()">
         <img src="/img/SVG/home/nav-icons/toogle.svg" alt="">
       </div>
+      <a href="/">
+        <img src="/img/SVG/home/nav-icons/logo.svg" alt="">
+      </a>
     </li>
+    
+    
+    <li>
+    </li>
+
+
   <%if(!loggedIn){%>
+    <!-- <li>
+    </li> -->
     <li>
       <a href="/users/login">
         <!-- <img src="/img/SVG/home/nav-icons/login1.svg" alt=""> -->
         login
       </a>
-    </li>
-    <li>
       <a href="/subscription">
         <!-- <img src="/img/SVG/home/nav-icons/sub2.svg" alt=""> -->
         sign up

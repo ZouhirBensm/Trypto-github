@@ -107,10 +107,11 @@ ul.iflog>li {
   display: inline;
   position: sticky;
   /* margin: 0 auto; */
+  white-space: nowrap;
 }
 
 ul.iflog>li:first-of-type {
-  margin-left: 5%;
+  margin-left: 2%;
 }
 
 ul.iflog>li:last-of-type {
@@ -128,6 +129,7 @@ ul.iflog>li>a[href='/users/login'] {
   color: #FFFFFF;
   text-transform: uppercase;
   padding: 0.5rem 1rem;
+  margin-right: 2ch;
 }
 
 ul.iflog>li>a[href='/subscription'],
@@ -153,8 +155,9 @@ ul.home>li>a[href='/operations']>img {
   height: 24px;
 }
 
-ul.iflog>li>a>img {
+ul.iflog>li img {
   height: 35px;
+  margin-right: 4ch;
 }
 
 
@@ -281,6 +284,8 @@ ul.sidenav>li>a {
 
 div[onclick="toogleSideNav()"] {
   color: red;
+  display: inline-block;
+  /* margin-right: 4ch; */
 }
 
 

@@ -1,5 +1,6 @@
 import '../style/reactDivMobile.css'
 import {verifyPassword, arePasswordsEqual} from '../../full-stack-libs/validations'
+import './styles/ResetPassword.css'
 
 class PasswordResetComponent extends React.Component {
   constructor(props){
@@ -119,14 +120,21 @@ class PasswordResetComponent extends React.Component {
   render(){
     return (
       <React.Fragment>
-        <div id="container-reset-pass">
+        <div id="container-reset-pass" className='reset-container'>
         <form id="newpass" className="form">
-          <h3>PasswordResetComponent</h3>
+          <h3>Setup your new password here!</h3>
 
           <label>New password</label>
-          <input  style={{ border: this.state.passwordinputbox1 == true? '2px solid red':'none' }} type="text" name="password"/> <br/>
+          <input  style={{ border: this.state.passwordinputbox1 == true? '2px solid red':'2px inset -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133))' }} type="text" name="password"/>
+
+
           <label>Confirm new password</label>
-          <input  style={{ border: this.state.passwordinputbox2 == true? '2px solid red':'none'}} type="text" name="password-check"/> <br/>
+          <input  style={{ border: this.state.passwordinputbox2 == true? '2px solid red': '2px inset -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133))'}} type="text" name="password-check"/>
+
+
+          <span id='popup'>{this.state.notification}</span>
+
+
           <button type="submit" onClick={async (e) => {
             let handleSubmitRet
             try {
@@ -136,8 +144,10 @@ class PasswordResetComponent extends React.Component {
             }
             console.log("Click buttin Callback", handleSubmitRet)
           }}>Submit</button>
+
         </form>
-        <div>{this.state.notification}</div>
+
+        
 
       </div>
       </React.Fragment>

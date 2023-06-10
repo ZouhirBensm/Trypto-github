@@ -1,5 +1,6 @@
 
 import '../style/reactDivMobile.css'
+import './styles/ResetPassword.css'
 import {verifyEmail, validateInputs} from '../../full-stack-libs/validations'
 
 
@@ -91,11 +92,12 @@ class ForgotPasswordRequest extends React.Component {
   render(){
     return (
       <React.Fragment>
-        <div id="container-forgotpass">
+        <div id="container-forgotpass" className='reset-container'>
         <form id="forgotpass" className="form">
-          <h3>ForgotPassword...</h3>
+          <h3>Reset Password</h3>
           <label>Enter Email to Reset</label>
-          <input type="text" name="email"/> 
+          <input type="text" name="email" placeholder='email'/> 
+          <span id='popup'>{this.state.notification}</span>
           <button type="submit" onClick={ async (e) => {
             let handleSubmitRet
             try {
@@ -105,7 +107,6 @@ class ForgotPasswordRequest extends React.Component {
             }
             console.log("Click buttin Callback", handleSubmitRet)
             }}>Reset</button>
-          <div>{this.state.notification}</div>
         </form>
         
 
