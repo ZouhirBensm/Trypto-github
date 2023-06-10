@@ -29,7 +29,7 @@ function makeSureDestinationFolderPresentMiddleware(req, res, next) {
   let directory = `public/img/bidblock-article-enclosure-images`
   res.locals.directory = directory
 
-  
+
 
   if (!existsSync(directory)) {
     mkdirSync(directory, { recursive: true });
@@ -51,7 +51,15 @@ async function createArticleInstanceMiddleware(req, res, next) {
 
   res.locals.ret_article_instance = ret_article_instance
 
-  res.locals.ret_article_instance.link = `/articles/individual_article/${ret_article_instance._id}`
+  // TODO !!! put in libs and call upon globally
+  const url_path_article_title = ret_article_instance.title.toLowerCase()
+    .replace(/[^\w\s]|_/g, '') // Remove punctuation
+    .toLowerCase()
+    .replace(/\s+/g, '-');
+
+  console.log(url_path_article_title);
+
+  res.locals.ret_article_instance.link = `/articles/individual_article/${url_path_article_title}`
 
   return next()
 }

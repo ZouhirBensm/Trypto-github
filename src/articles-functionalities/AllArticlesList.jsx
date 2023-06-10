@@ -58,7 +58,15 @@ class ArticleElement extends React.Component {
     const options = { day: 'numeric', month: 'long', year: 'numeric' };
     const formattedDate = date.toLocaleDateString('en-US', options);
 
+    // TODO !!! put in libs and call upon globally
+    const url_path_article_title = this.props.article.title.toLowerCase()
+    .replace(/[^\w\s]|_/g, '') // Remove punctuation
+    .toLowerCase()
+    .replace(/\s+/g, '-');
 
+  console.log(url_path_article_title);
+
+    
 
     return (
 
@@ -76,7 +84,7 @@ class ArticleElement extends React.Component {
           
           {!EXTERNAL_READS_CATEGORIES.includes(this.props.article.category) ?
             <Link className='link' to={{
-              pathname: `/articles/individual_article/${this.props.article._id}`,
+              pathname: this.props.article.link,
               search: `?article=${JSON.stringify(this.props.article)}`,
             }}>
               Read more

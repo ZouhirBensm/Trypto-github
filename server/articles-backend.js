@@ -49,7 +49,7 @@ articlesBackend_app_router.get('/recent-articles', requireRefererMiddleware, rec
 articlesBackend_app_router.get('/paginated-articles/data', requireRefererMiddleware, paginatingSetupMiddleware, destructureURLandRefererMiddleware, articlesRetrievalMiddleware, distributePaginatedDataController)
 
 
-articlesBackend_app_router.get(['/:category?', '/individual_article/:articleID'], (req,res)=>{
+articlesBackend_app_router.get(['/:category?', '/individual_article/:article_title'], (req,res)=>{
 
   res.locals.CATEGORY = CATEGORY;
 
