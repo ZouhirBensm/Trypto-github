@@ -47,11 +47,13 @@ articlesBackend_app_router.use(set_user_if_any, (req, res, next) => {
   next()
 })
 
+articlesBackend_app_router.get('/paginated-articles/data', requireRefererMiddleware, paginatingSetupMiddleware, destructureURLandRefererMiddleware, articlesRetrievalMiddleware, distributePaginatedDataController)
+
+
 
 articlesBackend_app_router.get('/recent-articles', requireRefererMiddleware, recentArticlesRetrievalMiddleware, distributeDataController)
 
 
-articlesBackend_app_router.get('/paginated-articles/data', requireRefererMiddleware, paginatingSetupMiddleware, destructureURLandRefererMiddleware, articlesRetrievalMiddleware, distributePaginatedDataController)
 
 
 articlesBackend_app_router.get(['/:category?', '/individual_article/:article_title'], (req,res)=>{

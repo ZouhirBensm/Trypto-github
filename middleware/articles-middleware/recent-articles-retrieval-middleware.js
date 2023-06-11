@@ -1,5 +1,5 @@
 const Article = require('../../models/articles-models/Article')
-const {THIRD_PARTY_CATEGORIES} = require('../../full-stack-libs/utils.arrays')
+const {THIRD_PARTY_SOURCES} = require('../../full-stack-libs/utils.arrays')
 
 const {functionArticleAggregator} = require('./libs/rss-article-aggregator/rss-article-aggregator')
 
@@ -10,7 +10,7 @@ module.exports = async (req,res,next)=>{
 
   articles = await Article.find()
   // + All third party articles
-  let retrievedArticles = await functionArticleAggregator(THIRD_PARTY_CATEGORIES)
+  let retrievedArticles = await functionArticleAggregator(THIRD_PARTY_SOURCES)
 
   articles = [...articles, ...retrievedArticles]
 

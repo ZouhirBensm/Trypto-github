@@ -3,7 +3,7 @@ const Article = require('../../models/articles-models/Article')
 const {filterObject} = require('../../middleware/libs/match-maker-functions')
 
 const CATEGORY = require('../../full-stack-libs/Types/ArticleCategories')
-const {THIRD_PARTY_CATEGORIES} = require('../../full-stack-libs/utils.arrays')
+const {THIRD_PARTY_SOURCES} = require('../../full-stack-libs/utils.arrays')
 
 const {functionArticleAggregator} = require('./libs/rss-article-aggregator/rss-article-aggregator')
 const SOURCES = require('../../full-stack-libs/Types/ArticleSources')
@@ -15,22 +15,26 @@ module.exports = async (req,res,next)=>{
   let filter_object
   filter_object = filterObject(null, req.query.category)
 
+  let retrievedArticles = await functionArticleAggregator(THIRD_PARTY_SOURCES)
+
   if(req.query.category=="RECENT") {
     // Grab DB all articles 
     articles = await Article.find(filter_object)
     // + All third party articles
-    let retrievedArticles = await functionArticleAggregator(THIRD_PARTY_CATEGORIES)
 
     articles = [...articles, ...retrievedArticles]
 
-  } else if (THIRD_PARTY_CATEGORIES.includes(req.query.category)) {
-    // Grab only third party articles
-    let retrievedArticles = await functionArticleAggregator([req.query.category])
-    articles = retrievedArticles
-
   } else {
     // Grab DB articles with the particular category requested
+    console.log(filter_object)
     articles = await Article.find(filter_object)
+
+    // console.log(retrievedArticles)
+
+    retrievedArticles = retrievedArticles.filter(retrievedArticle => {return retrievedArticle.category == filter_object.category})
+
+    articles = [...articles, ...retrievedArticles]
+
   }
 
 

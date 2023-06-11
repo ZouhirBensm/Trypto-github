@@ -21,6 +21,8 @@ class ArticlesCategorySelector extends React.Component {
 
     if (paths[1] =='individual_article' || !paths[1]){
       this.category = "RECENT"
+    } else {
+      this.category = paths[1]
     }
 
     this.handleBrowserBackButton = this.handleBrowserBackButton.bind(this);

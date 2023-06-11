@@ -2,6 +2,8 @@ let Parser = require('rss-parser');
 let parser = new Parser();
 const CATEGORY = require('../../../../full-stack-libs/Types/ArticleCategories');
 const SOURCES = require('../../../../full-stack-libs/Types/ArticleSources');
+const determineCategory = require('../third_party_articles_categories_matcher/third_party_articles_categories_matcher')
+
 const { countWords, takeUntilWordNumber } = require('../../../../full-stack-libs/utils');
 
 
@@ -32,6 +34,11 @@ function articalizeForBidBlock(_MostRecentItems){
 
     // console.log('\n\n', _item.contentSnippet, "\n<->\n", excerpt)
 
+    // console.log('\n\n', _item)
+
+    const category = determineCategory(_item.categories)
+    // console.log(category)
+
 
     return {
       _id: ObjectId(),
@@ -39,7 +46,7 @@ function articalizeForBidBlock(_MostRecentItems){
       title: _item.title,
       source: SOURCES.COINJOURNAL,
       content: _item.content,
-      category: CATEGORY.COINJOURNAL,
+      category: category,
       excerpt: excerpt,
       link: _item.link,
       enclosure: '/img/default-rss-enclosure-images/coinjournal.png'
@@ -47,6 +54,7 @@ function articalizeForBidBlock(_MostRecentItems){
   })
   return articlesFromCoinJournal
 }
+
 
 
 const ObjectId = (m = Math, d = Date, h = 16, s = s => m.floor(s).toString(h)) =>

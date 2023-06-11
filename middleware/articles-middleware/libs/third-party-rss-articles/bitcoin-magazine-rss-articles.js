@@ -3,6 +3,8 @@ let parser = new Parser();
 const CATEGORY = require('../../../../full-stack-libs/Types/ArticleCategories');
 const SOURCES = require('../../../../full-stack-libs/Types/ArticleSources');
 
+const determineCategory = require('../third_party_articles_categories_matcher/third_party_articles_categories_matcher')
+
 const { countWords, takeUntilWordNumber } = require('../../../../full-stack-libs/utils');
 // let feed
 
@@ -43,13 +45,18 @@ function articalizeForBidBlock(_MostRecentItems){
     const _itemEnclosureUrl = _item.enclosure.url.replace('http://', 'https://')
     // console.log("_itemEnclosureUrl: \n", _itemEnclosureUrl)
 
+    // console.log('\n\n', _item.categories)
+
+    const category = determineCategory(_item.categories)
+    // console.log(category)
+
     return {
       _id: ObjectId(),
       publishedDate: _item.isoDate,
       title: _item.title,
       source: SOURCES.BITCOIN_MAGAZINE,
       content: _item.content,
-      category: CATEGORY.BITCOIN_MAGAZINE,
+      category: category,
       excerpt: excerpt,
       link: _item.link,
       enclosure: _itemEnclosureUrl
@@ -57,6 +64,9 @@ function articalizeForBidBlock(_MostRecentItems){
   })
   return articlesFromBitcoinMagazine
 }
+
+
+
 
 
 const ObjectId = (m = Math, d = Date, h = 16, s = s => m.floor(s).toString(h)) =>

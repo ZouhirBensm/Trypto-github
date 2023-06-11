@@ -35,6 +35,7 @@ class Articles extends React.Component {
   }
 
   componentDidMount(){
+    console.log(this.props.category)
     //DOM is ready
     this.loadData()
   }
