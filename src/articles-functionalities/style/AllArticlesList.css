@@ -72,6 +72,7 @@ div.article-preview img {
   height: 100%;
   z-index: -1;
   opacity: 0.77;
+  object-fit: contain;
 }
 
 
