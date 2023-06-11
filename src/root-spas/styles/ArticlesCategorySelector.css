@@ -10,9 +10,19 @@ h1 {
   color: #1266FC;
 }
 
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-h1);
+  width: fit-content;
+  margin: 5vh 0;
+  color: #1266FC;
+}
+
 hr {
   border: 2px solid #EEF5FE;
 }
+
 
 
 div.articles-container {

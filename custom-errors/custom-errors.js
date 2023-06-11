@@ -38,11 +38,12 @@ class PayloadInadequateError extends CustomError {
 
 // Used to test errorResponseDispatcherController when the error is thrown at login-controllers.js in registerController function, when User.create errors' out
 class MongoError extends CustomError {
-  constructor(message, code){
+  constructor(message, code, statusCode = undefined){
     super()
     this.type = this.constructor.name
     this.message = message
     this.usr_message = message
+    statusCode ? this.statusCode =  statusCode: null
     // Override usr_message
     switch (code) {
       // Code for duplicate entries

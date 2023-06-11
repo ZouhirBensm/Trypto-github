@@ -1,9 +1,26 @@
+/* TODO !!!! FLEX AND GROW GLOBALLY FOR ALL PAGES IN ORDER FOR FOOTER TO STAY AT BOTTOM */
+div#react-div {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+div#no-data-container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+
+
+
+
+
 div#article-banner {
-  color: white;
+  /* color: white; */
+  /* overflow: hidden; */
   width: 100%;
-  overflow: hidden;
   position: relative;
   height: fit-content;
+  flex-grow: 1;
 }
 
 div#article-banner > img {

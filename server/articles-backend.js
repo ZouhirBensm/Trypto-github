@@ -1,5 +1,6 @@
 const express = require('express')
 const articlesBackend_app_router = express.Router()
+const httpStatus = require("http-status-codes")
 
 // TODO !!!! Make sure all default images, and image that get uploaded are optimized in size and format
 
@@ -33,6 +34,7 @@ const { require_loggedin_for_pages, require_loggedin_for_data } =  require("../m
 
 
 const Article = require('../models/articles-models/Article')
+const { MongoError } = require('../custom-errors/custom-errors')
 
 
 
@@ -57,6 +59,7 @@ articlesBackend_app_router.get(['/:category?', '/individual_article/:article_tit
   res.locals.CATEGORY = CATEGORY;
 
   res.locals.article_title
+
   res.locals.article_title = req.params.article_title ? undefined : req.params.article_title
 
   var JSX_to_load = 'ArticlesCategorySelector';
@@ -67,14 +70,28 @@ articlesBackend_app_router.get(['/:category?', '/individual_article/:article_tit
 })
 
 
-articlesBackend_app_router.get('/data/:article_title', async (req,res)=>{
+articlesBackend_app_router.get('/data/:article_title', async (req,res, next)=>{
 
   let ret_article
+  let e
 
   try {
     ret_article = await Article.findOne({link: `/articles/individual_article/${req.params.article_title}`})
   } catch (error) {
-    
+    const error_msg = 'Mongo error when executing: Article.findOne'
+    e = new MongoError(error_msg, error.code)
+    return next(e)
+  }
+
+  if(!ret_article) {
+    let e
+    const error_msg = 'No article data was found'
+    const code = undefined
+    // Good for SEO, i.e. successfully failed
+    const statusCode = httpStatus.StatusCodes.OK
+    e = new MongoError(error_msg, undefined, statusCode)
+
+    return next(e)
   }
 
   res.status(200).json({

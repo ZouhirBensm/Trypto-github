@@ -82,6 +82,9 @@ class ArticlesCategorySelector extends React.Component {
                 <h1>Articles</h1>
                 <hr />
               </div>
+              <div>
+                <nav id='category-nav'></nav>
+              </div>
               <nav id='category-nav'></nav>
 
               <div className='articles-container'>
