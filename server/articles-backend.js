@@ -56,13 +56,9 @@ articlesBackend_app_router.get('/recent-articles', requireRefererMiddleware, rec
 
 
 
-articlesBackend_app_router.get(['/:category?', '/individual_article/:article_title'], (req,res)=>{
+articlesBackend_app_router.get('/:category?', (req,res)=>{
 
   res.locals.CATEGORY = CATEGORY;
-
-  res.locals.article_title
-
-  res.locals.article_title = req.params.article_title ? undefined : req.params.article_title
 
   var JSX_to_load = 'ArticlesCategorySelector';
 
@@ -70,6 +66,32 @@ articlesBackend_app_router.get(['/:category?', '/individual_article/:article_tit
     JSX_to_load : JSX_to_load, 
   })
 })
+
+
+// REACT RENDER
+
+// articlesBackend_app_router.get('/individual_article/:article_title', (req,res)=>{
+
+//   res.locals.article_title = req.params.article_title ?  req.params.article_title : undefined
+
+//   var JSX_to_load = 'ArticlesCategorySelector';
+
+//   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
+//     JSX_to_load : JSX_to_load, 
+//   })
+// })
+
+
+// EJS RENDER
+articlesBackend_app_router.get('/individual_article/:article_title', (req,res)=>{
+
+  // res.locals.article_title = req.params.article_title ?  req.params.article_title : undefined
+  res.locals.header = 2
+
+  res.render('bodies/bidblock-blog-article')
+})
+
+
 
 
 articlesBackend_app_router.get('/data/:article_title', async (req,res, next)=>{
@@ -99,6 +121,7 @@ articlesBackend_app_router.get('/data/:article_title', async (req,res, next)=>{
   res.status(200).json({
     article: ret_article
   })
+  
 })
 
 

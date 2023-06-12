@@ -148,10 +148,9 @@
       break;
 
     case `/articles/individual_article/${caseArticleTitle}`:
-      CATEGORY = <%-JSON.stringify(locals.CATEGORY || {})%> 
       article_title = '<%=locals.article_title%>'
       
-      console.log(CATEGORY, article_title)
+      console.log(article_title)
       break;
     
 

@@ -1,8 +1,10 @@
 div.wrapper {
   overflow: scroll;
   position: absolute;
-  top: 30px;
-  bottom: 30px;
+  top: 50px;
+  bottom: 50px;
   left: 0%;
   right: 0%;
 }
+
+/* TODO !!!! make the 50 px as a global variable based upon the navigations heights */

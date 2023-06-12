@@ -32,7 +32,7 @@ div#header {
   height: fit-content;
 
 
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
 
   

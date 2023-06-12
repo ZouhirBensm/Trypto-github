@@ -1,0 +1,315 @@
+<style>
+  body {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    font-family: 'Gemunu Libre', sans-serif;
+    margin: 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+
+    /* background-color: rgb(204, 208, 167); */
+    /* font-family: 'Roboto', sans-serif; */
+    /* background-color: rgb(235 249 255); */
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background-color: transparent;
+  }
+
+  ul.iflog {
+    list-style: none;
+    background-color: white;
+    position: fixed;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+    width: 100%;
+
+    /* width: 80%; */
+
+    /* height: fit-content; */
+    /* Temporary measure */
+    /* display: none; */
+  }
+
+  ul.home {
+    list-style: none;
+    background-color: white;
+    position: fixed;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+    width: 100%;
+
+    /* width: 80%; */
+
+    /* height: fit-content; */
+    /* Temporary measure */
+    /* display: none; */
+  }
+
+  ul.home {
+    height: 50px;
+    bottom: 0;
+    margin: 0;
+    position: absolute;
+    justify-content: space-around;
+  }
+
+  ul.iflog {
+    height: 50px;
+    top: 0;
+    justify-content: space-between;
+    margin: 0;
+  }
+
+  ul.home>li {
+    display: inline;
+    margin-top: 0;
+    margin-bottom: 0;
+
+    /* position: absolute; */
+  }
+
+
+  ul.iflog>li {
+    display: inline;
+    position: sticky;
+    white-space: nowrap;
+
+    /* margin: 0 auto; */
+  }
+
+
+  ul.iflog>li:first-of-type {
+    margin-left: 2%;
+  }
+
+  ul.iflog>li:last-of-type {
+    margin-right: 5%;
+  }
+
+  ul.iflog>li>a[href='/users/login'] {
+    background: #1266FC;
+    box-shadow: 0px 6px 20px #1266FC4E;
+    border-radius: 8px;
+
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    margin-right: 2ch;
+  }
+
+  ul.iflog>li>a[href='/subscription'],
+  ul.iflog>li>a[href='/logout'] {
+    border: 2px solid #1266FC;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    color: #1266FC;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+  }
+
+
+  ul.iflog>li>a[href='/users/login']>img,
+  ul.iflog>li>a[href='/subscription']>img,
+  ul.iflog>li>a[href='/logout']>img,
+  ul.home>li>a[href='/messaging/messages']>img,
+  ul.home>li>a[href='/operations']>img {
+    width: 24px;
+    height: 24px;
+  }
+
+  ul.iflog>li img {
+    height: 35px;
+    margin-right: 4ch;
+  }
+
+  a {
+    text-decoration: none;
+    color: red;
+  }
+
+  a.button {
+    margin: 0 auto;
+    border: 3.5px solid white;
+    color: white;
+    background-color: red;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: 'Gemunu Libre', sans-serif;
+  }
+
+  li a:visited {
+    color: red;
+  }
+
+
+  div.sidebar-container {
+    display: none;
+    color: white;
+    background-color: #010757;
+    opacity: 1;
+    /* ONE OR THE OTHER */
+    /* width: 80%; */
+    right: 0;
+
+    position: absolute;
+    top: 3.4em;
+    bottom: 3.4em;
+    margin: 0;
+    left: 0;
+    z-index: 2;
+    padding: 0;
+
+    /* border: 1px black solid; */
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    /* align-items: center; */
+  }
+
+
+  ul.sidenav {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+  }
+
+
+  /* THE PROFILE DIV */
+  ul.sidenav>div>img {
+    width: 61px;
+    height: 61px;
+    border-radius: 50%;
+    border: 1px solid #80E8FF;
+    vertical-align: middle;
+    margin-right: 1ch;
+  }
+
+  ul.sidenav>div>span {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    font-size: var(--font-size-subnav);
+    vertical-align: middle;
+
+    /* text-transform: capitalize; */
+  }
+
+  ul.sidenav>div>hr {
+    border: 1px solid #B8CEF543;
+    width: 60%;
+    margin-top: 1.5rem;
+  }
+
+  ul.sidenav>li {
+    width: fit-content;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    margin: 2rem 0;
+  }
+
+  ul.sidenav>li>a {
+    color: #FFFFFF;
+  }
+
+  .disable {
+    pointer-events: none;
+    opacity: 0.4;
+    z-index: -1;
+  }
+
+  div[onclick="toogleSideNav()"] {
+    color: red;
+    display: inline-block;
+
+    /* margin-right: 4ch; */
+  }
+
+
+  :root {
+    --font-size-root: 1.0rem;
+    --font-size-p: 1.3rem;
+    --font-size-p-smaller: 1.0rem;
+    --font-size-p-xsmaller: 0.8rem;
+    --font-size-input: 1.0rem;
+    --font-size-textarea: 1.0rem;
+    --font-size-label: 0.8rem;
+    --font-size-extra: 0.8rem;
+    --font-size-smaller-input: 0.8rem;
+    --font-size-header: 1.5rem;
+    --font-size-footer: 1.5rem;
+    --font-size-h1: 2rem;
+    --font-size-h1-smaller: 1.8rem;
+    --font-size-h1-xsmaller: 1.3rem;
+    --font-size-h2: 1.5rem;
+    --font-size-h2-smaller: 1.0rem;
+    --font-size-h3: 1.3rem;
+    --font-size-h4: 1.2rem;
+    --font-size-aside: 1.5rem;
+    --font-size-aside-title: 2.5rem;
+    --font-size-nav: 2.5rem;
+    --font-size-subnav: 1.5rem;
+    --font-size-subsubnav: 1.0rem;
+    --font-size-a: 2.0rem;
+    --font-size-button: 1.0rem;
+    --font-size-h4: 1.5rem;
+    --font-size-footer: 1.2rem;
+
+    --line-height-p: 2.5rem;
+    --line-height-list: 2.0rem;
+    --line-height-p-smaller: 1.5rem;
+    --line-height-ul: 2.5rem;
+    --line-height-input: 1.6rem;
+
+    --line-height-generic: 1.0rem;
+  }
+
+
+  :root {
+    --card-header-margin: 1rem;
+  }
+
+
+
+  div#header>span#popup {
+    color: red;
+    width: 90%;
+    font-size: var(--font-size-extra);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    margin: 1rem auto;
+    display: block;
+    text-align: center;
+  }
+
+
+  /* TODO !!!! figure out how to place the first dom element as flex grow 1 and applies to all */
+  div#react-div {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+</style>

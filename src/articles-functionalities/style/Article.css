@@ -1,9 +1,3 @@
-/* TODO !!!! FLEX AND GROW GLOBALLY FOR ALL PAGES IN ORDER FOR FOOTER TO STAY AT BOTTOM */
-div#react-div {
-  display: flex;
-  flex-flow: column nowrap;
-}
-
 div#no-data-container {
   width: 90%;
   margin: 0 auto;

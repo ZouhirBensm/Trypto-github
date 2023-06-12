@@ -58,7 +58,7 @@ class ArticleElement extends React.Component {
     const options = { day: 'numeric', month: 'long', year: 'numeric' };
     const formattedDate = date.toLocaleDateString('en-US', options);
 
-    
+
 
     return (
 
@@ -73,8 +73,13 @@ class ArticleElement extends React.Component {
             </div>
           </div>
 
-          
-          {!EXTERNAL_READS_SOURCES.includes(this.props.article.source) ?
+
+          <a className='link' href={this.props.article.link} target={EXTERNAL_READS_SOURCES.includes(this.props.article.source)? "_blank": null}>
+            Read more
+          </a>
+
+
+          {/* {!EXTERNAL_READS_SOURCES.includes(this.props.article.source) ?
 
 
             <Link className='link' to={{
@@ -87,7 +92,7 @@ class ArticleElement extends React.Component {
             <a className='link' href={this.props.article.link} target="_blank">
               Read more
             </a>
-          }
+          } */}
 
         </div>
 
