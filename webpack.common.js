@@ -65,7 +65,7 @@ var config = {
     Subscription: './src/root-spas/Subscription.jsx',
     Operations: './src/root-spas/Operations.jsx',
     // TODO merge these SPA into one SPA if possible
-    CreateArticle: './src/root-spas/CreateArticle.jsx',
+    CreateArticle: './src/root-spas/CreateArticle2.jsx',
     ArticleSelector: './src/root-spas/ArticleSelector.jsx',
     ArticlesCategorySelector: './src/root-spas/ArticlesCategorySelector.jsx',
     Settings: './src/root-spas/Settings.jsx',

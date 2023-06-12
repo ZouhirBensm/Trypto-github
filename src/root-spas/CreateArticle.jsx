@@ -1,7 +1,6 @@
 import '../style/reactDivMobile.css'
 import {validateInputs} from '../../full-stack-libs/validations'
 import CATEGORY from '../../full-stack-libs/Types/ArticleCategories';
-import THIRD_PARTY_CATEGORY from '../../full-stack-libs/Types/ArticleThirdPartyCategories';
 
 import './styles/CreateArticle.css'
 
@@ -74,11 +73,10 @@ class CreateArticle extends React.Component {
 
   buildCategorySelect() {
     let selectCategory = document.getElementById("category-select")
-    let THIRD_PARTY_CATEGORY_value_array = Object.values(THIRD_PARTY_CATEGORY)
+
     for (const key in CATEGORY) {
       if (Object.hasOwnProperty.call(CATEGORY, key)) {
         const category_element = CATEGORY[key];
-        if (THIRD_PARTY_CATEGORY_value_array.includes(category_element)) continue
         let newOption = document.createElement("option")
         newOption.setAttribute("value", category_element);
         newOption.innerHTML = category_element
@@ -233,3 +231,10 @@ const element = <CreateArticle />;
 ReactDOM.render(element, document.getElementById('react-div'));
 
 export default CreateArticle
+
+
+
+
+
+
+
