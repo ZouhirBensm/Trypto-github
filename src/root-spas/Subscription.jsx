@@ -45,6 +45,13 @@ class Subscription extends React.Component {
     this.setLocality = this.setLocality.bind(this)
   }
 
+  handleChange(input, e) {
+    console.log("in parent", e.target.value)
+    this.setState({
+      [input]: e.target.value
+    })
+  }
+
   setStateStep(step) {
     this.setState({
       step: step
@@ -63,13 +70,6 @@ class Subscription extends React.Component {
     })
   }
 
-  handleChange(input, e) {
-    console.log("in parent", e.target.value)
-    this.setState({
-      [input]: e.target.value
-    })
-  }
-
   setLocality(lat, lng, e) {
     this.setState({
       lat: lat,
@@ -84,7 +84,13 @@ class Subscription extends React.Component {
 
     switch (this.state.step) {
       case 1:
-        component = <ChoosePlan handleChange={this.handleChange} setStateStep={this.setStateStep} step={this.state.step} plan={this.state.plan} nextStep={this.nextStep} />
+        component = <ChoosePlan 
+        handleChange={this.handleChange} 
+        setStateStep={this.setStateStep} 
+        step={this.state.step} 
+        nextStep={this.nextStep} 
+        plan={this.state.plan} 
+        />
         break;
       case 2:
         component = <AssociatedLocation setLocality={this.setLocality} setStateStep={this.setStateStep} step={this.state.step} nextStep={this.nextStep} lat={this.state.lat} lng={this.state.lng} />

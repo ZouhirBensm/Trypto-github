@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+div#market-main-component > div#header-grid > div > a {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: #1266FC;
+  text-transform: uppercase;
+  font-size: var(--font-size-root);
+}
+
+
+div#create-article > div#nest-1 > a {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: #1266FC;
+  text-transform: uppercase;
+  font-size: var(--font-size-root);
+}
+
+div#create-article > div#nest-1 > a > img{
+  margin: .5rem;
+  vertical-align: middle;
+}
+
+
+/* PROCEED, PREVIOUS BUTTONS */
+div#proceed>button {
+  text-transform: uppercase;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: #00D1FF;
+  border: none;
+  background-color: transparent;
+  font-size: var(--font-size-root);
+  margin: 3vh auto;
+  vertical-align: middle;
+}
+
+div#proceed>img {
+  vertical-align: middle;
+}

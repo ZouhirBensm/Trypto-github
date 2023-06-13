@@ -25,6 +25,8 @@ function toogleSideNav() {
 
   console.log(reactDiv, erroBox, elementToDisableEnable)
 
+  if (!elementToDisableEnable) return
+  
   if(sideNav.style.display == "flex") {
     console.log("disable all")
     elementToDisableEnable.classList.add("disable");

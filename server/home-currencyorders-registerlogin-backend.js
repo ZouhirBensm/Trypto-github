@@ -483,7 +483,7 @@ homeCurrencyOrdersController.deleteAccountController)
 
 
 
-homeOrdersBackend_app_router.post('/marketing/email', requireRefererMiddleware, require_loggedin_for_data(false), marketingMiddleware.emailValidationMidleware, marketingMiddleware.databaseCollectionSave, marketingController.emailSubmitController)
+homeOrdersBackend_app_router.post('/marketing/email', requireRefererMiddleware, marketingMiddleware.emailValidationMidleware, marketingMiddleware.databaseCollectionSave, marketingController.emailSubmitController)
 
 
 

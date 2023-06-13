@@ -1,11 +1,12 @@
 import '../style/reactDivMobile.css'
+import './styles/CreateArticle2.css'
 
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading"
 
 
 
-const Part1 = loadable(() => import("../operations-components/create-article-parts/Part1"), {
+const _1_SetArticleHeadTagData = loadable(() => import("../operations-components/create-article-parts/_1_SetArticleHeadTagData"), {
   fallback: <Loading />
 });
 const Part2 = loadable(() => import("../operations-components/create-article-parts/Part2"), {
@@ -22,21 +23,45 @@ const Part5 = loadable(() => import("../operations-components/create-article-par
 });
 
 
+
 class CreateArticle extends React.Component {
   constructor() {
     super()
     this.state = {
       step: 1,
-      data1: "",
-      data2: "",
-      data3: "",
-      data4: "",
-      data5: "",
+      html_title: "",
+      meta_description: "",
+      canonical: undefined,
+      noindex: false,
+      nofollow: false,
     }
+
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
     this.setStateStep = this.setStateStep.bind(this)
-    // this.handleChange = this.handleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleCheck = this.handleCheck.bind(this)
+  }
+
+  handleChange = (e) => {
+    console.log("\n\ne.target.name: ", e.target.name)
+
+    console.log("\n\ne.target.value: ", e.target.value)
+
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+
+  handleCheck = (e) => {
+
+    console.log("\n\ne.target.name: ", e.target.name)
+    console.log("\n\ne.target.checked: ", e.target.checked)
+
+    this.setState({
+      [e.target.name]: !this.state[e.target.name]
+    })
   }
 
   setStateStep(step) {
@@ -45,23 +70,17 @@ class CreateArticle extends React.Component {
     })
   }
 
-  nextStep(e) {
+  nextStep = (e) => {
     this.setState({
       step: ++this.state.step
     })
   }
-  previousStep(e) {
+  previousStep = (e) => {
     this.setState({
       step: --this.state.step
     })
   }
 
-  // handleChange(input, e) {
-  //   console.log("in parent", e.target.value)
-  //   this.setState({
-  //     [input]: e.target.value
-  //   })
-  // }
 
 
   render() {
@@ -69,10 +88,18 @@ class CreateArticle extends React.Component {
 
     switch (this.state.step) {
       case 1:
-        component = <Part1 
-        step={this.state.step}
+        component = <_1_SetArticleHeadTagData 
+        handleChange={this.handleChange} 
+        handleCheck={this.handleCheck} 
         setStateStep={this.setStateStep}  
-        nextStep={this.nextStep} 
+        step={this.state.step}
+        nextStep={this.nextStep}
+
+        html_title={this.state.html_title}
+        meta_description={this.state.meta_description}
+        canonical={this.state.canonical}
+        noindex={this.state.noindex}
+        nofollow={this.state.nofollow}
         />
         break;
       case 2:
@@ -115,14 +142,16 @@ class CreateArticle extends React.Component {
       <React.Fragment>
         <div id='create-article'>
           <div id="nest-1">
+
             {this.state.step != 5 ?
               <a id='reset' href="/operations/create-article">
-                {/* TODO change src */}
                 <img src="/img/SVG/operations/create-article/reset.svg" alt="" />
                 <span>Reset</span>
               </a> : null}
 
+
             {component}
+
           </div>
         </div>
         
