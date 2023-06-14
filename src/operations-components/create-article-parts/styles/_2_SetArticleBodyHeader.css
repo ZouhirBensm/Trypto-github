@@ -1,0 +1,16 @@
+
+
+.input-with-tags {
+  display: inline-block;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+.input-with-tags .tag {
+  display: inline-block;
+  background-color: #f2f2f2;
+  border-radius: 3px;
+  padding: 2px 5px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+}

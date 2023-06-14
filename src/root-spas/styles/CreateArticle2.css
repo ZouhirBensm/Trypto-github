@@ -27,7 +27,7 @@ div#create-article > div#nest-1 > a > img{
 
 
 /* PROCEED, PREVIOUS BUTTONS */
-div#proceed>button {
+div#nav>button {
   text-transform: uppercase;
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
@@ -39,6 +39,6 @@ div#proceed>button {
   vertical-align: middle;
 }
 
-div#proceed>img {
+div#nav>img {
   vertical-align: middle;
 }

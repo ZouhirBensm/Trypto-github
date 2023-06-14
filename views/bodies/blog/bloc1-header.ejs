@@ -1,1 +1,44 @@
-<h1>bloc1-header.ejs</h1>
+<!-- itemscope itemtype="https://schema.org/Blog" itemref="xxxx(resume_tag)_id article_id" -->
+<header>
+
+  <!-- META INFORMATION -->
+  <!-- itemprop="keywords" -->
+  <span style="display: none"><%=locals.keywords?.join(', ')%></span>
+
+  <!-- itemprop="about genre" -->
+  <span style="display: none"><%=locals.category%></span>
+  <!-- itemprop="publisher" itemscope itemtype="https://schema.org/Organization" -->
+  <span style="display: none">
+    <!-- itemprop="name" -->
+    <span>bidblock.ca</span>
+    <!-- itemprop="email" -->
+    <link rel="noopener nofollow" href="mailto:bidblockcanada@gmail.com"/>
+    <!-- itemprop="url" -->
+    <link href="https://bidblock.ca"/>
+    <!-- ideally set to about us page -->
+  </span>
+
+  <!-- BANNER -->
+  <!-- itemprop="image" -->
+  <img src="<%=locals.banner_image%>" alt="<%=locals.banner_img_alt%>">
+  
+  <div>
+    <!-- itemprop="name headline" -->
+    <h1><%=locals.h1%></h1>
+    <!-- itemprop="author" itemscope itemtype="https://schema.org/Person" -->
+    <span>
+      <!-- itemprop="name" -->
+      <span><%=locals.author%></span>
+      <!-- itemprop="url" rel="author" -->
+      <link href="/author/<%-locals.author_username%>"/>
+    </span>
+
+    <% const date = new Date(locals.published_datetime);%>
+
+    <!-- itemprop="datePublished" datetime="< %= date.toISOString()%>" -->
+    <time>
+      <%= date.toLocaleString('en-US', { timeZone: 'America/Toronto', dateStyle: 'short', timeStyle: 'short' }) %>
+    </time>
+
+  </div>
+</header>

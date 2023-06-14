@@ -85,7 +85,7 @@ class _1_SetArticleHeadTagData extends React.Component {
 
         </form>
 
-        <div id='proceed'>
+        <div id='nav'>
           <button onClick={(e) => {
             const isValid = this.validateInputs(e)
             console.log({isValid})
