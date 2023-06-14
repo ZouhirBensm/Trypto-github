@@ -1,0 +1,44 @@
+div#nest-1>form#create-article-form-id>div#box-input {
+  position: relative;
+}
+
+div#nest-1>form#create-article-form-id>div#box-input>input#input-banner-img-id {
+  /* Your styles here */
+  /* display: none; */
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+div#nest-1>form#create-article-form-id>div#box-input>label#upload-button {
+  width: fit-content;
+  border: 1px solid #010757;
+  border-radius: 20px;
+  letter-spacing: 1.4px;
+  color: #010757;
+  text-transform: capitalize;
+  padding: 0.8rem;
+  margin: 2vh 0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: var(--font-size-button);
+  display: inline-block;
+}
+
+
+div#nest-1>form#create-article-form-id>div#box-input>label#upload-button+div {
+  display: inline-block;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: var(--font-size-button);
+  letter-spacing: 1.2px;
+  color: #B8CEF5;
+  /* margin: 2vh auto; */
+  margin-left: 2ch;
+}

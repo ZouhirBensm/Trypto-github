@@ -32,23 +32,38 @@ class CreateArticle extends React.Component {
   constructor() {
     super()
     this.state = {
-      step: 1,
-      // STEP 1
-      html_title: "",
-      meta_description: "",
+      // step: 1,
+      // // STEP 1
+      // html_title: "",
+      // meta_description: "",
+      // canonical: undefined,
+      // noindex: false,
+      // nofollow: false,
+      // // STEP 2
+      // keywords: [],
+      // category: "",
+      // // publisher name, email, and link are default values for now
+      // banner_image_name: undefined,
+      // banner_image_file: undefined,
+      // // banner_image_path
+      // banner_img_alt: "",
+      // h1: "",
+      // // author is logged in username
+      // // published_datetime is default now upon creation
+
+      // USED TO TEST CREATE QUICKLY
+      step: 3,
+      html_title: "Some random title",
+      meta_description: "Some random description",
       canonical: undefined,
       noindex: false,
       nofollow: false,
-      // STEP 2
-      keywords: [],
-      category: "",
-      // publisher name, email, and link are default values for now
-      // upload banner image (name, link)
-      banner_img_alt: "",
-      h1: "",
-      // author is logged in username
-      // published_datetime is default now upon creation
-
+      keywords: ['opti for this', 'and for that'],
+      category: "bitcoin",
+      banner_image_name: undefined,
+      banner_image_file: undefined,
+      banner_img_alt: "some alt txt for the image",
+      h1: "The H1 title",
     }
 
     this.nextStep = this.nextStep.bind(this)
@@ -56,8 +71,10 @@ class CreateArticle extends React.Component {
     this.setStateStep = this.setStateStep.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleChange2 = this.handleChange2.bind(this)
+    this.setStateBannerImage = this.setStateBannerImage.bind(this)
     this.handleCheck = this.handleCheck.bind(this)
   }
+
 
   handleChange = (e) => {
     console.log("\n\ne.target.name: ", e.target.name)
@@ -94,6 +111,13 @@ class CreateArticle extends React.Component {
     })
   }
 
+  setStateBannerImage = (banner_image_name, banner_image_file) => {
+    this.setState({
+      banner_image_name: banner_image_name,
+      banner_image_file: banner_image_file,
+    })
+  }
+
   setStateStep(step) {
     this.setState({
       step: step
@@ -118,25 +142,30 @@ class CreateArticle extends React.Component {
 
     switch (this.state.step) {
       case 1:
-        component = <_1_SetArticleHeadTagData 
-        handleChange={this.handleChange} 
-        handleCheck={this.handleCheck} 
-        setStateStep={this.setStateStep}  
-        step={this.state.step}
-        nextStep={this.nextStep}
+        component = <_1_SetArticleHeadTagData
+          handleChange={this.handleChange}
+          handleCheck={this.handleCheck}
+          setStateStep={this.setStateStep}
+          step={this.state.step}
+          nextStep={this.nextStep}
+          validateInputs={this.validateInputs}
 
-        html_title={this.state.html_title}
-        meta_description={this.state.meta_description}
-        canonical={this.state.canonical}
-        noindex={this.state.noindex}
-        nofollow={this.state.nofollow}
+          html_title={this.state.html_title}
+          meta_description={this.state.meta_description}
+          canonical={this.state.canonical}
+          noindex={this.state.noindex}
+          nofollow={this.state.nofollow}
         />
         break;
       case 2:
-          component = <_2_SetArticleBodyHeader
+        component = <_2_SetArticleBodyHeader
           step={this.state.step}
-          handleChange2={this.handleChange2} 
-          setStateStep={this.setStateStep}  
+          handleChange={this.handleChange}
+          handleChange2={this.handleChange2}
+          setStateBannerImage={this.setStateBannerImage}
+          validateInputs={this.validateInputs}
+
+          setStateStep={this.setStateStep}
           previousStep={this.previousStep}
           nextStep={this.nextStep}
 
@@ -144,32 +173,49 @@ class CreateArticle extends React.Component {
           category={this.state.category}
           banner_img_alt={this.state.banner_img_alt}
           h1={this.state.h1}
-          />
-          break;
-        case 3:
-          component = <Part3
+          banner_image_name={this.state.banner_image_name}
+          banner_image_file={this.state.banner_image_file}
+        />
+        break;
+      case 3:
+        component = <Part3
           step={this.state.step}
-          setStateStep={this.setStateStep}  
+          setStateStep={this.setStateStep}
           previousStep={this.previousStep}
           nextStep={this.nextStep}
-          />
-          break;
-        case 4:
-          component = <Part4
+          setStateBannerImage={this.setStateBannerImage}
+
+          html_title={this.state.html_title}
+          meta_description={this.state.meta_description}
+          canonical={this.state.canonical}
+          noindex={this.state.noindex}
+          nofollow={this.state.nofollow}
+          keywords={this.state.keywords}
+          category={this.state.category}
+          banner_img_alt={this.state.banner_img_alt}
+          h1={this.state.h1}
+          banner_image_name={this.state.banner_image_name}
+          banner_image_file={this.state.banner_image_file}
+        />
+        break;
+      case 4:
+        component = <Part4
           step={this.state.step}
-          setStateStep={this.setStateStep}  
+          setStateStep={this.setStateStep}
           previousStep={this.previousStep}
           nextStep={this.nextStep}
-          />
-          break;
-        case 5:
-          component = <Part5
+
+
+        />
+        break;
+      case 5:
+        component = <Part5
           step={this.state.step}
-          setStateStep={this.setStateStep}  
+          setStateStep={this.setStateStep}
           previousStep={this.previousStep}
           nextStep={this.nextStep}
-          />
-          break;
+        />
+        break;
       default:
         component = null
         break;
@@ -190,10 +236,36 @@ class CreateArticle extends React.Component {
 
           </div>
         </div>
-        
+
       </React.Fragment>
     )
   }
+
+
+  validateInputs(e) {
+    const inputs = document.getElementsByTagName('input');
+    let isValid = true;
+
+    for (let i = 0; i < inputs.length; i++) {
+      const input = inputs[i];
+      if (input.required && !input.checkValidity()) {
+        // Input is invalid, trigger validation error message
+        input.reportValidity();
+        isValid = false;
+        break
+      }
+    }
+
+    if (isValid) {
+      // All inputs are valid, perform desired action
+      console.log('VALID');
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
 }
 
 

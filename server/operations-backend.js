@@ -197,7 +197,10 @@ operationsBackend_app_router.get(['/', '/articles-dashboard', '/control-faq'], r
 })
 
 
-operationsBackend_app_router.get('/create-article', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
+operationsBackend_app_router.get('/create-article', 
+require_loggedin_for_pages(true), 
+authenticate_role_for_pages([ROLE.MASTER]), 
+(req, res) => {
 
   res.locals.CATEGORY = CATEGORY;
 
@@ -261,8 +264,40 @@ operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', require_l
 
 
 
+// ORIGINAL
+// operationsBackend_app_router.post('/create-article', 
+// require_loggedin_for_pages(true), 
+// authenticate_role_for_pages([ROLE.MASTER]), 
 
-operationsBackend_app_router.post('/create-article', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), multerinstance.upload.single('image'), articlesMiddleware.setTheExcerptMiddleware, articlesMiddleware.makeSureDestinationFolderPresentMiddleware,  articlesMiddleware.createArticleInstanceMiddleware, articlesMiddleware.processArticleImageMiddleware,  articlesMiddleware.createArticleEnclosureImageInstanceMiddleware, articlesMiddleware.saveTheArticleEntryMiddleware, articlesMiddleware.saveTheArticleEnclosureImageEntryMiddleware,  operationsControllers.responseCreateArticleController)
+// multerinstance.upload.single('image'), 
+// articlesMiddleware.setTheExcerptMiddleware, 
+// articlesMiddleware.makeSureDestinationFolderPresentMiddleware,  
+// articlesMiddleware.createArticleInstanceMiddleware, 
+// articlesMiddleware.processArticleImageMiddleware,  
+// articlesMiddleware.createArticleEnclosureImageInstanceMiddleware, 
+// articlesMiddleware.saveTheArticleEntryMiddleware, 
+// articlesMiddleware.saveTheArticleEnclosureImageEntryMiddleware,  
+// operationsControllers.responseCreateArticleController
+
+// )
+
+
+// UPLOAD NEW ARTICLE TEMPORAL
+operationsBackend_app_router.post('/create-article', 
+require_loggedin_for_pages(true), 
+authenticate_role_for_pages([ROLE.MASTER]), 
+
+multerinstance.upload.single('image'), 
+articlesMiddleware.setTheExcerptMiddleware, 
+articlesMiddleware.makeSureDestinationFolderPresentMiddleware,  
+articlesMiddleware.createArticleInstanceMiddleware, 
+articlesMiddleware.processArticleImageMiddleware,  
+articlesMiddleware.createArticleEnclosureImageInstanceMiddleware, 
+articlesMiddleware.saveTheArticleEntryMiddleware, 
+articlesMiddleware.saveTheArticleEnclosureImageEntryMiddleware,  
+operationsControllers.responseCreateArticleController
+
+)
 
 
 

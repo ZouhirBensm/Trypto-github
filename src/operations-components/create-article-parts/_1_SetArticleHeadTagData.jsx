@@ -5,31 +5,6 @@ class _1_SetArticleHeadTagData extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
-    this.validateInputs = this.validateInputs.bind(this)
-  }
-
-    
-  validateInputs(e) {
-    const inputs = document.getElementsByTagName('input');
-    let isValid = true;
-  
-    for (let i = 0; i < inputs.length; i++) {
-      const input = inputs[i];
-      if (input.required && !input.checkValidity()) {
-        // Input is invalid, trigger validation error message
-        input.reportValidity();
-        isValid = false;
-        break
-      }
-    }
-  
-    if (isValid) {
-      // All inputs are valid, perform desired action
-      console.log('VALID');
-      return true;
-    } else {
-      return false;
-    }
   }
   
 
@@ -62,9 +37,9 @@ class _1_SetArticleHeadTagData extends React.Component {
 
           <div id="toogler_noindex">
 
-            <input type="checkbox" id={`id-noindex`} name='noindex' className="checkbox" checked={this.props.noindex} onChange={this.props.handleCheck} />
+            <input type="checkbox" id='id-noindex' name='noindex' className="checkbox" checked={this.props.noindex} onChange={this.props.handleCheck} />
 
-            <label style={{ justifyContent: lr_noindex }} htmlFor={`id-noindex`} className="switch">
+            <label style={{ justifyContent: lr_noindex }} htmlFor='id-noindex' className="switch">
               <span>{this.props.noindex ? `ON` : `OFF`}</span>
             </label>
           </div>
@@ -75,9 +50,9 @@ class _1_SetArticleHeadTagData extends React.Component {
 
           <div id="toogler_nofollow">
 
-            <input type="checkbox" id={`id-nofollow`} name='nofollow' className="checkbox" checked={this.props.nofollow} onChange={this.props.handleCheck} />
+            <input type="checkbox" id='id-nofollow' name='nofollow' className="checkbox" checked={this.props.nofollow} onChange={this.props.handleCheck} />
 
-            <label style={{ justifyContent: lr_nofollow }} htmlFor={`id-nofollow`} className="switch">
+            <label style={{ justifyContent: lr_nofollow }} htmlFor='id-nofollow' className="switch">
               <span>{this.props.nofollow ? `ON` : `OFF`}</span>
             </label>
           </div>
@@ -87,7 +62,7 @@ class _1_SetArticleHeadTagData extends React.Component {
 
         <div id='nav'>
           <button onClick={(e) => {
-            const isValid = this.validateInputs(e)
+            const isValid = this.props.validateInputs(e)
             console.log({isValid})
             if (!isValid) return
             this.props.nextStep(e)
