@@ -56,7 +56,7 @@ class ChoosePlan extends React.Component {
                 <div>Able to post the items you sell</div>
                 <div>Chat with other users to buy items they sell</div>
                 <div>Enjoy a Bitcoin Satochi denominated marketplace</div>
-                <div>Benefit from our upcomming features (newsletter, in app bitcoin transactions, and more)</div>
+                <div>Benefit from our upcoming features (newsletter, in app bitcoin transactions, and more)</div>
               </div>
             </button>
             <button style={{ backgroundColor: this.state.plan == "BASIC"? '#0800ff': ""}} onClick={(e) => this.select(e)} value="BASIC">

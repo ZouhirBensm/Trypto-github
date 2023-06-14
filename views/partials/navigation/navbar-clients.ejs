@@ -1,15 +1,12 @@
-<!-- <script>
-  // Kept as reference
-  var role = ' locals.user?.role  %>< % ='
-  console.log("do we have a role? ", role)
-</script> -->
-
+<nav>
 <ul class="home">
+
   <li>
     <a href="/">
       <img src="/img/SVG/home/nav-icons/home1.svg" alt="">
     </a>
   </li>
+
   <%if(loggedIn){%>
     <!-- <li><a href="/users/profile">Profile</a></li> -->
     <li>
@@ -17,40 +14,36 @@
         <img src="/img/SVG/home/nav-icons/chatbubbles.svg" alt="">
       </a>
     </li>
-    <%}%>
-  </ul>
-  <ul class="iflog">
+  <%}%>
+</ul>
 
-    <li>
-      <div onclick="toogleSideNav()">
-        <img src="/img/SVG/home/nav-icons/toogle.svg" alt="">
-      </div>
-      <a href="/">
-        <img src="/img/SVG/home/nav-icons/logo.svg" alt="">
-      </a>
-    </li>
+
+
+
+<ul class="iflog">
+
+  <li>
+    <div onclick="toogleSideNav()">
+      <img src="/img/SVG/home/nav-icons/toogle.svg" alt="">
+    </div>
+    <a href="/">
+      <img src="/img/SVG/home/nav-icons/logo.svg" alt="">
+    </a>
+  </li>
     
-    
-    <li>
-    </li>
 
 
   <%if(!loggedIn){%>
-    <!-- <li>
-    </li> -->
     <li>
       <a href="/users/login">
-        <!-- <img src="/img/SVG/home/nav-icons/login1.svg" alt=""> -->
         login
       </a>
       <a href="/subscription">
-        <!-- <img src="/img/SVG/home/nav-icons/sub2.svg" alt=""> -->
         sign up
       </a>
     </li>
   <%}%>
   <%if(loggedIn){%>
-    <!-- <li><a href="/databases">OrdersApp</a></li>   -->
     <li>
       <a href="/logout">
         <!-- <img src="/img/SVG/home/nav-icons/logout1dark.svg" alt=""> -->
@@ -58,39 +51,56 @@
       </a>
     </li>
   <%}%>
+
+
 </ul>
+</nav>
 
-<div class="sidebar-container">
 
+<aside class="sidebar-container">
+  <nav>
   
-  <ul class="sidenav">
-    <% if(typeof loggedInUserId !== 'undefined' && loggedInUserId) { %>
-    <!-- < % if(loggedIn) { %> -->
-      <div>
-        <img src='<%=loggedInUserImgProfilePath%>' alt="">
-        <span><%=loggedInUserName%></span>
-        <hr />
-      </div>
-    <%}%>
+    
+    <ul class="sidenav">
+  
+      <% if(typeof loggedInUserId !== 'undefined' && loggedInUserId) { %>
+      <!-- < % if(loggedIn) { %> -->
+        <div>
+          <img src='<%=loggedInUserImgProfilePath%>' alt="">
+          <span><%=loggedInUserName%></span>
+          <hr />
+        </div>
+      <%}%>
+  
+  
+      <%if(!loggedIn){%>
+        <!-- <li><a href="#">Template</a></li> -->
+      <%}%>
+  
+  
+      <%if(loggedIn){%>
+        <li><a href="/users/profile">Profile</a></li>
+        <li><a href="/settings">Settings</a></li>
+        <!-- Disables the currency app -->
+        <!-- <li><a href="/currency/btclayerexchange">BTC Layer Exchange</a></li> -->
+        <li><a href="/marketplace/sellordersdata">Market Place</a></li>  
+        <%if(locals.user?.role == "MASTER"){%>
+          <li><a href="/operations">Operations</a></li>  
+        <%}%>
+      <%}%>
+  
+      <li><a href="/articles">Articles</a></li>
+  
+    </ul>
+  </nav>
 
-    <%if(!loggedIn){%>
-      <!-- <li><a href="#">Template</a></li> -->
-    <%}%>
-    <%if(loggedIn){%>
-      <li><a href="/users/profile">Profile</a></li>
-      <li><a href="/settings">Settings</a></li>
-      <!-- Disables the currency app -->
-      <!-- <li><a href="/currency/btclayerexchange">BTC Layer Exchange</a></li> -->
-      <li><a href="/marketplace/sellordersdata">Market Place</a></li>  
-    <%if(locals.user?.role == "MASTER"){%>
-      <li><a href="/operations">Operations</a></li>  
-    <%}%>
-    <%}%>
-    <li><a href="/articles">Articles</a></li>
-  </ul>
-</div>
+</aside>
 
-<script src="/js/toogle.js"></script>
+
+
+
+
+<script defer src="/js/toogle.js"></script>
 
 
 
