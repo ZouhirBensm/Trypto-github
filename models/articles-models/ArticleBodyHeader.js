@@ -26,11 +26,6 @@ const ArticleBodyHeaderSchema = new Schema({
     required: true
   },
 
-  h1: {
-    type: String,
-    required: true
-  },
-
   article_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Article',

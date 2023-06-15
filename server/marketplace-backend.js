@@ -41,7 +41,6 @@ const marketplaceController = require("../controllers/marketplace-controllers/ma
 const moreMarketplaceController = require("../controllers/marketplace-controllers/more-marketplace-controllers")
 
 const distributePaginatedDataController = require("../controllers/generic-controllers/distribute-paginated-data-controller")
-const distributeDataController = require('../controllers/articles-controllers/distribute-data-controller')
 
 
 // Middleware
@@ -247,9 +246,6 @@ marketplaceBackend_app_router.get('/json/agglomerates', require_loggedin_for_dat
 
 
 
-
-
-marketplaceBackend_app_router.get(['/recent-marketorders'], marketplaceMiddleware.recentOrdersRetrievalMiddleware, distributeDataController)
 
 
 

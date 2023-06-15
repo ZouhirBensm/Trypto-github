@@ -15,7 +15,6 @@ const CATEGORY = require('../full-stack-libs/Types/ArticleCategories')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
 
 const articlesRetrievalMiddleware = require('../middleware/articles-middleware/articles-retrieval-middleware')
-const recentArticlesRetrievalMiddleware = require('../middleware/articles-middleware/recent-articles-retrieval-middleware')
 
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 
@@ -24,13 +23,11 @@ const requireRefererMiddleware = require('../middleware/generic-middleware/requi
 
 const distributePaginatedDataController = require('../controllers/generic-controllers/distribute-paginated-data-controller')
 
-const distributeDataController = require('../controllers/articles-controllers/distribute-data-controller')
-
 
 // Use this to check the role, requires a res.locals.user.role
-const { set_user_if_any } =  require("../middleware/generic-middleware/set-user-if-any-middleware")
-const { authenticate_role_for_pages, authenticate_role_for_data } =  require("../middleware/generic-middleware/authenticate-role-middleware")
-const { require_loggedin_for_pages, require_loggedin_for_data } =  require("../middleware/generic-middleware/check-loggedin-middleware")
+const { set_user_if_any } = require("../middleware/generic-middleware/set-user-if-any-middleware")
+const { authenticate_role_for_pages, authenticate_role_for_data } = require("../middleware/generic-middleware/authenticate-role-middleware")
+const { require_loggedin_for_pages, require_loggedin_for_data } = require("../middleware/generic-middleware/check-loggedin-middleware")
 
 
 const Article = require('../models/articles-models/Article')
@@ -47,25 +44,41 @@ articlesBackend_app_router.use(set_user_if_any, (req, res, next) => {
   next()
 })
 
-articlesBackend_app_router.get('/paginated-articles/data', requireRefererMiddleware, paginatingSetupMiddleware, destructureURLandRefererMiddleware, articlesRetrievalMiddleware, distributePaginatedDataController)
-
-
-
-articlesBackend_app_router.get('/recent-articles', requireRefererMiddleware, recentArticlesRetrievalMiddleware, distributeDataController)
 
 
 
 
-articlesBackend_app_router.get('/:category?', (req,res)=>{
+
+
+
+
+
+
+articlesBackend_app_router.get('/paginated-articles/data',
+  requireRefererMiddleware,
+  paginatingSetupMiddleware,
+  destructureURLandRefererMiddleware,
+
+  articlesRetrievalMiddleware,
+  distributePaginatedDataController
+)
+
+
+
+articlesBackend_app_router.get('/:category?', (req, res) => {
 
   res.locals.CATEGORY = CATEGORY;
 
   var JSX_to_load = 'ArticlesCategorySelector';
 
-  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
-    JSX_to_load : JSX_to_load, 
+  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
+    JSX_to_load: JSX_to_load,
   })
 })
+
+
+
+
 
 
 // REACT RENDER
@@ -83,7 +96,7 @@ articlesBackend_app_router.get('/:category?', (req,res)=>{
 
 
 // EJS RENDER
-articlesBackend_app_router.get('/individual_article/:article_title', (req,res)=>{
+articlesBackend_app_router.get('/individual_article/:article_title', (req, res) => {
 
   // res.locals.article_title = req.params.article_title ?  req.params.article_title : undefined
   res.locals.header = 2
@@ -94,20 +107,20 @@ articlesBackend_app_router.get('/individual_article/:article_title', (req,res)=>
 
 
 
-articlesBackend_app_router.get('/data/:article_title', async (req,res, next)=>{
+articlesBackend_app_router.get('/data/:article_title', async (req, res, next) => {
 
   let ret_article
   let e
 
   try {
-    ret_article = await Article.findOne({link: `/articles/individual_article/${req.params.article_title}`})
+    ret_article = await Article.findOne({ link: `/articles/individual_article/${req.params.article_title}` })
   } catch (error) {
     const error_msg = 'Mongo error when executing: Article.findOne'
     e = new MongoError(error_msg, error.code)
     return next(e)
   }
 
-  if(!ret_article) {
+  if (!ret_article) {
     let e
     const error_msg = 'No article data was found'
     const code = undefined
@@ -121,7 +134,7 @@ articlesBackend_app_router.get('/data/:article_title', async (req,res, next)=>{
   res.status(200).json({
     article: ret_article
   })
-  
+
 })
 
 

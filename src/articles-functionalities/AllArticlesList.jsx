@@ -58,41 +58,34 @@ class ArticleElement extends React.Component {
     const options = { day: 'numeric', month: 'long', year: 'numeric' };
     const formattedDate = date.toLocaleDateString('en-US', options);
 
+    let enclosure
+    let url
 
+    if (EXTERNAL_READS_SOURCES.includes(this.props.article.source)) {
+      enclosure = this.props.article.enclosure
+      url = this.props.article.url
+    } else {
+      enclosure = `img/bidblock-article-enclosure-images/${this.props.article.articleenclosureimage_id.image.name}`
+      url = this.props.article.articleheadtag_id.url
+    }
 
     return (
 
       <React.Fragment>
         <div className="article-card">
           <div className="article-preview">
-            <img src={this.props.article.enclosure} alt="Blog image banner" />
+            <img src={enclosure} alt="Blog image banner" />
             <span>{formattedDate}</span>
             <div>
-              <h4>{this.props.article.title}</h4>
+              <h4>{this.props.article.h1}</h4>
               <p>{this.props.article.excerpt}</p>
             </div>
           </div>
 
 
-          <a className='link' href={this.props.article.link} target={EXTERNAL_READS_SOURCES.includes(this.props.article.source)? "_blank": null}>
+          <a className='link' href={url} target={EXTERNAL_READS_SOURCES.includes(this.props.article.source)? "_blank": null}>
             Read more
           </a>
-
-
-          {/* {!EXTERNAL_READS_SOURCES.includes(this.props.article.source) ?
-
-
-            <Link className='link' to={{
-              pathname: this.props.article.link,
-              // search: `?article=${JSON.stringify(this.props.article)}`,
-            }}>
-              Read more
-            </Link>
-            :
-            <a className='link' href={this.props.article.link} target="_blank">
-              Read more
-            </a>
-          } */}
 
         </div>
 
@@ -103,6 +96,10 @@ class ArticleElement extends React.Component {
     );
   }
 }
+
+
+
+
 
 
 export default AllArticlesList

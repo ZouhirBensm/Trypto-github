@@ -19,17 +19,18 @@ class _2_SetArticleBodyHeader extends React.Component {
 
     for (const key in CATEGORY) {
       if (Object.hasOwnProperty.call(CATEGORY, key)) {
-        const category_element = CATEGORY[key];
+        let category = CATEGORY[key];
         let newOption = document.createElement("option")
 
-        const category = category_element.toLowerCase()
-        .replace(/_/g, ' ');
+        // category = category.toLowerCase()
+        // .replace(/_/g, ' ');
         newOption.setAttribute("value", category);
         newOption.innerHTML = category
         select1.appendChild(newOption)
       }
     }
-    // select1.value = CATEGORY.BITCOIN.toLowerCase().replace(/_/g, ' ');
+    select1.value = ''
+    // .toLowerCase().replace(/_/g, ' ');
   }
 
 
@@ -55,7 +56,7 @@ class _2_SetArticleBodyHeader extends React.Component {
           </div>
 
           <label>Set Article's category (database), genre (schema), and about (schema)</label>
-          <select defaultValue="" onChange={this.props.handleChange} name="category" required>
+          <select defaultValue="" onChange={this.props.handleChange} name="category" required >
             <option value="">no selection</option>  
           </select> 
 

@@ -78,7 +78,7 @@ class Articles extends React.Component {
   }
 
   render() {
-    console.log("Here articles!: ", this.state.articles)
+    console.log("Articles-> this.state.articles: \n", this.state.articles)
     return (
       <React.Fragment>
 

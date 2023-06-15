@@ -18,18 +18,22 @@ class GetRecentMarketItems extends React.Component {
   async loadRecentMarketItems(){
     let response
 
-    response = await fetch(`/marketplace/recent-marketorders`)
+    response = await fetch(`/marketplace/paginated-orders/sellordersdata?page=1&limit=5`)
 
     // console.log(response)
     
     let json
     json = await response.json()
     
-    // console.log(json)
+    console.log(json.srv_)
 
     this.setState({
-      orders: json.srv_
+      orders: json.srv_.ORDERS
     })
+
+
+    
+    
 
   }
 

@@ -8,6 +8,10 @@ const Schema = mongoose.Schema
 //Models define collections
 //Models are defined through the Schema interface
 const ArticleSchema = new Schema({
+  h1: {
+    type: String,
+    required: true
+  },
   content: String,
   excerpt: String,
   articleheadtag_id: {
@@ -32,10 +36,10 @@ const ArticleSchema = new Schema({
   // category: String,
   // link: String,
   // enclosure: String,
-  // source: {
-  //   type: String,
-  //   default: SOURCES.BIDBLOCK,
-  // },
+  source: {
+    type: String,
+    default: SOURCES.BIDBLOCK,
+  },
   // Author: {
   //   type: mongoose.Schema.Types.ObjectId,
   //   ref: 'User',

@@ -50,6 +50,7 @@ class App extends React.Component {
     this.setState({
       prices: data.data.bitcoin
     })
+    return
   }
 
 

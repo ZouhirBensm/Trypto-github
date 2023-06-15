@@ -61,6 +61,7 @@ async function createArticleInstanceMiddleware(req, res, next) {
   let ret_article_instance
 
   ret_article_instance = new Article({
+    h1: req.body.h1,
     content: req.body.content,
     excerpt: req.body.excerpt
   })
@@ -128,7 +129,6 @@ async function createArticleBodyHeaderInstanceMiddleware(req, res, next) {
     keywords: JSON.parse(req.body.keywords),
     category: req.body.category,
     banner_img_alt: req.body.banner_img_alt,
-    h1: req.body.h1,
     article_id: res.locals.ret_article_instance._id // ATTACH TO ArticleBodyHeader -> Article
   })
 

@@ -8,17 +8,11 @@ class GetRecentArticles extends React.Component {
     super(props)
     this.state = {
       articles: [],
-      // renderrender: true
     }
     this.loadRecentArticles = this.loadRecentArticles.bind(this)
-    this.unmount = this.unmount.bind(this)
   }
 
-  unmount(e) {
-    this.setState({
-      renderrender: false
-    })
-  }
+
 
   componentDidMount() {
     this.loadRecentArticles()
@@ -27,16 +21,20 @@ class GetRecentArticles extends React.Component {
   async loadRecentArticles() {
     let response
 
-    response = await fetch(`/articles/recent-articles`)
-
-    // console.log(response)
+    response = await fetch(`/articles/paginated-articles/data?page=1&limit=5&category=RECENT`, {
+      method: 'GET',
+    })
 
     let json
     json = await response.json()
 
+    console.log(json)
+
     this.setState({
-      articles: json.srv_
+      articles: json.srv_.ARTICLES
     })
+
+
   }
 
   render() {

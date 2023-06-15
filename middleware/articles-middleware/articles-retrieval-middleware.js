@@ -17,20 +17,28 @@ module.exports = async (req,res,next)=>{
 
   let retrievedArticles = await functionArticleAggregator(THIRD_PARTY_SOURCES)
 
-  if(req.query.category=="RECENT") {
-    // Grab DB all articles 
-    articles = await Article.find(filter_object)
-    // + All third party articles
+  articles = await Article.find(filter_object)
+  .populate({
+    // Populate protagonists
+    path: "articleenclosureimage_id",
+    // Fields allowed to populate with
+    select: "path image.name -_id",
+  })
+  .populate({
+    // Populate protagonists
+    path: "articleheadtag_id",
+    // Fields allowed to populate with
+    select: "url -_id",
+  })
 
+  console.log(articles)
+  console.log(articles[0].articleenclosureimage_id?.image)
+  console.log(articles[0].articleheadtag_id)
+
+  if(req.query.category=="RECENT") {
     articles = [...articles, ...retrievedArticles]
 
   } else {
-    // Grab DB articles with the particular category requested
-    console.log(filter_object)
-    articles = await Article.find(filter_object)
-
-    // console.log(retrievedArticles)
-
     retrievedArticles = retrievedArticles.filter(retrievedArticle => {return retrievedArticle.category == filter_object.category})
 
     articles = [...articles, ...retrievedArticles]
@@ -53,7 +61,7 @@ module.exports = async (req,res,next)=>{
   });
   
   
-  
+  // console.log("\n____________________\n\narticlesRetrievalMiddleware->  articles:\n\n",  articles)
 
   res.locals.data_to_be_paginated_and_served = articles
   return next()

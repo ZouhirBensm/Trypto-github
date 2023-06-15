@@ -60,6 +60,7 @@ class CreateArticle extends React.Component {
       noindex: false, // CHECK (ArticleHeadTag)
       nofollow: false, // CHECK (ArticleHeadTag)
       keywords: ['opti for this', 'and for that'], // CHECK (ArticleBodyHeader)
+      // category: "bitcoin", // CHECK (ArticleBodyHeader)
       category: "bitcoin", // CHECK (ArticleBodyHeader)
       banner_img_alt: "some alt txt for the image", // CHECK (ArticleBodyHeader)
       h1: "The H1 title", // CHECK (ArticleBodyHeader)
@@ -265,6 +266,8 @@ class CreateArticle extends React.Component {
 
   validateInputs(e) {
     const inputs = document.getElementsByTagName('input');
+    const selects = document.getElementsByTagName('select');
+
     let isValid = true;
 
     for (let i = 0; i < inputs.length; i++) {
@@ -272,6 +275,16 @@ class CreateArticle extends React.Component {
       if (input.required && !input.checkValidity()) {
         // Input is invalid, trigger validation error message
         input.reportValidity();
+        isValid = false;
+        break
+      }
+    }
+
+    for (let i = 0; i < selects.length; i++) {
+      const select = selects[i];
+      if (select.required && !select.checkValidity()) {
+        // Input is invalid, trigger validation error message
+        select.reportValidity();
         isValid = false;
         break
       }

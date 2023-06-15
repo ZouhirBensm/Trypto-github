@@ -91,10 +91,10 @@ class MarketOrders extends React.Component {
 
   async loadData(theUtilizedSearchQuery = undefined) {
 
-    console.log("MarketOrders: loadData()->theUtilizedSearchQuery:", theUtilizedSearchQuery)
+    // console.log("MarketOrders: loadData()->theUtilizedSearchQuery:", theUtilizedSearchQuery)
 
 
-    console.log(`/marketplace/paginated-orders/sellordersdata?page=${this.state.page}&limit=${this.state.limit}${theUtilizedSearchQuery ? theUtilizedSearchQuery : ""}`)
+    // console.log(`/marketplace/paginated-orders/sellordersdata?page=${this.state.page}&limit=${this.state.limit}${theUtilizedSearchQuery ? theUtilizedSearchQuery : ""}`)
 
 
     let response = await fetch(`/marketplace/paginated-orders/sellordersdata?page=${this.state.page}&limit=${this.state.limit}${theUtilizedSearchQuery ? theUtilizedSearchQuery : ""}`)
@@ -104,19 +104,34 @@ class MarketOrders extends React.Component {
 
     // console.log("MarketOrders: loadData()->response", response)
 
-    this.setState(prevState => ({
+    this.setState({
       orders: serverOBJ.srv_.ORDERS,
       nextPage: serverOBJ.srv_.next,
       previousPage: serverOBJ.srv_.previous,
       number_of_pages: serverOBJ.srv_.number_of_pages.number,
-      on_off_limit_next: prevState.nextPage === undefined,
-      on_off_limit_previous: prevState.previousPage === undefined
-    }), () => {
-      // Custom Errors get spitted out here
-      if (serverOBJ.error) {
-        console.error("Error: ", serverOBJ)
+      // on_off_limit_next: prevState.nextPage === undefined,
+      // on_off_limit_previous: prevState.previousPage === undefined
+    }, ()=>{
+      if(this.state.nextPage==undefined){
+        this.setState({
+          on_off_limit_next: true
+        })
+      } else {
+        this.setState({
+          on_off_limit_next: false
+        })
+      }
+      if(this.state.previousPage==undefined){
+        this.setState({
+          on_off_limit_previous: true
+        })
+      } else {
+        this.setState({
+          on_off_limit_previous: false
+        })
       }
     })
+
 
 
   }
@@ -239,7 +254,7 @@ class MarketOrders extends React.Component {
     }
 
 
-    console.log("minPriceTerm_value", minPriceTerm_value)
+    // console.log("minPriceTerm_value", minPriceTerm_value)
 
 
     this.setState({

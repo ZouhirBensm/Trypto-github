@@ -53,12 +53,12 @@ function articalizeForBidBlock(_MostRecentItems){
     return {
       _id: ObjectId(),
       publishedDate: _item.isoDate,
-      title: _item.title,
+      h1: _item.title,
       source: SOURCES.BITCOIN_MAGAZINE,
       content: _item.content,
       category: category,
       excerpt: excerpt,
-      link: _item.link,
+      url: _item.link,
       enclosure: _itemEnclosureUrl
     }
   })
