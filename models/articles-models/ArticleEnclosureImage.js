@@ -22,7 +22,7 @@ const ImageInfoSchema = new Schema({
 
 
 const ArticleEnclosureImageSchema = new Schema({
-  articleID: {
+  article_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Article',
   },
@@ -31,11 +31,11 @@ const ArticleEnclosureImageSchema = new Schema({
     type: ImageInfoSchema,
     required: true
   },
-  postedDate: {
-    type: Date,
-    // default: new Date(),
-    default: Date.now,
-  }
+  // postedDate: {
+  //   type: Date,
+  //   // default: new Date(),
+  //   default: Date.now,
+  // }
 })
 
 ArticleEnclosureImageSchema.index({ articleID: 1 });

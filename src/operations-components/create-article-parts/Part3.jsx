@@ -9,9 +9,6 @@ class Part3 extends React.Component {
   async clickCreateArticle() {
     // console.log("Creating an article...")
 
-    let input = document.getElementById('image-select')
-    let selectedFile = input.files[0]
-
     const formData = new FormData();
 
     formData.append("image", this.props.banner_image_file)
@@ -26,12 +23,17 @@ class Part3 extends React.Component {
       category: this.props.category,
       banner_img_alt: this.props.banner_img_alt,
       h1: this.props.h1,
-      banner_image_name: this.props.banner_image_name
+      banner_image_name: this.props.banner_image_name,
+      content: this.props.content
     }
 
     for (const name in nonImageData) {
       if (Object.hasOwnProperty.call(nonImageData, name)) {
-        const value = nonImageData[name];
+        let value = nonImageData[name];
+        console.log(value)
+        if(typeof value === 'undefined') continue
+
+        if (Array.isArray(value)) value = JSON.stringify(value)
         formData.append(name, value);
       }
     }

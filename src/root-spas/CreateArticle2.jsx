@@ -50,20 +50,39 @@ class CreateArticle extends React.Component {
       // h1: "",
       // // author is logged in username
       // // published_datetime is default now upon creation
+      // content: "Content of the article goes here. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi molestias, molestiae vero tenetur minima magnam. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi molestias, molestiae vero tenetur minima magnam."
 
       // USED TO TEST CREATE QUICKLY
       step: 3,
-      html_title: "Some random title",
-      meta_description: "Some random description",
-      canonical: undefined,
-      noindex: false,
-      nofollow: false,
-      keywords: ['opti for this', 'and for that'],
-      category: "bitcoin",
-      banner_image_name: undefined,
+      html_title: "Some random title", // CHECK (ArticleHeadTag)
+      meta_description: "Some random description", // CHECK (ArticleHeadTag)
+      canonical: undefined, // CHECK (ArticleHeadTag)
+      noindex: false, // CHECK (ArticleHeadTag)
+      nofollow: false, // CHECK (ArticleHeadTag)
+      keywords: ['opti for this', 'and for that'], // CHECK (ArticleBodyHeader)
+      category: "bitcoin", // CHECK (ArticleBodyHeader)
+      banner_img_alt: "some alt txt for the image", // CHECK (ArticleBodyHeader)
+      h1: "The H1 title", // CHECK (ArticleBodyHeader)
+      content: "Content of the article goes here. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi molestias, molestiae vero tenetur minima magnam. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi molestias, molestiae vero tenetur minima magnam.", // CHECK (Article)
+
+
+      // banner_image_path
       banner_image_file: undefined,
-      banner_img_alt: "some alt txt for the image",
-      h1: "The H1 title",
+      banner_image_name: undefined, // NO NEED TO SAVE
+
+
+      // ALL HARD CODED FOR NOW
+      // publisher name, 
+      // publisher email, 
+      // and publisher link
+      // author name
+      // author link
+
+
+      // published_datetime is default now upon creation // CHECK (Article)
+      // excerpt //CHECK (Article)
+      // Article's path link // CHECK (ArticleHeadTag)
+
     }
 
     this.nextStep = this.nextStep.bind(this)
@@ -173,6 +192,7 @@ class CreateArticle extends React.Component {
           category={this.state.category}
           banner_img_alt={this.state.banner_img_alt}
           h1={this.state.h1}
+
           banner_image_name={this.state.banner_image_name}
           banner_image_file={this.state.banner_image_file}
         />
@@ -196,6 +216,7 @@ class CreateArticle extends React.Component {
           h1={this.state.h1}
           banner_image_name={this.state.banner_image_name}
           banner_image_file={this.state.banner_image_file}
+          content={this.state.content}
         />
         break;
       case 4:

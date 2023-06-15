@@ -288,13 +288,21 @@ require_loggedin_for_pages(true),
 authenticate_role_for_pages([ROLE.MASTER]), 
 
 multerinstance.upload.single('image'), 
-articlesMiddleware.setTheExcerptMiddleware, 
-articlesMiddleware.makeSureDestinationFolderPresentMiddleware,  
-articlesMiddleware.createArticleInstanceMiddleware, 
-articlesMiddleware.processArticleImageMiddleware,  
-articlesMiddleware.createArticleEnclosureImageInstanceMiddleware, 
-articlesMiddleware.saveTheArticleEntryMiddleware, 
-articlesMiddleware.saveTheArticleEnclosureImageEntryMiddleware,  
+articlesMiddleware.seeData,
+articlesMiddleware.setTheExcerptMiddleware,
+
+
+articlesMiddleware.makeSureDestinationFolderPresentMiddleware,
+articlesMiddleware.createArticleInstanceMiddleware,
+articlesMiddleware.setArticleURLMiddleware,
+articlesMiddleware.createArticleHeadTagInstanceMiddleware,
+articlesMiddleware.createArticleBodyHeaderInstanceMiddleware,
+articlesMiddleware.processArticleImageMiddleware,
+articlesMiddleware.createArticleEnclosureImageInstanceMiddleware,
+articlesMiddleware.saveArticleMiddleware,
+articlesMiddleware.saveArticleHeadTagMiddleware,
+articlesMiddleware.saveArticleBodyHeaderMiddleware,
+articlesMiddleware.saveArticleEnclosureImageMiddleware,
 operationsControllers.responseCreateArticleController
 
 )
