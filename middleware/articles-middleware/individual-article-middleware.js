@@ -21,33 +21,17 @@ async function middleware1(req, res, next) {
       url: `/articles${req.url}`
     })
     .populate("articleheadtag_id articlebodyheader_id articleenclosureimage_id");
-    // .populate({
-    //   path: 'articleheadtag_id',
-    //   match: {
-    //     "url": req.url,
-    //   }
-    //   select:
-    // });
   } catch (error) {
 
   }
 
   console.log("\n\narticle,\n\n", article)
-  console.log("\n\nrticleheadtag_id,\n\n", article.articleheadtag_id)
-  console.log("\n\nrticlebodyheader_id,\n\n", article.articlebodyheader_id)
-  console.log("\n\nrticleenclosureimage_id,\n\n", article.articleenclosureimage_id)
-
-
-
-  // .populate({
-  //   path: "sellmarketorderlocationID",
-  //   match: res.locals.localityFilter,
-  //   // Fields allowed to populate with
-  //   select: "location.country location.province_state location.city  location.neigh location.st -_id",
-  // })
+  // console.log("\n\nrticleheadtag_id,\n\n", article.articleheadtag_id)
+  // console.log("\n\nrticlebodyheader_id,\n\n", article.articlebodyheader_id)
+  // console.log("\n\nrticleenclosureimage_id,\n\n", article.articleenclosureimage_id)
 
   return next()
-  
+
 }
 function middleware2(req, res, next) {
   return next()
