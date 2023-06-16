@@ -9,7 +9,7 @@ const ArticleHeadTagSchema = new Schema({
   },
   canonical: {
     type: String,
-    // TODO !!! Set a default in pre maybe
+    required: true
   },
   noindex: {
     type: Boolean,
@@ -25,6 +25,19 @@ const ArticleHeadTagSchema = new Schema({
     required: true
   }
 })
+
+
+// ArticleHeadTagSchema.pre('save', function(next){
+//   const articleheadgag = this
+
+//   console.log('\n_____pre-save: articleheadgag\n\n', articleheadgag)
+//   // If no canonical set, set default based on url
+//   // if (!articleheadgag.canonical) {
+
+//   // }
+
+//   next()
+// })
 
 
 

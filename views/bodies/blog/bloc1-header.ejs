@@ -3,10 +3,10 @@
 
   <!-- META INFORMATION -->
   <!-- itemprop="keywords" -->
-  <span style="display: none"><%=locals.keywords?.join(', ')%></span>
+  <span style="display: none"><%=locals.article.articlebodyheader_id.keywords?.join(', ')%></span>
 
   <!-- itemprop="about genre" -->
-  <span style="display: none"><%=locals.category%></span>
+  <span style="display: none"><%=locals.article.articlebodyheader_id.category%></span>
   <!-- itemprop="publisher" itemscope itemtype="https://schema.org/Organization" -->
   <span style="display: none">
     <!-- itemprop="name" -->
@@ -20,11 +20,12 @@
 
   <!-- BANNER -->
   <!-- itemprop="image" -->
-  <img src="<%=locals.banner_image%>" alt="<%=locals.banner_img_alt%>">
+  
+  <img style="width: 100px; height: 100px" src="/img/bidblock-article-enclosure-images/<%=locals.article.articleenclosureimage_id.image.name%>" alt="<%=locals.article.articlebodyheader_id.banner_img_alt%>">
   
   <div>
     <!-- itemprop="name headline" -->
-    <h1><%=locals.h1%></h1>
+    <h1><%=locals.article.h1%></h1>
     <!-- itemprop="author" itemscope itemtype="https://schema.org/Person" -->
     <span>
       <!-- itemprop="name" -->
@@ -33,7 +34,7 @@
       <link href="/author/<%-locals.author_username%>"/>
     </span>
 
-    <% const date = new Date(locals.published_datetime);%>
+    <% const date = new Date(locals.article.publishedDate);%>
 
     <!-- itemprop="datePublished" datetime="< %= date.toISOString()%>" -->
     <time>
@@ -42,3 +43,8 @@
 
   </div>
 </header>
+
+
+<!-- TODO !!!! HERE determine how the styles are loaded in earnanswers and replicate. delete image inline css and replace with proper way
+Also, keep in mind to add missing author data
+Also, test shemas are loading correctly -->

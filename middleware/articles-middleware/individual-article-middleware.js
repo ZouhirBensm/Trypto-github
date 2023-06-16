@@ -30,6 +30,8 @@ async function middleware1(req, res, next) {
   // console.log("\n\nrticlebodyheader_id,\n\n", article.articlebodyheader_id)
   // console.log("\n\nrticleenclosureimage_id,\n\n", article.articleenclosureimage_id)
 
+  res.locals.article = article
+
   return next()
 
 }

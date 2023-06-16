@@ -106,7 +106,8 @@ async function createArticleHeadTagInstanceMiddleware(req, res, next) {
 
   ret_article_head_tag_instance = new ArticleHeadTag({
     meta_description: req.body.meta_description,
-    [req.body.canonical? 'canonical' : null]: req.body.canonical,
+    // [req.body.canonical? 'canonical' : null]: req.body.canonical,
+    canonical: req.body.canonical ? req.body.canonical : req.body.url,
     noindex: req.body.noindex,
     nofollow: req.body.nofollow,
     article_id: res.locals.ret_article_instance._id // ATTACH TO ArticleHeadTag -> Article
