@@ -3,10 +3,6 @@ const Schema = mongoose.Schema
 
 
 const ArticleHeadTagSchema = new Schema({
-  html_title: {
-    type: String,
-    required: true
-  },
   meta_description: {
     type: String,
     required: true
@@ -14,10 +10,6 @@ const ArticleHeadTagSchema = new Schema({
   canonical: {
     type: String,
     // TODO !!! Set a default in pre maybe
-  },
-  url: {
-    type: String,
-    required: true
   },
   noindex: {
     type: Boolean,

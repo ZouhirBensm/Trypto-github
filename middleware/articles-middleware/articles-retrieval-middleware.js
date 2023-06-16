@@ -24,16 +24,10 @@ module.exports = async (req,res,next)=>{
     // Fields allowed to populate with
     select: "path image.name -_id",
   })
-  .populate({
-    // Populate protagonists
-    path: "articleheadtag_id",
-    // Fields allowed to populate with
-    select: "url -_id",
-  })
 
-  console.log(articles)
-  console.log(articles[0].articleenclosureimage_id?.image)
-  console.log(articles[0].articleheadtag_id)
+  // console.log(articles)
+  // console.log(articles[0].articleenclosureimage_id?.image)
+  // console.log(articles[0].articleheadtag_id)
 
   if(req.query.category=="RECENT") {
     articles = [...articles, ...retrievedArticles]

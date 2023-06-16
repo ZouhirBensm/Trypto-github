@@ -59,14 +59,11 @@ class ArticleElement extends React.Component {
     const formattedDate = date.toLocaleDateString('en-US', options);
 
     let enclosure
-    let url
 
     if (EXTERNAL_READS_SOURCES.includes(this.props.article.source)) {
       enclosure = this.props.article.enclosure
-      url = this.props.article.url
     } else {
       enclosure = `img/bidblock-article-enclosure-images/${this.props.article.articleenclosureimage_id.image.name}`
-      url = this.props.article.articleheadtag_id.url
     }
 
     return (
@@ -83,7 +80,7 @@ class ArticleElement extends React.Component {
           </div>
 
 
-          <a className='link' href={url} target={EXTERNAL_READS_SOURCES.includes(this.props.article.source)? "_blank": null}>
+          <a className='link' href={this.props.article.url} target={EXTERNAL_READS_SOURCES.includes(this.props.article.source)? "_blank": null}>
             Read more
           </a>
 

@@ -16,12 +16,16 @@ const paginatingSetupMiddleware = require('../middleware/generic-middleware/pagi
 
 const articlesRetrievalMiddleware = require('../middleware/articles-middleware/articles-retrieval-middleware')
 
+const individualArticleMiddleware = require('../middleware/articles-middleware/individual-article-middleware')
+
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 
 const requireRefererMiddleware = require('../middleware/generic-middleware/require-referer')
 
 
 const distributePaginatedDataController = require('../controllers/generic-controllers/distribute-paginated-data-controller')
+
+const individualArticleController = require('../controllers/article-controllers/individual-article-controller')
 
 
 // Use this to check the role, requires a res.locals.user.role
@@ -95,14 +99,10 @@ articlesBackend_app_router.get('/:category?', (req, res) => {
 // })
 
 
-// EJS RENDER
-articlesBackend_app_router.get('/individual_article/:article_title', (req, res) => {
 
-  // res.locals.article_title = req.params.article_title ?  req.params.article_title : undefined
-  res.locals.header = 2
 
-  res.render('bodies/bidblock-blog-article')
-})
+
+articlesBackend_app_router.get('/individual_article/:article_title', individualArticleMiddleware.middleware1, individualArticleMiddleware.middleware2, individualArticleMiddleware.middleware3, individualArticleController.controller1)
 
 
 

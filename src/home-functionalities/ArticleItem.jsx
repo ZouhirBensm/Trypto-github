@@ -17,14 +17,11 @@ class ArticleItem extends React.Component {
 
 
     let enclosure
-    let url
 
     if (EXTERNAL_READS_SOURCES.includes(this.props.article.source)) {
       enclosure = this.props.article.enclosure
-      url = this.props.article.url
     } else {
       enclosure = `img/bidblock-article-enclosure-images/${this.props.article.articleenclosureimage_id.image.name}`
-      url = this.props.article.articleheadtag_id.url
     }
 
 
@@ -32,7 +29,7 @@ class ArticleItem extends React.Component {
     return (
       <React.Fragment>
         <div className="article-item" id={`card-${this.props.card_number}`}>
-          <a href={url} target="_blank">
+          <a href={this.props.article.url} target="_blank">
             <div className='inner-article-item'>
               <div>
                 <h1>{this.props.article.h1}</h1>

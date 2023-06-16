@@ -78,6 +78,7 @@ class ArticlesCategorySelector extends React.Component {
         <BrowserRouter>
 
           <Switch>
+            {/* TODO !!!! IS route still necessary in this scenario as Article is deleted and 1 route on the page. See who renders ArticlesCategorySelector from backend? */}
             <Route exact path={`/articles/:category?`}>
 
               <div className='articles-container'>
@@ -96,6 +97,8 @@ class ArticlesCategorySelector extends React.Component {
               </div>
             </Route>
 
+            
+            {/* TODO !!!! Article component should be deleted */}
             <Route path={`/articles/individual_article/:article_title`} component={Article}>
 
             </Route>

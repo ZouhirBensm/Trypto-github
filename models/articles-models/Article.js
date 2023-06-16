@@ -12,6 +12,14 @@ const ArticleSchema = new Schema({
     type: String,
     required: true
   },
+  html_title: {
+    type: String,
+    required: true
+  },
+  url: {
+    type: String,
+    required: true
+  },
   content: String,
   excerpt: String,
   articleheadtag_id: {

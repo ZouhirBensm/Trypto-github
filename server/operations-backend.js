@@ -293,8 +293,8 @@ articlesMiddleware.setTheExcerptMiddleware,
 
 
 articlesMiddleware.makeSureDestinationFolderPresentMiddleware,
-articlesMiddleware.createArticleInstanceMiddleware,
 articlesMiddleware.setArticleURLMiddleware,
+articlesMiddleware.createArticleInstanceMiddleware,
 articlesMiddleware.createArticleHeadTagInstanceMiddleware,
 articlesMiddleware.createArticleBodyHeaderInstanceMiddleware,
 articlesMiddleware.processArticleImageMiddleware,

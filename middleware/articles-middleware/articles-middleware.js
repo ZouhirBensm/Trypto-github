@@ -55,25 +55,6 @@ function makeSureDestinationFolderPresentMiddleware(req, res, next) {
 
 }
 
-async function createArticleInstanceMiddleware(req, res, next) {
-  console.log("createArticleInstanceMiddleware...")
-
-  let ret_article_instance
-
-  ret_article_instance = new Article({
-    h1: req.body.h1,
-    content: req.body.content,
-    excerpt: req.body.excerpt
-  })
-
-  // RENDER Article GLOBAL
-  res.locals.ret_article_instance = ret_article_instance
-
-  return next()
-
-}
-
-
 
 function setArticleURLMiddleware(req, res, next) {
   
@@ -91,6 +72,32 @@ function setArticleURLMiddleware(req, res, next) {
 
 
 
+async function createArticleInstanceMiddleware(req, res, next) {
+  console.log("createArticleInstanceMiddleware...")
+
+  let ret_article_instance
+
+  ret_article_instance = new Article({
+    h1: req.body.h1,
+    html_title: req.body.html_title,
+    url: req.body.url,
+    content: req.body.content,
+    excerpt: req.body.excerpt
+  })
+
+  // RENDER Article GLOBAL
+  res.locals.ret_article_instance = ret_article_instance
+
+  return next()
+
+}
+
+
+
+
+
+
+
 
 async function createArticleHeadTagInstanceMiddleware(req, res, next) {
   console.log("createArticleHeadTagInstanceMiddleware...")
@@ -98,10 +105,8 @@ async function createArticleHeadTagInstanceMiddleware(req, res, next) {
   let ret_article_head_tag_instance
 
   ret_article_head_tag_instance = new ArticleHeadTag({
-    html_title: req.body.html_title,
     meta_description: req.body.meta_description,
     [req.body.canonical? 'canonical' : null]: req.body.canonical,
-    url: req.body.url,
     noindex: req.body.noindex,
     nofollow: req.body.nofollow,
     article_id: res.locals.ret_article_instance._id // ATTACH TO ArticleHeadTag -> Article
@@ -324,8 +329,8 @@ const articlesMiddleware = {
   seeData: seeData,
   setTheExcerptMiddleware: setTheExcerptMiddleware,
   makeSureDestinationFolderPresentMiddleware: makeSureDestinationFolderPresentMiddleware,
-  createArticleInstanceMiddleware: createArticleInstanceMiddleware,
   setArticleURLMiddleware: setArticleURLMiddleware,
+  createArticleInstanceMiddleware: createArticleInstanceMiddleware,
   createArticleHeadTagInstanceMiddleware: createArticleHeadTagInstanceMiddleware,
   createArticleBodyHeaderInstanceMiddleware: createArticleBodyHeaderInstanceMiddleware,
   processArticleImageMiddleware: processArticleImageMiddleware,

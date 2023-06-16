@@ -113,12 +113,12 @@ class ArticlesMobileCarousel extends React.Component {
     if (this.myInterval) return
 
 
-    this.myInterval = setInterval(() => {
-      // console.log(this.state.card_number_on)
+    // this.myInterval = setInterval(() => {
+    //   // console.log(this.state.card_number_on)
 
-      this.card_number_on_manager(this.state.sense)
+    //   this.card_number_on_manager(this.state.sense)
 
-    }, 20000)
+    // }, 20000)
 
   }
 
