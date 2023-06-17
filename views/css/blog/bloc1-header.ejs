@@ -1,0 +1,57 @@
+<!-- ASYNC LOAD WITH MEDIA QUERY -->
+<!-- <link rel="preload" href="/css/blog-element/bloc1-header-lt600.css" media="(max-width: 600px)" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/css/blog-element/bloc1-header-lt600.css" media="(max-width: 600px)"></noscript> -->
+
+<style>
+  header {
+    background-color: rgba(240, 240, 240, 0.377);
+    height: 600px;
+    position: relative;
+    /* min-height: 500px; */
+
+    /* background-image: url('/img/nasa.jpeg');
+    background-size: cover; */
+
+    overflow: hidden;
+    color: white;
+
+  }
+
+  header>img {
+    /* object-fit: cover;
+    width: 100%;
+    min-height: 500px; */
+
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: var(--font-size-h1);
+  }
+
+  header time,
+  header span {
+    font-size: var(--font-size-header);
+  }
+
+  header>div {
+    position: absolute;
+    top: 25%;
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+    left: 0;
+    right: 0;
+    max-height: 300px;
+    overflow: hidden;
+  }
+
+  header>div>* {
+    display: block;
+  }
+</style>
