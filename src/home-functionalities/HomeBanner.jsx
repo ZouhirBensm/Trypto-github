@@ -36,26 +36,26 @@ class HomeBanner extends React.Component {
     const homeHeaderPrices = document.getElementById('scroll-bar')
 
 
-    let i=3
+    let i = 3
 
-    
+
     do {
       for (const country_code in this.props?.btc_gecko_prices) {
-  
-  
+
+
         if (Object.hasOwnProperty.call(this.props?.btc_gecko_prices, country_code)) {
-  
+
           const price = this.props?.btc_gecko_prices[country_code];
-  
+
           const priceElement = document.createElement('div');
           priceElement.classList.add("price-element");
-  
+
           const span1 = document.createElement('span');
           const country_name = CURRENCY_CODES[country_code].name
           const currency_symbol = CURRENCY_CODES[country_code].symbol
           const flagImg = document.createElement('img');
           flagImg.src = `/img/SVG/home/${country_name}.svg`;
-  
+
           priceElement.appendChild(flagImg);
           span1.innerHTML = country_name;
           priceElement.appendChild(span1);
@@ -63,13 +63,13 @@ class HomeBanner extends React.Component {
           span2.innerHTML = `${price.toLocaleString()} ${currency_symbol}`;
           priceElement.appendChild(span2);
           homeHeaderPrices.appendChild(priceElement);
-  
+
         }
       }
 
       --i;
 
-    } while (i>0);
+    } while (i > 0);
 
   }
 
@@ -95,9 +95,16 @@ class HomeBanner extends React.Component {
 
           <div id="home-header-text">
             <div>
-              <h1>Buy, Sell, Trade</h1>
-              <h2>In Bitcoin and Sats</h2>
-              <div>Welcome to Bidblock, we are currently building the most ethical market that integrates a system to facilitate bitcoin transactions using upcoming bitcoin technologies.</div>
+              <h1>
+                Buy, Sell, and Trade Market Items
+              </h1>
+              <h2>
+                In Bitcoin and Sats.
+              </h2>
+              <div>
+                Welcome to Bidblock.<br />
+                We are building the most ethical item market that disposes of a system to facilitate Bitcoin transactions.
+              </div>
             </div>
           </div>
 
@@ -106,15 +113,15 @@ class HomeBanner extends React.Component {
           <div id="home-header-cards">
             <HomeBannerCard
               icon_path='/img/SVG/home/home-cards/downwallet.svg'
-              text='Deposit on Bitcoin wallets, then transact by leveraging layer 1 and 2 BTC protocols. Upcoming.'
+              text='Deposit on Bitcoin wallets. Upcoming.'
             />
             <HomeBannerCard
               icon_path='/img/SVG/home/home-cards/credit-card.svg'
-              text='In-app transaction software on layer 2 Bitcoin protocols to facilitate peer-to-peer trade. Upcoming.'
+              text='In-app transaction system. Upcoming.'
             />
             <HomeBannerCard
               icon_path='/img/SVG/home/home-cards/wallet.svg'
-              text='Sales dashboards to keep track of financial progress. Upcoming.'
+              text='Sales dashboards, and graphs to monitor your financial progress. Upcoming.'
             />
 
           </div>
