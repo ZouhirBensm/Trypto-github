@@ -42,7 +42,7 @@ class _2_SetArticleBodyHeader extends React.Component {
         <form id="create-article-form-id" className="form">
           <label>Set wanted Article keywords</label>
 
-          <input type="text" name="keywords" onChange={this.props.handleChange} placeholder="Enter wanted Keywords" value={this.props.keywords.join(', ')} required/>
+          <input type="text" name="keywords" onChange={this.props.handleChange} placeholder="Enter wanted Keywords" value={this.props.keywords.join(',  ')} required/>
 
           <div className="input-with-tags">
             {this.props.keywords.map((keyword, index) => {

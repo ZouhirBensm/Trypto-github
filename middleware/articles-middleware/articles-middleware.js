@@ -19,8 +19,8 @@ function seeData(req, res, next) {
   console.log(JSON.parse(req.body.keywords))
   console.log(req.file)
 
-  // return res.status(200).end()
-  return next()
+  return res.status(200).end()
+  // return next()
 }
 
 

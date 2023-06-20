@@ -61,7 +61,7 @@ class CreateArticle extends React.Component {
 
 
       // USED TO TEST CREATE QUICKLY
-      step: 3,
+      step: 4,
       html_title: "Some random title", // CHECK (ArticleHeadTag)
       meta_title: "Some random title2",
       meta_description: "Some random description", // CHECK (ArticleHeadTag)
@@ -80,8 +80,13 @@ class CreateArticle extends React.Component {
       banner_image_file: undefined, // CHECK (ArticleEnclosureImage)
       banner_image_name: undefined, // NO NEED TO SAVE
 
-      abstract_name_type: "",
-      abstract_points: [],
+      abstract_name_type: "Resume",
+      abstract_points: [
+        "Lorem, ipsum",
+        "dolor <strong>sit amet consectetur</strong> adipisicing",
+        "elit. <strong>Eum</strong> aspernatur<strong> cupiditate</strong>",
+        "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
+      ],
 
       // // _____________________________________________________
 
@@ -113,7 +118,8 @@ class CreateArticle extends React.Component {
   handleChange = (e) => {
 
     // const undefined_fields = ['canonical']
-    const should_be_set_as_array_state_elements = ['keywords']
+    const should_be_set_as_array_state_elements = ['keywords', "abstract_points"]
+    const parse_bidblock_to_strong_tag = ["abstract_points"]
 
     console.log("\n\ne.target.name: ", e.target.name)
 
@@ -121,10 +127,17 @@ class CreateArticle extends React.Component {
 
     let stateValue = e.target.value
 
+    if (parse_bidblock_to_strong_tag.includes(e.target.name)) {
+      console.log('parsing...')
+      stateValue = e.target.value.replace(/\[/g, '<strong>').replace(/\]/g, '</strong>');
+      // stateValue = JSON.stringify(stateValue);
+    }
 
     if (should_be_set_as_array_state_elements.includes(e.target.name)) {
-      stateValue = e.target.value.split(', ')
+      stateValue = stateValue.split(',  ')
     }
+    console.log(stateValue)
+
 
     this.setState({
       [e.target.name]: stateValue
@@ -232,6 +245,7 @@ class CreateArticle extends React.Component {
           previousStep={this.previousStep}
           nextStep={this.nextStep}
           handleChange={this.handleChange}
+          validateInputs={this.validateInputs}
 
           abstract_name_type={this.state.abstract_name_type}
           abstract_points={this.state.abstract_points}
@@ -259,6 +273,9 @@ class CreateArticle extends React.Component {
         banner_image_name={this.state.banner_image_name}
         banner_image_file={this.state.banner_image_file}
         content={this.state.content}
+
+        abstract_name_type={this.state.abstract_name_type}
+        abstract_points={this.state.abstract_points}
 
 
         />

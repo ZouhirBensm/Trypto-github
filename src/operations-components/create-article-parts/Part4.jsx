@@ -24,14 +24,16 @@ class Part4 extends React.Component {
       banner_img_alt: this.props.banner_img_alt,
       h1: this.props.h1,
       banner_image_name: this.props.banner_image_name,
-      content: this.props.content
+      content: this.props.content,
+      abstract_name_type: this.props.abstract_name_type,
+      abstract_points: this.props.abstract_points
     }
 
     for (const name in nonImageData) {
       if (Object.hasOwnProperty.call(nonImageData, name)) {
         let value = nonImageData[name];
         console.log(value)
-        if(typeof value === 'undefined') continue
+        if(typeof value === 'undefined' || value === '') continue
 
         if (Array.isArray(value)) value = JSON.stringify(value)
         formData.append(name, value);
