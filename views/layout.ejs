@@ -2,13 +2,13 @@
 <html lang="en">
 
 
-<% if(locals.header && header == 2) { %> 
+<% if(locals.head && head == 2) { %> 
   <!-- option 2: header -->  
-  <%- include("partials/header-setup-locals/header2") %>
+  <%- include("partials/header-setup-locals/head2") %>
 <% } else { %>
   <!-- option 1: header -->
   <%- include("partials/header-setup-locals/setup-locals") %>
-  <%- include("partials/header-setup-locals/header1") %>
+  <%- include("partials/header-setup-locals/head1") %>
 <% }%>
 <body>
   <!-- Navbar will adapt to whether logged in or not -->
