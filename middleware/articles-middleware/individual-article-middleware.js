@@ -4,9 +4,9 @@
 // const path = require('path')
 
 const Article = require("../../models/articles-models/Article")
-const ArticleHeadTag = require('../../models/articles-models/ArticleHeadTag')
-const ArticleBodyHeader = require('../../models/articles-models/ArticleBodyHeader')
-const ArticleEnclosureImage = require("../../models/articles-models/ArticleEnclosureImage")
+// const ArticleHeadTag = require('../../models/articles-models/ArticleHeadTag')
+// const ArticleBodyHeader = require('../../models/articles-models/ArticleBodyHeader')
+// const ArticleEnclosureImage = require("../../models/articles-models/ArticleEnclosureImage")
 
 
 
@@ -20,7 +20,7 @@ async function middleware1(req, res, next) {
     article = await Article.findOne({
       url: `/articles${req.url}`
     })
-    .populate("articleheadtag_id articlebodyheader_id articleenclosureimage_id")
+    .populate("articleheadtag_id articlebodyheader_id articleenclosureimage_id articleabstract_id")
     .populate({
       path: "author_id",
       select: "username -_id",

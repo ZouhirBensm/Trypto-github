@@ -1,13 +1,13 @@
 <div>
-
-  <div>bloc2-abstract.ejs</div>
-
-  <!-- <div>< %=locals.blog.aside_title%></div>
-  itemprop="abstract"
+  <div><%=locals.article.articleabstract_id.abstract_name_type%></div>
+  <!-- itemprop="abstract" -->
   <ul>
-    < % for(let i = 0; i < locals.blog.aside_points.length; i++) { %>
-      <li>< %-locals.blog.aside_points[i]%></li>
-    < % } %>
-  </ul> -->
+    <% for(let i = 0; i < locals.article.articleabstract_id.abstract_points.length; i++) { %>
+      <li><%-locals.article.articleabstract_id.abstract_points[i]%></li>
+    <% } %>
+  </ul>
   
 </div>
+
+<!-- TODO !!! As a marketing strategy integrate SEO in terms of shopping items and also in terms of blogs -->
+<!-- TODO !!! marketing buy batch items and sell on bidblock. For example sell BlockStream Jade's at a discount -->

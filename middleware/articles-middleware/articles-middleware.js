@@ -6,8 +6,8 @@ const path = require('path')
 const Article = require("../../models/articles-models/Article")
 const ArticleHeadTag = require('../../models/articles-models/ArticleHeadTag')
 const ArticleBodyHeader = require('../../models/articles-models/ArticleBodyHeader')
-
 const ArticleEnclosureImage = require("../../models/articles-models/ArticleEnclosureImage")
+const ArticleAbstract = require("../../models/articles-models/ArticleAbstract")
 
 const { CreateArticleError } = require('../../custom-errors/custom-errors')
 
@@ -19,8 +19,8 @@ function seeData(req, res, next) {
   console.log(JSON.parse(req.body.keywords))
   console.log(req.file)
 
-  return res.status(200).end()
-  // return next()
+  // return res.status(200).end()
+  return next()
 }
 
 
@@ -252,6 +252,34 @@ async function createArticleEnclosureImageInstanceMiddleware(req, res, next) {
 
 
 
+async function createArticleAbstractMiddleware(req, res, next) {
+
+
+  console.log("createArticleAbstractMiddleware...")
+
+  let ret_article_abstract_instance
+
+  ret_article_abstract_instance = new ArticleAbstract({
+    abstract_name_type: req.body.abstract_name_type,
+    abstract_points: JSON.parse(req.body.abstract_points),
+    article_id: res.locals.ret_article_instance._id,  // ATTACH TO ArticleAbstract -> Article
+  })
+
+  res.locals.ret_article_instance.articleabstract_id = ret_article_abstract_instance._id // ATTACH TO Article -> ArticleAbstract
+
+
+  // RENDER ArticleAbstract GLOBAL
+  res.locals.ret_article_abstract_instance = ret_article_abstract_instance
+
+  return next()
+
+}
+
+
+
+
+
+
 
 
 
@@ -322,6 +350,20 @@ async function saveArticleEnclosureImageMiddleware(req, res, next) {
   return next()
 }
 
+// ArticleEnclosureImage
+async function saveArticleAbstractMiddleware(req, res, next) {
+  console.log("saveArticleAbstractMiddleware...")
+
+  let ret_article_abstract_save
+  try {
+    ret_article_abstract_save = await res.locals.ret_article_abstract_instance.save()
+  } catch (e) {
+    let error = new CreateArticleError(`Was unable to save ret_article_abstract_instance. ${e.name}, ${e.message}`)
+    return next(error)
+  }
+
+  return next()
+}
 
 
 
@@ -338,11 +380,13 @@ const articlesMiddleware = {
   createArticleBodyHeaderInstanceMiddleware: createArticleBodyHeaderInstanceMiddleware,
   processArticleImageMiddleware: processArticleImageMiddleware,
   createArticleEnclosureImageInstanceMiddleware: createArticleEnclosureImageInstanceMiddleware,
+  createArticleAbstractMiddleware: createArticleAbstractMiddleware,
   saveArticleMiddleware: saveArticleMiddleware,
   saveArticleHeadTagMiddleware: saveArticleHeadTagMiddleware,
 
   saveArticleBodyHeaderMiddleware: saveArticleBodyHeaderMiddleware,
   saveArticleEnclosureImageMiddleware: saveArticleEnclosureImageMiddleware,
+  saveArticleAbstractMiddleware: saveArticleAbstractMiddleware,
 }
 
 

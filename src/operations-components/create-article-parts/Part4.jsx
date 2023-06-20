@@ -15,6 +15,7 @@ class Part4 extends React.Component {
 
     let nonImageData = {
       html_title: this.props.html_title,
+      meta_title: this.props.meta_title,
       meta_description: this.props.meta_description,
       canonical: this.props.canonical,
       noindex: this.props.noindex,
@@ -89,4 +90,3 @@ class Part4 extends React.Component {
 }
 
 export default Part4
-

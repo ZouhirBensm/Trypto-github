@@ -50,6 +50,12 @@ const ArticleSchema = new Schema({
     ref: 'ArticleEnclosureImage',
     required: true
   },
+  articleabstract_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'ArticleAbstract',
+    required: true
+  },
+  
   // category: String,
   // link: String,
   // enclosure: String,
@@ -69,8 +75,6 @@ const ArticleSchema = new Schema({
   // images_folder_path: String,
   // videos_folder_path: String
 })
-
-
 
 
 const Article = mongoose.model('Article', ArticleSchema)
