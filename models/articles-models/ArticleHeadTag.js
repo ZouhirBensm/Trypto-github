@@ -3,6 +3,10 @@ const Schema = mongoose.Schema
 
 
 const ArticleHeadTagSchema = new Schema({
+  meta_title: {
+    type: String,
+    required: true
+  },
   meta_description: {
     type: String,
     required: true

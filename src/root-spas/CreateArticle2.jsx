@@ -35,8 +35,9 @@ class CreateArticle extends React.Component {
       // step: 1,
       // // STEP 1
       // html_title: "",
+      // meta_title: "",
       // meta_description: "",
-      // canonical: undefined,
+      // canonical: "",
       // noindex: false,
       // nofollow: false,
       // // STEP 2
@@ -52,11 +53,17 @@ class CreateArticle extends React.Component {
       // // published_datetime is default now upon creation
       // content: "Content of the article goes here. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi molestias, molestiae vero tenetur minima magnam. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi molestias, molestiae vero tenetur minima magnam."
 
+
+      // // _____________________________________________________
+
+
+
       // USED TO TEST CREATE QUICKLY
       step: 3,
       html_title: "Some random title", // CHECK (ArticleHeadTag)
+      meta_title: "Some random title2",
       meta_description: "Some random description", // CHECK (ArticleHeadTag)
-      canonical: undefined, // CHECK (ArticleHeadTag)
+      canonical: "", // CHECK (ArticleHeadTag)
       noindex: false, // CHECK (ArticleHeadTag)
       nofollow: false, // CHECK (ArticleHeadTag)
       keywords: ['opti for this', 'and for that'], // CHECK (ArticleBodyHeader)
@@ -68,8 +75,10 @@ class CreateArticle extends React.Component {
 
 
       // banner_image_path
-      banner_image_file: undefined,
+      banner_image_file: undefined, // CHECK (ArticleEnclosureImage)
       banner_image_name: undefined, // NO NEED TO SAVE
+
+      // // _____________________________________________________
 
 
       // ALL HARD CODED FOR NOW
@@ -97,6 +106,9 @@ class CreateArticle extends React.Component {
 
 
   handleChange = (e) => {
+
+    const undefined_fields = ['canonical']
+
     console.log("\n\ne.target.name: ", e.target.name)
 
     console.log("\n\ne.target.value: ", e.target.value)
@@ -104,6 +116,7 @@ class CreateArticle extends React.Component {
     this.setState({
       [e.target.name]: e.target.value
     })
+    return
   }
 
   handleChange2 = (e) => {
@@ -171,6 +184,7 @@ class CreateArticle extends React.Component {
           validateInputs={this.validateInputs}
 
           html_title={this.state.html_title}
+          meta_title={this.state.meta_title}
           meta_description={this.state.meta_description}
           canonical={this.state.canonical}
           noindex={this.state.noindex}
@@ -207,6 +221,7 @@ class CreateArticle extends React.Component {
           setStateBannerImage={this.setStateBannerImage}
 
           html_title={this.state.html_title}
+          meta_title={this.state.meta_title}
           meta_description={this.state.meta_description}
           canonical={this.state.canonical}
           noindex={this.state.noindex}

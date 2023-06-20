@@ -81,6 +81,7 @@ async function createArticleInstanceMiddleware(req, res, next) {
     h1: req.body.h1,
     html_title: req.body.html_title,
     url: req.body.url,
+    author_id: req.session.userId,
     content: req.body.content,
     excerpt: req.body.excerpt
   })
@@ -105,6 +106,7 @@ async function createArticleHeadTagInstanceMiddleware(req, res, next) {
   let ret_article_head_tag_instance
 
   ret_article_head_tag_instance = new ArticleHeadTag({
+    meta_title: req.body.meta_title,
     meta_description: req.body.meta_description,
     // [req.body.canonical? 'canonical' : null]: req.body.canonical,
     canonical: req.body.canonical ? req.body.canonical : req.body.url,

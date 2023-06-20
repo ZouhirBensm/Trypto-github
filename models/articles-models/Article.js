@@ -1,3 +1,7 @@
+
+
+
+
 const ENV = require('../../config/base')
 const SOURCES = require('../../full-stack-libs/Types/ArticleSources')
 
@@ -20,16 +24,21 @@ const ArticleSchema = new Schema({
     type: String,
     required: true
   },
-  content: String,
-  excerpt: String,
-  articleheadtag_id: {
+  author_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'ArticleHeadTag',
+    ref: 'User',
     required: true
   },
   articlebodyheader_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'ArticleBodyHeader',
+    required: true
+  },
+  content: String,
+  excerpt: String,
+  articleheadtag_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'ArticleHeadTag',
     required: true
   },
   publishedDate: {

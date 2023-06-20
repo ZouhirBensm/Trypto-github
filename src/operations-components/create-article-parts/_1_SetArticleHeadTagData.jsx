@@ -6,7 +6,7 @@ class _1_SetArticleHeadTagData extends React.Component {
     super(props)
     this.state = {}
   }
-  
+
 
 
 
@@ -23,15 +23,20 @@ class _1_SetArticleHeadTagData extends React.Component {
         <form id="create-article-form-id" className="form">
           <label>HTML Title, title tag:</label>
 
-          <input type="text" name="html_title" value={this.props.html_title} onChange={this.props.handleChange} placeholder="Enter wanted HTML Title" required/>
+          <input type="text" name="html_title" value={this.props.html_title} onChange={this.props.handleChange} placeholder="Enter wanted HTML Title" required />
+
+          <label>Article's meta title:</label>
+
+          <input type="text" name="meta_title" value={this.props.meta_title} onChange={this.props.handleChange} placeholder="Enter wanted meta title" required />
 
           <label>Article's meta description:</label>
 
-          <input type="text" name="meta_description" value={this.props.meta_description} onChange={this.props.handleChange} placeholder="Enter wanted meta description" required/>
+          <input type="text" name="meta_description" value={this.props.meta_description} onChange={this.props.handleChange} placeholder="Enter wanted meta description" required />
 
           <label>Custom article canonical:</label>
 
-          <input type="text" name="canonical" value={this.props.canonical} onChange={this.props.handleChange} placeholder="Enter wanted canonical" />
+          {/* if stating with this.props.canonical is undefined use value={this.props.canonical || ""} */}
+          <input type="text" name="canonical" value={this.props.canonical} onChange={this.props.handleChange} placeholder="Enter wanted canonical"/>
 
           <label>Do you want to block indexing?</label>
 
@@ -63,7 +68,7 @@ class _1_SetArticleHeadTagData extends React.Component {
         <div id='nav'>
           <button onClick={(e) => {
             const isValid = this.props.validateInputs(e)
-            console.log({isValid})
+            console.log({ isValid })
             if (!isValid) return
             this.props.nextStep(e)
             return

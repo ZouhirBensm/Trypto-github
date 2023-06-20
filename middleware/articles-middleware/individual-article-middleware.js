@@ -20,7 +20,11 @@ async function middleware1(req, res, next) {
     article = await Article.findOne({
       url: `/articles${req.url}`
     })
-    .populate("articleheadtag_id articlebodyheader_id articleenclosureimage_id");
+    .populate("articleheadtag_id articlebodyheader_id articleenclosureimage_id")
+    .populate({
+      path: "author_id",
+      select: "username -_id",
+    })
   } catch (error) {
 
   }
@@ -32,6 +36,7 @@ async function middleware1(req, res, next) {
 
   res.locals.article = article
 
+  // res.status(200).end()
   return next()
 
 }
