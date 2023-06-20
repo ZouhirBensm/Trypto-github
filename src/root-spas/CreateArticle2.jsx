@@ -16,7 +16,7 @@ const _1_SetArticleHeadTagData = loadable(() => import("../operations-components
 const _2_SetArticleBodyHeader = loadable(() => import("../operations-components/create-article-parts/_2_SetArticleBodyHeader"), {
   fallback: <Loading />
 });
-const Part3 = loadable(() => import("../operations-components/create-article-parts/Part3"), {
+const _3_Abstract = loadable(() => import("../operations-components/create-article-parts/_3_Abstract"), {
   fallback: <Loading />
 });
 const Part4 = loadable(() => import("../operations-components/create-article-parts/Part4"), {
@@ -51,7 +51,9 @@ class CreateArticle extends React.Component {
       // h1: "",
       // // author is logged in username
       // // published_datetime is default now upon creation
-      // content: "Content of the article goes here. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi molestias, molestiae vero tenetur minima magnam. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi molestias, molestiae vero tenetur minima magnam."
+      // content: "Content of the article goes here. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi molestias, molestiae vero tenetur minima magnam. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi molestias, molestiae vero tenetur minima magnam.",
+      // abstract_name_type: "",
+      // abstract_points: [],
 
 
       // // _____________________________________________________
@@ -78,6 +80,9 @@ class CreateArticle extends React.Component {
       banner_image_file: undefined, // CHECK (ArticleEnclosureImage)
       banner_image_name: undefined, // NO NEED TO SAVE
 
+      abstract_name_type: "",
+      abstract_points: [],
+
       // // _____________________________________________________
 
 
@@ -99,7 +104,7 @@ class CreateArticle extends React.Component {
     this.previousStep = this.previousStep.bind(this)
     this.setStateStep = this.setStateStep.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.handleChange2 = this.handleChange2.bind(this)
+    // this.handleChange2 = this.handleChange2.bind(this)
     this.setStateBannerImage = this.setStateBannerImage.bind(this)
     this.handleCheck = this.handleCheck.bind(this)
   }
@@ -107,31 +112,39 @@ class CreateArticle extends React.Component {
 
   handleChange = (e) => {
 
-    const undefined_fields = ['canonical']
+    // const undefined_fields = ['canonical']
+    const should_be_set_as_array_state_elements = ['keywords']
 
     console.log("\n\ne.target.name: ", e.target.name)
 
     console.log("\n\ne.target.value: ", e.target.value)
 
+    let stateValue = e.target.value
+
+
+    if (should_be_set_as_array_state_elements.includes(e.target.name)) {
+      stateValue = e.target.value.split(', ')
+    }
+
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: stateValue
     })
     return
   }
 
-  handleChange2 = (e) => {
-    console.log("\n\ne.target.name: ", e.target.name)
+  // handleChange2 = (e) => {
+  //   console.log("\n\ne.target.name: ", e.target.name)
 
-    console.log("\n\ne.target.value: ", e.target.value)
+  //   console.log("\n\ne.target.value: ", e.target.value)
 
-    let ARR = e.target.value.split(', ')
+  //   let ARR = e.target.value.split(', ')
 
-    console.log(ARR)
+  //   console.log(ARR)
 
-    this.setState({
-      [e.target.name]: ARR
-    })
-  }
+  //   this.setState({
+  //     [e.target.name]: ARR
+  //   })
+  // }
 
 
   handleCheck = (e) => {
@@ -195,7 +208,7 @@ class CreateArticle extends React.Component {
         component = <_2_SetArticleBodyHeader
           step={this.state.step}
           handleChange={this.handleChange}
-          handleChange2={this.handleChange2}
+          // handleChange2={this.handleChange2}
           setStateBannerImage={this.setStateBannerImage}
           validateInputs={this.validateInputs}
 
@@ -213,34 +226,39 @@ class CreateArticle extends React.Component {
         />
         break;
       case 3:
-        component = <Part3
+        component = <_3_Abstract
           step={this.state.step}
           setStateStep={this.setStateStep}
           previousStep={this.previousStep}
           nextStep={this.nextStep}
-          setStateBannerImage={this.setStateBannerImage}
+          handleChange={this.handleChange}
 
-          html_title={this.state.html_title}
-          meta_title={this.state.meta_title}
-          meta_description={this.state.meta_description}
-          canonical={this.state.canonical}
-          noindex={this.state.noindex}
-          nofollow={this.state.nofollow}
-          keywords={this.state.keywords}
-          category={this.state.category}
-          banner_img_alt={this.state.banner_img_alt}
-          h1={this.state.h1}
-          banner_image_name={this.state.banner_image_name}
-          banner_image_file={this.state.banner_image_file}
-          content={this.state.content}
+          abstract_name_type={this.state.abstract_name_type}
+          abstract_points={this.state.abstract_points}
+
         />
         break;
       case 4:
         component = <Part4
-          step={this.state.step}
-          setStateStep={this.setStateStep}
-          previousStep={this.previousStep}
-          nextStep={this.nextStep}
+        step={this.state.step}
+        setStateStep={this.setStateStep}
+        previousStep={this.previousStep}
+        nextStep={this.nextStep}
+        setStateBannerImage={this.setStateBannerImage}
+
+        html_title={this.state.html_title}
+        meta_title={this.state.meta_title}
+        meta_description={this.state.meta_description}
+        canonical={this.state.canonical}
+        noindex={this.state.noindex}
+        nofollow={this.state.nofollow}
+        keywords={this.state.keywords}
+        category={this.state.category}
+        banner_img_alt={this.state.banner_img_alt}
+        h1={this.state.h1}
+        banner_image_name={this.state.banner_image_name}
+        banner_image_file={this.state.banner_image_file}
+        content={this.state.content}
 
 
         />
