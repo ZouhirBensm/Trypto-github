@@ -63,7 +63,7 @@ class ArticleElement extends React.Component {
     if (EXTERNAL_READS_SOURCES.includes(this.props.article.source)) {
       enclosure = this.props.article.enclosure
     } else {
-      enclosure = `img/bidblock-article-enclosure-images/${this.props.article.articleenclosureimage_id.image.name}`
+      enclosure = `/img/bidblock-article-enclosure-images/${this.props.article.articleenclosureimage_id.image.name}`
     }
 
     return (
