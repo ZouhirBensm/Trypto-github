@@ -39,6 +39,7 @@ div#add-faq-container>div>input {
   font-size: var(--font-size-input);
   text-indent: 1ch;
   width: 50%;
+  margin: 1rem 0;
 }
 
 

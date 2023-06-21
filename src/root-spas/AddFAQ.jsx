@@ -11,6 +11,8 @@ class AddFAQ extends React.Component {
     };
   }
 
+
+
   addInput = () => {
     this.setState(prevState => {
       const updatedInputs = [...prevState.inputs];
@@ -18,6 +20,18 @@ class AddFAQ extends React.Component {
     });
   };
 
+  deleteInput = (index) => {
+    this.setState(prevState => {
+      const updatedInputs = [...prevState.inputs];
+      
+
+      updatedInputs.splice(index, 1); // Remove the input at the specified index
+      return { inputs: updatedInputs };
+    });
+  };
+
+
+  
   handleChangeInputs = (index) => (event) => {
     const { value } = event.target;
     this.setState(prevState => {
@@ -38,15 +52,7 @@ class AddFAQ extends React.Component {
     });
   };
 
-  deleteInput = (index) => {
-    this.setState(prevState => {
-      const updatedInputs = [...prevState.inputs];
-      
 
-      updatedInputs.splice(index, 1); // Remove the input at the specified index
-      return { inputs: updatedInputs };
-    });
-  };
   
 
   render() {

@@ -19,7 +19,7 @@ const _2_SetArticleBodyHeader = loadable(() => import("../operations-components/
 const _3_Abstract = loadable(() => import("../operations-components/create-article-parts/_3_Abstract"), {
   fallback: <Loading />
 });
-const Part4 = loadable(() => import("../operations-components/create-article-parts/Part4"), {
+const _4_ContentStructure = loadable(() => import("../operations-components/create-article-parts/_4_ContentStructure"), {
   fallback: <Loading />
 });
 const Part5 = loadable(() => import("../operations-components/create-article-parts/Part5"), {
@@ -253,7 +253,17 @@ class CreateArticle extends React.Component {
         />
         break;
       case 4:
-        component = <Part4
+        component = <_4_ContentStructure
+        step={this.state.step}
+        setStateStep={this.setStateStep}
+        previousStep={this.previousStep}
+        nextStep={this.nextStep}
+
+
+        />
+        break;
+      case 5:
+        component = <Part5
         step={this.state.step}
         setStateStep={this.setStateStep}
         previousStep={this.previousStep}
@@ -278,14 +288,6 @@ class CreateArticle extends React.Component {
         abstract_points={this.state.abstract_points}
 
 
-        />
-        break;
-      case 5:
-        component = <Part5
-          step={this.state.step}
-          setStateStep={this.setStateStep}
-          previousStep={this.previousStep}
-          nextStep={this.nextStep}
         />
         break;
       default:
