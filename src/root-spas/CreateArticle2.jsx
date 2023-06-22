@@ -159,21 +159,6 @@ class CreateArticle extends React.Component {
     return
   }
 
-  // handleChange2 = (e) => {
-  //   console.log("\n\ne.target.name: ", e.target.name)
-
-  //   console.log("\n\ne.target.value: ", e.target.value)
-
-  //   let ARR = e.target.value.split(', ')
-
-  //   console.log(ARR)
-
-  //   this.setState({
-  //     [e.target.name]: ARR
-  //   })
-  // }
-
-
   handleCheck = (e) => {
 
     console.log("\n\ne.target.name: ", e.target.name)

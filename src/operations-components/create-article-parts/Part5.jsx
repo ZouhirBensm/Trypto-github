@@ -2,7 +2,9 @@
 class Part5 extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      // content_steps: 1
+    }
 
     console.log(this.props.content_structure)
   }
