@@ -3,13 +3,29 @@ import Loading from "../../generic-components/Loading"
 
 import SECTION_TYPES from '../../../full-stack-libs/Types/ArticleSectionTypes'
 
+
 const H2 = loadable(() => import("./H2"), {
+  fallback: <Loading />
+});
+const H3 = loadable(() => import("./H3"), {
   fallback: <Loading />
 });
 const P = loadable(() => import("./P"), {
   fallback: <Loading />
 });
-const H3 = loadable(() => import("./H3"), {
+const UL = loadable(() => import("./UL"), {
+  fallback: <Loading />
+});
+const A = loadable(() => import("./A"), {
+  fallback: <Loading />
+});
+const IMG = loadable(() => import("./IMG"), {
+  fallback: <Loading />
+});
+const SPAN = loadable(() => import("./SPAN"), {
+  fallback: <Loading />
+});
+const EMBED = loadable(() => import("./EMBED"), {
   fallback: <Loading />
 });
 
@@ -59,6 +75,14 @@ class Part5 extends React.Component {
           _nextStep={this._nextStep}
         />
         break;
+      case SECTION_TYPES.H3:
+          component = <H3
+            _step={this.state._step}
+            _last_step={this.state._last_step}
+            _previousStep={this._previousStep}
+            _nextStep={this._nextStep}
+          />
+          break;
       case SECTION_TYPES.P:
         component = <P
           _step={this.state._step}
@@ -67,14 +91,47 @@ class Part5 extends React.Component {
           _nextStep={this._nextStep}
         />
         break;
-      case SECTION_TYPES.H3:
-        component = <H3
+      case SECTION_TYPES.UL:
+        component = <UL
           _step={this.state._step}
           _last_step={this.state._last_step}
           _previousStep={this._previousStep}
           _nextStep={this._nextStep}
         />
         break;
+      case SECTION_TYPES.A:
+        component =<A
+          _step={this.state._step}
+          _last_step={this.state._last_step}
+          _previousStep={this._previousStep}
+          _nextStep={this._nextStep}
+        />
+        break;
+      case SECTION_TYPES.IMG:
+        component =<IMG
+          _step={this.state._step}
+          _last_step={this.state._last_step}
+          _previousStep={this._previousStep}
+          _nextStep={this._nextStep}
+        />
+        break;
+      case SECTION_TYPES.SPAN:
+        component =<SPAN
+          _step={this.state._step}
+          _last_step={this.state._last_step}
+          _previousStep={this._previousStep}
+          _nextStep={this._nextStep}
+        />
+        break;
+      case SECTION_TYPES.EMBED:
+        component =<EMBED
+          _step={this.state._step}
+          _last_step={this.state._last_step}
+          _previousStep={this._previousStep}
+          _nextStep={this._nextStep}
+        />
+        break;
+
 
       default:
         break;
