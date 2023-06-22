@@ -18,8 +18,28 @@ class _4_ContentStructure extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selects: [SECTION_TYPES.H2] // Start with one input
+      selects: this.props.content_structure || [SECTION_TYPES.H2], // Start with one input
+      options: undefined,
     }
+
+  }
+  
+
+  componentDidMount(){
+    let options = []
+
+    const sectionTypesKeys = Object.keys(SECTION_TYPES);
+
+    sectionTypesKeys.forEach((SECTION_TYPE_key, index) => {
+      const SECTION_TYPE_val = SECTION_TYPES[SECTION_TYPE_key];
+      options.push(
+        <option value={SECTION_TYPE_val} key={index}>{SECTION_TYPE_val}</option>
+      );
+    });
+
+    this.setState({
+      options: options
+    })
   }
 
   addSelect = () => {
@@ -39,11 +59,21 @@ class _4_ContentStructure extends React.Component {
     });
   };
 
+  handleChangeInputs = (index) => (event) => {
+    const { value } = event.target;
+    this.setState(prevState => {
+      const updatedSelects = [...prevState.selects];
+      updatedSelects[index] = value;
+      return { selects: updatedSelects };
+    });
+  };
+
 
 
   render() {
 
     const { selects } = this.state;
+
 
 
     return (
@@ -58,8 +88,15 @@ class _4_ContentStructure extends React.Component {
             <label>Structure</label>
             {selects.map((select, index) => (
               <React.Fragment key={index}>
-                {/* value={input} onChange={this.handleChangeInputs(index)} placeholder={`Input ${index + 1}`} */}
-                <select></select>
+
+                {/*
+
+                required onChange={(e) => this.locationChange(e)}   onChange={this.handleChangeInputs(index)} 
+                */}
+                <select required value={this.state.selects[index]} name="content_structure" onChange={this.handleChangeInputs(index)}>
+                  <option value="" defaultValue>N/A</option>
+                  {this.state.options}
+                </select>
                 {
                   this.state.selects.length === 1 ?
                     null
@@ -87,7 +124,18 @@ class _4_ContentStructure extends React.Component {
         <div id='nav'>
           <img src="/img/SVG/operations/create-article/previous.svg" alt="" />
           <button onClick={(e) => this.props.previousStep()}>Previous </button>
-          <button onClick={(e) => this.props.nextStep()}>Proceed</button>
+          <button onClick={(e) => {
+            const isValid = this.props.validateInputs(e)
+            console.log({ isValid })
+            if (!isValid) return
+            this.props.handleChange(e, {
+              name: 'content_structure',
+              value: this.state.selects
+            })
+            this.props.nextStep(e)
+            return
+
+          }}>Proceed</button>
           <img src="/img/SVG/operations/create-article/proceed.svg" alt="" />
         </div>
 

@@ -1,5 +1,6 @@
 import '../style/reactDivMobile.css'
 import './styles/CreateArticle2.css'
+import SECTION_TYPES from '../../full-stack-libs/Types/ArticleSectionTypes'
 
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading"
@@ -23,6 +24,9 @@ const _4_ContentStructure = loadable(() => import("../operations-components/crea
   fallback: <Loading />
 });
 const Part5 = loadable(() => import("../operations-components/create-article-parts/Part5"), {
+  fallback: <Loading />
+});
+const Part6 = loadable(() => import("../operations-components/create-article-parts/Part6"), {
   fallback: <Loading />
 });
 
@@ -54,12 +58,13 @@ class CreateArticle extends React.Component {
       // content: "Content of the article goes here. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi molestias, molestiae vero tenetur minima magnam. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi molestias, molestiae vero tenetur minima magnam.",
       // abstract_name_type: "",
       // abstract_points: [],
+      // content_structure: undefined
 
 
       // // _____________________________________________________
 
 
-
+      // TEMPORAL
       // USED TO TEST CREATE QUICKLY
       step: 4,
       html_title: "Some random title", // CHECK (ArticleHeadTag)
@@ -87,6 +92,7 @@ class CreateArticle extends React.Component {
         "elit. <strong>Eum</strong> aspernatur<strong> cupiditate</strong>",
         "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
       ],
+      content_structure: ["H2", "P", "H3", "P", "H2", "P"],
 
       // // _____________________________________________________
 
@@ -115,32 +121,40 @@ class CreateArticle extends React.Component {
   }
 
 
-  handleChange = (e) => {
+  handleChange = (e, input_name_val_object  = undefined) => {
+    console.log(input_name_val_object , e)
 
     // const undefined_fields = ['canonical']
-    const should_be_set_as_array_state_elements = ['keywords', "abstract_points"]
+    const should_be_set_as_array_state_elements = ['keywords', "abstract_points", "content_structure"]
     const parse_bidblock_to_strong_tag = ["abstract_points"]
 
-    console.log("\n\ne.target.name: ", e.target.name)
+    console.log("\n\ne.target.name: ", e.target?.name)
 
-    console.log("\n\ne.target.value: ", e.target.value)
+    console.log("\n\ne.target.value: ", e.target?.value)
 
-    let stateValue = e.target.value
+    let stateValue = e.target?.value
 
-    if (parse_bidblock_to_strong_tag.includes(e.target.name)) {
+    if (parse_bidblock_to_strong_tag.includes(e.target?.name)) {
       console.log('parsing...')
-      stateValue = e.target.value.replace(/\[/g, '<strong>').replace(/\]/g, '</strong>');
+      stateValue = e.target?.value.replace(/\[/g, '<strong>').replace(/\]/g, '</strong>');
       // stateValue = JSON.stringify(stateValue);
     }
 
-    if (should_be_set_as_array_state_elements.includes(e.target.name)) {
+    if (should_be_set_as_array_state_elements.includes(e.target?.name)) {
       stateValue = stateValue.split(',  ')
     }
     console.log(stateValue)
 
+    if(input_name_val_object ){
+      this.setState({
+        [input_name_val_object .name]: input_name_val_object .value
+      })
+      return
+    }
+
 
     this.setState({
-      [e.target.name]: stateValue
+      [e.target?.name]: stateValue
     })
     return
   }
@@ -258,12 +272,24 @@ class CreateArticle extends React.Component {
         setStateStep={this.setStateStep}
         previousStep={this.previousStep}
         nextStep={this.nextStep}
+        handleChange={this.handleChange}
+        validateInputs={this.validateInputs}
 
-
+        content_structure={this.state.content_structure}
         />
         break;
       case 5:
         component = <Part5
+        step={this.state.step}
+        setStateStep={this.setStateStep}
+        previousStep={this.previousStep}
+        nextStep={this.nextStep}
+
+        content_structure={this.state.content_structure}
+        />
+        break;
+      case 6:
+        component = <Part6
         step={this.state.step}
         setStateStep={this.setStateStep}
         previousStep={this.previousStep}
@@ -286,6 +312,7 @@ class CreateArticle extends React.Component {
 
         abstract_name_type={this.state.abstract_name_type}
         abstract_points={this.state.abstract_points}
+        content_structure={this.state.content_structure}
 
 
         />

@@ -6,33 +6,28 @@ import UploadBannerImage from './UploadBannerImage'
 class _2_SetArticleBodyHeader extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
-
-  }
-
-  componentDidMount() {
-    this.buildCategorySelect()
-  }
-
-  buildCategorySelect() {
-    let select1 = document.getElementsByTagName("select")[0]
-
-    for (const key in CATEGORY) {
-      if (Object.hasOwnProperty.call(CATEGORY, key)) {
-        let category = CATEGORY[key];
-        let newOption = document.createElement("option")
-
-        // category = category.toLowerCase()
-        // .replace(/_/g, ' ');
-        newOption.setAttribute("value", category);
-        newOption.innerHTML = category
-        select1.appendChild(newOption)
-      }
+    this.state = {
+      options: []
     }
-    select1.value = ''
-    // .toLowerCase().replace(/_/g, ' ');
+
   }
 
+  componentDidMount(){
+    let options = []
+
+    const categoryKeys = Object.keys(CATEGORY);
+
+    categoryKeys.forEach((CATEGORY_key, index) => {
+      const CATEGORY_val = CATEGORY[CATEGORY_key];
+      options.push(
+        <option value={CATEGORY_val} key={index}>{CATEGORY_val}</option>
+      );
+    });
+
+    this.setState({
+      options: options
+    })
+  }
 
   render() {
     return (
@@ -56,8 +51,9 @@ class _2_SetArticleBodyHeader extends React.Component {
           </div>
 
           <label>Set Article's category (database), genre (schema), and about (schema)</label>
-          <select defaultValue="" onChange={this.props.handleChange} name="category" required >
+          <select value={this.props.category} onChange={this.props.handleChange} name="category" required >
             <option value="">no selection</option>  
+            {this.state.options}
           </select> 
 
           <label>Upload A Banner Image</label>

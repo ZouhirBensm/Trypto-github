@@ -39,9 +39,9 @@ class UploadBannerImage extends React.Component {
           }
         </div>
 
-
-
-        <input id="input-banner-img-id" type="file" name="image" onChange={(e) => { this.inputBufferOnChange(e) }} required />
+        {/* TEMPORAL */}
+        {/* required */}
+        <input id="input-banner-img-id" type="file" name="image" onChange={(e) => { this.inputBufferOnChange(e) }} />
       </div>
     )
   }
