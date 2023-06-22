@@ -66,7 +66,7 @@ class CreateArticle extends React.Component {
 
       // TEMPORAL
       // USED TO TEST CREATE QUICKLY
-      step: 4,
+      step: 5,
       html_title: "Some random title", // CHECK (ArticleHeadTag)
       meta_title: "Some random title2",
       meta_description: "Some random description", // CHECK (ArticleHeadTag)
@@ -92,7 +92,7 @@ class CreateArticle extends React.Component {
         "elit. <strong>Eum</strong> aspernatur<strong> cupiditate</strong>",
         "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
       ],
-      content_structure: ["H2", "P", "H3", "P", "H2", "P"],
+      content_structure: ["H2", "P", "H3"],
 
       // // _____________________________________________________
 
@@ -114,6 +114,7 @@ class CreateArticle extends React.Component {
     this.nextStep = this.nextStep.bind(this)
     this.previousStep = this.previousStep.bind(this)
     this.setStateStep = this.setStateStep.bind(this)
+
     this.handleChange = this.handleChange.bind(this)
     // this.handleChange2 = this.handleChange2.bind(this)
     this.setStateBannerImage = this.setStateBannerImage.bind(this)
@@ -121,8 +122,8 @@ class CreateArticle extends React.Component {
   }
 
 
-  handleChange = (e, input_name_val_object  = undefined) => {
-    console.log(input_name_val_object , e)
+  handleChange = (e, input_name_val_object = undefined) => {
+    console.log(input_name_val_object, e)
 
     // const undefined_fields = ['canonical']
     const should_be_set_as_array_state_elements = ['keywords', "abstract_points", "content_structure"]
@@ -145,9 +146,9 @@ class CreateArticle extends React.Component {
     }
     console.log(stateValue)
 
-    if(input_name_val_object ){
+    if (input_name_val_object) {
       this.setState({
-        [input_name_val_object .name]: input_name_val_object .value
+        [input_name_val_object.name]: input_name_val_object.value
       })
       return
     }
@@ -193,18 +194,15 @@ class CreateArticle extends React.Component {
     })
   }
 
-
-
-  render() {
+  componentStep(step) {
     let component
-
-    switch (this.state.step) {
+    switch (step) {
       case 1:
         component = <_1_SetArticleHeadTagData
           handleChange={this.handleChange}
           handleCheck={this.handleCheck}
           setStateStep={this.setStateStep}
-          step={this.state.step}
+          step={step}
           nextStep={this.nextStep}
           validateInputs={this.validateInputs}
 
@@ -218,12 +216,12 @@ class CreateArticle extends React.Component {
         break;
       case 2:
         component = <_2_SetArticleBodyHeader
-          step={this.state.step}
           handleChange={this.handleChange}
           // handleChange2={this.handleChange2}
           setStateBannerImage={this.setStateBannerImage}
           validateInputs={this.validateInputs}
-
+        
+          step={step}
           setStateStep={this.setStateStep}
           previousStep={this.previousStep}
           nextStep={this.nextStep}
@@ -239,7 +237,7 @@ class CreateArticle extends React.Component {
         break;
       case 3:
         component = <_3_Abstract
-          step={this.state.step}
+          step={step}
           setStateStep={this.setStateStep}
           previousStep={this.previousStep}
           nextStep={this.nextStep}
@@ -253,51 +251,51 @@ class CreateArticle extends React.Component {
         break;
       case 4:
         component = <_4_ContentStructure
-        step={this.state.step}
-        setStateStep={this.setStateStep}
-        previousStep={this.previousStep}
-        nextStep={this.nextStep}
-        handleChange={this.handleChange}
-        validateInputs={this.validateInputs}
+          step={step}
+          setStateStep={this.setStateStep}
+          previousStep={this.previousStep}
+          nextStep={this.nextStep}
+          handleChange={this.handleChange}
+          validateInputs={this.validateInputs}
 
-        content_structure={this.state.content_structure}
+          content_structure={this.state.content_structure}
         />
         break;
       case 5:
         component = <Part5
-        step={this.state.step}
-        setStateStep={this.setStateStep}
-        previousStep={this.previousStep}
-        nextStep={this.nextStep}
+          step={step}
+          setStateStep={this.setStateStep}
+          previousStep={this.previousStep}
+          nextStep={this.nextStep}
 
-        content_structure={this.state.content_structure}
+          content_structure={this.state.content_structure}
         />
         break;
       case 6:
         component = <Part6
-        step={this.state.step}
-        setStateStep={this.setStateStep}
-        previousStep={this.previousStep}
-        nextStep={this.nextStep}
-        setStateBannerImage={this.setStateBannerImage}
+          step={step}
+          setStateStep={this.setStateStep}
+          previousStep={this.previousStep}
+          nextStep={this.nextStep}
+          setStateBannerImage={this.setStateBannerImage}
 
-        html_title={this.state.html_title}
-        meta_title={this.state.meta_title}
-        meta_description={this.state.meta_description}
-        canonical={this.state.canonical}
-        noindex={this.state.noindex}
-        nofollow={this.state.nofollow}
-        keywords={this.state.keywords}
-        category={this.state.category}
-        banner_img_alt={this.state.banner_img_alt}
-        h1={this.state.h1}
-        banner_image_name={this.state.banner_image_name}
-        banner_image_file={this.state.banner_image_file}
-        content={this.state.content}
+          html_title={this.state.html_title}
+          meta_title={this.state.meta_title}
+          meta_description={this.state.meta_description}
+          canonical={this.state.canonical}
+          noindex={this.state.noindex}
+          nofollow={this.state.nofollow}
+          keywords={this.state.keywords}
+          category={this.state.category}
+          banner_img_alt={this.state.banner_img_alt}
+          h1={this.state.h1}
+          banner_image_name={this.state.banner_image_name}
+          banner_image_file={this.state.banner_image_file}
+          content={this.state.content}
 
-        abstract_name_type={this.state.abstract_name_type}
-        abstract_points={this.state.abstract_points}
-        content_structure={this.state.content_structure}
+          abstract_name_type={this.state.abstract_name_type}
+          abstract_points={this.state.abstract_points}
+          content_structure={this.state.content_structure}
 
 
         />
@@ -306,6 +304,14 @@ class CreateArticle extends React.Component {
         component = null
         break;
     }
+
+    return component
+  }
+
+
+  render() {
+    let component = this.componentStep(this.state.step)
+
     return (
       <React.Fragment>
         <div id='create-article'>
