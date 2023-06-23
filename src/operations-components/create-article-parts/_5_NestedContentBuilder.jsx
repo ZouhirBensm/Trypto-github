@@ -42,7 +42,7 @@ class _5_NestedContentBuilder extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      _step: this.props.e?.target.innerHTML === 'Proceed'? 1 : this.props.e?.target.innerHTML === 'Previous'? this.props.content_structure.length: 1,
+      _step: this.props.e?.target.innerHTML === 'Proceed' ? 1 : this.props.e?.target.innerHTML === 'Previous' ? this.props.content_structure.length : 1,
       _last_step: this.props.content_structure.length
     }
 
@@ -74,6 +74,8 @@ class _5_NestedContentBuilder extends React.Component {
   componentFinder(content_structure_element) {
     let component
 
+
+
     switch (content_structure_element) {
       case SECTION_TYPES.H2:
         component = <H2
@@ -81,22 +83,31 @@ class _5_NestedContentBuilder extends React.Component {
           _last_step={this.state._last_step}
           _previousStep={this._previousStep}
           _nextStep={this._nextStep}
+
+          nested_data={this.props.nested_data}
+          innerHandleChange={this.props.innerHandleChange}
         />
         break;
       case SECTION_TYPES.H3:
-          component = <H3
-            _step={this.state._step}
-            _last_step={this.state._last_step}
-            _previousStep={this._previousStep}
-            _nextStep={this._nextStep}
-          />
-          break;
+        component = <H3
+          _step={this.state._step}
+          _last_step={this.state._last_step}
+          _previousStep={this._previousStep}
+          _nextStep={this._nextStep}
+
+          nested_data={this.props.nested_data}
+          innerHandleChange={this.props.innerHandleChange}
+        />
+        break;
       case SECTION_TYPES.P:
         component = <P
           _step={this.state._step}
           _last_step={this.state._last_step}
           _previousStep={this._previousStep}
           _nextStep={this._nextStep}
+
+          nested_data={this.props.nested_data}
+          innerHandleChange={this.props.innerHandleChange}
         />
         break;
       case SECTION_TYPES.UL:
@@ -105,10 +116,12 @@ class _5_NestedContentBuilder extends React.Component {
           _last_step={this.state._last_step}
           _previousStep={this._previousStep}
           _nextStep={this._nextStep}
+
+
         />
         break;
       case SECTION_TYPES.IMG:
-        component =<IMG
+        component = <IMG
           _step={this.state._step}
           _last_step={this.state._last_step}
           _previousStep={this._previousStep}
@@ -116,7 +129,7 @@ class _5_NestedContentBuilder extends React.Component {
         />
         break;
       case SECTION_TYPES.EMBED:
-        component =<EMBED
+        component = <EMBED
           _step={this.state._step}
           _last_step={this.state._last_step}
           _previousStep={this._previousStep}
@@ -155,7 +168,14 @@ class _5_NestedContentBuilder extends React.Component {
 
           {this.state._step == this.state._last_step ? null :
             <React.Fragment>
-              <button onClick={(e) => { this._nextStep(e) }}>_Proceed</button>
+              <button onClick={(e) => {
+                const isValid = this.props.validateInputs(e)
+                console.log({ isValid })
+                if (!isValid) return
+                this._nextStep(e)
+                return
+              }}
+              >_Proceed</button>
               <img src="/img/SVG/operations/create-article/proceed.svg" alt="" />
             </React.Fragment>
           }
@@ -176,7 +196,12 @@ class _5_NestedContentBuilder extends React.Component {
 
           {this.state._step == this.state._last_step ?
             <React.Fragment>
-              <button onClick={(e) => this.props.nextStep()}>Proceed</button>
+              <button onClick={(e) => {
+                const isValid = this.props.validateInputs(e)
+                console.log({ isValid })
+                if (!isValid) return
+                this.props.nextStep()
+              }}>Proceed</button>
               <img src="/img/SVG/operations/create-article/proceed.svg" alt="" />
             </React.Fragment> : null
           }

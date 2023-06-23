@@ -27,7 +27,8 @@ class Part6 extends React.Component {
       banner_image_name: this.props.banner_image_name,
       content: this.props.content,
       abstract_name_type: this.props.abstract_name_type,
-      abstract_points: this.props.abstract_points
+      abstract_points: this.props.abstract_points,
+      content_structure: this.props.content_structure
     }
 
     for (const name in nonImageData) {

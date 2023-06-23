@@ -92,8 +92,23 @@ class CreateArticle extends React.Component {
         "elit. <strong>Eum</strong> aspernatur<strong> cupiditate</strong>",
         "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
       ],
-      content_structure: ["H2", "H3"],
-      e: undefined
+      content_structure: ["H2", "H3", "P"],
+      e: undefined,
+      nested_data: []
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
 
       // // _____________________________________________________
 
@@ -275,6 +290,9 @@ class CreateArticle extends React.Component {
           e={this.state.e}
 
           content_structure={this.state.content_structure}
+          nested_data={this.state.nested_data}
+          innerHandleChange={this.innerHandleChange}
+          validateInputs={this.validateInputs}
         />
         break;
       case 6:
@@ -373,6 +391,35 @@ class CreateArticle extends React.Component {
     } else {
       return false;
     }
+  }
+
+
+
+  innerHandleChange = (e, type2edit = undefined) => {
+    console.log(e.target.name, type2edit)
+
+    if(!type2edit) return
+
+    this.setState(prevState => {
+      let updateNestedData = [...prevState.nested_data];
+
+      let object = updateNestedData.find((object)=>{return object.type == type2edit})
+
+      if(!object) {
+        object = {
+          type: type2edit,
+          [e.target.name]: e.target.value
+        }
+        updateNestedData = [...prevState.nested_data, object]
+      } else {
+        let objIndex = updateNestedData.findIndex((obj => obj.type == type2edit));
+        updateNestedData[objIndex][e.target.name] = e.target.value
+      }
+
+      return { nested_data: updateNestedData }
+    });
+
+    return
   }
 
 
