@@ -24,10 +24,11 @@ class P extends React.Component {
 
 
           <label>P's inner HTML: </label>
+          <br />
 
-          <input name="P_innerHTML" value={defaultValues?.P_innerHTML} type="text" placeholder="Enter P inner HTML" onChange={(e) => {
+          <textarea name="P_innerHTML" value={defaultValues?.P_innerHTML || ""} placeholder="Enter P inner HTML" onChange={(e) => {
             e.persist()
-            this.props.innerHandleChange(e.nativeEvent, this.constructor.name)
+            this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
           }} required />
 
 

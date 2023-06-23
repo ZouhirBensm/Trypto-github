@@ -24,9 +24,9 @@ class H3 extends React.Component {
 
         
         <label>H3's inner HTML: </label>
-        <input name="H3_innerHTML" value={defaultValues?.H3_innerHTML} type="text" placeholder="Enter H3 inner HTML" onChange={(e)=> {
+        <input name="H3_innerHTML" value={defaultValues?.H3_innerHTML || ""} type="text" placeholder="Enter H3 inner HTML" onChange={(e)=> {
           e.persist()
-          this.props.innerHandleChange(e.nativeEvent, this.constructor.name)
+          this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
           }} required/>
 
         </form>

@@ -361,6 +361,7 @@ class CreateArticle extends React.Component {
   validateInputs(e) {
     const inputs = document.getElementsByTagName('input');
     const selects = document.getElementsByTagName('select');
+    const textareas = document.getElementsByTagName('textarea');
 
     let isValid = true;
 
@@ -384,6 +385,16 @@ class CreateArticle extends React.Component {
       }
     }
 
+    for (let i = 0; i < textareas.length; i++) {
+      const textarea = textareas[i];
+      if (textarea.required && !textarea.checkValidity()) {
+        // Input is invalid, trigger validation error message
+        textarea.reportValidity();
+        isValid = false;
+        break
+      }
+    }
+
     if (isValid) {
       // All inputs are valid, perform desired action
       console.log('VALID');
@@ -395,26 +406,59 @@ class CreateArticle extends React.Component {
 
 
 
-  innerHandleChange = (e, type2edit = undefined) => {
-    console.log(e.target.name, type2edit)
+  innerHandleChange = (e, type2edit = undefined, id = undefined) => {
+    console.log(e.target.name, type2edit, id)
 
-    if(!type2edit) return
+    if(!type2edit || !id) return
 
     this.setState(prevState => {
       let updateNestedData = [...prevState.nested_data];
 
-      let object = updateNestedData.find((object)=>{return object.type == type2edit})
+      let object = updateNestedData.find((object)=>{
+        return object.type == type2edit && object.id == id
+      })
 
+      console.log({object})
+
+      
+
+      // Create new input object if no object available
       if(!object) {
+        console.log('create..')
         object = {
+          id: id,
           type: type2edit,
           [e.target.name]: e.target.value
         }
         updateNestedData = [...prevState.nested_data, object]
+      // Edit input object if object available
       } else {
-        let objIndex = updateNestedData.findIndex((obj => obj.type == type2edit));
+        console.log('already created..')
+        let objIndex = updateNestedData.findIndex((obj => {
+          return (obj.type == type2edit && obj.id == id)
+        }));
+
+        console.log('updateNestedData[objIndex]', updateNestedData[objIndex])
         updateNestedData[objIndex][e.target.name] = e.target.value
       }
+
+      //
+      // const links_will_be_present = [SECTION_TYPES.P]
+      
+      // if(links_will_be_present.includes(type2edit)){
+      //   let a_blocks
+      //   let objIndex = updateNestedData.findIndex((obj => obj.type == type2edit));
+
+      //   a_blocks = updateNestedData[objIndex][e.target.name].match(/\[([^\[\]]+)\]/g)?.map(match => match.slice(1, -1));
+
+      //   updateNestedData[objIndex].a_blocks = {...{content: a_blocks}}
+      // }
+
+
+
+      // updateNestedData[objIndex][e.target.name] = e.target.value
+
+
 
       return { nested_data: updateNestedData }
     });
