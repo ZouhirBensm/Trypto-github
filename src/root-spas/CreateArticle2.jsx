@@ -93,6 +93,7 @@ class CreateArticle extends React.Component {
         "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
       ],
       content_structure: ["H2", "P", "H3"],
+      e: undefined
 
       // // _____________________________________________________
 
@@ -184,13 +185,17 @@ class CreateArticle extends React.Component {
   }
 
   nextStep = (e) => {
+    e?.persist();
     this.setState({
-      step: ++this.state.step
+      step: ++this.state.step,
+      e: e?.nativeEvent
     })
   }
   previousStep = (e) => {
+    e?.persist();
     this.setState({
-      step: --this.state.step
+      step: --this.state.step,
+      e: e?.nativeEvent
     })
   }
 
@@ -267,6 +272,7 @@ class CreateArticle extends React.Component {
           setStateStep={this.setStateStep}
           previousStep={this.previousStep}
           nextStep={this.nextStep}
+          e={this.state.e}
 
           content_structure={this.state.content_structure}
         />

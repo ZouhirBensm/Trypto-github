@@ -35,11 +35,11 @@ class Part5 extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      _step: 1,
+      _step: this.props.e?.target.innerHTML === 'Proceed'? 1 : this.props.e?.target.innerHTML === 'Previous'? this.props.content_structure.length: 1,
       _last_step: this.props.content_structure.length
     }
 
-    console.log(this.props.content_structure)
+    console.log(this.props.content_structure, this.props.e?.target.innerHTML)
 
     this._nextStep = this._nextStep.bind(this)
     this._previousStep = this._previousStep.bind(this)
@@ -53,6 +53,7 @@ class Part5 extends React.Component {
   }
 
   _nextStep = (e) => {
+
     this.setState({
       _step: ++this.state._step
     })

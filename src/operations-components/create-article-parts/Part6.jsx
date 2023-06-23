@@ -77,7 +77,7 @@ class Part6 extends React.Component {
 
         <div id='nav'>
           <img src="/img/SVG/operations/create-article/previous.svg" alt="" />
-          <button onClick={(e) => this.props.previousStep()}>Previous </button>
+          <button onClick={(e) => this.props.previousStep(e)}>Previous</button>
           <button onClick={(e) => this.props.nextStep()}>Proceed</button>
           <img src="/img/SVG/operations/create-article/proceed.svg" alt="" />
         </div>
