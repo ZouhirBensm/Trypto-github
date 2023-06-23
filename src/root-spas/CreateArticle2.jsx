@@ -23,7 +23,7 @@ const _3_Abstract = loadable(() => import("../operations-components/create-artic
 const _4_ContentStructure = loadable(() => import("../operations-components/create-article-parts/_4_ContentStructure"), {
   fallback: <Loading />
 });
-const Part5 = loadable(() => import("../operations-components/create-article-parts/Part5"), {
+const _5_NestedContentBuilder = loadable(() => import("../operations-components/create-article-parts/_5_NestedContentBuilder"), {
   fallback: <Loading />
 });
 const Part6 = loadable(() => import("../operations-components/create-article-parts/Part6"), {
@@ -66,7 +66,7 @@ class CreateArticle extends React.Component {
 
       // TEMPORAL
       // USED TO TEST CREATE QUICKLY
-      step: 5,
+      step: 4,
       html_title: "Some random title", // CHECK (ArticleHeadTag)
       meta_title: "Some random title2",
       meta_description: "Some random description", // CHECK (ArticleHeadTag)
@@ -92,7 +92,7 @@ class CreateArticle extends React.Component {
         "elit. <strong>Eum</strong> aspernatur<strong> cupiditate</strong>",
         "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
       ],
-      content_structure: ["H2", "P", "H3"],
+      content_structure: ["H2", "H3"],
       e: undefined
 
       // // _____________________________________________________
@@ -267,7 +267,7 @@ class CreateArticle extends React.Component {
         />
         break;
       case 5:
-        component = <Part5
+        component = <_5_NestedContentBuilder
           step={step}
           setStateStep={this.setStateStep}
           previousStep={this.previousStep}

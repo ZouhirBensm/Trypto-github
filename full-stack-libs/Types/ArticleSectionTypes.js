@@ -3,9 +3,7 @@ const SECTION_TYPES = {
   H3: "H3",
   P: "P",
   UL: "UL",
-  A: "A",
   IMG: "IMG",
-  SPAN: "SPAN",
   EMBED: "EMBED",
 }
 

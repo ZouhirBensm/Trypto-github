@@ -3,6 +3,19 @@ import Loading from "../../generic-components/Loading"
 
 import SECTION_TYPES from '../../../full-stack-libs/Types/ArticleSectionTypes'
 
+// Sections: Make a builder
+// -> title H2 blocks VARIABLES: h2_title
+// -> title H3 blocks VARIABLES: h3_title
+// -> p blocks w\ itemprop="text" VARIABLES: _p
+// --> a blocks w\ rel='noopener nofollow ugc' VARIABLES: _href, a_title, a_rel, _a (content)
+// -> ul blocks VARIABLES: none
+// --> li blocks VARIABLES: _li
+// ---> a blocks w\ rel='noopener nofollow ugc' VARIABLES: _href, a_title, a_rel, _a (content)
+
+// -> div 4 image
+// --> images VARIABLES: _img_width, _img_height, _img_src, _img_alt
+// --> span 4 image VARIABLES: _img_description
+// -> embed VARIABLES: _embed_type, _embed_source, _embed_width, _embed_height, _embed_title
 
 const H2 = loadable(() => import("./H2"), {
   fallback: <Loading />
@@ -16,13 +29,7 @@ const P = loadable(() => import("./P"), {
 const UL = loadable(() => import("./UL"), {
   fallback: <Loading />
 });
-const A = loadable(() => import("./A"), {
-  fallback: <Loading />
-});
 const IMG = loadable(() => import("./IMG"), {
-  fallback: <Loading />
-});
-const SPAN = loadable(() => import("./SPAN"), {
   fallback: <Loading />
 });
 const EMBED = loadable(() => import("./EMBED"), {
@@ -31,7 +38,7 @@ const EMBED = loadable(() => import("./EMBED"), {
 
 
 
-class Part5 extends React.Component {
+class _5_NestedContentBuilder extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -100,24 +107,8 @@ class Part5 extends React.Component {
           _nextStep={this._nextStep}
         />
         break;
-      case SECTION_TYPES.A:
-        component =<A
-          _step={this.state._step}
-          _last_step={this.state._last_step}
-          _previousStep={this._previousStep}
-          _nextStep={this._nextStep}
-        />
-        break;
       case SECTION_TYPES.IMG:
         component =<IMG
-          _step={this.state._step}
-          _last_step={this.state._last_step}
-          _previousStep={this._previousStep}
-          _nextStep={this._nextStep}
-        />
-        break;
-      case SECTION_TYPES.SPAN:
-        component =<SPAN
           _step={this.state._step}
           _last_step={this.state._last_step}
           _previousStep={this._previousStep}
@@ -148,7 +139,7 @@ class Part5 extends React.Component {
 
     return (
       <React.Fragment>
-        <div>Part5</div>
+        {/* <div>_5_NestedContentBuilder</div> */}
 
         {component}
 
@@ -199,4 +190,4 @@ class Part5 extends React.Component {
 
 }
 
-export default Part5
+export default _5_NestedContentBuilder

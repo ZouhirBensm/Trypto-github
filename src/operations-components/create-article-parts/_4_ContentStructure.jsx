@@ -1,18 +1,7 @@
 import './styles/_4_ContentStructure.css'
 
 import SECTION_TYPES from '../../../full-stack-libs/Types/ArticleSectionTypes'
-// Sections: Make a builder
-// -> title H2 blocks VARIABLES: h2_title
-// -> title H3 blocks VARIABLES: h3_title
-// -> p blocks w\ itemprop="text" VARIABLES: _p
-// --> a blocks w\ rel='noopener nofollow ugc' VARIABLES: _href, a_title, _rel, _a (content)
-// -> ul blocks VARIABLES: none
-// --> li blocks VARIABLES: _li
-// -> a links VARIABLES: _href, a_title, _rel, _a (content)
-// -> div 4 image
-// --> images VARIABLES: _img_width, _img_height, _img_src, _img_alt
-// --> span 4 image VARIABLES: _img_description
-// -> embed VARIABLES: _embed_type, _embed_source, _embed_width, _embed_height, _embed_title
+
 
 class _4_ContentStructure extends React.Component {
   constructor(props) {
@@ -23,7 +12,7 @@ class _4_ContentStructure extends React.Component {
     }
 
   }
-  
+
 
   componentDidMount(){
     let options = []
