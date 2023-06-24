@@ -4,14 +4,16 @@ class P extends React.Component {
     super(props)
     this.state = {}
   }
+
+
   render() {
 
-    let objIndex = this.props.nested_data?.findIndex((obj => obj.type == this.constructor.name));
+    let objIndex = this.props.nested_data?.findIndex((obj => {return (obj.type == this.constructor.name && obj.id == this.props._step)}));
 
     // let object = this.props.nested_data?.find((object)=>{return object.type == this.constructor.name})
     let defaultValues
 
-    if (objIndex != -1) {
+    if(objIndex != -1) {
       defaultValues = this.props.nested_data[objIndex]
     }
 
@@ -30,6 +32,7 @@ class P extends React.Component {
             e.persist()
             this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
           }} required />
+
 
 
         </form>

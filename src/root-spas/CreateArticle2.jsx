@@ -66,7 +66,7 @@ class CreateArticle extends React.Component {
 
       // TEMPORAL
       // USED TO TEST CREATE QUICKLY
-      step: 4,
+      step: 1,
       html_title: "Some random title", // CHECK (ArticleHeadTag)
       meta_title: "Some random title2",
       meta_description: "Some random description", // CHECK (ArticleHeadTag)
@@ -92,23 +92,23 @@ class CreateArticle extends React.Component {
         "elit. <strong>Eum</strong> aspernatur<strong> cupiditate</strong>",
         "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
       ],
-      content_structure: ["H2", "H3", "P"],
+      content_structure: ["H2", "IMG"],
       e: undefined,
       nested_data: []
 
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       // // _____________________________________________________
 
@@ -182,9 +182,12 @@ class CreateArticle extends React.Component {
     console.log("\n\ne.target.checked: ", e.target.checked)
 
     this.setState({
-      [e.target.name]: !this.state[e.target.name]
+      // [e.target.name]: !this.state[e.target.name]
+      [e.target.name]: e.target.checked
     })
   }
+
+
 
   setStateBannerImage = (banner_image_name, banner_image_file) => {
     this.setState({
@@ -240,7 +243,7 @@ class CreateArticle extends React.Component {
           // handleChange2={this.handleChange2}
           setStateBannerImage={this.setStateBannerImage}
           validateInputs={this.validateInputs}
-        
+
           step={step}
           setStateStep={this.setStateStep}
           previousStep={this.previousStep}
@@ -293,6 +296,7 @@ class CreateArticle extends React.Component {
           nested_data={this.state.nested_data}
           innerHandleChange={this.innerHandleChange}
           validateInputs={this.validateInputs}
+          // innerIMGOnChange={this.innerIMGOnChange}
         />
         break;
       case 6:
@@ -407,31 +411,56 @@ class CreateArticle extends React.Component {
 
 
   innerHandleChange = (e, type2edit = undefined, id = undefined) => {
-    console.log(e.target.name, type2edit, id)
 
-    if(!type2edit || !id) return
+    var eventTargetName = e.target.name
+    console.log(e.target.type, type2edit, id, eventTargetName)
+
+    let value
+    switch (e.target.type) {
+      case "text":
+        value = e.target.value
+        break;
+      case "checkbox":
+        value = e.target.checked
+        break;
+      case "file":
+        const image_file = e.currentTarget.files[0]
+        const image_name = e.currentTarget.files[0].name
+        value = {
+          image_file: image_file,
+          image_name: image_name
+        }
+        break;
+      default:
+        value = e.target.value
+        break;
+    }
+
+
+    if (!type2edit || !id) return
 
     this.setState(prevState => {
       let updateNestedData = [...prevState.nested_data];
 
-      let object = updateNestedData.find((object)=>{
+      let object = updateNestedData.find((object) => {
         return object.type == type2edit && object.id == id
       })
 
-      console.log({object})
+      console.log({ object })
 
-      
+
 
       // Create new input object if no object available
-      if(!object) {
+      if (!object) {
         console.log('create..')
         object = {
           id: id,
+          // e.target.type
           type: type2edit,
-          [e.target.name]: e.target.value
+          [eventTargetName]: value
         }
         updateNestedData = [...prevState.nested_data, object]
-      // Edit input object if object available
+        // Edit input object if object available
       } else {
         console.log('already created..')
         let objIndex = updateNestedData.findIndex((obj => {
@@ -439,24 +468,10 @@ class CreateArticle extends React.Component {
         }));
 
         console.log('updateNestedData[objIndex]', updateNestedData[objIndex])
-        updateNestedData[objIndex][e.target.name] = e.target.value
+        updateNestedData[objIndex][eventTargetName] = value
       }
 
-      //
-      // const links_will_be_present = [SECTION_TYPES.P]
-      
-      // if(links_will_be_present.includes(type2edit)){
-      //   let a_blocks
-      //   let objIndex = updateNestedData.findIndex((obj => obj.type == type2edit));
 
-      //   a_blocks = updateNestedData[objIndex][e.target.name].match(/\[([^\[\]]+)\]/g)?.map(match => match.slice(1, -1));
-
-      //   updateNestedData[objIndex].a_blocks = {...{content: a_blocks}}
-      // }
-
-
-
-      // updateNestedData[objIndex][e.target.name] = e.target.value
 
 
 
@@ -465,6 +480,13 @@ class CreateArticle extends React.Component {
 
     return
   }
+
+
+  
+
+  
+
+
 
 
 }

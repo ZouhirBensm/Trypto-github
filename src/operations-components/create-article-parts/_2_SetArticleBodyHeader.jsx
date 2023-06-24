@@ -1,6 +1,6 @@
 import './styles/_2_SetArticleBodyHeader.css'
 import CATEGORY from '../../../full-stack-libs/Types/ArticleCategories';
-import UploadBannerImage from './UploadBannerImage'
+import UploadImage from './UploadImage'
 
 
 class _2_SetArticleBodyHeader extends React.Component {
@@ -57,10 +57,11 @@ class _2_SetArticleBodyHeader extends React.Component {
           </select> 
 
           <label>Upload A Banner Image</label>
-          <UploadBannerImage
-            banner_image_name={this.props.banner_image_name}
-            banner_image_file={this.props.banner_image_file}
-            setStateBannerImage={this.props.setStateBannerImage} 
+          <UploadImage
+            image_name={this.props.banner_image_name}
+            image_file={this.props.banner_image_file}
+            // setStateBannerImage={this.props.setStateBannerImage} 
+            onClickCallback={this.inputBufferOnChange}
           />
 
           <label>Set Banner Image Alternate text</label>
@@ -89,6 +90,20 @@ class _2_SetArticleBodyHeader extends React.Component {
 
       </React.Fragment>
     )
+  }
+
+  inputBufferOnChange = (e = null) => {
+    if (!e) return
+    // Only triggers on file change (therefor a file is always present), so this guard is not necessary
+    if (!e.currentTarget.files[0]) return
+
+    // console.log("onChange!!!", e, '\n', e.target)
+    console.log(e.currentTarget.files[0].name)
+
+
+    const banner_image_name = e.currentTarget.files[0].name
+    const banner_image_file = e.currentTarget.files[0]
+    this.props.setStateBannerImage(banner_image_name, banner_image_file)
   }
 }
 

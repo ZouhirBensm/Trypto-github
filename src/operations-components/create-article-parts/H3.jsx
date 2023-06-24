@@ -6,7 +6,7 @@ class H3 extends React.Component {
   }
   render() {
 
-    let objIndex = this.props.nested_data?.findIndex((obj => obj.type == this.constructor.name));
+    let objIndex = this.props.nested_data?.findIndex((obj => {return (obj.type == this.constructor.name && obj.id == this.props._step)}));
 
     // let object = this.props.nested_data?.find((object)=>{return object.type == this.constructor.name})
     let defaultValues

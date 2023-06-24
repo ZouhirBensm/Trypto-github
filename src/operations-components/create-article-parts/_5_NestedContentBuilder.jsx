@@ -4,17 +4,27 @@ import Loading from "../../generic-components/Loading"
 import SECTION_TYPES from '../../../full-stack-libs/Types/ArticleSectionTypes'
 
 // Sections: Make a builder
-// -> title H2 blocks VARIABLES: h2_title
-// -> title H3 blocks VARIABLES: h3_title
+
+//SUMMERNOTE, backend modifications
 // -> p blocks w\ itemprop="text" VARIABLES: _p
 // --> a blocks w\ rel='noopener nofollow ugc' VARIABLES: _href, a_title, a_rel, _a (content)
+
+//SUMMERNOTE, backend modifications
 // -> ul blocks VARIABLES: none
 // --> li blocks VARIABLES: _li
 // ---> a blocks w\ rel='noopener nofollow ugc' VARIABLES: _href, a_title, a_rel, _a (content)
 
-// -> div 4 image
+
+// -> div 4 image: IMG
 // --> images VARIABLES: _img_width, _img_height, _img_src, _img_alt
 // --> span 4 image VARIABLES: _img_description
+
+// -> Adapt A component to pick either A text or image: A
+// --> images VARIABLES: _img_width, _img_height, _img_src, _img_alt
+// --> span 4 image VARIABLES: _img_description
+
+
+// EMBED
 // -> embed VARIABLES: _embed_type, _embed_source, _embed_width, _embed_height, _embed_title
 
 const H2 = loadable(() => import("./H2"), {
@@ -23,10 +33,16 @@ const H2 = loadable(() => import("./H2"), {
 const H3 = loadable(() => import("./H3"), {
   fallback: <Loading />
 });
-const P = loadable(() => import("./P"), {
+const Summernote = loadable(() => import("./Summernote"), {
   fallback: <Loading />
 });
-const UL = loadable(() => import("./UL"), {
+// const P = loadable(() => import("./P"), {
+//   fallback: <Loading />
+// });
+// const UL = loadable(() => import("./UL"), {
+//   fallback: <Loading />
+// });
+const A = loadable(() => import("./A"), {
   fallback: <Loading />
 });
 const IMG = loadable(() => import("./IMG"), {
@@ -99,8 +115,8 @@ class _5_NestedContentBuilder extends React.Component {
           innerHandleChange={this.props.innerHandleChange}
         />
         break;
-      case SECTION_TYPES.P:
-        component = <P
+      case SECTION_TYPES.SUMMERNOTE:
+        component = <Summernote
           _step={this.state._step}
           _last_step={this.state._last_step}
           _previousStep={this._previousStep}
@@ -110,22 +126,27 @@ class _5_NestedContentBuilder extends React.Component {
           innerHandleChange={this.props.innerHandleChange}
         />
         break;
-      case SECTION_TYPES.UL:
-        component = <UL
-          _step={this.state._step}
-          _last_step={this.state._last_step}
-          _previousStep={this._previousStep}
-          _nextStep={this._nextStep}
-
-
-        />
-        break;
       case SECTION_TYPES.IMG:
         component = <IMG
           _step={this.state._step}
           _last_step={this.state._last_step}
           _previousStep={this._previousStep}
           _nextStep={this._nextStep}
+
+          nested_data={this.props.nested_data}
+          innerHandleChange={this.props.innerHandleChange}
+          // innerIMGOnChange={this.props.innerIMGOnChange}
+        />
+        break;
+      case SECTION_TYPES.A:
+        component = <A
+          _step={this.state._step}
+          _last_step={this.state._last_step}
+          _previousStep={this._previousStep}
+          _nextStep={this._nextStep}
+
+          nested_data={this.props.nested_data}
+          innerHandleChange={this.props.innerHandleChange}
         />
         break;
       case SECTION_TYPES.EMBED:
@@ -136,7 +157,25 @@ class _5_NestedContentBuilder extends React.Component {
           _nextStep={this._nextStep}
         />
         break;
+      // case SECTION_TYPES.UL:
+      //   component = <UL
+      //     _step={this.state._step}
+      //     _last_step={this.state._last_step}
+      //     _previousStep={this._previousStep}
+      //     _nextStep={this._nextStep}
+      //   />
+      //   break;
+      // case SECTION_TYPES.P:
+      //   component = <P
+      //     _step={this.state._step}
+      //     _last_step={this.state._last_step}
+      //     _previousStep={this._previousStep}
+      //     _nextStep={this._nextStep}
 
+      //     nested_data={this.props.nested_data}
+      //     innerHandleChange={this.props.innerHandleChange}
+      //   />
+      //   break;
 
       default:
         break;

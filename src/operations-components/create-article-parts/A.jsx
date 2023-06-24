@@ -1,6 +1,6 @@
-import UploadImage from './UploadImage'
+import './styles/A.css'
 
-class IMG extends React.Component {
+class A extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -10,6 +10,7 @@ class IMG extends React.Component {
 
     let objIndex = this.props.nested_data?.findIndex((obj => { return (obj.type == this.constructor.name && obj.id == this.props._step) }));
 
+    // let object = this.props.nested_data?.find((object)=>{return object.type == this.constructor.name})
     let defaultValues
 
     if (objIndex != -1) {
@@ -17,40 +18,40 @@ class IMG extends React.Component {
     }
 
 
-
-
-    // const lr_newtab = defaultValues?.newtab ? "flex-start" : "flex-end"
+    const lr_newtab = defaultValues?.newtab ? "flex-start" : "flex-end"
 
 
     return (
       <React.Fragment>
-        <h3>Block level Image:</h3>
+        <h3>Block level Link A:</h3>
 
         <form id="create-article-form-id" className="form">
 
 
-          <UploadImage
-            image_name={defaultValues?.image.image_name}
-            image_file={defaultValues?.image.image_file}
-            // setStateBannerImage={this.props.setStateBannerImage} 
-            onClickCallback={this.inputBufferOnChange}
-          />
-
-          <label>Image's width:</label>
-          <input name="img_width" value={defaultValues?.img_width || ""} type="number" placeholder="in px"
+          <label>A's href:</label>
+          <input name="A_href" value={defaultValues?.A_href || ""} type="text" placeholder="A href"
             onChange={(e) => {
               e.persist()
               this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
             }}
             required />
 
+          <label>A's inner text:</label>
+          <input name="A_innerText" value={defaultValues?.A_innerText || ""} type="text" placeholder="A inner text"
+            onChange={(e) => {
+              e.persist()
+              this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+            }}
+            required />
 
+          <label>A's title:</label>
+          <input name="A_title" value={defaultValues?.A_title || ""} type="text" placeholder="A title"
+            onChange={(e) => {
+              e.persist()
+              this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+            }} />
 
-
-
-
-
-          {/* <label>New tab open</label>
+          <label>New tab open</label>
           <div id="toogler_newtab">
 
             <input type="checkbox" id='id-newtab' name='newtab' className="checkbox" checked={defaultValues?.newtab} onChange={(e) => {
@@ -88,27 +89,13 @@ class IMG extends React.Component {
               this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
             }} />
 
-          </div> */}
+          </div>
 
         </form>
 
       </React.Fragment>
     )
   }
-
-  inputBufferOnChange = (e) => {
-    if (!e) return
-    // Only triggers on file change (therefor a file is always present), so this guard is not necessary
-    if (!e.currentTarget.files[0]) return
-
-    // console.log("onChange!!!", e, '\n', e.target)
-    console.log("--->>", e.currentTarget.files[0].name, this.constructor.name, this.props._step)
-
-
-
-
-    this.props.innerHandleChange(e, this.constructor.name, this.props._step)
-  }
 }
 
-export default IMG
+export default A

@@ -5,7 +5,7 @@
 
 
 /* TOOGLES */
-div#create-article>div#nest-1>form#create-article-form-id>div#toogler_noindex {
+div#create-article>div#nest-1>form#create-article-form-id>div#toogler_newtab {
   /* position: absolute;
   top: 1rem;
   left: 1rem; */
@@ -75,6 +75,15 @@ input.checkbox {
   display: none;
 }
 
+label {
+  vertical-align: middle;
+  margin: 0;
+}
+
+input[type="checkbox"] {
+  vertical-align: middle;
+  margin: 0 2ch 0 1ch;
+}
 
 
 
