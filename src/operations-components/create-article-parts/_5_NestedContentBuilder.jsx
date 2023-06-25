@@ -148,6 +148,7 @@ class _5_NestedContentBuilder extends React.Component {
 
           nested_data={this.props.nested_data}
           innerHandleChange={this.props.innerHandleChange}
+          innerHandleChangeToogleDeleteFields={this.props.innerHandleChangeToogleDeleteFields}
         />
         break;
       case SECTION_TYPES.EMBED:

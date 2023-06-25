@@ -24,10 +24,9 @@ class IMG extends React.Component {
 
     return (
       <React.Fragment>
-        <h3>Block level Image:</h3>
+        <h3>Image:</h3>
 
         <form id="create-article-form-id" className="form">
-
 
           <UploadImage
             image_name={defaultValues?.image?.image_name}
@@ -85,7 +84,7 @@ class IMG extends React.Component {
 
 
           {/* <label>New tab open</label>
-          <div id="toogler_newtab">
+          <div id="toogler-newtab">
 
             <input type="checkbox" id='id-newtab' name='newtab' className="checkbox" checked={defaultValues?.newtab} onChange={(e) => {
               e.persist()
@@ -123,6 +122,7 @@ class IMG extends React.Component {
             }} />
 
           </div> */}
+
 
         </form>
 

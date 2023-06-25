@@ -66,7 +66,7 @@ class CreateArticle extends React.Component {
 
       // TEMPORAL
       // USED TO TEST CREATE QUICKLY
-      step: 1,
+      step: 5,
       html_title: "Some random title", // CHECK (ArticleHeadTag)
       meta_title: "Some random title2",
       meta_description: "Some random description", // CHECK (ArticleHeadTag)
@@ -92,7 +92,7 @@ class CreateArticle extends React.Component {
         "elit. <strong>Eum</strong> aspernatur<strong> cupiditate</strong>",
         "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
       ],
-      content_structure: ["H2", "IMG"],
+      content_structure: ["A"],
       e: undefined,
       nested_data: []
 
@@ -295,8 +295,9 @@ class CreateArticle extends React.Component {
           content_structure={this.state.content_structure}
           nested_data={this.state.nested_data}
           innerHandleChange={this.innerHandleChange}
+          innerHandleChangeToogleDeleteFields={this.innerHandleChangeToogleDeleteFields}
           validateInputs={this.validateInputs}
-          // innerIMGOnChange={this.innerIMGOnChange}
+        // innerIMGOnChange={this.innerIMGOnChange}
         />
         break;
       case 6:
@@ -410,6 +411,52 @@ class CreateArticle extends React.Component {
 
 
 
+  innerHandleChangeToogleDeleteFields = (e, type2edit = undefined, id = undefined, toogle_state, state1_fields_todelete, state2_fields_todelete) => {
+
+    var eventTargetName = e.target.name
+    console.log(e.target.type, type2edit, id, eventTargetName, toogle_state)
+
+    // if (eventTargetName != 'image_or_text') return
+
+    if (!type2edit || !id) return
+
+    this.setState(prevState => {
+      let updateNestedData = [...prevState.nested_data];
+
+      let object = updateNestedData.find((object) => {
+        return object.type == type2edit && object.id == id
+      })
+
+      console.log({ object })
+
+
+
+      // Create new input object if no object available
+      if (object) {
+        // console.log('already created..')
+        let objIndex = updateNestedData.findIndex((obj => {
+          return (obj.type == type2edit && obj.id == id)
+        }));
+
+        // console.log('updateNestedData[objIndex]', updateNestedData[objIndex])
+        if (toogle_state) {
+          state1_fields_todelete.forEach(field => {
+            delete updateNestedData[objIndex][field]
+          });
+        } else {
+          state2_fields_todelete.forEach(field => {
+            delete updateNestedData[objIndex][field]
+          });
+          
+        }
+      }
+
+      return { nested_data: updateNestedData }
+    });
+
+    return
+  }
+
   innerHandleChange = (e, type2edit = undefined, id = undefined) => {
 
     var eventTargetName = e.target.name
@@ -482,9 +529,9 @@ class CreateArticle extends React.Component {
   }
 
 
-  
 
-  
+
+
 
 
 
