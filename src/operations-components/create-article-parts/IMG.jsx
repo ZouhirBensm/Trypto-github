@@ -30,14 +30,48 @@ class IMG extends React.Component {
 
 
           <UploadImage
-            image_name={defaultValues?.image.image_name}
-            image_file={defaultValues?.image.image_file}
+            image_name={defaultValues?.image?.image_name}
+            image_file={defaultValues?.image?.image_file}
             // setStateBannerImage={this.props.setStateBannerImage} 
             onClickCallback={this.inputBufferOnChange}
           />
 
           <label>Image's width:</label>
           <input name="img_width" value={defaultValues?.img_width || ""} type="number" placeholder="in px"
+            onChange={(e) => {
+              e.persist()
+              this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+            }}
+            required />
+
+          <label>Image's height:</label>
+          <input name="img_height" value={defaultValues?.img_height || ""} type="number" placeholder="in px"
+            onChange={(e) => {
+              e.persist()
+              this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+            }}
+            required />
+
+
+          <label>Image's src:</label>
+          <input name="img_src" value={defaultValues?.img_src || ""} type="text" placeholder="image's source link"
+            onChange={(e) => {
+              e.persist()
+              this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+            }}
+            required />
+
+          <label>Image's alt text:</label>
+          <input name="img_alt" value={defaultValues?.img_alt || ""} type="text" placeholder="image's alternative text"
+            onChange={(e) => {
+              e.persist()
+              this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+            }}
+            required />
+
+
+          <label>Image's schema description:</label>
+          <input name="img_description" value={defaultValues?.img_description || ""} type="text" placeholder="image's schema description"
             onChange={(e) => {
               e.persist()
               this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)

@@ -1,3 +1,4 @@
+import './styles/Summernote.css'
 
 class Summernote extends React.Component {
   constructor(props) {

@@ -15,6 +15,7 @@ import SECTION_TYPES from '../../../full-stack-libs/Types/ArticleSectionTypes'
 // ---> a blocks w\ rel='noopener nofollow ugc' VARIABLES: _href, a_title, a_rel, _a (content)
 
 
+// IMG
 // -> div 4 image: IMG
 // --> images VARIABLES: _img_width, _img_height, _img_src, _img_alt
 // --> span 4 image VARIABLES: _img_description

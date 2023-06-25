@@ -7,6 +7,18 @@ class UploadImage extends React.Component {
     this.state = {}
   }
 
+  componentDidMount() {
+    console.log("componentDidMount");
+    if (this.props.image_file) {
+      console.log("componentDidMount", this.props.image_file);
+  
+      const input = document.getElementById('input-banner-img-id');
+      let dt = new DataTransfer();
+      dt.items.add(this.props.image_file);
+      input.files = dt.files;
+    }
+  }
+
 
 
 
