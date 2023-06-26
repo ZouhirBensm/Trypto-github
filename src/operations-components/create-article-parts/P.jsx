@@ -22,7 +22,7 @@ class P extends React.Component {
       <React.Fragment>
         <h3>P Component Setter:</h3>
 
-        <form id="create-article-form-id" className="form">
+        <div id="create-article-form-id" className="form">
 
 
           <label>P's inner HTML: </label>
@@ -35,7 +35,7 @@ class P extends React.Component {
 
 
 
-        </form>
+        </div>
 
       </React.Fragment>
     )

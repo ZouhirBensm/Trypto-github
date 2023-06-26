@@ -1,7 +1,8 @@
 
 
 
-div#nest-1>form#create-article-form-id>select {
+/* div#nest-1> */
+div#create-article-form-id>select {
   padding: 1px 10px 0 0;
   -webkit-appearance: none;
   -moz-appearance: none;

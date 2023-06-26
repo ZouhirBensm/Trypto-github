@@ -57,7 +57,7 @@ class Summernote extends React.Component {
       <React.Fragment>
         <h3>Summernote:</h3>
 
-        <form id="create-article-form-id" className="form">
+        <div id="create-article-form-id" className="form">
 
 
           <label>Set your blog's content: </label>
@@ -77,7 +77,7 @@ class Summernote extends React.Component {
           }}>See</button>
 
 
-        </form>
+        </div>
 
       </React.Fragment>
     )

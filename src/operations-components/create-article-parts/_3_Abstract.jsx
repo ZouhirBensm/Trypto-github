@@ -13,9 +13,9 @@ class _3_Abstract extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div>Set the Article's abstract</div>
+        <h3>Set the Article's abstract</h3>
 
-        <form id="create-article-form-id" className="form">
+        <div id="create-article-form-id" className="form">
 
 
           <label>Abstract's name type</label>
@@ -57,7 +57,7 @@ class _3_Abstract extends React.Component {
 
 
 
-        </form>
+        </div>
 
 
 

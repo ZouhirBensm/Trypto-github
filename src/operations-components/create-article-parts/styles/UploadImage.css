@@ -1,8 +1,11 @@
-div#nest-1>form#create-article-form-id>div#box-input {
+/* div#nest-1> */
+div#box-input {
   position: relative;
 }
 
-div#nest-1>form#create-article-form-id>div#box-input>input#input-banner-img-id {
+/* div#nest-1> */
+/* div#create-article-form-id> */
+div#box-input>input#input-banner-img-id {
   /* Your styles here */
   /* display: none; */
   z-index: -1;
@@ -15,7 +18,8 @@ div#nest-1>form#create-article-form-id>div#box-input>input#input-banner-img-id {
 }
 
 
-div#nest-1>form#create-article-form-id>div#box-input>label#upload-button {
+/* div#nest-1> */
+div#box-input>label#upload-button {
   width: fit-content;
   border: 1px solid #010757;
   border-radius: 20px;
@@ -31,7 +35,8 @@ div#nest-1>form#create-article-form-id>div#box-input>label#upload-button {
 }
 
 
-div#nest-1>form#create-article-form-id>div#box-input>label#upload-button+div {
+/* div#nest-1> */
+div#box-input>label#upload-button+div {
   display: inline-block;
 
   font-family: 'Poppins', sans-serif;

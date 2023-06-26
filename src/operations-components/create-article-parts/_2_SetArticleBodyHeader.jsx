@@ -34,7 +34,7 @@ class _2_SetArticleBodyHeader extends React.Component {
       <React.Fragment>
         <h3>Set Article's body header tag data:</h3>
 
-        <form id="create-article-form-id" className="form">
+        <div id="create-article-form-id" className="form">
           <label>Set wanted Article keywords</label>
 
           <input type="text" name="keywords" onChange={this.props.handleChange} placeholder="Enter wanted Keywords" value={this.props.keywords.join(',  ')} required/>
@@ -62,6 +62,7 @@ class _2_SetArticleBodyHeader extends React.Component {
             image_file={this.props.banner_image_file}
             // setStateBannerImage={this.props.setStateBannerImage} 
             onClickCallback={this.inputBufferOnChange}
+            required={true}
           />
 
           <label>Set Banner Image Alternate text</label>
@@ -71,7 +72,7 @@ class _2_SetArticleBodyHeader extends React.Component {
           <input type="text" name="h1" value={this.props.h1} onChange={this.props.handleChange} placeholder="Enter article's H1" required/>
 
 
-        </form>
+        </div>
 
         <div id='nav'>
           <img src="/img/SVG/operations/create-article/previous.svg" alt="" />

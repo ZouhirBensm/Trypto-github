@@ -5,7 +5,8 @@
 
 
 /* TOOGLES */
-div#create-article>div#nest-1>form#create-article-form-id>div#toogler_noindex {
+/* div#create-article>div#nest-1> */
+div#create-article-form-id>div#toogler_noindex {
   /* position: absolute;
   top: 1rem;
   left: 1rem; */

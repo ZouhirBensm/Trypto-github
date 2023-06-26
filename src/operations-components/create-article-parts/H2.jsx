@@ -20,7 +20,7 @@ class H2 extends React.Component {
       <React.Fragment>
         <h3>H2 Component Setter:</h3>
         
-        <form id="create-article-form-id" className="form">
+        <div id="create-article-form-id" className="form">
 
         
         <label>H2's inner HTML: </label>
@@ -29,7 +29,7 @@ class H2 extends React.Component {
           this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
           }} required/>
 
-        </form>
+        </div>
 
       </React.Fragment>
     )

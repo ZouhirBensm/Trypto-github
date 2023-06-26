@@ -1,165 +1,175 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap');
 
 
-div#create-article-container>form#form_id {
-  width: 90%;
-  margin: 0 auto;
+div#market-main-component > div#header-grid > div > a {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: #1266FC;
+  text-transform: uppercase;
+  font-size: var(--font-size-root);
 }
 
 
-div#create-article-container>form#form_id>h1 {
-  font-family: 'Montserrat', sans-serif;
+div#nest-1 > a#reset {
+  font-family: 'Poppins', sans-serif;
   font-weight: 700;
-  font-size: var(--font-size-h1);
+  letter-spacing: 1.4px;
   color: #1266FC;
-  margin: 0;
-  /* display: inline; */
+  text-transform: uppercase;
+  font-size: var(--font-size-root);
+}
+
+div#nest-1 > a#reset > span{
+  color: #1266FC;
+}
+
+div#nest-1 > a > img{
+  margin: .5rem;
+  vertical-align: middle;
+}
+
+
+/* PROCEED, PREVIOUS BUTTONS */
+div#nav>button {
+  text-transform: uppercase;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: #00D1FF;
+  border: none;
+  background-color: transparent;
+  font-size: var(--font-size-root);
   margin: 3vh auto;
   vertical-align: middle;
 }
 
-div#create-article-container>form#form_id>label {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  letter-spacing: 1.4px;
-  color: #010757;
-  text-transform: capitalize;
-  font-size: var(--font-size-label);
-  /* margin-right: 1ch; */
-  /* display: inline; */
-  display: block;
-  width: fit-content;
-}
-
-div#create-article-container>form#form_id>select {
-  padding: 1px 10px 0 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-image: url('/public/img/SVG/operations/global/drop.svg');
-  background-position: right 2px center;
-  background-repeat: no-repeat;
-
-  font-size: var(--font-size-input);
-
-  border: 1px solid #B8CEF5;
-  border-radius: 8px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  letter-spacing: 0px;
-  color: #6B7FA2;
-  width: 50%;
-  display: block;
-  font-size: var(--font-size-input);
-  text-indent: 1ch;
+div#nav>img {
+  vertical-align: middle;
 }
 
 
 
-div#create-article-container>form#form_id>label {
+div#nest-1 {
+  width: 90%;
+  margin: 0 auto;
+}
+
+h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: #1266FC;
+  font-size: var(--font-size-h3);
+}
+
+label {
   display: block;
 }
 
-div#create-article-container>form#form_id>input:first-of-type {
-  width: 49.5%;
-}
-
-div#create-article-container>form#form_id>textarea {
-  width: 80%;
-}
-
-div#create-article-container>form#form_id>input:first-of-type,
-div#create-article-container>form#form_id>textarea {
-  border: 1px solid #B8CEF5;
-  border-radius: 8px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  letter-spacing: 0px;
-  color: #6B7FA2;
-  display: block;
-  font-size: var(--font-size-input);
-  text-indent: 1ch;
-}
-
-div#create-article-container>form#form_id>label#upload-button {
-  width: fit-content;
-  border: 1px solid #010757;
-  border-radius: 20px;
-  letter-spacing: 1.4px;
-  color: #010757;
-  text-transform: capitalize;
-  padding: 0.8rem;
-  margin: 2vh 0;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: var(--font-size-button);
-  display: block;
-}
-
-
-div#create-article-container>form#form_id>label#upload-button+div {
-  display: block;
+/* div#create-article>div#nest-1> */
+label,
+div > label
+/* div#create-article>div#nest-1> */
+/* span */
+ {
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
-  font-size: var(--font-size-button);
-  letter-spacing: 1.2px;
-  color: #B8CEF5;
-  margin: 2vh auto;
+  clear: right;
+  font-size: var(--font-size-label);
+  margin: 1vh 0;
 }
 
-
-
-div#create-article-container>form#form_id>button{
-  background: transparent linear-gradient(88deg, #80E8FF 0%, #0049E4 100%) 0% 0% no-repeat padding-box;
-  box-shadow: 0px 6px 20px #1266FC4E;
-  border-radius: 8px;
-  border: none;
-  color: #FFFFFF;
-  text-transform: uppercase;
-  display: block;
-  font-size: var(--font-size-button);
-  /* margin: 2rem auto; */
-  padding: 0.8rem;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  text-align: center;
-  letter-spacing: 1.4px;
+div.toogler>label> span{
+  font-size: var(--font-size-generic);
 }
 
-
-
-div#create-article-container>form#form_id>a{
-  display: block;
-  text-align: center;
+div#checkboxes_rel > label {
+  display: inline-block;
 }
 
-
-
-div#create-article-container>form#form_id>a>img{
-  margin: 2vh auto;
-  width: 40px;
-  height: 40px;
-}
-
-
-
-
-div#create-article-container>form#form_id>input#image-select {
-  /* Your styles here */
-  display: none;
-}
-
-
-div#create-article-container>form#form_id>button {
-  display: block;
-}
-
-
-div#create-article-container>form#form_id > div#popup {
+/* div#create-article>div#nest-1> */
+span>pre {
+  display: inline;
   color: red;
-  font-size: var(--font-size-extra);
+  padding: 0;
+  background: none;
+  border: none;
+  font-size: inherit;
+}
+
+
+/* div#create-article>div#nest-1> */
+span {
+  color: rgba(0, 0, 0, 0.766);
+}
+
+
+/* div#create-article>div#nest-1> */
+/* div#create-article>div#nest-1> */
+/* div#create-article>div#nest-1> */
+
+input[type='text'],
+input[type='number'],
+div#create-article-form-id > div > input[type='number'],
+div#create-article-form-id > div > input[type='text'],
+textarea 
+{
+  border: 1px solid #B8CEF5;
+  border-radius: 8px;
+  color: rgba(0, 0, 0, 0.766);
   font-family: 'Poppins', sans-serif;
-  font-weight: 300;
-  margin: 1rem 0;
-  display: block;
-}  
+  font-weight: 500;
+  line-height: 2rem;
+  width: 100%;
+  margin: 0.5vh 0;
+  font-size: var(--font-size-smaller-input);
+  text-indent: 2ch;
+}
+
+/* div#create-article>div#nest-1> */
+textarea {
+  height: 500px;
+}
+
+
+/* div#create-article>div#nest-1> */
+input[type='text']::placeholder,
+input[type='number']::placeholder {
+  color: #B8CEF5;
+}
+
+input[type='text']::placeholder,
+input[type='number']::placeholder,
+div#create-article-form-id > div > input[type='number']::placeholder,
+div#create-article-form-id > div > input[type='text']::placeholder,
+textarea::placeholder
+{
+  color: #B8CEF5;
+}
+
+
+
+
+.input-with-tags {
+  display: flex;
+  flex-flow: row wrap;
+  line-height: 2rem;
+  width: 100%;
+  /* height: 3rem; */
+  min-height: 2rem;
+  border: 1px solid #B8CEF5;
+  border-radius: 8px;
+  color: rgba(0, 0, 0, 0.766);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  margin: 0.5vh 0;
+  padding: 1px 2px;
+  font-size: var(--font-size-smaller-input);
+}
+
+.input-with-tags .tag {
+  background-color: #EEF5FE;
+  border-radius: 3px;
+  padding: 2px 5px;
+  margin: 5px;
+  /* border: 1px solid #ccc; */
+}

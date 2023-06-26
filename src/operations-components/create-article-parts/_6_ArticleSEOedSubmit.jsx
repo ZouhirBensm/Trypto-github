@@ -1,6 +1,6 @@
-import UploadImage from './UploadImage'
+// import UploadImage from './UploadImage'
 
-class Part6 extends React.Component {
+class _6_ArticleSEOedSubmit extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -58,16 +58,16 @@ class Part6 extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div>Part6</div>
+        <div>Submit your article!</div>
 
-        <label>Upload A Banner Image</label>
+        {/* <label>Upload A Banner Image</label>
         <UploadImage
           image_name={this.props.banner_image_name}
           image_file={this.props.banner_image_file}
           onClickCallback={this.inputBufferOnChange}
         />
 
-        <br/><br/>
+        <br/><br/> */}
 
 
 
@@ -89,19 +89,19 @@ class Part6 extends React.Component {
     )
   }
 
-  inputBufferOnChange = (e = null) => {
-    if (!e) return
-    // Only triggers on file change (therefor a file is always present), so this guard is not necessary
-    if (!e.currentTarget.files[0]) return
+  // inputBufferOnChange = (e = null) => {
+  //   if (!e) return
+  //   // Only triggers on file change (therefor a file is always present), so this guard is not necessary
+  //   if (!e.currentTarget.files[0]) return
 
-    // console.log("onChange!!!", e, '\n', e.target)
-    console.log(e.currentTarget.files[0].name)
+  //   // console.log("onChange!!!", e, '\n', e.target)
+  //   console.log(e.currentTarget.files[0].name)
 
 
-    const banner_image_name = e.currentTarget.files[0].name
-    const banner_image_file = e.currentTarget.files[0]
-    this.props.setStateBannerImage(banner_image_name, banner_image_file)
-  }
+  //   const banner_image_name = e.currentTarget.files[0].name
+  //   const banner_image_file = e.currentTarget.files[0]
+  //   this.props.setStateBannerImage(banner_image_name, banner_image_file)
+  // }
 }
 
-export default Part6
+export default _6_ArticleSEOedSubmit

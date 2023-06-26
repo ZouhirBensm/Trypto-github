@@ -20,7 +20,7 @@ class _1_SetArticleHeadTagData extends React.Component {
       <React.Fragment>
         <h3>Set Article's head tag data:</h3>
 
-        <form id="create-article-form-id" className="form">
+        <div id="create-article-form-id" className="form">
           <label>HTML Title, title tag:</label>
 
           <input type="text" name="html_title" value={this.props.html_title} onChange={this.props.handleChange} placeholder="Enter wanted HTML Title" required />
@@ -63,7 +63,7 @@ class _1_SetArticleHeadTagData extends React.Component {
           </div>
 
 
-        </form>
+        </div>
 
         <div id='nav'>
           <button onClick={(e) => {

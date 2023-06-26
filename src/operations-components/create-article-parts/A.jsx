@@ -5,15 +5,32 @@ class A extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      image_or_not: false
+      image_or_not: false,
+      // fields_to_delete: undefined,
+      // prev_fields_to_delete: undefined
     }
+    this.innerText = React.createRef();
+    this.imageContainer = React.createRef();
   }
+
+  // componentDidMount(){
+  //   this.setState({
+  //     prev_fields_to_delete: this.imageContainer?.current,
+  //   })
+  // }
+
+
+
 
 
   IMGorTEXT = (e) => {
-    this.setState({
-      image_or_not: !this.state.image_or_not
-    })
+
+    this.setState(prevState => {
+
+      return { 
+        image_or_not: !this.state.image_or_not,
+      };
+    });
   }
 
 
@@ -36,7 +53,7 @@ class A extends React.Component {
       <React.Fragment>
         <h3>Block level Link A:</h3>
 
-        <form id="create-article-form-id" className="form">
+        <div id="create-article-form-id" className="form">
 
 
           <label>A's href:</label>
@@ -58,9 +75,9 @@ class A extends React.Component {
           <label>New tab open</label>
 
 
-          <div id="toogler-newtab">
+          <div id="toogler-newtab" className='toogler'>
 
-            <input type="checkbox" id='id-newtab' name='newtab' className="checkbox" checked={defaultValues?.newtab} onChange={(e) => {
+            <input type="checkbox" id='id-newtab' name='newtab' className="checkbox" checked={!!defaultValues?.newtab} onChange={(e) => {
               e.persist()
               this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
             }} />
@@ -76,21 +93,21 @@ class A extends React.Component {
           <div id="checkboxes_rel">
             <label htmlFor='id-noopener'>noopener</label>
 
-            <input type="checkbox" id='id-noopener' name='noopener' checked={defaultValues?.noopener} onChange={(e) => {
+            <input type="checkbox" id='id-noopener' name='noopener' checked={!!defaultValues?.noopener} onChange={(e) => {
               e.persist()
               this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
             }} />
 
             <label htmlFor='id-nofollow'>nofollow</label>
 
-            <input type="checkbox" id='id-nofollow' name='nofollow' checked={defaultValues?.nofollow} onChange={(e) => {
+            <input type="checkbox" id='id-nofollow' name='nofollow' checked={!!defaultValues?.nofollow} onChange={(e) => {
               e.persist()
               this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
             }} />
 
             <label htmlFor='id-ugc'>ugc</label>
 
-            <input type="checkbox" id='id-ugc' name='ugc' checked={defaultValues?.ugc} onChange={(e) => {
+            <input type="checkbox" id='id-ugc' name='ugc' checked={!!defaultValues?.ugc} onChange={(e) => {
               e.persist()
               this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
             }} />
@@ -100,12 +117,54 @@ class A extends React.Component {
 
           <label>Set image or text</label>
 
-          <div id="toogler-image-or-text">
+          <div id="toogler-image-or-text" className='toogler'>
 
             <input type="checkbox" id='id-image_or_text' name='image_or_text' className="checkbox" checked={this.state.image_or_not} 
             onChange={(e) => {
+
               this.IMGorTEXT(e)
-              this.props.innerHandleChangeToogleDeleteFields(e, this.constructor.name, this.props._step, this.state.image_or_not, ['imgfield'], ['A_innerText'])
+              
+
+              const innerText = this.innerText?.current
+              const imageContainer = this.imageContainer?.current
+          
+              console.log(innerText?.children)
+              console.log(imageContainer?.children);
+
+              let children = innerText?.children || imageContainer?.children
+
+              // Placing nested children in nested
+              let nested = [];
+              [...children].forEach(child => {
+                if(![...child.children].length > 0) return
+                // console.log('-->',[...child.children])
+                let children = [...child.children]
+                // console.log(children)
+                nested = [...children, ...nested]
+
+              });
+
+              // console.log([...children, ...nested])
+              
+              const inputNames = Array.from([...children, ...nested]).filter((element) => {
+                return element.tagName.toLowerCase() === 'input'
+              }).map((input) => {
+                return input.name;
+              });
+          
+              console.log({inputNames})
+
+
+              
+
+              
+
+              
+
+
+              this.props.innerHandleChangeToogleDeleteFields(e, this.constructor.name, this.props._step, this.state.image_or_not, inputNames)
+
+
             }} 
             />
             <label style={{ justifyContent: lr_image_or_text }} htmlFor='id-image_or_text' className="switch">
@@ -116,37 +175,42 @@ class A extends React.Component {
 
           {this.state.image_or_not ?
             <React.Fragment>
-            <label>Set integrated image</label>            
+            {/* <label>Set integrated image</label>             */}
             {/* <input name="imgfield" value={defaultValues?.imgfield || ""} type="text" placeholder="img field test"
               onChange={(e) => {
                 e.persist()
                 this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
               }}
               required /> */}
-              <IMG
-                _step={this.props._step}
-                _last_step={this.props._last_step}
-                _previousStep={this.props._previousStep}
-                _nextStep={this.props._nextStep}
+              <div ref={this.imageContainer} id="create-article-form-id" className="form">
+                <IMG
+                  _step={this.props._step}
+                  _last_step={this.props._last_step}
+                  _previousStep={this.props._previousStep}
+                  _nextStep={this.props._nextStep}
 
-                nested_data={this.props.nested_data}
-                innerHandleChange={this.props.innerHandleChange}
-              />
+                  nested_data={this.props.nested_data}
+                  innerHandleChange={this.props.innerHandleChange}
+                  encapsulated_by_a={true}
+                />
+              </div>
             </React.Fragment>
             : 
             <React.Fragment>
-              <label>A's inner text:</label>
-              <input name="A_innerText" value={defaultValues?.A_innerText || ""} type="text" placeholder="A inner text"
-                onChange={(e) => {
-                  e.persist()
-                  this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
-                }}
-                required />
+              <div ref={this.innerText} id='inner-text'>
+                <label>A's inner text:</label>
+                <input name="A_innerText" value={defaultValues?.A_innerText || ""} type="text" placeholder="A inner text"
+                  onChange={(e) => {
+                    e.persist()
+                    this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+                  }}
+                  required />
+              </div>
             </React.Fragment>
           }
 
 
-        </form>
+        </div>
 
       </React.Fragment >
     )
