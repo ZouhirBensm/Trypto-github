@@ -15,9 +15,13 @@ const { CreateArticleError } = require('../../custom-errors/custom-errors')
 function seeData(req, res, next) {
   console.log("seeData...")
 
+  console.log("____________________________\n\nreq.body: \n\n")
   console.log(req.body)
+
+  console.log("____________________________\n\nJSON.parse(req.body.nested_data_copy): \n\n")
   console.log('\n\n', JSON.parse(req.body.nested_data_copy))
 
+  console.log("____________________________\n\nreq.files: \n\n")
   console.log('\n\n', req.files)
 
   // return res.status(200).end()
