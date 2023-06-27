@@ -17,24 +17,28 @@ class _6_ArticleSEOedSubmit extends React.Component {
     
 
 
-    // Pull out images from this.props.nested_data in array
+    // Pull out images from this.props.nested_data (IMG) in array
+    // Pull out images from this.props.nested_data (A) in array
     let files_from_nested_data = []
     for (let i = 0; i < this.props.nested_data.length; i++) {
       const block = this.props.nested_data[i];
-      if (block.type === SECTION_TYPES.IMG){
+      if (block.type === SECTION_TYPES.IMG ||
+        (block.type === SECTION_TYPES.A && !!block.image_mode_on)) {
+
         if(!block.image) continue
-        const image_id = block.id
+
+        const image_in_id = block.id
 
         // SET 1: Upload object information image data
         // files_from_nested_data.push({
-        //   id: image_id,
+        //   id: image_in_id,
         //   ...block.image
         // })
 
         // SET 2: Upload image files only
         files_from_nested_data.push(block.image.image_file)
 
-        delete nested_data_copy[image_id-1].image.image_file
+        delete nested_data_copy[image_in_id-1].image.image_file
       }
     }
 
@@ -135,8 +139,6 @@ class _6_ArticleSEOedSubmit extends React.Component {
       }
     }
 
-  // add tweaks for when A > IMG is posted
-
 
 
     const STRING_nested_data_copy = JSON.stringify(nested_data_copy)
@@ -144,17 +146,17 @@ class _6_ArticleSEOedSubmit extends React.Component {
     formData.append('nested_data_copy', STRING_nested_data_copy);
 
 
-    console.log(JSON.stringify(nested_data_copy), `${nested_data_copy}`)
+    
 
 
-    // let response
-    // response = await fetch(`/operations/create-article`, {
-    //   method: 'POST',
-    //   body: formData
-    // })
+    let response
+    response = await fetch(`/operations/create-article`, {
+      method: 'POST',
+      body: formData
+    })
 
-    // console.log(response)
-    // console.log(response.status)
+    console.log(response)
+    console.log(response.status)
 
 
   }

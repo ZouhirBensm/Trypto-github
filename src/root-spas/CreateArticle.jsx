@@ -91,7 +91,9 @@ class CreateArticle extends React.Component {
         "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
       ],
       content_structure: [SECTION_TYPES.H2, SECTION_TYPES.H3, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.IMG, SECTION_TYPES.A, SECTION_TYPES.EMBED, SECTION_TYPES.IMG],
+      // content_structure: [SECTION_TYPES.A],
       e: undefined,
+      // nested_data: []
       nested_data: [
         {
           "id": 1,
@@ -113,7 +115,6 @@ class CreateArticle extends React.Component {
           "type": "IMG",
           "img_width": "500",
           "img_height": "500",
-          "img_src": "/not/sure/yet",
           "img_alt": "some alt text",
           "img_description": "some description"
         },
@@ -126,7 +127,11 @@ class CreateArticle extends React.Component {
           "nofollow": true,
           "ugc": true,
           "noopener": true,
-          "A_innerText": "Google web site"
+          "image_mode_on": true,
+          "img_width": "500",
+          "img_height": "600",
+          "img_alt": "some text",
+          "img_description": "some description"
         },
         {
           "id": 6,
@@ -142,7 +147,6 @@ class CreateArticle extends React.Component {
           "type": "IMG",
           "img_width": "400",
           "img_height": "400",
-          "img_src": "/not/rr/pp",
           "img_alt": "lala lala",
           "img_description": "bla bla"
         },
@@ -442,7 +446,7 @@ class CreateArticle extends React.Component {
     var eventTargetName = e.target.name
     console.log(e.target.type, type2edit, id, eventTargetName, toogle_state)
 
-    // if (eventTargetName != 'image_or_text') return
+    // if (eventTargetName != 'image_mode_on') return
 
     if (!type2edit || !id) return
 
@@ -481,7 +485,8 @@ class CreateArticle extends React.Component {
   innerHandleChange = (e, type2edit = undefined, id = undefined) => {
 
     var eventTargetName = e.target.name
-    // console.log(e.target.type, type2edit, id, eventTargetName)
+    console.log("e.target.type, type2edit, id, eventTargetName")
+    console.log(e.target.type, type2edit, id, eventTargetName)
 
     let value
     switch (e.target.type) {
@@ -550,6 +555,7 @@ class CreateArticle extends React.Component {
     });
 
     return
+
   }
 
 
