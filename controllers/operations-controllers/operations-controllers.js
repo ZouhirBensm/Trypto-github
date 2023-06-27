@@ -22,7 +22,7 @@ async function getOperationsPagesController(req, res) {
 function responseCreateArticleController(req, res) {
   console.log("responseCreateArticleController...")
   
-  const success_message = `Your new article got posted and saved! Congrats real top G!`
+  const success_message = `Your new article got posted and saved! Congrats!`
   
   res.status(200).json({
     server: {

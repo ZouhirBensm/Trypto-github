@@ -41,7 +41,7 @@ class CreateArticle extends React.Component {
       // html_title: "",
       // meta_title: "",
       // meta_description: "",
-      // canonical: "",
+      // canonical: undefined,
       // noindex: false,
       // nofollow: false,
       // // STEP 2
@@ -55,7 +55,6 @@ class CreateArticle extends React.Component {
       // h1: "",
       // // author is logged in username
       // // published_datetime is default now upon creation
-      // content: "Content of the article goes here. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi molestias, molestiae vero tenetur minima magnam. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi molestias, molestiae vero tenetur minima magnam.",
       // abstract_name_type: "",
       // abstract_points: [],
       // content_structure: undefined
@@ -70,7 +69,7 @@ class CreateArticle extends React.Component {
       html_title: "Some random title", // CHECK (ArticleHeadTag)
       meta_title: "Some random title2",
       meta_description: "Some random description", // CHECK (ArticleHeadTag)
-      canonical: "", // CHECK (ArticleHeadTag)
+      canonical: undefined, // CHECK (ArticleHeadTag)
       noindex: false, // CHECK (ArticleHeadTag)
       nofollow: false, // CHECK (ArticleHeadTag)
       keywords: ['opti for this', 'and for that'], // CHECK (ArticleBodyHeader)
@@ -78,7 +77,6 @@ class CreateArticle extends React.Component {
       category: "bitcoin", // CHECK (ArticleBodyHeader)
       banner_img_alt: "some alt txt for the image", // CHECK (ArticleBodyHeader)
       h1: "The H1 title", // CHECK (ArticleBodyHeader)
-      content: "Content of the article goes here. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi molestias, molestiae vero tenetur minima magnam. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi molestias, molestiae vero tenetur minima magnam.", // CHECK (Article)
 
 
       // banner_image_path
@@ -92,38 +90,66 @@ class CreateArticle extends React.Component {
         "elit. <strong>Eum</strong> aspernatur<strong> cupiditate</strong>",
         "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
       ],
-      content_structure: [SECTION_TYPES.EMBED, SECTION_TYPES.IMG],
+      content_structure: [SECTION_TYPES.H2, SECTION_TYPES.H3, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.IMG, SECTION_TYPES.A, SECTION_TYPES.EMBED, SECTION_TYPES.IMG],
       e: undefined,
-      nested_data: []
+      nested_data: [
+        {
+          "id": 1,
+          "type": "H2",
+          "H2_innerHTML": "H2 title"
+        },
+        {
+          "id": 2,
+          "type": "H3",
+          "H3_innerHTML": "H3 title"
+        },
+        {
+          "id": 3,
+          "type": "SUMMERNOTE",
+          "SUMMERNOTE_innerHTML": "<p>some paragraph</p>"
+        },
+        {
+          "id": 4,
+          "type": "IMG",
+          "img_width": "500",
+          "img_height": "500",
+          "img_src": "/not/sure/yet",
+          "img_alt": "some alt text",
+          "img_description": "some description"
+        },
+        {
+          "id": 5,
+          "type": "A",
+          "A_href": "google.com",
+          "A_title": "Google",
+          "newtab": true,
+          "nofollow": true,
+          "ugc": true,
+          "noopener": true,
+          "A_innerText": "Google web site"
+        },
+        {
+          "id": 6,
+          "type": "EMBED",
+          "embed_width": "500",
+          "embed_height": "300",
+          "embed_type": "/some/type/video",
+          "embed_source": "https://www.youtube.com/watch?v=1-q_8TKNG9w",
+          "embed_title": "BBC earth"
+        },
+        {
+          "id": 7,
+          "type": "IMG",
+          "img_width": "400",
+          "img_height": "400",
+          "img_src": "/not/rr/pp",
+          "img_alt": "lala lala",
+          "img_description": "bla bla"
+        },
+      ]
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-      // // _____________________________________________________
-
-
-      // ALL HARD CODED FOR NOW
-      // publisher name, 
-      // publisher email, 
-      // and publisher link
-      // author name
-      // author link
-
-
-      // published_datetime is default now upon creation // CHECK (Article)
-      // excerpt //CHECK (Article)
-      // Article's path link // CHECK (ArticleHeadTag)
 
     }
 
@@ -320,11 +346,11 @@ class CreateArticle extends React.Component {
           h1={this.state.h1}
           banner_image_name={this.state.banner_image_name}
           banner_image_file={this.state.banner_image_file}
-          content={this.state.content}
 
           abstract_name_type={this.state.abstract_name_type}
           abstract_points={this.state.abstract_points}
           content_structure={this.state.content_structure}
+          nested_data={this.state.nested_data}
 
 
         />

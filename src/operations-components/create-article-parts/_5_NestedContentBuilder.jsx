@@ -4,15 +4,17 @@ import Loading from "../../generic-components/Loading"
 import SECTION_TYPES from '../../../full-stack-libs/Types/ArticleSectionTypes'
 
 
+const SUMMERNOTE = loadable(() => import("./SUMMERNOTE"), {
+  fallback: <Loading />
+});
+
 const H2 = loadable(() => import("./H2"), {
   fallback: <Loading />
 });
 const H3 = loadable(() => import("./H3"), {
   fallback: <Loading />
 });
-const Summernote = loadable(() => import("./Summernote"), {
-  fallback: <Loading />
-});
+
 const A = loadable(() => import("./A"), {
   fallback: <Loading />
 });
@@ -87,7 +89,7 @@ class _5_NestedContentBuilder extends React.Component {
         />
         break;
       case SECTION_TYPES.SUMMERNOTE:
-        component = <Summernote
+        component = <SUMMERNOTE
           _step={this.state._step}
           _last_step={this.state._last_step}
           _previousStep={this._previousStep}

@@ -36,7 +36,7 @@ class _1_SetArticleHeadTagData extends React.Component {
           <label>Custom article canonical:</label>
 
           {/* if stating with this.props.canonical is undefined use value={this.props.canonical || ""} */}
-          <input type="text" name="canonical" value={this.props.canonical} onChange={this.props.handleChange} placeholder="Enter wanted canonical"/>
+          <input type="text" name="canonical" value={this.props.canonical || ""} onChange={this.props.handleChange} placeholder="Enter wanted canonical"/>
 
           <label>Do you want to block indexing?</label>
 

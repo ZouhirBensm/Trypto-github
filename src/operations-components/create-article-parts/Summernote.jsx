@@ -1,6 +1,6 @@
-import './styles/Summernote.css'
+import './styles/SUMMERNOTE.css'
 
-class Summernote extends React.Component {
+class SUMMERNOTE extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -84,4 +84,4 @@ class Summernote extends React.Component {
   }
 }
 
-export default Summernote
+export default SUMMERNOTE

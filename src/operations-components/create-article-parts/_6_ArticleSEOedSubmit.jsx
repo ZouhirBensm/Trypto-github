@@ -1,4 +1,5 @@
 // import UploadImage from './UploadImage'
+import SECTION_TYPES from '../../../full-stack-libs/Types/ArticleSectionTypes'
 
 class _6_ArticleSEOedSubmit extends React.Component {
   constructor(props) {
@@ -7,34 +8,107 @@ class _6_ArticleSEOedSubmit extends React.Component {
   }
 
   async clickCreateArticle() {
-    // console.log("Creating an article...")
+    console.log("Creating an article...")
+
+    let nested_data_copy = structuredClone(this.props.nested_data);
 
     const formData = new FormData();
 
-    formData.append("image", this.props.banner_image_file)
+    
 
-    let nonImageData = {
+
+    // Pull out images from this.props.nested_data in array
+    let files_from_nested_data = []
+    for (let i = 0; i < this.props.nested_data.length; i++) {
+      const block = this.props.nested_data[i];
+      if (block.type === SECTION_TYPES.IMG){
+        if(!block.image) continue
+        const image_id = block.id
+
+        // SET 1: Upload object information image data
+        // files_from_nested_data.push({
+        //   id: image_id,
+        //   ...block.image
+        // })
+
+        // SET 2: Upload image files only
+        files_from_nested_data.push(block.image.image_file)
+
+        delete nested_data_copy[image_id-1].image.image_file
+      }
+    }
+
+    
+    
+    
+    
+    // SET 1: Upload object information image data
+    // id 0 is the banner image
+    // Mount banner image as first:
+
+    // const image_files_all = [{
+    //   id: 0,
+    //   image_name: this.props.banner_image_name,
+    //   image_file: this.props.banner_image_file,
+    // }, ...files_from_nested_data]
+
+    // SET 2: Upload image files only
+
+    const image_files_all = [this.props.banner_image_file, ...files_from_nested_data]
+
+
+    console.log("\n____________________________\n\nImages: \n")
+    console.log("\nImages files: \n", image_files_all)
+
+    console.log('\n\n\n')
+
+
+    // Appended all images, first one being the banner image
+    for (let i = 0; i < image_files_all.length; i++) {
+      const file = image_files_all[i];
+      formData.append('files', file)
+    }
+
+
+
+    console.log("\n____________________________\n\nNested Data with deleted image files: \n")
+    console.log("\n", nested_data_copy)
+
+    console.log('\n\n\n')
+    
+    
+    
+
+    let headHeaderAbstractStructureData = {
+      // _1_SetArticleHeadTagData
       html_title: this.props.html_title,
       meta_title: this.props.meta_title,
       meta_description: this.props.meta_description,
       canonical: this.props.canonical,
       noindex: this.props.noindex,
       nofollow: this.props.nofollow,
+
+      // _2_SetArticleBodyHeader
       keywords: this.props.keywords,
       category: this.props.category,
-      banner_img_alt: this.props.banner_img_alt,
+      // banner_img_alt: this.props.banner_img_alt,
+      // FILE: banner_image_file: this.props.banner_image_file
+      // banner_image_name: this.props.banner_image_name
       h1: this.props.h1,
-      banner_image_name: this.props.banner_image_name,
-      content: this.props.content,
+
+      // _3_Abstract
       abstract_name_type: this.props.abstract_name_type,
       abstract_points: this.props.abstract_points,
-      content_structure: this.props.content_structure
+
+      // _4_ContentStructure
+      content_structure: this.props.content_structure,
+
     }
 
-    for (const name in nonImageData) {
-      if (Object.hasOwnProperty.call(nonImageData, name)) {
-        let value = nonImageData[name];
-        console.log(value)
+    for (const name in headHeaderAbstractStructureData) {
+      if (Object.hasOwnProperty.call(headHeaderAbstractStructureData, name)) {
+        let value = headHeaderAbstractStructureData[name];
+        // console.log(value)
         if(typeof value === 'undefined' || value === '') continue
 
         if (Array.isArray(value)) value = JSON.stringify(value)
@@ -42,14 +116,45 @@ class _6_ArticleSEOedSubmit extends React.Component {
       }
     }
 
-    let response
-    response = await fetch(`/operations/create-article`, {
-      method: 'POST',
-      body: formData
-    })
 
-    console.log(response)
-    console.log(response.status)
+    let headerBannerImageData = {
+      // _2_SetArticleBodyHeader
+      banner_img_alt: this.props.banner_img_alt,
+      banner_image_name: this.props.banner_image_name
+    }
+
+
+    for (const name in headerBannerImageData) {
+      if (Object.hasOwnProperty.call(headerBannerImageData, name)) {
+        let value = headerBannerImageData[name];
+        // console.log(value)
+        if(typeof value === 'undefined' || value === '') continue
+
+        if (Array.isArray(value)) value = JSON.stringify(value)
+        formData.append(name, value);
+      }
+    }
+
+  // add tweaks for when A > IMG is posted
+
+
+
+    const STRING_nested_data_copy = JSON.stringify(nested_data_copy)
+
+    formData.append('nested_data_copy', STRING_nested_data_copy);
+
+
+    console.log(JSON.stringify(nested_data_copy), `${nested_data_copy}`)
+
+
+    // let response
+    // response = await fetch(`/operations/create-article`, {
+    //   method: 'POST',
+    //   body: formData
+    // })
+
+    // console.log(response)
+    // console.log(response.status)
 
 
   }
