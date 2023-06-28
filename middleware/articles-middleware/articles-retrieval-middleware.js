@@ -17,6 +17,7 @@ module.exports = async (req,res,next)=>{
 
   let retrievedArticles = await functionArticleAggregator(THIRD_PARTY_SOURCES)
 
+  console.log(filter_object)
   articles = await Article.find(filter_object)
   .populate({
     // Populate protagonists
@@ -25,7 +26,9 @@ module.exports = async (req,res,next)=>{
     select: "path image.name -_id",
   })
 
-  // console.log(articles)
+
+
+  console.log('articles:\n\n', articles)
   // console.log(articles[0].articleenclosureimage_id?.image)
   // console.log(articles[0].articleheadtag_id)
 
@@ -55,7 +58,7 @@ module.exports = async (req,res,next)=>{
   });
   
   
-  // console.log("\n____________________\n\narticlesRetrievalMiddleware->  articles:\n\n",  articles)
+  console.log("\n____________________\n\narticlesRetrievalMiddleware->  articles:\n\n",  articles)
 
   res.locals.data_to_be_paginated_and_served = articles
   return next()

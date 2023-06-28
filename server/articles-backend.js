@@ -69,6 +69,9 @@ articlesBackend_app_router.get('/paginated-articles/data',
 
 
 
+
+
+
 articlesBackend_app_router.get('/:category?', (req, res) => {
 
   res.locals.CATEGORY = CATEGORY;

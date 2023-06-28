@@ -1,3 +1,4 @@
+
 import '../style/reactDivMobile.css'
 import Articles from '../articles-functionalities/Articles';
 import OnPageFooter from '../generic-components/OnPageFooter'
@@ -6,54 +7,10 @@ import utils from '../../full-stack-libs/utils';
 
 import './styles/ArticlesCategorySelector.css'
 
-
-
-
-
-
-class Div extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
-  selectCategory = (e) => {
-    e.preventDefault()
-    let categoryClicked = e.target.getAttribute("value")
-    if (categoryClicked == 'RECENT') categoryClicked = undefined
-    window.location.href = `/articles${categoryClicked ? `/${categoryClicked}` : ''}`
-  }
-
-
-  render() {
-
-
-    let transformedText = this.props.category_element.replace('_', ' ')
-    transformedText = transformedText.charAt(0) + transformedText.slice(1).toLowerCase();
-
-
-    return (
-      <React.Fragment>
-        <div onClick={this.selectCategory} value={this.props.category_element}>
-          {transformedText}
-        </div>
-      </React.Fragment>
-
-    )
-  }
-}
-
-
-
-
-
 class ArticlesCategorySelector extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      Divs: []
-    }
-
+    this.state = {}
     let href = window.location.href.split('?')[0]
     let parsedURL = utils.parseURL(href)
     let paths = utils.URLpathDecomposer(parsedURL[3])
@@ -85,33 +42,37 @@ class ArticlesCategorySelector extends React.Component {
 
 
 
-
+  selectCategory(e) {
+    e.preventDefault()
+    let categoryClicked = e.target.getAttribute("value")
+    if (categoryClicked == 'RECENT') categoryClicked = undefined
+    window.location.href = `/articles${categoryClicked ? `/${categoryClicked}` : ''}`
+  }
 
   buildArticleCategorySelectorList() {
+    // let categoryNav = document.getElementById("category-nav")
+
+    // this.categoryNav.current
 
     CATEGORY = Object.assign({ RECENT: "RECENT" }, CATEGORY);
-    
-    let Divs = []
 
     for (const key in CATEGORY) {
       if (Object.hasOwnProperty.call(CATEGORY, key)) {
         const category_element = CATEGORY[key];
 
-        let newDiv = (<Div
-          key={key}
-          category_element={category_element}
-        />);
+        let newDiv = document.createElement("div")
+        newDiv.setAttribute("value", category_element);
 
-        Divs = [...Divs, newDiv]
+        let transformedText = category_element.replace('_', ' ')
+        transformedText = transformedText.charAt(0) + transformedText.slice(1).toLowerCase();
+
+        newDiv.innerHTML = transformedText
+
+        newDiv.onclick = this.selectCategory
+
+        this.categoryNav.current?.appendChild(newDiv)
       }
     }
-
-    console.log(Divs)
-
-    this.setState({
-      Divs: Divs
-    })
-
   }
 
   render() {
@@ -125,11 +86,9 @@ class ArticlesCategorySelector extends React.Component {
         </div>
         
         <div>
-          <nav ref={this.categoryNav} id='category-nav'>
-            {this.state.Divs}
-          </nav>
+          <nav ref={this.categoryNav} id='category-nav'></nav>
         </div>
-
+        <nav id='category-nav'></nav>
 
         <div className='articles-container'>
           <Articles
@@ -154,3 +113,50 @@ ReactDOM.render(element, document.getElementById('react-div'));
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Div extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+
+
+
+  render() {
+    return (
+      <React.Fragment>
+        <div>
+
+        </div>
+      </React.Fragment>
+
+    )
+  }
+}

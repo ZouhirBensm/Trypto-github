@@ -52,6 +52,8 @@ class ArticleElement extends React.Component {
 
 
   render() {
+
+    console.log('this.props.article->\n', this.props.article)
     // let stringy = JSON.stringify(this.props.article)
 
     const date = new Date(this.props.article.publishedDate);
@@ -63,7 +65,7 @@ class ArticleElement extends React.Component {
     if (EXTERNAL_READS_SOURCES.includes(this.props.article.source)) {
       enclosure = this.props.article.enclosure
     } else {
-      enclosure = `/img/bidblock-article-enclosure-images/${this.props.article.articleenclosureimage_id.image.name}`
+      enclosure = this.props.article.articleenclosureimage_id.path
     }
 
     return (
@@ -75,7 +77,11 @@ class ArticleElement extends React.Component {
             <span>{formattedDate}</span>
             <div>
               <h4>{this.props.article.h1}</h4>
-              <p>{this.props.article.excerpt}</p>
+              
+              {this.props.article.excerpt ? 
+              <p>{this.props.article.excerpt}</p> :
+              null
+              }
             </div>
           </div>
 

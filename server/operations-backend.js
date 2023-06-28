@@ -36,7 +36,7 @@ const geocodeTheGeometryMiddleware = require('../middleware/settings-middleware/
 const updateUsersAssociatedLocalityMiddleware = require('../middleware/settings-middleware/update-users-associated-locality-middleware')
 const createUserAssociatedLocalityMiddleware = require('../middleware/settings-middleware/create-user-associated-locality-middleware')
 
-const articlesMiddleware = require('../middleware/articles-middleware/articles-middleware2')
+const articlesMiddleware = require('../middleware/articles-middleware/articles-middleware')
 
 const usersRetrievalMiddleware = require('../middleware/operations-middleware/users-retrieval-middleware')
 const messagesRetrievalMiddleware = require('../middleware/operations-middleware/messages-retrieval-middleware')

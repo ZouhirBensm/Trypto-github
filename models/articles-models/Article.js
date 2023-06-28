@@ -56,6 +56,10 @@ const ArticleSchema = new Schema({
   },
   
   // category: String,
+  category: {
+    type: String,
+    default: undefined,
+  },
   // link: String,
   // enclosure: String,
   source: {
