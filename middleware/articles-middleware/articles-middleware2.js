@@ -47,13 +47,13 @@ function seeData(req, res, next) {
 function neededFolderEnclosuresMiddleware(req, res, next) {
   console.log("makeSureDestinationFolderPresentMiddleware...")
 
-  let directory_enclosure_path = 'public/img/bidblock-article-images/per-article-enclosure'
-
+  let directory_enclosure_path = `/img/bidblock-article-images/per-article-enclosure`
+  
   res.locals.directory_enclosure_path = directory_enclosure_path
 
 
-  if (!existsSync(directory_enclosure_path)) {
-    mkdirSync(directory_enclosure_path, { recursive: true });
+  if (!existsSync(`public/${directory_enclosure_path}`)) {
+    mkdirSync(`public/${directory_enclosure_path}`, { recursive: true });
   }
 
 
@@ -65,15 +65,15 @@ function neededFolderEnclosuresMiddleware(req, res, next) {
 function neededFolderHoldingPerArticleFoldersMiddleware(req, res, next) {
   console.log("makeSureDestinationFolderPresentMiddleware...")
 
-  let directory_article_images_folder_path = 'public/img/bidblock-article-images/per-article-folders-for-images'
+  let directory_article_images_folder_path = '/img/bidblock-article-images/per-article-folders-for-images'
 
   res.locals.directory_article_images_folder_path = directory_article_images_folder_path
 
-  res.locals.directory = directory
+  // res.locals.directory = directory
 
 
-  if (!existsSync(directory_article_images_folder_path)) {
-    mkdirSync(directory_article_images_folder_path, { recursive: true });
+  if (!existsSync(`public/${directory_article_images_folder_path}`)) {
+    mkdirSync(`public/${directory_article_images_folder_path}`, { recursive: true });
   }
 
   return next()
@@ -97,6 +97,10 @@ function setArticleURLMiddleware(req, res, next) {
   
   return next()
 }
+
+
+
+
 
 
 
@@ -162,7 +166,6 @@ async function createArticleBodyHeaderInstanceMiddleware(req, res, next) {
   ret_article_body_header_instance = new ArticleBodyHeader({
     keywords: JSON.parse(req.body.keywords),
     category: req.body.category,
-    banner_img_alt: req.body.banner_img_alt,
     article_id: res.locals.ret_article_instance._id // ATTACH TO ArticleBodyHeader -> Article
   })
 
@@ -179,80 +182,6 @@ async function createArticleBodyHeaderInstanceMiddleware(req, res, next) {
 
 
 
-
-
-
-
-
-
-
-
-
-// HERE EDIT THIS MIDDLEWARE && ALSO check rest of data is being saved
-
-async function processArticleImageMiddleware(req, res, next) {
-  console.log("processArticleImageMiddleware...")
-
-  const source_directory = `public/img/temporal-new`
-  const processing_file = req.file;
-  const ext = path.extname(processing_file.originalname);
-
-
-  let sharp_returned
-
-  const new_article_enclosure_image_name = `${res.locals.ret_article_instance._id}${ext}`
-
-  res.locals.new_article_enclosure_image_name = new_article_enclosure_image_name
-
-
-  // Set the Article.enclosure link
-  res.locals.ret_article_instance.enclosure = `/img/bidblock-article-enclosure-images/${new_article_enclosure_image_name}`
-
-  try {
-    sharp_returned = sharp(processing_file.path)
-  } catch (e) {
-    let error = new CreateArticleError(`Was unable to sharp ${processing_file.path}.\nSource error: ${e.name}\n${e.message}`)
-    return next(error)
-  }
-
-
-  try {
-    sharp_returned = await sharp_returned.toFile(`${res.locals.directory}/${new_article_enclosure_image_name}`)
-  } catch (e) {
-    let error = new CreateArticleError(`Was unable to sharp toFile method.\nSource error: ${e.name}\n${e.message}`)
-    return next(error)
-  }
-
-
-  // Delete received article enclosure image from temporal-new
-  try {
-    await fs.unlink(path.join(source_directory, processing_file.filename));
-  } catch (e) {
-    let error = new CreateArticleError(`Was unable to delete the uploaded file from ${source_directory}.\nSource error: ${e.name}\n${e.message}`)
-    return next(error)
-  }
-
-  // Sharped article enclosure image entry information
-  const image = {
-    name: new_article_enclosure_image_name,
-    format: sharp_returned.format,
-    width: sharp_returned.width,
-    height: sharp_returned.height,
-    size: sharp_returned.size,
-  }
-
-  res.locals.image = image
-
-  return next()
-}
-
-
-
-
-
-
-
-
 async function createArticleEnclosureImageInstanceMiddleware(req, res, next) {
 
 
@@ -261,8 +190,9 @@ async function createArticleEnclosureImageInstanceMiddleware(req, res, next) {
   let ret_article_enclosure_image_instance
 
   ret_article_enclosure_image_instance = new ArticleEnclosureImage({
-    path: res.locals.directory,
-    image: res.locals.image,
+    // image: res.locals.image,
+    banner_image_originalname: req.body.banner_image_name,
+    banner_img_alt: req.body.banner_img_alt,
     article_id: res.locals.ret_article_instance._id,  // ATTACH TO ArticleEnclosureImage -> Article
   })
 
@@ -275,6 +205,9 @@ async function createArticleEnclosureImageInstanceMiddleware(req, res, next) {
   return next()
 
 }
+
+
+
 
 
 
@@ -300,6 +233,89 @@ async function createArticleAbstractMiddleware(req, res, next) {
   return next()
 
 }
+
+
+
+
+
+
+
+
+async function processArticleEnclosureImageMiddleware(req, res, next) {
+  console.log("processArticleEnclosureImageMiddleware...")
+
+  const source_directory = `public/img/temporal-new`
+  const processing_file_enclosure_image = req.files[0];
+  const ext = path.extname(processing_file_enclosure_image.originalname);
+
+
+  let sharp_returned
+
+  const new_article_enclosure_image_name = `${res.locals.ret_article_instance._id}${ext}`
+
+  res.locals.new_article_enclosure_image_name = new_article_enclosure_image_name
+
+
+
+
+  res.locals.ret_article_enclosure_image_instance.path = `${res.locals.directory_enclosure_path}/${new_article_enclosure_image_name}`
+
+  console.log('res.locals.ret_article_enclosure_image_instance.path: ', res.locals.ret_article_enclosure_image_instance.path)
+  
+
+
+  // TODO !!! might need to set the image sizes to the ones sent from the front end using sharp methods, and set image adequatly
+
+  try {
+    sharp_returned = sharp(processing_file_enclosure_image.path)
+  } catch (e) {
+    let error = new CreateArticleError(`Was unable to sharp ${processing_file_enclosure_image.path}.\nSource error: ${e.name}\n${e.message}`)
+    return next(error)
+  }
+
+
+  try {
+    sharp_returned = await sharp_returned.toFile(`public/${res.locals.ret_article_enclosure_image_instance.path}`)
+  } catch (e) {
+    let error = new CreateArticleError(`Was unable to sharp toFile method.\nSource error: ${e.name}\n${e.message}`)
+    return next(error)
+  }
+
+
+  // Delete received article enclosure image from temporal-new
+  try {
+    await fs.unlink(path.join(source_directory, processing_file_enclosure_image.filename));
+  } catch (e) {
+    let error = new CreateArticleError(`Was unable to delete the uploaded file from ${source_directory}.\nSource error: ${e.name}\n${e.message}`)
+    return next(error)
+  }
+
+  
+  // Sharped article enclosure image entry information
+  const image = {
+    name: new_article_enclosure_image_name,
+    format: sharp_returned.format,
+    width: sharp_returned.width,
+    height: sharp_returned.height,
+    size: sharp_returned.size,
+  }
+
+  res.locals.ret_article_enclosure_image_instance.image = image
+
+  return next()
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -376,7 +392,7 @@ async function saveArticleEnclosureImageMiddleware(req, res, next) {
   return next()
 }
 
-// ArticleEnclosureImage
+// ArticleAbstract
 async function saveArticleAbstractMiddleware(req, res, next) {
   console.log("saveArticleAbstractMiddleware...")
 
@@ -401,18 +417,27 @@ const articlesMiddleware = {
   // setTheExcerptMiddleware: setTheExcerptMiddleware,
 
   neededFolderEnclosuresMiddleware: neededFolderEnclosuresMiddleware,
+
+
   neededFolderHoldingPerArticleFoldersMiddleware: neededFolderHoldingPerArticleFoldersMiddleware,
 
+
+
   setArticleURLMiddleware: setArticleURLMiddleware,
+
+
+
   createArticleInstanceMiddleware: createArticleInstanceMiddleware,
   createArticleHeadTagInstanceMiddleware: createArticleHeadTagInstanceMiddleware,
   createArticleBodyHeaderInstanceMiddleware: createArticleBodyHeaderInstanceMiddleware,
-  processArticleImageMiddleware: processArticleImageMiddleware,
   createArticleEnclosureImageInstanceMiddleware: createArticleEnclosureImageInstanceMiddleware,
   createArticleAbstractMiddleware: createArticleAbstractMiddleware,
+  
+  processArticleEnclosureImageMiddleware: processArticleEnclosureImageMiddleware,
+
+
   saveArticleMiddleware: saveArticleMiddleware,
   saveArticleHeadTagMiddleware: saveArticleHeadTagMiddleware,
-
   saveArticleBodyHeaderMiddleware: saveArticleBodyHeaderMiddleware,
   saveArticleEnclosureImageMiddleware: saveArticleEnclosureImageMiddleware,
   saveArticleAbstractMiddleware: saveArticleAbstractMiddleware,

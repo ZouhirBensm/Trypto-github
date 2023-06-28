@@ -21,10 +21,10 @@ const ArticleBodyHeaderSchema = new Schema({
     required: true
   },
 
-  banner_img_alt: {
-    type: String,
-    required: true
-  },
+  // banner_img_alt: {
+  //   type: String,
+  //   required: true
+  // },
 
   article_id: {
     type: mongoose.Schema.Types.ObjectId,

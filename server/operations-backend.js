@@ -298,24 +298,21 @@ require_loggedin_for_pages(true),
 authenticate_role_for_pages([ROLE.MASTER]), 
 multerinstance.upload.array('files'),
 articlesMiddleware.seeData,
-// articlesMiddleware.setTheExcerptMiddleware,
-
-
-// articlesMiddleware.makeSureDestinationFolderPresentMiddleware,
-// articlesMiddleware.setArticleURLMiddleware,
-// articlesMiddleware.createArticleInstanceMiddleware,
-// articlesMiddleware.createArticleHeadTagInstanceMiddleware,
-// articlesMiddleware.createArticleBodyHeaderInstanceMiddleware,
-// articlesMiddleware.processArticleImageMiddleware,
-// articlesMiddleware.createArticleEnclosureImageInstanceMiddleware,
-// articlesMiddleware.createArticleAbstractMiddleware,
-// articlesMiddleware.saveArticleMiddleware,
-// articlesMiddleware.saveArticleHeadTagMiddleware,
-// articlesMiddleware.saveArticleBodyHeaderMiddleware,
-// articlesMiddleware.saveArticleEnclosureImageMiddleware,
-// articlesMiddleware.saveArticleAbstractMiddleware,
+articlesMiddleware.neededFolderEnclosuresMiddleware,
+articlesMiddleware.neededFolderHoldingPerArticleFoldersMiddleware,
+articlesMiddleware.setArticleURLMiddleware,
+articlesMiddleware.createArticleInstanceMiddleware,
+articlesMiddleware.createArticleHeadTagInstanceMiddleware,
+articlesMiddleware.createArticleBodyHeaderInstanceMiddleware,
+articlesMiddleware.createArticleEnclosureImageInstanceMiddleware,
+articlesMiddleware.createArticleAbstractMiddleware,
+articlesMiddleware.processArticleEnclosureImageMiddleware,
+articlesMiddleware.saveArticleMiddleware,
+articlesMiddleware.saveArticleHeadTagMiddleware,
+articlesMiddleware.saveArticleBodyHeaderMiddleware,
+articlesMiddleware.saveArticleEnclosureImageMiddleware,
+articlesMiddleware.saveArticleAbstractMiddleware,
 operationsControllers.responseCreateArticleController
-
 )
 
 

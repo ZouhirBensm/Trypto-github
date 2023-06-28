@@ -31,6 +31,14 @@ const ArticleEnclosureImageSchema = new Schema({
     type: ImageInfoSchema,
     required: true
   },
+  banner_img_alt: {
+    type: String,
+    required: true
+  },
+  banner_image_originalname: {
+    type: String,
+    required: true
+  },
   // postedDate: {
   //   type: Date,
   //   // default: new Date(),
