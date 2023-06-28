@@ -34,7 +34,6 @@ const ArticleSchema = new Schema({
     ref: 'ArticleBodyHeader',
     required: true
   },
-  content: String,
   excerpt: String,
   articleheadtag_id: {
     type: mongoose.Schema.Types.ObjectId,

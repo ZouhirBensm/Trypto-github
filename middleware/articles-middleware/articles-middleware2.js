@@ -1,4 +1,3 @@
-// TODO !!!! To be deleted if articles-middleware2.js works
 const sharp = require('sharp');
 const fs = require('fs/promises')
 const { existsSync, mkdirSync } = require('fs')
@@ -30,36 +29,59 @@ function seeData(req, res, next) {
 }
 
 
+// TEMPORAR COMMENTED OUT
+// function setTheExcerptMiddleware(req, res, next) {
+//   console.log("setTheExcerptMiddleware...")
 
-function setTheExcerptMiddleware(req, res, next) {
-  console.log("setTheExcerptMiddleware...")
+//   let excerpt
+//   let split_content = req.body.content.split(" ")
+//   let split_excerpt = split_content.slice(0, 12)
+//   excerpt = split_excerpt.join(" ")
 
-  let excerpt
-  let split_content = req.body.content.split(" ")
-  let split_excerpt = split_content.slice(0, 12)
-  excerpt = split_excerpt.join(" ")
+//   req.body.excerpt = excerpt
 
-  req.body.excerpt = excerpt
-
-  return next()
-}
+//   return next()
+// }
 
 
-function makeSureDestinationFolderPresentMiddleware(req, res, next) {
+function neededFolderEnclosuresMiddleware(req, res, next) {
   console.log("makeSureDestinationFolderPresentMiddleware...")
 
-  let directory = `public/img/bidblock-article-enclosure-images`
+  let directory_enclosure_path = 'public/img/bidblock-article-images/per-article-enclosure'
+
+  res.locals.directory_enclosure_path = directory_enclosure_path
+
+
+  if (!existsSync(directory_enclosure_path)) {
+    mkdirSync(directory_enclosure_path, { recursive: true });
+  }
+
+
+
+  return next()
+
+}
+
+function neededFolderHoldingPerArticleFoldersMiddleware(req, res, next) {
+  console.log("makeSureDestinationFolderPresentMiddleware...")
+
+  let directory_article_images_folder_path = 'public/img/bidblock-article-images/per-article-folders-for-images'
+
+  res.locals.directory_article_images_folder_path = directory_article_images_folder_path
+
   res.locals.directory = directory
 
 
-
-  if (!existsSync(directory)) {
-    mkdirSync(directory, { recursive: true });
+  if (!existsSync(directory_article_images_folder_path)) {
+    mkdirSync(directory_article_images_folder_path, { recursive: true });
   }
 
   return next()
 
 }
+
+
+
 
 
 function setArticleURLMiddleware(req, res, next) {
@@ -87,9 +109,7 @@ async function createArticleInstanceMiddleware(req, res, next) {
     h1: req.body.h1,
     html_title: req.body.html_title,
     url: req.body.url,
-    author_id: req.session.userId,
-    content: req.body.content,
-    excerpt: req.body.excerpt
+    author_id: req.session.userId
   })
 
   // RENDER Article GLOBAL
@@ -116,8 +136,8 @@ async function createArticleHeadTagInstanceMiddleware(req, res, next) {
     meta_description: req.body.meta_description,
     // [req.body.canonical? 'canonical' : null]: req.body.canonical,
     canonical: req.body.canonical ? req.body.canonical : req.body.url,
-    noindex: req.body.noindex,
-    nofollow: req.body.nofollow,
+    [req.body.noindex? 'noindex' : null]: req.body.noindex, // not required and defaults to false
+    [req.body.nofollow? 'nofollow' : null]: req.body.nofollow, // not required and defaults to false
     article_id: res.locals.ret_article_instance._id // ATTACH TO ArticleHeadTag -> Article
   })
 
@@ -168,7 +188,7 @@ async function createArticleBodyHeaderInstanceMiddleware(req, res, next) {
 
 
 
-
+// HERE EDIT THIS MIDDLEWARE && ALSO check rest of data is being saved
 
 async function processArticleImageMiddleware(req, res, next) {
   console.log("processArticleImageMiddleware...")
@@ -378,8 +398,11 @@ async function saveArticleAbstractMiddleware(req, res, next) {
 
 const articlesMiddleware = {
   seeData: seeData,
-  setTheExcerptMiddleware: setTheExcerptMiddleware,
-  makeSureDestinationFolderPresentMiddleware: makeSureDestinationFolderPresentMiddleware,
+  // setTheExcerptMiddleware: setTheExcerptMiddleware,
+
+  neededFolderEnclosuresMiddleware: neededFolderEnclosuresMiddleware,
+  neededFolderHoldingPerArticleFoldersMiddleware: neededFolderHoldingPerArticleFoldersMiddleware,
+
   setArticleURLMiddleware: setArticleURLMiddleware,
   createArticleInstanceMiddleware: createArticleInstanceMiddleware,
   createArticleHeadTagInstanceMiddleware: createArticleHeadTagInstanceMiddleware,

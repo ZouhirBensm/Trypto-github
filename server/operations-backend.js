@@ -36,7 +36,7 @@ const geocodeTheGeometryMiddleware = require('../middleware/settings-middleware/
 const updateUsersAssociatedLocalityMiddleware = require('../middleware/settings-middleware/update-users-associated-locality-middleware')
 const createUserAssociatedLocalityMiddleware = require('../middleware/settings-middleware/create-user-associated-locality-middleware')
 
-const articlesMiddleware = require('../middleware/articles-middleware/articles-middleware')
+const articlesMiddleware = require('../middleware/articles-middleware/articles-middleware2')
 
 const usersRetrievalMiddleware = require('../middleware/operations-middleware/users-retrieval-middleware')
 const messagesRetrievalMiddleware = require('../middleware/operations-middleware/messages-retrieval-middleware')
@@ -264,19 +264,29 @@ operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', require_l
 
 
 
-// ORIGINAL
+
+// UPLOAD NEW ARTICLE ORIGINAL
 // operationsBackend_app_router.post('/create-article', 
 // require_loggedin_for_pages(true), 
 // authenticate_role_for_pages([ROLE.MASTER]), 
+// multerinstance.upload.array('files'),
+// articlesMiddleware.seeData,
+// articlesMiddleware.setTheExcerptMiddleware,
 
-// multerinstance.upload.single('image'), 
-// articlesMiddleware.setTheExcerptMiddleware, 
-// articlesMiddleware.makeSureDestinationFolderPresentMiddleware,  
-// articlesMiddleware.createArticleInstanceMiddleware, 
-// articlesMiddleware.processArticleImageMiddleware,  
-// articlesMiddleware.createArticleEnclosureImageInstanceMiddleware, 
-// articlesMiddleware.saveTheArticleEntryMiddleware, 
-// articlesMiddleware.saveTheArticleEnclosureImageEntryMiddleware,  
+
+// articlesMiddleware.makeSureDestinationFolderPresentMiddleware,
+// articlesMiddleware.setArticleURLMiddleware,
+// articlesMiddleware.createArticleInstanceMiddleware,
+// articlesMiddleware.createArticleHeadTagInstanceMiddleware,
+// articlesMiddleware.createArticleBodyHeaderInstanceMiddleware,
+// articlesMiddleware.processArticleImageMiddleware,
+// articlesMiddleware.createArticleEnclosureImageInstanceMiddleware,
+// articlesMiddleware.createArticleAbstractMiddleware,
+// articlesMiddleware.saveArticleMiddleware,
+// articlesMiddleware.saveArticleHeadTagMiddleware,
+// articlesMiddleware.saveArticleBodyHeaderMiddleware,
+// articlesMiddleware.saveArticleEnclosureImageMiddleware,
+// articlesMiddleware.saveArticleAbstractMiddleware,
 // operationsControllers.responseCreateArticleController
 
 // )

@@ -113,7 +113,7 @@ class _6_ArticleSEOedSubmit extends React.Component {
       if (Object.hasOwnProperty.call(headHeaderAbstractStructureData, name)) {
         let value = headHeaderAbstractStructureData[name];
         // console.log(value)
-        if(typeof value === 'undefined' || value === '') continue
+        if(typeof value === 'undefined' || value === '' || value === false) continue
 
         if (Array.isArray(value)) value = JSON.stringify(value)
         formData.append(name, value);

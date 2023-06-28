@@ -17,11 +17,11 @@ const ArticleHeadTagSchema = new Schema({
   },
   noindex: {
     type: Boolean,
-    required: true
+    default: false,
   },
   nofollow: {
     type: Boolean,
-    required: true
+    default: false,
   },
   article_id: {
     type: mongoose.Schema.Types.ObjectId,
