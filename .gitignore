@@ -2,7 +2,8 @@
 node_modules
 public/dist
 seeds/dev
-public/img/bidblock-article-enclosure-images/*
+public/img/bidblock-article-images/per-article-enclosure/*
+public/img/bidblock-article-images/per-article-folders-for-images/*
 public/img/marketorder-images/*
 !public/img/marketorder-images/seed-images
 public/img/profile-images/*

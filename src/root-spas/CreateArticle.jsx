@@ -8,9 +8,6 @@ import Loading from "../generic-components/Loading"
 
 
 
-
-
-
 const _1_SetArticleHeadTagData = loadable(() => import("../operations-components/create-article-parts/_1_SetArticleHeadTagData"), {
   fallback: <Loading />
 });

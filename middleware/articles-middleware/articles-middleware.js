@@ -29,7 +29,7 @@ function seeData(req, res, next) {
 }
 
 
-// TEMPORAR COMMENTED OUT
+// TEMPORAL COMMENTED OUT
 // function setTheExcerptMiddleware(req, res, next) {
 //   console.log("setTheExcerptMiddleware...")
 
@@ -44,6 +44,11 @@ function seeData(req, res, next) {
 // }
 
 
+// TODO !!!! need to set an exerpt, and pull it from the nested_data_copy, on the back end and integrate it to the Article schema and save
+// TODO !!!! need to add the category input on the front end and save it in the Article schema
+
+
+
 function neededFolderEnclosuresMiddleware(req, res, next) {
   console.log("makeSureDestinationFolderPresentMiddleware...")
 
@@ -56,11 +61,12 @@ function neededFolderEnclosuresMiddleware(req, res, next) {
     mkdirSync(`public/${directory_enclosure_path}`, { recursive: true });
   }
 
-
-
   return next()
 
 }
+
+
+
 
 function neededFolderHoldingPerArticleFoldersMiddleware(req, res, next) {
   console.log("makeSureDestinationFolderPresentMiddleware...")
@@ -112,6 +118,7 @@ async function createArticleInstanceMiddleware(req, res, next) {
   ret_article_instance = new Article({
     h1: req.body.h1,
     html_title: req.body.html_title,
+    category: req.body.category,
     url: req.body.url,
     author_id: req.session.userId
   })

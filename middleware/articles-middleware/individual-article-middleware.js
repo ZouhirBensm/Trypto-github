@@ -26,7 +26,7 @@ async function middleware1(req, res, next) {
       select: "username -_id",
     })
   } catch (error) {
-
+    // TODO !!!! add error handling
   }
 
   console.log("\n\narticle,\n\n", article)

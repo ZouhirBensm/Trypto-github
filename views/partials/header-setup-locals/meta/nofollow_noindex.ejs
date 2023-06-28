@@ -1,9 +1,10 @@
-<% if (locals.noindex) { %>
+<!-- TODO check if taking effect -->
+<% if (locals.article.articleheadtag_id.noindex) { %>
   <meta name="googlebot" content="noindex">
   <meta name="robots" content="noindex">
 <% } %>
 
-<% if (locals.nofollow) { %>
+<% if (locals.article.articleheadtag_id.nofollow) { %>
   <meta name="googlebot" content="nofollow">
   <meta name="robots" content="nofollow">
 <% } %>

@@ -5,8 +5,10 @@
   <!-- itemprop="keywords" -->
   <span style="display: none"><%=locals.article.articlebodyheader_id.keywords?.join(', ')%></span>
 
+  <!-- TODO !!!! set this up after setting the category -->
   <!-- itemprop="about genre" -->
-  <span style="display: none"><%=locals.article.articlebodyheader_id.category%></span>
+  <!-- <span style="display: none">< %=locals.article.articlebodyheader_id.category%></span> -->
+
   <!-- itemprop="publisher" itemscope itemtype="https://schema.org/Organization" -->
   <span style="display: none">
     <!-- itemprop="name" -->
@@ -20,8 +22,7 @@
 
   <!-- BANNER -->
   <!-- itemprop="image" -->
-  
-  <img src="/img/bidblock-article-enclosure-images/<%=locals.article.articleenclosureimage_id.image.name%>" alt="<%=locals.article.articlebodyheader_id.banner_img_alt%>">
+  <img src="<%=locals.article.articleenclosureimage_id.path%>" alt="<%=locals.article.articleenclosureimage_id.banner_img_alt%>">
   
   <div>
     <!-- itemprop="name headline" -->
