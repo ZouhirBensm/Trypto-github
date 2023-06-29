@@ -579,6 +579,8 @@ class CreateArticle extends React.Component {
       const updated_nested_data = [...prevState.nested_data]
       const block = updated_nested_data[index]
 
+      // TODO !!!!! HERE continue making sure the content structure is in sync with the nested blocks
+      // Also try to reduce this component
       console.log({block_type})
       console.log('block?.type ', block?.type)
       console.log('block?.type === block_type ', block?.type === block_type)
