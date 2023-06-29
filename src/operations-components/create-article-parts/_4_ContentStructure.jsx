@@ -48,6 +48,8 @@ class _4_ContentStructure extends React.Component {
     });
   };
 
+  
+
   handleChangeInputs = (index) => (event) => {
     const { value } = event.target;
     this.setState(prevState => {
