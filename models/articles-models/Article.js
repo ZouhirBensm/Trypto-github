@@ -54,6 +54,11 @@ const ArticleSchema = new Schema({
     ref: 'ArticleAbstract',
     required: true
   },
+  articlenesteddata_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'ArticleNestedData',
+    required: true
+  },
   
   // category: String,
   category: {

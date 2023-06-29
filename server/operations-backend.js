@@ -36,7 +36,12 @@ const geocodeTheGeometryMiddleware = require('../middleware/settings-middleware/
 const updateUsersAssociatedLocalityMiddleware = require('../middleware/settings-middleware/update-users-associated-locality-middleware')
 const createUserAssociatedLocalityMiddleware = require('../middleware/settings-middleware/create-user-associated-locality-middleware')
 
-const articlesMiddleware = require('../middleware/articles-middleware/articles-middleware')
+const createArticlesMiddleware = require('../middleware/articles-middleware/create-articles-middleware')
+
+const createArticlesMiddleware1 = require('../middleware/articles-middleware/create-articles-middleware1')
+const createArticlesMiddleware2 = require('../middleware/articles-middleware/create-articles-middleware2')
+const createArticlesMiddleware3 = require('../middleware/articles-middleware/create-articles-middleware3')
+const createArticlesMiddleware4 = require('../middleware/articles-middleware/create-articles-middleware4')
 
 const usersRetrievalMiddleware = require('../middleware/operations-middleware/users-retrieval-middleware')
 const messagesRetrievalMiddleware = require('../middleware/operations-middleware/messages-retrieval-middleware')
@@ -264,54 +269,36 @@ operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', require_l
 
 
 
-
-// UPLOAD NEW ARTICLE ORIGINAL
-// operationsBackend_app_router.post('/create-article', 
-// require_loggedin_for_pages(true), 
-// authenticate_role_for_pages([ROLE.MASTER]), 
-// multerinstance.upload.array('files'),
-// articlesMiddleware.seeData,
-// articlesMiddleware.setTheExcerptMiddleware,
-
-
-// articlesMiddleware.makeSureDestinationFolderPresentMiddleware,
-// articlesMiddleware.setArticleURLMiddleware,
-// articlesMiddleware.createArticleInstanceMiddleware,
-// articlesMiddleware.createArticleHeadTagInstanceMiddleware,
-// articlesMiddleware.createArticleBodyHeaderInstanceMiddleware,
-// articlesMiddleware.processArticleImageMiddleware,
-// articlesMiddleware.createArticleEnclosureImageInstanceMiddleware,
-// articlesMiddleware.createArticleAbstractMiddleware,
-// articlesMiddleware.saveArticleMiddleware,
-// articlesMiddleware.saveArticleHeadTagMiddleware,
-// articlesMiddleware.saveArticleBodyHeaderMiddleware,
-// articlesMiddleware.saveArticleEnclosureImageMiddleware,
-// articlesMiddleware.saveArticleAbstractMiddleware,
-// operationsControllers.responseCreateArticleController
-
-// )
-
-
 // UPLOAD NEW ARTICLE TEMPORAL
 operationsBackend_app_router.post('/create-article', 
 require_loggedin_for_pages(true), 
 authenticate_role_for_pages([ROLE.MASTER]), 
 multerinstance.upload.array('files'),
-articlesMiddleware.seeData,
-articlesMiddleware.neededFolderEnclosuresMiddleware,
-articlesMiddleware.neededFolderHoldingPerArticleFoldersMiddleware,
-articlesMiddleware.setArticleURLMiddleware,
-articlesMiddleware.createArticleInstanceMiddleware,
-articlesMiddleware.createArticleHeadTagInstanceMiddleware,
-articlesMiddleware.createArticleBodyHeaderInstanceMiddleware,
-articlesMiddleware.createArticleEnclosureImageInstanceMiddleware,
-articlesMiddleware.createArticleAbstractMiddleware,
-articlesMiddleware.processArticleEnclosureImageMiddleware,
-articlesMiddleware.saveArticleMiddleware,
-articlesMiddleware.saveArticleHeadTagMiddleware,
-articlesMiddleware.saveArticleBodyHeaderMiddleware,
-articlesMiddleware.saveArticleEnclosureImageMiddleware,
-articlesMiddleware.saveArticleAbstractMiddleware,
+
+createArticlesMiddleware.seeData,
+
+createArticlesMiddleware1.neededFolderEnclosuresMiddleware,
+createArticlesMiddleware1.neededFolderHoldingPerArticleFoldersMiddleware,
+
+createArticlesMiddleware2.setArticleURLMiddleware,
+createArticlesMiddleware2.createArticleInstanceMiddleware,
+createArticlesMiddleware2.createArticleHeadTagInstanceMiddleware,
+createArticlesMiddleware2.createArticleBodyHeaderInstanceMiddleware,
+createArticlesMiddleware2.createArticleEnclosureImageInstanceMiddleware,
+createArticlesMiddleware2.createArticleAbstractMiddleware,
+createArticlesMiddleware2.createArticleNestedDatatMiddleware,
+
+
+createArticlesMiddleware3.processArticleEnclosureImageMiddleware,
+
+createArticlesMiddleware4.saveArticleMiddleware,
+createArticlesMiddleware4.saveArticleHeadTagMiddleware,
+createArticlesMiddleware4.saveArticleBodyHeaderMiddleware,
+createArticlesMiddleware4.saveArticleEnclosureImageMiddleware,
+createArticlesMiddleware4.saveArticleAbstractMiddleware,
+createArticlesMiddleware4.saveArticleNestedDataMiddleware,
+
+
 operationsControllers.responseCreateArticleController
 )
 
