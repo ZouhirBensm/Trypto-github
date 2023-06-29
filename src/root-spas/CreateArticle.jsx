@@ -87,67 +87,67 @@ class CreateArticle extends React.Component {
         "elit. <strong>Eum</strong> aspernatur<strong> cupiditate</strong>",
         "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
       ],
-      content_structure: [SECTION_TYPES.H2, SECTION_TYPES.H3, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.IMG, SECTION_TYPES.A, SECTION_TYPES.EMBED, SECTION_TYPES.IMG],
-      // content_structure: [SECTION_TYPES.A],
+      // content_structure: [SECTION_TYPES.H2, SECTION_TYPES.H3, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.IMG, SECTION_TYPES.A, SECTION_TYPES.EMBED, SECTION_TYPES.IMG],
+      content_structure: [SECTION_TYPES.H2],
       e: undefined,
-      // nested_data: []
-      nested_data: [
-        {
-          "id": 1,
-          "type": "H2",
-          "H2_innerHTML": "H2 title"
-        },
-        {
-          "id": 2,
-          "type": "H3",
-          "H3_innerHTML": "H3 title"
-        },
-        {
-          "id": 3,
-          "type": "SUMMERNOTE",
-          "SUMMERNOTE_innerHTML": "<p>some paragraph</p>"
-        },
-        {
-          "id": 4,
-          "type": "IMG",
-          "img_width": "500",
-          "img_height": "500",
-          "img_alt": "some alt text",
-          "img_description": "some description"
-        },
-        {
-          "id": 5,
-          "type": "A",
-          "A_href": "google.com",
-          "A_title": "Google",
-          "newtab": true,
-          "nofollow": true,
-          "ugc": true,
-          "noopener": true,
-          "image_mode_on": true,
-          "img_width": "500",
-          "img_height": "600",
-          "img_alt": "some text",
-          "img_description": "some description"
-        },
-        {
-          "id": 6,
-          "type": "EMBED",
-          "embed_width": "500",
-          "embed_height": "300",
-          "embed_type": "/some/type/video",
-          "embed_source": "https://www.youtube.com/watch?v=1-q_8TKNG9w",
-          "embed_title": "BBC earth"
-        },
-        {
-          "id": 7,
-          "type": "IMG",
-          "img_width": "400",
-          "img_height": "400",
-          "img_alt": "lala lala",
-          "img_description": "bla bla"
-        },
-      ]
+      nested_data: []
+      // nested_data: [
+      //   {
+      //     "id": 1,
+      //     "type": "H2",
+      //     "H2_innerHTML": "H2 title"
+      //   },
+      //   {
+      //     "id": 2,
+      //     "type": "H3",
+      //     "H3_innerHTML": "H3 title"
+      //   },
+      //   {
+      //     "id": 3,
+      //     "type": "SUMMERNOTE",
+      //     "SUMMERNOTE_innerHTML": "<p>some paragraph</p>"
+      //   },
+      //   {
+      //     "id": 4,
+      //     "type": "IMG",
+      //     "img_width": "500",
+      //     "img_height": "500",
+      //     "img_alt": "some alt text",
+      //     "img_description": "some description"
+      //   },
+      //   {
+      //     "id": 5,
+      //     "type": "A",
+      //     "A_href": "google.com",
+      //     "A_title": "Google",
+      //     "newtab": true,
+      //     "nofollow": true,
+      //     "ugc": true,
+      //     "noopener": true,
+      //     "image_mode_on": true,
+      //     "img_width": "500",
+      //     "img_height": "600",
+      //     "img_alt": "some text",
+      //     "img_description": "some description"
+      //   },
+      //   {
+      //     "id": 6,
+      //     "type": "EMBED",
+      //     "embed_width": "500",
+      //     "embed_height": "300",
+      //     "embed_type": "/some/type/video",
+      //     "embed_source": "https://www.youtube.com/watch?v=1-q_8TKNG9w",
+      //     "embed_title": "BBC earth"
+      //   },
+      //   {
+      //     "id": 7,
+      //     "type": "IMG",
+      //     "img_width": "400",
+      //     "img_height": "400",
+      //     "img_alt": "lala lala",
+      //     "img_description": "bla bla"
+      //   },
+      // ]
 
 
 
