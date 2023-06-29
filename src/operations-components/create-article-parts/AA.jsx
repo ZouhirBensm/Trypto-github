@@ -62,7 +62,7 @@ class A extends React.Component {
 
 
           <label>A's href:</label>
-          <input name="A_href" value={this.state.defaultValues?.A_href || ""} type="text" placeholder="A href"
+          <input name="A_href" value={this.state.defaultValues?.A_href} type="text" placeholder="A href"
             onChange={(e) => {
               e.persist()
               this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
@@ -71,7 +71,7 @@ class A extends React.Component {
 
 
           <label>A's title:</label>
-          <input name="A_title" value={this.state.defaultValues?.A_title || ""} type="text" placeholder="A title"
+          <input name="A_title" value={this.state.defaultValues?.A_title} type="text" placeholder="A title"
             onChange={(e) => {
               e.persist()
               this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
@@ -207,7 +207,7 @@ class A extends React.Component {
             <React.Fragment>
               <div ref={this.innerText} id='inner-text'>
                 <label>A's inner text:</label>
-                <input name="A_innerText" value={this.state.defaultValues?.A_innerText || ""} type="text" placeholder="A inner text"
+                <input name="A_innerText" value={this.state.defaultValues?.A_innerText} type="text" placeholder="A inner text"
                   onChange={(e) => {
                     e.persist()
                     this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)

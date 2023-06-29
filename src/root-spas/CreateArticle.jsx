@@ -309,6 +309,9 @@ class CreateArticle extends React.Component {
           validateInputs={this.validateInputs}
 
           content_structure={this.state.content_structure}
+          addSelect={this.addSelect}
+          deleteSelect={this.deleteSelect}
+          handleChangeInputs={this.handleChangeInputs}
         />
         break;
       case 5:
@@ -557,6 +560,50 @@ class CreateArticle extends React.Component {
 
 
 
+
+
+  addSelect = () => {
+    this.setState(prevState => {
+      // const updated_content_structure = [...prevState.content_structure];
+      return { content_structure: [...prevState.content_structure, ''] }
+    });
+  };
+
+  deleteSelect = (index, block_type) => (e) => {
+    this.setState(prevState => {
+      const updated_content_structure = [...prevState.content_structure];
+
+
+      updated_content_structure.splice(index, 1); // Remove the input at the specified index
+
+      const updated_nested_data = [...prevState.nested_data]
+      const block = updated_nested_data[index]
+
+      console.log({block_type})
+      console.log('block?.type ', block?.type)
+      console.log('block?.type === block_type ', block?.type === block_type)
+      
+      if(block?.type === block_type){
+        updated_nested_data?.splice(index, 1)
+      }
+
+      return { 
+        content_structure: updated_content_structure,
+        nested_data: updated_nested_data
+      };
+    });
+  };
+
+  handleChangeInputs = (index) => (event) => {
+
+    console.log('handleChangeInputs: ', index)
+    const { value } = event.target;
+    this.setState(prevState => {
+      const updated_content_structure = [...prevState.content_structure];
+      updated_content_structure[index] = value;
+      return { content_structure: updated_content_structure };
+    });
+  };
 
 
 

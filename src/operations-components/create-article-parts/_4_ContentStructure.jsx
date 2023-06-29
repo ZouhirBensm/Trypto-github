@@ -7,7 +7,7 @@ class _4_ContentStructure extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selects: this.props.content_structure || [SECTION_TYPES.H2], // Start with one input
+      // selects: this.props.content_structure || [SECTION_TYPES.H2],
       options: undefined,
     }
 
@@ -31,39 +31,14 @@ class _4_ContentStructure extends React.Component {
     })
   }
 
-  addSelect = () => {
-    this.setState(prevState => {
-      const updateSelects = [...prevState.selects];
-      return { selects: [...prevState.selects, ''] }
-    });
-  };
-
-  deleteSelect = (index) => {
-    this.setState(prevState => {
-      const updatedSelects = [...prevState.selects];
-
-
-      updatedSelects.splice(index, 1); // Remove the input at the specified index
-      return { selects: updatedSelects };
-    });
-  };
-
-  
-
-  handleChangeInputs = (index) => (event) => {
-    const { value } = event.target;
-    this.setState(prevState => {
-      const updatedSelects = [...prevState.selects];
-      updatedSelects[index] = value;
-      return { selects: updatedSelects };
-    });
-  };
 
 
 
   render() {
 
-    const { selects } = this.state;
+    const selects = this.props.content_structure
+
+    // console.log(selects)
 
 
 
@@ -80,19 +55,15 @@ class _4_ContentStructure extends React.Component {
             {selects.map((select, index) => (
               <React.Fragment key={index}>
 
-                {/*
-
-                required onChange={(e) => this.locationChange(e)}   onChange={this.handleChangeInputs(index)} 
-                */}
-                <select required value={this.state.selects[index]} name="content_structure" onChange={this.handleChangeInputs(index)}>
+                <select required value={selects[index]} name="content_structure" onChange={this.props.handleChangeInputs(index)}>
                   <option value="" defaultValue>N/A</option>
                   {this.state.options}
                 </select>
                 {
-                  this.state.selects.length === 1 ?
+                  selects.length === 1 ?
                     null
                     :
-                    <button className='trash' onClick={() => this.deleteSelect(index)}>
+                    <button className='trash' onClick={this.props.deleteSelect(index, selects[index])}>
                       <img src="/img/SVG/operations/global/trash.svg" alt="" />
                     </button>
                 }
@@ -101,7 +72,9 @@ class _4_ContentStructure extends React.Component {
             ))}
 
 
-            <button className='add' onClick={this.addSelect}>
+            <button className='add' onClick={(e)=>{
+              this.props.addSelect(e)
+              }}>
               <img src="/img/SVG/operations/global/aadd.svg" alt="" />
             </button>
           </div>
@@ -119,13 +92,8 @@ class _4_ContentStructure extends React.Component {
             const isValid = this.props.validateInputs(e)
             console.log({ isValid })
             if (!isValid) return
-            this.props.handleChange(e, {
-              name: 'content_structure',
-              value: this.state.selects
-            })
             this.props.nextStep(e)
             return
-
           }}>Proceed</button>
           <img src="/img/SVG/operations/create-article/proceed.svg" alt="" />
         </div>
