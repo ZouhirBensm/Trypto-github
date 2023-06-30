@@ -92,7 +92,9 @@ const IMG_Block = Block.discriminator(SECTION_TYPES.IMG,
     }
   }, options));
 
-// TODO !!!!! HERE continue intefrating and testing these types of blocks
+  
+// TODO !!!!! swap file and folder image processing before creating aricle
+// TODO !!!!! HERE continue integrating and testing these types of blocks
 
 // // type: A: DESCRIMINATOR
 // const A_Block = Block.discriminator(SECTION_TYPES.A,
