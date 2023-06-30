@@ -87,38 +87,66 @@ class CreateArticle extends React.Component {
         "elit. <strong>Eum</strong> aspernatur<strong> cupiditate</strong>",
         "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
       ],
-      content_structure: [SECTION_TYPES.H2, SECTION_TYPES.H3, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.IMG, SECTION_TYPES.H2],
+      content_structure: [SECTION_TYPES.IMG, SECTION_TYPES.H2, SECTION_TYPES.IMG],
+      // content_structure: [SECTION_TYPES.H2, SECTION_TYPES.H3, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.IMG, SECTION_TYPES.H2],
       // content_structure: [SECTION_TYPES.H2],
       e: undefined,
+      // nested_data: [],
+      // nested_data: [
+      //   {
+      //     "id": 1,
+      //     "type": "H2",
+      //     "H2_innerHTML": "h2 title"
+      //   },
+      //   {
+      //     "id": 2,
+      //     "type": "H3",
+      //     "H3_innerHTML": "h3 title"
+      //   },
+      //   {
+      //     "id": 3,
+      //     "type": "SUMMERNOTE",
+      //     "SUMMERNOTE_innerHTML": "<p>some paraph</p>"
+      //   },
+      //   {
+      //     "id": 4,
+      //     "type": "IMG",
+      //     "img_width": "55",
+      //     "img_height": "66",
+      //     "img_alt": "bla bla",
+      //     "img_description": "bla bla 2"
+      //   },
+      //   {
+      //     "id": 5,
+      //     "type": "H2",
+      //     "H2_innerHTML": "h2 title"
+      //   }
+      // ],
+
       nested_data: [
         {
           "id": 1,
-          "type": "H2",
-          "H2_innerHTML": "h2 title"
-        },
-        {
-          "id": 2,
-          "type": "H3",
-          "H3_innerHTML": "h3 title"
-        },
-        {
-          "id": 3,
-          "type": "SUMMERNOTE",
-          "SUMMERNOTE_innerHTML": "<p>some paraph</p>"
-        },
-        {
-          "id": 4,
           "type": "IMG",
           "img_width": "55",
           "img_height": "66",
-          "img_alt": "bla bla",
-          "img_description": "bla bla 2"
+          "img_alt": "bla bla 1",
+          "img_description": "bla bla bla 1"
         },
+
         {
-          "id": 5,
+          "id": 2,
           "type": "H2",
           "H2_innerHTML": "h2 title"
-        }
+        },
+
+        {
+          "id": 3,
+          "type": "IMG",
+          "img_width": "100",
+          "img_height": "200",
+          "img_alt": "bla bla 2",
+          "img_description": "bla bla bla 2"
+        },
       ]
 
     }

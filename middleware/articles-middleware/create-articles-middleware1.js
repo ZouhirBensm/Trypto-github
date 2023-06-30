@@ -2,7 +2,7 @@ const { existsSync, mkdirSync } = require('fs')
 
 
 function neededFolderEnclosuresMiddleware(req, res, next) {
-  console.log("makeSureDestinationFolderPresentMiddleware...")
+  console.log("neededFolderEnclosuresMiddleware...")
 
   let directory_enclosure_path = `/img/bidblock-article-images/per-article-enclosure`
   
@@ -18,10 +18,13 @@ function neededFolderEnclosuresMiddleware(req, res, next) {
 }
 
 
-function neededFolderHoldingPerArticleFoldersMiddleware(req, res, next) {
-  console.log("makeSureDestinationFolderPresentMiddleware...")
 
-  let directory_article_images_folder_path = '/img/bidblock-article-images/per-article-folders-for-images'
+function neededFolderHoldingPerArticleFoldersMiddleware(req, res, next) {
+  console.log("neededFolderHoldingPerArticleFoldersMiddleware...")
+
+  let directory_article_images_folder_path = `/img/bidblock-article-images/per-article-folders-for-images/${res.locals.ret_article_instance._id}`
+
+
 
   res.locals.directory_article_images_folder_path = directory_article_images_folder_path
 

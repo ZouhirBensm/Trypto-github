@@ -277,24 +277,31 @@ multerinstance.upload.array('files'),
 
 createArticlesMiddleware.seeData,
 
+
+
+
+
+
+
+// TODO !!!!! place in createArticlesMiddleware0
+createArticlesMiddleware2.setArticleURLMiddleware,
+createArticlesMiddleware2.createArticleInstanceMiddleware,
+
 createArticlesMiddleware1.neededFolderEnclosuresMiddleware,
 createArticlesMiddleware1.neededFolderHoldingPerArticleFoldersMiddleware,
 
 
 
-
-
-
-createArticlesMiddleware2.setArticleURLMiddleware,
-createArticlesMiddleware2.createArticleInstanceMiddleware,
 createArticlesMiddleware2.createArticleHeadTagInstanceMiddleware,
 createArticlesMiddleware2.createArticleBodyHeaderInstanceMiddleware,
 createArticlesMiddleware2.createArticleEnclosureImageInstanceMiddleware,
-createArticlesMiddleware2.createArticleAbstractMiddleware,
-createArticlesMiddleware2.createArticleNestedDatatMiddleware,
+createArticlesMiddleware2.createArticleNestedDatatMiddleware1,
+createArticlesMiddleware2.createArticleNestedDatatMiddleware2,
 
 
 createArticlesMiddleware3.processArticleEnclosureImageMiddleware,
+createArticlesMiddleware3.processArticleBlockImagesMiddleware,
+// createArticlesMiddleware3.middleware3,
 
 
 createArticlesMiddleware4.saveArticleMiddleware,
@@ -307,6 +314,8 @@ createArticlesMiddleware4.saveArticleNestedDataMiddleware,
 
 operationsControllers.responseCreateArticleController
 )
+
+
 
 
 

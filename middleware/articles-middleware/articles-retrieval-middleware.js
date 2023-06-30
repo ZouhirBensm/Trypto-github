@@ -28,7 +28,8 @@ module.exports = async (req,res,next)=>{
 
 
 
-  console.log('articles:\n\n', articles)
+  // console.log('articles:\n\n', articles)
+
   // console.log(articles[0].articleenclosureimage_id?.image)
   // console.log(articles[0].articleheadtag_id)
 
@@ -58,7 +59,7 @@ module.exports = async (req,res,next)=>{
   });
   
   
-  console.log("\n____________________\n\narticlesRetrievalMiddleware->  articles:\n\n",  articles)
+  // console.log("\n____________________\n\narticlesRetrievalMiddleware->  articles:\n\n",  articles)
 
   res.locals.data_to_be_paginated_and_served = articles
   return next()

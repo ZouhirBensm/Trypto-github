@@ -18,7 +18,7 @@ function setArticleURLMiddleware(req, res, next) {
     .replace(/[^\w\s]|_/g, '') // Remove punctuation
     .replace(/\s+/g, '-'); // add dashes
 
-  console.log(path_from_h1);
+  // console.log(path_from_h1);
 
   req.body.url = `/articles/individual_article/${path_from_h1}`
 
@@ -50,6 +50,8 @@ async function createArticleInstanceMiddleware(req, res, next) {
   return next()
 
 }
+
+
 
 
 
@@ -139,28 +141,6 @@ async function createArticleEnclosureImageInstanceMiddleware(req, res, next) {
 
 
 
-async function createArticleAbstractMiddleware(req, res, next) {
-
-
-  console.log("createArticleAbstractMiddleware...")
-
-  let ret_article_abstract_instance
-
-  ret_article_abstract_instance = new ArticleAbstract({
-    abstract_name_type: req.body.abstract_name_type,
-    abstract_points: JSON.parse(req.body.abstract_points),
-    article_id: res.locals.ret_article_instance._id,  // ATTACH TO ArticleAbstract -> Article
-  })
-
-  res.locals.ret_article_instance.articleabstract_id = ret_article_abstract_instance._id // ATTACH TO Article -> ArticleAbstract
-
-
-  // RENDER ArticleAbstract GLOBAL
-  res.locals.ret_article_abstract_instance = ret_article_abstract_instance
-
-  return next()
-
-}
 
 
 
@@ -168,8 +148,9 @@ async function createArticleAbstractMiddleware(req, res, next) {
 
 
 
-async function createArticleNestedDatatMiddleware(req, res, next) {
-  console.log("createArticleNestedDatatMiddleware...");
+
+async function createArticleNestedDatatMiddleware1(req, res, next) {
+  console.log("createArticleNestedDatatMiddleware1...");
 
   // res.locals.ret_article_enclosure_image_instance.image
 
@@ -220,8 +201,10 @@ async function createArticleNestedDatatMiddleware(req, res, next) {
           // If missing, the field does not register
           img_alt: nested_data_block.img_alt, 
           img_description: nested_data_block.img_description,
-          image: { image_name: nested_data_block.image?.image_name }
+          image: { image_name: nested_data_block.image?.image_name },
           // If missing, the field image does not register
+          // TODO !!!! might need to add image path (for A type also)
+          // path: res.locals.directory_article_images_folder_path
         });
 
         // await imgBlock.save(); // Save the H2_Block instance to the database
@@ -232,20 +215,29 @@ async function createArticleNestedDatatMiddleware(req, res, next) {
       default:
         break;
     }
+
+    res.locals.ARR_mongoose_Blocks = ARR_mongoose_Blocks
   }
 
+  return next()
+}
 
 
-  console.log('\n\n________________\nARR_mongoose_Blocks-->\n', ARR_mongoose_Blocks);
+
+async function createArticleNestedDatatMiddleware2(req, res, next) {
+  console.log("createArticleNestedDatatMiddleware2...");
+
+  // console.log('\n\n________________\nARR_mongoose_Blocks-->\n', res.locals.ARR_mongoose_Blocks);
 
   let ret_article_nested_data_instance;
 
   ret_article_nested_data_instance = new ArticleNestedData({
-    blocks: ARR_mongoose_Blocks,
+    blocks: res.locals.ARR_mongoose_Blocks,
     article_id: res.locals.ret_article_instance._id
   });
 
-  await ret_article_nested_data_instance.save(); // Save the ArticleNestedData instance
+
+  
 
   res.locals.ret_article_instance.articlenesteddata_id = ret_article_nested_data_instance._id;
 
@@ -263,6 +255,12 @@ async function createArticleNestedDatatMiddleware(req, res, next) {
 
 
 
+
+
+
+
+
+
 const createArticlesMiddleware2 = {
   setArticleURLMiddleware: setArticleURLMiddleware,
 
@@ -270,8 +268,9 @@ const createArticlesMiddleware2 = {
   createArticleHeadTagInstanceMiddleware: createArticleHeadTagInstanceMiddleware,
   createArticleBodyHeaderInstanceMiddleware: createArticleBodyHeaderInstanceMiddleware,
   createArticleEnclosureImageInstanceMiddleware: createArticleEnclosureImageInstanceMiddleware,
-  createArticleAbstractMiddleware: createArticleAbstractMiddleware,
-  createArticleNestedDatatMiddleware: createArticleNestedDatatMiddleware,
+
+  createArticleNestedDatatMiddleware1: createArticleNestedDatatMiddleware1,
+  createArticleNestedDatatMiddleware2: createArticleNestedDatatMiddleware2,
 }
 
 
