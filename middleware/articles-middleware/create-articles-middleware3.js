@@ -76,9 +76,6 @@ async function processArticleEnclosureImageMiddleware(req, res, next) {
 async function processArticleBlockImagesMiddleware(req, res, next) {
   console.log("processArticleBlockImagesMiddleware...")
 
-  // TEMPORAL
-  const processing_file_enclosure_image = req.files.shift();
-
   const source_directory = `public/img/temporal-new`
 
   // console.log(req.files)

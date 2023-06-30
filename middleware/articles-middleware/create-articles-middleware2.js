@@ -139,6 +139,32 @@ async function createArticleEnclosureImageInstanceMiddleware(req, res, next) {
 
 
 
+async function createArticleAbstractMiddleware(req, res, next) {
+
+
+  console.log("createArticleAbstractMiddleware...")
+
+  let ret_article_abstract_instance
+
+  ret_article_abstract_instance = new ArticleAbstract({
+    abstract_name_type: req.body.abstract_name_type,
+    abstract_points: JSON.parse(req.body.abstract_points),
+    article_id: res.locals.ret_article_instance._id,  // ATTACH TO ArticleAbstract -> Article
+  })
+
+  
+  res.locals.ret_article_instance.articleabstract_id = ret_article_abstract_instance._id // ATTACH TO Article -> ArticleAbstract
+
+
+  // RENDER ArticleAbstract GLOBAL
+  res.locals.ret_article_abstract_instance = ret_article_abstract_instance
+
+  return next()
+
+}
+
+
+
 
 
 
@@ -203,7 +229,7 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
           img_description: nested_data_block.img_description,
           image: { image_name: nested_data_block.image?.image_name },
           // If missing, the field image does not register
-          // TODO !!!! might need to add image path (for A type also)
+          // TODO !!!!! HERE might need to add image path (for A type also)
           // path: res.locals.directory_article_images_folder_path
         });
 
@@ -268,6 +294,8 @@ const createArticlesMiddleware2 = {
   createArticleHeadTagInstanceMiddleware: createArticleHeadTagInstanceMiddleware,
   createArticleBodyHeaderInstanceMiddleware: createArticleBodyHeaderInstanceMiddleware,
   createArticleEnclosureImageInstanceMiddleware: createArticleEnclosureImageInstanceMiddleware,
+  createArticleAbstractMiddleware: createArticleAbstractMiddleware,
+
 
   createArticleNestedDatatMiddleware1: createArticleNestedDatatMiddleware1,
   createArticleNestedDatatMiddleware2: createArticleNestedDatatMiddleware2,
