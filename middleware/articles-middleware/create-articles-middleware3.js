@@ -6,7 +6,6 @@ const { CreateArticleError } = require('../../custom-errors/custom-errors')
 
 
 
-
 async function processArticleEnclosureImageMiddleware(req, res, next) {
   console.log("processArticleEnclosureImageMiddleware...")
 
@@ -29,8 +28,6 @@ async function processArticleEnclosureImageMiddleware(req, res, next) {
   console.log('res.locals.ret_article_enclosure_image_instance.path: ', res.locals.ret_article_enclosure_image_instance.path)
   
 
-
-  // TODO !!! might need to set the image sizes to the ones sent from the front end using sharp methods, and set image adequatly
 
   try {
     sharp_returned = sharp(processing_file_enclosure_image.path)

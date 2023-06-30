@@ -92,8 +92,8 @@ const IMG_Block = Block.discriminator(SECTION_TYPES.IMG,
     }
   }, options));
 
-  
-// TODO !!!!! swap file and folder image processing before creating aricle
+
+// TODO !!!!! integrate save image blocks in proper folders
 // TODO !!!!! HERE continue integrating and testing these types of blocks
 
 // // type: A: DESCRIMINATOR
