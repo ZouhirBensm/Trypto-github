@@ -117,7 +117,7 @@ const IMG_Block = Block.discriminator(SECTION_TYPES.IMG,
   }, options));
 
 
-// TODO !!!!! integrate save image blocks in proper folders
+
 // TODO !!!!! HERE continue integrating and testing these types of blocks
 
 // // type: A: DESCRIMINATOR
