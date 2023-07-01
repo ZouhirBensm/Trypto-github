@@ -55,7 +55,7 @@ class IMG extends React.Component {
           image_file={defaultValues?.image?.image_file}
           // setStateBannerImage={this.props.setStateBannerImage} 
           onClickCallback={this.inputBufferOnChange}
-          required={false}
+          required={true}
         />
 
         <label>Image's width:</label>
@@ -84,7 +84,7 @@ class IMG extends React.Component {
           //   e.persist()
           //   this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
           // }}
-          />
+          required />
 
         <label>Image's alt text:</label>
         <input name="img_alt" value={defaultValues?.img_alt || ""} type="text" placeholder="image's alternative text"

@@ -399,6 +399,7 @@ class CreateArticle extends React.Component {
 
     for (let i = 0; i < inputs.length; i++) {
       const input = inputs[i];
+      
       if (input.required && !input.checkValidity()) {
         // Input is invalid, trigger validation error message
         input.reportValidity();
