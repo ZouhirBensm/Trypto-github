@@ -92,6 +92,7 @@ async function processArticleBlockImagesMiddleware(req, res, next) {
 
     try {
       sharp_returned = sharp(file.path)
+      .resize({ width: 576, fit: 'inside' })
     } catch (e) {
       let error = new CreateArticleError(`Was unable to call sharp(${file.path}.\n\nSource error: ${e.name}\n${e.message}`)
       return next(error)
