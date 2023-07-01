@@ -80,7 +80,10 @@ async function processArticleBlockImagesMiddleware(req, res, next) {
   const source_directory = `public/img/temporal-new`
 
   // console.log(req.files)
-  
+
+
+
+
 
 
 
@@ -88,11 +91,17 @@ async function processArticleBlockImagesMiddleware(req, res, next) {
     const file = req.files[i];
 
 
+    // PROCESS TO ADD MULTER_NAME
+    // Retrieve the block that has the same file origin name as the file
+    let concerned_block = res.locals.nested_data.find((block) => block.image?.image_name === file.originalname)
+    
+    console.log('concerned_block: ====>\n\n', concerned_block)
+
     let sharp_returned
 
     try {
       sharp_returned = sharp(file.path)
-      .resize({ width: 576, fit: 'inside' })
+      .resize({ width: parseInt(concerned_block.img_width), fit: 'inside' })
     } catch (e) {
       let error = new CreateArticleError(`Was unable to call sharp(${file.path}.\n\nSource error: ${e.name}\n${e.message}`)
       return next(error)
@@ -130,9 +139,6 @@ async function processArticleBlockImagesMiddleware(req, res, next) {
 
 
 
-    // PROCESS TO ADD MULTER_NAME
-    // Retrieve the block that has the same file origin name as the file
-    let concerned_block = res.locals.nested_data.find((block) => block.image?.image_name === file.originalname)
 
 
 
