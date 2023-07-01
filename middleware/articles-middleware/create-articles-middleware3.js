@@ -157,18 +157,14 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
         if (nested_data_block.image) {
 
           image = {
-            // path: `${res.locals.directory_article_images_folder_path}/${nested_data_block.image?.multer_name}`,
+            path: `${res.locals.directory_article_images_folder_path}/${nested_data_block.image?.multer_name}`,
             image_name: nested_data_block.image?.image_name,
+            multer_name: nested_data_block.image?.multer_name,
+            sharp_format: nested_data_block.image?.sharp_format,
+            sharp_width: nested_data_block.image?.sharp_width,
+            sharp_height: nested_data_block.image?.sharp_height,
+            sharp_size: nested_data_block.image?.sharp_size,
           }
-
-          // { 
-          //   image_name: nested_data_block.image?.image_name,
-          //   // multer_name: nested_data_block.image?.multer_name,
-          //   // sharp_format: nested_data_block.image?.sharp_format,
-          //   // sharp_width: nested_data_block.image?.sharp_width,
-          //   // sharp_height: nested_data_block.image?.sharp_height,
-          //   // sharp_size: nested_data_block.image?.sharp_size,
-          // }
 
         }
 

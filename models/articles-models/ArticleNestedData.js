@@ -8,6 +8,32 @@ const BlockSchema = new mongoose.Schema({
   order: Number, // id on the front end
 }, options);
 
+const ImageSchema = new mongoose.Schema({
+  image_name: {
+    type: String,
+  },
+  path: {
+    type: String,
+  },
+  multer_name: {
+    type: String
+  },
+  sharp_format: {
+    type: String
+  },
+  sharp_width: {
+    type: Number
+  },
+  sharp_height: {
+    type: Number
+  },
+  sharp_size: {
+    type: Number
+  }
+});
+
+
+
 const Block = mongoose.model('Block', BlockSchema);
 
 
@@ -86,27 +112,7 @@ const IMG_Block = Block.discriminator(SECTION_TYPES.IMG,
       required: true,
     }, 
     image: {
-      image_name: {
-        type: String,
-      },
-      path: {
-        type: String,
-      },
-      // multer_name: {
-      //   type: String
-      // },
-      // sharp_format: {
-      //   type: String
-      // },
-      // sharp_width: {
-      //   type: Number
-      // },
-      // sharp_height: {
-      //   type: Number
-      // },
-      // sharp_size: {
-      //   type: Number
-      // }
+      type: ImageSchema,
     }
   }, options));
 

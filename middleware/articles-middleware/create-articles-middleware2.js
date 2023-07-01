@@ -135,16 +135,16 @@ async function processArticleBlockImagesMiddleware(req, res, next) {
 
 
 
-    console.log("\n\nfile:\n", file)
-    console.log("\n\nconcerned_block:\n", concerned_block)
+    // console.log("\n\nfile:\n", file)
+    // console.log("\n\nconcerned_block:\n", concerned_block)
 
 
     // Concerned block is then added the multer_image field to add the name under which the image will be named under the filesystem
     concerned_block.image.multer_name = file.filename
-    concerned_block.image.sharp_format = sharp_returned.format
-    concerned_block.image.sharp_width = sharp_returned.width
-    concerned_block.image.sharp_height = sharp_returned.height
-    concerned_block.image.sharp_size = sharp_returned.size
+    concerned_block.image.sharp_format = sharp_returned?.format
+    concerned_block.image.sharp_width = sharp_returned?.width
+    concerned_block.image.sharp_height = sharp_returned?.height
+    concerned_block.image.sharp_size = sharp_returned?.size
 
 
 
@@ -161,23 +161,6 @@ async function processArticleBlockImagesMiddleware(req, res, next) {
     console.log('\n\nres.locals.nested_data:\n\n', res.locals.nested_data)
     // END PROCESS TO ADD MULTER_NAME
 
-
-
-
-
-
-    // Sharped article enclosure image entry information, NOT NEEDED FOR NOW
-    // const image = {
-    //   name: file.filename,
-    //   format: sharp_returned.format,
-    //   width: sharp_returned.width,
-    //   height: sharp_returned.height,
-    //   size: sharp_returned.size,
-    // }
-
-
-    // TODO !!!!!
-    // res.locals.ret_article_nested_data_instance.SOMEFIELD = image
 
 
 
