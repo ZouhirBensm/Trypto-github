@@ -38,6 +38,7 @@ const createUserAssociatedLocalityMiddleware = require('../middleware/settings-m
 
 const createArticlesMiddleware = require('../middleware/articles-middleware/create-articles-middleware')
 
+const createArticlesMiddleware0 = require('../middleware/articles-middleware/create-articles-middleware0')
 const createArticlesMiddleware1 = require('../middleware/articles-middleware/create-articles-middleware1')
 const createArticlesMiddleware2 = require('../middleware/articles-middleware/create-articles-middleware2')
 const createArticlesMiddleware3 = require('../middleware/articles-middleware/create-articles-middleware3')
@@ -280,36 +281,35 @@ createArticlesMiddleware.seeData,
 
 
 
-
-
-
 // TODO !!!!! place in createArticlesMiddleware0
-createArticlesMiddleware2.setArticleURLMiddleware,
-createArticlesMiddleware2.createArticleInstanceMiddleware,
+createArticlesMiddleware0.setArticleURLMiddleware,
+createArticlesMiddleware0.createArticleInstanceMiddleware,
+createArticlesMiddleware0.createArticleEnclosureImageInstanceMiddleware,
 
-createArticlesMiddleware1.neededFolderEnclosuresMiddleware,
-createArticlesMiddleware1.neededFolderHoldingPerArticleFoldersMiddleware,
-
-
-
-createArticlesMiddleware2.createArticleHeadTagInstanceMiddleware,
-createArticlesMiddleware2.createArticleBodyHeaderInstanceMiddleware,
-createArticlesMiddleware2.createArticleEnclosureImageInstanceMiddleware,
-createArticlesMiddleware2.createArticleAbstractMiddleware,
-createArticlesMiddleware2.createArticleNestedDatatMiddleware1,
-createArticlesMiddleware2.createArticleNestedDatatMiddleware2,
+// createArticlesMiddleware1.neededFolderEnclosuresMiddleware,
+// createArticlesMiddleware1.neededFolderHoldingPerArticleFoldersMiddleware,
 
 
-createArticlesMiddleware3.processArticleEnclosureImageMiddleware,
-createArticlesMiddleware3.processArticleBlockImagesMiddleware,
-// createArticlesMiddleware3.middleware3,
+// createArticlesMiddleware2.processArticleEnclosureImageMiddleware,
+// createArticlesMiddleware2.processArticleBlockImagesMiddleware,
 
 
-createArticlesMiddleware4.saveArticleMiddleware,
-createArticlesMiddleware4.saveArticleHeadTagMiddleware,
-createArticlesMiddleware4.saveArticleBodyHeaderMiddleware,
-createArticlesMiddleware4.saveArticleEnclosureImageMiddleware,
-createArticlesMiddleware4.saveArticleAbstractMiddleware,
+
+createArticlesMiddleware3.createArticleHeadTagInstanceMiddleware,
+createArticlesMiddleware3.createArticleBodyHeaderInstanceMiddleware,
+createArticlesMiddleware3.createArticleAbstractMiddleware,
+createArticlesMiddleware3.createArticleNestedDatatMiddleware1,
+createArticlesMiddleware3.createArticleNestedDatatMiddleware2,
+
+
+
+
+
+// createArticlesMiddleware4.saveArticleMiddleware,
+// createArticlesMiddleware4.saveArticleHeadTagMiddleware,
+// createArticlesMiddleware4.saveArticleBodyHeaderMiddleware,
+// createArticlesMiddleware4.saveArticleEnclosureImageMiddleware,
+// createArticlesMiddleware4.saveArticleAbstractMiddleware,
 createArticlesMiddleware4.saveArticleNestedDataMiddleware,
 
 

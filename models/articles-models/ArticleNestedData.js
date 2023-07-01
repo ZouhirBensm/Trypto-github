@@ -87,8 +87,26 @@ const IMG_Block = Block.discriminator(SECTION_TYPES.IMG,
     }, 
     image: {
       image_name: {
-        type: String, // Optional
-      }
+        type: String,
+      },
+      path: {
+        type: String,
+      },
+      // multer_name: {
+      //   type: String
+      // },
+      // sharp_format: {
+      //   type: String
+      // },
+      // sharp_width: {
+      //   type: Number
+      // },
+      // sharp_height: {
+      //   type: Number
+      // },
+      // sharp_size: {
+      //   type: Number
+      // }
     }
   }, options));
 

@@ -1,68 +1,57 @@
-const sharp = require('sharp');
-const fs = require('fs/promises')
-const path = require('path')
+const ArticleHeadTag = require('../../models/articles-models/ArticleHeadTag')
+const ArticleBodyHeader = require('../../models/articles-models/ArticleBodyHeader')
+const ArticleAbstract = require("../../models/articles-models/ArticleAbstract")
+const { ArticleNestedData, H2_Block, H3_Block, SUMMERNOTE_Block, IMG_Block } = require("../../models/articles-models/ArticleNestedData")
 
-const { CreateArticleError } = require('../../custom-errors/custom-errors')
-
-
-
-async function processArticleEnclosureImageMiddleware(req, res, next) {
-  console.log("processArticleEnclosureImageMiddleware...")
-
-  const source_directory = `public/img/temporal-new`
-  // const processing_file_enclosure_image = req.files[0];
-  const processing_file_enclosure_image = req.files.shift();
-
-  const ext = path.extname(processing_file_enclosure_image.originalname);
+const SECTION_TYPES = require("../../full-stack-libs/Types/ArticleSectionTypes")
 
 
-  const new_article_enclosure_image_name = `${res.locals.ret_article_instance._id}${ext}`
-  res.locals.new_article_enclosure_image_name = new_article_enclosure_image_name
 
 
-  // ArticleEnclosureImage path setting
-  res.locals.ret_article_enclosure_image_instance.path = `${res.locals.directory_enclosure_path}/${new_article_enclosure_image_name}`
+async function createArticleHeadTagInstanceMiddleware(req, res, next) {
+  console.log("createArticleHeadTagInstanceMiddleware...")
+
+  let ret_article_head_tag_instance
+
+  ret_article_head_tag_instance = new ArticleHeadTag({
+    meta_title: req.body.meta_title,
+    meta_description: req.body.meta_description,
+    // [req.body.canonical? 'canonical' : null]: req.body.canonical,
+    canonical: req.body.canonical ? req.body.canonical : req.body.url,
+    [req.body.noindex ? 'noindex' : null]: req.body.noindex, // not required and defaults to false
+    [req.body.nofollow ? 'nofollow' : null]: req.body.nofollow, // not required and defaults to false
+    article_id: res.locals.ret_article_instance._id // ATTACH TO ArticleHeadTag -> Article
+  })
 
 
-  // console.log('res.locals.ret_article_enclosure_image_instance.path: ', res.locals.ret_article_enclosure_image_instance.path)
-
-  let sharp_returned
-
-  try {
-    sharp_returned = sharp(processing_file_enclosure_image.path)
-  } catch (e) {
-    let error = new CreateArticleError(`Was unable to sharp ${processing_file_enclosure_image.path}.\nSource error: ${e.name}\n${e.message}`)
-    return next(error)
-  }
+  res.locals.ret_article_instance.articleheadtag_id = ret_article_head_tag_instance._id // ATTACH TO Article -> ArticleHeadTag
 
 
-  try {
-    sharp_returned = await sharp_returned.toFile(`public/${res.locals.ret_article_enclosure_image_instance.path}`)
-  } catch (e) {
-    let error = new CreateArticleError(`Was unable to sharp toFile method.\nSource error: ${e.name}\n${e.message}`)
-    return next(error)
-  }
+  // RENDER ArticleHeadTag GLOBAL
+  res.locals.ret_article_head_tag_instance = ret_article_head_tag_instance
+
+  return next()
+}
 
 
-  // Delete received article enclosure image from temporal-new
-  try {
-    await fs.unlink(path.join(source_directory, processing_file_enclosure_image.filename));
-  } catch (e) {
-    let error = new CreateArticleError(`Was unable to delete the uploaded file from ${source_directory}.\nSource error: ${e.name}\n${e.message}`)
-    return next(error)
-  }
 
 
-  // Sharped article enclosure image entry information
-  const image = {
-    name: new_article_enclosure_image_name,
-    format: sharp_returned.format,
-    width: sharp_returned.width,
-    height: sharp_returned.height,
-    size: sharp_returned.size,
-  }
+async function createArticleBodyHeaderInstanceMiddleware(req, res, next) {
+  console.log("createArticleBodyHeaderInstanceMiddleware...")
 
-  res.locals.ret_article_enclosure_image_instance.image = image
+  let ret_article_body_header_instance
+
+  ret_article_body_header_instance = new ArticleBodyHeader({
+    keywords: JSON.parse(req.body.keywords),
+    category: req.body.category,
+    article_id: res.locals.ret_article_instance._id // ATTACH TO ArticleBodyHeader -> Article
+  })
+
+  res.locals.ret_article_instance.articlebodyheader_id = ret_article_body_header_instance._id // ATTACH TO Article -> ArticleBodyHeader
+
+
+  // RENDER ArticleHeadTag GLOBAL
+  res.locals.ret_article_body_header_instance = ret_article_body_header_instance
 
   return next()
 }
@@ -73,85 +62,168 @@ async function processArticleEnclosureImageMiddleware(req, res, next) {
 
 
 
-async function processArticleBlockImagesMiddleware(req, res, next) {
-  console.log("processArticleBlockImagesMiddleware...")
 
-  const source_directory = `public/img/temporal-new`
 
-  // console.log(req.files)
 
-  for (let i = 0; i < req.files.length; i++) {
-    const file = req.files[i];
+async function createArticleAbstractMiddleware(req, res, next) {
 
-    // console.log(file)
 
-    // res.locals.`/${file.filename}`
+  console.log("createArticleAbstractMiddleware...")
 
-    // Retrieve image and use: file.path example: 'public/img/temporal-new/6955-oreo.png'
-    let sharp_returned
+  let ret_article_abstract_instance
 
-    try {
-      sharp_returned = sharp(file.path)
-    } catch (e) {
-      let error = new CreateArticleError(`Was unable to call sharp(${file.path}.\n\nSource error: ${e.name}\n${e.message}`)
-      return next(error)
+  ret_article_abstract_instance = new ArticleAbstract({
+    abstract_name_type: req.body.abstract_name_type,
+    abstract_points: JSON.parse(req.body.abstract_points),
+    article_id: res.locals.ret_article_instance._id,  // ATTACH TO ArticleAbstract -> Article
+  })
+
+  
+  res.locals.ret_article_instance.articleabstract_id = ret_article_abstract_instance._id // ATTACH TO Article -> ArticleAbstract
+
+
+  // RENDER ArticleAbstract GLOBAL
+  res.locals.ret_article_abstract_instance = ret_article_abstract_instance
+
+  return next()
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+async function createArticleNestedDatatMiddleware1(req, res, next) {
+  console.log("createArticleNestedDatatMiddleware1...");
+
+  // res.locals.ret_article_enclosure_image_instance.image
+
+  const nested_data = JSON.parse(req.body.nested_data_copy)
+
+  let ARR_mongoose_Blocks = []
+
+
+
+
+  for (let i = 0; i < res.locals.nested_data.length; i++) {
+
+
+    const nested_data_block = res.locals.nested_data[i];
+
+    switch (nested_data_block.type) {
+      case SECTION_TYPES.H2:
+        const h2Block = new H2_Block({
+          order: nested_data_block.id,
+          H2_innerHTML: nested_data_block.H2_innerHTML,
+        });
+
+        // await h2Block.save(); // Save the H2_Block instance to the database
+        ARR_mongoose_Blocks.push(h2Block);
+        break;
+      case SECTION_TYPES.H3:
+        const h3Block = new H3_Block({
+          order: nested_data_block.id,
+          H3_innerHTML: nested_data_block.H3_innerHTML,
+        });
+
+        // await h3Block.save(); // Save the H2_Block instance to the database
+        ARR_mongoose_Blocks.push(h3Block);
+        break;
+
+      case SECTION_TYPES.SUMMERNOTE:
+        const summernoteBlock = new SUMMERNOTE_Block({
+          order: nested_data_block.id,
+          SUMMERNOTE_innerHTML: nested_data_block.SUMMERNOTE_innerHTML,
+        });
+
+        // await summernoteBlock.save(); // Save the H2_Block instance to the database
+        ARR_mongoose_Blocks.push(summernoteBlock);
+        break;
+
+      case SECTION_TYPES.IMG:
+
+        console.log('nested_data_block:\n\n------>HERE', nested_data_block)
+
+        let image = undefined
+
+        if (nested_data_block.image) {
+
+          image = {
+            // path: `${res.locals.directory_article_images_folder_path}/${nested_data_block.image?.multer_name}`,
+            image_name: nested_data_block.image?.image_name,
+          }
+
+          // { 
+          //   image_name: nested_data_block.image?.image_name,
+          //   // multer_name: nested_data_block.image?.multer_name,
+          //   // sharp_format: nested_data_block.image?.sharp_format,
+          //   // sharp_width: nested_data_block.image?.sharp_width,
+          //   // sharp_height: nested_data_block.image?.sharp_height,
+          //   // sharp_size: nested_data_block.image?.sharp_size,
+          // }
+
+        }
+
+        const imgBlock = new IMG_Block({
+          order: nested_data_block.id,
+          img_width: nested_data_block.img_width,
+          img_height: nested_data_block.img_height,
+          img_src: nested_data_block.img_src,
+          // If missing, the field does not register
+          img_alt: nested_data_block.img_alt, 
+          img_description: nested_data_block.img_description,
+          image: image,
+        });
+
+
+
+        // await imgBlock.save(); // Save the H2_Block instance to the database
+        ARR_mongoose_Blocks.push(imgBlock);
+        break;
+
+
+      default:
+        break;
     }
 
-
-
-    // Displace to proper article image folder location
-    // `public/${res.locals.directory_article_images_folder_path}`
-    // public/img/bidblock-article-images/per-article-folders-for-images/ARTICLE_ID/6955-oreo.png
-
-    try {
-      sharp_returned = await sharp_returned.toFile(`public/${res.locals.directory_article_images_folder_path}/${file.filename}`)
-
-      // console.log("\n\nsharp_returned\n\n", sharp_returned)
-
-
-    } catch (e) {
-      let error = new CreateArticleError(`Was unable to sharp toFile method.\nSource error: ${e.name}\n${e.message}`)
-      return next(error)
-    }
-
-    // Delete received article block image from temporal-new
-    // source_directory: `public/img/temporal-new`
-    // file.filename: '6955-oreo.png'
-    try {
-      await fs.unlink(path.join(source_directory, file.filename));
-    } catch (e) {
-      let error = new CreateArticleError(`Was unable to delete the uploaded file from ${source_directory}.\nSource error: ${e.name}\n${e.message}`)
-      return next(error)
-    }
-
-
-    // Sharped article enclosure image entry information, NOT NEEDED FOR NOW
-    // const image = {
-    //   name: file.filename,
-    //   format: sharp_returned.format,
-    //   width: sharp_returned.width,
-    //   height: sharp_returned.height,
-    //   size: sharp_returned.size,
-    // }
-
-
-    // TODO !!!!!
-    // res.locals.ret_article_nested_data_instance.SOMEFIELD = image
-
-
-
-
-
-
+    res.locals.ARR_mongoose_Blocks = ARR_mongoose_Blocks
   }
 
+  return next()
 
 
+}
+
+
+
+async function createArticleNestedDatatMiddleware2(req, res, next) {
+  console.log("createArticleNestedDatatMiddleware2...");
+
+  // console.log('\n\n________________\nARR_mongoose_Blocks-->\n', res.locals.ARR_mongoose_Blocks);
+
+  let ret_article_nested_data_instance;
+
+  ret_article_nested_data_instance = new ArticleNestedData({
+    blocks: res.locals.ARR_mongoose_Blocks,
+    article_id: res.locals.ret_article_instance._id
+  });
 
 
   
 
-  return next()
+  res.locals.ret_article_instance.articlenesteddata_id = ret_article_nested_data_instance._id;
+
+  res.locals.ret_article_nested_data_instance = ret_article_nested_data_instance;
+
+  return next();
 }
 
 
@@ -159,13 +231,10 @@ async function processArticleBlockImagesMiddleware(req, res, next) {
 
 
 
-async function middleware3(req, res, next) {
-  console.log("middleware3...")
 
 
 
-  return next()
-}
+
 
 
 
@@ -173,9 +242,13 @@ async function middleware3(req, res, next) {
 
 
 const createArticlesMiddleware3 = {
-  processArticleEnclosureImageMiddleware: processArticleEnclosureImageMiddleware,
-  processArticleBlockImagesMiddleware: processArticleBlockImagesMiddleware,
-  middleware3: middleware3,
+  createArticleHeadTagInstanceMiddleware: createArticleHeadTagInstanceMiddleware,
+  createArticleBodyHeaderInstanceMiddleware: createArticleBodyHeaderInstanceMiddleware,
+  createArticleAbstractMiddleware: createArticleAbstractMiddleware,
+
+
+  createArticleNestedDatatMiddleware1: createArticleNestedDatatMiddleware1,
+  createArticleNestedDatatMiddleware2: createArticleNestedDatatMiddleware2,
 }
 
 

@@ -13,6 +13,9 @@ function seeData(req, res, next) {
   console.log('\n\n', req.files)
 
   // return res.status(200).end()
+
+  res.locals.nested_data = JSON.parse(req.body.nested_data_copy)
+  
   return next()
 }
 
