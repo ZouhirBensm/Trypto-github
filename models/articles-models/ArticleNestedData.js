@@ -120,54 +120,85 @@ const IMG_Block = Block.discriminator(SECTION_TYPES.IMG,
 
 // TODO !!!!! HERE continue integrating and testing these types of blocks
 
-// // type: A: DESCRIMINATOR
-// const A_Block = Block.discriminator(SECTION_TYPES.A,
-//   new mongoose.Schema({
-//     A_href: String,
-//     A_title: String,
-//     newtab: {
-//       type: Boolean
-//     },
-//     newnofollowtab: {
-//       type: Boolean
-//     },
-//     ugc: {
-//       type: Boolean
-//     },
-//     noopener: {
-//       type: Boolean
-//     },
-//     image_mode_on: {
-//       type: Boolean,
-//     },
+// type: A: DESCRIMINATOR
+const A_Block = Block.discriminator(SECTION_TYPES.A,
+  new mongoose.Schema({
+    A_href: {
+      type: String,
+      required: true
+    },
+
+    A_title: String,
+
+    newtab: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    newnofollowtab: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    ugc: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    noopener: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    image_mode_on: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
 
 
-//     // image_mode_on, present and true
-//     img_width: Number,
-//     img_height: Number,
-//     img_alt: String,
-//     img_description: String,
-//     image: {
-//       image_name: {
-//         type: String
-//       }
-//     },
 
-//     // image_mode_on, not present
-//     A_innerText: String
+    // IF !! image_mode_on, present and true
 
-//   }, options));
+    img_width: Number,
+    img_height: Number,
+    img_src: String,
+    img_alt: String,
+    img_description: String,
+    image: {
+      type: ImageSchema,
+    },
+
+    // image_mode_on, not present
+    A_innerText: String
+
+  }, options));
 
 
-// // type: EMBED: DESCRIMINATOR
-// const EMBED_Block = Block.discriminator(SECTION_TYPES.EMBED,
-//   new mongoose.Schema({
-//     embed_width: Number,
-//     embed_height: Number,
-//     embed_type: String,
-//     embed_source: String,
-//     embed_title: String
-//   }, options));
+// type: EMBED: DESCRIMINATOR
+const EMBED_Block = Block.discriminator(SECTION_TYPES.EMBED,
+  new mongoose.Schema({
+    embed_width: {
+      type: Number,
+      required: true
+    },
+    embed_height: {
+      type: Number,
+      required: true
+    },
+    embed_type: {
+      type: String,
+      required: true
+    },
+    embed_source: {
+      type: String,
+      required: true
+    },
+    embed_title: {
+      type: String,
+      required: true
+    },
+  }, options));
 
 
 
@@ -198,6 +229,6 @@ const IMG_Block = Block.discriminator(SECTION_TYPES.IMG,
 
 const ArticleNestedData = mongoose.model('ArticleNestedData', ArticleNestedDataSchema)
 
-module.exports = { ArticleNestedData, H2_Block, H3_Block, SUMMERNOTE_Block, IMG_Block }
+module.exports = { ArticleNestedData, H2_Block, H3_Block, SUMMERNOTE_Block, IMG_Block, EMBED_Block, A_Block }
 
-// { A_Block, EMBED_Block }
+// { A_Block }

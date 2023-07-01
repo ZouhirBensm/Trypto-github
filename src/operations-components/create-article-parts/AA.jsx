@@ -77,8 +77,10 @@ class A extends React.Component {
               this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
             }} />
 
-          <label>New tab open</label>
 
+
+
+          <label>New tab open</label>
 
           <div id="toogler-newtab" className='toogler'>
 

@@ -313,6 +313,7 @@ createArticlesMiddleware4.saveArticleNestedDataMiddleware,
 operationsControllers.responseCreateArticleController
 )
 
+// TODO !!!! HERE setup the capability to save images comming from A types
 // TODO !!!!! either image src or image required on front end
 
 

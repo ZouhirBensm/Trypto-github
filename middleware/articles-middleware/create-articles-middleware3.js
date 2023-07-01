@@ -1,7 +1,7 @@
 const ArticleHeadTag = require('../../models/articles-models/ArticleHeadTag')
 const ArticleBodyHeader = require('../../models/articles-models/ArticleBodyHeader')
 const ArticleAbstract = require("../../models/articles-models/ArticleAbstract")
-const { ArticleNestedData, H2_Block, H3_Block, SUMMERNOTE_Block, IMG_Block } = require("../../models/articles-models/ArticleNestedData")
+const { ArticleNestedData, H2_Block, H3_Block, SUMMERNOTE_Block, IMG_Block, EMBED_Block, A_Block } = require("../../models/articles-models/ArticleNestedData")
 
 const SECTION_TYPES = require("../../full-stack-libs/Types/ArticleSectionTypes")
 
@@ -183,6 +183,46 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
 
         // await imgBlock.save(); // Save the H2_Block instance to the database
         ARR_mongoose_Blocks.push(imgBlock);
+        break;
+      case SECTION_TYPES.EMBED:
+        const embedBlock = new EMBED_Block({
+          embed_width: parseInt(nested_data_block.embed_width),
+          embed_height: parseInt(nested_data_block.embed_height),
+          embed_type: nested_data_block.embed_type,
+          embed_source: nested_data_block.embed_source,
+          embed_title: nested_data_block.embed_title,
+        });
+
+        // await embedBlock.save(); // Save the EMBED_Block instance to the database
+        ARR_mongoose_Blocks.push(embedBlock);
+        break;
+      case SECTION_TYPES.A:
+
+        // TEMPORAL
+        let image2 = undefined
+
+        const aBlock = new A_Block({
+          A_href: nested_data_block.A_href,
+          A_title: nested_data_block.A_title,
+          
+          newtab: nested_data_block.newtab,
+          newnofollowtab: nested_data_block.newnofollowtab,
+          ugc: nested_data_block.ugc,
+          noopener: nested_data_block.noopener,
+          image_mode_on: nested_data_block.image_mode_on,
+      
+          A_innerText: nested_data_block.A_innerText,
+
+          img_width: nested_data_block.img_width,
+          img_height: nested_data_block.img_height,
+          img_src: nested_data_block.img_src,
+          img_alt: nested_data_block.img_alt, 
+          img_description: nested_data_block.img_description,
+          image: image2,
+        });
+
+        // await embedBlock.save(); // Save the EMBED_Block instance to the database
+        ARR_mongoose_Blocks.push(aBlock);
         break;
 
 
