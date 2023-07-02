@@ -97,6 +97,15 @@ async function processArticleBlockImagesMiddleware(req, res, next) {
 
     let sharp_returned
 
+    // Image is sized to the specified width sent from the front end. Then the height is determined to respect the aspect ratio! Used dimensions on ejs should be the ones set by sharp (set A). Code must change if you want to set height manually i.e. change ejs code to use (set B). Both sets are saved in collection data.
+
+    // SET A
+    // sharp_width: nested_data_block.image?.sharp_width,
+    // sharp_height: nested_data_block.image?.sharp_height,
+    // SET B
+    // img_width: nested_data_block.img_width,
+    // img_height: nested_data_block.img_height
+
     try {
       sharp_returned = sharp(file.path)
       .resize({ width: parseInt(concerned_block?.img_width), fit: 'inside' })

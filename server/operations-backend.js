@@ -302,18 +302,16 @@ createArticlesMiddleware3.createArticleNestedDatatMiddleware2,
 
 
 
-// createArticlesMiddleware4.saveArticleMiddleware,
-// createArticlesMiddleware4.saveArticleHeadTagMiddleware,
-// createArticlesMiddleware4.saveArticleBodyHeaderMiddleware,
-// createArticlesMiddleware4.saveArticleEnclosureImageMiddleware,
-// createArticlesMiddleware4.saveArticleAbstractMiddleware,
+createArticlesMiddleware4.saveArticleMiddleware,
+createArticlesMiddleware4.saveArticleHeadTagMiddleware,
+createArticlesMiddleware4.saveArticleBodyHeaderMiddleware,
+createArticlesMiddleware4.saveArticleEnclosureImageMiddleware,
+createArticlesMiddleware4.saveArticleAbstractMiddleware,
 createArticlesMiddleware4.saveArticleNestedDataMiddleware,
 
 
 operationsControllers.responseCreateArticleController
 )
-
-// TODO !!!!! either image src or image required on front end
 
 
 

@@ -98,12 +98,10 @@ const IMG_Block = Block.discriminator(SECTION_TYPES.IMG,
     img_width: {
       type: Number,
       required: true,
-      // TODO !!! should default to whatever sharp width and height retrieved
     },
     img_height: {
       type: Number,
       required: true,
-      // TODO !!!!! should default to whatever sharp width and height retrieved
     },
     img_src: String, // Optional
     img_alt: String, // Optional
@@ -117,8 +115,6 @@ const IMG_Block = Block.discriminator(SECTION_TYPES.IMG,
   }, options));
 
 
-
-// TODO !!!!! HERE continue integrating and testing these types of blocks
 
 // type: A: DESCRIMINATOR
 const A_Block = Block.discriminator(SECTION_TYPES.A,
