@@ -87,45 +87,45 @@ class CreateArticle extends React.Component {
         "elit. <strong>Eum</strong> aspernatur<strong> cupiditate</strong>",
         "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
       ],
-      content_structure: [SECTION_TYPES.H2, SECTION_TYPES.A, SECTION_TYPES.IMG],
-      // content_structure: [SECTION_TYPES.H2],
+      // content_structure: [SECTION_TYPES.H2, SECTION_TYPES.A, SECTION_TYPES.IMG],
+      content_structure: [SECTION_TYPES.H2],
       e: undefined,
-      // nested_data: [],
-      nested_data: [
-        {
-          "id": 1,
-          "type": "H2",
-          "H2_innerHTML": "H2 title"
-        },
-        {
-          "id": 2,
-          "type": "A",
-          "A_href": "google.com",
-          "A_title": "some title",
-          "image_mode_on": true,
-          "img_width": "400",
-          "img_height": "300",
-          "img_src": "somesource.com",
-          "img_alt": "alternate text",
-          "img_description": "some description"
-        },
-        // {
-        //   "id": 2,
-        //   "type": "A",
-        //   "A_href": "google.com",
-        //   "A_title": "some title",
-        //   "A_innerText": "A inner text"
-        // },
-        {
-          "id": 3,
-          "type": "IMG",
-          "img_width": "500",
-          "img_height": "200",
-          "img_src": "google.com",
-          "img_alt": "bla bla",
-          "img_description": "description",
-        },
-      ]
+      nested_data: [],
+      // nested_data: [
+      //   {
+      //     "id": 1,
+      //     "type": "H2",
+      //     "H2_innerHTML": "H2 title"
+      //   },
+      //   {
+      //     "id": 2,
+      //     "type": "A",
+      //     "A_href": "google.com",
+      //     "A_title": "some title",
+      //     "image_mode_on": true,
+      //     "img_width": "400",
+      //     "img_height": "300",
+      //     "img_src": "somesource.com",
+      //     "img_alt": "alternate text",
+      //     "img_description": "some description"
+      //   },
+      //   // {
+      //   //   "id": 2,
+      //   //   "type": "A",
+      //   //   "A_href": "google.com",
+      //   //   "A_title": "some title",
+      //   //   "A_innerText": "A inner text"
+      //   // },
+      //   {
+      //     "id": 3,
+      //     "type": "IMG",
+      //     "img_width": "500",
+      //     "img_height": "200",
+      //     "img_src": "google.com",
+      //     "img_alt": "bla bla",
+      //     "img_description": "description",
+      //   },
+      // ]
 
     }
 
@@ -511,6 +511,7 @@ class CreateArticle extends React.Component {
         updateNestedData = [...prevState.nested_data, object]
         // Edit input object if object available
       } else {
+        
         console.log('already created..')
         let objIndex = updateNestedData.findIndex((obj => {
           return (obj.type == type2edit && obj.id == id)

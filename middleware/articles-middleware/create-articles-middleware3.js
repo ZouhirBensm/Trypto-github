@@ -106,8 +106,6 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
 
   // res.locals.ret_article_enclosure_image_instance.image
 
-  const nested_data = JSON.parse(req.body.nested_data_copy)
-
   let ARR_mongoose_Blocks = []
 
 
@@ -200,6 +198,20 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
 
         // TEMPORAL
         let image2 = undefined
+
+        if (nested_data_block.image) {
+
+          image2 = {
+            path: `${res.locals.directory_article_images_folder_path}/${nested_data_block.image?.multer_name}`,
+            image_name: nested_data_block.image?.image_name,
+            multer_name: nested_data_block.image?.multer_name,
+            sharp_format: nested_data_block.image?.sharp_format,
+            sharp_width: nested_data_block.image?.sharp_width,
+            sharp_height: nested_data_block.image?.sharp_height,
+            sharp_size: nested_data_block.image?.sharp_size,
+          }
+
+        }
 
         const aBlock = new A_Block({
           A_href: nested_data_block.A_href,

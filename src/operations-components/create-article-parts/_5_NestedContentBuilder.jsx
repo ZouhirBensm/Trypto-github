@@ -15,7 +15,7 @@ const H3 = loadable(() => import("./H3"), {
   fallback: <Loading />
 });
 
-const A = loadable(() => import("./AA"), {
+const A = loadable(() => import("./A"), {
   fallback: <Loading />
 });
 const IMG = loadable(() => import("./IMG"), {

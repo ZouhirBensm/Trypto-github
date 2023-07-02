@@ -83,11 +83,9 @@ async function processArticleBlockImagesMiddleware(req, res, next) {
 
 
 
-
-
-
-
   for (let i = 0; i < req.files.length; i++) {
+
+
     const file = req.files[i];
 
 
@@ -165,12 +163,8 @@ async function processArticleBlockImagesMiddleware(req, res, next) {
     }
 
 
-    console.log('\n\nres.locals.nested_data:\n\n', res.locals.nested_data)
+    console.log('\n\nUPDATED->\n\nres.locals.nested_data:\n\n', res.locals.nested_data)
     // END PROCESS TO ADD MULTER_NAME
-
-
-
-
 
 
 
@@ -192,8 +186,6 @@ async function processArticleBlockImagesMiddleware(req, res, next) {
 
 async function middleware3(req, res, next) {
   console.log("middleware3...")
-
-
 
   return next()
 }
