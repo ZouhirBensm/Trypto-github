@@ -62,7 +62,7 @@ class CreateArticle extends React.Component {
 
       // TEMPORAL
       // USED TO TEST CREATE QUICKLY
-      step: 2,
+      step: 5,
       html_title: "Some random title", // CHECK (ArticleHeadTag)
       meta_title: "Some random title2",
       meta_description: "Some random description", // CHECK (ArticleHeadTag)
@@ -88,7 +88,7 @@ class CreateArticle extends React.Component {
         "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
       ],
       // content_structure: [SECTION_TYPES.H2, SECTION_TYPES.A, SECTION_TYPES.IMG],
-      content_structure: [SECTION_TYPES.H2],
+      content_structure: [SECTION_TYPES.IMG],
       e: undefined,
       nested_data: [],
       // nested_data: [
@@ -369,16 +369,59 @@ class CreateArticle extends React.Component {
 
 
   validateInputs(e) {
-    const inputs = document.getElementsByTagName('input');
+    let inputs = document.getElementsByTagName('input');
     const selects = document.getElementsByTagName('select');
     const textareas = document.getElementsByTagName('textarea');
 
+    inputs = [...inputs]
+
     let isValid = true;
 
+    // Find the input elements with the desired IDs
+    var inputBannerImgIdInput = inputs.find(function (input) {
+      return input.id === 'input-banner-img-id';
+    });
+
+    var imageSrcInput = inputs.find(function (input) {
+      return input.id === 'image-src';
+    });
+
+    // Check if both inputs are present
+    if (inputBannerImgIdInput && imageSrcInput) {
+      console.log("Both input IDs are present in the array.");
+      // Perform additional actions with the inputs if needed
+
+      // Check if both required inputs are missing
+      if (!inputBannerImgIdInput.checkValidity() && !imageSrcInput.checkValidity()) {
+        !imageSrcInput.checkValidity() ? imageSrcInput.reportValidity() : null
+        !inputBannerImgIdInput.checkValidity() ? inputBannerImgIdInput.reportValidity() : null
+        isValid = false;
+      }
+
+
+    }
+
+    console.log('isValid', isValid)
+    if (!isValid) {
+      return isValid
+    }
+
+
+    
+
+    inputs = inputs.filter(function(input) {
+      return !['input-banner-img-id', 'image-src'].includes(input.id);
+    });
+
+    console.log(inputs)
     for (let i = 0; i < inputs.length; i++) {
       const input = inputs[i];
-      
+
+
       if (input.required && !input.checkValidity()) {
+
+        console.log('\n\ninput.id--->', input.id)
+
         // Input is invalid, trigger validation error message
         input.reportValidity();
         isValid = false;
@@ -406,19 +449,15 @@ class CreateArticle extends React.Component {
       }
     }
 
-    if (isValid) {
-      // All inputs are valid, perform desired action
-      console.log('VALID');
-      return true;
-    } else {
-      return false;
-    }
+    console.log(isValid)
+    return isValid
+
   }
 
 
 
   innerHandleChangeToogleDeleteFields = (e, type2edit = undefined, id = undefined, toogle_state, fields_todelete) => {
- 
+
     var eventTargetName = e.target.name
     console.log(e.target.type, type2edit, id, eventTargetName, toogle_state)
 
@@ -511,7 +550,7 @@ class CreateArticle extends React.Component {
         updateNestedData = [...prevState.nested_data, object]
         // Edit input object if object available
       } else {
-        
+
         console.log('already created..')
         let objIndex = updateNestedData.findIndex((obj => {
           return (obj.type == type2edit && obj.id == id)
@@ -558,15 +597,15 @@ class CreateArticle extends React.Component {
 
 
       // TODO !!!!! Also try to reduce this component
-      console.log({block_type})
+      console.log({ block_type })
       console.log('block?.type ', block?.type)
       console.log('block?.type === block_type ', block?.type === block_type)
-      
-      if(block?.type === block_type){
+
+      if (block?.type === block_type) {
         updated_nested_data?.splice(index, 1)
       }
 
-      return { 
+      return {
         content_structure: updated_content_structure,
         nested_data: updated_nested_data
       };

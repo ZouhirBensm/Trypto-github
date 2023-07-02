@@ -135,25 +135,6 @@ class _5_NestedContentBuilder extends React.Component {
           innerHandleChange={this.props.innerHandleChange}
         />
         break;
-      // case SECTION_TYPES.UL:
-      //   component = <UL
-      //     _step={this.state._step}
-      //     _last_step={this.state._last_step}
-      //     _previousStep={this._previousStep}
-      //     _nextStep={this._nextStep}
-      //   />
-      //   break;
-      // case SECTION_TYPES.P:
-      //   component = <P
-      //     _step={this.state._step}
-      //     _last_step={this.state._last_step}
-      //     _previousStep={this._previousStep}
-      //     _nextStep={this._nextStep}
-
-      //     nested_data={this.props.nested_data}
-      //     innerHandleChange={this.props.innerHandleChange}
-      //   />
-      //   break;
 
       default:
         break;
@@ -169,7 +150,6 @@ class _5_NestedContentBuilder extends React.Component {
 
     return (
       <React.Fragment>
-        {/* <div>_5_NestedContentBuilder</div> */}
 
         {component}
 
@@ -182,6 +162,8 @@ class _5_NestedContentBuilder extends React.Component {
               <button onClick={(e) => this._previousStep()}>_Previous </button>
             </React.Fragment>
           }
+
+
 
           {this.state._step == this.state._last_step ? null :
             <React.Fragment>
@@ -203,6 +185,9 @@ class _5_NestedContentBuilder extends React.Component {
 
 
 
+
+
+
         <div id='nav'>
           {this.state._step == 1 ?
             <React.Fragment>
@@ -212,7 +197,9 @@ class _5_NestedContentBuilder extends React.Component {
           }
 
           {this.state._step == this.state._last_step ?
+          
             <React.Fragment>
+
               <button onClick={(e) => {
                 const isValid = this.props.validateInputs(e)
                 console.log({ isValid })
@@ -220,9 +207,9 @@ class _5_NestedContentBuilder extends React.Component {
                 this.props.nextStep()
               }}>Proceed</button>
               <img src="/img/SVG/operations/create-article/proceed.svg" alt="" />
+
             </React.Fragment> : null
           }
-
 
         </div>
 
