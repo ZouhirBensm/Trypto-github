@@ -1,13 +1,10 @@
+import './styles/_3_Abstract.css'
 
 class _3_Abstract extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
   }
-
-
-
-
 
 
   render() {

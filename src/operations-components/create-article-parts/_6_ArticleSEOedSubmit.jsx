@@ -1,4 +1,4 @@
-// import UploadImage from './UploadImage'
+import './styles/_6_ArticleSEOedSubmit.css'
 import SECTION_TYPES from '../../../full-stack-libs/Types/ArticleSectionTypes'
 
 class _6_ArticleSEOedSubmit extends React.Component {
@@ -165,7 +165,7 @@ class _6_ArticleSEOedSubmit extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div>Submit your article!</div>
+        <h3>Submit your article!</h3>
 
         {/* <label>Upload A Banner Image</label>
         <UploadImage
@@ -186,8 +186,10 @@ class _6_ArticleSEOedSubmit extends React.Component {
         <div id='nav'>
           <img src="/img/SVG/operations/create-article/previous.svg" alt="" />
           <button onClick={(e) => this.props.previousStep(e)}>Previous</button>
-          <button onClick={(e) => this.props.nextStep()}>Proceed</button>
-          <img src="/img/SVG/operations/create-article/proceed.svg" alt="" />
+
+          {/* <button onClick={(e) => this.props.nextStep()}>Proceed</button>
+          <img src="/img/SVG/operations/create-article/proceed.svg" alt="" /> */}
+
         </div>
 
 

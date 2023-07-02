@@ -1,0 +1,9 @@
+div#create-article-form-id>span {
+  color: rgba(0, 0, 0, 0.766);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: var(--font-size-smaller-input);
+  line-height: 2rem;
+  /* width: 100%;
+  margin: 0.5vh 0; */
+}
