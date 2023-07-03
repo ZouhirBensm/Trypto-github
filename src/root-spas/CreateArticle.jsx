@@ -62,7 +62,7 @@ class CreateArticle extends React.Component {
 
       // TEMPORAL
       // USED TO TEST CREATE QUICKLY
-      step: 5,
+      step: 1,
       html_title: "Some random title", // CHECK (ArticleHeadTag)
       meta_title: "Some random title2",
       meta_description: "Some random description", // CHECK (ArticleHeadTag)
@@ -87,45 +87,45 @@ class CreateArticle extends React.Component {
         "elit. <strong>Eum</strong> aspernatur<strong> cupiditate</strong>",
         "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
       ],
-      // content_structure: [SECTION_TYPES.H2, SECTION_TYPES.A, SECTION_TYPES.IMG],
-      content_structure: [SECTION_TYPES.IMG],
+
+      content_structure: [SECTION_TYPES.H2, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.H3, SECTION_TYPES.EMBED, SECTION_TYPES.IMG],
+      // content_structure: [SECTION_TYPES.IMG],
       e: undefined,
-      nested_data: [],
-      // nested_data: [
-      //   {
-      //     "id": 1,
-      //     "type": "H2",
-      //     "H2_innerHTML": "H2 title"
-      //   },
-      //   {
-      //     "id": 2,
-      //     "type": "A",
-      //     "A_href": "google.com",
-      //     "A_title": "some title",
-      //     "image_mode_on": true,
-      //     "img_width": "400",
-      //     "img_height": "300",
-      //     "img_src": "somesource.com",
-      //     "img_alt": "alternate text",
-      //     "img_description": "some description"
-      //   },
-      //   // {
-      //   //   "id": 2,
-      //   //   "type": "A",
-      //   //   "A_href": "google.com",
-      //   //   "A_title": "some title",
-      //   //   "A_innerText": "A inner text"
-      //   // },
-      //   {
-      //     "id": 3,
-      //     "type": "IMG",
-      //     "img_width": "500",
-      //     "img_height": "200",
-      //     "img_src": "google.com",
-      //     "img_alt": "bla bla",
-      //     "img_description": "description",
-      //   },
-      // ]
+      // nested_data: [],
+      nested_data: [
+        {
+          "id": 1,
+          "type": "H2",
+          "H2_innerHTML": "Article about cars and samurais"
+        },
+        {
+          "id": 2,
+          "type": "SUMMERNOTE",
+          "SUMMERNOTE_innerHTML": "<p>this is some content</p><p>I home it will render properly!</p>"
+        },
+        {
+          "id": 3,
+          "type": "H3",
+          "H3_innerHTML": "this us a h3"
+        },
+        {
+          "id": 4,
+          "type": "EMBED",
+          "embed_width": "300",
+          "embed_height": "150",
+          "embed_source": "https://www.youtube.com/watch?v=jawhp-FKSd0",
+          "embed_type": "application/x-shockwave-flash",
+          "embed_title": "some title"
+        },
+        {
+          "id": 5,
+          "type": "IMG",
+          "img_width": "200",
+          "img_height": "200",
+          "img_alt": "a samurai",
+          "img_description": "a sam is on the image!"
+        }
+      ]
 
     }
 

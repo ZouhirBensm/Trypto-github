@@ -1,1 +1,40 @@
-<h1>bloc3-content.ejs</h1>
+<!-- <h1>bloc3-content.ejs</h1> -->
+
+
+<main>
+
+
+<% for(let i = 0; i < locals.article.articlenesteddata_id.blocks.length; i++) { %>
+
+
+    <!-- <h2>< %=locals.article.articlenesteddata_id.blocks[i].type%></h2> -->
+
+    <% locals.currentIndex = i; %>
+
+    <% if (locals.article.articlenesteddata_id.blocks[i].type == locals.SECTION_TYPES.H2) { %>
+      <%- include('bloc3-pieces/H2.ejs', {locals: locals}) %>
+
+    <% } else if (locals.article.articlenesteddata_id.blocks[i].type == locals.SECTION_TYPES.H3) { %>
+      <%- include('bloc3-pieces/H3.ejs', {locals: locals}) %>
+
+    <% } else if (locals.article.articlenesteddata_id.blocks[i].type == locals.SECTION_TYPES.SUMMERNOTE) { %>
+      <%- include('bloc3-pieces/SUMMERNOTE.ejs', {locals: locals}) %>
+
+    <% } else if (locals.article.articlenesteddata_id.blocks[i].type == locals.SECTION_TYPES.IMG) { %>
+      <%- include('bloc3-pieces/IMG.ejs', {locals: locals}) %>
+
+    <% } else if (locals.article.articlenesteddata_id.blocks[i].type == locals.SECTION_TYPES.A) { %>
+      <%- include('bloc3-pieces/A.ejs', {locals: locals}) %>
+      
+    <% } else if (locals.article.articlenesteddata_id.blocks[i].type == locals.SECTION_TYPES.EMBED) { %>
+      <%- include('bloc3-pieces/EMBED.ejs', {locals: locals}) %>
+      
+    <% } %>
+
+
+  <% } %>
+
+
+</main>
+
+

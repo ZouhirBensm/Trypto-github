@@ -105,6 +105,8 @@ articlesBackend_app_router.get('/:category?', (req, res) => {
 
 
 
+
+
 articlesBackend_app_router.get('/individual_article/:article_title', 
 
 individualArticleMiddleware.middleware1, 
@@ -112,6 +114,11 @@ individualArticleMiddleware.middleware2,
 individualArticleMiddleware.middleware3, 
 individualArticleController.controller1
 )
+
+
+
+
+
 
 
 
