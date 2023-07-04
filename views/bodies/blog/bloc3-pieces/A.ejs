@@ -1,3 +1,32 @@
-<h1>
-  A
-</h1>
+<section>
+
+  <% 
+    let rel = undefined;
+    
+    rel = block.ugc ? 'ugc' : undefined
+    rel = block.noopener ? `${rel} noopener` : rel
+    rel = block.nofollow ? `${rel} nofollow` : rel
+
+    console.log("rel:  ", rel)
+
+  %>
+
+  <a href=<%=block.A_href%> title="<%-block.A_title%>" <% if (block.newtab) { %> target="_blank" <% } %> <% if (rel) { %> rel="<%-rel%>" <% } %>>
+
+
+    <%if(block.image_mode_on){%>
+
+      <%- include('IMG.ejs', {block: block}) %>
+
+    <%} else { %>
+
+      <%=block.A_href%>
+
+    <% } %>
+      
+
+  </a>
+
+
+
+</section>

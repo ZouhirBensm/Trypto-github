@@ -8,7 +8,7 @@ class FAQ extends React.Component {
     super(props)
     this.state = { faqs: [] }
 
-    // TODO !!!!! 
+    // TODO !!!!
     // SEO register, video adaptability
 
 

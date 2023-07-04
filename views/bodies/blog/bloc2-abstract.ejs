@@ -1,7 +1,6 @@
-<div>
+<div id="abstract_id">
   <div><%=locals.article.articleabstract_id.abstract_name_type%></div>
-  <!-- itemprop="abstract" -->
-  <ul>
+  <ul itemprop="abstract">
     <% for(let i = 0; i < locals.article.articleabstract_id.abstract_points.length; i++) { %>
       <li><%-locals.article.articleabstract_id.abstract_points[i]%></li>
     <% } %>

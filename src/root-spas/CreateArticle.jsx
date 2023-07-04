@@ -4,6 +4,7 @@ import SECTION_TYPES from '../../full-stack-libs/Types/ArticleSectionTypes'
 
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading"
+import { data } from 'jquery';
 
 
 
@@ -88,42 +89,58 @@ class CreateArticle extends React.Component {
         "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
       ],
 
-      content_structure: [SECTION_TYPES.H2, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.H3, SECTION_TYPES.EMBED, SECTION_TYPES.IMG],
-      // content_structure: [SECTION_TYPES.IMG],
+
+      
+
+      // content_structure: [SECTION_TYPES.H2, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.H3, SECTION_TYPES.EMBED, SECTION_TYPES.IMG],
+      content_structure: [SECTION_TYPES.IMG, SECTION_TYPES.IMG],
+      // content_structure: [SECTION_TYPES.A, SECTION_TYPES.A],
       e: undefined,
       // nested_data: [],
+      // nested_data: [
+      //   {
+      //     "id": 1,
+      //     "type": "A",
+      //     "A_href": "google.com",
+      //     "A_title": "Some A title",
+      //     "newtab": true,
+      //     "nofollow": true,
+      //     "ugc": true,
+      //     "A_innerText": "The inner A Google website"
+      //   },
+      //   {
+      //     "id": 2,
+      //     "type": "A",
+      //     "A_href": "yahoo.com",
+      //     "A_title": "Some A title 2",
+      //     "image_mode_on": true,
+      //     "image": {
+      //       "image_file": {},
+      //       "image_name": "btc.png"
+      //     },
+      //     "img_width": "200",
+      //     "img_height": "200",
+      //     "img_alt": "a ai generated image",
+      //     "img_description": "the schema"
+      //   }
+      // ]
       nested_data: [
         {
           "id": 1,
-          "type": "H2",
-          "H2_innerHTML": "Article about cars and samurais"
+          "type": "IMG",
+          "img_width": "300",
+          "img_height": "300",
+          "img_alt": "some alt text",
+          "img_description": "some description"
         },
         {
           "id": 2,
-          "type": "SUMMERNOTE",
-          "SUMMERNOTE_innerHTML": "<p>this is some content</p><p>I home it will render properly!</p>"
-        },
-        {
-          "id": 3,
-          "type": "H3",
-          "H3_innerHTML": "this us a h3"
-        },
-        {
-          "id": 4,
-          "type": "EMBED",
-          "embed_width": "300",
-          "embed_height": "150",
-          "embed_source": "https://www.youtube.com/watch?v=jawhp-FKSd0",
-          "embed_type": "application/x-shockwave-flash",
-          "embed_title": "some title"
-        },
-        {
-          "id": 5,
           "type": "IMG",
-          "img_width": "200",
-          "img_height": "200",
-          "img_alt": "a samurai",
-          "img_description": "a sam is on the image!"
+          "img_width": "100",
+          "img_height": "100",
+          "img_src": "https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2023/revuelto/revuelto_m.png",
+          "img_alt": "lambo",
+          "img_description": "lambo"
         }
       ]
 
@@ -637,3 +654,13 @@ ReactDOM.render(element, document.getElementById('react-div'));
 
 export default CreateArticle
 
+
+
+// TODO !!!! 
+// Also fix when start editing the first field the A component a warning is firing off, now sure why
+// Have to fix when 2 consecutive A it loads with the first data
+// Need to Test the schemas from production
+// Case sensivety on login
+// Footer link build
+// Publish and archive market orders
+// Textarea resize stop

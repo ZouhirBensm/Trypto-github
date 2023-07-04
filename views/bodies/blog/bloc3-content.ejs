@@ -1,16 +1,9 @@
-<!-- <h1>bloc3-content.ejs</h1> -->
-
-
-<main>
+<main id="content_id">
 
 
 <% for(let i = 0; i < locals.article.articlenesteddata_id.blocks.length; i++) { %>
 
   <% const block = JSON.parse(JSON.stringify(locals.article.articlenesteddata_id.blocks[i])); %>
-
-  <!-- < % const block = locals.article.articlenesteddata_id.blocks[i]; %> -->
-
-    <!-- <h2>< %=locals.article.articlenesteddata_id.blocks[i].type%></h2> -->
 
     <% locals.currentIndex = i; %>
 
@@ -37,6 +30,11 @@
 
 
   <% } %>
+
+  <span>
+    <!-- TODO !!! place author name link -->
+    <a href="/"><%=locals.article.author_id.username%></a>
+  </span>
 
 
 </main>

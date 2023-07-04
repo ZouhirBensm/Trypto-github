@@ -1,45 +1,32 @@
-<!-- itemscope itemtype="https://schema.org/Blog" itemref="xxxx(resume_tag)_id article_id" -->
-<header>
+<header itemscope itemtype="https://schema.org/Blog" itemref="abstract_id content_id">
 
   <!-- META INFORMATION -->
-  <!-- itemprop="keywords" -->
-  <span style="display: none"><%=locals.article.articlebodyheader_id.keywords?.join(', ')%></span>
+  <span itemprop="keywords" style="display: none"><%=locals.article.articlebodyheader_id.keywords?.join(', ')%></span>
 
-  <!-- TODO !!!! set this up after setting the category -->
-  <!-- itemprop="about genre" -->
-  <span style="display: none"><%=locals.article.articlebodyheader_id.category%></span>
+  <span itemprop="about genre" style="display: none"><%=locals.article.articlebodyheader_id.category%></span>
 
-  <!-- itemprop="publisher" itemscope itemtype="https://schema.org/Organization" -->
-  <span style="display: none">
-    <!-- itemprop="name" -->
-    <span>bidblock.ca</span>
-    <!-- itemprop="email" -->
-    <link rel="noopener nofollow" href="mailto:bidblockcanada@gmail.com"/>
-    <!-- itemprop="url" -->
-    <link href="https://bidblock.ca"/>
-    <!-- ideally set to about us page -->
+  
+  <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization" style="display: none">
+    <span itemprop="name">bidblock.ca</span>
+    <link itemprop="email" rel="noopener nofollow" href="mailto:bidblockcanada@gmail.com"/>
+    <!-- TODO !!! Ideally set to about us page /about-us -->
+    <link itemprop="url" href="/"/>
   </span>
 
   <!-- BANNER -->
-  <!-- itemprop="image" -->
-  <img src="<%=locals.article.articleenclosureimage_id.path%>" alt="<%=locals.article.articleenclosureimage_id.banner_img_alt%>">
+  <img itemprop="image" src="<%=locals.article.articleenclosureimage_id.path%>" alt="<%=locals.article.articleenclosureimage_id.banner_img_alt%>">
   
   <div>
-    <!-- itemprop="name headline" -->
-    <h1><%=locals.article.h1%></h1>
-    <!-- itemprop="author" itemscope itemtype="https://schema.org/Person" -->
-    <span>
-      <!-- itemprop="name" -->
-      <span><%=locals.article.author_id.username%></span>
-      <!-- itemprop="url" rel="author" -->
-      <!-- TODO !!! Need to build this link /author/< %-locals.article.author_id.username%>-->
-      <!-- <link href="/author/< %-locals.article.author_id.username%>"/> -->
+    <h1 itemprop="name headline"><%=locals.article.h1%></h1>
+    <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+      <span itemprop="name"><%=locals.article.author_id.username%></span>
+      <!-- TODO !!! Ideally set to about us page /author/< %-locals.article.author_id.username%>-->
+      <link itemprop="url" rel="author" href="/"/>
     </span>
 
     <% const date = new Date(locals.article.publishedDate);%>
 
-    <!-- itemprop="datePublished" datetime="< %= date.toISOString()%>" -->
-    <time>
+    <time itemprop="datePublished" datetime="<%= date.toISOString()%>">
       <%= date.toLocaleString('en-US', { timeZone: 'America/Toronto', dateStyle: 'short', timeStyle: 'short' }) %>
     </time>
 

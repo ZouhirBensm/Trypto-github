@@ -1,9 +1,21 @@
-<section>
+<div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+
+  <!-- itemprop="contentUrl" -->
   <img 
-    width=<%= block.image.sharp_width %> 
-    height=<%= block.image.sharp_height %> 
+    itemprop="contentUrl"
+    width=<%= block.image?.sharp_width || block.img_width %> 
+    height=<%= block.image?.sharp_height || block.img_height %> 
     alt="<%- block.img_alt %>"
-    src=<%= block.image.path %> 
-  >
-  </img>
-</section>
+    src=<%= block.image?.path || block.img_src%> 
+  />
+
+  <!-- itemprop="description" -->
+  <span style="display: none" itemprop="description"><%=block.img_description%></span>
+</div>
+
+
+
+    <!-- < % if (locals.sections[i].section_cta_a_inner_img_size_width && locals.sections[i].section_cta_a_inner_img_size_height) { %>
+      style="width: < %-locals.sections[i].section_cta_a_inner_img_size_width%>; 
+      height: < %-locals.sections[i].section_cta_a_inner_img_size_height%>;"
+     % } %>  -->

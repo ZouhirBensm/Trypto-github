@@ -131,7 +131,7 @@ const A_Block = Block.discriminator(SECTION_TYPES.A,
       required: true,
       default: false,
     },
-    newnofollowtab: {
+    nofollow: {
       type: Boolean,
       required: true,
       default: false,

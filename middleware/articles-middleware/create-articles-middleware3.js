@@ -218,7 +218,7 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
           A_title: nested_data_block.A_title,
           
           newtab: nested_data_block.newtab,
-          newnofollowtab: nested_data_block.newnofollowtab,
+          nofollow: nested_data_block.nofollow,
           ugc: nested_data_block.ugc,
           noopener: nested_data_block.noopener,
           image_mode_on: nested_data_block.image_mode_on,
