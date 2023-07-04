@@ -1,9 +1,9 @@
 <section>
 
   <iframe 
-    width=<%= JSON.parse(JSON.stringify(locals.article.articlenesteddata_id?.blocks[locals.currentIndex])).embed_width %> 
-    height=<%= JSON.parse(JSON.stringify(locals.article.articlenesteddata_id?.blocks[locals.currentIndex])).embed_height %> 
-    src=<%= JSON.parse(JSON.stringify(locals.article.articlenesteddata_id?.blocks[locals.currentIndex])).embed_source %> 
+    width=<%= block.embed_width %> 
+    height=<%= block.embed_height %> 
+    src=<%= block.embed_source %> 
     >
   </iframe>
 

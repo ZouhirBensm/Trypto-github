@@ -1,9 +1,9 @@
 <section>
   <img 
-    width=<%= JSON.parse(JSON.stringify(locals.article.articlenesteddata_id?.blocks[locals.currentIndex])).image.sharp_width %> 
-    height=<%= JSON.parse(JSON.stringify(locals.article.articlenesteddata_id?.blocks[locals.currentIndex])).image.sharp_height %> 
-    alt="<%- JSON.parse(JSON.stringify(locals.article.articlenesteddata_id?.blocks[locals.currentIndex])).img_alt %>"
-    src=<%= JSON.parse(JSON.stringify(locals.article.articlenesteddata_id?.blocks[locals.currentIndex])).image.path %> 
+    width=<%= block.image.sharp_width %> 
+    height=<%= block.image.sharp_height %> 
+    alt="<%- block.img_alt %>"
+    src=<%= block.image.path %> 
   >
   </img>
 </section>
