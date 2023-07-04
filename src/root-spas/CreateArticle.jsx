@@ -657,8 +657,8 @@ export default CreateArticle
 
 
 // TODO !!!! 
-// Also fix when start editing the first field the A component a warning is firing off, now sure why
 // Have to fix when 2 consecutive A it loads with the first data
+// Also fix when start editing the first field the A component a warning is firing off, now sure why
 // Need to Test the schemas from production
 // Case sensivety on login
 // Footer link build
