@@ -27,20 +27,20 @@ class EMBED extends React.Component {
         <input name="embed_width" value={defaultValues?.embed_width || ""} type="number" placeholder="Enter embed's width" onChange={(e)=> {
           e.persist()
           this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
-          }} required/>
+          }}/>
 
 
         <label>Embed height: </label>
         <input name="embed_height" value={defaultValues?.embed_height || ""} type="number" placeholder="Enter embed's height" onChange={(e)=> {
           e.persist()
           this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
-          }} required/>
+          }}/>
 
         <label>Embed type: </label>
         <input name="embed_type" value={defaultValues?.embed_type || ""} type="text" placeholder="Enter embed's type" onChange={(e)=> {
           e.persist()
           this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
-          }} required/>
+          }}/>
 
         <label>Embed source: </label>
         <input name="embed_source" value={defaultValues?.embed_source || ""} type="text" placeholder="Enter embed's source" onChange={(e)=> {
@@ -52,7 +52,7 @@ class EMBED extends React.Component {
         <input name="embed_title" value={defaultValues?.embed_title || ""} type="text" placeholder="Enter embed's title" onChange={(e)=> {
           e.persist()
           this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
-          }} required/>
+          }}/>
 
 
 

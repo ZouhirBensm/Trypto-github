@@ -4,7 +4,6 @@ import SECTION_TYPES from '../../full-stack-libs/Types/ArticleSectionTypes'
 
 import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading"
-import { data } from 'jquery';
 
 
 
@@ -92,11 +91,78 @@ class CreateArticle extends React.Component {
 
       
 
-      // content_structure: [SECTION_TYPES.H2, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.H3, SECTION_TYPES.EMBED, SECTION_TYPES.IMG],
+      content_structure: [SECTION_TYPES.H2, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.H3, SECTION_TYPES.EMBED, SECTION_TYPES.IMG, SECTION_TYPES.IMG, SECTION_TYPES.A, SECTION_TYPES.A],
       // content_structure: [SECTION_TYPES.IMG, SECTION_TYPES.IMG],
-      content_structure: [SECTION_TYPES.A, SECTION_TYPES.A],
+      // content_structure: [SECTION_TYPES.A, SECTION_TYPES.A],
       e: undefined,
-      nested_data: [],
+      // nested_data: [],
+      nested_data: [
+        {
+          "id": 1,
+          "type": "H2",
+          "H2_innerHTML": "Some h2 title"
+        },
+        {
+          "id": 2,
+          "type": "SUMMERNOTE",
+          "SUMMERNOTE_innerHTML": "<p>some content.</p><p>I hope this works!</p><p>adding&nbsp;<a href=\"https://google.com\" target=\"_blank\">a link</a>&nbsp;to google.</p>"
+        },
+        {
+          "id": 3,
+          "type": "H3",
+          "H3_innerHTML": "some h3 element"
+        },
+        {
+          "id": 4,
+          "type": "EMBED",
+          "embed_source": "https://www.youtube.com/embed/s2LmubDQ4RI",
+          "embed_width": "1000",
+          "embed_height": "500"
+        },
+        {
+          "id": 5,
+          "type": "IMG",
+          "img_width": "200",
+          "img_height": "200",
+          "img_alt": "Algerians",
+          "img_description": "Phenotype of algerians",
+        },
+        {
+          "id": 6,
+          "type": "IMG",
+          "img_src": "https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2023/revuelto/revuelto_m.png",
+          "img_alt": "Lambo",
+          "img_width": "300",
+          "img_height": "200",
+          "img_description": "a Lambo"
+        },
+        {
+          "id": 7,
+          "type": "A",
+          "A_href": "https://en.wikipedia.org/wiki/Cars_(film)",
+          "A_innerText": "Wiki cars",
+          "A_title": "a title",
+          "newtab": true,
+          "ugc": true,
+          "nofollow": true,
+          "noopener": true
+        },
+        {
+          "id": 8,
+          "type": "A",
+          "A_href": "https://www.bbc.com/news/world-europe-66104632",
+          "A_title": "BBC franch",
+          "newtab": true,
+          "image_mode_on": true,
+          "img_width": "350",
+          "img_height": "100",
+          "img_src": "https://ichef.bbci.co.uk/news/976/cpsprodpb/14044/production/_130288918_amin.png.webp",
+          "img_alt": "some ugly fuck",
+          "img_description": "some ugly fuck"
+        }
+      ]
+
+
       // nested_data: [
       //   {
       //     "id": 1,

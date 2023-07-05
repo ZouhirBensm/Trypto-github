@@ -14,6 +14,7 @@ const SECTION_TYPES = require('../../full-stack-libs/Types/ArticleSectionTypes')
 
 async function middleware1(req, res, next) {
 
+
   console.log('\n\nreq.url:\n\n', `/articles${req.url}`)
 
   let article
