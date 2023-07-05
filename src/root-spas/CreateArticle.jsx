@@ -93,10 +93,10 @@ class CreateArticle extends React.Component {
       
 
       // content_structure: [SECTION_TYPES.H2, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.H3, SECTION_TYPES.EMBED, SECTION_TYPES.IMG],
-      content_structure: [SECTION_TYPES.IMG, SECTION_TYPES.IMG],
-      // content_structure: [SECTION_TYPES.A, SECTION_TYPES.A],
+      // content_structure: [SECTION_TYPES.IMG, SECTION_TYPES.IMG],
+      content_structure: [SECTION_TYPES.A, SECTION_TYPES.A],
       e: undefined,
-      // nested_data: [],
+      nested_data: [],
       // nested_data: [
       //   {
       //     "id": 1,
@@ -114,35 +114,32 @@ class CreateArticle extends React.Component {
       //     "A_href": "yahoo.com",
       //     "A_title": "Some A title 2",
       //     "image_mode_on": true,
-      //     "image": {
-      //       "image_file": {},
-      //       "image_name": "btc.png"
-      //     },
       //     "img_width": "200",
       //     "img_height": "200",
       //     "img_alt": "a ai generated image",
       //     "img_description": "the schema"
       //   }
+      // ],
+
+      // nested_data: [
+      //   {
+      //     "id": 1,
+      //     "type": "IMG",
+      //     "img_width": "300",
+      //     "img_height": "300",
+      //     "img_alt": "some alt text",
+      //     "img_description": "some description"
+      //   },
+      //   {
+      //     "id": 2,
+      //     "type": "IMG",
+      //     "img_width": "100",
+      //     "img_height": "100",
+      //     "img_src": "https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2023/revuelto/revuelto_m.png",
+      //     "img_alt": "lambo",
+      //     "img_description": "lambo"
+      //   }
       // ]
-      nested_data: [
-        {
-          "id": 1,
-          "type": "IMG",
-          "img_width": "300",
-          "img_height": "300",
-          "img_alt": "some alt text",
-          "img_description": "some description"
-        },
-        {
-          "id": 2,
-          "type": "IMG",
-          "img_width": "100",
-          "img_height": "100",
-          "img_src": "https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2023/revuelto/revuelto_m.png",
-          "img_alt": "lambo",
-          "img_description": "lambo"
-        }
-      ]
 
     }
 
@@ -657,8 +654,6 @@ export default CreateArticle
 
 
 // TODO !!!! 
-// Have to fix when 2 consecutive A it loads with the first data
-// Also fix when start editing the first field the A component a warning is firing off, now sure why
 // Need to Test the schemas from production
 // Case sensivety on login
 // Footer link build

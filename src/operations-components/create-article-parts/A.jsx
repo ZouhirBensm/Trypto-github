@@ -10,6 +10,14 @@ class A extends React.Component {
     this.innerText = React.createRef();
     this.imageContainer = React.createRef();
   }
+  
+
+
+
+  // shouldComponentUpdate(prevProps){
+  //   if(prevProps._step !== this.props._step) return true
+  //   return false
+  // }
 
 
 
@@ -28,7 +36,9 @@ class A extends React.Component {
 
     let type = this.constructor.name
 
-    let objIndex = this.props.nested_data?.findIndex((obj => { return (obj.type == type && obj.id == this.props._step) }));
+    let objIndex = this.props.nested_data?.findIndex((obj => {
+      return (obj.type == type && obj.id == this.props._step) 
+    }));
 
     let defaultValues
 
@@ -52,7 +62,7 @@ class A extends React.Component {
 
 
           <label>A's href:</label>
-          <input name="A_href" value={defaultValues?.A_href} type="text" placeholder="A href"
+          <input name="A_href" value={defaultValues?.A_href || ""} type="text" placeholder="A href"
             onChange={(e) => {
               e.persist()
               this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
@@ -61,7 +71,7 @@ class A extends React.Component {
 
 
           <label>A's title:</label>
-          <input name="A_title" value={defaultValues?.A_title} type="text" placeholder="A title"
+          <input name="A_title" value={defaultValues?.A_title || ""} type="text" placeholder="A title"
             onChange={(e) => {
               e.persist()
               this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
@@ -193,7 +203,7 @@ class A extends React.Component {
             <React.Fragment>
               <div ref={this.innerText} id='inner-text'>
                 <label>A's inner text:</label>
-                <input name="A_innerText" value={defaultValues?.A_innerText} type="text" placeholder="A inner text"
+                <input name="A_innerText" value={defaultValues?.A_innerText || ""} type="text" placeholder="A inner text"
                   onChange={(e) => {
                     e.persist()
                     this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
