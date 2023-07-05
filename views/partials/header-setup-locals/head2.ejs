@@ -21,10 +21,19 @@
   <!-- Relative to the blog's container styles: article tag -->
   
   <%- include("../../css/blog/article-container.ejs") %>
-  <%- include('../../css/blog/bloc1-header.ejs') %>
-
+  
   <%- include('meta/nofollow_noindex.ejs') %>
   <link rel="canonical" href=<%=locals.article.articleheadtag_id.canonical%>>
+  
+  
+  
+  <%- include('../../css/blog/bloc1-header.ejs') %>
+  <%- include('../../css/blog/bloc2-abstract.ejs') %>
+  
+  <!-- < %- include('../css/blog-element/bloc3-content-lt600.ejs') %> -->
+  <!-- < %- include('../css/blog-element/bloc3-content-gt600-lt1400.ejs') %> -->
+  <!-- < %- include('../css/blog-element/bloc3-content.ejs') %> -->
+
 </head>
 
 
