@@ -115,9 +115,7 @@ class CreateArticle extends React.Component {
         {
           "id": 4,
           "type": "EMBED",
-          "embed_source": "https://www.youtube.com/embed/s2LmubDQ4RI",
-          "embed_width": "1000",
-          "embed_height": "500"
+          "embed_source": "https://www.youtube.com/embed/s2LmubDQ4RI"
         },
         {
           "id": 5,

@@ -1,0 +1,8 @@
+
+div#abstract_id>div {
+  font-size: var(--font-size-aside) !important;
+}
+
+div#abstract_id>ul {
+  font-size: var(--line-height-generic) !important;
+}

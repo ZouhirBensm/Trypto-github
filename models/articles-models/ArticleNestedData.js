@@ -38,6 +38,10 @@ const Block = mongoose.model('Block', BlockSchema);
 
 
 const ArticleNestedDataSchema = new Schema({
+  content_structure: [{
+    type: String,
+    required: true
+  }],
 
   blocks: [{
     type: BlockSchema,

@@ -260,6 +260,7 @@ async function createArticleNestedDatatMiddleware2(req, res, next) {
   let ret_article_nested_data_instance;
 
   ret_article_nested_data_instance = new ArticleNestedData({
+    content_structure: JSON.parse(req.body.content_structure),
     blocks: res.locals.ARR_mongoose_Blocks,
     article_id: res.locals.ret_article_instance._id
   });

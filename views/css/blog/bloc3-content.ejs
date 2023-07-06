@@ -1,0 +1,37 @@
+<!-- < %
+console.log(locals.article.articlenesteddata_id.content_structure)
+console.log(locals.SECTION_TYPES.H2)
+%> -->
+
+<% if (locals.article.articlenesteddata_id.content_structure.includes(locals.SECTION_TYPES.H2)) { 
+  %>
+
+  // H2 blocks styles import
+  <%- include('bloc3-content/H2.ejs') %>
+
+<% } else if (locals.article.articlenesteddata_id.content_structure.includes(locals.SECTION_TYPES.H3)) { %>
+
+  // H3 blocks styles import
+  <%- include('bloc3-content/H3.ejs') %>
+
+<% } else if (locals.article.articlenesteddata_id.content_structure.includes(locals.SECTION_TYPES.SUMMERNOTE)) { %>
+
+  // SUMMERNOTE blocks styles import
+  <%- include('bloc3-content/SUMMERNOTE.ejs') %>
+
+<% } else if (locals.article.articlenesteddata_id.content_structure.includes(locals.SECTION_TYPES.IMG)) { %>
+
+  // IMG blocks styles import
+  <%- include('bloc3-content/IMG.ejs') %>
+
+<% } else if (locals.article.articlenesteddata_id.content_structure.includes(locals.SECTION_TYPES.A)) { %>
+
+  // A blocks styles import
+  <%- include('bloc3-content/A.ejs') %>
+
+<% } else if (locals.article.articlenesteddata_id.content_structure.includes(locals.SECTION_TYPES.EMBED)) { %>
+
+  // EMBED blocks styles import
+  <%- include('bloc3-content/EMBED.ejs') %>
+
+<% } %>
