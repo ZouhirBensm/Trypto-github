@@ -47,6 +47,7 @@ class IMG extends React.Component {
           image_file={defaultValues?.image?.image_file}
           onClickCallback={this.inputBufferOnChange}
           required={true}
+          inputID="input-img-id-or-validation"
         />
 
         <label>Image's width:</label>

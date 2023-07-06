@@ -5,7 +5,8 @@ div#box-input {
 
 /* div#nest-1> */
 /* div#create-article-form-id> */
-div#box-input>input#input-banner-img-id {
+div#box-input>input#input-img-id-or-validation,
+div#box-input>input#input-img-id-needed {
   /* Your styles here */
   /* display: none; */
   z-index: -1;

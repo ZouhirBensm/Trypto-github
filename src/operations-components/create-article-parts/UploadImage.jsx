@@ -37,7 +37,7 @@ class UploadImage extends React.Component {
       <React.Fragment>
         <div id='box-input' className='image-upload'>
 
-          <label id='upload-button' htmlFor="input-banner-img-id">Upload</label>
+          <label id='upload-button' htmlFor={this.props.inputID}>Upload</label>
           <div>
             {this.props.image_name ?
               this.props.image_name
@@ -46,8 +46,7 @@ class UploadImage extends React.Component {
             }
           </div>
 
-
-          <input ref={this.fileInput} id="input-banner-img-id" type="file" name="image" 
+          <input ref={this.fileInput} id={this.props.inputID} type="file" name="image" 
           onChange={(e) => {
             this.props.onClickCallback(e)
           }}

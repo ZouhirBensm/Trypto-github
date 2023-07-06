@@ -105,7 +105,7 @@ class CreateArticle extends React.Component {
         {
           "id": 2,
           "type": "SUMMERNOTE",
-          "SUMMERNOTE_innerHTML": "<p>some content.</p><p>I hope this works!</p><p>adding&nbsp;<a href=\"https://google.com\" target=\"_blank\">a link</a>&nbsp;to google.</p>"
+          "SUMMERNOTE_innerHTML": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit magni necessitatibus quos illum qui alias blanditiis, impedit facilis vero, provident nesciunt modi ad obcaecati libero vel quidem veritatis ipsa sunt!</p><p>I hope this works!</p><p>I hope this works!</p><p>adding&nbsp;a link&nbsp;to <a href=\"https://google.com\" target=\"_blank\">google</a>. bla.</p><ul><li>one</li><li>two bla bla&nbsp;<a href=\"https://yahoo..com\" target=\"_blank\">yahoo</a> ici. bla.</li><li>this is amazing!</li></ul>"
         },
         {
           "id": 3,
@@ -123,7 +123,7 @@ class CreateArticle extends React.Component {
           "img_width": "200",
           "img_height": "200",
           "img_alt": "Algerians",
-          "img_description": "Phenotype of algerians",
+          "img_description": "Phenotype of algerians"
         },
         {
           "id": 6,
@@ -457,7 +457,7 @@ class CreateArticle extends React.Component {
 
     // Find the input elements with the desired IDs
     var inputBannerImgIdInput = inputs.find(function (input) {
-      return input.id === 'input-banner-img-id';
+      return input.id === 'input-img-id-or-validation';
     });
 
     var imageSrcInput = inputs.find(function (input) {
@@ -488,7 +488,7 @@ class CreateArticle extends React.Component {
     
 
     inputs = inputs.filter(function(input) {
-      return !['input-banner-img-id', 'image-src'].includes(input.id);
+      return !['input-img-id-or-validation', 'image-src'].includes(input.id);
     });
 
     console.log(inputs)

@@ -63,6 +63,7 @@ class _2_SetArticleBodyHeader extends React.Component {
             // setStateBannerImage={this.props.setStateBannerImage} 
             onClickCallback={this.inputBufferOnChange}
             required={true}
+            inputID="input-img-id-needed"
           />
 
           <label>Set Banner Image Alternate text</label>
