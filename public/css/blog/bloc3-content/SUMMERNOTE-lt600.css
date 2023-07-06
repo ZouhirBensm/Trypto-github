@@ -1,0 +1,8 @@
+main#content_id>section>p {
+  width: 95% !important;
+  font-size: var(--font-size-p-xsmaller);
+}
+
+/* main > article > section > ul {
+  width: 80% !important;
+} */
