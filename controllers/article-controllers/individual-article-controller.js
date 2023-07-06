@@ -11,6 +11,7 @@ function controller1(req, res, next) {
 
 }
 
+// TODO !!!!! Need to optimise Footer and loads, and also add email inputs and table of content blocks.
 
 
 module.exports = {
