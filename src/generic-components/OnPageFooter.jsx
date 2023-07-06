@@ -36,4 +36,7 @@ function OnPageFooter() {
   );
 }
 
-export default OnPageFooter
+const element = <OnPageFooter />;
+ReactDOM.render(element, document.getElementById('react-div'));
+
+export default OnPageFooter;

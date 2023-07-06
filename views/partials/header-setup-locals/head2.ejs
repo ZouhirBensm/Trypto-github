@@ -43,6 +43,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+
+  <!-- LOADED TO BUNDLE AND RENDER FOOTER -->
+  <% if(process.env.ENVIRONMENT === 'production') { %>
+    <script src="https://unpkg.com/react@16.6/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16.6/umd/react-dom.production.min.js"></script>
+  <% } else { %>
+    <script src="https://unpkg.com/react@16.6/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.6/umd/react-dom.development.js"></script>
+  <% } %>
+
+  <script src="https://unpkg.com/@babel/polyfill@7/dist/polyfill.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
 </head>
 
 
