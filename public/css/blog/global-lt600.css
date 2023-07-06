@@ -1,0 +1,5 @@
+  /* applies at < 600 px */
+  /* AUTHOR NAME */
+  main#content_id>span {
+    width: 95% !important;
+  }
