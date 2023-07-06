@@ -76,50 +76,53 @@ class EmailMarketingCollector extends React.Component {
 
     return (
       <React.Fragment>
-        <div id="email-marketing-main-component" className='higher-level-div'>
-          <img src="/img/SVG/home/email-collector/bk2.svg" alt="" />
+        <div>
+          <div id="email-marketing-main-component" className='higher-level-div'>
+            <img src="/img/SVG/home/email-collector/bk2.svg" alt="" />
 
-          <div id='element-1'>
-            <div className='content'>
-              <h1>Get product update news, and newsletter</h1>
-              <p>Be part of our community. Be a priviledged informed user about new implementations, and web software updates. Be informed with Bidblock's progess.</p>
+            <div id='element-1'>
+              <div className='content'>
+                <h1>Get product update news, and newsletter</h1>
+                <p>Be part of our community. Be a priviledged informed user about new implementations, and web software updates. Be informed with Bidblock's progess.</p>
+              </div>
             </div>
-          </div>
 
-          <div id='element-2'>
-            <div className='content'>
-              <input type="text" placeholder='Your email' id='email-for-marketing'/>
+            <div id='element-2'>
+              <div className='content'>
+                <input type="text" placeholder='Your email' id='email-for-marketing'/>
 
-              {this.state.popup ?
-                <span className="popup">{this.state.popup}</span> :
-                null
-              }
+                {this.state.popup ?
+                  <span className="popup">{this.state.popup}</span> :
+                  null
+                }
 
-              <button onClick={async (e)=>{
+                <button onClick={async (e)=>{
 
-                const email = document.getElementById("email-for-marketing").value;
+                  const email = document.getElementById("email-for-marketing").value;
 
-                const flag = this.validation(email, e)
+                  const flag = this.validation(email, e)
 
-                if (!flag) {return}
-
-
-                const isTimedOut = this.checktimer()
-                console.log(isTimedOut)
-
-                if (!isTimedOut) return
+                  if (!flag) {return}
 
 
-                
-                let isEmailSent = false
+                  const isTimedOut = this.checktimer()
+                  console.log(isTimedOut)
 
-                isEmailSent = await this.sendemail(email)
+                  if (!isTimedOut) return
 
-                console.log('isEmailSent', isEmailSent)
-                return
 
-              }}>Send</button>
+                  
+                  let isEmailSent = false
+
+                  isEmailSent = await this.sendemail(email)
+
+                  console.log('isEmailSent', isEmailSent)
+                  return
+
+                }}>Send</button>
+              </div>
             </div>
+
           </div>
 
         </div>
