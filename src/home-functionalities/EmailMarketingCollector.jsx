@@ -9,7 +9,7 @@ class EmailMarketingCollector extends React.Component {
     }
     this.validation = this.validation.bind(this)
     this.sendemail = this.sendemail.bind(this)
-    console.log(title0, title1, subtitle0, subtitle1)
+    // console.log(title0, title1, subtitle0, subtitle1)
     // console.log(title0, title1, subtitle0, subtitle1)
   }
 
