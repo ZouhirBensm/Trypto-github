@@ -22,9 +22,14 @@ async function controller2(req, res, next) {
 
 
 
-
-// TODO !!!!! add table of content blocks.
+// TODO !!!!! Test the email inputs
+// TODO !!!! Use of table of content?
+// TODO !!!! add table of content blocks.
+// TODO !!!!! sitemap build
+// TODO !!!!! google search console register
+// TODO !!!!! google analitics register
 // TODO !!!! Need to optimise Blog Loads,
+
 // TODO !!! make bottom home icon navigation bar (white nav bar) available only on mobile layouts (entire app). It is not required on desktops
 
 
