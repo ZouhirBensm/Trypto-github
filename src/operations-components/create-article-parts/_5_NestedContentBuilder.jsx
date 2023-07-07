@@ -1,5 +1,5 @@
 import loadable from "@loadable/component";
-import Loading from "../../generic-components/Loading"
+import Loading from "../../generic-components/Loading";
 
 import SECTION_TYPES from '../../../full-stack-libs/Types/ArticleSectionTypes';
 
