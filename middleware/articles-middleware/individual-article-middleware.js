@@ -50,9 +50,50 @@ async function middleware1(req, res, next) {
   return next()
 
 }
-function middleware2(req, res, next) {
+
+
+
+
+async function middleware2(req, res, next) {
+  // res.locals.article_title = req.params.article_title ?  req.params.article_title : undefined
+  res.locals.head = 2
+
+  let EMAIL_blocks = res.locals.article.articlenesteddata_id.blocks.filter(block => { return block.type == SECTION_TYPES.EMAIL });
+
+
+  if (!EMAIL_blocks) return next()
+
+  res.locals.EMAIL_blocks = EMAIL_blocks
+
+
+  for (let index = 0; index < EMAIL_blocks.length; index++) {
+    let bblock = EMAIL_blocks[index];
+
+    
+
+    // console.log(JSON.stringify(bblock))
+    // console.log(Object.getOwnPropertyNames(bblock))
+    // console.log(Reflect.ownKeys(bblock))
+    
+    // Copy has to do with accessing EMAIL_title, EMAIL_subtitle, and non-enumerable or non-serializable properties
+    const copiedBlock = JSON.parse(JSON.stringify(bblock));
+
+    // const copiedBlock = Object.assign({}, bblock);
+    // const copiedBlock = { ...bblock };
+
+    console.log('__________\n\n', bblock.EMAIL_title, copiedBlock.EMAIL_title, '__________\n\n')
+    const titleKey = `title${index}`;
+    const subtitleKey = `subtitle${index}`;
+
+    res.locals[titleKey] = copiedBlock.EMAIL_title;
+    res.locals[subtitleKey] = copiedBlock.EMAIL_subtitle;
+  }
+
+
   return next()
 }
+
+
 function middleware3(req, res, next) {
   return next()
 }

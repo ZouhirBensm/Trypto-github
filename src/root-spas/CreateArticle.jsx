@@ -686,7 +686,7 @@ class CreateArticle extends React.Component {
       const block = updated_nested_data[index]
 
 
-      // TODO !!!!! Also try to reduce this component
+      // TODO !!! Also try to reduce this component
       console.log({ block_type })
       console.log('block?.type ', block?.type)
       console.log('block?.type === block_type ', block?.type === block_type)
