@@ -7,8 +7,8 @@
 
   
   <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization" style="display: none">
-    <span itemprop="name">bidblock.ca</span>
-    <link itemprop="email" rel="noopener nofollow" href="mailto:bidblockcanada@gmail.com"/>
+    <span itemprop="name"><%=process.env.DOMAIN_WITHOUT_PROTOCOL%></span>
+    <link itemprop="email" rel="noopener nofollow" href="mailto:<%=process.env.BIDBLOCK_EMAIL%>"/>
     <!-- TODO !!! Ideally set to about us page /about-us -->
     <link itemprop="url" href="/"/>
   </span>
