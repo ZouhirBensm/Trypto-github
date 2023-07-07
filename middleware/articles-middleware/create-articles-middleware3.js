@@ -1,7 +1,7 @@
 const ArticleHeadTag = require('../../models/articles-models/ArticleHeadTag')
 const ArticleBodyHeader = require('../../models/articles-models/ArticleBodyHeader')
 const ArticleAbstract = require("../../models/articles-models/ArticleAbstract")
-const { ArticleNestedData, H2_Block, H3_Block, SUMMERNOTE_Block, IMG_Block, EMBED_Block, A_Block } = require("../../models/articles-models/ArticleNestedData")
+const { ArticleNestedData, H2_Block, H3_Block, SUMMERNOTE_Block, IMG_Block, EMBED_Block, A_Block, EMAIL_Block } = require("../../models/articles-models/ArticleNestedData")
 
 const SECTION_TYPES = require("../../full-stack-libs/Types/ArticleSectionTypes")
 
@@ -235,6 +235,16 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
 
         // await embedBlock.save(); // Save the EMBED_Block instance to the database
         ARR_mongoose_Blocks.push(aBlock);
+        break;
+      case SECTION_TYPES.EMAIL:
+        const emailBlock = new EMAIL_Block({
+          order: nested_data_block.id,
+          EMAIL_title: nested_data_block.EMAIL_title,
+          EMAIL_subtitle: nested_data_block.EMAIL_subtitle,
+        });
+
+        // await h2Block.save(); // Save the H2_Block instance to the database
+        ARR_mongoose_Blocks.push(emailBlock);
         break;
 
 

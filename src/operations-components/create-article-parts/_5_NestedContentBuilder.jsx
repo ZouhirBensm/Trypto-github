@@ -24,6 +24,9 @@ const IMG = loadable(() => import("./IMG"), {
 const EMBED = loadable(() => import("./EMBED"), {
   fallback: <Loading />
 });
+const EMAIL = loadable(() => import("./EMAIL"), {
+  fallback: <Loading />
+});
 
 
 
@@ -126,6 +129,17 @@ class _5_NestedContentBuilder extends React.Component {
         break;
       case SECTION_TYPES.EMBED:
         component = <EMBED
+          _step={this.state._step}
+          _last_step={this.state._last_step}
+          _previousStep={this._previousStep}
+          _nextStep={this._nextStep}
+
+          nested_data={this.props.nested_data}
+          innerHandleChange={this.props.innerHandleChange}
+        />
+        break;
+      case SECTION_TYPES.EMAIL:
+        component = <EMAIL
           _step={this.state._step}
           _last_step={this.state._last_step}
           _previousStep={this._previousStep}

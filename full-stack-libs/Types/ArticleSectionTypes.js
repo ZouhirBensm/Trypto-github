@@ -7,6 +7,7 @@ const SECTION_TYPES = {
   IMG: "IMG",
   A: "A",
   EMBED: "EMBED",
+  EMAIL: "EMAIL",
 }
 
 module.exports = SECTION_TYPES

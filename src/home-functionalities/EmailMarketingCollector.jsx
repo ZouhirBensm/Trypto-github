@@ -9,6 +9,8 @@ class EmailMarketingCollector extends React.Component {
     }
     this.validation = this.validation.bind(this)
     this.sendemail = this.sendemail.bind(this)
+    console.log(title0, title1, subtitle0, subtitle1)
+    // console.log(title0, title1, subtitle0, subtitle1)
   }
 
   async sendemail(email) {
@@ -180,3 +182,18 @@ class EmailMarketingCollector extends React.Component {
 
 
 export default EmailMarketingCollector
+
+
+const targetDivs = document.getElementsByClassName('react-div2');
+
+Array.from(targetDivs).forEach((div, index) => {
+  let title = eval(`title${index}`)
+  let subtitle = eval(`subtitle${index}`)
+
+  const element = <EmailMarketingCollector 
+    title={title}
+    subtitle={subtitle}
+  />;
+
+  ReactDOM.render(element, div);
+});

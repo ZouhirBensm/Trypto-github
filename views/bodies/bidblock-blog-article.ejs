@@ -7,11 +7,26 @@
     
   </article>
 
-  <div id='react-div2'></div>
+  
   <footer id='react-div'></footer>
 </div>
 
 
+<!-- LOADS JSX_to_load2 = 'EmailMarketingCollector'; into all <div class='react-div2'></div>-->
+<% if (locals.article.articlenesteddata_id.content_structure.includes(locals.SECTION_TYPES.EMAIL)) { %>
+  <script>
+    
+    <% for (let i = 0; i < locals.EMAIL_blocks.length; i++) { %>
+      <% const titleKey = `title${i}`; %>
+      <% const subtitleKey = `subtitle${i}`; %>
+      let <%= titleKey %> = '<%= locals[titleKey] %>';
+      let <%= subtitleKey %> = '<%= locals[subtitleKey] %>';
+    <% } %>
+  </script>
 
-<script type="text/javascript" src="/dist/<%= JSX_to_load2 %>.js"></script>
+  <script type="text/javascript" src="/dist/<%= JSX_to_load2 %>.js"></script>
+<% } %> 
+
+
+<!-- LOADS JSX_to_load = 'OnPageFooter'; into <footer id='react-div'></footer> -->
 <script type="text/javascript" src="/dist/<%= JSX_to_load %>.js"></script>

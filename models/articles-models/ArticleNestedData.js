@@ -112,7 +112,7 @@ const IMG_Block = Block.discriminator(SECTION_TYPES.IMG,
     img_description: {
       type: String,
       required: true,
-    }, 
+    },
     image: {
       type: ImageSchema,
     }
@@ -202,6 +202,21 @@ const EMBED_Block = Block.discriminator(SECTION_TYPES.EMBED,
 
 
 
+// type: EMBED: DESCRIMINATOR
+const EMAIL_Block = Block.discriminator(SECTION_TYPES.EMAIL,
+  new mongoose.Schema({
+    EMAIL_title: {
+      type: String,
+      required: true
+    },
+    EMAIL_subtitle: {
+      type: String,
+      required: true
+    }
+  }, options));
+
+
+
 
 
 
@@ -229,6 +244,6 @@ const EMBED_Block = Block.discriminator(SECTION_TYPES.EMBED,
 
 const ArticleNestedData = mongoose.model('ArticleNestedData', ArticleNestedDataSchema)
 
-module.exports = { ArticleNestedData, H2_Block, H3_Block, SUMMERNOTE_Block, IMG_Block, EMBED_Block, A_Block }
+module.exports = { ArticleNestedData, H2_Block, H3_Block, SUMMERNOTE_Block, IMG_Block, EMBED_Block, A_Block, EMAIL_Block }
 
 // { A_Block }

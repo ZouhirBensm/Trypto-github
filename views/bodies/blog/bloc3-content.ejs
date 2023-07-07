@@ -25,6 +25,10 @@
     <% } else if (block.type == locals.SECTION_TYPES.EMBED) { %>
       <%- include('bloc3-pieces/EMBED.ejs', {block: block}) %>
       
+      
+    <% } else if (block.type == locals.SECTION_TYPES.EMAIL) { %>
+      <%- include('bloc3-pieces/EMAIL.ejs', {block: block}) %>
+        
     <% } %>
 
 
@@ -34,6 +38,7 @@
     <!-- TODO !!! place author name link -->
     <a href="/">By <%=locals.article.author_id.username%></a>
   </span>
+  
 
 
 </main>

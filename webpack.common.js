@@ -74,6 +74,7 @@ var config = {
     TermsConditions: './src/root-spas/TermsConditions.jsx',
     AddFAQ: './src/root-spas/AddFAQ.jsx',
     OnPageFooter: './src/generic-components/OnPageFooter.jsx',
+    EmailMarketingCollector: './src/home-functionalities/EmailMarketingCollector.jsx',
   },
   output: {
     // Deletable libraryTarget: 'commonjs2',

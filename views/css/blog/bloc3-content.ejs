@@ -45,3 +45,9 @@ console.log(locals.SECTION_TYPES.H2)
   <%- include('bloc3-content/EMBED.ejs') %>
 
 <% } %>
+
+<% if (locals.article.articlenesteddata_id.content_structure.includes(locals.SECTION_TYPES.EMAIL)) { %>
+
+<%- include('bloc3-content/EMAIL.ejs') %>
+
+<% } %>

@@ -91,7 +91,7 @@ class CreateArticle extends React.Component {
 
       
 
-      content_structure: [SECTION_TYPES.H2, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.H3, SECTION_TYPES.EMBED, SECTION_TYPES.IMG, SECTION_TYPES.IMG, SECTION_TYPES.A, SECTION_TYPES.A],
+      content_structure: [SECTION_TYPES.H2, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.EMAIL, SECTION_TYPES.H3, SECTION_TYPES.EMBED, SECTION_TYPES.IMG, SECTION_TYPES.IMG, SECTION_TYPES.A, SECTION_TYPES.EMAIL, SECTION_TYPES.A],
       // content_structure: [SECTION_TYPES.IMG, SECTION_TYPES.IMG],
       // content_structure: [SECTION_TYPES.A, SECTION_TYPES.A],
       e: undefined,
@@ -109,24 +109,30 @@ class CreateArticle extends React.Component {
         },
         {
           "id": 3,
+          "type": "EMAIL",
+          "EMAIL_title": "title1",
+          "EMAIL_subtitle": "subtitle1"
+        },
+        {
+          "id": 4,
           "type": "H3",
           "H3_innerHTML": "some h3 element"
         },
         {
-          "id": 4,
+          "id": 5,
           "type": "EMBED",
           "embed_source": "https://www.youtube.com/embed/s2LmubDQ4RI"
         },
         {
-          "id": 5,
+          "id": 6,
           "type": "IMG",
           "img_width": "200",
           "img_height": "200",
           "img_alt": "Algerians",
-          "img_description": "Phenotype of algerians"
+          "img_description": "Phenotype of algerians",
         },
         {
-          "id": 6,
+          "id": 7,
           "type": "IMG",
           "img_src": "https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2023/revuelto/revuelto_m.png",
           "img_alt": "Lambo",
@@ -135,7 +141,7 @@ class CreateArticle extends React.Component {
           "img_description": "a Lambo"
         },
         {
-          "id": 7,
+          "id": 8,
           "type": "A",
           "A_href": "https://en.wikipedia.org/wiki/Cars_(film)",
           "A_innerText": "Wiki cars",
@@ -146,7 +152,13 @@ class CreateArticle extends React.Component {
           "noopener": true
         },
         {
-          "id": 8,
+          "id": 9,
+          "type": "EMAIL",
+          "EMAIL_title": "title2",
+          "EMAIL_subtitle": "subtitle2"
+        },
+        {
+          "id": 10,
           "type": "A",
           "A_href": "https://www.bbc.com/news/world-europe-66104632",
           "A_title": "BBC franch",
