@@ -1,3 +1,5 @@
+import SECTION_TYPES from '../../../full-stack-libs/Types/ArticleSectionTypes'
+
 
 class H2 extends React.Component {
   constructor(props) {
@@ -8,7 +10,7 @@ class H2 extends React.Component {
     console.log('H2->this.props.nested_data\n', this.props.nested_data)
 
     let objIndex = this.props.nested_data?.findIndex((obj => {
-      return (obj.type == this.constructor.name && obj.id == this.props._step)
+      return (obj.type == SECTION_TYPES.H2 && obj.id == this.props._step)
     }));
 
     // let object = this.props.nested_data?.find((object)=>{return object.type == this.constructor.name})

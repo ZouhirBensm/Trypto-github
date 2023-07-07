@@ -22,13 +22,15 @@ class IMG extends React.Component {
   render() {
 
 
-    let type = this.constructor.name
+    let type = SECTION_TYPES.IMG
 
     if (this.props.encapsulated_by_a){
       type = SECTION_TYPES.A
     }
 
-    let objIndex = this.props.nested_data?.findIndex((obj => { return (obj.type == type && obj.id == this.props._step) }));
+    let objIndex = this.props.nested_data?.findIndex((obj => { 
+      return (obj.type == type && obj.id == this.props._step) 
+    }));
 
     let defaultValues
 

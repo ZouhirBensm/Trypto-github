@@ -1,5 +1,6 @@
 import './styles/A.css'
 import IMG from './IMG'
+import SECTION_TYPES from '../../../full-stack-libs/Types/ArticleSectionTypes'
 
 class A extends React.Component {
   constructor(props) {
@@ -34,10 +35,8 @@ class A extends React.Component {
 
   render() {
 
-    let type = this.constructor.name
-
     let objIndex = this.props.nested_data?.findIndex((obj => {
-      return (obj.type == type && obj.id == this.props._step) 
+      return (obj.type == SECTION_TYPES.A && obj.id == this.props._step) 
     }));
 
     let defaultValues

@@ -1,3 +1,4 @@
+import SECTION_TYPES from '../../../full-stack-libs/Types/ArticleSectionTypes'
 
 class EMBED extends React.Component {
   constructor(props) {
@@ -6,7 +7,9 @@ class EMBED extends React.Component {
   }
   render() {
 
-    let objIndex = this.props.nested_data?.findIndex((obj => {return (obj.type == this.constructor.name && obj.id == this.props._step)}));
+    let objIndex = this.props.nested_data?.findIndex((obj => {
+      return (obj.type == SECTION_TYPES.EMBED && obj.id == this.props._step)
+    }));
 
     // let object = this.props.nested_data?.find((object)=>{return object.type == this.constructor.name})
     let defaultValues

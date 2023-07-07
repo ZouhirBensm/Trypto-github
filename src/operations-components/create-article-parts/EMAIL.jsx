@@ -1,3 +1,4 @@
+import SECTION_TYPES from '../../../full-stack-libs/Types/ArticleSectionTypes'
 
 class EMAIL extends React.Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class EMAIL extends React.Component {
   render() {
 
     let objIndex = this.props.nested_data?.findIndex((obj => {
-      return (obj.type == this.constructor.name && obj.id == this.props._step)
+      return (obj.type == SECTION_TYPES.EMAIL && obj.id == this.props._step)
     }));
 
     let defaultValues
