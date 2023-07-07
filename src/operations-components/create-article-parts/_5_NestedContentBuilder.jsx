@@ -1,12 +1,10 @@
 import loadable from "@loadable/component";
 import Loading from "../../generic-components/Loading"
 
-import SECTION_TYPES from '../../../full-stack-libs/Types/ArticleSectionTypes'
+import SECTION_TYPES from '../../../full-stack-libs/Types/ArticleSectionTypes';
 
 
-const SUMMERNOTE = loadable(() => import("./SUMMERNOTE"), {
-  fallback: <Loading />
-});
+
 
 const H2 = loadable(() => import("./H2"), {
   fallback: <Loading />
@@ -25,6 +23,9 @@ const EMBED = loadable(() => import("./EMBED"), {
   fallback: <Loading />
 });
 const EMAIL = loadable(() => import("./EMAIL"), {
+  fallback: <Loading />
+});
+const SUMMERNOTE = loadable(() => import("./SUMMERNOTE"), {
   fallback: <Loading />
 });
 
