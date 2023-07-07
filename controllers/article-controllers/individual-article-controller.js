@@ -28,7 +28,6 @@ async function controller1(req, res, next) {
   }
 
 
-
   return next()
 
 }
