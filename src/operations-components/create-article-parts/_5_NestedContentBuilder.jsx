@@ -25,9 +25,9 @@ const EMBED = loadable(() => import("./EMBED"), {
 const EMAIL = loadable(() => import("./EMAIL"), {
   fallback: <Loading />
 });
-const SUMMERNOTE = loadable(() => import("./SUMMERNOTE"), {
-  fallback: <Loading />
-});
+// const SUMMERNOTE = loadable(() => import("./SUMMERNOTE"), {
+//   fallback: <Loading />
+// });
 
 
 
