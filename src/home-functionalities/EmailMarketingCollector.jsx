@@ -82,8 +82,8 @@ class EmailMarketingCollector extends React.Component {
 
             <div id='element-1'>
               <div className='content'>
-                <h1>Get product update news, and newsletter</h1>
-                <p>Be part of our community. Be a priviledged informed user about new implementations, and web software updates. Be informed with Bidblock's progess.</p>
+                <h1>{this.props.title}</h1>
+                <p>{this.props.subtitle}</p>
               </div>
             </div>
 

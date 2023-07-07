@@ -4,9 +4,11 @@ function controller1(req, res, next) {
 
   
     var JSX_to_load = 'OnPageFooter';
+    var JSX_to_load2 = 'EmailMarketingCollector';
 
     res.render('bodies/bidblock-blog-article', { 
       JSX_to_load : JSX_to_load, 
+      JSX_to_load2 : JSX_to_load2, 
     })
 
 }

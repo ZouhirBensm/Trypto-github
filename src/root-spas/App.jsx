@@ -65,7 +65,10 @@ class App extends React.Component {
 
         <HomeBanner btc_gecko_prices={this.state.prices} />
 
-        <EmailMarketingCollector />
+        <EmailMarketingCollector 
+          title="Get product update news, and newsletter"
+          subtitle="Be part of our community. Be a priviledged informed user about new implementations, and web software updates. Be informed with Bidblock's progess."
+        />
 
         <GetRecentMarketItems />
 
