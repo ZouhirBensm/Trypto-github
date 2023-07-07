@@ -30,13 +30,13 @@ class EMAIL extends React.Component {
           <label>Email collector title: </label>
           <input name="EMAIL_title" value={defaultValues?.EMAIL_title || ""} type="text" placeholder="Enter wanted title for the email collector" onChange={(e) => {
             e.persist()
-            this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+            this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.EMAIL, this.props._step)
           }} required />
 
           <label>Email collector subtitle: </label>
           <input name="EMAIL_subtitle" value={defaultValues?.EMAIL_subtitle || ""} type="text" placeholder="Enter wanted subtitle for the email collector" onChange={(e) => {
             e.persist()
-            this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+            this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.EMAIL, this.props._step)
           }} required />
 
         </div>

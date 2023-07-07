@@ -597,8 +597,8 @@ class CreateArticle extends React.Component {
   innerHandleChange = (e, type2edit = undefined, id = undefined) => {
 
     var eventTargetName = e.target.name
-    // console.log("e.target.type, type2edit, id, eventTargetName")
-    // console.log(e.target.type, type2edit, id, eventTargetName)
+    console.log("\n\n__________\n\ne.target.type, type2edit, id, eventTargetName\n")
+    console.log(e.target.type, type2edit, id, eventTargetName, '\n\n')
 
     let value
     switch (e.target.type) {

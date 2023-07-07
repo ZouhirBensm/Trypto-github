@@ -13,7 +13,7 @@ class H2 extends React.Component {
       return (obj.type == SECTION_TYPES.H2 && obj.id == this.props._step)
     }));
 
-    // let object = this.props.nested_data?.find((object)=>{return object.type == this.constructor.name})
+    // let object = this.props.nested_data?.find((object)=>{return object.type == SECTION_TYPES.H2})
     let defaultValues
 
     if(objIndex != -1) {
@@ -32,8 +32,9 @@ class H2 extends React.Component {
         
         <label>H2's inner HTML: </label>
         <input name="H2_innerHTML" value={defaultValues?.H2_innerHTML || ""} type="text" placeholder="Enter H2 inner HTML" onChange={(e)=> {
+          console.log('H2 onchange...')
           e.persist()
-          this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+          this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.H2, this.props._step)
           }} required/>
 
         </div>

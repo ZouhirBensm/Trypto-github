@@ -9,7 +9,7 @@ class SUMMERNOTE extends React.Component {
 
   componentDidMount() {
     var props = this.props
-    var constructorName = this.constructor.name
+    var constructorName = SECTION_TYPES.SUMMERNOTE
 
     $('#summernote').summernote({
       placeholder: 'Edit content',
@@ -36,7 +36,7 @@ class SUMMERNOTE extends React.Component {
       return (obj.type == SECTION_TYPES.SUMMERNOTE && obj.id == this.props._step)
     }));
 
-    // let object = this.props.nested_data?.find((object)=>{return object.type == this.constructor.name})
+    // let object = this.props.nested_data?.find((object)=>{return object.type == SECTION_TYPES.SUMMERNOTE})
     let defaultValues
 
     if(objIndex == -1) {
@@ -68,7 +68,7 @@ class SUMMERNOTE extends React.Component {
 
           {/* <textarea name="P_innerHTML" value={defaultValues?.P_innerHTML || ""} placeholder="Enter P inner HTML" onChange={(e) => {
             e.persist()
-            this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+            this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.SUMMERNOTE, this.props._step)
           }} required /> */}
 
           <textarea id="summernote" name="SUMMERNOTE_innerHTML" required></textarea>

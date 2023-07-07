@@ -10,7 +10,7 @@ class IMG extends React.Component {
   
   img_onChange = (e) => {
     e.persist()
-    let type = this.constructor.name
+    let type = SECTION_TYPES.IMG
 
     if(this.props.encapsulated_by_a){
       type = SECTION_TYPES.A
@@ -94,14 +94,14 @@ class IMG extends React.Component {
     // Only triggers on file change (therefor a file is always present), so this guard is not necessary
     if (!e.currentTarget.files[0]) return
 
-    let type = this.constructor.name
+    let type = SECTION_TYPES.IMG
 
     if(this.props.encapsulated_by_a){
       type = SECTION_TYPES.A
     }
 
     // console.log("onChange!!!", e, '\n', e.target)
-    // console.log("--->>", e.currentTarget.files[0].name, this.constructor.name, type, this.props._step)
+    // console.log("--->>", e.currentTarget.files[0].name, SECTION_TYPES.IMG, type, this.props._step)
 
 
 

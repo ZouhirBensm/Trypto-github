@@ -64,7 +64,7 @@ class A extends React.Component {
           <input name="A_href" value={defaultValues?.A_href || ""} type="text" placeholder="A href"
             onChange={(e) => {
               e.persist()
-              this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+              this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.A, this.props._step)
             }}
             required />
 
@@ -73,7 +73,7 @@ class A extends React.Component {
           <input name="A_title" value={defaultValues?.A_title || ""} type="text" placeholder="A title"
             onChange={(e) => {
               e.persist()
-              this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+              this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.A, this.props._step)
             }} />
 
 
@@ -85,7 +85,7 @@ class A extends React.Component {
 
             <input type="checkbox" id='id-newtab' name='newtab' className="checkbox" checked={!!defaultValues?.newtab} onChange={(e) => {
               e.persist()
-              this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+              this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.A, this.props._step)
             }} />
 
 
@@ -101,21 +101,21 @@ class A extends React.Component {
 
             <input type="checkbox" id='id-noopener' name='noopener' checked={!!defaultValues?.noopener} onChange={(e) => {
               e.persist()
-              this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+              this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.A, this.props._step)
             }} />
 
             <label htmlFor='id-nofollow'>nofollow</label>
 
             <input type="checkbox" id='id-nofollow' name='nofollow' checked={!!defaultValues?.nofollow} onChange={(e) => {
               e.persist()
-              this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+              this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.A, this.props._step)
             }} />
 
             <label htmlFor='id-ugc'>ugc</label>
 
             <input type="checkbox" id='id-ugc' name='ugc' checked={!!defaultValues?.ugc} onChange={(e) => {
               e.persist()
-              this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+              this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.A, this.props._step)
             }} />
 
           </div>
@@ -163,9 +163,9 @@ class A extends React.Component {
 
 
 
-              this.props.innerHandleChangeToogleDeleteFields(e, this.constructor.name, this.props._step, defaultValues?.image_mode_on || this.state.image_mode_on, inputNames)
+              this.props.innerHandleChangeToogleDeleteFields(e, SECTION_TYPES.A, this.props._step, defaultValues?.image_mode_on || this.state.image_mode_on, inputNames)
 
-              this.props.innerHandleChange(e, this.constructor.name, this.props._step)
+              this.props.innerHandleChange(e, SECTION_TYPES.A, this.props._step)
 
 
             }} 
@@ -182,7 +182,7 @@ class A extends React.Component {
             {/* <input name="imgfield" value={this.props.defaultValues?.imgfield || ""} type="text" placeholder="img field test"
               onChange={(e) => {
                 e.persist()
-                this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+                this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.A, this.props._step)
               }}
               required /> */}
               <div ref={this.imageContainer} id="create-article-form-id" className="form">
@@ -205,7 +205,7 @@ class A extends React.Component {
                 <input name="A_innerText" value={defaultValues?.A_innerText || ""} type="text" placeholder="A inner text"
                   onChange={(e) => {
                     e.persist()
-                    this.props.innerHandleChange(e.nativeEvent, this.constructor.name, this.props._step)
+                    this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.A, this.props._step)
                   }}
                   required />
               </div>
