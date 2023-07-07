@@ -21,7 +21,7 @@ class ArticleItem extends React.Component {
     if (EXTERNAL_READS_SOURCES.includes(this.props.article.source)) {
       enclosure = this.props.article.enclosure
     } else {
-      enclosure = this.props.article.articleenclosureimage_id.path
+      enclosure = this.props.article.articleenclosureimage_id?.path
     }
 
 
