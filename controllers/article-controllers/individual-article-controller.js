@@ -18,7 +18,9 @@ async function controller1(req, res, next) {
     for (let index = 0; index < EMAIL_blocks.length; index++) {
       let block = EMAIL_blocks[index];
 
+      // TODO !!!! look at diff between new3, new2 and new
       // TODO !!!!! HERE figure out why requires a copy object?
+
       const copiedObj = JSON.parse(JSON.stringify(block));
 
       const titleKey = `title${index}`;
