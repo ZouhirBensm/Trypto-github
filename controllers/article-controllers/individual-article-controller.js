@@ -20,14 +20,20 @@ async function controller2(req, res, next) {
 
 }
 
+// TODO !!!! merge, Deploy tests
+// TODO !!!! Test schemas and renders
 
 
-// TODO !!!!! Test the email inputs
-// TODO !!!! Use of table of content?
-// TODO !!!! add table of content blocks.
+// TODO !!!! add table of content blocks. dialog
+
+
 // TODO !!!!! sitemap build
+// TODO !!!!! CRUDE Capabilities for blog articles
+// TODO !!!!! build HTML sitemap
 // TODO !!!!! google search console register
 // TODO !!!!! google analitics register
+// TODO !!! Need to add itemprops for EMBED component and for EMAIL component, and table of content also
+// TODO !!! Look into surfer ai
 // TODO !!!! Need to optimise Blog Loads,
 
 // TODO !!! make bottom home icon navigation bar (white nav bar) available only on mobile layouts (entire app). It is not required on desktops
