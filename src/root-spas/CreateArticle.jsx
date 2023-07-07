@@ -230,21 +230,28 @@ class CreateArticle extends React.Component {
   }
 
 
+  componentDidUpdate(){
+
+    console.log("\n\nCreateArticle: componentDidUpdate: this.state.nested_data\n\n", this.state.nested_data)
+
+  }
+
+
   handleChange = (e, input_name_val_object = undefined) => {
-    console.log(input_name_val_object, e)
+    // console.log(input_name_val_object, e)
 
     // const undefined_fields = ['canonical']
     const should_be_set_as_array_state_elements = ['keywords', "abstract_points", "content_structure"]
     const parse_bidblock_to_strong_tag = ["abstract_points"]
 
-    console.log("\n\ne.target.name: ", e.target?.name)
+    // console.log("\n\ne.target.name: ", e.target?.name)
 
-    console.log("\n\ne.target.value: ", e.target?.value)
+    // console.log("\n\ne.target.value: ", e.target?.value)
 
     let stateValue = e.target?.value
 
     if (parse_bidblock_to_strong_tag.includes(e.target?.name)) {
-      console.log('parsing...')
+      // console.log('parsing...')
       stateValue = e.target?.value.replace(/\[/g, '<strong>').replace(/\]/g, '</strong>');
       // stateValue = JSON.stringify(stateValue);
     }
@@ -252,7 +259,7 @@ class CreateArticle extends React.Component {
     if (should_be_set_as_array_state_elements.includes(e.target?.name)) {
       stateValue = stateValue.split(',  ')
     }
-    console.log(stateValue)
+    // console.log(stateValue)
 
     if (input_name_val_object) {
       this.setState({
@@ -270,8 +277,8 @@ class CreateArticle extends React.Component {
 
   handleCheck = (e) => {
 
-    console.log("\n\ne.target.name: ", e.target.name)
-    console.log("\n\ne.target.checked: ", e.target.checked)
+    // console.log("\n\ne.target.name: ", e.target.name)
+    // console.log("\n\ne.target.checked: ", e.target.checked)
 
     this.setState({
       // [e.target.name]: !this.state[e.target.name]
@@ -478,7 +485,7 @@ class CreateArticle extends React.Component {
 
     // Check if both inputs are present
     if (inputBannerImgIdInput && imageSrcInput) {
-      console.log("Both input IDs are present in the array.");
+      // console.log("Both input IDs are present in the array.");
       // Perform additional actions with the inputs if needed
 
       // Check if both required inputs are missing
@@ -491,7 +498,7 @@ class CreateArticle extends React.Component {
 
     }
 
-    console.log('isValid', isValid)
+    // console.log('isValid', isValid)
     if (!isValid) {
       return isValid
     }
@@ -503,14 +510,14 @@ class CreateArticle extends React.Component {
       return !['input-img-id-or-validation', 'image-src'].includes(input.id);
     });
 
-    console.log(inputs)
+    // console.log(inputs)
     for (let i = 0; i < inputs.length; i++) {
       const input = inputs[i];
 
 
       if (input.required && !input.checkValidity()) {
 
-        console.log('\n\ninput.id--->', input.id)
+        // console.log('\n\ninput.id--->', input.id)
 
         // Input is invalid, trigger validation error message
         input.reportValidity();
@@ -539,7 +546,7 @@ class CreateArticle extends React.Component {
       }
     }
 
-    console.log(isValid)
+    // console.log(isValid)
     return isValid
 
   }
@@ -549,7 +556,7 @@ class CreateArticle extends React.Component {
   innerHandleChangeToogleDeleteFields = (e, type2edit = undefined, id = undefined, toogle_state, fields_todelete) => {
 
     var eventTargetName = e.target.name
-    console.log(e.target.type, type2edit, id, eventTargetName, toogle_state)
+    // console.log(e.target.type, type2edit, id, eventTargetName, toogle_state)
 
     // if (eventTargetName != 'image_mode_on') return
 
@@ -562,7 +569,7 @@ class CreateArticle extends React.Component {
         return object.type == type2edit && object.id == id
       })
 
-      console.log({ object })
+      // console.log({ object })
 
 
 
@@ -590,8 +597,8 @@ class CreateArticle extends React.Component {
   innerHandleChange = (e, type2edit = undefined, id = undefined) => {
 
     var eventTargetName = e.target.name
-    console.log("e.target.type, type2edit, id, eventTargetName")
-    console.log(e.target.type, type2edit, id, eventTargetName)
+    // console.log("e.target.type, type2edit, id, eventTargetName")
+    // console.log(e.target.type, type2edit, id, eventTargetName)
 
     let value
     switch (e.target.type) {
@@ -630,7 +637,7 @@ class CreateArticle extends React.Component {
 
       // Create new input object if no object available
       if (!object) {
-        console.log('create..')
+        // console.log('create..')
         object = {
           id: id,
           // e.target.type
@@ -641,7 +648,7 @@ class CreateArticle extends React.Component {
         // Edit input object if object available
       } else {
 
-        console.log('already created..')
+        // console.log('already created..')
         let objIndex = updateNestedData.findIndex((obj => {
           return (obj.type == type2edit && obj.id == id)
         }));
@@ -687,9 +694,9 @@ class CreateArticle extends React.Component {
 
 
       // TODO !!! Also try to reduce this component
-      console.log({ block_type })
-      console.log('block?.type ', block?.type)
-      console.log('block?.type === block_type ', block?.type === block_type)
+      // console.log({ block_type })
+      // console.log('block?.type ', block?.type)
+      // console.log('block?.type === block_type ', block?.type === block_type)
 
       if (block?.type === block_type) {
         updated_nested_data?.splice(index, 1)
@@ -704,7 +711,7 @@ class CreateArticle extends React.Component {
 
   handleChangeInputs = (index) => (event) => {
 
-    console.log('handleChangeInputs: ', index)
+    // console.log('handleChangeInputs: ', index)
     const { value } = event.target;
     this.setState(prevState => {
       const updated_content_structure = [...prevState.content_structure];

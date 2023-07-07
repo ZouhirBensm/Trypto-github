@@ -39,7 +39,7 @@ class _5_NestedContentBuilder extends React.Component {
       _last_step: this.props.content_structure.length
     }
 
-    console.log(this.props.content_structure, this.props.e?.target.innerHTML)
+    console.log(this.props.nested_data, this.props.e?.target.innerHTML)
 
     this._nextStep = this._nextStep.bind(this)
     this._previousStep = this._previousStep.bind(this)

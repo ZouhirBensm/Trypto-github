@@ -5,8 +5,11 @@ class H2 extends React.Component {
     this.state = {}
   }
   render() {
+    console.log('H2->this.props.nested_data\n', this.props.nested_data)
 
-    let objIndex = this.props.nested_data?.findIndex((obj => {return (obj.type == this.constructor.name && obj.id == this.props._step)}));
+    let objIndex = this.props.nested_data?.findIndex((obj => {
+      return (obj.type == this.constructor.name && obj.id == this.props._step)
+    }));
 
     // let object = this.props.nested_data?.find((object)=>{return object.type == this.constructor.name})
     let defaultValues
@@ -14,6 +17,8 @@ class H2 extends React.Component {
     if(objIndex != -1) {
       defaultValues = this.props.nested_data[objIndex]
     }
+
+    console.log("H2->defaultValues\n" ,defaultValues)
 
 
     return (
