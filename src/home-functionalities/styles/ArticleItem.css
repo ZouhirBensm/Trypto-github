@@ -25,6 +25,15 @@ div.article-item>a>div.inner-article-item {
 
 
 
+div.article-item>a>div.inner-article-item>div>h1{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: capitalize;
+  font-size: var(--font-size-h1-xsmaller);
+}
+
+
 
 /* IMG */
 div.article-item>a>div.inner-article-item>img:last-of-type {
