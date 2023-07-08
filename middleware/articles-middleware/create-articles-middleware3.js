@@ -199,6 +199,8 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
           iframe_width: nested_data_block.iframe_width ? parseInt(nested_data_block.iframe_width) : undefined,
           iframe_height: nested_data_block.iframe_height ? parseInt(nested_data_block.iframe_height) : undefined,
           // iframe_type: nested_data_block.iframe_type,
+          iframe_name: nested_data_block.iframe_name,
+          iframe_description: nested_data_block.iframe_description,
           iframe_source: nested_data_block.iframe_source,
           // iframe_title: nested_data_block.iframe_title,
         });

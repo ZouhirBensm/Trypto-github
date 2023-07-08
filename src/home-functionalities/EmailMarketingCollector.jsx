@@ -91,7 +91,8 @@ class EmailMarketingCollector extends React.Component {
 
             <div id='element-2'>
               <div className='content'>
-                <input type="text" placeholder='Your email' id='email-for-marketing'/>
+
+                <input type="email" placeholder='Your email' id='email-for-marketing'/>
 
                 {this.state.popup ?
                   <span className="popup">{this.state.popup}</span> :

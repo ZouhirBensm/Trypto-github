@@ -14,7 +14,7 @@ class IFRAME extends React.Component {
     // let object = this.props.nested_data?.find((object)=>{return object.type == SECTION_TYPES.IFRAME})
     let defaultValues
 
-    if(objIndex != -1) {
+    if (objIndex != -1) {
       defaultValues = this.props.nested_data[objIndex]
     }
 
@@ -22,36 +22,48 @@ class IFRAME extends React.Component {
     return (
       <React.Fragment>
         <h3>iframe video:</h3>
-        
+
         <div id="create-article-form-id" className="form">
 
-        
-        <label>iframe width: </label>
-        <input name="iframe_width" value={defaultValues?.iframe_width || ""} type="number" placeholder="Enter iframe's width" onChange={(e)=> {
-          e.persist()
-          this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.IFRAME, this.props._step)
-          }}/>
+
+          <label>iframe width: </label>
+          <input name="iframe_width" value={defaultValues?.iframe_width || ""} type="number" placeholder="Enter iframe's width" onChange={(e) => {
+            e.persist()
+            this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.IFRAME, this.props._step)
+          }} />
 
 
-        <label>iframe height: </label>
-        <input name="iframe_height" value={defaultValues?.iframe_height || ""} type="number" placeholder="Enter iframe's height" onChange={(e)=> {
-          e.persist()
-          this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.IFRAME, this.props._step)
-          }}/>
+          <label>iframe height: </label>
+          <input name="iframe_height" value={defaultValues?.iframe_height || ""} type="number" placeholder="Enter iframe's height" onChange={(e) => {
+            e.persist()
+            this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.IFRAME, this.props._step)
+          }} />
 
-        {/* <label>iframe type: </label>
+          {/* <label>iframe type: </label>
         <input name="iframe_type" value={defaultValues?.iframe_type || ""} type="text" placeholder="Enter iframe's type" onChange={(e)=> {
           e.persist()
           this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.IFRAME, this.props._step)
           }}/> */}
 
-        <label>iframe source: </label>
-        <input name="iframe_source" value={defaultValues?.iframe_source || ""} type="text" placeholder="Enter iframe's source" onChange={(e)=> {
-          e.persist()
-          this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.IFRAME, this.props._step)
+          <label>iframe name: </label>
+          <input name="iframe_name" value={defaultValues?.iframe_name || ""} type="text" placeholder="Enter iframe's name" onChange={(e) => {
+            e.persist()
+            this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.IFRAME, this.props._step)
           }} required/>
 
-        {/* <label>iframe title: </label>
+          <label>iframe description: </label>
+          <input name="iframe_description" value={defaultValues?.iframe_description || ""} type="text" placeholder="Enter iframe's description" onChange={(e) => {
+            e.persist()
+            this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.IFRAME, this.props._step)
+          }} required/>
+
+          <label>iframe source: </label>
+          <input name="iframe_source" value={defaultValues?.iframe_source || ""} type="text" placeholder="Enter iframe's source" onChange={(e) => {
+            e.persist()
+            this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.IFRAME, this.props._step)
+          }} required />
+
+          {/* <label>iframe title: </label>
         <input name="iframe_title" value={defaultValues?.iframe_title || ""} type="text" placeholder="Enter iframe's title" onChange={(e)=> {
           e.persist()
           this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.IFRAME, this.props._step)

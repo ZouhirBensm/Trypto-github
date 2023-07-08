@@ -24,8 +24,6 @@ async function controller2(req, res, next) {
 
 
 
-// TODO !!! Need to add itemprops for IFRAME component and for EMAIL component.
-
 // TODO !!!! redeploy, resave the back up
 
 

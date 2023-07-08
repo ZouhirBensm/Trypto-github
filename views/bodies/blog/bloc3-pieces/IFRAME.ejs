@@ -1,13 +1,18 @@
 <!-- Errors only apear on the brave browser due to this Youtube source iframe. -->
-<section>
+<section itemscope itemtype="https://schema.org/VideoObject">
+
+  <% const date = new Date(locals.article.publishedDate);%>
+  <span itemprop="name" style="display: none"><%=block.iframe_name%></span>
+  <span itemprop="description" style="display: none"><%=block.iframe_description%></span>
+  <time itemprop="uploadDate" datetime="<%= date.toISOString()%>" style="display: none"></time>
+
 
   <!-- width=< %= block.iframe_width %> 
   height=< %= block.iframe_height %>  -->
   <iframe 
     <% if (block.iframe_width) { %>width="<%= block.iframe_width %>" <% } %>
     <% if (block.iframe_height) { %>height="<%= block.iframe_height %>" <% } %>
-    src=<%= block.iframe_source %> 
-    >
+    src=<%= block.iframe_source %> >
   </iframe>
 
 

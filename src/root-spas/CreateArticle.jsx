@@ -122,6 +122,8 @@ class CreateArticle extends React.Component {
         {
           "id": 5,
           "type": "IFRAME",
+          "iframe_name": "Some name",
+          "iframe_description": "Some description",
           "iframe_source": "https://www.youtube.com/embed/s2LmubDQ4RI"
         },
         {

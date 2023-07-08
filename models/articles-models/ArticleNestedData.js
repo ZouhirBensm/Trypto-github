@@ -184,6 +184,14 @@ const IFRAME_Block = Block.discriminator(SECTION_TYPES.IFRAME,
     iframe_height: {
       type: Number,
     },
+    iframe_name: {
+      type: String,
+      required: true
+    },
+    iframe_description: {
+      type: String,
+      required: true
+    },
     // iframe_type: {
     //   type: String,
     // },
