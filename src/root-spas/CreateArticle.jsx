@@ -717,10 +717,31 @@ class CreateArticle extends React.Component {
 
     // console.log('handleChangeInputs: ', index)
     const { value } = event.target;
+
     this.setState(prevState => {
+
+      const updated_nested_data = [...prevState.nested_data]
+
+      const { id, type } = updated_nested_data[index];
+  
+      // Remove all properties except id
+      for (let key in updated_nested_data[index]) {
+        if (key !== 'id') {
+          delete updated_nested_data[index][key];
+        }
+      }
+      
+      // Modify the type property
+      updated_nested_data[index].type = value;
+      
+
       const updated_content_structure = [...prevState.content_structure];
       updated_content_structure[index] = value;
-      return { content_structure: updated_content_structure };
+      
+      return { 
+        content_structure: updated_content_structure,
+        nested_data: updated_nested_data
+      };
     });
   };
 

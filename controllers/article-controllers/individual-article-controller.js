@@ -23,9 +23,9 @@ async function controller2(req, res, next) {
 
 
 
-// TODO !!!! Youtube embed source of errors
-// TODO !!! Need to add itemprops for EMBED component and for EMAIL component.
 // TODO !!!! When editing a content structure reset the nested block
+// TODO !!!! Youtube embed source of errors, rebuild embed component
+// TODO !!! Need to add itemprops for EMBED component and for EMAIL component.
 
 // TODO !!!! redeploy, resave the back up
 
@@ -45,6 +45,8 @@ async function controller2(req, res, next) {
 // TODO !!!! Need to optimise Blog Loads,
 
 // TODO !!! make bottom home icon navigation bar (white nav bar) available only on mobile layouts (entire app). It is not required on desktops
+
+// TODO !!! global CSS refactor
 
 
 module.exports = {
