@@ -23,10 +23,6 @@ async function controller2(req, res, next) {
 
 
 
-
-// TODO !!!! redeploy, resave the back up
-
-
 // TODO !!!! add table of content blocks in dialog
 // TODO !!! Need to add itemprops for  table of content.
 
