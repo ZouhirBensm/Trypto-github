@@ -124,6 +124,8 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
         });
 
         // await h2Block.save(); // Save the H2_Block instance to the database
+        
+        // Validating the block against it's schema. Otherwise would have not and just saved.
         try { await h2Block.validate(); } catch (error) { return next(error) }
 
         ARR_mongoose_Blocks.push(h2Block);
