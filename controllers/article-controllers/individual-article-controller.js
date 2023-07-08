@@ -23,7 +23,6 @@ async function controller2(req, res, next) {
 
 
 
-// TODO !!!! When editing a content structure reset the nested block
 // TODO !!!! Youtube embed source of errors, rebuild embed component
 // TODO !!! Need to add itemprops for EMBED component and for EMAIL component.
 
