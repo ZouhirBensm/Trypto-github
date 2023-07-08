@@ -19,7 +19,7 @@ const A = loadable(() => import("./A"), {
 const IMG = loadable(() => import("./IMG"), {
   fallback: <Loading />
 });
-const EMBED = loadable(() => import("./EMBED"), {
+const IFRAME = loadable(() => import("./IFRAME"), {
   fallback: <Loading />
 });
 const EMAIL = loadable(() => import("./EMAIL"), {
@@ -128,8 +128,8 @@ class _5_NestedContentBuilder extends React.Component {
           innerHandleChangeToogleDeleteFields={this.props.innerHandleChangeToogleDeleteFields}
         />
         break;
-      case SECTION_TYPES.EMBED:
-        component = <EMBED
+      case SECTION_TYPES.IFRAME:
+        component = <IFRAME
           _step={this.state._step}
           _last_step={this.state._last_step}
           _previousStep={this._previousStep}

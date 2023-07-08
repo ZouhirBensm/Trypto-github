@@ -40,9 +40,9 @@ console.log(locals.SECTION_TYPES.H2)
 <% } %> 
 
 
-<% if (locals.article.articlenesteddata_id.content_structure.includes(locals.SECTION_TYPES.EMBED)) { %>
+<% if (locals.article.articlenesteddata_id.content_structure.includes(locals.SECTION_TYPES.IFRAME)) { %>
 
-  <%- include('bloc3-content/EMBED.ejs') %>
+  <%- include('bloc3-content/IFRAME.ejs') %>
 
 <% } %>
 

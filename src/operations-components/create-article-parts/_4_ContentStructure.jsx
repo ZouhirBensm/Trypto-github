@@ -52,7 +52,7 @@ class _4_ContentStructure extends React.Component {
             <h1>Setting your blog's content structure</h1>
 
             <label>Structure</label>
-            {selects.map((select, index) => (
+            {selects?.map((select, index) => (
               <React.Fragment key={index}>
 
                 <select required value={selects[index]} name="content_structure" onChange={this.props.handleChangeInputs(index)}>

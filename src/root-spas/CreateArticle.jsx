@@ -91,9 +91,10 @@ class CreateArticle extends React.Component {
 
       
 
-      content_structure: [SECTION_TYPES.H2, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.EMAIL, SECTION_TYPES.H3, SECTION_TYPES.EMBED, SECTION_TYPES.IMG, SECTION_TYPES.IMG, SECTION_TYPES.A, SECTION_TYPES.EMAIL, SECTION_TYPES.A],
+      content_structure: [SECTION_TYPES.H2, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.EMAIL, SECTION_TYPES.H3, SECTION_TYPES.IFRAME, SECTION_TYPES.IMG, SECTION_TYPES.IMG, SECTION_TYPES.A, SECTION_TYPES.EMAIL, SECTION_TYPES.A],
       // content_structure: [SECTION_TYPES.IMG, SECTION_TYPES.IMG],
       // content_structure: [SECTION_TYPES.A, SECTION_TYPES.A],
+      // content_structure: [SECTION_TYPES.IFRAME],
       e: undefined,
       // nested_data: [],
       nested_data: [
@@ -120,8 +121,8 @@ class CreateArticle extends React.Component {
         },
         {
           "id": 5,
-          "type": "EMBED",
-          "embed_source": "https://www.youtube.com/embed/s2LmubDQ4RI"
+          "type": "IFRAME",
+          "iframe_source": "https://www.youtube.com/embed/s2LmubDQ4RI"
         },
         {
           "id": 6,

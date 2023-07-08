@@ -175,34 +175,30 @@ const A_Block = Block.discriminator(SECTION_TYPES.A,
   }, options));
 
 
-// type: EMBED: DESCRIMINATOR
-const EMBED_Block = Block.discriminator(SECTION_TYPES.EMBED,
+// type: IFRAME: DESCRIMINATOR
+const IFRAME_Block = Block.discriminator(SECTION_TYPES.IFRAME,
   new mongoose.Schema({
-    embed_width: {
+    iframe_width: {
       type: Number,
-      required: true
     },
-    embed_height: {
+    iframe_height: {
       type: Number,
-      required: true
     },
-    embed_type: {
+    // iframe_type: {
+    //   type: String,
+    // },
+    iframe_source: {
       type: String,
       required: true
     },
-    embed_source: {
-      type: String,
-      required: true
-    },
-    embed_title: {
-      type: String,
-      required: true
-    },
+    // iframe_title: {
+    //   type: String,
+    // },
   }, options));
 
 
 
-// type: EMBED: DESCRIMINATOR
+// type: EMAI: DESCRIMINATOR
 const EMAIL_Block = Block.discriminator(SECTION_TYPES.EMAIL,
   new mongoose.Schema({
     EMAIL_title: {
@@ -244,6 +240,6 @@ const EMAIL_Block = Block.discriminator(SECTION_TYPES.EMAIL,
 
 const ArticleNestedData = mongoose.model('ArticleNestedData', ArticleNestedDataSchema)
 
-module.exports = { ArticleNestedData, H2_Block, H3_Block, SUMMERNOTE_Block, IMG_Block, EMBED_Block, A_Block, EMAIL_Block }
+module.exports = { ArticleNestedData, H2_Block, H3_Block, SUMMERNOTE_Block, IMG_Block, IFRAME_Block, A_Block, EMAIL_Block }
 
 // { A_Block }

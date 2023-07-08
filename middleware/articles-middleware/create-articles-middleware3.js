@@ -1,7 +1,7 @@
 const ArticleHeadTag = require('../../models/articles-models/ArticleHeadTag')
 const ArticleBodyHeader = require('../../models/articles-models/ArticleBodyHeader')
 const ArticleAbstract = require("../../models/articles-models/ArticleAbstract")
-const { ArticleNestedData, H2_Block, H3_Block, SUMMERNOTE_Block, IMG_Block, EMBED_Block, A_Block, EMAIL_Block } = require("../../models/articles-models/ArticleNestedData")
+const { ArticleNestedData, H2_Block, H3_Block, SUMMERNOTE_Block, IMG_Block, IFRAME_Block, A_Block, EMAIL_Block } = require("../../models/articles-models/ArticleNestedData")
 
 const SECTION_TYPES = require("../../full-stack-libs/Types/ArticleSectionTypes")
 
@@ -78,7 +78,7 @@ async function createArticleAbstractMiddleware(req, res, next) {
     article_id: res.locals.ret_article_instance._id,  // ATTACH TO ArticleAbstract -> Article
   })
 
-  
+
   res.locals.ret_article_instance.articleabstract_id = ret_article_abstract_instance._id // ATTACH TO Article -> ArticleAbstract
 
 
@@ -124,6 +124,8 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
         });
 
         // await h2Block.save(); // Save the H2_Block instance to the database
+        try { await h2Block.validate(); } catch (error) { return next(error) }
+
         ARR_mongoose_Blocks.push(h2Block);
         break;
       case SECTION_TYPES.H3:
@@ -133,6 +135,8 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
         });
 
         // await h3Block.save(); // Save the H2_Block instance to the database
+        try { await h3Block.validate(); } catch (error) { return next(error) }
+
         ARR_mongoose_Blocks.push(h3Block);
         break;
 
@@ -143,6 +147,8 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
         });
 
         // await summernoteBlock.save(); // Save the H2_Block instance to the database
+        try { await summernoteBlock.validate(); } catch (error) { return next(error) }
+
         ARR_mongoose_Blocks.push(summernoteBlock);
         break;
 
@@ -172,7 +178,7 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
           img_height: nested_data_block.img_height,
           img_src: nested_data_block.img_src,
           // If missing, the field does not register
-          img_alt: nested_data_block.img_alt, 
+          img_alt: nested_data_block.img_alt,
           img_description: nested_data_block.img_description,
           image: image,
         });
@@ -180,19 +186,26 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
 
 
         // await imgBlock.save(); // Save the H2_Block instance to the database
+        try { await imgBlock.validate(); } catch (error) { return next(error) }
+
         ARR_mongoose_Blocks.push(imgBlock);
         break;
-      case SECTION_TYPES.EMBED:
-        const embedBlock = new EMBED_Block({
-          embed_width: parseInt(nested_data_block.embed_width),
-          embed_height: parseInt(nested_data_block.embed_height),
-          embed_type: nested_data_block.embed_type,
-          embed_source: nested_data_block.embed_source,
-          embed_title: nested_data_block.embed_title,
+      case SECTION_TYPES.IFRAME:
+
+        console.log("$$$$$$$$\n\nnested_data_block.iframe_source: $$$$$$\n\n", nested_data_block.iframe_source)
+        const iframeBlock = new IFRAME_Block({
+          iframe_width: nested_data_block.iframe_width ? parseInt(nested_data_block.iframe_width) : undefined,
+          iframe_height: nested_data_block.iframe_height ? parseInt(nested_data_block.iframe_height) : undefined,
+          // iframe_type: nested_data_block.iframe_type,
+          iframe_source: nested_data_block.iframe_source,
+          // iframe_title: nested_data_block.iframe_title,
         });
 
-        // await embedBlock.save(); // Save the EMBED_Block instance to the database
-        ARR_mongoose_Blocks.push(embedBlock);
+        // await iframeBlock.save();
+
+        try { await iframeBlock.validate(); } catch (error) { return next(error) }
+
+        ARR_mongoose_Blocks.push(iframeBlock);
         break;
       case SECTION_TYPES.A:
 
@@ -216,24 +229,27 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
         const aBlock = new A_Block({
           A_href: nested_data_block.A_href,
           A_title: nested_data_block.A_title,
-          
+
           newtab: nested_data_block.newtab,
           nofollow: nested_data_block.nofollow,
           ugc: nested_data_block.ugc,
           noopener: nested_data_block.noopener,
           image_mode_on: nested_data_block.image_mode_on,
-      
+
           A_innerText: nested_data_block.A_innerText,
 
           img_width: nested_data_block.img_width,
           img_height: nested_data_block.img_height,
           img_src: nested_data_block.img_src,
-          img_alt: nested_data_block.img_alt, 
+          img_alt: nested_data_block.img_alt,
           img_description: nested_data_block.img_description,
           image: image2,
         });
 
-        // await embedBlock.save(); // Save the EMBED_Block instance to the database
+        // await aBlock.save(); // Save the IFRAME_Block instance to the database
+        try { await aBlock.validate(); } catch (error) { return next(error) }
+
+
         ARR_mongoose_Blocks.push(aBlock);
         break;
       case SECTION_TYPES.EMAIL:
@@ -243,7 +259,10 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
           EMAIL_subtitle: nested_data_block.EMAIL_subtitle,
         });
 
-        // await h2Block.save(); // Save the H2_Block instance to the database
+        // await emailBlock.save(); // Save the H2_Block instance to the database
+        try { await emailBlock.validate(); } catch (error) { return next(error) }
+
+
         ARR_mongoose_Blocks.push(emailBlock);
         break;
 
@@ -276,7 +295,7 @@ async function createArticleNestedDatatMiddleware2(req, res, next) {
   });
 
 
-  
+
 
   res.locals.ret_article_instance.articlenesteddata_id = ret_article_nested_data_instance._id;
 

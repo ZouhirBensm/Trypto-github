@@ -6,7 +6,7 @@ const SECTION_TYPES = {
   // UL: "UL",
   IMG: "IMG",
   A: "A",
-  EMBED: "EMBED",
+  IFRAME: "IFRAME",
   EMAIL: "EMAIL",
 }
 
