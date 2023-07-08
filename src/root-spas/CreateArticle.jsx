@@ -683,6 +683,7 @@ class CreateArticle extends React.Component {
   };
 
   deleteSelect = (index, block_type) => (e) => {
+    
     this.setState(prevState => {
       const updated_content_structure = [...prevState.content_structure];
 
@@ -700,6 +701,9 @@ class CreateArticle extends React.Component {
 
       if (block?.type === block_type) {
         updated_nested_data?.splice(index, 1)
+        for (let i = index; i < updated_nested_data.length; i++) {
+          updated_nested_data[i].id = i + 1;
+        }
       }
 
       return {

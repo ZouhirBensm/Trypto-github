@@ -27,6 +27,10 @@ async function controller2(req, res, next) {
 // TODO !!!! add table of content blocks. dialog
 
 
+// a bunch of google errors on the article page on staging, test without the embed
+// the send button on the article page (email collector) has a higher z index than the sidenav
+// resave the back up
+
 // TODO !!!!! sitemap build
 // TODO !!!!! CRUDE Capabilities for blog articles
 // TODO !!!!! build HTML sitemap
