@@ -25,8 +25,9 @@ async function controller2(req, res, next) {
 
 // TODO !!!! Youtube embed source of errors
 // TODO !!! Need to add itemprops for EMBED component and for EMAIL component.
-// TODO !!!! resave the back up
 // TODO !!!! When editing a content structure reset the nested block
+
+// TODO !!!! redeploy, resave the back up
 
 
 // TODO !!!! add table of content blocks in dialog
