@@ -109,7 +109,8 @@ ul.operation-ul > li {
 }
 
 
-ul.operation-ul > li > a {
+ul.operation-ul > li > a,
+ul.operation-ul > li > button {
   text-transform: uppercase;
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
@@ -117,7 +118,7 @@ ul.operation-ul > li > a {
   border: none;
   background-color: transparent;
   font-size: var(--font-size-subnav);
-  margin: 3vh auto;
+  /* margin: 3vh auto; */
   vertical-align: middle;
 }
 
@@ -125,6 +126,7 @@ ul.operation-ul > li > img {
   vertical-align: middle;
   width: 30px;
   height: 30px;
+  margin-left: 1.5ch;
 }
 
 ul.operation-ul > li > a > img {

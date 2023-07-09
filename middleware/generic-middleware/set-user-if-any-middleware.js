@@ -12,19 +12,14 @@ async function set_user_if_any(req, res, next) {
       select: "path image.name -_id",
     })
     .select("-password")
-    // console.log("\n\nUSER:", userfindOne)
     res.locals.user = userfindOne
   } catch (e) {
     const error = new Error("No user session was found")
     return next(error)
   }
 
-  // console.log("res.locals.paths_URL:", res.locals.paths_URL)
-
-  // console.log("userfindOne:", userfindOne)
   const profile_img_path = userfindOne?.userprofileimageID?.path.replace("public", '')
 
-  // console.log('???????::: ', (userfindOne?.userprofileimageID))
 
   res.locals.loggedInUserImgProfilePath = (userfindOne?.userprofileimageID) ? profile_img_path + '/' + userfindOne?.userprofileimageID?.image.name : '/img/profile-images/square.png'
 
@@ -33,9 +28,7 @@ async function set_user_if_any(req, res, next) {
   res.locals.loggedInUserId = userfindOne?._id
 
 
-  // res.locals.userId = req.session.userId
-
-  // console.log('res.locals.loggedInUserImgProfilePath: ', res.locals.loggedInUserImgProfilePath)
+  console.log('test0', res.locals.user, res.locals.loggedInUserImgProfilePath, res.locals.loggedInUserName, res.locals.loggedInUserId, "\n______________________________________________________\n")
 
 
   return next()
