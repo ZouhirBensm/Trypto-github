@@ -10,6 +10,8 @@ class _6_ArticleSEOedSubmit extends React.Component {
   async clickCreateArticle() {
     console.log("Creating an article...")
 
+    // TODO !!!!! add indication blog was created
+
     let nested_data_copy = structuredClone(this.props.nested_data);
 
     const formData = new FormData();
