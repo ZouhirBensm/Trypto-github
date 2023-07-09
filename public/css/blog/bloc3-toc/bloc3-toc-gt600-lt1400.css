@@ -1,0 +1,12 @@
+details > ol {
+  width: 85% !important;
+}
+
+details > summary {
+  font-size: var(--font-size-h2-smaller) !important;
+}
+
+details > ol > li {
+  font-size: var(--font-size-p-smaller) !important;
+  letter-spacing: 1.0px !important;
+}

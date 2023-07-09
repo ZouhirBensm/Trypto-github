@@ -21,13 +21,6 @@ async function controller2(req, res, next) {
 }
 
 
-
-
-// TODO !!!! add table of content blocks in dialog
-// TODO !!! Need to add itemprops for  table of content.
-
-
-
 // TODO !!!!! sitemap build
 // TODO !!!!! CRUDE Capabilities for blog articles
 // TODO !!!!! build HTML sitemap

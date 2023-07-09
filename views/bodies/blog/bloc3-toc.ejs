@@ -8,14 +8,12 @@
       <% const block = JSON.parse(JSON.stringify(locals.H2H3_blocks[i])); %>
 
       <!-- < % locals.currentIndex = i; %> -->
-      <li><a href="#<%=block.type%>-<%=block.order%>"><%=block[`${block.type}_innerHTML`]%></a></li>
+      <li class="class-<%=block.type%>"><a href="#<%=block.type%>-<%=block.order%>"><%=block[`${block.type}_innerHTML`]%></a></li>
 
     <% } %>
   </ol>
 </details>
 
-<!-- TODO !!!!! needs styling and h2, and h3 styles different based on adding a class for example, or different IDs -->
-<!-- TODO !!!!! add itemprops to indicate TOC -->
-<!-- TODO !!!!! smooth scroll add -->
-<!-- TODO !!!!! open by default? -->
-<!-- TODO !!!!! place on side or top? -->
+
+
+<!-- TODO !!!!! Market page does not stretch on empty load, fix -->

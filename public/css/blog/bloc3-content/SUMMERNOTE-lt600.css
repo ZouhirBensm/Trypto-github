@@ -2,9 +2,6 @@ main#content_id>section>ul,
 main#content_id>section>ol,
 main#content_id>section>p {
   width: 95% !important;
-  font-size: var(--font-size-p-xsmaller);
+  font-size: var(--font-size-p-xsmaller) !important;
+  letter-spacing: 1.2px !important;
 }
-
-/* main > article > section > ul {
-  width: 80% !important;
-} */
