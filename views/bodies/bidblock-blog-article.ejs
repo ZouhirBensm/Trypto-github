@@ -27,8 +27,8 @@
     
     // Defines the title and subtitles for the email blocks rendered on the email block react component loaded on <div class='react-div2'></div>
     <% for (let i = 0; i < locals.EMAIL_blocks.length; i++) { %>
-      <% const titleKey = `title${i}`; %>
-      <% const subtitleKey = `subtitle${i}`; %>
+      <% const titleKey = `EMAIL_title${i}`; %>
+      <% const subtitleKey = `EMAIL_subtitle${i}`; %>
       let <%= titleKey %> = '<%= locals[titleKey] %>';
       let <%= subtitleKey %> = '<%= locals[subtitleKey] %>';
     <% } %>

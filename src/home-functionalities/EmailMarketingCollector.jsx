@@ -9,8 +9,7 @@ class EmailMarketingCollector extends React.Component {
     }
     this.validation = this.validation.bind(this)
     this.sendemail = this.sendemail.bind(this)
-    // console.log(title0, title1, subtitle0, subtitle1)
-    // console.log(title0, title1, subtitle0, subtitle1)
+    // console.log(EMAIL_title0, EMAIL_title1, EMAIL_subtitle0, EMAIL_subtitle1)
 
     // console.log('JSX_to_load2--->', JSX_to_load2)
   }
@@ -86,8 +85,8 @@ class EmailMarketingCollector extends React.Component {
 
             <div id='element-1'>
               <div className='content'>
-                <h1>{this.props.title}</h1>
-                <p>{this.props.subtitle}</p>
+                <h1>{this.props.EMAIL_title}</h1>
+                <p>{this.props.EMAIL_subtitle}</p>
               </div>
             </div>
 
@@ -190,12 +189,12 @@ if(JSX_to_load2 === "EmailMarketingCollector"){
   const targetDivs = document.getElementsByClassName('react-div2');
   
   Array.from(targetDivs).forEach((div, index) => {
-    let title = eval(`title${index}`)
-    let subtitle = eval(`subtitle${index}`)
+    let EMAIL_title = eval(`EMAIL_title${index}`)
+    let EMAIL_subtitle = eval(`EMAIL_subtitle${index}`)
   
     const element = <EmailMarketingCollector 
-      title={title}
-      subtitle={subtitle}
+      EMAIL_title={EMAIL_title}
+      EMAIL_subtitle={EMAIL_subtitle}
     />;
   
     ReactDOM.render(element, div);

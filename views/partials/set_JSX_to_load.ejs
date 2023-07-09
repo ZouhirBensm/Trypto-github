@@ -1,5 +1,5 @@
 <script>
   // Used to determine if the non root component is loaded, in order to determine if running ReactDOM.render method
   var JSX_to_load = '<%= locals.JSX_to_load %>';
-  var JSX_to_load2 = <%= typeof locals.JSX_to_load2 !== "undefined" ? locals.JSX_to_load2 : 'undefined' %>;
+  var JSX_to_load2 = '<%= typeof locals.JSX_to_load2 !== "undefined" ? locals.JSX_to_load2 : undefined %>';
 </script>
