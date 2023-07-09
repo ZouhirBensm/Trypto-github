@@ -9,6 +9,9 @@ const ROLE = require('../full-stack-libs/Types/Role')
 
 
 
+const sitemapMiddleware = require('../middleware/sitemap-middlewares/sitemap-middlewares')
+const sitemapController = require('../controllers/sitemap-controller/sitemap-controller')
+
 
 // Middleware
 const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
@@ -23,7 +26,6 @@ const { authenticate_role_for_pages, authenticate_role_for_data } = require("../
 
 
 sitemapBackend_app_router.use(set_user_if_any, (req, res, next) => {
-  console.log('test1')
   return next()
 })
 
@@ -35,19 +37,13 @@ sitemapBackend_app_router.use(set_user_if_any, (req, res, next) => {
 sitemapBackend_app_router.get('/sync-sitemap-2-database', 
 require_loggedin_for_data(true), 
 authenticate_role_for_data([ROLE.MASTER]),
-(req,res)=>{
+sitemapMiddleware.middleware1,
+sitemapMiddleware.middleware2,
+// sitemapMiddleware.middleware3,
+sitemapController.controller1
+)
 
-  console.log('test2', req.query.fail)
-  
-  setTimeout(()=>{
-    if(req.query.fail == 'true') {
-      return res.status(500).end()
-    } else {
-      return res.status(200).end()
-    }
-  }, 2000)
 
-})
 
 
 sitemapBackend_app_router.get('/sitemap', (req,res)=>{

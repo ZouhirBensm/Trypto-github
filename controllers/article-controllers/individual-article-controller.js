@@ -21,7 +21,6 @@ async function controller2(req, res, next) {
 }
 
 
-// TODO !!!!! sitemap build
 // TODO !!!!! CRUDE Capabilities for blog articles
 // TODO !!!!! build HTML sitemap
 // TODO !!!!! google search console register

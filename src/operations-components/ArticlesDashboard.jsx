@@ -18,10 +18,9 @@ class ArticlesDashboard extends React.Component {
 
     console.log(this.popup.current)
 
-    let mode = false
     let popup = undefined
     try {
-      const response = await fetch(`/sitemap/sync-sitemap-2-database?fail=${mode}`)
+      const response = await fetch(`/sitemap/sync-sitemap-2-database`)
 
       if (response.ok) {
         console.log('Sitemap synced successfully')
