@@ -1,8 +1,17 @@
 
 <div id="articlefooter">
+
+
+
+
   <article>
     <%- include('blog/bloc1-header.ejs') %>
     <%- include('blog/bloc2-abstract.ejs') %>
+
+    <% if (locals.H2H3_blocks) { %>
+      <%- include('blog/bloc3-toc.ejs') %>
+    <% } %>
+
     <%- include('blog/bloc3-content.ejs') %>
     
   </article>

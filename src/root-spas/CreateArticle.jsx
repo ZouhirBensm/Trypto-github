@@ -693,6 +693,7 @@ class CreateArticle extends React.Component {
 
       updated_content_structure.splice(index, 1); // Remove the input at the specified index
 
+
       const updated_nested_data = [...prevState.nested_data]
       const block = updated_nested_data[index]
 
@@ -723,7 +724,20 @@ class CreateArticle extends React.Component {
 
     this.setState(prevState => {
 
+
+      
+
+      const updated_content_structure = [...prevState.content_structure];
+      updated_content_structure[index] = value;
+
       const updated_nested_data = [...prevState.nested_data]
+
+      if (!updated_nested_data[index]?.id && !updated_nested_data[index]?.type) { 
+        return {
+          content_structure: updated_content_structure,
+        };
+      }
+
 
       const { id, type } = updated_nested_data[index];
   
@@ -737,9 +751,6 @@ class CreateArticle extends React.Component {
       // Modify the type property
       updated_nested_data[index].type = value;
       
-
-      const updated_content_structure = [...prevState.content_structure];
-      updated_content_structure[index] = value;
       
       return { 
         content_structure: updated_content_structure,

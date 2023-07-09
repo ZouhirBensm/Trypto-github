@@ -15,7 +15,7 @@ const SECTION_TYPES = require('../../full-stack-libs/Types/ArticleSectionTypes')
 async function middleware1(req, res, next) {
 
 
-  console.log('\n\nreq.url:\n\n', `/articles${req.url}`)
+  // console.log('\n\nreq.url:\n\n', `/articles${req.url}`)
 
   let article
 
@@ -32,13 +32,14 @@ async function middleware1(req, res, next) {
     // TODO !!!! add error handling
   }
 
-  console.log("\n\n________________________article,\n\n", article, "\n\n\n")
+  // console.log("\n\n________________________article,\n\n", article, "\n\n\n")
 
-  console.log("\n\n________________________article.articleenclosureimage_id,\n\n", article.articleenclosureimage_id)
-  console.log("\n\n________________________article.articleheadtag_id,\n\n", article.articleheadtag_id)
-  console.log("\n\n________________________article.articlebodyheader_id,\n\n", article.articlebodyheader_id)
-  console.log("\n\n________________________article.articleabstract_id,\n\n", article.articleabstract_id)
-  console.log("\n\n________________________article.articlenesteddata_id,\n\n", article.articlenesteddata_id)
+  // console.log("\n\n________________________article.articleenclosureimage_id,\n\n", article.articleenclosureimage_id)
+  // console.log("\n\n________________________article.articleheadtag_id,\n\n", article.articleheadtag_id)
+  // console.log("\n\n________________________article.articlebodyheader_id,\n\n", article.articlebodyheader_id)
+  // console.log("\n\n________________________article.articleabstract_id,\n\n", article.articleabstract_id)
+  // console.log("\n\n________________________article.articlenesteddata_id,\n\n", article.articlenesteddata_id)
+
   // console.log("\n\nrticleheadtag_id,\n\n", article.articleheadtag_id)
   // console.log("\n\nrticlebodyheader_id,\n\n", article.articlebodyheader_id)
   // console.log("\n\nrticleenclosureimage_id,\n\n", article.articleenclosureimage_id)
@@ -81,7 +82,9 @@ async function middleware2(req, res, next) {
     // const copiedBlock = Object.assign({}, bblock);
     // const copiedBlock = { ...bblock };
 
-    console.log('__________\n\n', bblock.EMAIL_title, copiedBlock.EMAIL_title, '__________\n\n')
+    // console.log('__________\n\n', bblock.EMAIL_title, copiedBlock.EMAIL_title, '__________\n\n')
+
+    // TODO !!!!! rename these to better variable names like emailcollector_title1, ...
     const titleKey = `title${index}`;
     const subtitleKey = `subtitle${index}`;
 
@@ -95,6 +98,22 @@ async function middleware2(req, res, next) {
 
 
 function middleware3(req, res, next) {
+
+  let H2H3_blocks = res.locals.article.articlenesteddata_id.blocks.filter(block => { return block.type === SECTION_TYPES.H2 ||  block.type === SECTION_TYPES.H3 });
+
+  if (!Array.isArray(H2H3_blocks) || !H2H3_blocks.length) {
+    // array does not exist, is not an array, or is empty
+    // ⇒ do not attempt to process array
+    H2H3_blocks = undefined
+  }
+
+
+  if (!H2H3_blocks) return next()
+
+  res.locals.H2H3_blocks = H2H3_blocks
+
+  console.log('\n\n******\n\nres.locals.H2H3_blocks\n\n', res.locals.H2H3_blocks)
+
   return next()
 }
 

@@ -1,0 +1,15 @@
+<details>
+  <summary>Table of Content</summary>
+
+
+  <ol>
+    <% for(let i = 0; i < locals.H2H3_blocks.length; i++) { %>
+
+      <% const block = JSON.parse(JSON.stringify(locals.H2H3_blocks[i])); %>
+
+      <!-- < % locals.currentIndex = i; %> -->
+      <li><a href="#<%=block.type%>-<%=block.order%>"><%=block[`${block.type}_innerHTML`]%></a></li>
+
+    <% } %>
+  </ol>
+</details>
