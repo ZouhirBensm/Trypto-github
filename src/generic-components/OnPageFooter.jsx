@@ -2,7 +2,7 @@ import './styles/OnPageFooter.css'
 
 function OnPageFooter() {
 
-  // console.log("loggedInUserId: ", loggedInUserId)
+  console.log("loggedInUserId: ", loggedInUserId, JSX_to_load)
 
   return (
     <React.Fragment>
@@ -36,7 +36,9 @@ function OnPageFooter() {
   );
 }
 
-const element = <OnPageFooter />;
-ReactDOM.render(element, document.getElementById('react-div'));
+if(JSX_to_load === "OnPageFooter"){
+  const element = <OnPageFooter />;
+  ReactDOM.render(element, document.getElementById('react-div'));
+}
 
 export default OnPageFooter;

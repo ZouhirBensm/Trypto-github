@@ -219,6 +219,7 @@ express_server_app_router.use(express.static('public'));
 
 express_server_app_router.use((req, res, next) => {
   // console.log("\n\n1st middleware: server.js -> req.url:\n", req.url)
+  // res.locals.head = 1
 
   URL_ = req.url.split("?")[0]
   res.locals.paths_URL = utils.URLpathDecomposer(URL_)
