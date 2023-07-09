@@ -46,9 +46,9 @@ sitemapController.controller1
 
 
 
-sitemapBackend_app_router.get('/sitemap', (req,res)=>{
-  console.log('test3')
-  res.end()
+sitemapBackend_app_router.get('/sitemap.xml', (req,res)=>{
+  const filePath = path.resolve('public/sitemap/sitemap.xml');
+  res.status(200).sendFile(filePath);
 })
 
 

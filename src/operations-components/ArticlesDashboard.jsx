@@ -69,17 +69,15 @@ class ArticlesDashboard extends React.Component {
                   <img src="/img/SVG/operations/articles-dashboard/proceed.svg" alt="" />
                 </li>
                 <li>
+                  <a href="/sitemap/sitemap.xml" target='_blank'>Open XML Sitemap</a>
+                  <img src="/img/SVG/operations/articles-dashboard/proceed.svg" alt="" />
+                </li>
+                <li>
                   {loading ? (
                     <div className="spinner"></div>
                   ) : (
                     <React.Fragment>
-                      <button onClick={this.syncSitemap}
-                        // onClick={() => {
-                        //   if (this.popup.current) {
-                        //     this.syncSitemap()
-                        //   }
-                        // }}
-                      >
+                      <button onClick={this.syncSitemap}>
                         Sync Sitemap
                       </button>
                       <img src="/img/SVG/operations/global/sync.svg" alt="" />
