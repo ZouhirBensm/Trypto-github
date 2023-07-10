@@ -39,8 +39,8 @@ const ScrollToTop = loadable(() => import("../generic-components/ScrollToTop"), 
 class Operations extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-    }
+    this.state = {}
+    
   }
 
 

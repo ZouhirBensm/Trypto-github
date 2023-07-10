@@ -1,7 +1,7 @@
 import PageSelector from '../generic-components/PageSelector';
 import AllArticlesList from '../articles-functionalities/AllArticlesList';
 import '../style/reactDivMobile.css'
-import './style/Articles.css'
+// import './style/Articles.css'
 
 
 
@@ -18,6 +18,7 @@ class Articles extends React.Component {
       on_off_limit_next: false,
       on_off_limit_previous: true,
     }
+
     this.controls = this.controls.bind(this);
   }
 

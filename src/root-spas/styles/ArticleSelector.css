@@ -10,3 +10,8 @@ a#article-select-back > img {
   height: 40px;
   display: block;
 }
+
+div.wrapper {
+  width: 90%;
+  margin: 0 auto;
+}

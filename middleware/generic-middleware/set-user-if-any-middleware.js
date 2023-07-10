@@ -28,7 +28,7 @@ async function set_user_if_any(req, res, next) {
   res.locals.loggedInUserId = userfindOne?._id
 
 
-  console.log('test0', res.locals.user, res.locals.loggedInUserImgProfilePath, res.locals.loggedInUserName, res.locals.loggedInUserId, "\n______________________________________________________\n")
+  // console.log('test0', res.locals.user, res.locals.loggedInUserImgProfilePath, res.locals.loggedInUserName, res.locals.loggedInUserId, "\n______________________________________________________\n")
 
 
   return next()
