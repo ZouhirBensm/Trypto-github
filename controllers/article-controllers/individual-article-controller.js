@@ -28,6 +28,8 @@ async function controller2(req, res, next) {
 // TODO !!! Look into surfer ai
 // TODO !!! Build chatGPT generator on aiaudiotoblog.bidblock.ca on another localhost:3001? and deploy scripts
 // TODO !!!! Need to optimise Blog Loads,
+// TODO !!!! Contact Meme instagram page owners
+// TODO !!!! Check out Surfer AI
 
 // TODO !!! make bottom home icon navigation bar (white nav bar) available only on mobile layouts (entire app). It is not required on desktops
 
