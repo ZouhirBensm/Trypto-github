@@ -44,6 +44,10 @@ const ArticleSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  updateDate: {
+    type: Date,
+    default: undefined,
+  },
   articleenclosureimage_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'ArticleEnclosureImage',
