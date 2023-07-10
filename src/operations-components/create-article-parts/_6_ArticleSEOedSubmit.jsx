@@ -4,7 +4,9 @@ import SECTION_TYPES from '../../../full-stack-libs/Types/ArticleSectionTypes'
 class _6_ArticleSEOedSubmit extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      popup: undefined
+    }
   }
 
   async clickCreateArticle() {
@@ -16,7 +18,7 @@ class _6_ArticleSEOedSubmit extends React.Component {
 
     const formData = new FormData();
 
-    
+
 
 
     // Pull out images from this.props.nested_data (IMG) in array
@@ -27,7 +29,7 @@ class _6_ArticleSEOedSubmit extends React.Component {
       if (block.type === SECTION_TYPES.IMG ||
         (block.type === SECTION_TYPES.A && !!block.image_mode_on)) {
 
-        if(!block.image) continue
+        if (!block.image) continue
 
         const image_in_id = block.id
 
@@ -40,14 +42,14 @@ class _6_ArticleSEOedSubmit extends React.Component {
         // SET 2: Upload image files only
         files_from_nested_data.push(block.image.image_file)
 
-        delete nested_data_copy[image_in_id-1].image.image_file
+        delete nested_data_copy[image_in_id - 1].image.image_file
       }
     }
 
-    
-    
-    
-    
+
+
+
+
     // SET 1: Upload object information image data
     // id 0 is the banner image
     // Mount banner image as first:
@@ -81,9 +83,9 @@ class _6_ArticleSEOedSubmit extends React.Component {
     console.log("\n", nested_data_copy)
 
     console.log('\n\n\n')
-    
-    
-    
+
+
+
 
     let headHeaderAbstractStructureData = {
       // _1_SetArticleHeadTagData
@@ -115,7 +117,7 @@ class _6_ArticleSEOedSubmit extends React.Component {
       if (Object.hasOwnProperty.call(headHeaderAbstractStructureData, name)) {
         let value = headHeaderAbstractStructureData[name];
         // console.log(value)
-        if(typeof value === 'undefined' || value === '' || value === false) continue
+        if (typeof value === 'undefined' || value === '' || value === false) continue
 
         if (Array.isArray(value)) value = JSON.stringify(value)
         formData.append(name, value);
@@ -134,7 +136,7 @@ class _6_ArticleSEOedSubmit extends React.Component {
       if (Object.hasOwnProperty.call(headerBannerImageData, name)) {
         let value = headerBannerImageData[name];
         // console.log(value)
-        if(typeof value === 'undefined' || value === '') continue
+        if (typeof value === 'undefined' || value === '') continue
 
         if (Array.isArray(value)) value = JSON.stringify(value)
         formData.append(name, value);
@@ -148,7 +150,7 @@ class _6_ArticleSEOedSubmit extends React.Component {
     formData.append('nested_data_copy', STRING_nested_data_copy);
 
 
-    
+
 
 
     let response
@@ -160,6 +162,23 @@ class _6_ArticleSEOedSubmit extends React.Component {
     console.log(response)
     console.log(response.status)
 
+    if (response.ok) {
+      const success = 'New article created!'
+      this.setState({
+        popup: success
+      }, () => {
+        setTimeout(() => {
+          this.setState({
+            popup: undefined
+          })
+        }, 3000)
+      })
+      return
+    }
+
+    this.setState({
+      popup: undefined
+    })
 
   }
 
@@ -184,6 +203,11 @@ class _6_ArticleSEOedSubmit extends React.Component {
           e.preventDefault()
           this.clickCreateArticle()
         }}>Create</button>
+
+        {this.state.popup ?
+          <span id='popup'>{this.state.popup}</span> :
+          null
+        }
 
         <div id='nav'>
           <img src="/img/SVG/operations/create-article/previous.svg" alt="" />

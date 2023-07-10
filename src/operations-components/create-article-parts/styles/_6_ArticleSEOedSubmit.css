@@ -12,16 +12,14 @@ div#nest-1>button {
   border: none;
 }
 
-
-/* div#nest-1>div {
-  border: 1px solid #B8CEF5;
-  border-radius: 8px;
-  color: rgba(0, 0, 0, 0.766);
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  line-height: 2rem;
+/* REP */
+span#popup {
+  color: green;
   width: 100%;
-  margin: 0.5vh 0;
-  font-size: var(--font-size-smaller-input);
-  text-indent: 2ch;
-} */
+  font-size: var(--font-size-extra);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  margin: 1rem 0;
+  max-width: 350px;
+  display: block;
+}
