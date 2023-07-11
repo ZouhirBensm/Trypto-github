@@ -237,40 +237,51 @@ class CreateArticle extends React.Component {
   }
 
   componentDidMount() {
-    console.log(pre_load_article_4_edit)
+    console.log(pre_load_article_4_edit);
 
     if (isObjEmpty('componentDidMount: ', pre_load_article_4_edit)) {
-      console.log('nothing to load')
-      return
+      console.log('nothing to load');
+      return;
     }
 
+    console.log(pre_load_article_4_edit.articleenclosureimage_id.path);
 
+    fetch(pre_load_article_4_edit.articleenclosureimage_id.path)
+      .then(response => response.blob())
+      .then(blob => {
+        const file = new File([blob], pre_load_article_4_edit.articleenclosureimage_id.banner_image_originalname, { type: blob.type });
 
-    this.setState({
-      step: 1,
-      // STEP 1
-      html_title: pre_load_article_4_edit.html_title,
-      meta_title: pre_load_article_4_edit.articleheadtag_id.meta_title,
-      meta_description: pre_load_article_4_edit.articleheadtag_id.meta_description,
-      canonical: pre_load_article_4_edit.articleheadtag_id.canonical,
-      noindex: pre_load_article_4_edit.articleheadtag_id.noindex,
-      nofollow: pre_load_article_4_edit.articleheadtag_id.nofollow,
-      // STEP 2
-      keywords: pre_load_article_4_edit.articlebodyheader_id.keywords,
-      category: pre_load_article_4_edit.articlebodyheader_id.category,
-      // publisher name, email, and link are default values for now
-      banner_image_name: pre_load_article_4_edit.articleenclosureimage_id.banner_image_originalname,
-      banner_image_file: pre_load_article_4_edit.articleenclosureimage_id.image.banner_image_file,
-      // banner_image_path
-      banner_img_alt: "",
-      h1: "",
-      // author is logged in username
-      // published_datetime is default now upon creation
-      abstract_name_type: "",
-      abstract_points: [],
-      content_structure: [SECTION_TYPES.H2]
-    })
+        console.log('Loaded image file:', file);
 
+        this.setState({
+          step: 1,
+          // STEP 1
+          html_title: pre_load_article_4_edit.html_title,
+          meta_title: pre_load_article_4_edit.articleheadtag_id.meta_title,
+          meta_description: pre_load_article_4_edit.articleheadtag_id.meta_description,
+          canonical: pre_load_article_4_edit.articleheadtag_id.canonical,
+          noindex: pre_load_article_4_edit.articleheadtag_id.noindex,
+          nofollow: pre_load_article_4_edit.articleheadtag_id.nofollow,
+          // STEP 2
+          keywords: pre_load_article_4_edit.articlebodyheader_id.keywords,
+          category: pre_load_article_4_edit.articlebodyheader_id.category,
+          // publisher name, email, and link are default values for now
+          banner_image_name: pre_load_article_4_edit.articleenclosureimage_id.banner_image_originalname,
+          banner_image_file: file,
+          // banner_image_path
+          banner_img_alt: pre_load_article_4_edit.articleenclosureimage_id.banner_img_alt,
+          h1: pre_load_article_4_edit.h1,
+          // author is logged in username
+          // published_datetime is default now upon creation
+          abstract_name_type: pre_load_article_4_edit.articleabstract_id.abstract_name_type,
+          abstract_points: pre_load_article_4_edit.articleabstract_id.abstract_points,
+          content_structure: pre_load_article_4_edit.articlenesteddata_id.content_structure,
+          nested_data: pre_load_article_4_edit.articlenesteddata_id.blocks
+        });
+      })
+      .catch(error => {
+        console.error('Error loading the image:', error);
+      });
   }
 
 
