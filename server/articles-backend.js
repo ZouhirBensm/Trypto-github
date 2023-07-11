@@ -63,7 +63,11 @@ articlesBackend_app_router.get('/paginated-articles/data',
   paginatingSetupMiddleware,
   destructureURLandRefererMiddleware,
 
-  articlesRetrievalMiddleware,
+  articlesRetrievalMiddleware.middleware1,
+  articlesRetrievalMiddleware.middleware2,
+  articlesRetrievalMiddleware.middleware3,
+  articlesRetrievalMiddleware.middleware4,
+  articlesRetrievalMiddleware.middleware5,
   distributePaginatedDataController
 )
 

@@ -42,7 +42,13 @@ class Articles extends React.Component {
   }
 
   async loadData(){
-    let response = await fetch(`/articles/paginated-articles/data?page=${this.state.page}&limit=${this.state.limit}&category=${this.props.category}`)
+
+
+    let url = ``
+    url += `/articles/paginated-articles/data?page=${this.state.page}&limit=${this.state.limit}`
+    this.props.category !== "RECENT" ? url += `&category=${this.props.category}`: null
+
+    let response = await fetch(url)
     
     let serverOBJ = await response.json()
 
@@ -86,6 +92,7 @@ class Articles extends React.Component {
         <div className="wrapper">
           <AllArticlesList
             articles={this.state.articles}
+            button_text='read more'
           />
           <PageSelector
             number_of_pages={this.state.number_of_pages} 

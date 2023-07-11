@@ -61,7 +61,7 @@ class ArticlesDashboard extends React.Component {
             <Route exact path="/operations/articles-dashboard/">
               <ul className="operation-ul">
                 <li>
-                  <a href="/operations/create-article">Create an Article</a>
+                  <a href={`/operations/create-article`}>Create an Article</a>
                   <img src="/img/SVG/operations/articles-dashboard/proceed.svg" alt="" />
                 </li>
                 <li>

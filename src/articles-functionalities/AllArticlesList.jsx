@@ -18,6 +18,7 @@ class AllArticlesList extends React.Component {
         return <ArticleElement
           key={i}
           article={article}
+          button_text={this.props.button_text}
         />
       })
       return AllArticlesElements
@@ -46,8 +47,28 @@ class AllArticlesList extends React.Component {
 class ArticleElement extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
+    this.state = {}
+    this.buttonRef = React.createRef();
+  }
+
+  componentDidMount(){
+
+    switch (this.props.button_text) {
+      case 'edit':
+        this.buttonRef.current = <a className='link' href={`/operations/create-article?articleID_to_preload_4_edit=${this.props.article._id}`}>
+        {this.props.button_text}
+      </a>
+        break;
+      case 'read more':
+        this.buttonRef.current = <a className='link' href={this.props.article.url} target={EXTERNAL_READS_SOURCES.includes(this.props.article.source)? "_blank": null}>
+        {this.props.button_text}
+      </a>
+        break;
+      default:
+        // this.buttonRef.current = <div>TEST</div>
+        break;
     }
+
   }
 
 
@@ -86,9 +107,10 @@ class ArticleElement extends React.Component {
           </div>
 
 
-          <a className='link' href={this.props.article.url} target={EXTERNAL_READS_SOURCES.includes(this.props.article.source)? "_blank": null}>
-            Read more
-          </a>
+          {this.buttonRef.current}
+
+
+
 
         </div>
 

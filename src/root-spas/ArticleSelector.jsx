@@ -85,6 +85,7 @@ class ArticleSelector extends React.Component {
         <div className="wrapper">
           <AllArticlesList
             articles={this.state.articles}
+            button_text='edit'
           />
           <PageSelector
             number_of_pages={this.state.number_of_pages} 

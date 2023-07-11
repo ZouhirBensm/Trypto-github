@@ -36,6 +36,7 @@ class _2_SetArticleBodyHeader extends React.Component {
 
         <div id="create-article-form-id" className="form">
           <label>Set wanted Article keywords</label>
+          <span>seperate with <pre>',  '</pre> to take effect</span>
 
           <input type="text" name="keywords" onChange={this.props.handleChange} placeholder="Enter wanted Keywords" value={this.props.keywords.join(',  ')} required/>
 

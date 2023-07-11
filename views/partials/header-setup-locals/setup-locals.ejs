@@ -53,6 +53,9 @@
   var article_title
   // var hash_of_user_to_reset_password
 
+  // pre_load_article_4_edit !!!!! 
+  var pre_load_article_4_edit
+
   var loggedInUserImgProfilePath = '<%= locals.loggedInUserImgProfilePath%>'
   var loggedInUserName = '<%= locals.loggedInUserName%>'
 
@@ -228,11 +231,16 @@
     case `/operations/${caseOperationsTask}`:
       user = <%-JSON.stringify(locals.user || {})%> 
       userId = '<%= locals.userId %>'
+      // Used to determine if the non root component is loaded, in order to determine if running ReactDOM.render method
 
+      
+      
       if (caseOperationsTask == "create-article") {
         CATEGORY = <%-JSON.stringify(locals.CATEGORY || {})%> 
+        pre_load_article_4_edit = <%-JSON.stringify(locals.pre_load_article_4_edit || {})%> 
       }
-      console.log("/partials/header-setup-locals/setup-locals.ejs: ", {user, CATEGORY, userId})
+
+      console.log("/partials/header-setup-locals/setup-locals.ejs: ", {user, CATEGORY, userId, pre_load_article_4_edit})
 
       break;
     case `/operations/${caseOperationsTask}/${caseUserID}`:

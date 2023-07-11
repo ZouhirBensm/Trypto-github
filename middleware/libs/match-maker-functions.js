@@ -1,8 +1,17 @@
-function filterObject(crypto = null, category = "RECENT"){
+function filterObject(crypto = undefined, category = undefined, source = undefined){
 
-  let filter_object = crypto? {crypto: crypto}: {}; // Adding properties with destructuring
 
-  (category == "RECENT") ? null: (filter_object.category = category)
+  console.log(crypto, category, source)
+
+  let filter_object = {
+    ...(crypto ? {crypto}: null),
+    ...(category ? {category}: null),
+    ...(source ? {source}: null)
+  };
+
+  console.log(filter_object)
+
+
   return filter_object
 }
 

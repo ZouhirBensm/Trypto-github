@@ -1,6 +1,7 @@
 const express = require('express')
 const operationsBackend_app_router = express.Router()
 var ObjectId = require('mongodb').ObjectId;
+const fs = require('fs').promises;
 
 const { CreateArticleError } = require('../custom-errors/custom-errors')
 
@@ -59,8 +60,8 @@ const controlfaqMiddleware = require('../middleware/operations-middleware/operat
 
 const controlfaqController = require('../controllers/operations-controllers/operations-control-faq-controllers/control-faq-controllers')
 
-const {getPopulatedUser} = require('../middleware/generic-middleware/get-populated-user')
-const {getProfilePicNameIfAnyMiddleware} = require('../middleware/generic-middleware/get-profile-pic-name-if-any-middleware')
+const { getPopulatedUser } = require('../middleware/generic-middleware/get-populated-user')
+const { getProfilePicNameIfAnyMiddleware } = require('../middleware/generic-middleware/get-profile-pic-name-if-any-middleware')
 
 
 
@@ -71,7 +72,8 @@ const { require_loggedin_for_pages, require_loggedin_for_data } = require("../mi
 
 
 // Errors
-const {MongoError} = require('../custom-errors/custom-errors')
+const { MongoError } = require('../custom-errors/custom-errors');
+const SOURCES = require('../full-stack-libs/Types/ArticleSources');
 
 
 
@@ -87,18 +89,18 @@ operationsBackend_app_router.use(set_user_if_any, (req, res, next) => {
   res.locals.userId = req.session.userId
   navBars = NAVBAR.OPERATORS
 
-  
+
   return next()
 })
 
 
 
 
-operationsBackend_app_router.post('/create-faq', 
-require_loggedin_for_pages(true), 
-authenticate_role_for_pages([ROLE.MASTER]), 
-controlfaqMiddleware.saveNewfaqMiddleware,
-controlfaqController.responseController)
+operationsBackend_app_router.post('/create-faq',
+  require_loggedin_for_pages(true),
+  authenticate_role_for_pages([ROLE.MASTER]),
+  controlfaqMiddleware.saveNewfaqMiddleware,
+  controlfaqController.responseController)
 
 
 
@@ -117,11 +119,11 @@ operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/man
 
   // res.locals.CATEGORY = CATEGORY;
 
-  
+
   var JSX_to_load
   JSX_to_load = 'Operations';
   res.locals.isPaypalScriptNeeded = true
-  
+
 
   // console.log("\n\nGET /help-for-orders, /monitor-messages, /manage-subs, /help-for-market-orders, /set-settings ->\nres.locals, navBars, loggedIn\n\n", res.locals, navBars, loggedIn)
 
@@ -130,15 +132,15 @@ operationsBackend_app_router.get(['/help-for-orders', '/monitor-messages', '/man
   })
 })
 
-operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/help-for-market-orders/:userID', '/set-settings/:userID'], require_loggedin_for_pages(true), 
-authenticate_role_for_pages([ROLE.MASTER]), 
-operationsControllers.getOperationsPagesController)
+operationsBackend_app_router.get(['/help-for-orders/:userID', '/monitor-messages/:userID', '/help-for-market-orders/:userID', '/set-settings/:userID'], require_loggedin_for_pages(true),
+  authenticate_role_for_pages([ROLE.MASTER]),
+  operationsControllers.getOperationsPagesController)
 
 
 operationsBackend_app_router.get('/set-settings/:userID/set-users-associated-locality',
-require_loggedin_for_pages(true), 
-authenticate_role_for_pages([ROLE.MASTER]), 
-operationsControllers.getOperationsPagesController)
+  require_loggedin_for_pages(true),
+  authenticate_role_for_pages([ROLE.MASTER]),
+  operationsControllers.getOperationsPagesController)
 
 
 
@@ -155,17 +157,17 @@ operationsControllers.getOperationsPagesController)
 
 
 
-operationsBackend_app_router.get('/paginated-users/users-for-display', require_loggedin_for_data(true), 
-authenticate_role_for_data([ROLE.MASTER]), 
-paginatingSetupMiddleware, 
-destructureURLandRefererMiddleware, 
-usersRetrievalMiddleware, 
-distributePaginatedDataController)
+operationsBackend_app_router.get('/paginated-users/users-for-display', require_loggedin_for_data(true),
+  authenticate_role_for_data([ROLE.MASTER]),
+  paginatingSetupMiddleware,
+  destructureURLandRefererMiddleware,
+  usersRetrievalMiddleware,
+  distributePaginatedDataController)
 
 
 
 
-operationsBackend_app_router.get('/detailed-user-information/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2), getPopulatedUser("PATHPARAM", "subscriptionID"), (req,res) => {
+operationsBackend_app_router.get('/detailed-user-information/:userID', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), requester_auth_middleware(2), getPopulatedUser("PATHPARAM", "subscriptionID"), (req, res) => {
 
   res.status(200).json({
     selectedUser: res.locals.selectedUser
@@ -194,7 +196,7 @@ operationsBackend_app_router.get(['/', '/articles-dashboard', '/control-faq'], r
   res.locals.isPaypalScriptNeeded = true
 
   // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
-  
+
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
     JSX_to_load: JSX_to_load,
   })
@@ -203,22 +205,42 @@ operationsBackend_app_router.get(['/', '/articles-dashboard', '/control-faq'], r
 })
 
 
-operationsBackend_app_router.get('/create-article', 
-require_loggedin_for_pages(true), 
-authenticate_role_for_pages([ROLE.MASTER]), 
-(req, res) => {
+operationsBackend_app_router.get('/create-article',
+  require_loggedin_for_pages(true),
+  authenticate_role_for_pages([ROLE.MASTER]),
+  async (req, res, next) => {
 
-  res.locals.CATEGORY = CATEGORY;
+    res.locals.CATEGORY = CATEGORY;
 
 
-  var JSX_to_load
-  JSX_to_load = 'CreateArticle';
 
-  // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
-  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
-    JSX_to_load: JSX_to_load,
+    var JSX_to_load
+    JSX_to_load = 'CreateArticle';
+
+    let pre_load_article_4_edit
+    if (req.query.articleID_to_preload_4_edit) {
+
+      pre_load_article_4_edit = await Article.findOne({
+        _id: req.query.articleID_to_preload_4_edit,
+        source: SOURCES.BIDBLOCK
+      })
+      .populate(`articleenclosureimage_id articleheadtag_id articlebodyheader_id articleabstract_id articlenesteddata_id`)
+
+      
+      console.log("\n\n", pre_load_article_4_edit.articleenclosureimage_id)
+      
+      res.locals.pre_load_article_4_edit = pre_load_article_4_edit
+
+    }
+
+
+
+    // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
+    res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
+      JSX_to_load: JSX_to_load,
+      ...(res.locals.pre_load_article_4_edit && { pre_load_article_4_edit: res.locals.pre_load_article_4_edit }),
+    })
   })
-})
 
 
 operationsBackend_app_router.get('/add-faq', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
@@ -271,68 +293,68 @@ operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', require_l
 
 
 // UPLOAD NEW ARTICLE TEMPORAL
-operationsBackend_app_router.post('/create-article', 
-require_loggedin_for_pages(true), 
-authenticate_role_for_pages([ROLE.MASTER]), 
-multerinstance.upload.array('files'),
+operationsBackend_app_router.post('/create-article',
+  require_loggedin_for_pages(true),
+  authenticate_role_for_pages([ROLE.MASTER]),
+  multerinstance.upload.array('files'),
 
-createArticlesMiddleware.seeData,
-
-
-createArticlesMiddleware0.setArticleURLMiddleware,
-createArticlesMiddleware0.createArticleInstanceMiddleware,
-createArticlesMiddleware0.createArticleEnclosureImageInstanceMiddleware,
-
-createArticlesMiddleware1.neededFolderEnclosuresMiddleware,
-createArticlesMiddleware1.neededFolderHoldingPerArticleFoldersMiddleware,
+  createArticlesMiddleware.seeData,
 
 
-createArticlesMiddleware2.processArticleEnclosureImageMiddleware,
-createArticlesMiddleware2.processArticleBlockImagesMiddleware,
+  createArticlesMiddleware0.setArticleURLMiddleware,
+  createArticlesMiddleware0.createArticleInstanceMiddleware,
+  createArticlesMiddleware0.createArticleEnclosureImageInstanceMiddleware,
+
+  createArticlesMiddleware1.neededFolderEnclosuresMiddleware,
+  createArticlesMiddleware1.neededFolderHoldingPerArticleFoldersMiddleware,
 
 
-
-createArticlesMiddleware3.createArticleHeadTagInstanceMiddleware,
-createArticlesMiddleware3.createArticleBodyHeaderInstanceMiddleware,
-createArticlesMiddleware3.createArticleAbstractMiddleware,
-createArticlesMiddleware3.createArticleNestedDatatMiddleware1,
-createArticlesMiddleware3.createArticleNestedDatatMiddleware2,
+  createArticlesMiddleware2.processArticleEnclosureImageMiddleware,
+  createArticlesMiddleware2.processArticleBlockImagesMiddleware,
 
 
 
+  createArticlesMiddleware3.createArticleHeadTagInstanceMiddleware,
+  createArticlesMiddleware3.createArticleBodyHeaderInstanceMiddleware,
+  createArticlesMiddleware3.createArticleAbstractMiddleware,
+  createArticlesMiddleware3.createArticleNestedDatatMiddleware1,
+  createArticlesMiddleware3.createArticleNestedDatatMiddleware2,
 
 
-createArticlesMiddleware4.saveArticleMiddleware,
-createArticlesMiddleware4.saveArticleHeadTagMiddleware,
-createArticlesMiddleware4.saveArticleBodyHeaderMiddleware,
-createArticlesMiddleware4.saveArticleEnclosureImageMiddleware,
-createArticlesMiddleware4.saveArticleAbstractMiddleware,
-createArticlesMiddleware4.saveArticleNestedDataMiddleware,
 
 
-operationsControllers.responseCreateArticleController
+
+  createArticlesMiddleware4.saveArticleMiddleware,
+  createArticlesMiddleware4.saveArticleHeadTagMiddleware,
+  createArticlesMiddleware4.saveArticleBodyHeaderMiddleware,
+  createArticlesMiddleware4.saveArticleEnclosureImageMiddleware,
+  createArticlesMiddleware4.saveArticleAbstractMiddleware,
+  createArticlesMiddleware4.saveArticleNestedDataMiddleware,
+
+
+  operationsControllers.responseCreateArticleController
 )
 
 
 
 
 
-operationsBackend_app_router.put('/set-settings/:userID/set-users-associated-locality', 
-require_loggedin_for_data(true), 
-authenticate_role_for_data([ROLE.MASTER]),
-geocodeTheGeometryMiddleware,
-updateUsersAssociatedLocalityMiddleware,
-operationsSettingsMiddleware.getTheUpdatedUserToUseInQueryStringOnFrontEnd,
-operationsSettingsControllers.setAssociatedLocalityResponderController)
+operationsBackend_app_router.put('/set-settings/:userID/set-users-associated-locality',
+  require_loggedin_for_data(true),
+  authenticate_role_for_data([ROLE.MASTER]),
+  geocodeTheGeometryMiddleware,
+  updateUsersAssociatedLocalityMiddleware,
+  operationsSettingsMiddleware.getTheUpdatedUserToUseInQueryStringOnFrontEnd,
+  operationsSettingsControllers.setAssociatedLocalityResponderController)
 
 
-operationsBackend_app_router.post('/set-settings/:userID/set-users-associated-locality', 
-require_loggedin_for_data(true), 
-authenticate_role_for_data([ROLE.MASTER]),
-geocodeTheGeometryMiddleware,
-createUserAssociatedLocalityMiddleware,
-operationsSettingsMiddleware.getTheUpdatedUserToUseInQueryStringOnFrontEnd,
-operationsSettingsControllers.setAssociatedLocalityResponderController)
+operationsBackend_app_router.post('/set-settings/:userID/set-users-associated-locality',
+  require_loggedin_for_data(true),
+  authenticate_role_for_data([ROLE.MASTER]),
+  geocodeTheGeometryMiddleware,
+  createUserAssociatedLocalityMiddleware,
+  operationsSettingsMiddleware.getTheUpdatedUserToUseInQueryStringOnFrontEnd,
+  operationsSettingsControllers.setAssociatedLocalityResponderController)
 
 
 
