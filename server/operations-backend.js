@@ -26,7 +26,10 @@ const UserProfileImage = require('../models/UserProfileImage')
 
 
 
-const operationsControllers = require('../controllers/operations-controllers/operations-controllers')
+
+
+
+
 const operationsSettingsControllers = require('../controllers/operations-controllers/operations-settings-controllers/operations-settings-controllers')
 
 const { requester_auth_middleware } = require('../middleware/generic-middleware/requester-auth-middleware')
@@ -37,13 +40,36 @@ const geocodeTheGeometryMiddleware = require('../middleware/settings-middleware/
 const updateUsersAssociatedLocalityMiddleware = require('../middleware/settings-middleware/update-users-associated-locality-middleware')
 const createUserAssociatedLocalityMiddleware = require('../middleware/settings-middleware/create-user-associated-locality-middleware')
 
-const createArticlesMiddleware = require('../middleware/articles-middleware/create-articles-middleware')
 
-const createArticlesMiddleware0 = require('../middleware/articles-middleware/create-articles-middleware0')
-const createArticlesMiddleware1 = require('../middleware/articles-middleware/create-articles-middleware1')
-const createArticlesMiddleware2 = require('../middleware/articles-middleware/create-articles-middleware2')
-const createArticlesMiddleware3 = require('../middleware/articles-middleware/create-articles-middleware3')
-const createArticlesMiddleware4 = require('../middleware/articles-middleware/create-articles-middleware4')
+
+
+// for POST /create-article middlewares
+const createArticlePOSTMiddleware = require('../middleware/articles-middleware/post-create-middleware/create-article-post-middleware')
+
+
+
+
+
+const createArticlePOSTMiddleware0 = require('../middleware/articles-middleware/post-create-middleware/create-article-post-middleware0')
+
+const createArticlePOSTMiddleware1 = require('../middleware/articles-middleware/post-create-middleware/create-article-post-middleware1')
+
+const createArticlePOSTMiddleware2 = require('../middleware/articles-middleware/post-create-middleware/create-article-post-middleware2')
+
+const createArticlePOSTMiddleware3 = require('../middleware/articles-middleware/post-create-middleware/create-article-post-middleware3')
+
+const createArticlePOSTMiddleware4 = require('../middleware/articles-middleware/post-create-middleware/create-article-post-middleware4')
+
+
+const operationsControllers = require('../controllers/operations-controllers/operations-controllers')
+
+
+
+
+
+// for GET /create-article middleware
+const createArticleGETMiddleware = require('../middleware/articles-middleware/get-create-article-middleware/create-article-get-middleware')
+const createArticleGETController = require('../controllers/article-controllers/get-create-article-controller/create-article-get-controller')
 
 const usersRetrievalMiddleware = require('../middleware/operations-middleware/users-retrieval-middleware')
 const messagesRetrievalMiddleware = require('../middleware/operations-middleware/messages-retrieval-middleware')
@@ -205,42 +231,22 @@ operationsBackend_app_router.get(['/', '/articles-dashboard', '/control-faq'], r
 })
 
 
+
+// GET
 operationsBackend_app_router.get('/create-article',
   require_loggedin_for_pages(true),
   authenticate_role_for_pages([ROLE.MASTER]),
-  async (req, res, next) => {
-
-    res.locals.CATEGORY = CATEGORY;
-
-
-
-    var JSX_to_load
-    JSX_to_load = 'CreateArticle';
-
-    let pre_load_article_4_edit
-    if (req.query.articleID_to_preload_4_edit) {
-
-      pre_load_article_4_edit = await Article.findOne({
-        _id: req.query.articleID_to_preload_4_edit,
-        source: SOURCES.BIDBLOCK
-      })
-      .populate(`articleenclosureimage_id articleheadtag_id articlebodyheader_id articleabstract_id articlenesteddata_id`)
-
-      
-      console.log("\n\n", pre_load_article_4_edit.articleenclosureimage_id)
-      
-      res.locals.pre_load_article_4_edit = pre_load_article_4_edit
-
-    }
+  createArticleGETMiddleware.middleware1,
+  createArticleGETMiddleware.middleware2,
+  // createArticleGETMiddleware.middleware3,
+  // createArticleGETMiddleware.middleware4,
+  // createArticleGETMiddleware.middleware5,
+  createArticleGETController.controller1)
 
 
 
-    // console.log("Response locals: ___________________/n", res.locals, navBars, loggedIn, "\n\n____________________")
-    res.render('bodies/generic-boilerplate-ejs-to-render-react-components-operations', {
-      JSX_to_load: JSX_to_load,
-      ...(res.locals.pre_load_article_4_edit && { pre_load_article_4_edit: res.locals.pre_load_article_4_edit }),
-    })
-  })
+
+
 
 
 operationsBackend_app_router.get('/add-faq', require_loggedin_for_pages(true), authenticate_role_for_pages([ROLE.MASTER]), (req, res) => {
@@ -292,44 +298,47 @@ operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', require_l
 
 
 
+
+
+
 // UPLOAD NEW ARTICLE TEMPORAL
 operationsBackend_app_router.post('/create-article',
   require_loggedin_for_pages(true),
   authenticate_role_for_pages([ROLE.MASTER]),
   multerinstance.upload.array('files'),
 
-  createArticlesMiddleware.seeData,
+  createArticlePOSTMiddleware.seeData,
 
 
-  createArticlesMiddleware0.setArticleURLMiddleware,
-  createArticlesMiddleware0.createArticleInstanceMiddleware,
-  createArticlesMiddleware0.createArticleEnclosureImageInstanceMiddleware,
+  createArticlePOSTMiddleware0.setArticleURLMiddleware,
+  createArticlePOSTMiddleware0.createArticleInstanceMiddleware,
+  createArticlePOSTMiddleware0.createArticleEnclosureImageInstanceMiddleware,
 
-  createArticlesMiddleware1.neededFolderEnclosuresMiddleware,
-  createArticlesMiddleware1.neededFolderHoldingPerArticleFoldersMiddleware,
-
-
-  createArticlesMiddleware2.processArticleEnclosureImageMiddleware,
-  createArticlesMiddleware2.processArticleBlockImagesMiddleware,
+  createArticlePOSTMiddleware1.neededFolderEnclosuresMiddleware,
+  createArticlePOSTMiddleware1.neededFolderHoldingPerArticleFoldersMiddleware,
 
 
-
-  createArticlesMiddleware3.createArticleHeadTagInstanceMiddleware,
-  createArticlesMiddleware3.createArticleBodyHeaderInstanceMiddleware,
-  createArticlesMiddleware3.createArticleAbstractMiddleware,
-  createArticlesMiddleware3.createArticleNestedDatatMiddleware1,
-  createArticlesMiddleware3.createArticleNestedDatatMiddleware2,
+  createArticlePOSTMiddleware2.processArticleEnclosureImageMiddleware,
+  createArticlePOSTMiddleware2.processArticleBlockImagesMiddleware,
 
 
 
+  createArticlePOSTMiddleware3.createArticleHeadTagInstanceMiddleware,
+  createArticlePOSTMiddleware3.createArticleBodyHeaderInstanceMiddleware,
+  createArticlePOSTMiddleware3.createArticleAbstractMiddleware,
+  createArticlePOSTMiddleware3.createArticleNestedDatatMiddleware1,
+  createArticlePOSTMiddleware3.createArticleNestedDatatMiddleware2,
 
 
-  createArticlesMiddleware4.saveArticleMiddleware,
-  createArticlesMiddleware4.saveArticleHeadTagMiddleware,
-  createArticlesMiddleware4.saveArticleBodyHeaderMiddleware,
-  createArticlesMiddleware4.saveArticleEnclosureImageMiddleware,
-  createArticlesMiddleware4.saveArticleAbstractMiddleware,
-  createArticlesMiddleware4.saveArticleNestedDataMiddleware,
+
+
+
+  createArticlePOSTMiddleware4.saveArticleMiddleware,
+  createArticlePOSTMiddleware4.saveArticleHeadTagMiddleware,
+  createArticlePOSTMiddleware4.saveArticleBodyHeaderMiddleware,
+  createArticlePOSTMiddleware4.saveArticleEnclosureImageMiddleware,
+  createArticlePOSTMiddleware4.saveArticleAbstractMiddleware,
+  createArticlePOSTMiddleware4.saveArticleNestedDataMiddleware,
 
 
   operationsControllers.responseCreateArticleController

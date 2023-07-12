@@ -236,17 +236,47 @@ class CreateArticle extends React.Component {
 
   }
 
-  componentDidMount() {
-    console.log(pre_load_article_4_edit);
 
-    if (isObjEmpty('componentDidMount: ', pre_load_article_4_edit)) {
+
+  // let ori_blocks = pre_load_article_4_edit.articlenesteddata_id?.blocks
+
+  //   delete pre_load_article_4_edit.articlenesteddata_id?.blocks
+
+  //   pre_load_article_4_edit.articlenesteddata_id?.blocks = []
+
+  //   console.log(pre_load_article_4_edit.articlenesteddata_id?.blocks)
+
+
+  //   for (let i = 0; i < ori_blocks.length; i++) {
+  //     const block = ori_blocks[i];
+
+  //     delete block._id
+
+  //     console.log(block)
+
+  //     // let new_block = block
+
+  //     pre_load_article_4_edit.articlenesteddata_id?.blocks.push(new_block)
+      
+  //   }
+
+  //   console.log(pre_load_article_4_edit.articlenesteddata_id);
+
+
+  componentDidMount() {
+    console.log('componentDidMount: ', pre_load_article_4_edit);
+
+    if (isObjEmpty(pre_load_article_4_edit)) {
       console.log('nothing to load');
       return;
     }
 
-    console.log(pre_load_article_4_edit.articleenclosureimage_id.path);
+    console.log(pre_load_article_4_edit.articleenclosureimage_id?.path);
 
-    fetch(pre_load_article_4_edit.articleenclosureimage_id.path)
+
+    
+
+    fetch(pre_load_article_4_edit.articleenclosureimage_id?.path)
       .then(response => response.blob())
       .then(blob => {
         const file = new File([blob], pre_load_article_4_edit.articleenclosureimage_id.banner_image_originalname, { type: blob.type });

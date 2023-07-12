@@ -37,11 +37,11 @@ function neededFolderHoldingPerArticleFoldersMiddleware(req, res, next) {
 
 
 
-const createArticlesMiddleware1 = {
+const createArticlePOSTMiddleware1 = {
   neededFolderEnclosuresMiddleware: neededFolderEnclosuresMiddleware,
   neededFolderHoldingPerArticleFoldersMiddleware: neededFolderHoldingPerArticleFoldersMiddleware,
 }
 
 
 
-module.exports = createArticlesMiddleware1
+module.exports = createArticlePOSTMiddleware1

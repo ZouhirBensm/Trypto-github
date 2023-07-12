@@ -8,7 +8,7 @@
       <% const block = JSON.parse(JSON.stringify(locals.H2H3_blocks[i])); %>
 
       <!-- < % locals.currentIndex = i; %> -->
-      <li class="class-<%=block.type%>"><a href="#<%=block.type%>-<%=block.order%>"><%=block[`${block.type}_innerHTML`]%></a></li>
+      <li class="class-<%=block.type%>"><a href="#<%=block.type%>-<%=block.id%>"><%=block[`${block.type}_innerHTML`]%></a></li>
 
     <% } %>
   </ol>

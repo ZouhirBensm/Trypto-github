@@ -1,9 +1,9 @@
-const ArticleHeadTag = require('../../models/articles-models/ArticleHeadTag')
-const ArticleBodyHeader = require('../../models/articles-models/ArticleBodyHeader')
-const ArticleAbstract = require("../../models/articles-models/ArticleAbstract")
-const { ArticleNestedData, H2_Block, H3_Block, SUMMERNOTE_Block, IMG_Block, IFRAME_Block, A_Block, EMAIL_Block } = require("../../models/articles-models/ArticleNestedData")
+const ArticleHeadTag = require('../../../models/articles-models/ArticleHeadTag')
+const ArticleBodyHeader = require('../../../models/articles-models/ArticleBodyHeader')
+const ArticleAbstract = require("../../../models/articles-models/ArticleAbstract")
+const { ArticleNestedData, H2_Block, H3_Block, SUMMERNOTE_Block, IMG_Block, IFRAME_Block, A_Block, EMAIL_Block } = require("../../../models/articles-models/ArticleNestedData")
 
-const SECTION_TYPES = require("../../full-stack-libs/Types/ArticleSectionTypes")
+const SECTION_TYPES = require("../../../full-stack-libs/Types/ArticleSectionTypes")
 
 
 
@@ -119,7 +119,7 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
     switch (nested_data_block.type) {
       case SECTION_TYPES.H2:
         const h2Block = new H2_Block({
-          order: nested_data_block.id,
+          id: nested_data_block.id,
           H2_innerHTML: nested_data_block.H2_innerHTML,
         });
 
@@ -132,7 +132,7 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
         break;
       case SECTION_TYPES.H3:
         const h3Block = new H3_Block({
-          order: nested_data_block.id,
+          id: nested_data_block.id,
           H3_innerHTML: nested_data_block.H3_innerHTML,
         });
 
@@ -144,7 +144,7 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
 
       case SECTION_TYPES.SUMMERNOTE:
         const summernoteBlock = new SUMMERNOTE_Block({
-          order: nested_data_block.id,
+          id: nested_data_block.id,
           SUMMERNOTE_innerHTML: nested_data_block.SUMMERNOTE_innerHTML,
         });
 
@@ -175,7 +175,7 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
         }
 
         const imgBlock = new IMG_Block({
-          order: nested_data_block.id,
+          id: nested_data_block.id,
           img_width: nested_data_block.img_width,
           img_height: nested_data_block.img_height,
           img_src: nested_data_block.img_src,
@@ -196,6 +196,7 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
 
         console.log("$$$$$$$$\n\nnested_data_block.iframe_source: $$$$$$\n\n", nested_data_block.iframe_source)
         const iframeBlock = new IFRAME_Block({
+          id: nested_data_block.id,
           iframe_width: nested_data_block.iframe_width ? parseInt(nested_data_block.iframe_width) : undefined,
           iframe_height: nested_data_block.iframe_height ? parseInt(nested_data_block.iframe_height) : undefined,
           // iframe_type: nested_data_block.iframe_type,
@@ -258,7 +259,7 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
         break;
       case SECTION_TYPES.EMAIL:
         const emailBlock = new EMAIL_Block({
-          order: nested_data_block.id,
+          id: nested_data_block.id,
           EMAIL_title: nested_data_block.EMAIL_title,
           EMAIL_subtitle: nested_data_block.EMAIL_subtitle,
         });
@@ -323,7 +324,7 @@ async function createArticleNestedDatatMiddleware2(req, res, next) {
 
 
 
-const createArticlesMiddleware3 = {
+const createArticlePOSTMiddleware3 = {
   createArticleHeadTagInstanceMiddleware: createArticleHeadTagInstanceMiddleware,
   createArticleBodyHeaderInstanceMiddleware: createArticleBodyHeaderInstanceMiddleware,
   createArticleAbstractMiddleware: createArticleAbstractMiddleware,
@@ -335,4 +336,4 @@ const createArticlesMiddleware3 = {
 
 
 
-module.exports = createArticlesMiddleware3
+module.exports = createArticlePOSTMiddleware3

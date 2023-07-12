@@ -2,8 +2,8 @@ const sharp = require('sharp');
 const fs = require('fs/promises')
 const path = require('path')
 
-const { CreateArticleError } = require('../../custom-errors/custom-errors');
-const SECTION_TYPES = require('../../full-stack-libs/Types/ArticleSectionTypes');
+const { CreateArticleError } = require('../../../custom-errors/custom-errors');
+const SECTION_TYPES = require('../../../full-stack-libs/Types/ArticleSectionTypes');
 
 
 
@@ -204,7 +204,7 @@ async function middleware3(req, res, next) {
 
 
 
-const createArticlesMiddleware2 = {
+const createArticlePOSTMiddleware2 = {
   processArticleEnclosureImageMiddleware: processArticleEnclosureImageMiddleware,
   processArticleBlockImagesMiddleware: processArticleBlockImagesMiddleware,
   middleware3: middleware3,
@@ -212,4 +212,4 @@ const createArticlesMiddleware2 = {
 
 
 
-module.exports = createArticlesMiddleware2
+module.exports = createArticlePOSTMiddleware2

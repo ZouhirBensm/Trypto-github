@@ -1,4 +1,4 @@
-const { CreateArticleError } = require('../../custom-errors/custom-errors')
+const { CreateArticleError } = require('../../../custom-errors/custom-errors')
 
 
 
@@ -107,7 +107,7 @@ async function saveArticleNestedDataMiddleware(req, res, next) {
 
 
 
-const createArticlesMiddleware4 = {
+const createArticlePOSTMiddleware4 = {
   saveArticleMiddleware: saveArticleMiddleware,
   saveArticleHeadTagMiddleware: saveArticleHeadTagMiddleware,
   saveArticleBodyHeaderMiddleware: saveArticleBodyHeaderMiddleware,
@@ -118,4 +118,4 @@ const createArticlesMiddleware4 = {
 
 
 
-module.exports = createArticlesMiddleware4
+module.exports = createArticlePOSTMiddleware4

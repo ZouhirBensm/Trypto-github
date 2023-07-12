@@ -5,7 +5,7 @@ const SECTION_TYPES = require("../../full-stack-libs/Types/ArticleSectionTypes")
 const options = { discriminatorKey: 'type' };
 
 const BlockSchema = new mongoose.Schema({
-  order: Number, // id on the front end
+  id: Number, // id on the front end
 }, options);
 
 const ImageSchema = new mongoose.Schema({
@@ -232,10 +232,10 @@ const EMAIL_Block = Block.discriminator(SECTION_TYPES.EMAIL,
 
 
 // CREATE
-// const genericBlock = new Block({ order: 123, H2_innerHTML: 'some H2 title' });
+// const genericBlock = new Block({ id: 123, H2_innerHTML: 'some H2 title' });
 // assert.ok(!genericBlock.H2_innerHTML);
 
-// const h2Block = new H2_Block({ order: 123, H2_innerHTML: 'some H2 title' });
+// const h2Block = new H2_Block({ id: 123, H2_innerHTML: 'some H2 title' });
 // assert.ok(h2Block.H2_innerHTML);
 
 // QUERY

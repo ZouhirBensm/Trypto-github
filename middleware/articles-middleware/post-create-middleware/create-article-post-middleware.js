@@ -41,10 +41,10 @@ function seeData(req, res, next) {
 
 
 
-const createArticlesMiddleware = {
+const createArticlePOSTMiddleware = {
   seeData: seeData
 }
 
 
 
-module.exports = createArticlesMiddleware
+module.exports = createArticlePOSTMiddleware

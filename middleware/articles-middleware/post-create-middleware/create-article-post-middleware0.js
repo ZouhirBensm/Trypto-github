@@ -1,5 +1,5 @@
-const Article = require("../../models/articles-models/Article")
-const ArticleEnclosureImage = require("../../models/articles-models/ArticleEnclosureImage")
+const Article = require("../../../models/articles-models/Article")
+const ArticleEnclosureImage = require("../../../models/articles-models/ArticleEnclosureImage")
 
 
 
@@ -71,7 +71,7 @@ async function createArticleEnclosureImageInstanceMiddleware(req, res, next) {
 
 
 
-const createArticlesMiddleware0 = {
+const createArticlePOSTMiddleware0 = {
   setArticleURLMiddleware: setArticleURLMiddleware,
   createArticleInstanceMiddleware: createArticleInstanceMiddleware,
   createArticleEnclosureImageInstanceMiddleware: createArticleEnclosureImageInstanceMiddleware
@@ -79,4 +79,4 @@ const createArticlesMiddleware0 = {
 
 
 
-module.exports = createArticlesMiddleware0
+module.exports = createArticlePOSTMiddleware0
