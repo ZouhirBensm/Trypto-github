@@ -232,6 +232,7 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
         }
 
         const aBlock = new A_Block({
+          id: nested_data_block.id,
           A_href: nested_data_block.A_href,
           A_title: nested_data_block.A_title,
 

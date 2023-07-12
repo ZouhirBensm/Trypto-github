@@ -238,7 +238,7 @@ operationsBackend_app_router.get('/create-article',
   authenticate_role_for_pages([ROLE.MASTER]),
   createArticleGETMiddleware.middleware1,
   createArticleGETMiddleware.middleware2,
-  // createArticleGETMiddleware.middleware3,
+  createArticleGETMiddleware.middleware3,
   // createArticleGETMiddleware.middleware4,
   // createArticleGETMiddleware.middleware5,
   createArticleGETController.controller1)
