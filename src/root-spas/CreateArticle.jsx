@@ -239,7 +239,6 @@ class CreateArticle extends React.Component {
   }
 
   promise1 = (image) => {
-    let image_name, image_url;
     const { name, path } = image;
 
     console.log(name, path)
