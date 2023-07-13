@@ -55,6 +55,7 @@ const { getProfilePicNameIfAnyMiddleware } = require('../middleware/generic-midd
 
 const deleteMarketOrderMiddleware = require('../middleware/delete-account-process-middleware/delete-market-order-middleware.js')
 const deleteBuyCryptoOrdersMiddleware = require('../middleware/delete-account-process-middleware/delete-buycryptoorders-middleware')
+const editUsersArticlesAuthorMiddleware = require('../middleware/delete-account-process-middleware/edit-users-articles-author-middleware')
 const deleteSellOrdersMiddleware = require('../middleware/delete-account-process-middleware/delete-sellcryptoorders-middleware')
 const deleteProtagonistsMiddleware = require('../middleware/delete-account-process-middleware/delete-protagonists-middleware')
 const deleteMessagesMiddleware = require('../middleware/delete-account-process-middleware/delete-messages-middleware')
@@ -430,36 +431,35 @@ LoginController.loginController)
 
 
 
+// TODO !!! Add CRUD for users on their messages, at least delete, or make a agenda auto deletion after 1 month of so
 
 
-
-
-
-
-
-// TODO add userID for articles
 
 
 homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), 
 authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
 requester_auth_middleware(4), 
 destructureURLandRefererMiddleware, 
+
 startEmptyNotificationsMiddleware, 
-deleteBuyCryptoOrdersMiddleware, 
-deleteSellOrdersMiddleware, 
-deleteMarketOrderMiddleware, 
-deleteProtagonistsMiddleware, 
-deleteMessagesMiddleware,
-deleteUserProfileImageIfAnyMiddleware, 
-deleteFSProfilePictureIfAnyMiddleware,
-sessionSubscriberMiddleware, 
-conditional_Unsub_AgendaJobDel_SubDel_Middleware, 
-deleteHexMiddleware, 
-deleteUserMiddleware,
-deleteUserAssociatedLocalityMiddleware,
-saveDeletionReasonMiddleware,
-logoutMiddleware, 
-homeCurrencyOrdersController.deleteAccountController)
+
+editUsersArticlesAuthorMiddleware, // Edit author to undefined
+// deleteBuyCryptoOrdersMiddleware, 
+// deleteSellOrdersMiddleware, 
+// deleteMarketOrderMiddleware, 
+// deleteProtagonistsMiddleware, 
+// deleteMessagesMiddleware,
+// deleteUserProfileImageIfAnyMiddleware, 
+// deleteFSProfilePictureIfAnyMiddleware,
+// sessionSubscriberMiddleware, 
+// conditional_Unsub_AgendaJobDel_SubDel_Middleware, 
+// deleteHexMiddleware, 
+// deleteUserMiddleware,
+// deleteUserAssociatedLocalityMiddleware,
+// saveDeletionReasonMiddleware,
+// logoutMiddleware, 
+homeCurrencyOrdersController.deleteAccountController
+)
 
 
 // homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', saveDeletionReasonMiddleware, (req,res)=>{

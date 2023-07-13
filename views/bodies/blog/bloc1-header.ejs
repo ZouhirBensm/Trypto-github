@@ -18,7 +18,12 @@
   <div>
     <h1 itemprop="name headline"><%=locals.article.h1%></h1>
     <span itemprop="author" itemscope itemtype="https://schema.org/Person">
-      <span itemprop="name"><%=locals.article.author_id.username%></span>
+    <% const author = locals.article.author_id?.username? locals.article.author_id?.username: 'Bidblock'; %>
+    <% if (author) { %>
+      <span itemprop="name"><%=author%></span>
+    <% } %>
+
+    <!-- <span itemprop="name">< %=locals.article.author_id.username%></span> -->
       <!-- TODO !!! Ideally set to about us page /author/< %-locals.article.author_id.username%>-->
       <link itemprop="url" rel="author" href="/"/>
     </span>

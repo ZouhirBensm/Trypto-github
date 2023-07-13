@@ -27,7 +27,6 @@ const ArticleSchema = new Schema({
   author_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
   },
   articlebodyheader_id: {
     type: mongoose.Schema.Types.ObjectId,

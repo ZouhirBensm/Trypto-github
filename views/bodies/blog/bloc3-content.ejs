@@ -36,7 +36,11 @@
 
   <span>
     <!-- TODO !!! place author name link -->
-    <a href="/">By <%=locals.article.author_id.username%></a>
+    <% let signature = 'By Bidblock'
+      if(locals.article.author_id?.username) signature = `By ${locals.article.author_id?.username}`
+    %>
+
+    <a href="/"><%=signature%></a>
   </span>
   
 
