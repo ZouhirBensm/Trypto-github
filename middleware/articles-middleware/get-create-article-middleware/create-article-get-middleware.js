@@ -44,6 +44,51 @@ async function middleware2(req, res, next) {
   console.log("\n\n", res.locals.copy_pre_load_article_4_edit?.articlenesteddata_id.blocks)
   // console.log("\n\n", pre_load_article_4_edit.articleenclosureimage_id)
 
+  
+  // PLACE THE BANNER IMAGE
+  let allImagesURLs = [{
+      name: res.locals.copy_pre_load_article_4_edit.articleenclosureimage_id.banner_image_originalname,
+      path: res.locals.copy_pre_load_article_4_edit.articleenclosureimage_id?.path
+    }]
+
+
+
+  // STEP 1: POPULATE IMAGE URLS
+  for (let i = 0; i < pre_load_article_4_edit.articlenesteddata_id.blocks.length; i++) {
+    console.log(res.locals.copy_pre_load_article_4_edit.articlenesteddata_id.blocks[i].type, !(res.locals.copy_pre_load_article_4_edit.articlenesteddata_id.blocks[i].type === SECTION_TYPES.IMG || res.locals.copy_pre_load_article_4_edit.articlenesteddata_id.blocks[i].type === SECTION_TYPES.A))
+
+    // IF BLOCK not IMG  nor A SKIP
+    if (!(res.locals.copy_pre_load_article_4_edit.articlenesteddata_id.blocks[i].type === SECTION_TYPES.IMG || res.locals.copy_pre_load_article_4_edit.articlenesteddata_id.blocks[i].type === SECTION_TYPES.A)) {
+      continue
+    }
+
+
+
+    
+
+    // IF BLOCK IMG, or A, and does not have a image field SKIP
+    if (!res.locals.copy_pre_load_article_4_edit.articlenesteddata_id.blocks[i].image) {
+      continue
+    }
+
+    console.log('hit!')
+    // IF BLOCK IMG, or A, and has a image field then ...
+    allImagesURLs.push({
+      name: res.locals.copy_pre_load_article_4_edit.articlenesteddata_id.blocks[i].image.image_name,
+      path: res.locals.copy_pre_load_article_4_edit.articlenesteddata_id.blocks[i].image.path
+    })
+
+  }
+
+
+  console.log("\n\n_____________________________allImagesURLs", allImagesURLs)
+
+  res.locals.allImagesURLs = allImagesURLs
+
+
+
+
+  // STEP 2: DELETE BLOCK IDs
   // Loop through each object in the array
   for (let i = 0; i < pre_load_article_4_edit.articlenesteddata_id.blocks.length; i++) {
     // Remove the _id field from the current object
@@ -51,9 +96,24 @@ async function middleware2(req, res, next) {
   }
 
 
+
+
+
+
+
+
+
+
+  
+
   const fields_to_delete = ["path", "multer_name", "sharp_format", "sharp_width", "sharp_height", "sharp_size", "_id", "image_file"]
 
 
+
+
+
+
+  // STEP 3: IMG BLOCKS FILTER
   for (let i = 0; i < pre_load_article_4_edit.articlenesteddata_id.blocks.length; i++) {
 
     // IF BLOCK NOT IMG SKIP
@@ -77,7 +137,7 @@ async function middleware2(req, res, next) {
 
 
 
-
+  // STEP 4: A BLOCK FILTERS
   for (let i = 0; i < pre_load_article_4_edit.articlenesteddata_id.blocks.length; i++) {
 
     // IF BLOCK NOT A SKIP
@@ -100,6 +160,8 @@ async function middleware2(req, res, next) {
       delete res.locals.copy_pre_load_article_4_edit.articlenesteddata_id.blocks[i].image[field];
     });
   }
+
+
 
   // A with IMG upload
 
@@ -139,16 +201,35 @@ async function middleware2(req, res, next) {
   //   "img_description": "some ugly fuck"
   // }
 
+  
+  // {
+  //   "image_file": {
+  //     arrayBuffer: ƒ arrayBuffer() {}
+  //     lastModified: 1672796131903
+  //     lastModifiedDate: Tue Jan 03 2023 20:35:31 GMT-0500 (GMT-05:00)
+  //     slice: ƒ slice() {}
+  //     stream: ƒ stream() {}
+  //     text: ƒ text() {}
+  //     webkitRelativePath: ""
+  //     },
+
+  //     "image_name": "btc.png"
+  // }
+
   console.log("\n\n__________________EDITED\n\n")
   console.log("\n\n", res.locals.copy_pre_load_article_4_edit.articlenesteddata_id.blocks)
+
+
+
+
 
   return next()
 }
 
 
-// TODO !!!!! HERE CLEAN the nested data blocks as such
 
-// Figure out a way to run a Promise all to get [Banner_file, image file1, image file2, ...]
+
+// TODO !!!!! Figure out a way to run a Promise all to get [Banner_file, image file1, image file2, ...]
 
 // then set the state with the correct banner file and correct nested A or IMG blocks i.e. place in proper locations
 

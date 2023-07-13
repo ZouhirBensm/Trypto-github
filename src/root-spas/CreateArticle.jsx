@@ -35,27 +35,27 @@ class CreateArticle extends React.Component {
     super()
     this.state = {
       // step: 1,
-      // // STEP 1
-      // html_title: "",
-      // meta_title: "",
-      // meta_description: "",
-      // canonical: undefined,
-      // noindex: false,
-      // nofollow: false,
-      // // STEP 2
-      // keywords: [],
-      // category: "",
-      // // publisher name, email, and link are default values for now
-      // banner_image_name: undefined,
-      // banner_image_file: undefined,
-      // // banner_image_path
-      // banner_img_alt: "",
-      // h1: "",
-      // // author is logged in username
-      // // published_datetime is default now upon creation
-      // abstract_name_type: "",
-      // abstract_points: [],
-      // content_structure: [SECTION_TYPES.H2]
+      // STEP 1
+      html_title: "",
+      meta_title: "",
+      meta_description: "",
+      canonical: undefined,
+      noindex: false,
+      nofollow: false,
+      // STEP 2
+      keywords: [],
+      category: "",
+      // publisher name, email, and link are default values for now
+      banner_image_name: undefined,
+      banner_image_file: undefined,
+      // banner_image_path
+      banner_img_alt: "",
+      h1: "",
+      // author is logged in username
+      // published_datetime is default now upon creation
+      abstract_name_type: "",
+      abstract_points: [],
+      content_structure: [SECTION_TYPES.H2]
 
 
       // // _____________________________________________________
@@ -64,163 +64,163 @@ class CreateArticle extends React.Component {
       // TEMPORAL
       // USED TO TEST CREATE QUICKLY
 
-      step: 1,
-      html_title: "Some random title", // CHECK (ArticleHeadTag)
-      meta_title: "Some random title2",
-      meta_description: "Some random description", // CHECK (ArticleHeadTag)
-      canonical: undefined, // CHECK (ArticleHeadTag)
-      noindex: true, // CHECK (ArticleHeadTag)
-      nofollow: false, // CHECK (ArticleHeadTag)
-      keywords: ['opti for this', 'and for that'], // CHECK (ArticleBodyHeader)
+      // step: 1,
+      // html_title: "Some random title", // CHECK (ArticleHeadTag)
+      // meta_title: "Some random title2",
+      // meta_description: "Some random description", // CHECK (ArticleHeadTag)
+      // canonical: undefined, // CHECK (ArticleHeadTag)
+      // noindex: true, // CHECK (ArticleHeadTag)
+      // nofollow: false, // CHECK (ArticleHeadTag)
+      // keywords: ['opti for this', 'and for that'], // CHECK (ArticleBodyHeader)
+      // // category: "bitcoin", // CHECK (ArticleBodyHeader)
       // category: "bitcoin", // CHECK (ArticleBodyHeader)
-      category: "bitcoin", // CHECK (ArticleBodyHeader)
-      banner_img_alt: "some alt txt for the image", // CHECK (ArticleBodyHeader)
-      h1: "The H1 title", // CHECK (ArticleBodyHeader)
+      // banner_img_alt: "some alt txt for the image", // CHECK (ArticleBodyHeader)
+      // h1: "The H1 title", // CHECK (ArticleBodyHeader)
 
 
-      // banner_image_path
-      banner_image_file: undefined, // CHECK (ArticleEnclosureImage)
-      banner_image_name: undefined, // NO NEED TO SAVE
+      // // banner_image_path
+      // banner_image_file: undefined, // CHECK (ArticleEnclosureImage)
+      // banner_image_name: undefined, // NO NEED TO SAVE
 
-      abstract_name_type: "Resume",
-      abstract_points: [
-        "Lorem, ipsum",
-        "dolor <strong>sit amet consectetur</strong> adipisicing",
-        "elit. <strong>Eum</strong> aspernatur<strong> cupiditate</strong>",
-        "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
-      ],
-
-
-
-
-      content_structure: [SECTION_TYPES.H2, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.EMAIL, SECTION_TYPES.H3, SECTION_TYPES.IFRAME, SECTION_TYPES.IMG, SECTION_TYPES.IMG, SECTION_TYPES.A, SECTION_TYPES.EMAIL, SECTION_TYPES.A],
-      // content_structure: [SECTION_TYPES.IMG, SECTION_TYPES.IMG],
-      // content_structure: [SECTION_TYPES.A, SECTION_TYPES.A],
-      // content_structure: [SECTION_TYPES.IFRAME],
-      e: undefined,
-      // nested_data: [],
-      nested_data: [
-        {
-          "id": 1,
-          "type": "H2",
-          "H2_innerHTML": "Some h2 title"
-        },
-        {
-          "id": 2,
-          "type": "SUMMERNOTE",
-          "SUMMERNOTE_innerHTML": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit magni necessitatibus quos illum qui alias blanditiis, impedit facilis vero, provident nesciunt modi ad obcaecati libero vel quidem veritatis ipsa sunt!</p><p>I hope this works!</p><p>I hope this works!</p><p>adding&nbsp;a link&nbsp;to <a href=\"https://google.com\" target=\"_blank\">google</a>. bla.</p><ul><li>one</li><li>two bla bla&nbsp;<a href=\"https://yahoo..com\" target=\"_blank\">yahoo</a> ici. bla.</li><li>this is amazing!</li></ul>"
-        },
-        {
-          "id": 3,
-          "type": "EMAIL",
-          "EMAIL_title": "title1",
-          "EMAIL_subtitle": "subtitle1"
-        },
-        {
-          "id": 4,
-          "type": "H3",
-          "H3_innerHTML": "some h3 element"
-        },
-        {
-          "id": 5,
-          "type": "IFRAME",
-          "iframe_name": "Some name",
-          "iframe_description": "Some description",
-          "iframe_source": "https://www.youtube.com/embed/s2LmubDQ4RI"
-        },
-        {
-          "id": 6,
-          "type": "IMG",
-          "img_width": "200",
-          "img_height": "200",
-          "img_alt": "Algerians",
-          "img_description": "Phenotype of algerians",
-        },
-        {
-          "id": 7,
-          "type": "IMG",
-          "img_src": "https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2023/revuelto/revuelto_m.png",
-          "img_alt": "Lambo",
-          "img_width": "300",
-          "img_height": "200",
-          "img_description": "a Lambo"
-        },
-        {
-          "id": 8,
-          "type": "A",
-          "A_href": "https://en.wikipedia.org/wiki/Cars_(film)",
-          "A_innerText": "Wiki cars",
-          "A_title": "a title",
-          "newtab": true,
-          "ugc": true,
-          "nofollow": true,
-          "noopener": true
-        },
-        {
-          "id": 9,
-          "type": "EMAIL",
-          "EMAIL_title": "title2",
-          "EMAIL_subtitle": "subtitle2"
-        },
-        {
-          "id": 10,
-          "type": "A",
-          "A_href": "https://www.bbc.com/news/world-europe-66104632",
-          "A_title": "BBC franch",
-          "newtab": true,
-          "image_mode_on": true,
-          "img_width": "350",
-          "img_height": "100",
-          "img_src": "https://ichef.bbci.co.uk/news/976/cpsprodpb/14044/production/_130288918_amin.png.webp",
-          "img_alt": "some ugly fuck",
-          "img_description": "some ugly fuck"
-        }
-      ]
-
-
-      // nested_data: [
-      //   {
-      //     "id": 1,
-      //     "type": "A",
-      //     "A_href": "google.com",
-      //     "A_title": "Some A title",
-      //     "newtab": true,
-      //     "nofollow": true,
-      //     "ugc": true,
-      //     "A_innerText": "The inner A Google website"
-      //   },
-      //   {
-      //     "id": 2,
-      //     "type": "A",
-      //     "A_href": "yahoo.com",
-      //     "A_title": "Some A title 2",
-      //     "image_mode_on": true,
-      //     "img_width": "200",
-      //     "img_height": "200",
-      //     "img_alt": "a ai generated image",
-      //     "img_description": "the schema"
-      //   }
+      // abstract_name_type: "Resume",
+      // abstract_points: [
+      //   "Lorem, ipsum",
+      //   "dolor <strong>sit amet consectetur</strong> adipisicing",
+      //   "elit. <strong>Eum</strong> aspernatur<strong> cupiditate</strong>",
+      //   "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
       // ],
 
+
+
+
+      // content_structure: [SECTION_TYPES.H2, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.EMAIL, SECTION_TYPES.H3, SECTION_TYPES.IFRAME, SECTION_TYPES.IMG, SECTION_TYPES.IMG, SECTION_TYPES.A, SECTION_TYPES.EMAIL, SECTION_TYPES.A],
+      // // content_structure: [SECTION_TYPES.IMG, SECTION_TYPES.IMG],
+      // // content_structure: [SECTION_TYPES.A, SECTION_TYPES.A],
+      // // content_structure: [SECTION_TYPES.IFRAME],
+      // e: undefined,
+      // // nested_data: [],
       // nested_data: [
       //   {
       //     "id": 1,
-      //     "type": "IMG",
-      //     "img_width": "300",
-      //     "img_height": "300",
-      //     "img_alt": "some alt text",
-      //     "img_description": "some description"
+      //     "type": "H2",
+      //     "H2_innerHTML": "Some h2 title"
       //   },
       //   {
       //     "id": 2,
+      //     "type": "SUMMERNOTE",
+      //     "SUMMERNOTE_innerHTML": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit magni necessitatibus quos illum qui alias blanditiis, impedit facilis vero, provident nesciunt modi ad obcaecati libero vel quidem veritatis ipsa sunt!</p><p>I hope this works!</p><p>I hope this works!</p><p>adding&nbsp;a link&nbsp;to <a href=\"https://google.com\" target=\"_blank\">google</a>. bla.</p><ul><li>one</li><li>two bla bla&nbsp;<a href=\"https://yahoo..com\" target=\"_blank\">yahoo</a> ici. bla.</li><li>this is amazing!</li></ul>"
+      //   },
+      //   {
+      //     "id": 3,
+      //     "type": "EMAIL",
+      //     "EMAIL_title": "title1",
+      //     "EMAIL_subtitle": "subtitle1"
+      //   },
+      //   {
+      //     "id": 4,
+      //     "type": "H3",
+      //     "H3_innerHTML": "some h3 element"
+      //   },
+      //   {
+      //     "id": 5,
+      //     "type": "IFRAME",
+      //     "iframe_name": "Some name",
+      //     "iframe_description": "Some description",
+      //     "iframe_source": "https://www.youtube.com/embed/s2LmubDQ4RI"
+      //   },
+      //   {
+      //     "id": 6,
       //     "type": "IMG",
-      //     "img_width": "100",
-      //     "img_height": "100",
+      //     "img_width": "200",
+      //     "img_height": "200",
+      //     "img_alt": "Algerians",
+      //     "img_description": "Phenotype of algerians",
+      //   },
+      //   {
+      //     "id": 7,
+      //     "type": "IMG",
       //     "img_src": "https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2023/revuelto/revuelto_m.png",
-      //     "img_alt": "lambo",
-      //     "img_description": "lambo"
+      //     "img_alt": "Lambo",
+      //     "img_width": "300",
+      //     "img_height": "200",
+      //     "img_description": "a Lambo"
+      //   },
+      //   {
+      //     "id": 8,
+      //     "type": "A",
+      //     "A_href": "https://en.wikipedia.org/wiki/Cars_(film)",
+      //     "A_innerText": "Wiki cars",
+      //     "A_title": "a title",
+      //     "newtab": true,
+      //     "ugc": true,
+      //     "nofollow": true,
+      //     "noopener": true
+      //   },
+      //   {
+      //     "id": 9,
+      //     "type": "EMAIL",
+      //     "EMAIL_title": "title2",
+      //     "EMAIL_subtitle": "subtitle2"
+      //   },
+      //   {
+      //     "id": 10,
+      //     "type": "A",
+      //     "A_href": "https://www.bbc.com/news/world-europe-66104632",
+      //     "A_title": "BBC franch",
+      //     "newtab": true,
+      //     "image_mode_on": true,
+      //     "img_width": "350",
+      //     "img_height": "100",
+      //     "img_src": "https://ichef.bbci.co.uk/news/976/cpsprodpb/14044/production/_130288918_amin.png.webp",
+      //     "img_alt": "some ugly fuck",
+      //     "img_description": "some ugly fuck"
       //   }
       // ]
+
+
+      // // nested_data: [
+      // //   {
+      // //     "id": 1,
+      // //     "type": "A",
+      // //     "A_href": "google.com",
+      // //     "A_title": "Some A title",
+      // //     "newtab": true,
+      // //     "nofollow": true,
+      // //     "ugc": true,
+      // //     "A_innerText": "The inner A Google website"
+      // //   },
+      // //   {
+      // //     "id": 2,
+      // //     "type": "A",
+      // //     "A_href": "yahoo.com",
+      // //     "A_title": "Some A title 2",
+      // //     "image_mode_on": true,
+      // //     "img_width": "200",
+      // //     "img_height": "200",
+      // //     "img_alt": "a ai generated image",
+      // //     "img_description": "the schema"
+      // //   }
+      // // ],
+
+      // // nested_data: [
+      // //   {
+      // //     "id": 1,
+      // //     "type": "IMG",
+      // //     "img_width": "300",
+      // //     "img_height": "300",
+      // //     "img_alt": "some alt text",
+      // //     "img_description": "some description"
+      // //   },
+      // //   {
+      // //     "id": 2,
+      // //     "type": "IMG",
+      // //     "img_width": "100",
+      // //     "img_height": "100",
+      // //     "img_src": "https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2023/revuelto/revuelto_m.png",
+      // //     "img_alt": "lambo",
+      // //     "img_description": "lambo"
+      // //   }
+      // // ]
 
     }
 
@@ -233,85 +233,139 @@ class CreateArticle extends React.Component {
     this.setStateBannerImage = this.setStateBannerImage.bind(this)
     this.handleCheck = this.handleCheck.bind(this)
 
+    this.asyncMaster = this.asyncMaster.bind(this)
+
+
+  }
+
+  promise1 = (image) => {
+    let image_name, image_url;
+    const { name, path } = image;
+
+    console.log(name, path)
+
+    return new Promise((resolve, reject) => {
+
+      fetch(path)
+
+        .then(response => {
+          if (response.ok) {
+            return response.blob();
+          } else {
+            reject(new Error('Request failed'));
+          }
+        })
+
+        .then(blob => {
+          const file = new File([blob], name, { type: blob.type });
+
+          console.log('Loaded image file:', file);
+          resolve(file)
+        })
+
+
+        .catch(error => {
+          reject(error);
+        });
+
+    });
+
+
 
   }
 
 
 
-  // let ori_blocks = pre_load_article_4_edit.articlenesteddata_id?.blocks
+  asyncMaster = async (allImagesURLs) => {
 
-  //   delete pre_load_article_4_edit.articlenesteddata_id?.blocks
+    const promiseFunctions = allImagesURLs.map((url) => this.promise1(url));
 
-  //   pre_load_article_4_edit.articlenesteddata_id?.blocks = []
-
-  //   console.log(pre_load_article_4_edit.articlenesteddata_id?.blocks)
+    Promise.all(promiseFunctions).then((files) => {
 
 
-  //   for (let i = 0; i < ori_blocks.length; i++) {
-  //     const block = ori_blocks[i];
+      const [banner_image_file, ...block_files] = files
+      console.log(block_files);
 
-  //     delete block._id
+      console.log(pre_load_article_4_edit.articlenesteddata_id.blocks)
 
-  //     console.log(block)
 
-  //     // let new_block = block
+      // STEP 1: POPULATE IMAGE URLS
+      for (let i = 0; i < pre_load_article_4_edit.articlenesteddata_id.blocks.length; i++) {
 
-  //     pre_load_article_4_edit.articlenesteddata_id?.blocks.push(new_block)
-      
-  //   }
+        console.log(pre_load_article_4_edit.articlenesteddata_id.blocks[i].type, !(pre_load_article_4_edit.articlenesteddata_id.blocks[i].type === SECTION_TYPES.IMG || pre_load_article_4_edit.articlenesteddata_id.blocks[i].type === SECTION_TYPES.A))
 
-  //   console.log(pre_load_article_4_edit.articlenesteddata_id);
+        // IF BLOCK not IMG  nor A SKIP
+        if (!(pre_load_article_4_edit.articlenesteddata_id.blocks[i].type === SECTION_TYPES.IMG || pre_load_article_4_edit.articlenesteddata_id.blocks[i].type === SECTION_TYPES.A)) {
+          continue
+        }
+
+
+
+
+
+        // IF BLOCK IMG, or A, and does not have a image field SKIP
+        if (!pre_load_article_4_edit.articlenesteddata_id.blocks[i].image) {
+          continue
+        }
+
+        console.log('hit!')
+        // IF BLOCK IMG, or A, and has a image field then ...
+        pre_load_article_4_edit.articlenesteddata_id.blocks[i].image.image_file = block_files.shift()
+
+      }
+
+      console.log('final: ', pre_load_article_4_edit.articlenesteddata_id.blocks)
+
+
+      // Place the files
+      // set state
+
+
+      this.setState({
+        step: 1,
+        // STEP 1
+        html_title: pre_load_article_4_edit.html_title,
+        meta_title: pre_load_article_4_edit.articleheadtag_id.meta_title,
+        meta_description: pre_load_article_4_edit.articleheadtag_id.meta_description,
+        canonical: pre_load_article_4_edit.articleheadtag_id.canonical,
+        noindex: pre_load_article_4_edit.articleheadtag_id.noindex,
+        nofollow: pre_load_article_4_edit.articleheadtag_id.nofollow,
+        // STEP 2
+        keywords: pre_load_article_4_edit.articlebodyheader_id.keywords,
+        category: pre_load_article_4_edit.articlebodyheader_id.category,
+        // publisher name, email, and link are default values for now
+        banner_image_name: pre_load_article_4_edit.articleenclosureimage_id.banner_image_originalname,
+        banner_image_file: banner_image_file,
+        // banner_image_path
+        banner_img_alt: pre_load_article_4_edit.articleenclosureimage_id.banner_img_alt,
+        h1: pre_load_article_4_edit.h1,
+        // author is logged in username
+        // published_datetime is default now upon creation
+        abstract_name_type: pre_load_article_4_edit.articleabstract_id.abstract_name_type,
+        abstract_points: pre_load_article_4_edit.articleabstract_id.abstract_points,
+        content_structure: pre_load_article_4_edit.articlenesteddata_id.content_structure,
+        nested_data: pre_load_article_4_edit.articlenesteddata_id.blocks
+      });
+
+    });
+
+  }
 
 
   componentDidMount() {
-    console.log('componentDidMount: ', pre_load_article_4_edit);
+    console.log('componentDidMount: ', pre_load_article_4_edit, allImagesURLs);
 
     if (isObjEmpty(pre_load_article_4_edit)) {
       console.log('nothing to load');
       return;
     }
 
+    // BANNER IMAGE
     console.log(pre_load_article_4_edit.articleenclosureimage_id?.path);
 
 
-    
+    this.asyncMaster(allImagesURLs)
 
-    fetch(pre_load_article_4_edit.articleenclosureimage_id?.path)
-      .then(response => response.blob())
-      .then(blob => {
-        const file = new File([blob], pre_load_article_4_edit.articleenclosureimage_id.banner_image_originalname, { type: blob.type });
-
-        console.log('Loaded image file:', file);
-
-        this.setState({
-          step: 1,
-          // STEP 1
-          html_title: pre_load_article_4_edit.html_title,
-          meta_title: pre_load_article_4_edit.articleheadtag_id.meta_title,
-          meta_description: pre_load_article_4_edit.articleheadtag_id.meta_description,
-          canonical: pre_load_article_4_edit.articleheadtag_id.canonical,
-          noindex: pre_load_article_4_edit.articleheadtag_id.noindex,
-          nofollow: pre_load_article_4_edit.articleheadtag_id.nofollow,
-          // STEP 2
-          keywords: pre_load_article_4_edit.articlebodyheader_id.keywords,
-          category: pre_load_article_4_edit.articlebodyheader_id.category,
-          // publisher name, email, and link are default values for now
-          banner_image_name: pre_load_article_4_edit.articleenclosureimage_id.banner_image_originalname,
-          banner_image_file: file,
-          // banner_image_path
-          banner_img_alt: pre_load_article_4_edit.articleenclosureimage_id.banner_img_alt,
-          h1: pre_load_article_4_edit.h1,
-          // author is logged in username
-          // published_datetime is default now upon creation
-          abstract_name_type: pre_load_article_4_edit.articleabstract_id.abstract_name_type,
-          abstract_points: pre_load_article_4_edit.articleabstract_id.abstract_points,
-          content_structure: pre_load_article_4_edit.articlenesteddata_id.content_structure,
-          nested_data: pre_load_article_4_edit.articlenesteddata_id.blocks
-        });
-      })
-      .catch(error => {
-        console.error('Error loading the image:', error);
-      });
   }
 
 

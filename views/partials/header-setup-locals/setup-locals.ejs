@@ -55,6 +55,8 @@
 
   // pre_load_article_4_edit !!!!! 
   var pre_load_article_4_edit
+  var allImagesURLs
+  
 
   var loggedInUserImgProfilePath = '<%= locals.loggedInUserImgProfilePath%>'
   var loggedInUserName = '<%= locals.loggedInUserName%>'
@@ -238,9 +240,10 @@
       if (caseOperationsTask == "create-article") {
         CATEGORY = <%-JSON.stringify(locals.CATEGORY || {})%> 
         pre_load_article_4_edit = <%-JSON.stringify(locals.pre_load_article_4_edit || {})%> 
+        allImagesURLs = <%-JSON.stringify(locals.allImagesURLs || [])%>
       }
 
-      console.log("/partials/header-setup-locals/setup-locals.ejs: ", {user, CATEGORY, userId, pre_load_article_4_edit})
+      console.log("/partials/header-setup-locals/setup-locals.ejs: ", {user, CATEGORY, userId, pre_load_article_4_edit, allImagesURLs})
 
       break;
     case `/operations/${caseOperationsTask}/${caseUserID}`:
