@@ -20,8 +20,12 @@ async function controller2(req, res, next) {
 
 }
 
+// TODO !!!!! Merge and save,
+// TODO !!!!! Make sure associated blogs are not deleted, when user is deleted. i.e. just edit the username author to undefined...
+// TODO !!!!! Delete capability for blog articles,
+// TODO !!!!! Edit blog articles UIs for final the button and message response.
+// TODO !!!!! Edit capability for blog articles on the back end.
 
-// TODO !!!!! CRUDE Capabilities for blog articles
 // TODO !!!!! build HTML sitemap
 // TODO !!!!! google search console register
 // TODO !!!!! google analitics register
