@@ -433,11 +433,9 @@ operationsBackend_app_router.delete('/deletions/message/:userA/:userB/:msg_strea
 
 
 operationsBackend_app_router.delete('/article-delete/:userId',
-  // require_loggedin_for_data(true),
-  // authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]),
-  // requester_auth_middleware(4), 
-
-
+  require_loggedin_for_data(true),
+  authenticate_role_for_data([ROLE.MASTER]),
+  requester_auth_middleware(4), 
   // deleteArticleMiddleware.middleware0, // Delay for testing
   deleteArticleMiddleware.middleware1,
   deleteArticleMiddleware.middleware2,
