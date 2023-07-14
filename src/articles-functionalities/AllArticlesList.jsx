@@ -90,8 +90,9 @@ class ArticleElement extends React.Component {
         throw new Error('Error fetching data');
       }
   
-      
+      // Stop's loading a reloads the page
       this.setState({ loading: false });
+      window.location.reload();
   
       return
       

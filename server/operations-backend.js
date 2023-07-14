@@ -438,12 +438,12 @@ operationsBackend_app_router.delete('/article-delete/:userId',
   // requester_auth_middleware(4), 
 
 
-  deleteArticleMiddleware.middleware0, // Delay for testing
-  // deleteArticleMiddleware.middleware1,
-  // deleteArticleMiddleware.middleware2,
-  // deleteArticleMiddleware.middleware3,
-  // deleteArticleMiddleware.middleware4,
-  // deleteArticleMiddleware.middleware5,
+  // deleteArticleMiddleware.middleware0, // Delay for testing
+  deleteArticleMiddleware.middleware1,
+  deleteArticleMiddleware.middleware2,
+  deleteArticleMiddleware.middleware3,
+  deleteArticleMiddleware.middleware4,
+  deleteArticleMiddleware.middleware5,
   deleteArticleController.controller1
 
 )
