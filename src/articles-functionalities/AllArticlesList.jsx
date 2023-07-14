@@ -12,9 +12,6 @@ class AllArticlesList extends React.Component {
     this.contructArticleList()
   }
 
-  componentDidUpdate(){
-    console.log("!!!!!!")
-  }
 
 
   contructArticleList() {
@@ -152,7 +149,7 @@ class ArticleElement extends React.Component {
 
       <React.Fragment>
         
-        {error && <span id="error">Error: {error}</span>}
+        {(this.props.delete_button && error) && <span id="error">Error: {error}</span>}
 
         <div className="article-card">
           <div className="article-preview">

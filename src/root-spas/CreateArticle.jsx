@@ -34,6 +34,7 @@ class CreateArticle extends React.Component {
   constructor() {
     super()
     this.state = {
+      // create_true_edit_false: true, // DEFAULT SET TO CREATE
       // step: 1,
       // // STEP 1
       // html_title: "",
@@ -63,7 +64,8 @@ class CreateArticle extends React.Component {
 
       // TEMPORAL
       // USED TO TEST CREATE QUICKLY
-
+      
+      create_true_edit_false: true, // DEFAULT SET TO CREATE
       step: 1,
       html_title: "Some random title", // CHECK (ArticleHeadTag)
       meta_title: "Some random title2",
@@ -310,6 +312,8 @@ class CreateArticle extends React.Component {
       console.log('nothing to load');
       return;
     }
+    
+    this.setState({create_true_edit_false: false}) // SET TO EDIT
 
     // BANNER IMAGE
     console.log(pre_load_article_4_edit.articleenclosureimage_id?.path);
@@ -519,7 +523,7 @@ class CreateArticle extends React.Component {
           content_structure={this.state.content_structure}
           nested_data={this.state.nested_data}
 
-
+          create_true_edit_false={this.state.create_true_edit_false} 
         />
         break;
       default:

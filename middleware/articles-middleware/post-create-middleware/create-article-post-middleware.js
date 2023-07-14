@@ -3,18 +3,24 @@
 function seeData(req, res, next) {
   console.log("seeData...")
 
-  console.log("____________________________\n\nreq.body: \n\n")
-  console.log(req.body)
+  console.log("____________________________\n\nreq.body.create_true_edit_false: \n\n")
+  console.log(req.body.create_true_edit_false)
 
-  console.log("____________________________\n\nJSON.parse(req.body.nested_data_copy): \n\n")
-  console.log('\n\n', JSON.parse(req.body.nested_data_copy))
+  // TODO !!!!! HERE based on the req.body.create_true_edit_false got to middlewares A or middlewares B
 
-  console.log("____________________________\n\nreq.files: \n\n")
-  console.log('\n\n', req.files)
 
-  // return res.status(200).end()
+  // console.log("____________________________\n\nreq.body: \n\n")
+  // console.log(req.body)
 
-  res.locals.nested_data = JSON.parse(req.body.nested_data_copy)
+  // console.log("____________________________\n\nJSON.parse(req.body.nested_data_copy): \n\n")
+  // console.log('\n\n', JSON.parse(req.body.nested_data_copy))
+
+  // console.log("____________________________\n\nreq.files: \n\n")
+  // console.log('\n\n', req.files)
+
+  // // return res.status(200).end()
+
+  // res.locals.nested_data = JSON.parse(req.body.nested_data_copy)
   
   return next()
 }

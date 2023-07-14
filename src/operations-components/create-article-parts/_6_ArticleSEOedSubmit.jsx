@@ -85,7 +85,9 @@ class _6_ArticleSEOedSubmit extends React.Component {
     console.log('\n\n\n')
 
 
+    
 
+    
 
     let headHeaderAbstractStructureData = {
       // _1_SetArticleHeadTagData
@@ -148,6 +150,7 @@ class _6_ArticleSEOedSubmit extends React.Component {
     const STRING_nested_data_copy = JSON.stringify(nested_data_copy)
 
     formData.append('nested_data_copy', STRING_nested_data_copy);
+    formData.append("create_true_edit_false", this.props.create_true_edit_false);
 
 
 
@@ -163,7 +166,7 @@ class _6_ArticleSEOedSubmit extends React.Component {
     console.log(response.status)
 
     if (response.ok) {
-      const success = 'New article created!'
+      const success = `Article ${this.props.create_true_edit_false? 'created': 'edited'}!`
       this.setState({
         popup: success
       }, () => {
@@ -184,9 +187,12 @@ class _6_ArticleSEOedSubmit extends React.Component {
 
 
   render() {
+
+    const word = this.props.create_true_edit_false? 'Create': 'Edit'
+
     return (
       <React.Fragment>
-        <h3>Submit your article!</h3>
+        <h3>{word} your article!</h3>
 
         {/* <label>Upload A Banner Image</label>
         <UploadImage
@@ -202,7 +208,9 @@ class _6_ArticleSEOedSubmit extends React.Component {
         <button type='submit' onClick={(e) => {
           e.preventDefault()
           this.clickCreateArticle()
-        }}>Create</button>
+        }}>
+          {word}
+        </button>
 
         {this.state.popup ?
           <span id='popup'>{this.state.popup}</span> :

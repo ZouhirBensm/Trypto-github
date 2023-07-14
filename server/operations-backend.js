@@ -313,36 +313,37 @@ operationsBackend_app_router.post('/create-article',
 
   createArticlePOSTMiddleware.seeData,
 
+  // TODO !!!!! TEMPORAL COMMENTED
+  
+  // createArticlePOSTMiddleware0.setArticleURLMiddleware,
+  // createArticlePOSTMiddleware0.createArticleInstanceMiddleware,
+  // createArticlePOSTMiddleware0.createArticleEnclosureImageInstanceMiddleware,
 
-  createArticlePOSTMiddleware0.setArticleURLMiddleware,
-  createArticlePOSTMiddleware0.createArticleInstanceMiddleware,
-  createArticlePOSTMiddleware0.createArticleEnclosureImageInstanceMiddleware,
-
-  createArticlePOSTMiddleware1.neededFolderEnclosuresMiddleware,
-  createArticlePOSTMiddleware1.neededFolderHoldingPerArticleFoldersMiddleware,
-
-
-  createArticlePOSTMiddleware2.processArticleEnclosureImageMiddleware,
-  createArticlePOSTMiddleware2.processArticleBlockImagesMiddleware,
+  // createArticlePOSTMiddleware1.neededFolderEnclosuresMiddleware,
+  // createArticlePOSTMiddleware1.neededFolderHoldingPerArticleFoldersMiddleware,
 
 
-
-  createArticlePOSTMiddleware3.createArticleHeadTagInstanceMiddleware,
-  createArticlePOSTMiddleware3.createArticleBodyHeaderInstanceMiddleware,
-  createArticlePOSTMiddleware3.createArticleAbstractMiddleware,
-  createArticlePOSTMiddleware3.createArticleNestedDatatMiddleware1,
-  createArticlePOSTMiddleware3.createArticleNestedDatatMiddleware2,
+  // createArticlePOSTMiddleware2.processArticleEnclosureImageMiddleware,
+  // createArticlePOSTMiddleware2.processArticleBlockImagesMiddleware,
 
 
 
+  // createArticlePOSTMiddleware3.createArticleHeadTagInstanceMiddleware,
+  // createArticlePOSTMiddleware3.createArticleBodyHeaderInstanceMiddleware,
+  // createArticlePOSTMiddleware3.createArticleAbstractMiddleware,
+  // createArticlePOSTMiddleware3.createArticleNestedDatatMiddleware1,
+  // createArticlePOSTMiddleware3.createArticleNestedDatatMiddleware2,
 
 
-  createArticlePOSTMiddleware4.saveArticleMiddleware,
-  createArticlePOSTMiddleware4.saveArticleHeadTagMiddleware,
-  createArticlePOSTMiddleware4.saveArticleBodyHeaderMiddleware,
-  createArticlePOSTMiddleware4.saveArticleEnclosureImageMiddleware,
-  createArticlePOSTMiddleware4.saveArticleAbstractMiddleware,
-  createArticlePOSTMiddleware4.saveArticleNestedDataMiddleware,
+
+
+
+  // createArticlePOSTMiddleware4.saveArticleMiddleware,
+  // createArticlePOSTMiddleware4.saveArticleHeadTagMiddleware,
+  // createArticlePOSTMiddleware4.saveArticleBodyHeaderMiddleware,
+  // createArticlePOSTMiddleware4.saveArticleEnclosureImageMiddleware,
+  // createArticlePOSTMiddleware4.saveArticleAbstractMiddleware,
+  // createArticlePOSTMiddleware4.saveArticleNestedDataMiddleware,
 
 
   operationsControllers.responseCreateArticleController
