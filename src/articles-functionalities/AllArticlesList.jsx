@@ -12,6 +12,10 @@ class AllArticlesList extends React.Component {
     this.contructArticleList()
   }
 
+  componentDidUpdate(){
+    console.log("!!!!!!")
+  }
+
 
   contructArticleList() {
     if (this.props.articles) {
@@ -50,7 +54,10 @@ class AllArticlesList extends React.Component {
 class ArticleElement extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      loading: false,
+      error: null
+    }
     this.buttonRef = React.createRef();
     console.log('this.props.article->\n', this.props.article)
     this.deleteArticle = this.deleteArticle.bind(this)
@@ -58,31 +65,43 @@ class ArticleElement extends React.Component {
 
 
   deleteArticle = async (e, _article_id) => {
-
     e.preventDefault()
-    console.log("Clicked! Delete article", e, _article_id)
+    this.setState({ loading: true, error: null });
+
+    // console.log("Clicked! Delete article", e, _article_id)
 
     let response
 
-    response = await fetch(`/operations/article-delete/${userId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        article_id: _article_id
+    try {
+      response = await fetch(`/operations/article-delete/${userId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          article_id: _article_id
+        })
       })
-    })
+  
+      console.log(response)
+  
+      if (!response.ok) {
+        throw new Error('Error fetching data');
+      }
+  
+      
+      this.setState({ loading: false });
+  
+      return
+      
+    } catch (error) {
+      console.error('Error deleting article:', error);
+      this.setState({ error: 'An error occurred while deleting the article', loading: false }, ()=>{
+        setTimeout(()=>{this.setState({ error: null })}, 4000)
+      });
+    }
 
-
-    // if (response.ok) {
-
-    // }
-
-
-
-    return
 
 
   }
@@ -126,16 +145,22 @@ class ArticleElement extends React.Component {
     }
 
     console.log('this.props.delete_button: ', this.props.delete_button)
+
+    const { loading, error } = this.state;
     return (
 
       <React.Fragment>
+        
+        {error && <span id="error">Error: {error}</span>}
+
         <div className="article-card">
           <div className="article-preview">
             <img id="full-view" src={enclosure} alt="Blog image banner" />
             {
               this.props.delete_button ?
               <button onClick={(e) => this.deleteArticle(e, this.props.article._id)}>
-                <img src="/img/SVG/operations/global/trash.svg " alt="" /> 
+                
+                {loading ? <div className="spinner"></div> : <img src="/img/SVG/operations/global/trash.svg " alt="" /> }
               </button>
               :
               null

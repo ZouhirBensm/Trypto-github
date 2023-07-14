@@ -46,6 +46,10 @@ const createUserAssociatedLocalityMiddleware = require('../middleware/settings-m
 // for POST /create-article middlewares
 const createArticlePOSTMiddleware = require('../middleware/articles-middleware/post-create-middleware/create-article-post-middleware')
 
+const deleteArticleMiddleware = require('../middleware/articles-middleware/delete-article-middleware')
+
+const deleteArticleController = require('../controllers/article-controllers/delete-article-controller')
+
 
 
 
@@ -428,14 +432,21 @@ operationsBackend_app_router.delete('/deletions/message/:userA/:userB/:msg_strea
 
 
 
-operationsBackend_app_router.delete('/article-delete/:userId', (req, res) => {
-  // TODO !!!! add guards
-  // TODO !!!! build middlewares and write the delete article process, then controller to respond!
-  console.log('\nreq.params.userId:\n\n', req.params.userId)
-  console.log('\nreq.body.article_id:\n\n', req.body.article_id)
-  res.status(200).end()
+operationsBackend_app_router.delete('/article-delete/:userId',
+  // require_loggedin_for_data(true),
+  // authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]),
+  // requester_auth_middleware(4), 
 
-})
+
+  deleteArticleMiddleware.middleware0, // Delay for testing
+  // deleteArticleMiddleware.middleware1,
+  // deleteArticleMiddleware.middleware2,
+  // deleteArticleMiddleware.middleware3,
+  // deleteArticleMiddleware.middleware4,
+  // deleteArticleMiddleware.middleware5,
+  deleteArticleController.controller1
+
+)
 
 
 

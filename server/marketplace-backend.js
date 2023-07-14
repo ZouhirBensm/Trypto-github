@@ -326,7 +326,12 @@ marketplaceBackend_app_router.patch('/:userId/update23', require_loggedin_for_da
 
 
 
-marketplaceBackend_app_router.delete('/:userId/delete-this-order', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), marketplaceController.deleteMarketOrderImages, marketplaceController.deleteOrderController)
+marketplaceBackend_app_router.delete('/:userId/delete-this-order', 
+require_loggedin_for_data(true), 
+authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
+requester_auth_middleware(4), 
+marketplaceController.deleteMarketOrderImages, marketplaceController.deleteOrderController
+)
 
 
 
