@@ -21,8 +21,7 @@ async function controller2(req, res, next) {
 }
 
 
-// TODO !!!!! Delete capability for blog articles,
-// TODO !!!!! Edit blog articles UIs for final the button and message response.
+// TODO !!!!! Edit blog articles UIs for step 6 button and popup response.
 // TODO !!!!! Edit capability for blog articles on the back end.
 
 // TODO !!!!! build HTML sitemap
