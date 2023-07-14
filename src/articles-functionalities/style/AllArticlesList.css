@@ -32,10 +32,19 @@ div.article-card > div.article-preview p {
   margin: .5rem;
 }
 
-div.article-card > div.article-preview > span {
+div.article-card > div.article-preview > span#date {
   position: absolute;
   top: 1rem;
   right: 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: var(--font-size-generic);
+}
+
+div.article-card > div.article-preview > span#delete {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
   font-size: var(--font-size-generic);
@@ -66,7 +75,7 @@ div.article-preview {
   background: linear-gradient(to bottom, #1266FC5C, #010757);
 }
 
-div.article-preview img {
+div.article-preview img#full-view {
   /* position: absolute;
   width: 100%;
   height: 100%;
@@ -98,4 +107,25 @@ div.article-card > a {
   
   border: 1px solid #1266FC;
   border-radius: 8px;
+}
+
+
+
+
+
+div.article-preview > button {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+
+
+  border: none;
+  background-color: transparent;
+  /* padding: 0;
+  margin: 1rem 0; */
+}
+
+div.article-preview > button > img {
+  width: 20px;
+  height: 30px;
 }

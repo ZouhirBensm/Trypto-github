@@ -427,4 +427,16 @@ operationsBackend_app_router.delete('/deletions/message/:userA/:userB/:msg_strea
 
 
 
+
+operationsBackend_app_router.delete('/article-delete/:userId', (req, res) => {
+  // TODO !!!! add guards
+  // TODO !!!! build middlewares and write the delete article process, then controller to respond!
+  console.log('\nreq.params.userId:\n\n', req.params.userId)
+  console.log('\nreq.body.article_id:\n\n', req.body.article_id)
+  res.status(200).end()
+
+})
+
+
+
 module.exports = operationsBackend_app_router

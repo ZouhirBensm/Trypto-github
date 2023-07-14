@@ -93,6 +93,7 @@ class Articles extends React.Component {
           <AllArticlesList
             articles={this.state.articles}
             button_text='read more'
+            delete_button={false}
           />
           <PageSelector
             number_of_pages={this.state.number_of_pages} 
