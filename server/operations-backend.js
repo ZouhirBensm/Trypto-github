@@ -12,17 +12,17 @@ const multerinstance = new MulterSetup(`./public/img/temporal-new`, new CreateAr
 
 
 // Environment variables and types
-const ENV = require('../config/base')
+// const ENV = require('../config/base')
 const NAVBAR = require('../full-stack-libs/Types/Navbar')
 const ROLE = require('../full-stack-libs/Types/Role')
-const CATEGORY = require('../full-stack-libs/Types/ArticleCategories')
+// const CATEGORY = require('../full-stack-libs/Types/ArticleCategories')
 
 //Models
 const Message = require('../models/messaging-models/Message')
 const Protagonist = require('../models/messaging-models/Protagonist')
-const Article = require('../models/articles-models/Article')
-const User = require('../models/User')
-const UserProfileImage = require('../models/UserProfileImage')
+// const Article = require('../models/articles-models/Article')
+// const User = require('../models/User')
+// const UserProfileImage = require('../models/UserProfileImage')
 
 
 
@@ -51,7 +51,6 @@ const deleteArticleController = require('../controllers/article-controllers/dele
 
 
 // for POST /create-article middlewares
-const createArticlePOSTMiddleware = require('../middleware/articles-middleware/post-create-middleware/create-article-post-middleware')
 
 
 const createArticlePOSTMiddleware0 = require('../middleware/articles-middleware/post-create-middleware/create-article-post-middleware0')
@@ -65,8 +64,11 @@ const createArticlePOSTMiddleware4 = require('../middleware/articles-middleware/
 const operationsControllers = require('../controllers/operations-controllers/operations-controllers')
 
 
+
+const commonCreateEditArticleMiddleware = require('../middleware/articles-middleware/create-edit-article-common-middlewares/create-edit-article-common-middlewares')
+
+
 // for PUT /edit-article middlewares
-const editArticlePUTMiddleware = require('../middleware/articles-middleware/put-edit-middleware/edit-article-put-middleware')
 const editArticlePUTMiddleware0 = require('../middleware/articles-middleware/put-edit-middleware/edit-article-put-middleware0')
 const editArticlePUTMiddleware1 = require('../middleware/articles-middleware/put-edit-middleware/edit-article-put-middleware1')
 const editArticlePUTMiddleware2 = require('../middleware/articles-middleware/put-edit-middleware/edit-article-put-middleware2')
@@ -318,39 +320,37 @@ operationsBackend_app_router.post('/create-article',
   authenticate_role_for_pages([ROLE.MASTER]),
   multerinstance.upload.array('files'),
 
-  createArticlePOSTMiddleware.seeData,
+  commonCreateEditArticleMiddleware.seeData,
 
-  // TODO !!!!! TEMPORAL COMMENTED
+  createArticlePOSTMiddleware0.setArticleURLMiddleware,
+  createArticlePOSTMiddleware0.createArticleInstanceMiddleware,
+  createArticlePOSTMiddleware0.createArticleEnclosureImageInstanceMiddleware,
 
-  // createArticlePOSTMiddleware0.setArticleURLMiddleware,
-  // createArticlePOSTMiddleware0.createArticleInstanceMiddleware,
-  // createArticlePOSTMiddleware0.createArticleEnclosureImageInstanceMiddleware,
-
-  // createArticlePOSTMiddleware1.neededFolderEnclosuresMiddleware,
-  // createArticlePOSTMiddleware1.neededFolderHoldingPerArticleFoldersMiddleware,
+  createArticlePOSTMiddleware1.neededFolderEnclosuresMiddleware,
+  createArticlePOSTMiddleware1.neededFolderHoldingPerArticleFoldersMiddleware,
 
 
-  // createArticlePOSTMiddleware2.processArticleEnclosureImageMiddleware,
-  // createArticlePOSTMiddleware2.processArticleBlockImagesMiddleware,
+  createArticlePOSTMiddleware2.processArticleEnclosureImageMiddleware,
+  createArticlePOSTMiddleware2.processArticleBlockImagesMiddleware,
 
 
 
-  // createArticlePOSTMiddleware3.createArticleHeadTagInstanceMiddleware,
-  // createArticlePOSTMiddleware3.createArticleBodyHeaderInstanceMiddleware,
-  // createArticlePOSTMiddleware3.createArticleAbstractMiddleware,
-  // createArticlePOSTMiddleware3.createArticleNestedDatatMiddleware1,
-  // createArticlePOSTMiddleware3.createArticleNestedDatatMiddleware2,
+  createArticlePOSTMiddleware3.createArticleHeadTagInstanceMiddleware,
+  createArticlePOSTMiddleware3.createArticleBodyHeaderInstanceMiddleware,
+  createArticlePOSTMiddleware3.createArticleAbstractMiddleware,
+  commonCreateEditArticleMiddleware.commonArticleNestedDatatMiddleware1,
+  createArticlePOSTMiddleware3.createArticleNestedDatatMiddleware2,
 
 
 
 
 
-  // createArticlePOSTMiddleware4.saveArticleMiddleware,
-  // createArticlePOSTMiddleware4.saveArticleHeadTagMiddleware,
-  // createArticlePOSTMiddleware4.saveArticleBodyHeaderMiddleware,
-  // createArticlePOSTMiddleware4.saveArticleEnclosureImageMiddleware,
-  // createArticlePOSTMiddleware4.saveArticleAbstractMiddleware,
-  // createArticlePOSTMiddleware4.saveArticleNestedDataMiddleware,
+  createArticlePOSTMiddleware4.saveArticleMiddleware,
+  createArticlePOSTMiddleware4.saveArticleHeadTagMiddleware,
+  createArticlePOSTMiddleware4.saveArticleBodyHeaderMiddleware,
+  createArticlePOSTMiddleware4.saveArticleEnclosureImageMiddleware,
+  createArticlePOSTMiddleware4.saveArticleAbstractMiddleware,
+  createArticlePOSTMiddleware4.saveArticleNestedDataMiddleware,
 
 
   operationsControllers.responseCreateArticleController
@@ -365,8 +365,7 @@ operationsBackend_app_router.put('/edit-article',
   authenticate_role_for_pages([ROLE.MASTER]),
   multerinstance.upload.array('files'),
 
-  // TODO !!!!! merge with the createArticlePOSTMiddleware.seeData
-  editArticlePUTMiddleware.seeData, 
+  commonCreateEditArticleMiddleware.seeData,
 
   editArticlePUTMiddleware0.editArticleInstanceMiddleware,
   editArticlePUTMiddleware0.editArticleEnclosureImageMiddleware,
@@ -383,7 +382,7 @@ operationsBackend_app_router.put('/edit-article',
   editArticlePUTMiddleware3.editArticleHeadTagMiddleware,
   editArticlePUTMiddleware3.editArticleBodyHeaderMiddleware,
   editArticlePUTMiddleware3.editArticleAbstractMiddleware,
-  editArticlePUTMiddleware3.editArticleNestedDatatMiddleware1,
+  commonCreateEditArticleMiddleware.commonArticleNestedDatatMiddleware1,
   editArticlePUTMiddleware3.editArticleNestedDatatMiddleware2,
 
 
