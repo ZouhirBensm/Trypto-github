@@ -43,8 +43,6 @@ const createUserAssociatedLocalityMiddleware = require('../middleware/settings-m
 
 
 
-// for POST /create-article middlewares
-const createArticlePOSTMiddleware = require('../middleware/articles-middleware/post-create-middleware/create-article-post-middleware')
 
 const deleteArticleMiddleware = require('../middleware/articles-middleware/delete-article-middleware')
 
@@ -52,20 +50,29 @@ const deleteArticleController = require('../controllers/article-controllers/dele
 
 
 
+// for POST /create-article middlewares
+const createArticlePOSTMiddleware = require('../middleware/articles-middleware/post-create-middleware/create-article-post-middleware')
 
 
 const createArticlePOSTMiddleware0 = require('../middleware/articles-middleware/post-create-middleware/create-article-post-middleware0')
-
 const createArticlePOSTMiddleware1 = require('../middleware/articles-middleware/post-create-middleware/create-article-post-middleware1')
-
 const createArticlePOSTMiddleware2 = require('../middleware/articles-middleware/post-create-middleware/create-article-post-middleware2')
-
 const createArticlePOSTMiddleware3 = require('../middleware/articles-middleware/post-create-middleware/create-article-post-middleware3')
-
 const createArticlePOSTMiddleware4 = require('../middleware/articles-middleware/post-create-middleware/create-article-post-middleware4')
 
 
+
 const operationsControllers = require('../controllers/operations-controllers/operations-controllers')
+
+
+// for PUT /edit-article middlewares
+const editArticlePUTMiddleware = require('../middleware/articles-middleware/put-edit-middleware/edit-article-put-middleware')
+const editArticlePUTMiddleware0 = require('../middleware/articles-middleware/put-edit-middleware/edit-article-put-middleware0')
+const editArticlePUTMiddleware1 = require('../middleware/articles-middleware/put-edit-middleware/edit-article-put-middleware1')
+const editArticlePUTMiddleware2 = require('../middleware/articles-middleware/put-edit-middleware/edit-article-put-middleware2')
+const editArticlePUTMiddleware3 = require('../middleware/articles-middleware/put-edit-middleware/edit-article-put-middleware3')
+
+
 
 
 
@@ -304,7 +311,7 @@ operationsBackend_app_router.get('/monitor-messages/:userID/edit-see', require_l
 
 
 
-
+// CREATE
 // UPLOAD NEW ARTICLE TEMPORAL
 operationsBackend_app_router.post('/create-article',
   require_loggedin_for_pages(true),
@@ -314,7 +321,7 @@ operationsBackend_app_router.post('/create-article',
   createArticlePOSTMiddleware.seeData,
 
   // TODO !!!!! TEMPORAL COMMENTED
-  
+
   // createArticlePOSTMiddleware0.setArticleURLMiddleware,
   // createArticlePOSTMiddleware0.createArticleInstanceMiddleware,
   // createArticlePOSTMiddleware0.createArticleEnclosureImageInstanceMiddleware,
@@ -350,6 +357,38 @@ operationsBackend_app_router.post('/create-article',
 )
 
 
+
+
+// EDIT
+operationsBackend_app_router.put('/edit-article',
+  require_loggedin_for_pages(true),
+  authenticate_role_for_pages([ROLE.MASTER]),
+  multerinstance.upload.array('files'),
+
+  // TODO !!!!! merge with the createArticlePOSTMiddleware.seeData
+  editArticlePUTMiddleware.seeData, 
+
+  editArticlePUTMiddleware0.editArticleInstanceMiddleware,
+  editArticlePUTMiddleware0.editArticleEnclosureImageMiddleware,
+
+  // editArticlePUTMiddleware1.neededFolderEnclosuresMiddleware,
+  // editArticlePUTMiddleware1.neededFolderHoldingPerArticleFoldersMiddleware,
+
+
+  // editArticlePUTMiddleware2.processArticleEnclosureImageMiddleware,
+  // editArticlePUTMiddleware2.processArticleBlockImagesMiddleware,
+
+
+
+  editArticlePUTMiddleware3.editArticleHeadTagMiddleware,
+  editArticlePUTMiddleware3.editArticleBodyHeaderMiddleware,
+  editArticlePUTMiddleware3.editArticleAbstractMiddleware,
+  editArticlePUTMiddleware3.editArticleNestedDatatMiddleware1,
+  editArticlePUTMiddleware3.editArticleNestedDatatMiddleware2,
+
+
+  operationsControllers.responseCreateArticleController
+)
 
 
 

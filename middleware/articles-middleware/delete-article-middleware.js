@@ -81,27 +81,36 @@ async function middleware3(req, res, next) {
 }
 
 
+
+
+
 async function middleware4(req, res, next) {
-  console.log("middleware4...")
+  console.log("middleware4...");
 
-  try {
-    fs.rmSync(res.locals.enclosure_image_path);
-  } catch (e) {
-    let error = new Error(`Was unable to delete the file @: ${res.locals.enclosure_image_path}`)
-    return next(error)
+
+  // TODO !!!!! Needs testing
+  // Check if the file exists before deleting
+  if (fs.existsSync(res.locals.enclosure_image_path)) {
+    try {
+      fs.rmSync(res.locals.enclosure_image_path);
+    } catch (e) {
+      let error = new Error(`Was unable to delete the file @: ${res.locals.enclosure_image_path}`);
+      return next(error);
+    }
   }
 
-
-  try {
-    fs.rmSync(res.locals.article_content_images, { recursive: true, force: true });
-  } catch (e) {
-    let error = new Error(`Was unable to delete the directory: ${res.locals.article_content_images}`)
-    return next(error)
+  // Check if the folder exists before deleting
+  if (fs.existsSync(res.locals.article_content_images)) {
+    try {
+      fs.rmSync(res.locals.article_content_images, { recursive: true, force: true });
+    } catch (e) {
+      let error = new Error(`Was unable to delete the directory: ${res.locals.article_content_images}`);
+      return next(error);
+    }
   }
 
-  return next()
+  return next();
 }
-
 
 
 

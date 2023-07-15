@@ -4,11 +4,6 @@ function seeData(req, res, next) {
   console.log("\n\n\nseeData...")
 
   console.log("____________________________\n\nreq.body.create_true_edit_false: --> ", req.method,req.body.create_true_edit_false, req.url, "\n\n")
-  
-
-  // TODO !!!!! HERE based on the req.body.create_true_edit_false got to middlewares A or middlewares B
-
-  // TODO spinner articles & image when pasting home page
 
 
   // console.log("____________________________\n\nreq.body: \n\n")
@@ -20,8 +15,8 @@ function seeData(req, res, next) {
   // console.log("____________________________\n\nreq.files: \n\n")
   // console.log('\n\n', req.files)
 
-  
-  // return res.status(200).end()
+  // // return res.status(200).end()
+
   res.locals.nested_data = JSON.parse(req.body.nested_data_copy)
   
   return next()

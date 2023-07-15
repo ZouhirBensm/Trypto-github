@@ -154,11 +154,11 @@ class _6_ArticleSEOedSubmit extends React.Component {
 
 
 
-
+    const HTTP_METHOD = this.props.create_true_edit_false ? 'POST' : 'PUT'
 
     let response
-    response = await fetch(`/operations/create-article`, {
-      method: 'POST',
+    response = await fetch(`/operations/${this.props.create_true_edit_false? 'create': 'edit'}-article`, {
+      method: HTTP_METHOD,
       body: formData
     })
 

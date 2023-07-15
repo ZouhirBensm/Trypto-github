@@ -8,85 +8,62 @@ const SECTION_TYPES = require("../../../full-stack-libs/Types/ArticleSectionType
 
 
 
-async function createArticleHeadTagInstanceMiddleware(req, res, next) {
-  console.log("createArticleHeadTagInstanceMiddleware...")
-
-  let ret_article_head_tag_instance
-
-  ret_article_head_tag_instance = new ArticleHeadTag({
-    meta_title: req.body.meta_title,
-    meta_description: req.body.meta_description,
-    // [req.body.canonical? 'canonical' : null]: req.body.canonical,
-    canonical: req.body.canonical ? req.body.canonical : req.body.url,
-    // TODO !!!!! Debug what is going on here?? .. might need to set like canonical
-    [req.body.noindex ? 'noindex' : null]: req.body.noindex, // not required and defaults to false
-    [req.body.nofollow ? 'nofollow' : null]: req.body.nofollow, // not required and defaults to false
-    article_id: res.locals.ret_article_instance._id // ATTACH TO ArticleHeadTag -> Article
-  })
+async function editArticleHeadTagMiddleware(req, res, next) {
+  console.log("editArticleHeadTagMiddleware...")
 
 
-  res.locals.ret_article_instance.articleheadtag_id = ret_article_head_tag_instance._id // ATTACH TO Article -> ArticleHeadTag
+
+  try {
+    const article_head_tag = await ArticleHeadTag.findById(res.locals.article.articleheadtag_id);
+
+    if (!article_head_tag) {
+      return res.status(404).json({ error: 'ArticleHeadTag not found' });
+    }
 
 
-  // RENDER ArticleHeadTag GLOBAL
-  res.locals.ret_article_head_tag_instance = ret_article_head_tag_instance
+    article_enclosure.meta_title = req.body.meta_title
+    article_enclosure.meta_description = req.body.meta_description
+    req.body.canonical ? article_enclosure.canonical = req.body.canonical : null
+    article_enclosure.noindex = !!req.body.noindex
+    article_enclosure.nofollow = !!req.body.nofollow
+    
+
+    await article_head_tag.save();
+  } catch (error) {
+    console.error('Error updating article:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 
   return next()
+
 }
 
 
 
 
-async function createArticleBodyHeaderInstanceMiddleware(req, res, next) {
-  console.log("createArticleBodyHeaderInstanceMiddleware...")
+async function editArticleBodyHeaderMiddleware(req, res, next) {
+  console.log("editArticleBodyHeaderMiddleware...")
 
-  let ret_article_body_header_instance
+  try {
+    const article_body_header = await ArticleBodyHeader.findById(res.locals.article.articlebodyheader_id);
 
-  ret_article_body_header_instance = new ArticleBodyHeader({
-    keywords: JSON.parse(req.body.keywords),
-    category: req.body.category,
-    article_id: res.locals.ret_article_instance._id // ATTACH TO ArticleBodyHeader -> Article
-  })
-
-  res.locals.ret_article_instance.articlebodyheader_id = ret_article_body_header_instance._id // ATTACH TO Article -> ArticleBodyHeader
+    if (!article_body_header) {
+      return res.status(404).json({ error: 'ArticleBodyHeader not found' });
+    }
 
 
-  // RENDER ArticleHeadTag GLOBAL
-  res.locals.ret_article_body_header_instance = ret_article_body_header_instance
+    article_body_header.keywords = JSON.parse(req.body.keywords)
+    article_body_header.category = req.body.category
+    
 
-  return next()
-}
-
-
-
-
-
-
-
-
-
-
-async function createArticleAbstractMiddleware(req, res, next) {
-
-
-  console.log("createArticleAbstractMiddleware...")
-
-  let ret_article_abstract_instance
-
-  ret_article_abstract_instance = new ArticleAbstract({
-    abstract_name_type: req.body.abstract_name_type,
-    abstract_points: JSON.parse(req.body.abstract_points),
-    article_id: res.locals.ret_article_instance._id,  // ATTACH TO ArticleAbstract -> Article
-  })
-
-
-  res.locals.ret_article_instance.articleabstract_id = ret_article_abstract_instance._id // ATTACH TO Article -> ArticleAbstract
-
-
-  // RENDER ArticleAbstract GLOBAL
-  res.locals.ret_article_abstract_instance = ret_article_abstract_instance
+    await article_body_header.save();
+  } catch (error) {
+    console.error('Error updating article:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 
   return next()
+
 
 }
 
@@ -99,13 +76,50 @@ async function createArticleAbstractMiddleware(req, res, next) {
 
 
 
+async function editArticleAbstractMiddleware(req, res, next) {
+
+
+  console.log("editArticleAbstractMiddleware...")
 
 
 
-async function createArticleNestedDatatMiddleware1(req, res, next) {
-  console.log("createArticleNestedDatatMiddleware1...");
+  try {
+    const article_abstract = await ArticleAbstract.findById(res.locals.article.articleabstract_id);
 
-  // res.locals.ret_article_enclosure_image_instance.image
+    if (!article_abstract) {
+      return res.status(404).json({ error: 'ArticleAbstract not found' });
+    }
+
+    article_abstract.abstract_name_type = req.body.abstract_name_type
+    article_abstract.abstract_points = JSON.parse(req.body.abstract_points)
+    
+
+    await article_abstract.save();
+  } catch (error) {
+    console.error('Error updating article:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+
+  return next()
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// TODO !!!!! merge this middleware with the create one (same)
+async function editArticleNestedDatatMiddleware1(req, res, next) {
+  console.log("editArticleNestedDatatMiddleware1...");
+
 
   let ARR_mongoose_Blocks = []
 
@@ -118,6 +132,7 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
     const nested_data_block = res.locals.nested_data[i];
 
     switch (nested_data_block.type) {
+      
       case SECTION_TYPES.H2:
         const h2Block = new H2_Block({
           id: nested_data_block.id,
@@ -157,8 +172,6 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
 
       case SECTION_TYPES.IMG:
 
-        console.log('nested_data_block:\n\n------>HERE', nested_data_block)
-
         let image = undefined
 
         if (nested_data_block.image) {
@@ -195,7 +208,6 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
         break;
       case SECTION_TYPES.IFRAME:
 
-        console.log("$$$$$$$$\n\nnested_data_block.iframe_source: $$$$$$\n\n", nested_data_block.iframe_source)
         const iframeBlock = new IFRAME_Block({
           id: nested_data_block.id,
           iframe_width: nested_data_block.iframe_width ? parseInt(nested_data_block.iframe_width) : undefined,
@@ -279,6 +291,7 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
     }
 
   }
+
   res.locals.ARR_mongoose_Blocks = ARR_mongoose_Blocks
 
   return next()
@@ -288,27 +301,32 @@ async function createArticleNestedDatatMiddleware1(req, res, next) {
 
 
 
-async function createArticleNestedDatatMiddleware2(req, res, next) {
-  console.log("createArticleNestedDatatMiddleware2...");
-
-  // console.log('\n\n________________\nARR_mongoose_Blocks-->\n', res.locals.ARR_mongoose_Blocks);
-
-  let ret_article_nested_data_instance;
-
-  ret_article_nested_data_instance = new ArticleNestedData({
-    content_structure: JSON.parse(req.body.content_structure),
-    blocks: res.locals.ARR_mongoose_Blocks,
-    article_id: res.locals.ret_article_instance._id
-  });
 
 
 
+async function editArticleNestedDatatMiddleware2(req, res, next) {
+  console.log("editArticleNestedDatatMiddleware2...");
 
-  res.locals.ret_article_instance.articlenesteddata_id = ret_article_nested_data_instance._id;
 
-  res.locals.ret_article_nested_data_instance = ret_article_nested_data_instance;
+  try {
+    const article_nested_data = await ArticleNestedData.findById(res.locals.article.articlenesteddata_id);
 
-  return next();
+    if (!article_nested_data) {
+      return res.status(404).json({ error: 'ArticleNestedData not found' });
+    }
+
+    article_nested_data.content_structure = JSON.parse(req.body.content_structure)
+    article_nested_data.blocks = res.locals.ARR_mongoose_Blocks,
+    
+
+    await article_nested_data.save();
+  } catch (error) {
+    console.error('Error updating article:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+
+  return next()
+
 }
 
 
@@ -326,16 +344,16 @@ async function createArticleNestedDatatMiddleware2(req, res, next) {
 
 
 
-const createArticlePOSTMiddleware3 = {
-  createArticleHeadTagInstanceMiddleware: createArticleHeadTagInstanceMiddleware,
-  createArticleBodyHeaderInstanceMiddleware: createArticleBodyHeaderInstanceMiddleware,
-  createArticleAbstractMiddleware: createArticleAbstractMiddleware,
+const editArticlePUTMiddleware3 = {
+  editArticleHeadTagMiddleware: editArticleHeadTagMiddleware,
+  editArticleBodyHeaderMiddleware: editArticleBodyHeaderMiddleware,
+  editArticleAbstractMiddleware: editArticleAbstractMiddleware,
 
 
-  createArticleNestedDatatMiddleware1: createArticleNestedDatatMiddleware1,
-  createArticleNestedDatatMiddleware2: createArticleNestedDatatMiddleware2,
+  editArticleNestedDatatMiddleware1: editArticleNestedDatatMiddleware1,
+  editArticleNestedDatatMiddleware2: editArticleNestedDatatMiddleware2,
 }
 
 
 
-module.exports = createArticlePOSTMiddleware3
+module.exports = editArticlePUTMiddleware3
