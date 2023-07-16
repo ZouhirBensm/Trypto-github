@@ -14,6 +14,13 @@ class _6_ArticleSEOedSubmit extends React.Component {
 
     let nested_data_copy = structuredClone(this.props.nested_data);
 
+    // TODO !!!
+    // Compare  pre_load_article_4_edit with this.props
+    // console.log('\npre_load_article_4_edit: ---> \n', pre_load_article_4_edit)
+    // console.log('\nthis.props ---> \n', this.props)
+    // return
+    // if nothing changed and on edit mode do not submit return with a temporal popup or proceed
+
     const formData = new FormData();
 
 
@@ -151,7 +158,7 @@ class _6_ArticleSEOedSubmit extends React.Component {
     formData.append('nested_data_copy', STRING_nested_data_copy);
     formData.append("create_true_edit_false", this.props.create_true_edit_false);
 
-    // TODO !!!!! Need to block on unchanged inputs, do front, back end, not sure yet...
+    // TODO !!! Need to block unchanged article edit calls, on back end...
 
 
     const HTTP_METHOD = this.props.create_true_edit_false ? 'POST' : 'PUT'

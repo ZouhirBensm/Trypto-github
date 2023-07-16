@@ -57,7 +57,8 @@ class CreateArticle extends React.Component {
       // // published_datetime is default now upon creation
       // abstract_name_type: "",
       // abstract_points: [],
-      // content_structure: [SECTION_TYPES.H2]
+      // content_structure: [SECTION_TYPES.H2],
+      // e: undefined,
 
 
       // // _____________________________________________________
