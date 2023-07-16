@@ -70,7 +70,7 @@ class App extends React.Component {
           EMAIL_subtitle="Be part of our community. Be a priviledged informed user about new implementations, and web software updates. Be informed with Bidblock's progess."
         />
 
-        <GetRecentMarketItems />
+        {/* <GetRecentMarketItems /> */}
 
         <GetRecentArticles />
 

@@ -21,7 +21,7 @@ class GetRecentArticles extends React.Component {
   async loadRecentArticles() {
     let response
 
-    response = await fetch(`/articles/paginated-articles/data?page=1&limit=5&category=RECENT`, {
+    response = await fetch(`/articles/paginated-articles/data?page=1&limit=5`, {
       method: 'GET',
     })
 

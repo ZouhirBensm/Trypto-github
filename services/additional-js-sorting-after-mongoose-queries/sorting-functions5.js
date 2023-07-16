@@ -10,7 +10,7 @@ function sortingSteps(sellOrders, userLocalityObject) {
   let one_BASIC, two_BASIC, three_BASIC, four_BASIC, five_BASIC
 
   if (userLocalityObject.country) {
-    console.log("...sorting for country")
+    // console.log("...sorting for country")
     one = SORT(sellOrders, "country", userLocalityObject)
     
     // FIND INDEX
@@ -27,7 +27,7 @@ function sortingSteps(sellOrders, userLocalityObject) {
   
   
   if (userLocalityObject.country && userLocalityObject.province_state) {
-    console.log("...sorting for province_state")
+    // console.log("...sorting for province_state")
     two = SORT(one_p1 || sellOrders, "province_state", userLocalityObject)
 
     // FIND INDEX
@@ -46,7 +46,7 @@ function sortingSteps(sellOrders, userLocalityObject) {
 
 
   if (userLocalityObject.country && userLocalityObject.province_state && userLocalityObject.city) {
-    console.log("...sorting for city")
+    // console.log("...sorting for city")
     three = SORT(two_p1 || one_p1 || sellOrders, "city", userLocalityObject)
 
     // FIND INDEX
@@ -63,7 +63,7 @@ function sortingSteps(sellOrders, userLocalityObject) {
 
 
   if (userLocalityObject.country && userLocalityObject.province_state && userLocalityObject.city && userLocalityObject.neigh) {
-    console.log("...sorting for neigh")
+    // console.log("...sorting for neigh")
     four = SORT(three_p1 || two_p1 || one_p1 || sellOrders, "neigh", userLocalityObject)
 
     // FIND INDEX
@@ -80,7 +80,7 @@ function sortingSteps(sellOrders, userLocalityObject) {
 
 
   if (userLocalityObject.country && userLocalityObject.province_state && userLocalityObject.city && userLocalityObject.st) {
-    console.log("...sorting for street")
+    // console.log("...sorting for street")
     five = SORT(four_p1 || three_p1 || two_p1 || one_p1 || sellOrders, "st", userLocalityObject)
 
     // FIND INDEX

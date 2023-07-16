@@ -280,7 +280,7 @@ async function setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware(req, res, nex
 
 
 async function filterSetupsMiddleware(req, res, next) {
-  console.log("\n\nmarketplaceMiddleware: preset1(): \n\n\n\n")
+  // console.log("\n\nmarketplaceMiddleware: preset1(): \n\n\n\n")
 
   // 1 => false => regenerate cache and orders
   // 2, 3, 4 => true

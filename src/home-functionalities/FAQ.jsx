@@ -9,9 +9,10 @@ class FAQ extends React.Component {
     this.state = { faqs: [] }
 
     // TODO !!!!
-    // SEO register, video adaptability
+    // Add email blocks to be able to download a resource for email in exchange! 
 
 
+    // Crud on messaging components and data
     // order of faqs
     // email edit
     // first name, last name phone number

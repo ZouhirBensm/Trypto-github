@@ -270,7 +270,7 @@ homeOrdersBackend_app_router.get('/', async (req, res) => {
   res.locals.popup = req.query.popup
 
   console.log("\n\nGET '/' route\nIs user logged in?\n", !!req.session.userId, req.session.userId)
-  console.log("\n\nDo we have any pop-up messages: \n", req.query.popup)
+  console.log("\nDo we have any pop-up messages: ->", req.query.popup, "\n\n")
 
   var JSX_to_load = 'App';
 
@@ -401,7 +401,7 @@ homeOrdersBackend_app_router.get('/cryptoprice', async (req, res, next) => {
     return next(e)
   }
 
-  console.log(data)
+  // console.log(data)
   return res.json({
     data: data.data
   })

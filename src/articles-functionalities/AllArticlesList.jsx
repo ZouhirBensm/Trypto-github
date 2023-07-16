@@ -3,8 +3,7 @@ import './style/AllArticlesList.css'
 
 import Loading from '../generic-components/Loading'
 
-// TODO !!!! make loading a spinner at the center of the application or reactdiv div
-// TODO !!!! While articles are loading load the loading component in the meantime
+// TODO !!!! See how the loading Loading component is rendering on every time it is called, make sure it is properly positioned centered!
 
 class AllArticlesList extends React.Component {
   constructor(props) {
