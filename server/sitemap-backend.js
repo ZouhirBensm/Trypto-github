@@ -10,7 +10,10 @@ const ROLE = require('../full-stack-libs/Types/Role')
 
 
 const sitemapMiddleware = require('../middleware/sitemap-middlewares/sitemap-middlewares')
+const sitemapMiddleware2 = require('../middleware/sitemap-middlewares/sitemap-middlewares-2')
+
 const sitemapController = require('../controllers/sitemap-controller/sitemap-controller')
+const sitemapController2 = require('../controllers/sitemap-controller/sitemap-controller-2')
 
 
 // Middleware
@@ -45,6 +48,12 @@ sitemapController.controller1
 )
 
 
+sitemapBackend_app_router.get('/html-sitemap', 
+sitemapMiddleware2.middleware1,
+// sitemapMiddleware2.middleware2,
+// sitemapMiddleware2.middleware3,
+sitemapController2.controller1
+)
 
 
 sitemapBackend_app_router.get('/sitemap.xml', (req,res)=>{

@@ -17,7 +17,7 @@ function toogleSideNav() {
 
 
   let reactDiv = document.getElementById("react-div")
-  let erroBox = document.getElementsByClassName("error-box")[0]
+  let erroBox = document.getElementsByClassName("box")[0]
 
   // Work with errorBox if present else reactDiv
   // errorBox is sometimes the main wrapper to disable sometimes

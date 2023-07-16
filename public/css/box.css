@@ -1,0 +1,30 @@
+div.box {
+  color: black;
+  height: calc(100vh - 100px);
+  position: absolute;
+  
+  top: 50px;
+  bottom: 50px;
+  margin: 0;
+  left: 0%;
+  right: 0%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+div.box > div {
+  width: 95%;
+  margin: 2vh auto;
+}
+
+
+
+div.box h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 1.8px;
+  color: #010757;
+  text-transform: capitalize;
+  font-size: var(--font-size-h1);
+}

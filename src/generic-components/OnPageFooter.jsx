@@ -21,6 +21,7 @@ function OnPageFooter() {
           } */}
 
           <div><a href="/FAQ">FAQ</a></div>
+          <div><a href="/sitemap/html-sitemap">Sitemap</a></div>
         </div>
 
         <div id='nav402'>
