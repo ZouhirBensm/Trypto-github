@@ -15,6 +15,7 @@ async function createArticleInstanceMiddleware(req, res, next) {
   article = new Article({
     h1: req.body.h1,
     html_title: req.body.html_title,
+    changefreq: req.body.changefreq,
     category: req.body.category,
     url: req.body.url,
     author_id: req.session.userId

@@ -77,9 +77,7 @@ class ArticlesDashboard extends React.Component {
                     <div className="spinner"></div>
                   ) : (
                     <React.Fragment>
-                      <button onClick={this.syncSitemap}>
-                        Sync Sitemap
-                      </button>
+                      <button onClick={this.syncSitemap}>Sync Sitemap</button>
                       <img src="/img/SVG/operations/global/sync.svg" alt="" />
                       <span id="popup" style={{ display: 'none' }} ref={this.popup}></span>
                     </React.Fragment>

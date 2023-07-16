@@ -21,6 +21,19 @@ class _1_SetArticleHeadTagData extends React.Component {
         <h3>Set Article's head tag data:</h3>
 
         <div id="create-article-form-id" className="form">
+
+          <label>Set Article's sitemap changefreq</label>
+          <select value={this.props.changefreq} onChange={this.props.handleChange} name="changefreq" required >
+            <option value="">no selection</option>
+            <option value="always">always</option>
+            <option value="hourly">hourly</option>
+            <option value="daily">daily</option>
+            <option value="weekly">weekly</option>
+            <option value="monthly">monthly</option>
+            <option value="yearly">yearly</option>
+            <option value="never">never</option>
+          </select>
+
           <label>HTML Title, title tag:</label>
 
           <input type="text" name="html_title" value={this.props.html_title} onChange={this.props.handleChange} placeholder="Enter wanted HTML Title" required />
@@ -36,7 +49,7 @@ class _1_SetArticleHeadTagData extends React.Component {
           <label>Custom article canonical:</label>
 
           {/* if stating with this.props.canonical is undefined use value={this.props.canonical || ""} */}
-          <input type="text" name="canonical" value={this.props.canonical || ""} onChange={this.props.handleChange} placeholder="Enter wanted canonical"/>
+          <input type="text" name="canonical" value={this.props.canonical || ""} onChange={this.props.handleChange} placeholder="Enter wanted canonical" />
 
           <label>Do you want to block indexing?</label>
 

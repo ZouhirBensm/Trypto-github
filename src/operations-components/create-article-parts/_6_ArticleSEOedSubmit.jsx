@@ -91,6 +91,7 @@ class _6_ArticleSEOedSubmit extends React.Component {
       // _1_SetArticleHeadTagData
       html_title: this.props.html_title,
       meta_title: this.props.meta_title,
+      changefreq: this.props.changefreq,
       meta_description: this.props.meta_description,
       canonical: this.props.canonical,
       noindex: this.props.noindex,

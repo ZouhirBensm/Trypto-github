@@ -408,7 +408,7 @@ async function queryAndOrganizeDataMiddleware(req, res, next) {
       })
 
 
-    // TODO !!!! use this query when referer is home page
+    // TODO !!! use this query when referer is home page
     // QUERY WHEN DATA NEEDED FOR HOME PAGE
     // sellOrders = await SellMarketOrder.find().sort({ postedDate: -1 })
     //   .select("title description price conversion chain postedDate sellmarketorderImageID")

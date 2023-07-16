@@ -19,13 +19,11 @@ async function editArticleMiddleware(req, res, next) {
     }
 
     
-    // TODO !!!!! need to set up article sitemap update options from front end to sitemap
-    // TODO !!!!! also don't forget to set the update date time on the site map
-    
     let now = new Date()
 
     article.h1 = req.body.h1
     article.html_title = req.body.html_title
+    article.changefreq = req.body.changefreq,
     article.category = req.body.category
     article.url = req.body.url
     article.updateDate = now

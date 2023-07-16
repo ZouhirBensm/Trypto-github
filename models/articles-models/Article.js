@@ -16,6 +16,10 @@ const ArticleSchema = new Schema({
     type: String,
     required: true
   },
+  changefreq: {
+    type: String,
+    required: true
+  },
   html_title: {
     type: String,
     required: true

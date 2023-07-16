@@ -1,9 +1,16 @@
 
+// TODO !!!! integrate:
+// Set up the etag middleware
+// app.set('etag', 'strong');
+// const Compression = require('./lifecycle/middleware/use-middleware/compression-middleware')
+// app.use(Compression);
+
+
 
 // 1234567 for new deployment
 require('dotenv').config()
 
-console.log("\n\n",process.env.NODE_ENV)
+console.log("\n\n", process.env.NODE_ENV)
 console.log(process.env.DATABASE_LINK)
 console.log(process.env.EXPRESS_SECRET)
 console.log(process.env.PORT)
@@ -31,12 +38,12 @@ const limiter = rateLimit({
   windowMs: 1000, // 1 minutes
   // windowMs: 60 * 1000, // 1 minutes
   // windowMs: 5 * 60 * 1000, // 5 minutes
-	// windowMs: 15 * 60 * 1000, // 15 minutes
+  // windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100 * 12, // Limit each IP to 1000 requests per `window` (here, per 15 minutes)
   // max: 30, // Limit each IP to 30 requests per `window` (here, per 15 minutes)
-	// max: 200 * 5 * 1000, // Limit each IP to 1000 requests per `window` (here, per 15 minutes)
-	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  // max: 200 * 5 * 1000, // Limit each IP to 1000 requests per `window` (here, per 15 minutes)
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
 
 
@@ -61,7 +68,7 @@ mongoose.set('strictQuery', true);
 
 
 mongoose.connect(ENV.database_link)
-.catch(e => {throw e})
+  .catch(e => { throw e })
 
 // Assign the "DB CONNECTION" to the db variable
 // db can then be use for "DATA CHANGES", "DATA STATE CHANGES"
@@ -169,7 +176,7 @@ const sessionMiddleware = expressSession({
     secure: false,
     sameSite: 'strict',
     //originalMaxAge: 24*60*60
-    maxAge: 1000*60*60*24 
+    maxAge: 1000 * 60 * 60 * 24
     // 1 Day
     // maxAge: 1000*60*60*5, // 5 hours then deletes
     // maxAge: 1000*60*30 
@@ -201,7 +208,7 @@ express_server_app_router.use(layouts)
 // Parse incomming requests that have json payloads
 express_server_app_router.use(express.json())
 // Tell your express.js application to parse incomming requests that are URL encoded data (usually form post and utf-8 content)
-express_server_app_router.use(express.urlencoded({extended: true}))
+express_server_app_router.use(express.urlencoded({ extended: true }))
 
 
 
@@ -226,9 +233,9 @@ express_server_app_router.use((req, res, next) => {
   res.locals.paths_URL = utils.URLpathDecomposer(URL_)
 
   // console.log(URL_, res.locals.paths_URL)
-  
+
   loggedIn = req.session.userId
-  
+
 
   // navBars = NAVBAR.CLIENTS
   // res.locals.userId = req.session.userId
@@ -287,7 +294,7 @@ express_server_app_router.use(errorResponderController)
 
 
 // Upgrade the HTTP Express Server to a Socket IO Server
-module.exports = {express_server_app_router, sessionMiddleware}
+module.exports = { express_server_app_router, sessionMiddleware }
 const server_instance = require("./io-server-setup")
 
 
@@ -304,9 +311,19 @@ server.on('close', () => {
 });
 
 
-process.on('SIGINT', function() {
+process.on('SIGINT', function () {
   server.close();
 });
+
+
+
+
+
+
+
+
+
+
 
 
 

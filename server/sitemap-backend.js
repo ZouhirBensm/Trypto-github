@@ -37,6 +37,7 @@ sitemapBackend_app_router.use(set_user_if_any, (req, res, next) => {
 sitemapBackend_app_router.get('/sync-sitemap-2-database', 
 require_loggedin_for_data(true), 
 authenticate_role_for_data([ROLE.MASTER]),
+
 sitemapMiddleware.middleware1,
 sitemapMiddleware.middleware2,
 // sitemapMiddleware.middleware3,

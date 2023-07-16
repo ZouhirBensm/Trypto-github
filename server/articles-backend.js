@@ -2,7 +2,7 @@ const express = require('express')
 const articlesBackend_app_router = express.Router()
 const httpStatus = require("http-status-codes")
 
-// TODO !!!! Make sure all default images, and image that get uploaded are optimized in size and format
+// TODO !!! Make sure all default images, and image that get uploaded are optimized in size and format
 
 
 // Environment variables and types

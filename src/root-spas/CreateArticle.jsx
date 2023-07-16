@@ -38,6 +38,7 @@ class CreateArticle extends React.Component {
       // step: 1,
       // // STEP 1
       // html_title: "",
+      // changefreq: "",
       // meta_title: "",
       // meta_description: "",
       // canonical: undefined,
@@ -68,6 +69,7 @@ class CreateArticle extends React.Component {
       create_true_edit_false: true, // DEFAULT SET TO CREATE
       step: 1,
       html_title: "Some random title", // CHECK (ArticleHeadTag)
+      changefreq: "weekly",
       meta_title: "Some random title2",
       meta_description: "Some random description", // CHECK (ArticleHeadTag)
       canonical: undefined, // CHECK (ArticleHeadTag)
@@ -279,6 +281,7 @@ class CreateArticle extends React.Component {
         // STEP 1
         html_title: pre_load_article_4_edit.html_title,
         meta_title: pre_load_article_4_edit.articleheadtag_id.meta_title,
+        changefreq: pre_load_article_4_edit.changefreq,
         meta_description: pre_load_article_4_edit.articleheadtag_id.meta_description,
         canonical: pre_load_article_4_edit.articleheadtag_id.canonical,
         noindex: pre_load_article_4_edit.articleheadtag_id.noindex,
@@ -425,6 +428,7 @@ class CreateArticle extends React.Component {
 
           html_title={this.state.html_title}
           meta_title={this.state.meta_title}
+          changefreq={this.state.changefreq}
           meta_description={this.state.meta_description}
           canonical={this.state.canonical}
           noindex={this.state.noindex}
@@ -507,6 +511,7 @@ class CreateArticle extends React.Component {
 
           html_title={this.state.html_title}
           meta_title={this.state.meta_title}
+          changefreq={this.state.changefreq}
           meta_description={this.state.meta_description}
           canonical={this.state.canonical}
           noindex={this.state.noindex}
@@ -868,9 +873,8 @@ export default CreateArticle
 
 
 
-// TODO !!!! 
-// Need to Test the schemas from production
+// TODO !!!
 // Case sensivety on login
 // Footer link build
 // Publish and archive market orders
-// Textarea resize stop
+// Textarea resize stop the capability to drag

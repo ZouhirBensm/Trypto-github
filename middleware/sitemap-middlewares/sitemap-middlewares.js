@@ -14,10 +14,9 @@ async function middleware1(req, res, next) {
   const urls = [
     {
       URL: '/',
-      // TODO !!!! sitemap needs reflect the last update field after crud functions implemented
-      lastmod: now,
-      changefreq: "hourly",
-      priority: 0.5
+      lastmod: now, // TODO !!! Need to figure out when to update this and onto what date time
+      changefreq: "weekly",
+      priority: 1
     },
     // TODO !!!! add html sitemap page
     // {
@@ -32,10 +31,13 @@ async function middleware1(req, res, next) {
   let articles
 
   try {
-    articles = await Article.find().select("url -_id")
+    articles = await Article.find().select("url publishedDate updateDate -_id")
   } catch (error) {
     return next(error)
   }
+
+  console.log(articles)
+  // return res.status(200).end()
 
   if (!Array.isArray(articles) || !articles.length) {
     let message = 'No articles in DB'
@@ -45,8 +47,15 @@ async function middleware1(req, res, next) {
   // console.log(articles, "\n\n")
 
   for (let i = 0; i < articles.length; i++) {
+
     const article = articles[i];
-    urls.push({ URL: article.url, lastmod: now, changefreq: "hourly", priority: 1.0 })
+    urls.push({ 
+      URL: article.url, 
+      lastmod: article.updateDate || article.publishedDate, 
+      changefreq: article.changefreq, 
+      priority: 1.0 
+    })
+
   }
 
 
@@ -83,10 +92,10 @@ async function middleware2(req, res, next) {
 
 
 
-async function middleware3(req, res, next) {
+// async function middleware3(req, res, next) {
 
-  return next()
-}
+//   return next()
+// }
 
 
 
@@ -96,7 +105,7 @@ async function middleware3(req, res, next) {
 const sitemapMiddleware = {
   middleware1: middleware1,
   middleware2: middleware2,
-  middleware3: middleware3
+  // middleware3: middleware3
 }
 
 

@@ -50,8 +50,7 @@ function seeData(req, res, next) {
 // }
 
 
-// TODO !!!! need to set an exerpt, and pull it from the nested_data_copy, on the back end and integrate it to the Article schema and save
-// TODO !!!! need to add the category input on the front end and save it in the Article schema
+// TODO !!! need to set an exerpt, and pull it from the nested_data_copy, on the back end and integrate it to the Article schema and save
 
 
 
