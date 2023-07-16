@@ -20,7 +20,7 @@ async function controller2(req, res, next) {
 
 }
 
-// merge
+// TODO !!!! merge
 // TODO !!!!! build HTML sitemap
 // TODO !!!!! google search console register
 // TODO !!!!! google analitics register
