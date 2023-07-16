@@ -54,7 +54,7 @@ class ImageUploadModalFunction extends React.Component {
     }
   }
 
-  // TODO !!!! Forgot to set font-sizes for the market item details page
+  // TODO !!!!! Forgot to set font-sizes for the market item details page
 
   render() {
     return (

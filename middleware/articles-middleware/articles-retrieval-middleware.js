@@ -21,8 +21,8 @@ async function middleware1(req,res,next) {
 
 
   
-  // let filter_category = req.query.category ? req.query.category : undefined
-  // let filter_source = req.query.source ? req.query.source : undefined
+  let filter_category = req.query.category ? req.query.category : undefined
+  let filter_source = req.query.source ? req.query.source : undefined
   
   let filter_object
   filter_object = filterObject(undefined, req.query.category, req.query.source)
