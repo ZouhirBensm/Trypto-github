@@ -104,20 +104,11 @@ global.agenda = new Agenda({
   },
 });
 
-// IIFE to start Agenda, and be able to forcefully and gracefully close it
+// IIFE to start Agenda
 (async function () {
-  await agenda.start()
-
-  async function graceful() {
-    await agenda.stop();
-    await agenda.close({ force: true });
-    console.log(" Exiting agenda gracefully...")
-    process.exit(0);
-  }
-
-  process.on("SIGTERM", graceful);
-  process.on("SIGINT", graceful);
+  await global.agenda.start()
 })();
+
 
 
 
@@ -307,17 +298,33 @@ const server = server_instance.listen(ENV.port, function () {
 
 // When CTRL + C closes the app
 server.on('close', () => {
-  console.log('\n\nExpress web server is closing');
-});
-
-
-process.on('SIGINT', function () {
-  server.close();
+  console.log('Express web server is closing\n');
 });
 
 
 
 
+const CLOSE_SIGNAL = (process.env.NODE_ENV === 'development' ? 'SIGINT': process.env.NODE_ENV === 'staging' || 'production' ? 'SIGTERM': 'SIGINT');
+// More Info: /Users/Zouhir/Documents/OpenAI/SIGINT, SIGTERM, Disconnect MongoDB with Mongoose.pdf
+
+process.on(CLOSE_SIGNAL, async () => {
+  console.log(`\n\nReceived ${CLOSE_SIGNAL} signal...\n`);
+
+
+  try {
+    await mongoose.disconnect();
+    console.log('Disconnected from MongoDB.\n');
+    await global.agenda.stop();
+    await global.agenda.close({ force: true });
+    console.log("Exiting agenda gracefully.\n")
+    server.close();
+    console.log("Closed server.\n")
+    process.exit(0);
+  } catch (err) {
+    console.error('Error while closing the server and disconnecting from MongoDB:', err);
+    process.exit(1);
+  }
+});
 
 
 

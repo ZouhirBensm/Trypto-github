@@ -137,9 +137,6 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
-// TODO !!!! when closing the process, properly close the mongoose connection or something. Look into earnanswers
-
-
 
 homeOrdersBackend_app_router.get('/faqs/:faq_title?', faqDataMiddleware.retrieveFAQsMiddleware, faqResponseControllers.responseFAQsController)
 
