@@ -19,11 +19,11 @@ async function editArticleHeadTagMiddleware(req, res, next) {
     }
 
 
-    article_enclosure.meta_title = req.body.meta_title
-    article_enclosure.meta_description = req.body.meta_description
-    req.body.canonical ? article_enclosure.canonical = req.body.canonical : null
-    article_enclosure.noindex = !!req.body.noindex
-    article_enclosure.nofollow = !!req.body.nofollow
+    article_head_tag.meta_title = req.body.meta_title
+    article_head_tag.meta_description = req.body.meta_description
+    req.body.canonical ? article_head_tag.canonical = req.body.canonical : null
+    article_head_tag.noindex = !!req.body.noindex
+    article_head_tag.nofollow = !!req.body.nofollow
     
 
     res.locals.article_head_tag = article_head_tag

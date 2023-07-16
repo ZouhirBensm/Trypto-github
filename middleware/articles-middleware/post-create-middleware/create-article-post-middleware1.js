@@ -27,8 +27,8 @@ function neededFolderHoldingPerArticleFoldersMiddleware(req, res, next) {
 
   res.locals.directory_article_images_folder_path = directory_article_images_folder_path
 
-  if (!existsSync(`public/${directory_article_images_folder_path}`)) {
-    mkdirSync(`public/${directory_article_images_folder_path}`, { recursive: true });
+  if (!existsSync(`public${directory_article_images_folder_path}`)) {
+    mkdirSync(`public${directory_article_images_folder_path}`, { recursive: true });
   }
 
   return next()

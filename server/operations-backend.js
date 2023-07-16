@@ -321,7 +321,7 @@ operationsBackend_app_router.post('/create-article',
 
   commonCreateEditArticleMiddleware.seeData,
 
-  createArticlePOSTMiddleware0.setArticleURLMiddleware,
+  commonCreateEditArticleMiddleware.setArticleURLMiddleware,
   createArticlePOSTMiddleware0.createArticleInstanceMiddleware,
   createArticlePOSTMiddleware0.createArticleEnclosureImageInstanceMiddleware,
 
@@ -366,16 +366,18 @@ operationsBackend_app_router.put('/edit-article',
 
   commonCreateEditArticleMiddleware.seeData,
 
+  commonCreateEditArticleMiddleware.setArticleURLMiddleware,
+
   editArticlePUTMiddleware0.editArticleMiddleware,
   editArticlePUTMiddleware0.editArticleEnclosureImageMiddleware,
 
+  // Delete the associated images
+  deleteArticleMiddleware.middleware4,
   
   createArticlePOSTMiddleware1.neededFolderEnclosuresMiddleware,
   createArticlePOSTMiddleware1.neededFolderHoldingPerArticleFoldersMiddleware,
   
 
-  // Delete the associated images
-  deleteArticleMiddleware.middleware4,
 
   // Recreate the needed files
   createArticlePOSTMiddleware2.processArticleEnclosureImageMiddleware,

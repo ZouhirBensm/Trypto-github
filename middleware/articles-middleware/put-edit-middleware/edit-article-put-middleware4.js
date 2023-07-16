@@ -8,6 +8,7 @@ async function saveArticleMiddleware(req, res, next) {
     ret_article_save = await res.locals.article.save();
 
   } catch (error) {
+    // TODO !!!!! edit and test all error thrown
     console.error('Error updating article:', error);
     res.status(500).json({ error: 'Internal server error' });
   }

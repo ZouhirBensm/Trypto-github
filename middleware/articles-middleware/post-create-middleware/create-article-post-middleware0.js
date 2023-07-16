@@ -4,21 +4,6 @@ const ArticleEnclosureImage = require("../../../models/articles-models/ArticleEn
 
 
 
-function setArticleURLMiddleware(req, res, next) {
-
-  // TODO !!! put in libs and call upon globally
-  const path_from_h1 = req.body.h1.toLowerCase()
-    .replace(/[^\w\s]|_/g, '') // Remove punctuation
-    .replace(/\s+/g, '-'); // add dashes
-
-  // console.log(path_from_h1);
-
-  req.body.url = `/articles/individual_article/${path_from_h1}`
-
-  return next()
-}
-
-
 
 
 
@@ -72,7 +57,6 @@ async function createArticleEnclosureImageInstanceMiddleware(req, res, next) {
 
 
 const createArticlePOSTMiddleware0 = {
-  setArticleURLMiddleware: setArticleURLMiddleware,
   createArticleInstanceMiddleware: createArticleInstanceMiddleware,
   createArticleEnclosureImageInstanceMiddleware: createArticleEnclosureImageInstanceMiddleware
 }

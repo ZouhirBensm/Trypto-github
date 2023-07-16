@@ -53,10 +53,24 @@ function seeData(req, res, next) {
 
 
 
+function setArticleURLMiddleware(req, res, next) {
+
+  // TODO !!! put in libs and call upon globally
+  const path_from_h1 = req.body.h1.toLowerCase()
+    .replace(/[^\w\s]|_/g, '') // Remove punctuation
+    .replace(/\s+/g, '-'); // add dashes
+
+  // console.log(path_from_h1);
+
+  req.body.url = `/articles/individual_article/${path_from_h1}`
+
+  return next()
+}
 
 
 
-// TODO !!!!! merge this middleware with the create one (same)
+
+
 async function commonArticleNestedDatatMiddleware1(req, res, next) {
   console.log("commonArticleNestedDatatMiddleware1...");
 
@@ -247,6 +261,7 @@ async function commonArticleNestedDatatMiddleware1(req, res, next) {
 
 const commonCreateEditArticleMiddleware = {
   seeData: seeData,
+  setArticleURLMiddleware: setArticleURLMiddleware,
   commonArticleNestedDatatMiddleware1: commonArticleNestedDatatMiddleware1
 }
 

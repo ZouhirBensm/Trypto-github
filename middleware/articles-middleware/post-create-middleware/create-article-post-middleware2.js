@@ -119,7 +119,7 @@ async function processArticleBlockImagesMiddleware(req, res, next) {
     // public/img/bidblock-article-images/per-article-folders-for-images/ARTICLE_ID/6955-oreo.png
 
     try {
-      sharp_returned = await sharp_returned.toFile(`public/${res.locals.directory_article_images_folder_path}/${file.filename}`)
+      sharp_returned = await sharp_returned.toFile(`public${res.locals.directory_article_images_folder_path}/${file.filename}`)
 
       // console.log("\n\nsharp_returned\n\n", sharp_returned)
 
