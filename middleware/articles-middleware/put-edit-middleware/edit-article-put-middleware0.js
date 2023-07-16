@@ -1,7 +1,7 @@
 const Article = require("../../../models/articles-models/Article")
 const ArticleEnclosureImage = require("../../../models/articles-models/ArticleEnclosureImage")
 
-
+const { EditArticleError } = require('../../../custom-errors/custom-errors')
 
 
 async function editArticleMiddleware(req, res, next) {
@@ -12,8 +12,10 @@ async function editArticleMiddleware(req, res, next) {
     // Step 3: Find the article in the database
 
     const article = await Article.findById(req.query.articleID_to_preload_4_edit);
+    
     if (!article) {
-      return res.status(404).json({ error: 'Article not found' });
+      let error = new EditArticleError(`Article not found`, 404)
+      return next(error)
     }
 
     
@@ -32,9 +34,9 @@ async function editArticleMiddleware(req, res, next) {
     
     res.locals.article = article
 
-  } catch (error) {
-    console.error('Error updating article:', error);
-    res.status(500).json({ error: 'Internal server error' });
+  } catch (e) {
+    let error = new EditArticleError(`Error updating article, Internal server error: ${e.message}`)
+    return next(error)
   }
 
   // PATH of all the images in the article's content
@@ -59,7 +61,8 @@ async function editArticleEnclosureImageMiddleware(req, res, next) {
     const article_enclosure = await ArticleEnclosureImage.findById(res.locals.article.articleenclosureimage_id);
 
     if (!article_enclosure) {
-      return res.status(404).json({ error: 'ArticleEnclosureImage not found' });
+      let error = new EditArticleError(`ArticleEnclosureImage not found`, 404)
+      return next(error)
     }
 
     
@@ -68,9 +71,9 @@ async function editArticleEnclosureImageMiddleware(req, res, next) {
     
     res.locals.article_enclosure = article_enclosure
 
-  } catch (error) {
-    console.error('Error updating article_enclosure:', error);
-    res.status(500).json({ error: 'Internal server error' });
+  } catch (e) {
+    let error = new EditArticleError(`Error updating article, Internal server error: ${e.message}`)
+    return next(error)
   }
 
     // PATH contains the file to delete

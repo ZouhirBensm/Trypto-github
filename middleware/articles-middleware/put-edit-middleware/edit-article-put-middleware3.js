@@ -3,6 +3,8 @@ const ArticleBodyHeader = require('../../../models/articles-models/ArticleBodyHe
 const ArticleAbstract = require("../../../models/articles-models/ArticleAbstract")
 const { ArticleNestedData } = require("../../../models/articles-models/ArticleNestedData")
 
+const { EditArticleError } = require('../../../custom-errors/custom-errors')
+
 
 
 
@@ -15,7 +17,8 @@ async function editArticleHeadTagMiddleware(req, res, next) {
     const article_head_tag = await ArticleHeadTag.findById(res.locals.article.articleheadtag_id);
 
     if (!article_head_tag) {
-      return res.status(404).json({ error: 'ArticleHeadTag not found' });
+      let error = new EditArticleError(`ArticleHeadTag not found`, 404)
+      return next(error)
     }
 
 
@@ -28,9 +31,9 @@ async function editArticleHeadTagMiddleware(req, res, next) {
 
     res.locals.article_head_tag = article_head_tag
 
-  } catch (error) {
-    console.error('Error updating article:', error);
-    res.status(500).json({ error: 'Internal server error' });
+  } catch (e) {
+    let error = new EditArticleError(`Error updating ArticleHeadTag, Internal server error: ${e.message}`)
+    return next(error)
   }
 
   return next()
@@ -47,7 +50,8 @@ async function editArticleBodyHeaderMiddleware(req, res, next) {
     const article_body_header = await ArticleBodyHeader.findById(res.locals.article.articlebodyheader_id);
 
     if (!article_body_header) {
-      return res.status(404).json({ error: 'ArticleBodyHeader not found' });
+      let error = new EditArticleError(`ArticleBodyHeader not found`, 404)
+      return next(error)
     }
 
 
@@ -57,9 +61,9 @@ async function editArticleBodyHeaderMiddleware(req, res, next) {
 
     res.locals.article_body_header = article_body_header
 
-  } catch (error) {
-    console.error('Error updating article:', error);
-    res.status(500).json({ error: 'Internal server error' });
+  } catch (e) {
+    let error = new EditArticleError(`Error updating ArticleBodyHeader, Internal server error: ${e.message}`)
+    return next(error)
   }
 
   return next()
@@ -87,7 +91,8 @@ async function editArticleAbstractMiddleware(req, res, next) {
     const article_abstract = await ArticleAbstract.findById(res.locals.article.articleabstract_id);
 
     if (!article_abstract) {
-      return res.status(404).json({ error: 'ArticleAbstract not found' });
+      let error = new EditArticleError(`ArticleAbstract not found`, 404)
+      return next(error)
     }
 
     article_abstract.abstract_name_type = req.body.abstract_name_type
@@ -96,9 +101,9 @@ async function editArticleAbstractMiddleware(req, res, next) {
 
     res.locals.article_abstract = article_abstract
     
-  } catch (error) {
-    console.error('Error updating article:', error);
-    res.status(500).json({ error: 'Internal server error' });
+  } catch (e) {
+    let error = new EditArticleError(`Error updating ArticleAbstract, Internal server error: ${e.message}`)
+    return next(error)
   }
 
   return next()
@@ -129,7 +134,8 @@ async function editArticleNestedDatatMiddleware2(req, res, next) {
     const article_nested_data = await ArticleNestedData.findById(res.locals.article.articlenesteddata_id);
 
     if (!article_nested_data) {
-      return res.status(404).json({ error: 'ArticleNestedData not found' });
+      let error = new EditArticleError(`ArticleNestedData not found`, 404)
+      return next(error)
     }
 
     article_nested_data.content_structure = JSON.parse(req.body.content_structure)
@@ -137,9 +143,9 @@ async function editArticleNestedDatatMiddleware2(req, res, next) {
     
     res.locals.article_nested_data = article_nested_data
     
-  } catch (error) {
-    console.error('Error updating article:', error);
-    res.status(500).json({ error: 'Internal server error' });
+  } catch (e) {
+    let error = new EditArticleError(`Error updating ArticleNestedData, Internal server error: ${e.message}`)
+    return next(error)
   }
 
   return next()

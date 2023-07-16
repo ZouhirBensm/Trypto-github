@@ -1,3 +1,7 @@
+const { EditArticleError } = require('../../../custom-errors/custom-errors')
+
+
+
 async function saveArticleMiddleware(req, res, next) {
   console.log("saveArticleMiddleware...")
   
@@ -7,10 +11,9 @@ async function saveArticleMiddleware(req, res, next) {
     // Save the updated article
     ret_article_save = await res.locals.article.save();
 
-  } catch (error) {
-    // TODO !!!!! edit and test all error thrown
-    console.error('Error updating article:', error);
-    res.status(500).json({ error: 'Internal server error' });
+  } catch (e) {
+    let error = new EditArticleError(`Error saving updated article, Internal server error: ${e.message}`)
+    return next(error)
   }
 
   
@@ -33,9 +36,9 @@ async function saveArticleHeadTagMiddleware(req, res, next) {
     // Save the updated article
     ret_article_head_tag_save = await res.locals.article_head_tag.save();
 
-  } catch (error) {
-    console.error('Error updating article:', error);
-    res.status(500).json({ error: 'Internal server error' });
+  } catch (e) {
+    let error = new EditArticleError(`Error saving updated article_head_tag, Internal server error: ${e.message}`)
+    return next(error)
   }
 
   
@@ -55,9 +58,9 @@ async function saveArticleBodyHeaderMiddleware(req, res, next) {
     
     ret_article_body_header_save = await res.locals.article_body_header.save();
 
-  } catch (error) {
-    console.error('Error updating article:', error);
-    res.status(500).json({ error: 'Internal server error' });
+  } catch (e) {
+    let error = new EditArticleError(`Error saving updated article_body_header, Internal server error: ${e.message}`)
+    return next(error)
   }
 
   
@@ -74,9 +77,9 @@ async function saveArticleEnclosureImageMiddleware(req, res, next) {
   try {
     ret_article_enclosure_save = await res.locals.article_enclosure.save();
 
-  } catch (error) {
-    console.error('Error updating article:', error);
-    res.status(500).json({ error: 'Internal server error' });
+  } catch (e) {
+    let error = new EditArticleError(`Error saving updated article_enclosure, Internal server error: ${e.message}`)
+    return next(error)
   }
 
   
@@ -92,9 +95,9 @@ async function saveArticleAbstractMiddleware(req, res, next) {
   try {
     ret_article_abstract_save = await res.locals.article_abstract.save();
 
-  } catch (error) {
-    console.error('Error updating article:', error);
-    res.status(500).json({ error: 'Internal server error' });
+  } catch (e) {
+    let error = new EditArticleError(`Error saving updated article_abstract, Internal server error: ${e.message}`)
+    return next(error)
   }
 
   
@@ -110,9 +113,9 @@ async function saveArticleNestedDataMiddleware(req, res, next) {
   try {
     ret_article_nested_data_save = await res.locals.article_nested_data.save();
 
-  } catch (error) {
-    console.error('Error updating article:', error);
-    res.status(500).json({ error: 'Internal server error' });
+  } catch (e) {
+    let error = new EditArticleError(`Error saving updated article_abstract, Internal server error: ${e.message}`)
+    return next(error)
   }
 
   

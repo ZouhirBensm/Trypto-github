@@ -137,6 +137,7 @@ const errorResponseDispatcherController = async (err, req, res, next) => {
         }
       })
     case "CreateArticleError":
+    case "EditArticleError":
       return res.status(err.statusCode).json({
         error: {
           type: err.type,

@@ -26,7 +26,10 @@ function seeData(req, res, next) {
   // return res.status(200).end()
 
   res.locals.nested_data = JSON.parse(req.body.nested_data_copy)
-  
+
+
+  // let error = new Error("TESTING")
+  // return next(error)
   return next()
 }
 

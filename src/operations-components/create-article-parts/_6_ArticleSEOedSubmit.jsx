@@ -177,11 +177,20 @@ class _6_ArticleSEOedSubmit extends React.Component {
         }, 3000)
       })
       return
+    } else {
+      const error_msg = `Backend Error.`
+      this.setState({
+        popup: error_msg
+      }, ()=>{
+        setTimeout(() => {
+          this.setState({
+            popup: undefined
+          })
+        }, 3000)
+      })
+
     }
 
-    this.setState({
-      popup: undefined
-    })
 
   }
 
