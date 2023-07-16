@@ -63,6 +63,9 @@ articlesBackend_app_router.get('/paginated-articles/data',
   paginatingSetupMiddleware,
   destructureURLandRefererMiddleware,
 
+  // Throtle for testing Loading spinner
+  // articlesRetrievalMiddleware.middleware0,
+
   articlesRetrievalMiddleware.middleware1,
   articlesRetrievalMiddleware.middleware2,
   articlesRetrievalMiddleware.middleware3,

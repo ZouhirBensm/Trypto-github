@@ -17,6 +17,7 @@ class Articles extends React.Component {
       number_of_pages: 1,
       on_off_limit_next: false,
       on_off_limit_previous: true,
+      loading: false
     }
 
     this.controls = this.controls.bind(this);
@@ -43,6 +44,7 @@ class Articles extends React.Component {
 
   async loadData(){
 
+    this.setState({loading: true})
 
     let url = ``
     url += `/articles/paginated-articles/data?page=${this.state.page}&limit=${this.state.limit}`
@@ -57,7 +59,8 @@ class Articles extends React.Component {
         articles: serverOBJ.srv_.ARTICLES,
         nextPage: serverOBJ.srv_.next,
         previousPage: serverOBJ.srv_.previous,
-        number_of_pages: serverOBJ.srv_.number_of_pages.number
+        number_of_pages: serverOBJ.srv_.number_of_pages.number,
+        loading: false
       }, () => {
         if(this.state.nextPage==undefined){
           this.setState({
@@ -94,6 +97,7 @@ class Articles extends React.Component {
             articles={this.state.articles}
             button_text='read more'
             delete_button={false}
+            loading={this.state.loading}
           />
           <PageSelector
             number_of_pages={this.state.number_of_pages} 

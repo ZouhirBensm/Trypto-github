@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
-import { THIRD_PARTY_SOURCES, EXTERNAL_READS_SOURCES } from '../../full-stack-libs/utils.arrays'
+import { EXTERNAL_READS_SOURCES } from '../../full-stack-libs/utils.arrays'
 import './style/AllArticlesList.css'
+
+import Loading from '../generic-components/Loading'
 
 // TODO !!!! make loading a spinner at the center of the application or reactdiv div
 // TODO !!!! While articles are loading load the loading component in the meantime
@@ -22,7 +23,7 @@ class AllArticlesList extends React.Component {
           article={article}
           button_text={this.props.button_text}
           delete_button={this.props.delete_button}
-          
+
         />
       })
       return AllArticlesElements
@@ -38,7 +39,11 @@ class AllArticlesList extends React.Component {
     return (
       <React.Fragment>
         <div className="wrapper-all-article-elements">
-          {AllArticlesElements}
+          {this.props.loading ?
+            <Loading/>
+            :
+            AllArticlesElements
+          }
         </div>
 
       </React.Fragment>
@@ -80,23 +85,23 @@ class ArticleElement extends React.Component {
           article_id: _article_id
         })
       })
-  
+
       console.log(response)
-  
+
       if (!response.ok) {
         throw new Error('Error fetching data');
       }
-  
+
       // Stop's loading a reloads the page
       this.setState({ loading: false });
       window.location.reload();
-  
+
       return
-      
+
     } catch (error) {
       console.error('Error deleting article:', error);
-      this.setState({ error: 'An error occurred while deleting the article', loading: false }, ()=>{
-        setTimeout(()=>{this.setState({ error: null })}, 4000)
+      this.setState({ error: 'An error occurred while deleting the article', loading: false }, () => {
+        setTimeout(() => { this.setState({ error: null }) }, 4000)
       });
     }
 
@@ -104,18 +109,18 @@ class ArticleElement extends React.Component {
 
   }
 
-  componentDidMount(){
+  componentDidMount() {
 
     switch (this.props.button_text) {
       case 'edit':
         this.buttonRef.current = <a className='link' href={`/operations/create-article?articleID_to_preload_4_edit=${this.props.article._id}`}>
-        {this.props.button_text}
-      </a>
+          {this.props.button_text}
+        </a>
         break;
       case 'read more':
-        this.buttonRef.current = <a className='link' href={this.props.article.url} target={EXTERNAL_READS_SOURCES.includes(this.props.article.source)? "_blank": null}>
-        {this.props.button_text}
-      </a>
+        this.buttonRef.current = <a className='link' href={this.props.article.url} target={EXTERNAL_READS_SOURCES.includes(this.props.article.source) ? "_blank" : null}>
+          {this.props.button_text}
+        </a>
         break;
       default:
         // this.buttonRef.current = <div>TEST</div>
@@ -127,7 +132,7 @@ class ArticleElement extends React.Component {
 
   render() {
 
-    
+
     // let stringy = JSON.stringify(this.props.article)
 
     const date = new Date(this.props.article.publishedDate);
@@ -148,7 +153,7 @@ class ArticleElement extends React.Component {
     return (
 
       <React.Fragment>
-        
+
         {(this.props.delete_button && error) && <span id="error">Error: {error}</span>}
 
         <div className="article-card">
@@ -156,20 +161,20 @@ class ArticleElement extends React.Component {
             <img id="full-view" src={enclosure} alt="Blog image banner" />
             {
               this.props.delete_button ?
-              <button onClick={(e) => this.deleteArticle(e, this.props.article._id)}>
-                
-                {loading ? <div className="spinner"></div> : <img src="/img/SVG/operations/global/trash.svg " alt="" /> }
-              </button>
-              :
-              null
+                <button onClick={(e) => this.deleteArticle(e, this.props.article._id)}>
+
+                  {loading ? <div className="spinner"></div> : <img src="/img/SVG/operations/global/trash.svg " alt="" />}
+                </button>
+                :
+                null
             }
             <span id="date">{formattedDate}</span>
             <div>
               <h4>{this.props.article.h1}</h4>
-              
-              {this.props.article.excerpt ? 
-              <p>{this.props.article.excerpt}</p> :
-              null
+
+              {this.props.article.excerpt ?
+                <p>{this.props.article.excerpt}</p> :
+                null
               }
             </div>
           </div>

@@ -9,6 +9,12 @@ const {functionArticleAggregator} = require('./libs/rss-article-aggregator/rss-a
 const SOURCES = require('../../full-stack-libs/Types/ArticleSources')
 
 
+
+async function middleware0(req,res,next) {
+  setTimeout(()=>{return next()}, 60000)
+}
+
+
 async function middleware1(req,res,next) {
 
   
@@ -145,6 +151,7 @@ async function middleware5(req,res,next) {
 
 
 module.exports = {
+  middleware0,
   middleware1,
   middleware2,
   middleware3,
