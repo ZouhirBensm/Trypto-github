@@ -21,8 +21,6 @@ async function controller2(req, res, next) {
 }
 
 
-// TODO !!!!! Edit capability for blog articles on the back end.
-
 // TODO !!!!! build HTML sitemap
 // TODO !!!!! google search console register
 // TODO !!!!! google analitics register
