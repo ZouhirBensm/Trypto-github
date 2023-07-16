@@ -150,6 +150,7 @@ class _6_ArticleSEOedSubmit extends React.Component {
     formData.append('nested_data_copy', STRING_nested_data_copy);
     formData.append("create_true_edit_false", this.props.create_true_edit_false);
 
+    // TODO !!!! Need to block on unchanged inputs, do front, back end, not sure yet...
 
 
     const HTTP_METHOD = this.props.create_true_edit_false ? 'POST' : 'PUT'
