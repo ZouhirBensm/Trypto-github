@@ -70,9 +70,8 @@ const commonCreateEditArticleMiddleware = require('../middleware/articles-middle
 
 // for PUT /edit-article middlewares
 const editArticlePUTMiddleware0 = require('../middleware/articles-middleware/put-edit-middleware/edit-article-put-middleware0')
-const editArticlePUTMiddleware1 = require('../middleware/articles-middleware/put-edit-middleware/edit-article-put-middleware1')
-const editArticlePUTMiddleware2 = require('../middleware/articles-middleware/put-edit-middleware/edit-article-put-middleware2')
 const editArticlePUTMiddleware3 = require('../middleware/articles-middleware/put-edit-middleware/edit-article-put-middleware3')
+const editArticlePUTMiddleware4 = require('../middleware/articles-middleware/put-edit-middleware/edit-article-put-middleware4')
 
 
 
@@ -367,15 +366,22 @@ operationsBackend_app_router.put('/edit-article',
 
   commonCreateEditArticleMiddleware.seeData,
 
-  editArticlePUTMiddleware0.editArticleInstanceMiddleware,
+  editArticlePUTMiddleware0.editArticleMiddleware,
   editArticlePUTMiddleware0.editArticleEnclosureImageMiddleware,
 
-  // editArticlePUTMiddleware1.neededFolderEnclosuresMiddleware,
-  // editArticlePUTMiddleware1.neededFolderHoldingPerArticleFoldersMiddleware,
+  
+  createArticlePOSTMiddleware1.neededFolderEnclosuresMiddleware,
+  createArticlePOSTMiddleware1.neededFolderHoldingPerArticleFoldersMiddleware,
+  
+
+  // Delete the associated images
+  deleteArticleMiddleware.middleware4,
+
+  // Recreate the needed files
+  createArticlePOSTMiddleware2.processArticleEnclosureImageMiddleware,
+  createArticlePOSTMiddleware2.processArticleBlockImagesMiddleware,
 
 
-  // editArticlePUTMiddleware2.processArticleEnclosureImageMiddleware,
-  // editArticlePUTMiddleware2.processArticleBlockImagesMiddleware,
 
 
 
@@ -384,6 +390,14 @@ operationsBackend_app_router.put('/edit-article',
   editArticlePUTMiddleware3.editArticleAbstractMiddleware,
   commonCreateEditArticleMiddleware.commonArticleNestedDatatMiddleware1,
   editArticlePUTMiddleware3.editArticleNestedDatatMiddleware2,
+
+
+  editArticlePUTMiddleware4.saveArticleMiddleware,
+  editArticlePUTMiddleware4.saveArticleHeadTagMiddleware,
+  editArticlePUTMiddleware4.saveArticleBodyHeaderMiddleware,
+  editArticlePUTMiddleware4.saveArticleEnclosureImageMiddleware,
+  editArticlePUTMiddleware4.saveArticleAbstractMiddleware,
+  editArticlePUTMiddleware4.saveArticleNestedDataMiddleware,
 
 
   operationsControllers.responseCreateArticleController

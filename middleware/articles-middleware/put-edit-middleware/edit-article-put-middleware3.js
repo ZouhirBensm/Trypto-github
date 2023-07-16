@@ -26,7 +26,8 @@ async function editArticleHeadTagMiddleware(req, res, next) {
     article_enclosure.nofollow = !!req.body.nofollow
     
 
-    await article_head_tag.save();
+    res.locals.article_head_tag = article_head_tag
+
   } catch (error) {
     console.error('Error updating article:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -54,7 +55,8 @@ async function editArticleBodyHeaderMiddleware(req, res, next) {
     article_body_header.category = req.body.category
     
 
-    await article_body_header.save();
+    res.locals.article_body_header = article_body_header
+
   } catch (error) {
     console.error('Error updating article:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -92,7 +94,8 @@ async function editArticleAbstractMiddleware(req, res, next) {
     article_abstract.abstract_points = JSON.parse(req.body.abstract_points)
     
 
-    await article_abstract.save();
+    res.locals.article_abstract = article_abstract
+    
   } catch (error) {
     console.error('Error updating article:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -132,8 +135,8 @@ async function editArticleNestedDatatMiddleware2(req, res, next) {
     article_nested_data.content_structure = JSON.parse(req.body.content_structure)
     article_nested_data.blocks = res.locals.ARR_mongoose_Blocks,
     
-
-    await article_nested_data.save();
+    res.locals.article_nested_data = article_nested_data
+    
   } catch (error) {
     console.error('Error updating article:', error);
     res.status(500).json({ error: 'Internal server error' });

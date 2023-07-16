@@ -229,8 +229,6 @@ async function middleware2(req, res, next) {
 
 
 
-// TODO !!!!! Figure out a way to run a Promise all to get [Banner_file, image file1, image file2, ...]
-
 // then set the state with the correct banner file and correct nested A or IMG blocks i.e. place in proper locations
 
 

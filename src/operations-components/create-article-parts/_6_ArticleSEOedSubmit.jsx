@@ -12,8 +12,6 @@ class _6_ArticleSEOedSubmit extends React.Component {
   async clickCreateArticle() {
     console.log("Creating an article...")
 
-    // TODO !!!!! add indication blog was created
-
     let nested_data_copy = structuredClone(this.props.nested_data);
 
     const formData = new FormData();
@@ -155,9 +153,10 @@ class _6_ArticleSEOedSubmit extends React.Component {
 
 
     const HTTP_METHOD = this.props.create_true_edit_false ? 'POST' : 'PUT'
+    const URL = this.props.create_true_edit_false ? `/operations/create-article`: `/operations/edit-article?articleID_to_preload_4_edit=${this.props.articleID_to_preload_4_edit}`
 
     let response
-    response = await fetch(`/operations/${this.props.create_true_edit_false? 'create': 'edit'}-article`, {
+    response = await fetch(URL, {
       method: HTTP_METHOD,
       body: formData
     })

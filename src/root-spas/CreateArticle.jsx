@@ -524,6 +524,7 @@ class CreateArticle extends React.Component {
           nested_data={this.state.nested_data}
 
           create_true_edit_false={this.state.create_true_edit_false} 
+          articleID_to_preload_4_edit={pre_load_article_4_edit._id}
         />
         break;
       default:

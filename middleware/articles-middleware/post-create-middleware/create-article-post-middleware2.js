@@ -3,7 +3,6 @@ const fs = require('fs/promises')
 const path = require('path')
 
 const { CreateArticleError } = require('../../../custom-errors/custom-errors');
-const SECTION_TYPES = require('../../../full-stack-libs/Types/ArticleSectionTypes');
 
 
 
@@ -17,15 +16,14 @@ async function processArticleEnclosureImageMiddleware(req, res, next) {
   const ext = path.extname(processing_file_enclosure_image.originalname);
 
 
-  const new_article_enclosure_image_name = `${res.locals.ret_article_instance._id}${ext}`
-  res.locals.new_article_enclosure_image_name = new_article_enclosure_image_name
+  const new_article_enclosure_image_name = `${res.locals.article._id}${ext}`
 
 
   // ArticleEnclosureImage path setting
-  res.locals.ret_article_enclosure_image_instance.path = `${res.locals.directory_enclosure_path}/${new_article_enclosure_image_name}`
+  res.locals.article_enclosure.path = `${res.locals.directory_enclosure_path}/${new_article_enclosure_image_name}`
 
 
-  // console.log('res.locals.ret_article_enclosure_image_instance.path: ', res.locals.ret_article_enclosure_image_instance.path)
+  // console.log('res.locals.article_enclosure.path: ', res.locals.article_enclosure.path)
 
   let sharp_returned
 
@@ -38,7 +36,7 @@ async function processArticleEnclosureImageMiddleware(req, res, next) {
 
 
   try {
-    sharp_returned = await sharp_returned.toFile(`public/${res.locals.ret_article_enclosure_image_instance.path}`)
+    sharp_returned = await sharp_returned.toFile(`public/${res.locals.article_enclosure.path}`)
   } catch (e) {
     let error = new CreateArticleError(`Was unable to sharp toFile method.\nSource error: ${e.name}\n${e.message}`)
     return next(error)
@@ -63,7 +61,7 @@ async function processArticleEnclosureImageMiddleware(req, res, next) {
     size: sharp_returned.size,
   }
 
-  res.locals.ret_article_enclosure_image_instance.image = image
+  res.locals.article_enclosure.image = image
 
   return next()
 }
@@ -144,11 +142,6 @@ async function processArticleBlockImagesMiddleware(req, res, next) {
 
 
 
-
-
-
-
-
     // console.log("\n\nfile:\n", file)
     // console.log("\n\nconcerned_block:\n", concerned_block)
 
@@ -179,14 +172,14 @@ async function processArticleBlockImagesMiddleware(req, res, next) {
 
   }
 
-
-
-
-
-
-
   return next()
 }
+
+
+
+
+
+
 
 
 

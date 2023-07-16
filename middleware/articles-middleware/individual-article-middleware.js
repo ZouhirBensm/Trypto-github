@@ -84,7 +84,6 @@ async function middleware2(req, res, next) {
 
     // console.log('__________\n\n', bblock.EMAIL_title, copiedBlock.EMAIL_title, '__________\n\n')
 
-    // TODO !!!!! rename these to better variable names like emailcollector_title1, ...
     const titleKey = `EMAIL_title${index}`;
     const subtitleKey = `EMAIL_subtitle${index}`;
 

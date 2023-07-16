@@ -9,7 +9,7 @@ async function saveArticleMiddleware(req, res, next) {
 
   let ret_article_save
   try {
-    ret_article_save = await res.locals.ret_article_instance.save()
+    ret_article_save = await res.locals.article.save()
   } catch (e) {
     let error = new CreateArticleError(`Was unable to save ret_article_instance. ${e.message}`)
     return next(error)
@@ -60,9 +60,9 @@ async function saveArticleEnclosureImageMiddleware(req, res, next) {
 
   let ret_article_enclosure_image_save
   try {
-    ret_article_enclosure_image_save = await res.locals.ret_article_enclosure_image_instance.save()
+    ret_article_enclosure_image_save = await res.locals.article_enclosure.save()
   } catch (e) {
-    let error = new CreateArticleError(`Was unable to save ret_article_enclosure_image_instance. ${e.name}, ${e.message}`)
+    let error = new CreateArticleError(`Was unable to save article_enclosure. ${e.name}, ${e.message}`)
     return next(error)
   }
 

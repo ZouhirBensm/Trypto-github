@@ -10,17 +10,17 @@ const SECTION_TYPES = require("../../../full-stack-libs/Types/ArticleSectionType
 function seeData(req, res, next) {
   console.log("\n\n\nseeData...")
 
-  console.log("____________________________\n\nreq.body.create_true_edit_false: --> ", req.method,req.body.create_true_edit_false, req.url, "\n\n")
+  // console.log("____________________________\n\nreq.body.create_true_edit_false: --> ", req.method,req.body.create_true_edit_false, req.url, "\n\n")
 
 
-  // console.log("____________________________\n\nreq.body: \n\n")
-  // console.log(req.body)
+  console.log("____________________________\n\nreq.body: \n\n")
+  console.log(req.body)
 
-  // console.log("____________________________\n\nJSON.parse(req.body.nested_data_copy): \n\n")
-  // console.log('\n\n', JSON.parse(req.body.nested_data_copy))
+  console.log("____________________________\n\nJSON.parse(req.body.nested_data_copy): \n\n")
+  console.log('\n\n', JSON.parse(req.body.nested_data_copy))
 
-  // console.log("____________________________\n\nreq.files: \n\n")
-  // console.log('\n\n', req.files)
+  console.log("____________________________\n\nreq.files: \n\n")
+  console.log('\n\n', req.files)
 
   // FOR TESTING
   // return res.status(200).end()

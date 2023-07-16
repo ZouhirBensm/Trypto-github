@@ -88,7 +88,6 @@ async function middleware4(req, res, next) {
   console.log("middleware4...");
 
 
-  // TODO !!!!! Needs testing
   // Check if the file exists before deleting
   if (fs.existsSync(res.locals.enclosure_image_path)) {
     try {

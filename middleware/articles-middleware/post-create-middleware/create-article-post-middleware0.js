@@ -25,9 +25,9 @@ function setArticleURLMiddleware(req, res, next) {
 async function createArticleInstanceMiddleware(req, res, next) {
   console.log("createArticleInstanceMiddleware...")
 
-  let ret_article_instance
+  let article
 
-  ret_article_instance = new Article({
+  article = new Article({
     h1: req.body.h1,
     html_title: req.body.html_title,
     category: req.body.category,
@@ -36,7 +36,7 @@ async function createArticleInstanceMiddleware(req, res, next) {
   })
 
   // RENDER Article GLOBAL
-  res.locals.ret_article_instance = ret_article_instance
+  res.locals.article = article
 
   return next()
 
@@ -48,20 +48,20 @@ async function createArticleEnclosureImageInstanceMiddleware(req, res, next) {
 
   console.log("createArticleInstanceMiddleware...")
 
-  let ret_article_enclosure_image_instance
+  let article_enclosure
 
-  ret_article_enclosure_image_instance = new ArticleEnclosureImage({
+  article_enclosure = new ArticleEnclosureImage({
     // image: res.locals.image,
     banner_image_originalname: req.body.banner_image_name,
     banner_img_alt: req.body.banner_img_alt,
-    article_id: res.locals.ret_article_instance._id,  // ATTACH TO ArticleEnclosureImage -> Article
+    article_id: res.locals.article._id,  // ATTACH TO ArticleEnclosureImage -> Article
   })
 
-  res.locals.ret_article_instance.articleenclosureimage_id = ret_article_enclosure_image_instance._id // ATTACH TO Article -> ArticleEnclosureImage
+  res.locals.article.articleenclosureimage_id = article_enclosure._id // ATTACH TO Article -> ArticleEnclosureImage
 
 
   // RENDER ArticleEnclosureImage GLOBAL
-  res.locals.ret_article_enclosure_image_instance = ret_article_enclosure_image_instance
+  res.locals.article_enclosure = article_enclosure
 
   return next()
 
