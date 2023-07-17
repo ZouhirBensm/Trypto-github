@@ -304,7 +304,7 @@ server.on('close', () => {
 
 
 
-const CLOSE_SIGNAL = (process.env.NODE_ENV === 'development' ? 'SIGINT': process.env.NODE_ENV === 'staging' || 'production' ? 'SIGTERM': 'SIGINT');
+const CLOSE_SIGNAL = (process.env.NODE_ENV === 'development' ? 'SIGINT': process.env.NODE_ENV === 'production' ? 'SIGTERM': 'SIGINT');
 // More Info: /Users/Zouhir/Documents/OpenAI/SIGINT, SIGTERM, Disconnect MongoDB with Mongoose.pdf
 
 

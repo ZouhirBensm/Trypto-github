@@ -2,7 +2,10 @@
 <html lang="en">
 <%- include("partials/set_JSX_to_load") %>
 
-<% if(locals.head && head == 2) { %> 
+<% if(locals.head && head == 3) { %> 
+  <!-- option 3: header -->  
+  <%- include("partials/header-setup-locals/head3") %>
+<% } else if (locals.head && head == 2) { %> 
   <!-- option 2: header -->  
   <%- include("partials/header-setup-locals/head2") %>
 <% } else { %>

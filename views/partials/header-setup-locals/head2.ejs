@@ -5,9 +5,10 @@
 
   <title><%=locals.article.html_title%></title>
   
-  <!-- TODO !!! look into these meta tags -->
-  <!-- <meta name="author" content="Frederick Engels"> -->
-  <!-- <meta name="classification" content="Politics"> -->
+  <% const author = locals.article.author_id?.username? locals.article.author_id?.username: process.env.DOMAIN_WITHOUT_PROTOCOL; %>
+  <meta name="author" content="<%=author%>">
+  <meta name="classification" content="<%=locals.article.articlebodyheader_id.category%>">
+
 
   <meta name="title" content="<%=locals.article.articleheadtag_id.meta_title%>">
   
@@ -19,26 +20,10 @@
 
   <!-- Relative to the navigation styles -->
   <%- include("../../css/head-styles.ejs") %>
+  
 
-  <!-- BLOG styles -->
-  <!-- Relative to the blog's container styles: article tag -->
-  
-  <%- include("../../css/blog/article-container.ejs") %>
-  
-  <%- include('meta/nofollow_noindex.ejs') %>
   <link rel="canonical" href=<%=locals.article.articleheadtag_id.canonical%>>
-  
-  
-  
-  <%- include('../../css/blog/bloc1-header.ejs') %>
-  <%- include('../../css/blog/bloc2-abstract.ejs') %>
-  
-
-
-
-  <%- include('../../css/blog/bloc3-toc.ejs') %>
-  <%- include('../../css/blog/bloc3-content.ejs') %>
-
+  <%- include('meta/nofollow_noindex.ejs') %>
 
 
   <!-- CSS fonts from Google TODO !!! figure out better way to load -->
@@ -47,6 +32,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 
+
+  <!-- IF BLOG RUN THIS -->
+
+  <!-- BLOG styles -->
+  <!-- Relative to the blog's container styles: article tag -->
+  <%- include("../../css/blog/article-container.ejs") %>
+  <%- include('../../css/blog/bloc1-header.ejs') %>
+  <%- include('../../css/blog/bloc2-abstract.ejs') %>
+  <%- include('../../css/blog/bloc3-toc.ejs') %>
+  <%- include('../../css/blog/bloc3-content.ejs') %>
+
+  
   <!-- LOADED TO BUNDLE AND RENDER FOOTER -->
   <% if(process.env.ENVIRONMENT === 'production') { %>
     <script src="https://unpkg.com/react@16.6/umd/react.production.min.js"></script>
@@ -59,10 +56,15 @@
   <script src="https://unpkg.com/@babel/polyfill@7/dist/polyfill.min.js"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
+
+
+
+
+
 </head>
 
 
-<!-- Look into social media renders and add others needed, examples for facebook and twitter -->
+<!-- TODO !! Look into social media renders and add others needed, examples for facebook and twitter -->
 <!-- view-source:https://blog.webdevsimplified.com/2023-05/responsive-images/ -->
 
 

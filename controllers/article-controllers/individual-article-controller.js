@@ -20,7 +20,6 @@ async function controller2(req, res, next) {
 
 }
 
-// TODO !!!!! build HTML sitemap
 // TODO !!!!! google search console register
 // TODO !!!!! google analitics register
 // TODO !!! Look into surfer ai

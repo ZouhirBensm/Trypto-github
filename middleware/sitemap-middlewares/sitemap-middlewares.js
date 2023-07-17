@@ -18,13 +18,12 @@ async function middleware1(req, res, next) {
       changefreq: "weekly",
       priority: 1
     },
-    // TODO !!!! add html sitemap page
-    // {
-    //   URL: '/sub/html-sitemap',
-    //   lastmod: now,
-    //   changefreq: "hourly",
-    //   priority: 1
-    // },
+    {
+      URL: '/sitemap/html-sitemap',
+      lastmod: now, // TODO !!! Need to figure out when to update this and onto what date time
+      changefreq: "hourly",
+      priority: 1
+    },
   ];
 
 

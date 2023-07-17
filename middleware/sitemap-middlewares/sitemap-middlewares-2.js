@@ -1,6 +1,5 @@
-const fs = require('fs');
-const createSiteMap = require('../../full-stack-libs/utils.sitemap')
 const Article = require('../../models/articles-models/Article')
+const ENV = require('../../config/base')
 
 
 
@@ -12,11 +11,11 @@ async function middleware1(req, res, next) {
   const urls = [
     {
       URL: '/',
-      Display: 'Home Page bidblock.ca'
+      Display: `Home Page ${ENV.domain_without_protocol}`
     },
     {
       URL: '/sitemap/html-sitemap',
-      Display: 'HTML Sitemap bidblock.ca'
+      Display: `HTML Sitemap ${ENV.domain_without_protocol}`
     },
   ];
 

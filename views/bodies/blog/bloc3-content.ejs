@@ -36,10 +36,7 @@
 
   <span>
     <!-- TODO !!! place author name link -->
-    <% let signature = 'By Bidblock'
-      if(locals.article.author_id?.username) signature = `By ${locals.article.author_id?.username}`
-    %>
-
+    <% const signature = 'By ' + (locals.article.author_id?.username? locals.article.author_id?.username: process.env.DOMAIN_WITHOUT_PROTOCOL); %>
     <a href="/"><%=signature%></a>
   </span>
   

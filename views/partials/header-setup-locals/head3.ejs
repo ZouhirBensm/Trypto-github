@@ -1,0 +1,38 @@
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title><%=locals.html_title%></title>
+  
+  <meta name="author" content="<%=process.env.DOMAIN_WITHOUT_PROTOCOL%>">
+  <meta name="classification" content="<%=locals.category%>">
+  <meta name="title" content="<%=locals.meta_title%>">
+  <meta name="description" content="<%-locals.meta_description%>">
+
+  <link rel="shortcut icon" href="/img/SVG/home/nav-icons/favicon.svg" type="image/svg">
+
+
+  <!-- Relative to the navigation styles -->
+  <%- include("../../css/head-styles.ejs") %>
+  
+  <!-- < %- include('meta/nofollow_noindex.ejs') %> -->
+  <link rel="canonical" href=<%=locals.canonical%>>
+  
+
+  <!-- CSS fonts from Google TODO !!! figure out better way to load -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+
+  <!-- IF HTML SITEMAP RUN THIS -->
+
+
+  <link rel="stylesheet" href='/css/box.css'>
+  <%- include("../../css/html-sitemap.ejs") %>
+
+
+</head>
+
+
