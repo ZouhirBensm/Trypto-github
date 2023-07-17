@@ -19,7 +19,7 @@ async function controller2(req, res, next) {
   })
 
 }
-//  merge, deploy!
+
 // TODO !!!!! google search console register
 // TODO !!!!! google analitics register
 // TODO !!! Look into surfer ai
