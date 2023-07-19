@@ -43,7 +43,7 @@ authenticate_role_for_data([ROLE.MASTER]),
 
 sitemapMiddleware.middleware1,
 sitemapMiddleware.middleware2,
-// sitemapMiddleware.middleware3,
+sitemapMiddleware.middleware3,
 sitemapController.controller1
 )
 

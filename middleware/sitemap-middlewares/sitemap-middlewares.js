@@ -63,8 +63,9 @@ async function middleware1(req, res, next) {
   // return res.status(200).end()
 
   if (!Array.isArray(articles) || !articles.length) {
-    let message = 'No articles in DB'
-    res.status(500).send(message)
+
+    res.locals.urls = urls
+    return next()
   }
 
   // console.log(articles, "\n\n")
@@ -81,11 +82,21 @@ async function middleware1(req, res, next) {
 
   }
 
+  res.locals.urls = urls
+  return next()
+
+}
 
 
+
+
+
+
+async function middleware2(req, res, next) {
+  
   // console.log(urls, "\n\n")
 
-  const xml = createSiteMap(urls)
+  const xml = createSiteMap(res.locals.urls)
 
   // console.log(xml)
   res.locals.xml = xml
@@ -99,9 +110,7 @@ async function middleware1(req, res, next) {
 
 
 
-
-
-async function middleware2(req, res, next) {
+async function middleware3(req, res, next) {
   try {
     fs.writeFileSync('./public/sitemap/sitemap.xml', res.locals.xml, 'utf-8');
     console.log('File written successfully');
@@ -128,7 +137,7 @@ async function middleware2(req, res, next) {
 const sitemapMiddleware = {
   middleware1: middleware1,
   middleware2: middleware2,
-  // middleware3: middleware3
+  middleware3: middleware3
 }
 
 
