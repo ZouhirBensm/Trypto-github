@@ -3,7 +3,7 @@ const { NoRefererError } = require("../../custom-errors/custom-errors")
 // Need a proper referer to proceed i.e. not from postman
 module.exports = (req,res,next)=>{
 
-  // console.log(req.headers)
+  console.log("---->req.headers.referer\n\n", req.headers.referer)
 
   if(req.headers.referer){
   // if(false){
