@@ -42,8 +42,8 @@ const { authenticate_role_for_pages, authenticate_role_for_data } =  require("..
 // Route is called upon as request from browser as '/messaging/'
 messagingBackend_app_router.use(set_user_if_any, (req, res, next) => {
   res.locals.userId = req.session.userId
-  res.locals.currentUserEmail = res.locals.user.email;
-  res.locals.currentUserName = res.locals.user.username;
+  res.locals.currentUserEmail = res.locals.user?.email;
+  res.locals.currentUserName = res.locals.user?.username;
 
   navBars = NAVBAR.CLIENTS
 

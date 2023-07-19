@@ -63,7 +63,6 @@ async function middleware1(req, res, next) {
   // return res.status(200).end()
 
   if (!Array.isArray(articles) || !articles.length) {
-
     res.locals.urls = urls
     return next()
   }
