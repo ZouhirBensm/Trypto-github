@@ -17,6 +17,22 @@ async function middleware1(req, res, next) {
       URL: '/sitemap/html-sitemap',
       Display: `HTML Sitemap ${ENV.domain_without_protocol}`
     },
+    {
+      URL: '/articles',
+      Display: `Articles hub: ${ENV.domain_without_protocol} article's and RSS feeds`
+    },
+    {
+      URL: '/subscription',
+      Display: `${ENV.domain_without_protocol}'s Subscription page`
+    },
+    {
+      URL: '/users/login',
+      Display: `${ENV.domain_without_protocol}'s Sign in or login page`
+    },
+    {
+      URL: '/users/forgotpasswordpage',
+      Display: `${ENV.domain_without_protocol}'s Password reset page`
+    },
   ];
 
 

@@ -20,6 +20,7 @@ async function controller2(req, res, next) {
 
 }
 
+// TODO !!!! add already indexed elements to the sitemap
 // TODO !!!!! google search console register
 // TODO !!!!! google analitics register
 // TODO !!! Look into surfer ai

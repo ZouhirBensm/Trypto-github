@@ -24,6 +24,30 @@ async function middleware1(req, res, next) {
       changefreq: "hourly",
       priority: 1
     },
+    {
+      URL: '/articles',
+      lastmod: now, // TODO !!! Need to figure out when to update this and onto what date time
+      changefreq: "monthly",
+      priority: 0.5
+    },
+    {
+      URL: '/subscription',
+      lastmod: now, // TODO !!! Need to figure out when to update this and onto what date time
+      changefreq: "monthly",
+      priority: 1
+    },
+    {
+      URL: '/users/login',
+      lastmod: now, // TODO !!! Need to figure out when to update this and onto what date time
+      changefreq: "monthly",
+      priority: 0.5
+    },
+    {
+      URL: '/users/forgotpasswordpage',
+      lastmod: now, // TODO !!! Need to figure out when to update this and onto what date time
+      changefreq: "monthly",
+      priority: 0.5
+    },
   ];
 
 
