@@ -218,7 +218,8 @@
       // CATEGORY = < %-JSON.stringify(locals.CATEGORY || {})%> 
       userId = '<%= locals.userId %>'
       user = <%-JSON.stringify(locals.user || {})%> 
-      console.log("--------------->>>>>>(1111)", user, userId, CATEGORY)
+      
+      // console.log("partials/header-setup-locals/setup-locals.ejs: /operations", user, userId, CATEGORY)
       break;
     case `/operations/${caseOperationsTask}`:
       user = <%-JSON.stringify(locals.user || {})%> 
