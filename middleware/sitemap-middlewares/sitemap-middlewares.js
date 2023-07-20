@@ -59,7 +59,7 @@ async function middleware1(req, res, next) {
     return next(error)
   }
 
-  console.log(articles)
+  console.log("new!---->articles!\b", articles)
   // return res.status(200).end()
 
   if (!Array.isArray(articles) || !articles.length) {
