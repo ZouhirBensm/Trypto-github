@@ -5,6 +5,7 @@ seeds/dev
 public/img/bidblock-article-images/per-article-enclosure/*
 public/img/bidblock-article-images/per-article-folders-for-images/*
 public/img/marketorder-images/*
+public/sitemap/sitemap.xml
 !public/img/marketorder-images/seed-images
 public/img/profile-images/*
 !public/img/profile-images/square.png
@@ -12,4 +13,3 @@ webpack.dev.js
 package-lock.json
 .vscode/*
 !public/img/profile-images/square.png
-public/sitemap/sitemap.xml
