@@ -56,8 +56,6 @@ class Operations extends React.Component {
 
             <Route exact path="/">
               <div id="operations-main-menu">
-                {/* Disables the currency app */}
-                {/* <Admin_Block className="horders" title="Help for BTC currency orders" link="/help-for-orders" /> */}
                 <div id="menu">
                   <Admin_Block className="mmessages" title="Monitor Messages" link="/monitor-messages" />
                   <Admin_Block className="msubs" title="Manage Subscriptions" link="/manage-subs" />
@@ -71,11 +69,6 @@ class Operations extends React.Component {
 
             </Route>
 
-
-            {/* Disables the currency app */}
-            {/* <Route path="/help-for-orders" render={
-                (props) => <UserSelect {...props} mode="help-for-orders" />
-              } /> */}
 
             <Route path="/monitor-messages" render={
               (props) => <UserSelect {...props} mode="monitor-messages" />

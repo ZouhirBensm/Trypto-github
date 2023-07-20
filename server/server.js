@@ -124,8 +124,7 @@ const express = require('express');
 const utils = require('../full-stack-libs/utils')
 
 
-const homeOrdersBackend_app_router = require('./home-currencyorders-registerlogin-backend')
-// const currencyBackend_app_router = require('./currencyorders-backend')
+const homeBackend_app_router = require('./home-backend')
 const settingsBackend_app_router = require('./settings-backend')
 const marketplaceBackend_app_router = require('./marketplace-backend')
 const messagingBackend_app_router = require('./messaging-backend');
@@ -240,10 +239,7 @@ express_server_app_router.use((req, res, next) => {
 express_server_app_router.get('/ip', (request, response) => response.send(request.ip))
 
 
-express_server_app_router.use('/', homeOrdersBackend_app_router)
-
-// Disables the currency app
-// express_server_app_router.use('/currency', currencyBackend_app_router)
+express_server_app_router.use('/', homeBackend_app_router)
 
 express_server_app_router.use('/marketplace', marketplaceBackend_app_router)
 

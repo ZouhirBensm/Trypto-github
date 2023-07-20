@@ -51,9 +51,9 @@ function deleteAccountController(req, res, next) {
 
 
 
-homeCurrencyOrdersController = {
+homeController = {
   renderMgtUserSPAController: renderMgtUserSPAController,
   deleteAccountController: deleteAccountController,
 }
 
-module.exports = homeCurrencyOrdersController
+module.exports = homeController

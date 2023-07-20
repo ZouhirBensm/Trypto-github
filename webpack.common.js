@@ -58,7 +58,6 @@ var config = {
   devtool: 'inline-source-map',
   entry: {
     App: './src/root-spas/App.jsx',
-    BTClayerexchange: './src/root-spas/BTClayerexchange.jsx',
     MarketPlace: './src/root-spas/MarketPlace.jsx',
     MgtUser: './src/root-spas/MgtUser.jsx',
     Messaging: './src/root-spas/Messaging.jsx',

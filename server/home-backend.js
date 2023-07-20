@@ -12,7 +12,7 @@ const MulterSetup = require('../services/multer-services/multer.src')
 const multerinstance = new MulterSetup(`./public/img/temporal-new`, new ProfileImageUploadError("Server Error | Please, try again later", "Directory: temporal-new directory is not present."), new ProfileImageUploadError("Only images with proper extensions i.e. [ png, jpeg, apng, avif, gif, webp ] are allowed.", "Only images with proper extensions i.e. [ png, jpeg, apng, avif, gif, webp ] are allowed."))
 
 // Initializations
-const homeOrdersBackend_app_router = express.Router()
+const homeBackend_app_router = express.Router()
 const CoinGeckoClient = new CoinGecko();
 
 
@@ -35,7 +35,7 @@ const NAVBAR = require('../full-stack-libs/Types/Navbar')
 
 // Controllers
 const profileController = require('../controllers/profile-controllers/profile-controllers')
-const homeCurrencyOrdersController = require("../controllers/home-currencyorders-controllers/home-currencyorders-controllers")
+const homeController = require("../controllers/home-controllers/home-controllers")
 
 // const RegisterLoginController = require("../controllers/register-login-controllers/login-controllers")
 const LoginController = require("../controllers/register-login-controllers/login-controllers")
@@ -54,9 +54,7 @@ const { getPopulatedUser } = require('../middleware/generic-middleware/get-popul
 const { getProfilePicNameIfAnyMiddleware } = require('../middleware/generic-middleware/get-profile-pic-name-if-any-middleware')
 
 const deleteMarketOrderMiddleware = require('../middleware/delete-account-process-middleware/delete-market-order-middleware.js')
-const deleteBuyCryptoOrdersMiddleware = require('../middleware/delete-account-process-middleware/delete-buycryptoorders-middleware')
 const editUsersArticlesAuthorMiddleware = require('../middleware/delete-account-process-middleware/edit-users-articles-author-middleware')
-const deleteSellOrdersMiddleware = require('../middleware/delete-account-process-middleware/delete-sellcryptoorders-middleware')
 const deleteProtagonistsMiddleware = require('../middleware/delete-account-process-middleware/delete-protagonists-middleware')
 const deleteMessagesMiddleware = require('../middleware/delete-account-process-middleware/delete-messages-middleware')
 const sessionSubscriberMiddleware = require('../middleware/paypal-middleware/session-subscriber-middleware')
@@ -95,7 +93,7 @@ const checkIfUserByEmailMiddleware = require('../middleware/generic-middleware/c
 const checkIfUserSetAndUsedRequestForPasswordResetMiddleware = require('../middleware/generic-middleware/check-if-user-set-and-used-request-for-password-reset-middleware')
 const createHashForPasswordResetLinkMiddleware = require('../middleware/reset-password-middleware/create-hash-for-password-reset-link-middleware')
 const sendEmailToResetPasswordMiddleware = require('../middleware/reset-password-middleware/send-email-to-reset-password-middleware')
-const marketingMiddleware = require('../middleware/home-currencyorders-middleware/marketing-middleware')
+const marketingMiddleware = require('../middleware/home-middleware/marketing-middleware')
 
 
 const reHachHexForPassResetMiddleware = require('../middleware/reset-password-middleware/re-hach-hex-for-pass-reset-middleware')
@@ -103,11 +101,11 @@ const reHachHexForPassResetMiddleware = require('../middleware/reset-password-mi
 const markHashForPasswordResetAsUsedMiddleware = require('../middleware/reset-password-middleware/mark-hash-forpassword-reset-as-used-middleware')
 const retrieveTheHashForPasswordResetMiddleware = require('../middleware/reset-password-middleware/retrieve-the-hash-for-password-reset-middleware')
 const createAndUpdateNewPasswordController = require('../controllers/reset-password-controllers/create-and-update-new-password-controller')
-const marketingController = require('../controllers/home-currencyorders-controllers/marketing-controllers')
+const marketingController = require('../controllers/home-controllers/marketing-controllers')
 
 
-const faqDataMiddleware = require('../middleware/home-currencyorders-middleware/faq-data-middleware')
-const faqResponseControllers = require('../controllers/home-currencyorders-controllers/faq-response-controllers')
+const faqDataMiddleware = require('../middleware/home-middleware/faq-data-middleware')
+const faqResponseControllers = require('../controllers/home-controllers/faq-response-controllers')
 
 
 
@@ -129,7 +127,7 @@ const HexForUnactiveUser = require('../models/HexForUnactiveUser');
 
 
 // TODO !!! Overuse of set_user_if_any, Figure out endpoints that require it and implement set_user_if_any in cases when needed
-homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
+homeBackend_app_router.use(set_user_if_any, (req, res, next) => {
   navBars = NAVBAR.CLIENTS
   return next()
 })
@@ -138,14 +136,14 @@ homeOrdersBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
-homeOrdersBackend_app_router.get('/faqs/:faq_title?', faqDataMiddleware.retrieveFAQsMiddleware, faqResponseControllers.responseFAQsController)
+homeBackend_app_router.get('/faqs/:faq_title?', faqDataMiddleware.retrieveFAQsMiddleware, faqResponseControllers.responseFAQsController)
 
 
 
 
 
 
-homeOrdersBackend_app_router.get('/users/profile', 
+homeBackend_app_router.get('/users/profile', 
 
 require_loggedin_for_pages(true), 
 
@@ -155,7 +153,7 @@ getPopulatedUser("SESSION", "subscriptionID"),
 
 getProfilePicNameIfAnyMiddleware("SESSION"),
 
-homeCurrencyOrdersController.renderMgtUserSPAController)
+homeController.renderMgtUserSPAController)
 
 
 
@@ -168,7 +166,7 @@ homeCurrencyOrdersController.renderMgtUserSPAController)
 
 
 
-homeOrdersBackend_app_router.get('/todelete', (req,res)=>{
+homeBackend_app_router.get('/todelete', (req,res)=>{
   var JSX_to_load = 'ToDelete';
 
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
@@ -191,13 +189,13 @@ homeOrdersBackend_app_router.get('/todelete', (req,res)=>{
 
 
 
-homeOrdersBackend_app_router.post('/users/upload/userprofileimage/:selectedUserID', multerinstance.upload.single('image'), profileMiddleware.makeSureDestinationFolderPresentMiddleware, profileMiddleware.sharpAndDisplaceNewProfilePicMiddleware, profileMiddleware.isThereProfilePicAlreadyMiddleware, profileMiddleware.retrievePrevImageInfo_DeletePrevPic_DeletePicEntry_Middleware,profileMiddleware.instantiateNewImageMiddleware, profileMiddleware.editUsersLinkedImageIDMiddleare, profileMiddleware.saveNewImageEntryMiddleware, profileController.sucessUploadProfilePicController)
+homeBackend_app_router.post('/users/upload/userprofileimage/:selectedUserID', multerinstance.upload.single('image'), profileMiddleware.makeSureDestinationFolderPresentMiddleware, profileMiddleware.sharpAndDisplaceNewProfilePicMiddleware, profileMiddleware.isThereProfilePicAlreadyMiddleware, profileMiddleware.retrievePrevImageInfo_DeletePrevPic_DeletePicEntry_Middleware,profileMiddleware.instantiateNewImageMiddleware, profileMiddleware.editUsersLinkedImageIDMiddleare, profileMiddleware.saveNewImageEntryMiddleware, profileController.sucessUploadProfilePicController)
 
 
-homeOrdersBackend_app_router.post('/users/submission-new-password', responseMessageSetterMiddleware("Server Error, please try again later."), reHachHexForPassResetMiddleware, markHashForPasswordResetAsUsedMiddleware, retrieveTheHashForPasswordResetMiddleware, createAndUpdateNewPasswordController)
+homeBackend_app_router.post('/users/submission-new-password', responseMessageSetterMiddleware("Server Error, please try again later."), reHachHexForPassResetMiddleware, markHashForPasswordResetAsUsedMiddleware, retrieveTheHashForPasswordResetMiddleware, createAndUpdateNewPasswordController)
 
 
-homeOrdersBackend_app_router.get(`/users/requestresetpasswordpage/:hex`, (req, res) => {
+homeBackend_app_router.get(`/users/requestresetpasswordpage/:hex`, (req, res) => {
   var JSX_to_load = 'MgtUser';
 
   return res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
@@ -209,7 +207,7 @@ homeOrdersBackend_app_router.get(`/users/requestresetpasswordpage/:hex`, (req, r
 
 
 
-homeOrdersBackend_app_router.post('/users/requestpasswordresetbyemail', responseMessageSetterMiddleware("If a user under those credentials exists, an email with the reset link shall be sent."), destructureURLandRefererMiddleware, checkIfUserByEmailMiddleware, checkIfUserSetAndUsedRequestForPasswordResetMiddleware, createHashForPasswordResetLinkMiddleware, sendEmailToResetPasswordMiddleware, (req, res) => {
+homeBackend_app_router.post('/users/requestpasswordresetbyemail', responseMessageSetterMiddleware("If a user under those credentials exists, an email with the reset link shall be sent."), destructureURLandRefererMiddleware, checkIfUserByEmailMiddleware, checkIfUserSetAndUsedRequestForPasswordResetMiddleware, createHashForPasswordResetLinkMiddleware, sendEmailToResetPasswordMiddleware, (req, res) => {
 
   // check if user is active if so proceed else popup with reason
   // create a entry with parameter code, created date, expiry 1 hour
@@ -222,7 +220,7 @@ homeOrdersBackend_app_router.post('/users/requestpasswordresetbyemail', response
 
 
 
-homeOrdersBackend_app_router.get('/users/forgotpasswordpage', (req, res) => {
+homeBackend_app_router.get('/users/forgotpasswordpage', (req, res) => {
   var JSX_to_load = 'MgtUser';
 
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
@@ -232,10 +230,10 @@ homeOrdersBackend_app_router.get('/users/forgotpasswordpage', (req, res) => {
 })
 
 
-homeOrdersBackend_app_router.post('/check/user/register', requireRefererMiddleware, LoginController.checkRegisterController)
+homeBackend_app_router.post('/check/user/register', requireRefererMiddleware, LoginController.checkRegisterController)
 
 
-homeOrdersBackend_app_router.post('/users/register',
+homeBackend_app_router.post('/users/register',
 requireRefererMiddleware, 
 require_loggedin_for_data(false), 
 destructureURLandRefererMiddleware, 
@@ -255,17 +253,17 @@ registerController.responseOnRegistrationController
 
 
 
-homeOrdersBackend_app_router.get('/resend-user-email/:userEmail', destructureURLandRefererMiddleware, resendConfirmationController)
+homeBackend_app_router.get('/resend-user-email/:userEmail', destructureURLandRefererMiddleware, resendConfirmationController)
 
 
-homeOrdersBackend_app_router.get('/purge', 
+homeBackend_app_router.get('/purge', 
 require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), async (req, res) => {
   const numRemoved = await agenda.purge();
   res.status(200).json({message: `Done purge on Agenda!`})
 })
 
 
-homeOrdersBackend_app_router.get('/', async (req, res) => {
+homeBackend_app_router.get('/', async (req, res) => {
   res.locals.userId = req.session.userId
   res.locals.popup = req.query.popup
 
@@ -278,7 +276,7 @@ homeOrdersBackend_app_router.get('/', async (req, res) => {
 })
 
 // TODO !  Make Contrats confirmed account popup green
-homeOrdersBackend_app_router.get('/users/login', require_loggedin_for_pages(false), (req, res, next) => {
+homeBackend_app_router.get('/users/login', require_loggedin_for_pages(false), (req, res, next) => {
   res.locals.popup = req.query.popup
   var JSX_to_load = 'MgtUser';
 
@@ -289,7 +287,7 @@ homeOrdersBackend_app_router.get('/users/login', require_loggedin_for_pages(fals
 
 
 
-homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(false), function (req, res, next) {
+homeBackend_app_router.get('/subscription', require_loggedin_for_pages(false), function (req, res, next) {
   var JSX_to_load = 'Subscription';
   res.locals.isPaypalScriptNeeded = true
 
@@ -304,7 +302,7 @@ homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(fal
 
 
 
-homeOrdersBackend_app_router.get('/confirm-user-email/:userID/:hexfield', async (req, res, next) => {
+homeBackend_app_router.get('/confirm-user-email/:userID/:hexfield', async (req, res, next) => {
 
   // CHECK IF USER
   let ret_user
@@ -390,7 +388,7 @@ homeOrdersBackend_app_router.get('/confirm-user-email/:userID/:hexfield', async 
 })
 
 
-homeOrdersBackend_app_router.get('/cryptoprice', async (req, res, next) => {
+homeBackend_app_router.get('/cryptoprice', async (req, res, next) => {
 
   let params = {
     ids: ['bitcoin'],
@@ -411,7 +409,7 @@ homeOrdersBackend_app_router.get('/cryptoprice', async (req, res, next) => {
 })
 
 
-homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (req, res) => {
+homeBackend_app_router.get('/logout', require_loggedin_for_data(true), (req, res) => {
   //Destroy the Session data, including the userId property
   req.session.destroy(() => {
     res.status(httpStatus.StatusCodes.PERMANENT_REDIRECT).redirect('/?popup=You have successfully logged out')
@@ -419,7 +417,7 @@ homeOrdersBackend_app_router.get('/logout', require_loggedin_for_data(true), (re
 })
 
 
-homeOrdersBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), 
+homeBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), 
 checkCredentialsPresentMiddleware,
 checkIfClientIsUserMiddleware,
 checkClientIsActiveMiddleware,
@@ -436,7 +434,7 @@ LoginController.loginController)
 
 
 
-homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), 
+homeBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), 
 authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
 requester_auth_middleware(4), 
 destructureURLandRefererMiddleware, 
@@ -444,8 +442,6 @@ destructureURLandRefererMiddleware,
 startEmptyNotificationsMiddleware, 
 
 editUsersArticlesAuthorMiddleware, // Edit author to undefined
-deleteBuyCryptoOrdersMiddleware, 
-deleteSellOrdersMiddleware, 
 deleteMarketOrderMiddleware, 
 deleteProtagonistsMiddleware, 
 deleteMessagesMiddleware,
@@ -458,38 +454,24 @@ deleteUserMiddleware,
 deleteUserAssociatedLocalityMiddleware,
 saveDeletionReasonMiddleware,
 logoutMiddleware, 
-homeCurrencyOrdersController.deleteAccountController
+homeController.deleteAccountController
 )
 
 
-// homeOrdersBackend_app_router.delete('/users/profile/delete/:userId', saveDeletionReasonMiddleware, (req,res)=>{
-
-//   console.log("\nEndpoint DELETE account: body: \n", req.body)
-
-
-//   const mock_msg = "Mock User account and linked data completly deleted."
-//   const mock_referer = "users"
-
-//   return res.status(200).json({
-//     srv_: mock_msg,
-//     referer: mock_referer
-//   })
-
-
-// })
 
 
 
 
 
 
-homeOrdersBackend_app_router.post('/marketing/email', requireRefererMiddleware, marketingMiddleware.emailValidationMidleware, marketingMiddleware.databaseCollectionSave, marketingController.emailSubmitController)
+
+homeBackend_app_router.post('/marketing/email', requireRefererMiddleware, marketingMiddleware.emailValidationMidleware, marketingMiddleware.databaseCollectionSave, marketingController.emailSubmitController)
 
 
 
 
 
-homeOrdersBackend_app_router.get('/FAQ/:faq?', requireRefererMiddleware, (req,res)=>{
+homeBackend_app_router.get('/FAQ/:faq?', requireRefererMiddleware, (req,res)=>{
 
 
   var JSX_to_load = 'FAQPage';
@@ -504,7 +486,7 @@ homeOrdersBackend_app_router.get('/FAQ/:faq?', requireRefererMiddleware, (req,re
 
 
 
-homeOrdersBackend_app_router.get('/terms-conditions', requireRefererMiddleware, 
+homeBackend_app_router.get('/terms-conditions', requireRefererMiddleware, 
 // require_loggedin_for_data(true), 
 // authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
 (req,res)=>{
@@ -522,7 +504,7 @@ homeOrdersBackend_app_router.get('/terms-conditions', requireRefererMiddleware,
 
 
 
-module.exports = homeOrdersBackend_app_router
+module.exports = homeBackend_app_router
 //router references the homeOrdersBackend const
 
 

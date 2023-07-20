@@ -292,7 +292,7 @@ class MarketOrders extends React.Component {
       _theUtilizedSearchQuery = `&search=${JSON.stringify(_searchEngineState)}`
     }
 
-    // console.log("CurrencyOrders: setuptheSeachQuery()-> setuptheSeachQuery: ", _theUtilizedSearchQuery)
+    // console.log("MarketOrders: setuptheSeachQuery()-> setuptheSeachQuery: ", _theUtilizedSearchQuery)
     return _theUtilizedSearchQuery
   }
 
@@ -308,4 +308,3 @@ export default MarketOrders
 // TODO !!! Add, when typing a locality, the ability to 
 // 1. Dynamicly display the options that match what is being typed
 // 2. Select one from the dynamic list
-// TODO When done locality filter, Implement same solution for the currency orders search engine

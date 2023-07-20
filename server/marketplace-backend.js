@@ -77,16 +77,6 @@ const { authenticate_role_for_pages, authenticate_role_for_data } = require("../
 
 
 
-// Database Models
-// const User = require('../models/User')
-// const BuyCryptoOrder = require('../models/home-currencyorders-models/BuyCryptoOrder');
-// const SellCryptoOrder = require('../models/home-currencyorders-models/SellCryptoOrder');
-// const Protagonist = require('../models/messaging-models/Protagonist')
-// const Message = require('../models/messaging-models/Message')
-// const Subscriber = require('../models/Subscriber')
-
-
-
 
 
 

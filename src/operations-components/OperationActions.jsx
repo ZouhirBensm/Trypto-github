@@ -1,4 +1,3 @@
-// import HelpForOrders from './HelpForOrders'
 import MonitorForMessages from './MonitorForMessages'
 import ManageSubscriptions from './ManageSubscriptions'
 import HelpForMarketOrders from './HelpForMarketOrders'
@@ -27,10 +26,6 @@ class OperationActions extends React.Component {
 
   setupTheProperComponent(_profileimagename = undefined){
     switch (this.state.mode) {
-      // Disables the currency app
-      // case "help-for-orders":
-      //   this.componentToRender = <HelpForOrders selected_userID={this.props.match.params.selected_userID}/>
-      //   break;
       case "monitor-messages":
         this.componentToRender = <MonitorForMessages
           comprehensiveSelectedUserInfoDataObj={this.comprehensiveSelectedUserInfoDataObj}

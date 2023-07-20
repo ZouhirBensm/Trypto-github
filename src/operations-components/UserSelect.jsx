@@ -1,4 +1,3 @@
-// import React from 'react';
 import Operations from '../root-spas/Operations';
 import UsersList from './UsersList'
 import PageSelector from '../generic-components/PageSelector'

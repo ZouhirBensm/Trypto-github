@@ -1,5 +1,5 @@
 const {verifyEmail} = require('../../full-stack-libs/validations')
-const MarketingEmail = require('../../models/home-currencyorders-models/MarketingEmail')
+const MarketingEmail = require('../../models/home-models/MarketingEmail')
 
 const { MongoError } = require('../../custom-errors/custom-errors')
 
