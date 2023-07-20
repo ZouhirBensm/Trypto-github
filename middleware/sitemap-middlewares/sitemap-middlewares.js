@@ -1,4 +1,4 @@
-// deploy 123456
+// deploy 123456789
 const fs = require('fs');
 const createSiteMap = require('../../full-stack-libs/utils.sitemap')
 const Article = require('../../models/articles-models/Article')
