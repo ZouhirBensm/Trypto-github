@@ -1,3 +1,5 @@
+// 12345 for new deployment
+
 
 // TODO !!!! integrate:
 // Set up the etag middleware
@@ -7,7 +9,6 @@
 
 
 
-// 1234567 for new deployment
 require('dotenv').config()
 
 console.log("\n\n", process.env.NODE_ENV)
