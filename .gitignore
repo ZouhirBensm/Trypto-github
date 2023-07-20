@@ -12,3 +12,4 @@ webpack.dev.js
 package-lock.json
 .vscode/*
 !public/img/profile-images/square.png
+public/sitemap/sitemap.xml
