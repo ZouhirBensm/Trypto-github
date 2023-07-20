@@ -1,9 +1,11 @@
 <head>
+  <!-- USED FOR /sitemap/html-sitemap -->
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title><%=locals.html_title%></title>
+  <meta name="bidblock_data_head" content="3">
   
   <meta name="author" content="<%=process.env.DOMAIN_WITHOUT_PROTOCOL%>">
   <meta name="classification" content="<%=locals.category%>">
@@ -31,6 +33,12 @@
 
   <link rel="stylesheet" href='/css/box.css'>
   <%- include("../../css/html-sitemap.ejs") %>
+
+
+
+
+  <!-- LOADING THE GOOGLE ANALYTICS -->
+  <%- include("../../partials/header-setup-locals/meta/google-analytics.ejs") %>
 
 
 </head>

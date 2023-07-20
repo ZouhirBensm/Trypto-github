@@ -1,8 +1,11 @@
 <head>
+  <!-- USED FOR ALL -->
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BidBlock<%= process.env.ENVIRONMENT !== 'production' ? ` ${process.env.ENVIRONMENT}` : '' %></title>
+  <meta name="bidblock_data_head" content="1">
+
   
 
 
@@ -57,4 +60,11 @@
 
 
   <link rel="canonical" href=<%=locals.url%>>
+
+
+
+  <!-- LOADING THE GOOGLE ANALYTICS -->
+  <%- include("../../partials/header-setup-locals/meta/google-analytics.ejs") %>
+
+
 </head>

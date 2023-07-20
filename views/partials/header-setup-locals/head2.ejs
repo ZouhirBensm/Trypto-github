@@ -1,9 +1,11 @@
 <head>
+  <!-- USED FOR /individual_article/:article_title -->
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title><%=locals.article.html_title%></title>
+  <meta name="bidblock_data_head" content="2">
   
   <% const author = locals.article.author_id?.username? locals.article.author_id?.username: process.env.DOMAIN_WITHOUT_PROTOCOL; %>
   <meta name="author" content="<%=author%>">
@@ -56,6 +58,11 @@
   <script src="https://unpkg.com/@babel/polyfill@7/dist/polyfill.min.js"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
+
+
+
+  <!-- LOADING THE GOOGLE ANALYTICS -->
+  <%- include("../../partials/header-setup-locals/meta/google-analytics.ejs") %>
 
 
 
