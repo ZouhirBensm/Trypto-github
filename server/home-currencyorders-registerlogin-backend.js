@@ -293,6 +293,9 @@ homeOrdersBackend_app_router.get('/subscription', require_loggedin_for_pages(fal
   var JSX_to_load = 'Subscription';
   res.locals.isPaypalScriptNeeded = true
 
+  console.log(req.url)
+  res.locals.url = req.url
+
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
     JSX_to_load: JSX_to_load,
     // isPaypalScriptNeeded: true

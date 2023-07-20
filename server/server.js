@@ -224,6 +224,8 @@ express_server_app_router.use((req, res, next) => {
   URL_ = req.url.split("?")[0]
   res.locals.paths_URL = utils.URLpathDecomposer(URL_)
 
+  res.locals.url = req.url
+
   // console.log(URL_, res.locals.paths_URL)
 
   loggedIn = req.session.userId

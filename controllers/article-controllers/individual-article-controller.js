@@ -20,8 +20,8 @@ async function controller2(req, res, next) {
 
 }
 
-// TODO !!!! add already indexed elements to the sitemap
-// TODO !!!!! google search console register
+// TODO !!!!! google search
+// TODO !!!!! delete /btclayerexchange modules and delete non needed scripts at this point
 // TODO !!!!! google analitics register
 // TODO !!! Look into surfer ai
 // TODO !!! Build chatGPT generator on aiaudiotoblog.bidblock.ca on another localhost:3001? and deploy scripts
