@@ -21,7 +21,7 @@ async function controller2(req, res, next) {
 }
  
 
-// TODO !!!! Integrate Ubersuggest
+// TODO !!! integrate mediavine
 // TODO !!! Look into surfer ai
 // TODO !!! Build chatGPT generator on aiaudiotoblog.bidblock.ca on another localhost:3001? and deploy scripts
 // TODO !!!! Need to optimise Blog Loads,
