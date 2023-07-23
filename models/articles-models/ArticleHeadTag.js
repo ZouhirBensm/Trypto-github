@@ -60,7 +60,3 @@ module.exports = ArticleHeadTag
 // 3- The login form is not even a form, I can't click enter to login, I have to click by mouse -> Add enter key press on forms
 
 // 4- needs more css editing on phone, it looks bad on phone -> Fix the home page CSS to look exactly like the designs
-
-
-// TODO !!! Simplify the copy right on the home banner: drop the fluff. dont welcome get straight to the point to keep things simple.
-// "Bitcoin only marketplace" be better?
