@@ -95,18 +95,6 @@ articlesBackend_app_router.get('/:category?', (req, res) => {
 
 
 
-// REACT RENDER
-
-// articlesBackend_app_router.get('/individual_article/:article_title', (req,res)=>{
-
-//   res.locals.article_title = req.params.article_title ?  req.params.article_title : undefined
-
-//   var JSX_to_load = 'ArticlesCategorySelector';
-
-//   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { 
-//     JSX_to_load : JSX_to_load, 
-//   })
-// })
 
 
 

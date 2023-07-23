@@ -1,11 +1,35 @@
 import SECTION_TYPES from '../../../full-stack-libs/Types/ArticleSectionTypes'
+import EMAIL_MARKETING_TYPES from '../../../full-stack-libs/Types/EmailMarketingTypes'
 
 class EMAIL extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      options: []
+    } 
   }
 
+
+  componentDidMount() {
+    let options = []
+
+    const categoryKeys = Object.keys(EMAIL_MARKETING_TYPES);
+
+    categoryKeys.forEach((EMAIL_MARKETING_TYPE_key, index) => {
+      const EMAIL_MARKETING_TYPE_val = EMAIL_MARKETING_TYPES[EMAIL_MARKETING_TYPE_key];
+
+      options.push(
+        <option value={EMAIL_MARKETING_TYPE_val} key={index}>{EMAIL_MARKETING_TYPE_val}</option>
+      );
+    });
+
+
+    this.setState({
+      options: options
+    })
+
+
+  }
 
   render() {
 
@@ -38,6 +62,16 @@ class EMAIL extends React.Component {
             e.persist()
             this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.EMAIL, this.props._step)
           }} required />
+
+
+          <label>Set the email marketing collector type</label>
+          <select name="BUTTON_text" value={defaultValues?.BUTTON_text} onChange={(e) => {
+            e.persist()
+            this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.EMAIL, this.props._step)
+          }} required>
+            <option value="">no selection</option>
+            {this.state.options}
+          </select>
 
         </div>
 

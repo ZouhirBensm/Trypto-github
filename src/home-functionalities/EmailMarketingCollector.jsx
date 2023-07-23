@@ -1,5 +1,6 @@
 import './styles/EmailMarketingCollector.css'
 import { verifyEmail } from '../../full-stack-libs/validations'
+import EMAIL_MARKETING_TYPES from '../../full-stack-libs/Types/EmailMarketingTypes'
 
 class EmailMarketingCollector extends React.Component {
   constructor(props) {
@@ -102,28 +103,37 @@ class EmailMarketingCollector extends React.Component {
 
                 <button onClick={async (e)=>{
 
-                  const email = document.getElementById("email-for-marketing").value;
+                  // const email = document.getElementById("email-for-marketing").value;
 
-                  const flag = this.validation(email, e)
+                  // const flag = this.validation(email, e)
 
-                  if (!flag) {return}
+                  // if (!flag) {return}
 
 
-                  const isTimedOut = this.checktimer()
-                  console.log(isTimedOut)
-
-                  if (!isTimedOut) return
+                  // const isTimedOut = this.checktimer()
+                  // console.log(isTimedOut)
+                  // if (!isTimedOut) return
 
 
                   
-                  let isEmailSent = false
+                  // let isEmailSent = false
+                  // isEmailSent = await this.sendemail(email)
+                  // if(!isEmailSent) return console.log('isEmailSent is false', isEmailSent)
+                  // console.log('isEmailSent is true', isEmailSent)
 
-                  isEmailSent = await this.sendemail(email)
 
-                  console.log('isEmailSent', isEmailSent)
+                  if (this.props.BUTTON_text === EMAIL_MARKETING_TYPES.DOWNLOAD) {
+                    // download required resource!
+                    console.log('download required resource!')
+                    this.downloadFile()
+                    return
+                  }
+
                   return
 
-                }}>Send</button>
+                }}>
+                  {this.props.BUTTON_text}
+                </button>
               </div>
             </div>
 
@@ -191,10 +201,12 @@ if(JSX_to_load2 === "EmailMarketingCollector"){
   Array.from(targetDivs).forEach((div, index) => {
     let EMAIL_title = eval(`EMAIL_title${index}`)
     let EMAIL_subtitle = eval(`EMAIL_subtitle${index}`)
+    let BUTTON_text = eval(`BUTTON_text${index}`)
   
     const element = <EmailMarketingCollector 
       EMAIL_title={EMAIL_title}
       EMAIL_subtitle={EMAIL_subtitle}
+      BUTTON_text={BUTTON_text}
     />;
   
     ReactDOM.render(element, div);

@@ -34,32 +34,32 @@ class CreateArticle extends React.Component {
   constructor() {
     super()
     this.state = {
-      create_true_edit_false: true, // DEFAULT SET TO CREATE
-      step: 1,
-      // STEP 1
-      html_title: "",
-      changefreq: "",
-      meta_title: "",
-      meta_description: "",
-      canonical: undefined,
-      noindex: false,
-      nofollow: false,
-      // STEP 2
-      keywords: [],
-      category: "",
-      // publisher name, email, and link are default values for now
-      banner_image_name: undefined,
-      banner_image_file: undefined,
-      // banner_image_path
-      banner_img_alt: "",
-      h1: "",
-      // author is logged in username
-      // published_datetime is default now upon creation
-      abstract_name_type: "",
-      abstract_points: [],
-      content_structure: [SECTION_TYPES.H2],
-      nested_data: [],
-      e: undefined,
+      // create_true_edit_false: true, // DEFAULT SET TO CREATE
+      // step: 1,
+      // // STEP 1
+      // html_title: "",
+      // changefreq: "",
+      // meta_title: "",
+      // meta_description: "",
+      // canonical: undefined,
+      // noindex: false,
+      // nofollow: false,
+      // // STEP 2
+      // keywords: [],
+      // category: "",
+      // // publisher name, email, and link are default values for now
+      // banner_image_name: undefined,
+      // banner_image_file: undefined,
+      // // banner_image_path
+      // banner_img_alt: "",
+      // h1: "",
+      // // author is logged in username
+      // // published_datetime is default now upon creation
+      // abstract_name_type: "",
+      // abstract_points: [],
+      // content_structure: [SECTION_TYPES.H2],
+      // nested_data: [],
+      // e: undefined,
 
 
       // // _____________________________________________________
@@ -68,116 +68,117 @@ class CreateArticle extends React.Component {
       // TEMPORAL
       // USED TO TEST CREATE QUICKLY
       
-      // create_true_edit_false: true, // DEFAULT SET TO CREATE
-      // step: 1,
-      // html_title: "Some random title", // CHECK (ArticleHeadTag)
-      // changefreq: "weekly",
-      // meta_title: "Some random title2",
-      // meta_description: "Some random description", // CHECK (ArticleHeadTag)
-      // canonical: undefined, // CHECK (ArticleHeadTag)
-      // noindex: true, // CHECK (ArticleHeadTag)
-      // nofollow: false, // CHECK (ArticleHeadTag)
-      // keywords: ['opti for this', 'and for that'], // CHECK (ArticleBodyHeader)
-      // // category: "bitcoin", // CHECK (ArticleBodyHeader)
+      create_true_edit_false: true, // DEFAULT SET TO CREATE
+      step: 1,
+      html_title: "Some random title", // CHECK (ArticleHeadTag)
+      changefreq: "weekly",
+      meta_title: "Some random title2",
+      meta_description: "Some random description", // CHECK (ArticleHeadTag)
+      canonical: undefined, // CHECK (ArticleHeadTag)
+      noindex: true, // CHECK (ArticleHeadTag)
+      nofollow: false, // CHECK (ArticleHeadTag)
+      keywords: ['opti for this', 'and for that'], // CHECK (ArticleBodyHeader)
       // category: "bitcoin", // CHECK (ArticleBodyHeader)
-      // banner_img_alt: "some alt txt for the image", // CHECK (ArticleBodyHeader)
-      // h1: "The H1 title", // CHECK (ArticleBodyHeader)
+      category: "bitcoin", // CHECK (ArticleBodyHeader)
+      banner_img_alt: "some alt txt for the image", // CHECK (ArticleBodyHeader)
+      h1: "The H1 title", // CHECK (ArticleBodyHeader)
 
 
-      // // banner_image_path
-      // banner_image_file: undefined, // CHECK (ArticleEnclosureImage)
-      // banner_image_name: undefined, // NO NEED TO SAVE
+      // banner_image_path
+      banner_image_file: undefined, // CHECK (ArticleEnclosureImage)
+      banner_image_name: undefined, // NO NEED TO SAVE
 
-      // abstract_name_type: "Resume",
-      // abstract_points: [
-      //   "Lorem, ipsum",
-      //   "dolor <strong>sit amet consectetur</strong> adipisicing",
-      //   "elit. <strong>Eum</strong> aspernatur<strong> cupiditate</strong>",
-      //   "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
-      // ],
-
-
+      abstract_name_type: "Resume",
+      abstract_points: [
+        "Lorem, ipsum",
+        "dolor <strong>sit amet consectetur</strong> adipisicing",
+        "elit. <strong>Eum</strong> aspernatur<strong> cupiditate</strong>",
+        "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
+      ],
 
 
-      // content_structure: [SECTION_TYPES.H2, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.EMAIL, SECTION_TYPES.H3, SECTION_TYPES.IFRAME, SECTION_TYPES.IMG, SECTION_TYPES.IMG, SECTION_TYPES.A, SECTION_TYPES.EMAIL, SECTION_TYPES.A],
-      // e: undefined,
-      // nested_data: [
-      //   {
-      //     "id": 1,
-      //     "type": "H2",
-      //     "H2_innerHTML": "Some h2 title"
-      //   },
-      //   {
-      //     "id": 2,
-      //     "type": "SUMMERNOTE",
-      //     "SUMMERNOTE_innerHTML": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit magni necessitatibus quos illum qui alias blanditiis, impedit facilis vero, provident nesciunt modi ad obcaecati libero vel quidem veritatis ipsa sunt!</p><p>I hope this works!</p><p>I hope this works!</p><p>adding&nbsp;a link&nbsp;to <a href=\"https://google.com\" target=\"_blank\">google</a>. bla.</p><ul><li>one</li><li>two bla bla&nbsp;<a href=\"https://yahoo..com\" target=\"_blank\">yahoo</a> ici. bla.</li><li>this is amazing!</li></ul>"
-      //   },
-      //   {
-      //     "id": 3,
-      //     "type": "EMAIL",
-      //     "EMAIL_title": "title1",
-      //     "EMAIL_subtitle": "subtitle1"
-      //   },
-      //   {
-      //     "id": 4,
-      //     "type": "H3",
-      //     "H3_innerHTML": "some h3 element"
-      //   },
-      //   {
-      //     "id": 5,
-      //     "type": "IFRAME",
-      //     "iframe_name": "Some name",
-      //     "iframe_description": "Some description",
-      //     "iframe_source": "https://www.youtube.com/embed/s2LmubDQ4RI"
-      //   },
-      //   {
-      //     "id": 6,
-      //     "type": "IMG",
-      //     "img_width": "200",
-      //     "img_height": "200",
-      //     "img_alt": "Algerians",
-      //     "img_description": "Phenotype of algerians",
-      //   },
-      //   {
-      //     "id": 7,
-      //     "type": "IMG",
-      //     "img_src": "https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2023/revuelto/revuelto_m.png",
-      //     "img_alt": "Lambo",
-      //     "img_width": "300",
-      //     "img_height": "200",
-      //     "img_description": "a Lambo"
-      //   },
-      //   {
-      //     "id": 8,
-      //     "type": "A",
-      //     "A_href": "https://en.wikipedia.org/wiki/Cars_(film)",
-      //     "A_innerText": "Wiki cars",
-      //     "A_title": "a title",
-      //     "newtab": true,
-      //     "ugc": true,
-      //     "nofollow": true,
-      //     "noopener": true
-      //   },
-      //   {
-      //     "id": 9,
-      //     "type": "EMAIL",
-      //     "EMAIL_title": "title2",
-      //     "EMAIL_subtitle": "subtitle2"
-      //   },
-      //   {
-      //     "id": 10,
-      //     "type": "A",
-      //     "A_href": "https://www.bbc.com/news/world-europe-66104632",
-      //     "A_title": "BBC franch",
-      //     "newtab": true,
-      //     "image_mode_on": true,
-      //     "img_width": "350",
-      //     "img_height": "100",
-      //     "img_src": "https://ichef.bbci.co.uk/news/976/cpsprodpb/14044/production/_130288918_amin.png.webp",
-      //     "img_alt": "some ugly fuck",
-      //     "img_description": "some ugly fuck"
-      //   }
-      // ]
+
+
+      content_structure: [SECTION_TYPES.H2, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.EMAIL, SECTION_TYPES.H3, SECTION_TYPES.IFRAME, SECTION_TYPES.IMG, SECTION_TYPES.IMG, SECTION_TYPES.A, SECTION_TYPES.EMAIL, SECTION_TYPES.A],
+      e: undefined,
+      nested_data: [
+        {
+          "id": 1,
+          "type": "H2",
+          "H2_innerHTML": "Some h2 title"
+        },
+        {
+          "id": 2,
+          "type": "SUMMERNOTE",
+          "SUMMERNOTE_innerHTML": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit magni necessitatibus quos illum qui alias blanditiis, impedit facilis vero, provident nesciunt modi ad obcaecati libero vel quidem veritatis ipsa sunt!</p><p>I hope this works!</p><p>I hope this works!</p><p>adding&nbsp;a link&nbsp;to <a href=\"https://google.com\" target=\"_blank\">google</a>. bla.</p><ul><li>one</li><li>two bla bla&nbsp;<a href=\"https://yahoo..com\" target=\"_blank\">yahoo</a> ici. bla.</li><li>this is amazing!</li></ul>"
+        },
+        {
+          "id": 3,
+          "type": "EMAIL",
+          "EMAIL_title": "title1",
+          "EMAIL_subtitle": "subtitle1",
+          "BUTTON_text": "send"
+        },
+        {
+          "id": 4,
+          "type": "H3",
+          "H3_innerHTML": "some h3 element"
+        },
+        {
+          "id": 5,
+          "type": "IFRAME",
+          "iframe_name": "Some name",
+          "iframe_description": "Some description",
+          "iframe_source": "https://www.youtube.com/embed/s2LmubDQ4RI"
+        },
+        {
+          "id": 6,
+          "type": "IMG",
+          "img_width": "200",
+          "img_height": "200",
+          "img_alt": "Algerians",
+          "img_description": "Phenotype of algerians",
+        },
+        {
+          "id": 7,
+          "type": "IMG",
+          "img_src": "https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2023/revuelto/revuelto_m.png",
+          "img_alt": "Lambo",
+          "img_width": "300",
+          "img_height": "200",
+          "img_description": "a Lambo"
+        },
+        {
+          "id": 8,
+          "type": "A",
+          "A_href": "https://en.wikipedia.org/wiki/Cars_(film)",
+          "A_innerText": "Wiki cars",
+          "A_title": "a title",
+          "newtab": true,
+          "ugc": true,
+          "nofollow": true,
+          "noopener": true
+        },
+        {
+          "id": 9,
+          "type": "EMAIL",
+          "EMAIL_title": "title2",
+          "EMAIL_subtitle": "subtitle2"
+        },
+        {
+          "id": 10,
+          "type": "A",
+          "A_href": "https://www.bbc.com/news/world-europe-66104632",
+          "A_title": "BBC franch",
+          "newtab": true,
+          "image_mode_on": true,
+          "img_width": "350",
+          "img_height": "100",
+          "img_src": "https://ichef.bbci.co.uk/news/976/cpsprodpb/14044/production/_130288918_amin.png.webp",
+          "img_alt": "some ugly fuck",
+          "img_description": "some ugly fuck"
+        }
+      ]
 
 
     }

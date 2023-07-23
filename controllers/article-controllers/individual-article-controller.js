@@ -21,8 +21,10 @@ async function controller2(req, res, next) {
 }
  
 // TODO !!!! email block in order to run a task i.e. auto download the pdf, also be able to edit the button text like the title and subtitle.
+// TODO !!!! block same name creates and also skip article from sitemaps if no index is on
 // TODO !!!! get rid of the bottom banner globally and fix the top navigation to display buttons on narrow screens
 // TODO !!! Look into surfer ai
+// TODO !!!! Do not allow duplicate email in email collector
 
 // TODO !!! Google Ad sense is getting activated waiting on request to use: https://www.google.com/adsense/new/u/6/pub-4796733535912629/onboarding
 // TODO !!!! Hit 50,000 sessions a month (usually around 60,000 pageviews), according to Google Analytics.

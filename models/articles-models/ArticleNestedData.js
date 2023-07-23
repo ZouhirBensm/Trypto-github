@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const SECTION_TYPES = require("../../full-stack-libs/Types/ArticleSectionTypes")
+const EMAIL_MARKETING_TYPES = require("../../full-stack-libs/Types/EmailMarketingTypes")
 
 const options = { discriminatorKey: 'type' };
 
@@ -216,6 +217,11 @@ const EMAIL_Block = Block.discriminator(SECTION_TYPES.EMAIL,
     EMAIL_subtitle: {
       type: String,
       required: true
+    },
+    BUTTON_text: {
+      type: String,
+      required: true,
+      enum: EMAIL_MARKETING_TYPES
     }
   }, options));
 

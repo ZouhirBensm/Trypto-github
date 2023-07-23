@@ -1,13 +1,4 @@
-// const sharp = require('sharp');
-// const fs = require('fs/promises')
-// const { existsSync, mkdirSync } = require('fs')
-// const path = require('path')
-
 const Article = require("../../models/articles-models/Article")
-// const ArticleHeadTag = require('../../models/articles-models/ArticleHeadTag')
-// const ArticleBodyHeader = require('../../models/articles-models/ArticleBodyHeader')
-// const ArticleEnclosureImage = require("../../models/articles-models/ArticleEnclosureImage")
-
 const SECTION_TYPES = require('../../full-stack-libs/Types/ArticleSectionTypes')
 
 
@@ -86,9 +77,12 @@ async function middleware2(req, res, next) {
 
     const titleKey = `EMAIL_title${index}`;
     const subtitleKey = `EMAIL_subtitle${index}`;
+    const buttontextKey = `BUTTON_text${index}`;
 
     res.locals[titleKey] = copiedBlock.EMAIL_title;
     res.locals[subtitleKey] = copiedBlock.EMAIL_subtitle;
+    res.locals[buttontextKey] = copiedBlock.BUTTON_text;
+    
   }
 
 

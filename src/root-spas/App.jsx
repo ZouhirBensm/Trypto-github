@@ -4,6 +4,8 @@ import GetRecentMarketItems from '../home-functionalities/GetRecentMarketItems.j
 import FAQ from '../home-functionalities/FAQ'
 import OnPageFooter from '../generic-components/OnPageFooter'
 
+import EMAIL_MARKETING_TYPES from '../../full-stack-libs/Types/EmailMarketingTypes.js'
+
 import EmailMarketingCollector from '../home-functionalities/EmailMarketingCollector'
 
 import '../style/reactDivMobile.css'
@@ -68,6 +70,7 @@ class App extends React.Component {
         <EmailMarketingCollector 
           EMAIL_title="Get product update news, and newsletter"
           EMAIL_subtitle="Be part of our community. Be a priviledged informed user about new implementations, and web software updates. Be informed with Bidblock's progess."
+          BUTTON_text={EMAIL_MARKETING_TYPES.SEND}
         />
 
         <GetRecentMarketItems />

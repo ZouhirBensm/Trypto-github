@@ -31,8 +31,10 @@
     <% for (let i = 0; i < locals.EMAIL_blocks.length; i++) { %>
       <% const titleKey = `EMAIL_title${i}`; %>
       <% const subtitleKey = `EMAIL_subtitle${i}`; %>
+      <% const buttontextKey = `BUTTON_text${i}`; %>
       let <%= titleKey %> = '<%= locals[titleKey] %>';
       let <%= subtitleKey %> = '<%= locals[subtitleKey] %>';
+      let <%= buttontextKey %> = '<%= locals[buttontextKey] %>';
     <% } %>
   </script>
 
