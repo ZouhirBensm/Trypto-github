@@ -20,13 +20,15 @@ async function controller2(req, res, next) {
 
 }
  
+// TODO !!!! email block in order to run a task i.e. auto download the pdf, also be able to edit the button text like the title and subtitle.
+// TODO !!!! get rid of the bottom banner globally and fix the top navigation to display buttons on narrow screens
+// TODO !!! Look into surfer ai
 
 // TODO !!! Google Ad sense is getting activated waiting on request to use: https://www.google.com/adsense/new/u/6/pub-4796733535912629/onboarding
 // TODO !!!! Hit 50,000 sessions a month (usually around 60,000 pageviews), according to Google Analytics.
 // TODO !!! Then integrate Mediavine
 // TODO !!!! integrate a GOOGLE_ADS or MEDIAVINE_ADS bloc sections when website gets approuved
 
-// TODO !!! Look into surfer ai
 // TODO !!! Build chatGPT generator on aiaudiotoblog.bidblock.ca on another localhost:3001? and deploy scripts
 // TODO !!!! Need to optimise Blog Loads,
 // TODO !!!! Contact Meme instagram page owners

@@ -13,6 +13,7 @@ const CATEGORY = {
   INFLATION: "inflation",
   GENERAL: "general",
   PROGRAMMING: "programming",
+  BUSINESS: "business",
 }
 
 module.exports = CATEGORY
