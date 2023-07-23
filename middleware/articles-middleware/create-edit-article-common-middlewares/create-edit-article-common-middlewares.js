@@ -233,6 +233,7 @@ async function commonArticleNestedDatatMiddleware1(req, res, next) {
           EMAIL_title: nested_data_block.EMAIL_title,
           EMAIL_subtitle: nested_data_block.EMAIL_subtitle,
           BUTTON_text: nested_data_block.BUTTON_text,
+          RESOURCE_path: nested_data_block.RESOURCE_path,
         });
 
         // await emailBlock.save(); // Save the H2_Block instance to the database

@@ -5,8 +5,8 @@ class EMAIL extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      options: []
-    } 
+      options: [],
+    }
   }
 
 
@@ -67,11 +67,35 @@ class EMAIL extends React.Component {
           <label>Set the email marketing collector type</label>
           <select name="BUTTON_text" value={defaultValues?.BUTTON_text} onChange={(e) => {
             e.persist()
+
             this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.EMAIL, this.props._step)
+
+            // TODO !!! not sure most optimal way syntheticEvent, might need a react way to create this event
+            const syntheticEvent = {
+              target: {
+                name: 'RESOURCE_path',
+                value: ''
+              }
+            };
+            this.props.innerHandleChange(syntheticEvent, SECTION_TYPES.EMAIL, this.props._step);
           }} required>
             <option value="">no selection</option>
             {this.state.options}
           </select>
+
+          {
+            defaultValues?.BUTTON_text === EMAIL_MARKETING_TYPES.DOWNLOAD ? 
+            <React.Fragment>
+              <label>Resource path: </label>
+              <span>Format as of July 2023: /resources/pdfs/file.pdf</span>
+              <input name="RESOURCE_path" value={defaultValues?.RESOURCE_path || ""} type="text" placeholder="In a download setting add the resource path" onChange={(e) => {
+                e.persist()
+                this.props.innerHandleChange(e.nativeEvent, SECTION_TYPES.EMAIL, this.props._step)
+              }} required/>
+            </React.Fragment>
+            :
+            null
+          }
 
         </div>
 

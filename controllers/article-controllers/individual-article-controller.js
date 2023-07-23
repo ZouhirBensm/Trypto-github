@@ -20,8 +20,7 @@ async function controller2(req, res, next) {
 
 }
  
-// TODO !!!! email block in order to run a task i.e. auto download the pdf, also be able to edit the button text like the title and subtitle.
-// TODO !!!! block same name creates and also skip article from sitemaps if no index is on
+// TODO !!!! block same name articles on create and also skip article from sitemaps if no index is on
 // TODO !!!! get rid of the bottom banner globally and fix the top navigation to display buttons on narrow screens
 // TODO !!! Look into surfer ai
 // TODO !!!! Do not allow duplicate email in email collector

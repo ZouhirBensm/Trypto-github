@@ -6,7 +6,8 @@ class EmailMarketingCollector extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      popup: undefined
+      popup: undefined,
+      loading: false,
     }
     this.validation = this.validation.bind(this)
     this.sendemail = this.sendemail.bind(this)
@@ -31,15 +32,15 @@ class EmailMarketingCollector extends React.Component {
 
     const contentType = response.headers.get('Content-Type')
     console.log(contentType)
-    
+
     let data
-    if (contentType && contentType.includes('application/json')){
+    if (contentType && contentType.includes('application/json')) {
       data = await response.json()
       console.log('\n', data)
     }
-    
-    if(response.status !== 200) {
-      if(data) this.setState({popup: data.message})
+
+    if (response.status !== 200) {
+      if (data) this.setState({ popup: data.message })
       return false
     }
 
@@ -53,8 +54,8 @@ class EmailMarketingCollector extends React.Component {
   }
 
 
-  validation(email, e){
-    
+  validation(email, e) {
+
 
     console.log(email)
 
@@ -68,13 +69,13 @@ class EmailMarketingCollector extends React.Component {
     this.setState({
       popup: flag ? undefined : notification[0]
     })
-    
+
     return flag
-    
+
   }
 
 
-  
+
 
   render() {
 
@@ -94,46 +95,64 @@ class EmailMarketingCollector extends React.Component {
             <div id='element-2'>
               <div className='content'>
 
-                <input type="email" placeholder='Your email' id='email-for-marketing'/>
+                <input type="email" placeholder='Your email' id='email-for-marketing' />
 
-                {this.state.popup ?
-                  <span className="popup">{this.state.popup}</span> :
-                  null
+                {/* BUTTON OR SPINNER */}
+                {this.state.loading ?
+                  <div className="spinner"></div> :
+                  <React.Fragment>
+                    {this.state.popup ? <span className="popup">{this.state.popup}</span> : null}
+                    <button onClick={async (e) => {
+
+                      this.setState({ loading: true })
+
+                      // TO TEST SPINNER
+                      // setTimeout(() => {
+                      //   this.setState({ loading: false })
+                      // }, 5000);
+
+                      const email = document.getElementById("email-for-marketing").value;
+
+                      const flag = this.validation(email, e)
+
+                      if (!flag) { return this.setState({ loading: false }) }
+
+
+                      const isTimedOut = this.checktimer()
+                      console.log(isTimedOut)
+                      if (!isTimedOut) return this.setState({ loading: false })
+
+
+
+                      let isEmailSent = false
+                      isEmailSent = await this.sendemail(email)
+                      if (!isEmailSent) { console.log('isEmailSent is false', isEmailSent); return this.setState({ loading: false }); }
+                      console.log('isEmailSent is true', isEmailSent)
+
+
+                      if (this.props.BUTTON_text !== EMAIL_MARKETING_TYPES.DOWNLOAD) {
+                        // console.log('not download mode')
+                        this.setState({ loading: false })
+                        return this.setState({ loading: false })
+                      }
+
+                      if (!this.props.RESOURCE_path) {
+                        // console.log('no resource path')
+                        return this.setState({ loading: false })
+                      }
+
+                      // DOWNLOAD
+                      // console.log('download required resource!', this.props.RESOURCE_path)
+                      this.downloadFile(this.props.RESOURCE_path)
+                      return this.setState({ loading: false })
+
+                    }}>
+                      {this.props.BUTTON_text}
+                    </button>
+
+                  </React.Fragment>
                 }
 
-                <button onClick={async (e)=>{
-
-                  // const email = document.getElementById("email-for-marketing").value;
-
-                  // const flag = this.validation(email, e)
-
-                  // if (!flag) {return}
-
-
-                  // const isTimedOut = this.checktimer()
-                  // console.log(isTimedOut)
-                  // if (!isTimedOut) return
-
-
-                  
-                  // let isEmailSent = false
-                  // isEmailSent = await this.sendemail(email)
-                  // if(!isEmailSent) return console.log('isEmailSent is false', isEmailSent)
-                  // console.log('isEmailSent is true', isEmailSent)
-
-
-                  if (this.props.BUTTON_text === EMAIL_MARKETING_TYPES.DOWNLOAD) {
-                    // download required resource!
-                    console.log('download required resource!')
-                    this.downloadFile()
-                    return
-                  }
-
-                  return
-
-                }}>
-                  {this.props.BUTTON_text}
-                </button>
               </div>
             </div>
 
@@ -145,7 +164,17 @@ class EmailMarketingCollector extends React.Component {
     );
   }
 
-  checktimer(){
+  downloadFile(RESOURCE_path) {
+
+    const link = document.createElement('a');
+    link.href = RESOURCE_path;
+    link.setAttribute('download', 'saas_tools.pdf');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  checktimer() {
     let timedOutUntil = localStorage.getItem('timedOutUntil');
 
     let enabled
@@ -161,11 +190,11 @@ class EmailMarketingCollector extends React.Component {
       return enabled
     } else {
       // A TIMER WAS SET
-      
+
       if (new Date().getTime() > timedOutUntil) {
 
         enabled = true
-        
+
         // SET NEW TIMER
         timedOutUntil = new Date().getTime() + timeOffset;
         localStorage.removeItem('timedOutUntil');
@@ -181,12 +210,12 @@ class EmailMarketingCollector extends React.Component {
       // TIME HAS NOT ELAPSED, TIME HAS ELAPSED
       return enabled
     }
-    
+
   }
 
 
 
-  purgeTimer(){
+  purgeTimer() {
     localStorage.removeItem('timedOutUntil');
   }
 
@@ -195,20 +224,22 @@ class EmailMarketingCollector extends React.Component {
 
 export default EmailMarketingCollector
 
-if(JSX_to_load2 === "EmailMarketingCollector"){
+if (JSX_to_load2 === "EmailMarketingCollector") {
   const targetDivs = document.getElementsByClassName('react-div2');
-  
+
   Array.from(targetDivs).forEach((div, index) => {
     let EMAIL_title = eval(`EMAIL_title${index}`)
     let EMAIL_subtitle = eval(`EMAIL_subtitle${index}`)
     let BUTTON_text = eval(`BUTTON_text${index}`)
-  
-    const element = <EmailMarketingCollector 
+    let RESOURCE_path = eval(`RESOURCE_path${index}`)
+
+    const element = <EmailMarketingCollector
       EMAIL_title={EMAIL_title}
       EMAIL_subtitle={EMAIL_subtitle}
       BUTTON_text={BUTTON_text}
+      RESOURCE_path={RESOURCE_path}
     />;
-  
+
     ReactDOM.render(element, div);
   });
 }

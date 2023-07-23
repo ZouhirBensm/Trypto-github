@@ -162,3 +162,25 @@ div#element-2>div.content>span.popup {
   display: block;
   text-align: center;
 }
+
+
+
+/* REP */
+div.spinner {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  animation: spin 1s linear infinite;
+  margin: 4vh auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -32,9 +32,12 @@
       <% const titleKey = `EMAIL_title${i}`; %>
       <% const subtitleKey = `EMAIL_subtitle${i}`; %>
       <% const buttontextKey = `BUTTON_text${i}`; %>
+      <% const resourcePathKey = `RESOURCE_path${i}`; %>
+
       let <%= titleKey %> = '<%= locals[titleKey] %>';
       let <%= subtitleKey %> = '<%= locals[subtitleKey] %>';
       let <%= buttontextKey %> = '<%= locals[buttontextKey] %>';
+      let <%= resourcePathKey %> = '<%= locals[resourcePathKey] %>';
     <% } %>
   </script>
 

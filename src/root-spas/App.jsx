@@ -71,6 +71,7 @@ class App extends React.Component {
           EMAIL_title="Get product update news, and newsletter"
           EMAIL_subtitle="Be part of our community. Be a priviledged informed user about new implementations, and web software updates. Be informed with Bidblock's progess."
           BUTTON_text={EMAIL_MARKETING_TYPES.SEND}
+          RESOURCE_path={undefined}
         />
 
         <GetRecentMarketItems />

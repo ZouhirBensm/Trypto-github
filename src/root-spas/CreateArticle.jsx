@@ -99,7 +99,9 @@ class CreateArticle extends React.Component {
 
 
 
-      content_structure: [SECTION_TYPES.H2, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.EMAIL, SECTION_TYPES.H3, SECTION_TYPES.IFRAME, SECTION_TYPES.IMG, SECTION_TYPES.IMG, SECTION_TYPES.A, SECTION_TYPES.EMAIL, SECTION_TYPES.A],
+      content_structure: [SECTION_TYPES.H2, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.EMAIL, 
+        // SECTION_TYPES.H3, SECTION_TYPES.IFRAME, SECTION_TYPES.IMG, SECTION_TYPES.IMG, SECTION_TYPES.A, SECTION_TYPES.EMAIL, SECTION_TYPES.A
+      ],
       e: undefined,
       nested_data: [
         {
@@ -119,65 +121,65 @@ class CreateArticle extends React.Component {
           "EMAIL_subtitle": "subtitle1",
           "BUTTON_text": "send"
         },
-        {
-          "id": 4,
-          "type": "H3",
-          "H3_innerHTML": "some h3 element"
-        },
-        {
-          "id": 5,
-          "type": "IFRAME",
-          "iframe_name": "Some name",
-          "iframe_description": "Some description",
-          "iframe_source": "https://www.youtube.com/embed/s2LmubDQ4RI"
-        },
-        {
-          "id": 6,
-          "type": "IMG",
-          "img_width": "200",
-          "img_height": "200",
-          "img_alt": "Algerians",
-          "img_description": "Phenotype of algerians",
-        },
-        {
-          "id": 7,
-          "type": "IMG",
-          "img_src": "https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2023/revuelto/revuelto_m.png",
-          "img_alt": "Lambo",
-          "img_width": "300",
-          "img_height": "200",
-          "img_description": "a Lambo"
-        },
-        {
-          "id": 8,
-          "type": "A",
-          "A_href": "https://en.wikipedia.org/wiki/Cars_(film)",
-          "A_innerText": "Wiki cars",
-          "A_title": "a title",
-          "newtab": true,
-          "ugc": true,
-          "nofollow": true,
-          "noopener": true
-        },
-        {
-          "id": 9,
-          "type": "EMAIL",
-          "EMAIL_title": "title2",
-          "EMAIL_subtitle": "subtitle2"
-        },
-        {
-          "id": 10,
-          "type": "A",
-          "A_href": "https://www.bbc.com/news/world-europe-66104632",
-          "A_title": "BBC franch",
-          "newtab": true,
-          "image_mode_on": true,
-          "img_width": "350",
-          "img_height": "100",
-          "img_src": "https://ichef.bbci.co.uk/news/976/cpsprodpb/14044/production/_130288918_amin.png.webp",
-          "img_alt": "some ugly fuck",
-          "img_description": "some ugly fuck"
-        }
+        // {
+        //   "id": 4,
+        //   "type": "H3",
+        //   "H3_innerHTML": "some h3 element"
+        // },
+        // {
+        //   "id": 5,
+        //   "type": "IFRAME",
+        //   "iframe_name": "Some name",
+        //   "iframe_description": "Some description",
+        //   "iframe_source": "https://www.youtube.com/embed/s2LmubDQ4RI"
+        // },
+        // {
+        //   "id": 6,
+        //   "type": "IMG",
+        //   "img_width": "200",
+        //   "img_height": "200",
+        //   "img_alt": "Algerians",
+        //   "img_description": "Phenotype of algerians",
+        // },
+        // {
+        //   "id": 7,
+        //   "type": "IMG",
+        //   "img_src": "https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2023/revuelto/revuelto_m.png",
+        //   "img_alt": "Lambo",
+        //   "img_width": "300",
+        //   "img_height": "200",
+        //   "img_description": "a Lambo"
+        // },
+        // {
+        //   "id": 8,
+        //   "type": "A",
+        //   "A_href": "https://en.wikipedia.org/wiki/Cars_(film)",
+        //   "A_innerText": "Wiki cars",
+        //   "A_title": "a title",
+        //   "newtab": true,
+        //   "ugc": true,
+        //   "nofollow": true,
+        //   "noopener": true
+        // },
+        // {
+        //   "id": 9,
+        //   "type": "EMAIL",
+        //   "EMAIL_title": "title2",
+        //   "EMAIL_subtitle": "subtitle2"
+        // },
+        // {
+        //   "id": 10,
+        //   "type": "A",
+        //   "A_href": "https://www.bbc.com/news/world-europe-66104632",
+        //   "A_title": "BBC franch",
+        //   "newtab": true,
+        //   "image_mode_on": true,
+        //   "img_width": "350",
+        //   "img_height": "100",
+        //   "img_src": "https://ichef.bbci.co.uk/news/976/cpsprodpb/14044/production/_130288918_amin.png.webp",
+        //   "img_alt": "some ugly fuck",
+        //   "img_description": "some ugly fuck"
+        // }
       ]
 
 
@@ -694,6 +696,13 @@ class CreateArticle extends React.Component {
     });
 
     return
+  }
+
+  resetInnerHandleChange= (e, type2edit = undefined, id = undefined, resetWhatAndToArrObj = []) => {
+
+    if (!type2edit || !id) return
+
+    
   }
 
 

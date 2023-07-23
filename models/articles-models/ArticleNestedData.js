@@ -222,7 +222,10 @@ const EMAIL_Block = Block.discriminator(SECTION_TYPES.EMAIL,
       type: String,
       required: true,
       enum: EMAIL_MARKETING_TYPES
-    }
+    },
+    RESOURCE_path: {
+      type: String,
+    },
   }, options));
 
 

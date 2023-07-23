@@ -78,10 +78,12 @@ async function middleware2(req, res, next) {
     const titleKey = `EMAIL_title${index}`;
     const subtitleKey = `EMAIL_subtitle${index}`;
     const buttontextKey = `BUTTON_text${index}`;
+    const resourcePathKey = `RESOURCE_path${index}`;
 
     res.locals[titleKey] = copiedBlock.EMAIL_title;
     res.locals[subtitleKey] = copiedBlock.EMAIL_subtitle;
     res.locals[buttontextKey] = copiedBlock.BUTTON_text;
+    res.locals[resourcePathKey] = copiedBlock.RESOURCE_path;
     
   }
 
