@@ -12,7 +12,7 @@ function OnPageFooter() {
         <img src="/img/PNG/logo/logoBLCSmall.png" alt="" />
         <div id='nav401'>
           <div>© Bidblock</div>
-          <div><a href="">Contact</a></div>
+          <div><a href="/contact">Contact</a></div>
           <div><a href="/terms-conditions">Terms and Conditions</a></div>
           {/* {
             loggedInUserId ?

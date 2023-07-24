@@ -257,7 +257,13 @@ homeBackend_app_router.get('/resend-user-email/:userEmail', destructureURLandRef
 
 
 homeBackend_app_router.get('/purge', 
-require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER]), async (req, res) => {
+// TODO !!!!! Need to add a backend operation click to purge all, and also the ability to purge specific job
+// TODO !!!!! TEMPORAL
+// require_loggedin_for_data(true), 
+// authenticate_role_for_data([ROLE.MASTER]), 
+
+async (req, res) => {
+  console.log('purging...')
   const numRemoved = await agenda.purge();
   res.status(200).json({message: `Done purge on Agenda!`})
 })

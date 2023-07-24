@@ -16,13 +16,13 @@ async function resendConfirmationController(req, res, next) {
     return next(e)
   }
 
-  if(!ret_user) {
-  // if(true) {
+  if (!ret_user) {
+    // if(true) {
     let e = new Error("No found user under that email")
     return next(e)
   }
 
-  if(ret_user.active) {
+  if (ret_user.active) {
     let e = new Error("Account already active")
     return next(e)
   }
@@ -37,7 +37,7 @@ async function resendConfirmationController(req, res, next) {
 
   console.log(ret_user)
 
-  
+
 
   let now = new Date()
 
@@ -61,7 +61,7 @@ async function resendConfirmationController(req, res, next) {
     subject: `${ENV.domain_without_protocol}, Confirm your Account Now!`,
     text: `Date: ${now},\n\nWelcome ${ret_user.username}!\n\nPlease confirm your ${ENV.domain_without_protocol} account now, by clicking on this link:\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/confirm-user-email/${ret_user._id}/${ret_user_hex.hexfield}\n\nThank you!`
   };
-  
+
   try {
     info = await transporter.sendMail(mailOptions);
   } catch (e) {
@@ -73,7 +73,7 @@ async function resendConfirmationController(req, res, next) {
 
   // ___________________________________________
 
-  if(!info) {
+  if (!info) {
     let e = new Error("Message not sent")
     return next(e)
   }
@@ -87,4 +87,4 @@ async function resendConfirmationController(req, res, next) {
 
 
 
-module.exports = {resendConfirmationController}
+module.exports = { resendConfirmationController }

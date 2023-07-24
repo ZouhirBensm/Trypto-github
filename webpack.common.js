@@ -74,6 +74,7 @@ var config = {
     AddFAQ: './src/root-spas/AddFAQ.jsx',
     OnPageFooter: './src/generic-components/OnPageFooter.jsx',
     EmailMarketingCollector: './src/home-functionalities/EmailMarketingCollector.jsx',
+    Contact: './src/root-spas/Contact.jsx'
   },
   output: {
     // Deletable libraryTarget: 'commonjs2',

@@ -168,7 +168,10 @@ class EmailMarketingCollector extends React.Component {
 
     const link = document.createElement('a');
     link.href = RESOURCE_path;
-    link.setAttribute('download', 'saas_tools.pdf');
+    const REGEX_pull_file_with_extension = /\w+\.\w{3,}$/
+    const file_name = REGEX_pull_file_with_extension.exec(RESOURCE_path)[0]
+
+    link.setAttribute('download', file_name);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

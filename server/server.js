@@ -132,6 +132,7 @@ const paypalBackend_app_router = require('./paypal-backend')
 const operationsBackend_app_router = require('./operations-backend')
 const articlesBackend_app_router = require('./articles-backend')
 const sitemapBackend_app_router = require('./sitemap-backend')
+const contactBackend_app_router = require('./contact-backend')
 
 const { errorLoggerMiddleware } = require('../middleware/error-middleware/error-handle-fcts-middleware')
 
@@ -260,6 +261,8 @@ express_server_app_router.use('/operations', operationsBackend_app_router)
 express_server_app_router.use('/articles', articlesBackend_app_router)
 
 express_server_app_router.use('/sitemap', sitemapBackend_app_router)
+
+express_server_app_router.use('/contact', contactBackend_app_router)
 
 
 
