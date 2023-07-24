@@ -4,7 +4,7 @@ import './styles/Register2.css'
 import '../root-spas/styles/Sign-in-up.css'
 
 import { verifyEmail, verifyPassword, verifyUsername, verifyTermsConditionsClicked } from '../../full-stack-libs/validations'
-import RegisterButton from './RegisterButton'
+import RegisterButton from './RegisterButton2'
 import RegisterNotification from './RegisterNotification'
 // import LogRegFooter from './LogRegFooter'
 
@@ -100,7 +100,7 @@ class Register extends React.Component {
 
 
     // PASSWORD GOOD
-    if (hny_spm == "") {
+    if (hny_spm === "") {
       ({ flag, notification } = await this.checkIfEmailDuplicateInDatabase(email, username))
     }
 

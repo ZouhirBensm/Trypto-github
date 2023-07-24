@@ -11,6 +11,11 @@ import OnPageFooter from '../generic-components/OnPageFooter'
 const ChoosePlan = loadable(() => import("../subscription-functionalities/ChoosePlan"), {
   fallback: <Loading />
 });
+
+
+// TODO !!!!!
+// RegisterButton is the original
+// TEMPORAL RegisterButton2 needs testing
 const Register = loadable(() => import("../login-register-functionalities/Register2"), {
   fallback: <Loading />
 });

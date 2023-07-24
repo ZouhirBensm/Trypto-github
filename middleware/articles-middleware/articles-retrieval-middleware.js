@@ -76,8 +76,11 @@ async function middleware2(req,res,next) {
   // THIRD PARTY ARTICLES!
   let retrievedArticles = []
 
-  
-  retrievedArticles = await functionArticleAggregator(THIRD_PARTY_SOURCES)
+  try {
+    retrievedArticles = await functionArticleAggregator(THIRD_PARTY_SOURCES)
+  } catch (error) {
+    return next(error)
+  }
   
   
   if(!res.locals.filter_object?.category) {
@@ -145,6 +148,8 @@ async function middleware4(req,res,next) {
 
 async function middleware5(req,res,next) {
 
+  // console.log('res.locals.articles: \n\n', res.locals.articles)
+  
   res.locals.data_to_be_paginated_and_served = res.locals.articles
   return next()
 }

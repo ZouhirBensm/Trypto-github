@@ -13,8 +13,18 @@ async function middleware0(req, res, next) {
 }
 
 
+
+
 async function middleware1(req, res, next) {
   console.log("middleware1...")
+
+  if(req.body.hny_spm){
+    // Goes to controller without sending email!
+    return next()
+  }
+
+
+  console.log("Sending email....")
   let now = new Date()
 
 

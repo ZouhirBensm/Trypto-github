@@ -175,7 +175,15 @@ module.exports = {
     // Re-compose str to form shortened sentence
     slicedstr = slicedstr.join(' ')
     return slicedstr;
+  },
+
+  isIterable(obj) {
+    if (obj == null || typeof obj === 'string') {
+      return false;
+    }
+    return typeof obj[Symbol.iterator] === 'function';
   }
+  
 
   
 }

@@ -495,7 +495,7 @@ async function ordersRetrievalMiddleware(req, res, next) {
     res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/`
   ) {
 
-    console.log("NORMAL MODE")
+    console.log("NORMAL MODE: marketorders")
     orders = res.locals.sellOrders
 
   } else {

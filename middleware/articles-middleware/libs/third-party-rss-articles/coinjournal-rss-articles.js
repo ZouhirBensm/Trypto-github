@@ -11,7 +11,12 @@ const { countWords, takeUntilWordNumber } = require('../../../../full-stack-libs
 
 
 async function functionCoinJournalArticles(){
-  feed = await parser.parseURL('https://coinjournal.net/news/tag/bitcoin/feed/');
+
+  try {
+    feed = await parser.parseURL('https://coinjournal.net/news/tag/bitcoin/feed/');
+  } catch (error) {
+    return error
+  }
 
   let MostRecentItems = feed.items.slice(0,5)
 
@@ -39,8 +44,7 @@ function articalizeForBidBlock(_MostRecentItems){
     const category = determineCategory(_item.categories)
     // console.log(category)
 
-
-    return {
+    const obj = {
       _id: ObjectId(),
       publishedDate: _item.isoDate,
       h1: _item.title,
@@ -51,6 +55,10 @@ function articalizeForBidBlock(_MostRecentItems){
       url: _item.link,
       enclosure: '/img/default-rss-enclosure-images/coinjournal.png'
     }
+
+    // console.log("\n\nobj========", obj._id)
+
+    return obj
   })
   return articlesFromCoinJournal
 }

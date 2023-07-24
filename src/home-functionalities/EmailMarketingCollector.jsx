@@ -2,6 +2,8 @@ import './styles/EmailMarketingCollector.css'
 import { verifyEmail } from '../../full-stack-libs/validations'
 import EMAIL_MARKETING_TYPES from '../../full-stack-libs/Types/EmailMarketingTypes'
 
+
+// TODO !!!! Add honey pot because fuckin hackers will spam your app.
 class EmailMarketingCollector extends React.Component {
   constructor(props) {
     super(props)

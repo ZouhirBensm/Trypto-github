@@ -142,6 +142,10 @@ class ArticlesMobileCarousel extends React.Component {
     const isPreviousButtonDisabled = this.state.card_number_on === 0;
     const isNextButtonDisabled = this.state.card_number_on === this.numberOfScrolls
 
+    this.props.articles.forEach(article => {
+      console.log(article._id)
+    });
+
     return (
       <React.Fragment>
         <div id='absolute-container'>

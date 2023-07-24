@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
 /* REP */
 div.spinner {
   width: 25px;
@@ -17,3 +19,97 @@ div.spinner {
     transform: rotate(360deg);
   }
 }
+
+
+div#contact-page > h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 1.8px;
+  color: #010757;
+  text-transform: capitalize;
+  font-size: var(--font-size-h1);
+  margin-top: 3rem;
+}
+
+
+div#contact-page {
+  width: 90%;
+  flex-grow: 1;
+  margin: 0 auto;
+}
+
+div#contact-page > form > label > span {
+  display: block;
+  font-size: var(--font-size-label);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  width: 100%;
+  margin: 1.2rem 0 0.5rem 0;
+}
+
+div#contact-page > form input[type='email'],
+div#contact-page > form textarea {
+  border: 1px solid #B8CEF5;
+  border-radius: 8px;
+  color: rgba(0, 0, 0, 0.766);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  line-height: 2rem;
+  width: 100%;
+  margin: 0.5vh 0;
+  font-size: var(--font-size-smaller-input);
+  text-indent: 2ch;
+}
+
+
+div#contact-page > form input[type='email']::placeholder,
+div#contact-page > form textarea::placeholder {
+  color: #B8CEF5;
+  text-indent: 2ch;
+}
+
+
+
+div#contact-page > form > input[type='submit'] {
+  display: block;
+  margin: 1rem auto;
+  background-color: #FFFFFF;
+  box-shadow: 0px 6px 20px #1266FC4E;
+  border-radius: 8px;
+  color: #1266FC;
+  text-align: left;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  letter-spacing: 1.4px;
+  color: #1266FC;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+}
+
+
+div#contact-page > form > input[type='submit']:hover {
+  background-color: rgba(18, 104, 252, 0.431);
+  color: white;
+}
+
+
+div#contact-page > form > span#popup {
+  color: red;
+  width: 100%;
+  font-size: var(--font-size-extra);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  margin: 1rem 0;
+  max-width: 350px;
+  display: block;
+}
+
+
+div#contact-page > form > input[name="hny_spm"] {
+  display: none;
+}
+
+

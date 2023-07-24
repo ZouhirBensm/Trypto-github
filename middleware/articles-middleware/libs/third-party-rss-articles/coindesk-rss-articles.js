@@ -10,7 +10,12 @@ const { countWords, takeUntilWordNumber } = require('../../../../full-stack-libs
 
 
 async function functionCoinDeskArticles(){
-  feed = await parser.parseURL('https://www.coindesk.com/arc/outboundfeeds/rss/');
+
+  try {
+    feed = await parser.parseURL('https://www.coindesk.com/arc/outboundfeeds/rss/');
+  } catch (error) {
+    return error
+  }
 
   let MostRecentItems = feed.items.slice(0,5)
 

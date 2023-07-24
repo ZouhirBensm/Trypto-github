@@ -20,7 +20,11 @@ const { countWords, takeUntilWordNumber } = require('../../../../full-stack-libs
 
 
 async function functionBitcoinMagazineArticles(){
-  feed = await parser.parseURL('https://bitcoinmagazine.com/.rss/full/');
+  try {
+    feed = await parser.parseURL('https://bitcoinmagazine.com/.rss/full/');
+  } catch (error) {
+    return error
+  }
 
   let MostRecentItems = feed.items.slice(0,5)
   let articlesFromBitcoinMagazine = articalizeForBidBlock(MostRecentItems)
