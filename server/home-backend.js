@@ -257,7 +257,7 @@ homeBackend_app_router.get('/resend-user-email/:userEmail', destructureURLandRef
 
 
 homeBackend_app_router.get('/purge', 
-// TODO !!!!! Need to add a backend operation click to purge all, and also the ability to purge specific job
+// TODO !!!! Need to add a backend operation click to purge all, and also the ability to purge specific job
 require_loggedin_for_data(true), 
 authenticate_role_for_data([ROLE.MASTER]), 
 
@@ -492,7 +492,7 @@ homeBackend_app_router.get('/FAQ/:faq?', requireRefererMiddleware, (req,res)=>{
 
 
 homeBackend_app_router.get('/terms-conditions', requireRefererMiddleware, 
-// require_loggedin_for_data(true), 
+require_loggedin_for_data(false), 
 // authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
 (req,res)=>{
 

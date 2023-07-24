@@ -1,7 +1,8 @@
 import '../style/reactDivMobile.css'
 import './styles/Contact.css'
+import OnPageFooter from '../generic-components/OnPageFooter';
 
-// TODO !!!! need to style /contact page
+// TODO !!!!! need to style /contact page
 class Contact extends React.Component {
   constructor(props) {
     super(props);
@@ -67,25 +68,29 @@ class Contact extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <h1>Contact Page</h1>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Email:
-            <input type="email" name="email" value={this.state.email} onChange={this.handleChange} required />
-          </label>
-          <label>
-            Message:
-            <textarea name="message" value={this.state.message} onChange={this.handleChange} required />
-          </label>
+        <div>
+          <h1>Contact Page</h1>
+          <form onSubmit={this.handleSubmit}>
+            <label>
+              Email:
+              <input type="email" name="email" value={this.state.email} onChange={this.handleChange} required />
+            </label>
+            <label>
+              Message:
+              <textarea name="message" value={this.state.message} onChange={this.handleChange} required />
+            </label>
 
-          { this.state.loading ? <div className="spinner"></div> : 
-          <React.Fragment>
-            {this.state.popup ?  <span id="popup">{this.state.popup}</span> : null }
-            <input type="submit" value="Submit" /> 
-          </React.Fragment>
-          }
+            { this.state.loading ? <div className="spinner"></div> : 
+            <React.Fragment>
+              {this.state.popup ?  <span id="popup">{this.state.popup}</span> : null }
+              <input type="submit" value="Submit" /> 
+            </React.Fragment>
+            }
 
-        </form>
+          </form>
+
+          <OnPageFooter/>
+        </div>
       </React.Fragment>
     );
   }

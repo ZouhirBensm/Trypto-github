@@ -20,11 +20,12 @@ async function controller2(req, res, next) {
 
 }
 // Add CTA to request a quote towards /contacts page
-// TODO !! Ideally can upload the pdf resource automatically on the email blocks for article creations
 // TODO !!!! block same name articles on create and also skip article from sitemaps if no index is on
 // TODO !!!! Do not allow duplicate email in email collector
 // TODO !!!! get rid of the bottom banner globally and fix the top navigation to display buttons on narrow screens
 
+
+// TODO !! Ideally can upload the pdf resource automatically on the email blocks for article creations
 // TODO !!! Google Ad sense is getting activated waiting on request to use: https://www.google.com/adsense/new/u/6/pub-4796733535912629/onboarding
 // TODO !!!! Hit 50,000 sessions a month (usually around 60,000 pageviews), according to Google Analytics.
 // TODO !!! Then integrate Mediavine
