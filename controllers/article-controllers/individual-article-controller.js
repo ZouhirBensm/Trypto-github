@@ -34,7 +34,6 @@ async function controller2(req, res, next) {
 // TODO !!! Build chatGPT generator on aiaudiotoblog.bidblock.ca on another localhost:3001? and deploy scripts
 // TODO !!!! Need to optimise Blog Loads,
 // TODO !!!! Contact Meme instagram page owners
-// TODO !!!! Check out Surfer AI
 
 
 // TODO !!!! And also google search console api and build some a page showing the metrics in the operations in the articles link hub

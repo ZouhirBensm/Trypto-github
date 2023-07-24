@@ -78,7 +78,7 @@ const { authenticate_role_for_pages, authenticate_role_for_data } = require("../
 
 
 
-
+// TODO !!!! Now that I fixed the middleware that requires log in or logged out, make the market orders for see to all
 
 
 // Start middleware for this marketplaceBackend_app_router

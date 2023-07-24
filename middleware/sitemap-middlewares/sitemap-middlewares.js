@@ -55,13 +55,21 @@ async function middleware1(req, res, next) {
   let articles
 
   try {
-    articles = await Article.find().select("url publishedDate updateDate -_id")
+    articles = await Article.find()
+    .populate({
+      path: "articleheadtag_id",
+      select: "noindex -_id",
+    })
+    .select("url publishedDate updateDate -_id")
   } catch (error) {
     return next(error)
   }
 
+
   console.log("new!---->articles!\b", articles)
+
   // return res.status(200).end()
+
 
   if (!Array.isArray(articles) || !articles.length) {
     res.locals.urls = urls
@@ -73,6 +81,9 @@ async function middleware1(req, res, next) {
   for (let i = 0; i < articles.length; i++) {
 
     const article = articles[i];
+
+    if (article.articleheadtag_id.noindex) continue
+
     urls.push({ 
       URL: article.url, 
       lastmod: article.updateDate || article.publishedDate, 
@@ -83,6 +94,9 @@ async function middleware1(req, res, next) {
   }
 
   res.locals.urls = urls
+
+
+
   return next()
 
 }

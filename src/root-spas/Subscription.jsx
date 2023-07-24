@@ -13,9 +13,6 @@ const ChoosePlan = loadable(() => import("../subscription-functionalities/Choose
 });
 
 
-// TODO !!!!!
-// RegisterButton is the original
-// TEMPORAL RegisterButton2 needs testing
 const Register = loadable(() => import("../login-register-functionalities/Register2"), {
   fallback: <Loading />
 });

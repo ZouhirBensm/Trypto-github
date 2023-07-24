@@ -10,6 +10,8 @@ import RegisterNotification from './RegisterNotification'
 
 
 
+// TODO !!! with the honey pot method send the data to the back end in order to circumvent the email sending. Same as you did with the contact page
+// TODO !!! integrate GPTCopilot
 class Register extends React.Component {
   constructor(props) {
     super(props)

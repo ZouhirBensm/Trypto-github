@@ -37,9 +37,14 @@ async function middleware1(req, res, next) {
 
 
   let articles
-
+  
   try {
-    articles = await Article.find().select("url h1 -_id")
+    articles = await Article.find()
+    .populate({
+      path: "articleheadtag_id",
+      select: "noindex -_id",
+    })
+    .select("url h1 -_id")
   } catch (error) {
     return next(error)
   }
@@ -50,13 +55,15 @@ async function middleware1(req, res, next) {
     return next()
   }
 
-  console.log(articles, "\n\n")
+  // console.log(articles, "\n\n")
 
 
 
   for (let i = 0; i < articles.length; i++) {
 
     const article = articles[i];
+
+    if (article.articleheadtag_id.noindex) continue
 
     urls.push({ 
       URL: article.url,
