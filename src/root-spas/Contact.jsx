@@ -1,7 +1,7 @@
 import '../style/reactDivMobile.css'
 import './styles/Contact.css'
 
-
+// TODO !!!! need to style /contact page
 class Contact extends React.Component {
   constructor(props) {
     super(props);

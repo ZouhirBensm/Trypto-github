@@ -19,8 +19,7 @@ async function controller2(req, res, next) {
   })
 
 }
- 
-// TODO !!!! Need to set the document clients can download upon email placement 
+// Add CTA to request a quote towards /contacts page
 // TODO !! Ideally can upload the pdf resource automatically on the email blocks for article creations
 // TODO !!!! block same name articles on create and also skip article from sitemaps if no index is on
 // TODO !!!! Do not allow duplicate email in email collector
