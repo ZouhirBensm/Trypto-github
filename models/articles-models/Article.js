@@ -14,7 +14,8 @@ const Schema = mongoose.Schema
 const ArticleSchema = new Schema({
   h1: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   changefreq: {
     type: String,
@@ -22,11 +23,13 @@ const ArticleSchema = new Schema({
   },
   html_title: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   url: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   author_id: {
     type: mongoose.Schema.Types.ObjectId,

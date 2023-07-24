@@ -19,9 +19,7 @@ async function controller2(req, res, next) {
   })
 
 }
-// Add CTA to request a quote towards /contacts page
-// TODO !!!! block same name articles on create and also skip article from sitemaps if no index is on
-// TODO !!!! Do not allow duplicate email in email collector
+
 // TODO !!!! get rid of the bottom banner globally and fix the top navigation to display buttons on narrow screens
 
 

@@ -33,6 +33,10 @@ async function middleware1(req, res, next) {
       URL: '/users/forgotpasswordpage',
       Display: `${ENV.domain_without_protocol}'s Password reset page`
     },
+    {
+      URL: '/contact',
+      Display: `${ENV.domain_without_protocol}'s Contact Page`
+    },
   ];
 
 

@@ -49,6 +49,12 @@ async function middleware1(req, res, next) {
       changefreq: "monthly",
       priority: 0.5
     },
+    {
+      URL: '/contact',
+      lastmod: now, // TODO !!! Need to figure out when to update this and onto what date time
+      changefreq: "monthly",
+      priority: 1
+    },
   ];
 
 

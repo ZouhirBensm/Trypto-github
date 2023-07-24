@@ -43,7 +43,6 @@ function require_loggedin_for_pages(do_require_login){
 
 
 
-// TODO !!!! change this to have 2 options: need log in and does not need log in
 function require_loggedin_for_data(do_require_login){
   return (req, res, next) => {
 

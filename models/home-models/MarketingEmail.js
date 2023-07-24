@@ -7,7 +7,11 @@ const Schema = mongoose.Schema
 
 
 const MarketingEmailSchema = new Schema({
-    email: String
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    }
 })
 
 

@@ -470,7 +470,12 @@ homeController.deleteAccountController
 
 
 
-homeBackend_app_router.post('/marketing/email', requireRefererMiddleware, marketingMiddleware.emailValidationMidleware, marketingMiddleware.databaseCollectionSave, marketingController.emailSubmitController)
+homeBackend_app_router.post('/marketing/email', 
+requireRefererMiddleware, 
+marketingMiddleware.emailValidationMidleware, 
+marketingMiddleware.databaseCollectionSave, 
+marketingController.emailSubmitController
+)
 
 
 
