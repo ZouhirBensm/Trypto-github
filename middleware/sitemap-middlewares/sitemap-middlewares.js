@@ -66,7 +66,7 @@ async function middleware1(req, res, next) {
       path: "articleheadtag_id",
       select: "noindex -_id",
     })
-    .select("url publishedDate updateDate -_id")
+    .select("url publishedDate updateDate changefreq -_id")
   } catch (error) {
     return next(error)
   }
