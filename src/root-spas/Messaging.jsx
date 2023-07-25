@@ -3,6 +3,8 @@ import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
 import './styles/Messaging.css'
 
+import OnPageFooter from '../generic-components/OnPageFooter'
+
 
 
 const Messages = loadable(() => import("../messenger-functionalities/Messages"), {
@@ -43,7 +45,10 @@ class Messaging extends React.Component {
               <Route exact path="/messaging" component={ChatContainer} />
             </Switch>
           </BrowserRouter>
+          
+          <OnPageFooter/>
         </div>
+
 
         
       </React.Fragment>

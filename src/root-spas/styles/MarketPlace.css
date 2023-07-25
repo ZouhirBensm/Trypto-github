@@ -6,25 +6,9 @@ div#market {
 
 
 div#market-main-component {
-
-
-  /* height: 60vh; */
-
-
-  /* width: 94%; */
-  /* width: 94vw; */
   overflow: scroll;
-  /* border: 1px red solid; */
   position: absolute;
-  bottom: 50px;
-
-
-  /* top: 30%; */
   top: 180px;
-
-  /* left: 3%;
-  right: 3%; */
-  
   left: 0%;
   right: 0%;
 }

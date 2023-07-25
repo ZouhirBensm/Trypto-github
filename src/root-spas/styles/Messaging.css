@@ -4,10 +4,9 @@
 
 div#react-div>div {
   overflow: scroll;
-  /* border: 1px black solid; */
   position: absolute;
   top: 60px;
-  bottom: 60px;
+  bottom: 0;
   left: 0%;
   right: 0%; 
   display: flex;

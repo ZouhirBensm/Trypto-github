@@ -1,6 +1,8 @@
 div#messaging {
   /* height: 80vh; */
-  overflow: scroll;
+  
+  /* overflow: scroll; */
+  
   /* border: 1px black solid; */
   
   /* position: absolute;

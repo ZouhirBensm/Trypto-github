@@ -7,7 +7,7 @@
 import PageSelector from '../generic-components/PageSelector'
 import MessageTable from '../messenger-functionalities/MessageTable';
 
-import OnPageFooter from '../generic-components/OnPageFooter'
+
 
 import './styles/Messages.css' 
 
@@ -132,8 +132,6 @@ class Messages extends React.Component {
         </div>
         
       </div>
-
-        <OnPageFooter/>
         
         
       </React.Fragment>

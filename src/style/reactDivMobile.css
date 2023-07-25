@@ -6,15 +6,15 @@ Case 2:
 Case also when you have component B (nested) in component A (parent) and A adds more tags to B, then apply this styles to B - Note: you can also just style A's wrapper 
 */
 
+
+
 div#react-div {
-  /* height: 88vh; */
-  height: calc(100vh - 100px);
-  /* border: 1px black solid; */
+  /* height: calc(100vh - 100px);
+  bottom: 50px; */
+
   position: absolute;
   top: 50px;
-  bottom: 50px;
-  /* left: 2.5%;
-  right: 2.5%; */
+  bottom: 0;
   left: 0%;
   right: 0%;
   overflow-x: hidden;
@@ -22,3 +22,5 @@ div#react-div {
 
 
 }
+
+/* TODO !!!!! HERE make sure all pages are rendering correctly */
