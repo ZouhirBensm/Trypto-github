@@ -3,7 +3,7 @@ import './style/AllArticlesList.css'
 
 import Loading from '../generic-components/Loading'
 
-// TODO !!!! See how the loading Loading component is rendering on every time it is called, make sure it is properly positioned centered!
+// TODO !!!!! See how the loading Loading component is rendering on every time it is called, make sure it is properly positioned centered!
 
 class AllArticlesList extends React.Component {
   constructor(props) {
