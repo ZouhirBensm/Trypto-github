@@ -50,3 +50,8 @@ main#terms-conditions-high-component>section ul {
 }
 
 main#terms-conditions-high-component>section li {}
+
+
+main#terms-conditions-high-component>section a{
+  color: #1266FC;
+}

@@ -138,11 +138,9 @@ class TermsConditions extends React.Component {
           <section>
             <h2>Google</h2>
             <div>
-              {/* TODO !!!!! fix these to better copywrite */}
-              <span><a href="www.google.com/policies/privacy/partners/">How Google uses information (Google Analytics Policies)</a> from sites or apps that use our services</span>
-              <span>Your use of cookies, identifiers for mobile devices (e.g., Android Advertising Identifier or Advertising Identifier for iOS) or similar technology used to collect data.</span>
-              <span>You must disclose the use of Google Analytics, and how it collects and processes data.</span>
-              <span>You will use commercially reasonable efforts to ensure that a User is provided with clear and comprehensive information about, and consents to, the storing and accessing of cookies or other information on the User's device where such activity occurs in connection with the Service and where providing such information and obtaining such consent is required by law.</span>
+              <span>We utilize Google Analytics, which collects and processes data.</span>
+              <span>We use some Google services. <a href="www.google.com/policies/privacy/partners/">See how Google uses information (Google Analytics Policies)</a> from sites or apps that use their services.</span>
+              <span>Google services use cookies and identifiers for mobile devices (e.g., Android Advertising Identifier or Advertising Identifier for iOS) or similar technology used to collect data.</span>
             </div>
             
           </section>
