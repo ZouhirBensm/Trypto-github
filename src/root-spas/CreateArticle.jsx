@@ -70,117 +70,110 @@ class CreateArticle extends React.Component {
       
       create_true_edit_false: true, // DEFAULT SET TO CREATE
       step: 1,
-      html_title: "Some random title", // CHECK (ArticleHeadTag)
+      html_title: "How to Create SaaS?", // CHECK (ArticleHeadTag)
       changefreq: "weekly",
-      meta_title: "Some random title2",
-      meta_description: "Some random description", // CHECK (ArticleHeadTag)
+      meta_title: "How to Create SaaS?",
+      meta_description: "Article laying out explicitly and comprehensively how to Create SaaS.", // CHECK (ArticleHeadTag)
       canonical: undefined, // CHECK (ArticleHeadTag)
       noindex: true, // CHECK (ArticleHeadTag)
       nofollow: false, // CHECK (ArticleHeadTag)
-      keywords: ['opti for this', 'and for that'], // CHECK (ArticleBodyHeader)
+      keywords: ['How to Create SaaS?', 'Is it hard to build a SaaS?', 'Advantages of SaaS products', 'What is a SaaS application?', 'Types of SaaS applications', 'How to build a software product roadmap', 'Create SaaS without coding?', 'Benefits of SaaS apps', 'Build a SaaS application, product, and business', 'Build a SaaS step by step', 'How to build a SaaS by yourself?'], // CHECK (ArticleBodyHeader)
+
       // category: "bitcoin", // CHECK (ArticleBodyHeader)
-      category: "bitcoin", // CHECK (ArticleBodyHeader)
-      banner_img_alt: "some alt txt for the image", // CHECK (ArticleBodyHeader)
-      h1: "The H1 title", // CHECK (ArticleBodyHeader)
+      category: "business", // CHECK (ArticleBodyHeader)
+      banner_img_alt: "Image of startup headquarters, with software engineers sitting at their desks.", // CHECK (ArticleBodyHeader)
+      h1: "How to Create SaaS?", // CHECK (ArticleBodyHeader)
 
 
       // banner_image_path
       banner_image_file: undefined, // CHECK (ArticleEnclosureImage)
       banner_image_name: undefined, // NO NEED TO SAVE
 
-      abstract_name_type: "Resume",
+      abstract_name_type: "Summary",
       abstract_points: [
-        "Lorem, ipsum",
-        "dolor <strong>sit amet consectetur</strong> adipisicing",
-        "elit. <strong>Eum</strong> aspernatur<strong> cupiditate</strong>",
-        "<strong>atque</strong> culpa deleniti cum nesciunt eveniet"
+        "Attaining success is feasible with a <strong>strategic approach</strong> and a <strong>comprehensive understanding of the process.</strong>",
+        "Building a SaaS product disposes of <strong>lucrative financial</strong> rewards if <strong>marketing</strong> and <strong>product market fit</strong> is on point.",
+        "First, you need to draft a <strong>business plan</strong>, then ask yourself critical questions about your <strong>product, market landscape and competitors</strong>. Finally, you need to market and build your product simultaneously.",
+        "You can utilize <strong>no-code, low-code platforms</strong> or use <strong>custom code</strong> solutions.",
+        "You can do everything yourself or <strong>hire an agency or freelancers</strong> for building, marketing and design."
       ],
 
 
 
-
-      content_structure: [SECTION_TYPES.H2, SECTION_TYPES.SUMMERNOTE, SECTION_TYPES.EMAIL, 
-        // SECTION_TYPES.H3, SECTION_TYPES.IFRAME, SECTION_TYPES.IMG, SECTION_TYPES.IMG, SECTION_TYPES.A, SECTION_TYPES.EMAIL, SECTION_TYPES.A
+      content_structure: [
+        SECTION_TYPES.H2,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.IMG,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.IMG,
+        SECTION_TYPES.H2,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.IMG,
+        SECTION_TYPES.H2,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.IMG,
+        SECTION_TYPES.H2,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.IMG,
+        SECTION_TYPES.H2,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.IMG,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.IMG,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.H3,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.IMG,
+        SECTION_TYPES.H2,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.EMAIL,
+        SECTION_TYPES.SUMMERNOTE,
+        SECTION_TYPES.A,
+        SECTION_TYPES.H2,
+        SECTION_TYPES.SUMMERNOTE
       ],
       e: undefined,
-      nested_data: [
-        {
-          "id": 1,
-          "type": "H2",
-          "H2_innerHTML": "Some h2 title"
-        },
-        {
-          "id": 2,
-          "type": "SUMMERNOTE",
-          "SUMMERNOTE_innerHTML": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit magni necessitatibus quos illum qui alias blanditiis, impedit facilis vero, provident nesciunt modi ad obcaecati libero vel quidem veritatis ipsa sunt!</p><p>I hope this works!</p><p>I hope this works!</p><p>adding&nbsp;a link&nbsp;to <a href=\"https://google.com\" target=\"_blank\">google</a>. bla.</p><ul><li>one</li><li>two bla bla&nbsp;<a href=\"https://yahoo..com\" target=\"_blank\">yahoo</a> ici. bla.</li><li>this is amazing!</li></ul>"
-        },
-        {
-          "id": 3,
-          "type": "EMAIL",
-          "EMAIL_title": "title1",
-          "EMAIL_subtitle": "subtitle1",
-          "BUTTON_text": "send"
-        },
-        // {
-        //   "id": 4,
-        //   "type": "H3",
-        //   "H3_innerHTML": "some h3 element"
-        // },
-        // {
-        //   "id": 5,
-        //   "type": "IFRAME",
-        //   "iframe_name": "Some name",
-        //   "iframe_description": "Some description",
-        //   "iframe_source": "https://www.youtube.com/embed/s2LmubDQ4RI"
-        // },
-        // {
-        //   "id": 6,
-        //   "type": "IMG",
-        //   "img_width": "200",
-        //   "img_height": "200",
-        //   "img_alt": "Algerians",
-        //   "img_description": "Phenotype of algerians",
-        // },
-        // {
-        //   "id": 7,
-        //   "type": "IMG",
-        //   "img_src": "https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2023/revuelto/revuelto_m.png",
-        //   "img_alt": "Lambo",
-        //   "img_width": "300",
-        //   "img_height": "200",
-        //   "img_description": "a Lambo"
-        // },
-        // {
-        //   "id": 8,
-        //   "type": "A",
-        //   "A_href": "https://en.wikipedia.org/wiki/Cars_(film)",
-        //   "A_innerText": "Wiki cars",
-        //   "A_title": "a title",
-        //   "newtab": true,
-        //   "ugc": true,
-        //   "nofollow": true,
-        //   "noopener": true
-        // },
-        // {
-        //   "id": 9,
-        //   "type": "EMAIL",
-        //   "EMAIL_title": "title2",
-        //   "EMAIL_subtitle": "subtitle2"
-        // },
-        // {
-        //   "id": 10,
-        //   "type": "A",
-        //   "A_href": "https://www.bbc.com/news/world-europe-66104632",
-        //   "A_title": "BBC franch",
-        //   "newtab": true,
-        //   "image_mode_on": true,
-        //   "img_width": "350",
-        //   "img_height": "100",
-        //   "img_src": "https://ichef.bbci.co.uk/news/976/cpsprodpb/14044/production/_130288918_amin.png.webp",
-        //   "img_alt": "some ugly fuck",
-        //   "img_description": "some ugly fuck"
-        // }
-      ]
+      nested_data: []
 
 
     }
