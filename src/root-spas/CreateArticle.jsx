@@ -34,146 +34,32 @@ class CreateArticle extends React.Component {
   constructor() {
     super()
     this.state = {
-      // create_true_edit_false: true, // DEFAULT SET TO CREATE
-      // step: 1,
-      // // STEP 1
-      // html_title: "",
-      // changefreq: "",
-      // meta_title: "",
-      // meta_description: "",
-      // canonical: undefined,
-      // noindex: false,
-      // nofollow: false,
-      // // STEP 2
-      // keywords: [],
-      // category: "",
-      // // publisher name, email, and link are default values for now
-      // banner_image_name: undefined,
-      // banner_image_file: undefined,
-      // // banner_image_path
-      // banner_img_alt: "",
-      // h1: "",
-      // // author is logged in username
-      // // published_datetime is default now upon creation
-      // abstract_name_type: "",
-      // abstract_points: [],
-      // content_structure: [SECTION_TYPES.H2],
-      // nested_data: [],
-      // e: undefined,
-
-
-      // // _____________________________________________________
-
-
-      // TEMPORAL
-      // USED TO TEST CREATE QUICKLY
-      
       create_true_edit_false: true, // DEFAULT SET TO CREATE
       step: 1,
-      html_title: "How to Create SaaS?", // CHECK (ArticleHeadTag)
-      changefreq: "weekly",
-      meta_title: "How to Create SaaS?",
-      meta_description: "Article laying out explicitly and comprehensively how to Create SaaS.", // CHECK (ArticleHeadTag)
-      canonical: undefined, // CHECK (ArticleHeadTag)
-      noindex: true, // CHECK (ArticleHeadTag)
-      nofollow: false, // CHECK (ArticleHeadTag)
-      keywords: ['How to Create SaaS?', 'Is it hard to build a SaaS?', 'Advantages of SaaS products', 'What is a SaaS application?', 'Types of SaaS applications', 'How to build a software product roadmap', 'Create SaaS without coding?', 'Benefits of SaaS apps', 'Build a SaaS application, product, and business', 'Build a SaaS step by step', 'How to build a SaaS by yourself?'], // CHECK (ArticleBodyHeader)
-
-      // category: "bitcoin", // CHECK (ArticleBodyHeader)
-      category: "business", // CHECK (ArticleBodyHeader)
-      banner_img_alt: "Image of startup headquarters, with software engineers sitting at their desks.", // CHECK (ArticleBodyHeader)
-      h1: "How to Create SaaS?", // CHECK (ArticleBodyHeader)
-
-
+      // STEP 1
+      html_title: "",
+      changefreq: "",
+      meta_title: "",
+      meta_description: "",
+      canonical: undefined,
+      noindex: false,
+      nofollow: false,
+      // STEP 2
+      keywords: [],
+      category: "",
+      // publisher name, email, and link are default values for now
+      banner_image_name: undefined,
+      banner_image_file: undefined,
       // banner_image_path
-      banner_image_file: undefined, // CHECK (ArticleEnclosureImage)
-      banner_image_name: undefined, // NO NEED TO SAVE
-
-      abstract_name_type: "Summary",
-      abstract_points: [
-        "Attaining success is feasible with a <strong>strategic approach</strong> and a <strong>comprehensive understanding of the process.</strong>",
-        "Building a SaaS product disposes of <strong>lucrative financial</strong> rewards if <strong>marketing</strong> and <strong>product market fit</strong> is on point.",
-        "First, you need to draft a <strong>business plan</strong>, then ask yourself critical questions about your <strong>product, market landscape and competitors</strong>. Finally, you need to market and build your product simultaneously.",
-        "You can utilize <strong>no-code, low-code platforms</strong> or use <strong>custom code</strong> solutions.",
-        "You can do everything yourself or <strong>hire an agency or freelancers</strong> for building, marketing and design."
-      ],
-
-
-
-      content_structure: [
-        SECTION_TYPES.H2,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.IMG,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.IMG,
-        SECTION_TYPES.H2,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.IMG,
-        SECTION_TYPES.H2,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.IMG,
-        SECTION_TYPES.H2,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.IMG,
-        SECTION_TYPES.H2,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.IMG,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.IMG,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.H3,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.IMG,
-        SECTION_TYPES.H2,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.EMAIL,
-        SECTION_TYPES.SUMMERNOTE,
-        SECTION_TYPES.A,
-        SECTION_TYPES.H2,
-        SECTION_TYPES.SUMMERNOTE
-      ],
+      banner_img_alt: "",
+      h1: "",
+      // author is logged in username
+      // published_datetime is default now upon creation
+      abstract_name_type: "",
+      abstract_points: [],
+      content_structure: [SECTION_TYPES.H2],
+      nested_data: [],
       e: undefined,
-      nested_data: []
 
 
     }
