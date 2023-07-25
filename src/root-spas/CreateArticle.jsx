@@ -68,7 +68,7 @@ class CreateArticle extends React.Component {
       changefreq: "weekly",
       meta_title: "How to Create SaaS?",
       meta_description: "Article laying out explicitly and comprehensively how to Create SaaS.",
-      noindex: true,
+      noindex: false,
       nofollow: false,
       keywords: [
         "How to Create SaaS?",
