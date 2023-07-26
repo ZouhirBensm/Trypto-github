@@ -427,7 +427,8 @@ checkCredentialsPresentMiddleware,
 checkIfClientIsUserMiddleware,
 checkClientIsActiveMiddleware,
 passwordVerifierMiddleware,
-LoginController.loginController)
+LoginController.loginController
+)
 
 
 

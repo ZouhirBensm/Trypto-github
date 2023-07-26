@@ -3,8 +3,9 @@ const { LoggingInError } = require('../../custom-errors/custom-errors')
 
 module.exports = async (req,res,next)=>{
 
+  const email = new RegExp(req.body.email, 'i')
 
-  let foundUserIfAny = await User.findOne({email: req.body.email}).select("active password _id")
+  let foundUserIfAny = await User.findOne({email: email}).select("active password _id")
   console.log({foundUserIfAny})
 
   if(!foundUserIfAny) {

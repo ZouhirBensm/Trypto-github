@@ -21,6 +21,15 @@ async function controller2(req, res, next) {
 }
 
 
+// TODO !!!!! Save master disk drive
+// TODO !!!!! responsive article images
+// TODO !!!!! test download on article
+// TODO !!!!! change h1 header color
+// TODO !!!!! change summary strong color
+// TODO !!!!! link bottom to social media
+// TODO !!!!! write social media copywrite post message
+// TODO !!!!! post articles on social media
+
 // TODO !!!!! top nav icons overflow on a mobile layout, find solution
 
 
