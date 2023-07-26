@@ -21,9 +21,11 @@ async function controller2(req, res, next) {
 }
 
 
+// TODO !!!!! Set grammarly access to riadh
+// TODO !!!!! Government personal account Gkey email edit now businessZBRS -> freelancebenz@gmail.com
 // TODO !!!!! Save master disk drive
 // TODO !!!!! responsive article images
-// TODO !!!!! test download on article
+
 // TODO !!!!! change h1 header color
 // TODO !!!!! change summary strong color
 // TODO !!!!! link bottom to social media
