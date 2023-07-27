@@ -20,23 +20,8 @@ async function controller2(req, res, next) {
 
 }
 
-// Pinterest
-
-// Facebook done
-// Tiktok can't
-// Instagram done
-// Discord done
-// Reddit done
-// Quora done
-// Linked done
-// Twitter done
 
 
-// TODO !!!!! Add github copilot
-// TODO !!!!! Implement andf See and test if rich display are working
-// TODO !!!!! post articles on social media
-
-// TODO !!!!! link bottom to social media
 
 // TODO !!!!! top nav icons overflow on a mobile layout, find solution
 

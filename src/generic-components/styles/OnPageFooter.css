@@ -66,6 +66,11 @@ div#footer-on-page > div#nav402 > * {
   margin: 0 .5ch;
 }
 
+div#footer-on-page > div#nav402 img.small {
+  width: 17px;
+  height: 17px;
+}
+
 
 div#footer-on-page > img[src='/img/SVG/on-page-footer/group.svg'] {
   bottom: 50px;
