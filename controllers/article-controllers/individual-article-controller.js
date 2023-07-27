@@ -21,13 +21,10 @@ async function controller2(req, res, next) {
 }
 
 
-// TODO !!!!! responsive article images
-
-// TODO !!!!! change h1 header color
-// TODO !!!!! change summary strong color
-// TODO !!!!! link bottom to social media
-// TODO !!!!! write social media copywrite post message
+// TODO !!!!! Implement andf See and test if rich display are working
 // TODO !!!!! post articles on social media
+
+// TODO !!!!! link bottom to social media
 
 // TODO !!!!! top nav icons overflow on a mobile layout, find solution
 

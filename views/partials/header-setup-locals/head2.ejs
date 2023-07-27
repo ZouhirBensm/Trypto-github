@@ -68,6 +68,27 @@
 
 
 
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content=<%=locals.article.articleheadtag_id.canonical%>>
+  <meta property="og:title" content="<%=locals.article.h1%>">
+  <meta property="og:description" content="<%-locals.article.articleheadtag_id.meta_description%>">
+  <meta property="og:image" content="<%=locals.article.articleenclosureimage_id.path%>">
+
+  <!-- Pinterest-->
+  <meta property="pinterest:richpins" content="<%=locals.article.h1%>">
+
+  <!-- LinkedIn specific meta tags -->
+  <meta property="og:site_name" content="<%=process.env.DOMAIN_WITHOUT_PROTOCOL%>">
+
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@bidblockcanada">
+  <meta name="twitter:title" content="<%=locals.article.html_title%>">
+  <meta name="twitter:description" content="<%-locals.article.articleheadtag_id.meta_description%>">
+  <meta name="twitter:image" content="<%=locals.article.articleenclosureimage_id.path%>">
+
 
 
 </head>
