@@ -1,0 +1,4 @@
+main#content_id > div[itemprop="image"] > img {
+  width: 90% !important;
+  height: auto !important;
+}
