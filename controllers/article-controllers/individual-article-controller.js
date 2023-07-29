@@ -46,6 +46,13 @@ async function controller2(req, res, next) {
 // TODO !!! several Loading spinners are showing up when the main operations page is loading to show the admin blocks
 
 
+// TODO !!!! earn answers -> luke bulmar blog, sql set, fix html, crud on articles, log in, white label SEO google search API data dashboard to sell (chrome extention), twitter space downloader
+
+// TODO !!!! register to product hunt for bidblock and earnanswers
+
+// TODO !!! Category and subcategory, add to seach filters, and add reall wallet types
+
+
 
 module.exports = {
   controller1,

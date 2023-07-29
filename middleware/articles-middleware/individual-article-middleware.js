@@ -50,7 +50,7 @@ async function middleware2(req, res, next) {
   // res.locals.article_title = req.params.article_title ?  req.params.article_title : undefined
   res.locals.head = 2
 
-  let EMAIL_blocks = res.locals.article.articlenesteddata_id.blocks.filter(block => { return block.type == SECTION_TYPES.EMAIL });
+  let EMAIL_blocks = res.locals.article?.articlenesteddata_id.blocks.filter(block => { return block.type == SECTION_TYPES.EMAIL });
 
 
   if (!EMAIL_blocks) return next()
