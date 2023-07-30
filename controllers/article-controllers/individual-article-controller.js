@@ -21,9 +21,7 @@ async function controller2(req, res, next) {
 }
 
 
-// TODO !!!!! Re post tiktok with better caption
-
-// TODO !!!!! Link Bubble article to SaaS article, fix the ' rendering in the email block, add a tags to proper sources, resync and submit sitemap, post on social media
+// TODO !!!! resync and submit sitemap, post on social media
 
 
 // TODO !!!!! top nav icons overflow on a mobile layout, find solution

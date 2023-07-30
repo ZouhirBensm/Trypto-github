@@ -479,7 +479,7 @@ async function ordersRetrievalMiddleware(req, res, next) {
   })
 
   console.log('\n\n--->\nres.locals.URL_fromReferer: ', res.locals.URL_fromReferer)
-  // console.log(`\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/`)
+  console.log(`\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/`)
 
   if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/marketplace/allmyorders`
     ||
