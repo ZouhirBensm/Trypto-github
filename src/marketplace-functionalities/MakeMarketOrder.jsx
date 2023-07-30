@@ -37,6 +37,7 @@ class MakeMarketOrder extends React.Component {
       title: undefined,
       description: undefined,
       category: undefined,
+      subcategory: undefined,
       condition: undefined,
       expirytime: undefined,
       expirydate: undefined,
@@ -192,6 +193,7 @@ class MakeMarketOrder extends React.Component {
           title={this.state.title}
           description={this.state.description}
           category={this.state.category}
+          subcategory={this.state.subcategory}
           condition={this.state.condition}
           expirydate={this.state.expirydate}
           expirytime={this.state.expirytime}

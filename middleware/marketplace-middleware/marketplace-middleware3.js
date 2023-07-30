@@ -45,6 +45,13 @@ const agendaDefineJobFunctions = require('../../full-stack-libs/define-agenda-jo
 
 
 
+async function seeDataRespond(req, res, next) {
+  console.log('\n\n$$$req.body---->\n', req.body)
+  console.log('\n\n$$$req.files---->\n', req.files)
+
+
+  res.status(200).end()
+}
 
 
 async function instantiateMarketOrderLocationMiddleware(req, res, next) {
@@ -519,6 +526,7 @@ async function ordersRetrievalMiddleware(req, res, next) {
 
 
 marketplaceMiddleware = {
+  seeDataRespond: seeDataRespond,
   ordersRetrievalMiddleware: ordersRetrievalMiddleware,
   instantiateMarketOrderLocationMiddleware: instantiateMarketOrderLocationMiddleware,
   instantiateMarketOrderMiddleware: instantiateMarketOrderMiddleware,

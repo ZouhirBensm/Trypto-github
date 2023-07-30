@@ -9,17 +9,25 @@ class _1_InputGeneralMarketOrder extends React.Component {
     super(props)
     this.state = {}
 
+    this.inputTitle = React.createRef();
+    this.textAreaDescription = React.createRef();
+    this.selectCategory = React.createRef();
+    this.selectSubcategory = React.createRef();
+    this.selectCondition = React.createRef();
+    this.inputExpiryDate = React.createRef();
+    this.inputExpiryTime = React.createRef();
   }
 
 
   async validation() {
     let _1_InputGeneralMarketOrder_data = {
-      title: document.getElementById("form_id").elements["title"].value,
-      description: document.getElementById("form_id").elements["description"].value,
-      category: document.getElementById("form_id").elements["category"].value,
-      condition: document.getElementById("form_id").elements["condition"].value,
-      expirydate: document.getElementById("form_id").elements["expirydate"].value,
-      expirytime: document.getElementById("form_id").elements["expirytime"].value,
+      title: this.inputTitle.current.value,
+      description: this.textAreaDescription.current.value,
+      category: this.selectCategory.current.value,
+      subcategory: this.selectSubcategory.current.value,
+      condition: this.selectCondition.current.value,
+      expirydate: this.inputExpiryDate.current.value,
+      expirytime: this.inputExpiryTime.current.value,
     }
 
     console.log(_1_InputGeneralMarketOrder_data)
@@ -46,13 +54,13 @@ class _1_InputGeneralMarketOrder extends React.Component {
           <form className="form" id="form_id">
 
             <label htmlFor="title-select">Title</label>
-            <input type="text" id="title-select" name="title" required value={this.props.title || ''} onChange={(e) => this.props.handleChange("title", e)} placeholder='Article title' />
+            <input ref={this.inputTitle} type="text" id="title-select" name="title" required value={this.props.title || ''} onChange={(e) => this.props.handleChange("title", e)} placeholder='Article title' />
 
             <label htmlFor="description-select">Description</label>
-            <textarea name="description" id="description-select" rows="3" required value={this.props.description || ''} onChange={(e) => this.props.handleChange("description", e)} placeholder='Article details'></textarea >
+            <textarea ref={this.textAreaDescription} name="description" id="description-select" rows="3" required value={this.props.description || ''} onChange={(e) => this.props.handleChange("description", e)} placeholder='Article details'></textarea >
 
             <label className='picker-label' htmlFor="category-select">Category</label>
-            <select className='picker' name="category" id="category-select" required value={this.props.category} onChange={(e) => this.props.handleChange("category", e)}>
+            <select ref={this.selectCategory} className='picker' name="category" id="category-select" required value={this.props.category} onChange={(e) => this.props.handleChange("category", e)}>
               <option value="">No Selection</option>
               <option value="Other">Other</option>
               <option value="Kitchen">Kitchen</option>
@@ -63,9 +71,17 @@ class _1_InputGeneralMarketOrder extends React.Component {
               <option value="Furniture">Furniture</option>
             </select><br />
 
+            <label className='picker-label' htmlFor="subcategory-select">Subcategory</label>
+            <select ref={this.selectSubcategory} className='picker' name="subcategory" id="subcategory-select" required value={this.props.subcategory} onChange={(e) => this.props.handleChange("subcategory", e)}>
+              <option value="">No Selection</option>
+              <option value="Sub1">Sub1</option>
+              <option value="Sub2">Sub2</option>
+              <option value="Sub3">Sub3</option>
+            </select><br />
+
 
             <label className='picker-label' htmlFor="condition-input">Condition</label>
-            <select className='picker' name="condition" id="condition-input" required value={this.props.condition} onChange={(e) => this.props.handleChange("condition", e)}>
+            <select ref={this.selectCondition} className='picker' name="condition" id="condition-input" required value={this.props.condition} onChange={(e) => this.props.handleChange("condition", e)}>
               <option value="">No Selection</option>
               <option value={1}>Brand new</option>
               <option value={2}>Just opened</option>
@@ -75,10 +91,10 @@ class _1_InputGeneralMarketOrder extends React.Component {
 
 
             <label htmlFor="expirydate-select">Order Expiry Date</label>
-            <input id="expirydate-select" type="date" name="expirydate" required value={this.props.expirydate || ''} onChange={(e) => this.props.handleChange("expirydate", e)} />
+            <input ref={this.expirydate} id="expirydate-select" type="date" name="expirydate" required value={this.props.expirydate || ''} onChange={(e) => this.props.handleChange("expirydate", e)} />
 
             <label htmlFor="expirytime-select">Order Expiry Time</label>
-            <input id="expirytime-select" type="time" name="expirytime" required value={this.props.expirytime || ''} onChange={(e) => this.props.handleChange("expirytime", e)} />
+            <input ref={this.expirytime} id="expirytime-select" type="time" name="expirytime" required value={this.props.expirytime || ''} onChange={(e) => this.props.handleChange("expirytime", e)} />
 
           </form>
         </div>

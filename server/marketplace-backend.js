@@ -178,20 +178,24 @@ marketplaceBackend_app_router.get(['/sellordersdata/:orderID', '/allmyorders/:or
 
 
 
-
+// TODO !!!! after adding sub category, search adapted, operations adapted, schema adapted, view adapted, edit adapted, add ref where possible.
 
 
 marketplaceBackend_app_router.post('/sellorders/save/:userID?', 
-require_loggedin_for_data(true), 
-requester_auth_middleware(2), 
+// require_loggedin_for_data(true), 
+// requester_auth_middleware(2), 
 multerinstance.upload.array('image'), 
-marketplaceMiddleware.instantiateMarketOrderLocationMiddleware, 
-marketplaceMiddleware.instantiateMarketOrderMiddleware,
-marketplaceMiddleware.processImageFilesMiddleware,
-marketplaceMiddleware.instantiateMarketOrderImagesMiddleware,
-marketplaceMiddleware.saveAllMarketOrderMiddleware,
-marketplaceMiddleware.setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware,
-marketplaceController.registerMarketOrderController
+
+marketplaceMiddleware.seeDataRespond
+
+
+// marketplaceMiddleware.instantiateMarketOrderLocationMiddleware, 
+// marketplaceMiddleware.instantiateMarketOrderMiddleware,
+// marketplaceMiddleware.processImageFilesMiddleware,
+// marketplaceMiddleware.instantiateMarketOrderImagesMiddleware,
+// marketplaceMiddleware.saveAllMarketOrderMiddleware,
+// marketplaceMiddleware.setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware,
+// marketplaceController.registerMarketOrderController
 )
 
 
