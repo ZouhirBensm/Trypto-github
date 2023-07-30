@@ -1,6 +1,7 @@
 
 import LocalityFilter from "./LocalityFilter"
 import '../style/SearchWindow.css'
+import BITCOIN_CHAINS_WALLETS from "../../../full-stack-libs/Types/BitcoinChainsWallets"
 
 
 const rangeMin = 10
@@ -225,9 +226,9 @@ class SearchWindow extends React.Component {
 
             <select className='picker' name="chain" id="chain-select" defaultValue={this.props.searchEngineState.chainTerm}>
               <option value="">BTC Type/Chain</option>
-              <option value="Bitcoin Base Chain">Bitcoin Base Chain</option>
-              <option value="Bitcoin Lightning">Bitcoin Lightning</option>
-              <option value="Bitcoin Liquid">Bitcoin Liquid</option>
+              <option value={BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.name}>{BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.name}</option>
+              <option value={BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name}>{BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name}</option>
+              <option value={BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.name}>{BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.name}</option>
             </select>
 
 

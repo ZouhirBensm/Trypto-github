@@ -21,7 +21,9 @@ async function controller2(req, res, next) {
 }
 
 
-// TODO !!!! resync and submit sitemap, post on social media
+// TODO !!!! Hide message, CRUD messages, Add subcategories.
+
+// TODO !!!! post on social media
 
 
 // TODO !!!!! top nav icons overflow on a mobile layout, find solution

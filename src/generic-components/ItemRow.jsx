@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import PriceToogler from '../marketplace-functionalities/market-order-list-components/PriceToogler'
+import BITCOIN_CHAINS_WALLETS from '../../full-stack-libs/Types/BitcoinChainsWallets'
 
 
 import { countWords, takeUntilWordNumber } from '../../full-stack-libs/utils'
@@ -22,13 +23,13 @@ class ItemRow extends React.Component {
 
     let chain_logo_img_src
     switch (order.chain) {
-      case "Bitcoin Lightning":
+      case BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.name:
         chain_logo_img_src = '/img/PNG/chain-logo/lightning.png'
         break;
-      case "Bitcoin Liquid":
+      case BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.name:
         chain_logo_img_src = '/img/PNG/chain-logo/liquid.png'
         break;
-      case "Bitcoin Base Chain":
+      case BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.name:
         chain_logo_img_src = '/img/PNG/chain-logo/bitcoin.png'
         break;
 

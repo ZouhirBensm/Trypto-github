@@ -1,3 +1,4 @@
+import BITCOIN_CHAINS_WALLETS from '../../../full-stack-libs/Types/BitcoinChainsWallets';
 import './style/ChainWalletInformation.css'
 
 class ChainWalletInformation extends React.Component {
@@ -16,13 +17,13 @@ class ChainWalletInformation extends React.Component {
     let chain_logo_img_src;
 
     switch (this.props.chain) {
-      case "Bitcoin Lightning":
+      case BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name:
         chain_logo_img_src = '/img/PNG/chain-logo/lightning.png'
         break;
-      case "Bitcoin Liquid":
+      case BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.name:
         chain_logo_img_src = '/img/PNG/chain-logo/liquid.png'
         break;
-      case "Bitcoin Base Chain":
+      case BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.name:
         chain_logo_img_src = '/img/PNG/chain-logo/bitcoin.png'
         break;
       default:

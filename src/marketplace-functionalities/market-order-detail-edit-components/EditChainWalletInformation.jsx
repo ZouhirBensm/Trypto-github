@@ -1,3 +1,4 @@
+import BITCOIN_CHAINS_WALLETS from '../../../full-stack-libs/Types/BitcoinChainsWallets'
 import { validateInputs } from '../../../full-stack-libs/validations'
 import './style/EditChainWalletInformation.css'
 
@@ -25,16 +26,16 @@ class EditChainWalletInformation extends React.Component {
     let tag_options_arr_data = []
     let message = undefined
 
-    if (_chain == "Bitcoin Base Chain") {
-      tag_options_arr_data = ["Wallet1", "Wallet2", "Wallet3", "Wallet4"]
+    if (_chain == BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.name) {
+      tag_options_arr_data = BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.wallets
       options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
     }
-    else if (_chain == "Bitcoin Lightning") {
-      tag_options_arr_data = ["Wallet5", "Wallet6", "Wallet7", "Wallet8"]
+    else if (_chain == BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name) {
+      tag_options_arr_data = BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.wallets
       options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
     }
-    else if (_chain == "Bitcoin Liquid") {
-      tag_options_arr_data = ["Wallet9", "Wallet10", "Wallet11", "Wallet12"]
+    else if (_chain == BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.name) {
+      tag_options_arr_data = BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.wallets
       options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
     }
     else {
@@ -89,9 +90,9 @@ class EditChainWalletInformation extends React.Component {
             this.onChange(e);
           }}>
             <option value="">No Selection</option>
-            <option value="Bitcoin Base Chain">Bitcoin Base Chain</option>
-            <option value="Bitcoin Lightning">Bitcoin Lightning</option>
-            <option value="Bitcoin Liquid">Bitcoin Liquid</option>
+            <option value={BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.name}>{BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.name}</option>
+            <option value={BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name}>{BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name}</option>
+            <option value={BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.name}>{BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.name}</option>
           </select> <br />
 
 

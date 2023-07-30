@@ -1,3 +1,4 @@
+import BITCOIN_CHAINS_WALLETS from '../../../full-stack-libs/Types/BitcoinChainsWallets'
 import { validateInputs } from '../../../full-stack-libs/validations'
 import '../style/_2_InputNumbersMarketOrder.css'
 
@@ -12,14 +13,20 @@ class _2_InputNumbersMarketOrder extends React.Component {
       unit: "BTC",
     }
     this.amountsToCalculatorChange = this.amountsToCalculatorChange.bind(this)
+    
+    
+    this.selectCategory = React.createRef();
+    this.inputPrice = React.createRef();
+    this.inputConversion = React.createRef();
+    this.selectPayment = React.createRef();
   }
 
   async validation() {
     let _2_InputNumbersMarketOrder_data = {
-      chain: document.getElementById("form_id").elements["chain"].value,
-      price: document.getElementById("form_id").elements["price"].value,
-      conversion: document.getElementById("form_id").elements["conversion"].value,
-      payment: document.getElementById("form_id").elements["payment"].value
+      chain: this.selectCategory.current.value,
+      price: this.inputPrice.current.value,
+      conversion: this.inputConversion.current.value,
+      payment: this.selectPayment.current.value
     }
 
     console.log(_2_InputNumbersMarketOrder_data)
@@ -65,20 +72,20 @@ class _2_InputNumbersMarketOrder extends React.Component {
 
             <label className='picker-label' htmlFor="chain-input">Chain Network</label>
 
-            <select className='picker' onChange={(e) => {
+            <select ref={this.selectCategory} className='picker' onChange={(e) => {
               this.props.handleChange("chain", e);
             }} name="chain" id="chain-input" required value={this.props.chain}>
 
               <option value="">No Selection</option>
-              <option value="Bitcoin Base Chain">Bitcoin Base Chain</option>
-              <option value="Bitcoin Lightning">Bitcoin Lightning</option>
-              <option value="Bitcoin Liquid">Bitcoin Liquid</option>
+              <option value={BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.name}>{BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.name}</option>
+              <option value={BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name}>{BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name}</option>
+              <option value={BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.name}>{BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.name}</option>
 
             </select>
 
 
             <label htmlFor="price-input">Price in USD</label>
-            <input onChange={(e) => {
+            <input ref={this.inputPrice} onChange={(e) => {
               this.props.handleChange("price", e);
               this.amountsToCalculatorChange(e);
             }} type="number" id="price-input" name="price" step="0.01" required value={this.props.price || ''} placeholder='USD' />
@@ -90,7 +97,7 @@ class _2_InputNumbersMarketOrder extends React.Component {
 
 
             <label htmlFor="onBTCvaluation-input">Based on what BTC value</label>
-            <input onChange={(e) => {
+            <input ref={this.inputConversion} onChange={(e) => {
               this.props.handleChange("onBTCvaluation", e);
               this.amountsToCalculatorChange(e);
             }} type="number" id="onBTCvaluation-input" name="conversion" step="0.01" required value={this.props.onBTCvaluation} />
@@ -117,7 +124,7 @@ class _2_InputNumbersMarketOrder extends React.Component {
 
 
             <label className='picker-label' htmlFor="payment-input">Payment on</label>
-            <select className='picker' name="payment" id="payment-input" onChange={(e) => {
+            <select ref={this.selectPayment} className='picker' name="payment" id="payment-input" onChange={(e) => {
               // this.change(); 
               this.props.handleChange("payment", e);
             }} required value={this.props.payment} >
@@ -140,6 +147,7 @@ class _2_InputNumbersMarketOrder extends React.Component {
 
           <button onClick={async (e) => {
             let ret_validation = await this.validation()
+
             if (ret_validation) {
               return this.props.nextStep(e)
             } else {
@@ -181,16 +189,16 @@ class _2_InputNumbersMarketOrder extends React.Component {
     let options
     let tag_options_arr_data = []
 
-    if (_chain == "Bitcoin Base Chain") {
-      tag_options_arr_data = ["Wallet1", "Wallet2", "Wallet3", "Wallet4"]
+    if (_chain == BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.name) {
+      tag_options_arr_data = BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.wallets
       options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
     }
-    else if (_chain == "Bitcoin Lightning") {
-      tag_options_arr_data = ["Wallet5", "Wallet6", "Wallet7", "Wallet8"]
+    else if (_chain == BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name) {
+      tag_options_arr_data = BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.wallets
       options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
     }
-    else if (_chain == "Bitcoin Liquid") {
-      tag_options_arr_data = ["Wallet9", "Wallet10", "Wallet11", "Wallet12"]
+    else if (_chain == BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.name) {
+      tag_options_arr_data = BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.wallets
       options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
     }
     else { }
