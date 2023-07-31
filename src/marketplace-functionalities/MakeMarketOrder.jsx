@@ -112,9 +112,9 @@ class MakeMarketOrder extends React.Component {
     let subcategory = null
 
 
-    if (input == "category") subcategory = {subcategory: ""}
+    if (input == "category") subcategory = {subcategory: ''}
     
-    if (input == "chain") payment = {payment: ""}
+    if (input == "chain") payment = {payment: ''}
 
 
     if (e) return this.setState({

@@ -105,6 +105,52 @@ function verifyPassword(_password) {
 
 
 
+
+function validateEmpty(obj_input, err_msg = undefined) {
+
+
+  for (const property in obj_input) {
+    console.log(`${property}: ${obj_input[property]}`);
+
+    if (obj_input[property] == '') {
+      err_msg = `This field: ${property}, inputed value is not proper, i.e. empty.`
+      break
+    }
+
+  }
+
+  if (err_msg) {
+    return err_msg
+  } else {
+    return undefined
+  }
+
+}
+
+
+function validateRegEx(obj_input, err_msg = undefined) {
+
+  const preventInjectionsRegEx = /[<>;`}(")'{]/;
+
+  for (const property in obj_input) {
+    console.log(`${property}: ${obj_input[property]}`);
+
+    if (preventInjectionsRegEx.test(obj_input[property])) {
+      err_msg = `This field: ${property}, inputed value is not proper, i.e. contains these chars: *()<>\`;"}'{. Please modify`
+      break
+    }
+
+  }
+
+  if (err_msg) {
+    return err_msg
+  } else {
+    return undefined
+  }
+}
+
+
+
 function validateInputs(obj_input, err_msg = undefined) {
 
   // TODO !!! not sure to keep or not long term in regex concerning regex expression \*
@@ -203,4 +249,4 @@ function validateInputsAgainstInjection(obj_input, err_msg = undefined) {
 
 
 
-module.exports = { verifyUsername, verifyEmail, verifyPassword, validateInputs, validateExpiry, validate_location_geometry_inputs, arePasswordsEqual, validateInputsAgainstInjection, verifyTermsConditionsClicked }
+module.exports = { verifyUsername, verifyEmail, verifyPassword, validateInputs, validateExpiry, validate_location_geometry_inputs, arePasswordsEqual, validateInputsAgainstInjection, verifyTermsConditionsClicked, validateEmpty, validateRegEx }

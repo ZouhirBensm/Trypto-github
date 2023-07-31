@@ -1,6 +1,6 @@
 import '../style/_1_InputGeneralMarketOrder.css'
 
-import { validateInputs, validateExpiry } from '../../../full-stack-libs/validations'
+import { validateInputs, validateExpiry, validateEmpty, validateRegEx } from '../../../full-stack-libs/validations'
 import MARKET_CATEGORIES from '../../../full-stack-libs/Types/MarketCategories'
 
 
@@ -60,21 +60,29 @@ class _1_InputGeneralMarketOrder extends React.Component {
 
 
   async validation() {
+
+
     let _1_InputGeneralMarketOrder_data = {
       title: this.inputTitle.current.value,
       description: this.textAreaDescription.current.value,
       category: this.selectCategory.current.value,
-      subcategory: this.selectSubcategory.current.value,
-      condition: this.selectCondition.current.value,
       expirydate: this.inputExpiryDate.current.value,
       expirytime: this.inputExpiryTime.current.value,
     }
 
-    console.log(_1_InputGeneralMarketOrder_data)
+    // Validate only the regex (can be empty)
+    let _1_InputGeneralMarketOrder_data2 = {
+      subcategory: this.selectSubcategory.current.value, 
+      condition: this.selectCondition.current.value
+    }
+
+    // console.log(_1_InputGeneralMarketOrder_data)
+    
 
     let error_msg_retrieved_if_any
 
-    error_msg_retrieved_if_any = validateInputs(_1_InputGeneralMarketOrder_data) || validateExpiry(_1_InputGeneralMarketOrder_data)
+    
+    error_msg_retrieved_if_any = validateRegEx(_1_InputGeneralMarketOrder_data2) || validateInputs(_1_InputGeneralMarketOrder_data) || validateExpiry(_1_InputGeneralMarketOrder_data)
 
     console.log("error======>>>>>>> ", error_msg_retrieved_if_any)
 
@@ -116,7 +124,7 @@ class _1_InputGeneralMarketOrder extends React.Component {
             </select><br />
 
             <label className='picker-label' htmlFor="subcategory-select">Subcategory</label>
-            <select ref={this.selectSubcategory} className='picker' name="subcategory" id="subcategory-select" required value={this.props.subcategory} onChange={(e) => this.props.handleChange("subcategory", e)}>
+            <select ref={this.selectSubcategory} className='picker' name="subcategory" id="subcategory-select" value={this.props.subcategory} onChange={(e) => this.props.handleChange("subcategory", e)}>
               <option value="">No Selection</option>
               {options}
             </select><br />

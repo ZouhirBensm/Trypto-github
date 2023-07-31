@@ -22,33 +22,71 @@ var ObjectId = require('mongodb').ObjectId;
 const agendaDefineJobFunctions = require('../../full-stack-libs/define-agenda-job-functions/define-aganda-job-functions')
 
 
+
+async function seeDataRes(req, res, next) {
+  console.log('____________________________\n\n', req.body)
+  // res.status(200).end()
+  return next()
+}
+
 async function updateOrder1Controller(req, res, next) {
 
-  console.log("EditBaseOrderInformation_data----->>>>", req.body.EditBaseOrderInformation_data)
+  // console.log("EditBaseOrderInformation_data----->>>>", req.body.EditBaseOrderInformation_data)
 
   req.body.EditBaseOrderInformation_data.expireAt = new Date(req.body.EditBaseOrderInformation_data.expirydate.slice(0, 4), req.body.EditBaseOrderInformation_data.expirydate.slice(5, 7) - 1, req.body.EditBaseOrderInformation_data.expirydate.slice(8, 10), req.body.EditBaseOrderInformation_data.expirytime.slice(0, 2), req.body.EditBaseOrderInformation_data.expirytime.slice(3, 5))
 
   let updatedMarketOrder_ifAny
 
+  let newsubcategory = !!req.body.EditBaseOrderInformation_data2.newsubcategory? req.body.EditBaseOrderInformation_data2.newsubcategory: undefined
+
+  let newcondition = !!req.body.EditBaseOrderInformation_data2.newcondition? parseInt(req.body.EditBaseOrderInformation_data2.newcondition): undefined
+
+
+  console.log({
+    newsubcategory,
+    newcondition
+  })
+
+
+  let update = { $set: {
+    title: req.body.EditBaseOrderInformation_data.newtitle,
+    description: req.body.EditBaseOrderInformation_data.newdescription,
+    category: req.body.EditBaseOrderInformation_data.newcategory,
+    expirydate: req.body.EditBaseOrderInformation_data.expirydate,
+    expirytime: req.body.EditBaseOrderInformation_data.expirytime,
+    expireAt: req.body.EditBaseOrderInformation_data.expireAt,
+  }};
+  
+  if (newsubcategory !== undefined) {
+    update.$set.subcategory = newsubcategory;
+  } else {
+    update.$unset = { subcategory: '' };
+  }
+  
+  if (newcondition !== undefined) {
+    update.$set.condition = newcondition;
+  } else {
+    update.$unset = { ...update.$unset, condition: '' };
+  }
+
+  console.log(update)
+  
   try {
-    updatedMarketOrder_ifAny = await SellMarketOrder.findByIdAndUpdate(req.body.EditBaseOrderInformation_data.orderID, { $set: {
-      title: req.body.EditBaseOrderInformation_data.newtitle,
-      description: req.body.EditBaseOrderInformation_data.newdescription,
-      category: req.body.EditBaseOrderInformation_data.newcategory,
-      condition: req.body.EditBaseOrderInformation_data.newcondition,
-      expirydate: req.body.EditBaseOrderInformation_data.expirydate,
-      expirytime: req.body.EditBaseOrderInformation_data.expirytime,
-      expireAt: req.body.EditBaseOrderInformation_data.expireAt,
-    } }, { upsert: false, new: true });
+    updatedMarketOrder_ifAny = await SellMarketOrder.findByIdAndUpdate(
+      req.body.EditBaseOrderInformation_data.orderID, 
+      update, 
+      { upsert: false, new: true }
+    );
   } catch (e) {
     let error = new MongoError(e.message)
     return next(error)
   }
-
-
   
 
-  console.log("\n\nDo I have the ingredients: ", updatedMarketOrder_ifAny.sellmarketorderlocationID, updatedMarketOrder_ifAny.expireAt, "\n\n")
+
+  console.log("\n\n\n%%%%%\nupdatedMarketOrder_ifAny\n", updatedMarketOrder_ifAny)
+
+  // console.log("\n\nDo I have the ingredients: ", updatedMarketOrder_ifAny.sellmarketorderlocationID, updatedMarketOrder_ifAny.expireAt, "\n\n")
 
   let updatedMarketOrderLocation_ifAny
   try {
@@ -95,13 +133,13 @@ async function updateOrder1Controller(req, res, next) {
 
 async function updateOrder23Controller(req, res, next) {
 
-  console.log("EditBaseOrderInformation_data----->>>>", req.body.EditBaseOrderInformation_data)
+  // console.log("EditBaseOrderInformation_data----->>>>", req.body.EditBaseOrderInformation_data)
 
 
   let newUpdatedDateObject, orderID;
   ({orderID, ...newUpdatedDateObject} = req.body.EditBaseOrderInformation_data)
 
-  console.log("newUpdatedDateObject---->>>", newUpdatedDateObject, "orderID:---->", orderID)
+  // console.log("newUpdatedDateObject---->>>", newUpdatedDateObject, "orderID:---->", orderID)
 
 
 
@@ -222,9 +260,9 @@ async function getOrderController(req, res, next) {
     return next(error)
   }
 
-  console.log("---------->>>>", order)
+  // console.log("---------->>>>", order)
 
-  console.log("Found!!!!")
+  // console.log("Found!!!!")
 
 
   res.status(200).json(order)
@@ -250,6 +288,7 @@ function registerMarketOrderController(req, res) {
 
 
 marketplaceController = {
+  seeDataRes: seeDataRes,
   updateOrder23Controller: updateOrder23Controller,
   updateOrder1Controller: updateOrder1Controller,
   deleteOrderController: deleteOrderController,

@@ -1,24 +1,50 @@
 
-import { validateInputs, validateExpiry } from '../../../full-stack-libs/validations'
+import { validateInputs, validateExpiry, validateEmpty, validateRegEx } from '../../../full-stack-libs/validations'
 import './style/EditBaseOrderInformation.css'
 import MARKET_CATEGORIES from '../../../full-stack-libs/Types/MarketCategories'
 
 class EditBaseOrderInformation extends React.Component {
   constructor(props) {
     super(props)
+
+
     this.state = {
       popup: undefined,
       categories_options: [],
-      selectedCategory: this.props.category
+      subcategories_options: [],
+      selectedCategory: this.props.category,
+      selectedSubcategory: this.props.subcategory
     }
-    this.setpopup = this.setpopup.bind(this)
 
+    this.setpopup = this.setpopup.bind(this)
+    
     this.selectCategory = React.createRef();
+    this.selectSubcategory = React.createRef();
+
+    
+
+    this.textareaTitle = React.createRef();
+    this.textareaDescription = React.createRef();
+    this.selectCondition = React.createRef();
+    this.inputExpirydate = React.createRef();
+    this.inputExpirytime = React.createRef();
+
   }
 
   handleCategoryChange = (event) => {
-    this.setState({ selectedCategory: event.target.value });
+    for (const key in MARKET_CATEGORIES) {
+      if (Object.hasOwnProperty.call(MARKET_CATEGORIES, key)) {
+        const MARKET_CATEGORY = MARKET_CATEGORIES[key];
+        if(event.target.value !== MARKET_CATEGORY.name) continue
+        this.setState({ selectedCategory: event.target.value,  selectedSubcategory: "", subcategories_options: MARKET_CATEGORY.sub});
+      }
+    }
   }
+
+  handleSubcategoryChange = (event) => {
+    this.setState({ selectedSubcategory: event.target.value });
+  }
+
 
   componentDidMount() {
 
@@ -28,12 +54,22 @@ class EditBaseOrderInformation extends React.Component {
       if (Object.hasOwnProperty.call(MARKET_CATEGORIES, key)) {
         const MARKET_CATEGORY = MARKET_CATEGORIES[key];
         categories_options.push(MARKET_CATEGORY.name)
+
+        console.log(this.props.category, MARKET_CATEGORY.name)
+        console.log(this.props.category === MARKET_CATEGORY.name)
+        if (MARKET_CATEGORY.name == this.props.category) {
+          console.log(MARKET_CATEGORY.sub)
+          this.setState({subcategories_options: MARKET_CATEGORY.sub})
+        }
+
       }
     }
 
 
 
-    this.setState({ categories_options: categories_options })
+    this.setState({ 
+      categories_options: categories_options,
+    })
     
     
 
@@ -101,16 +137,16 @@ class EditBaseOrderInformation extends React.Component {
     })
   }
 
-  EditValidation(EditBaseOrderInformation_data) {
+  EditValidation(EditBaseOrderInformation_data, EditBaseOrderInformation_data2) {
     let error_msg_retrieved_if_any
 
-    if (EditBaseOrderInformation_data.newtitle === this.props.title && EditBaseOrderInformation_data.newdescription === this.props.description && EditBaseOrderInformation_data.newcategory === this.props.category && parseInt(EditBaseOrderInformation_data.newcondition) === this.props.condition && EditBaseOrderInformation_data.expirydate === this.props.expirationDate && EditBaseOrderInformation_data.expirytime === this.props.expirationTime) {
+    if (EditBaseOrderInformation_data.newtitle === this.props.title && EditBaseOrderInformation_data.newdescription === this.props.description && EditBaseOrderInformation_data.newcategory === this.props.category && EditBaseOrderInformation_data2.newsubcategory === this.props.subcategory && parseInt(EditBaseOrderInformation_data2.newcondition) === this.props.condition && EditBaseOrderInformation_data.expirydate === this.props.expirationDate && EditBaseOrderInformation_data.expirytime === this.props.expirationTime) {
       error_msg_retrieved_if_any = `Nothing has changed, therefor nothing to update!`
       this.setpopup(error_msg_retrieved_if_any)
       return false
     }
 
-    error_msg_retrieved_if_any = validateInputs(EditBaseOrderInformation_data) || validateExpiry(EditBaseOrderInformation_data)
+    error_msg_retrieved_if_any = validateRegEx(EditBaseOrderInformation_data2) || validateInputs(EditBaseOrderInformation_data) || validateExpiry(EditBaseOrderInformation_data)
 
     if (error_msg_retrieved_if_any) {
       this.setpopup(error_msg_retrieved_if_any)
@@ -121,9 +157,12 @@ class EditBaseOrderInformation extends React.Component {
     }
   }
 
-  async EditFunction1(EditBaseOrderInformation_data) {
+
+
+  async EditFunction1(EditBaseOrderInformation_data, EditBaseOrderInformation_data2) {
     console.log("Making api call to edit this component!")
 
+    console.log(EditBaseOrderInformation_data, EditBaseOrderInformation_data2)
 
     const response = await fetch(`/marketplace/${userId}/update1`, {
       method: 'PATCH',
@@ -132,7 +171,8 @@ class EditBaseOrderInformation extends React.Component {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        EditBaseOrderInformation_data
+        EditBaseOrderInformation_data,
+        EditBaseOrderInformation_data2
       })
     })
 
@@ -199,7 +239,7 @@ class EditBaseOrderInformation extends React.Component {
           <h1>
             {/* <input type="text" id="title-select" name="title" defaultValue={this.props.title} /> */}
 
-            <textarea id="title-select" name="title" defaultValue={this.props.title}></textarea>
+            <textarea ref={this.textareaTitle} id="title-select" name="title" defaultValue={this.props.title}></textarea>
 
             <button onClick={(e) => {
               this.props.handleToogleEdit(undefined)
@@ -223,14 +263,27 @@ class EditBaseOrderInformation extends React.Component {
           </select>
 
 
+          <label htmlFor="subcategory-input">Subcategory</label>
+          <select ref={this.selectSubcategory} className="drop-down-icon" name="subcategory" id="subcategory-input" 
+          // defaultValue={this.props.subcategory}
+          value={this.state.selectedSubcategory} // Use selectedSubcategory from state
+          onChange={this.handleSubcategoryChange}
+          >
+            <option value="">No Selection</option>
+            {this.state.subcategories_options.map((option, index) => {
+              return <option key={index} value={option}>{option}</option>
+            })}
+          </select>
+
+
           <label htmlFor="description-select">Description</label>
-          <textarea id="description-select" name="description" rows="3" defaultValue={this.props.description}></textarea>
+          <textarea ref={this.textareaDescription} id="description-select" name="description" rows="3" defaultValue={this.props.description}></textarea>
 
 
 
 
           <label htmlFor="condition-input">Condition</label>
-          <select className="drop-down-icon" name="condition" id="condition-input" defaultValue={parseInt(this.props.condition)}>
+          <select ref={this.selectCondition} className="drop-down-icon" name="condition" id="condition-input" defaultValue={parseInt(this.props.condition)}>
             <option value="">No Selection</option>
             <option value={1}>Brand new</option>
             <option value={2}>Barely used</option>
@@ -241,10 +294,10 @@ class EditBaseOrderInformation extends React.Component {
 
 
           <label htmlFor="expirydate-select">Expiry Date</label>
-          <input id="expirydate-select" type="date" name="expirydate" defaultValue={this.props.expirationDate} />
+          <input ref={this.inputExpirydate} id="expirydate-select" type="date" name="expirydate" defaultValue={this.props.expirationDate} />
 
           <label htmlFor="expirytime-select">Expiry Time</label>
-          <input id="expirytime-select" type="time" name="expirytime" defaultValue={this.props.expirationTime} />
+          <input ref={this.inputExpirytime} id="expirytime-select" type="time" name="expirytime" defaultValue={this.props.expirationTime} />
 
 
 
@@ -259,17 +312,22 @@ class EditBaseOrderInformation extends React.Component {
             e.preventDefault()
             let EditBaseOrderInformation_data = {
               orderID: this.props.orderID,
-              newtitle: document.getElementById("my_form").elements["title"].value,
-              newdescription: document.getElementById("my_form").elements["description"].value,
-              newcategory: document.getElementById("my_form").elements["category"].value,
-              newcondition: document.getElementById("my_form").elements["condition"].value,
-              expirydate: document.getElementById("my_form").elements["expirydate"].value,
-              expirytime: document.getElementById("my_form").elements["expirytime"].value,
+              newtitle: this.textareaTitle.current.value,
+              newdescription: this.textareaDescription.current.value,
+              newcategory: this.selectCategory.current.value,
+              expirydate: this.inputExpirydate.current.value,
+              expirytime: this.inputExpirytime.current.value,
             }
 
-            let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data)
+            let EditBaseOrderInformation_data2 = {
+              newsubcategory: this.selectSubcategory.current.value,
+              newcondition: this.selectCondition.current.value,
+            }
+
+            let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data, EditBaseOrderInformation_data2)
+            
             if (ret_EditValidation) {
-              let ret_EditFunction1 = await this.EditFunction1(EditBaseOrderInformation_data)
+              let ret_EditFunction1 = await this.EditFunction1(EditBaseOrderInformation_data, EditBaseOrderInformation_data2)
               return
             } else {
               return

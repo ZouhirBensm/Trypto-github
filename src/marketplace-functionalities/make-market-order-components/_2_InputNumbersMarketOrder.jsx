@@ -1,5 +1,5 @@
 import BITCOIN_CHAINS_WALLETS from '../../../full-stack-libs/Types/BitcoinChainsWallets'
-import { validateInputs } from '../../../full-stack-libs/validations'
+import { validateInputs, validateEmpty, validateRegEx } from '../../../full-stack-libs/validations'
 import '../style/_2_InputNumbersMarketOrder.css'
 
 
@@ -22,16 +22,20 @@ class _2_InputNumbersMarketOrder extends React.Component {
   }
 
   async validation() {
+    
     let _2_InputNumbersMarketOrder_data = {
-      chain: this.selectCategory.current.value,
       price: this.inputPrice.current.value,
       conversion: this.inputConversion.current.value,
+      chain: this.selectCategory.current.value,
       payment: this.selectPayment.current.value
     }
 
     console.log(_2_InputNumbersMarketOrder_data)
 
     let error_msg_retrieved_if_any
+
+    // validateEmpty
+    // validateRegEx
     error_msg_retrieved_if_any = validateInputs(_2_InputNumbersMarketOrder_data)
 
     console.log("error======>>>>>>> ", error_msg_retrieved_if_any)
@@ -127,7 +131,7 @@ class _2_InputNumbersMarketOrder extends React.Component {
             <select ref={this.selectPayment} className='picker' name="payment" id="payment-input" onChange={(e) => {
               // this.change(); 
               this.props.handleChange("payment", e);
-            }} required value={this.props.payment} >
+            }} value={this.props.payment} >
 
               <option value="">No Selection</option>
               {options}

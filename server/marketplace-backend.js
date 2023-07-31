@@ -178,7 +178,10 @@ marketplaceBackend_app_router.get(['/sellordersdata/:orderID', '/allmyorders/:or
 // TODO !!!! the web_keys pdf is open to public, which is an issue. Should be open only for a email in exchange
 
 
-// TODO !!!! after adding sub category, search adapted, seed adapted, operations adapted, schema adapted, view adapted, edit adapted, add ref where possible.
+// TODO !!!! after adding sub category, search adapted, seed adapted, 
+// operations adapted, 
+// edit adapted
+// ref where possible.
 
 
 // marketplaceBackend_app_router.post('/sellorders/save/:userID?', 
@@ -278,10 +281,23 @@ marketplaceBackend_app_router.get(['/order/:userId/sellordersdata/:orderID', '/o
 
 
 
-marketplaceBackend_app_router.patch('/:userId/update1', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), marketplaceController.updateOrder1Controller)
+
+marketplaceBackend_app_router.patch('/:userId/update1', 
+marketplaceController.seeDataRes,
+// require_loggedin_for_data(true), 
+// authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
+// requester_auth_middleware(4), 
+marketplaceController.seeDataRes,
+marketplaceController.updateOrder1Controller
+)
 
 
-marketplaceBackend_app_router.patch('/:userId/update23', require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), marketplaceController.updateOrder23Controller)
+marketplaceBackend_app_router.patch('/:userId/update23', 
+require_loggedin_for_data(true), 
+authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
+requester_auth_middleware(4), 
+marketplaceController.updateOrder23Controller
+)
 
 
 

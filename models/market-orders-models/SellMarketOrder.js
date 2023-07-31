@@ -30,7 +30,8 @@ const SellMarketOrderSchema = new Schema({
         default: undefined
     },
     condition: {
-        type: Number
+        type: Number,
+        default: undefined
     },
     price: {
         type: Number,
@@ -66,7 +67,7 @@ const SellMarketOrderSchema = new Schema({
         //expires: 5000
         required: true
     },
-    
+
     userid: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

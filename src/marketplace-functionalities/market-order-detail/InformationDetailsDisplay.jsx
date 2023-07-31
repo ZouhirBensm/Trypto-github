@@ -93,6 +93,7 @@ class InformationDetailsDisplay extends React.Component {
                 title={this.props.order_information?.title}
                 description={this.props.order_information?.description}
                 category={this.props.order_information?.category}
+                subcategory={this.props.order_information?.subcategory}
                 condition={this.props.order_information?.condition}
                 postedDate={this.props.order_information?.postedDate}
                 expirationDate={this.props.order_information?.expirydate}
@@ -105,6 +106,7 @@ class InformationDetailsDisplay extends React.Component {
                 title={this.props.order_information?.title}
                 description={this.props.order_information?.description}
                 category={this.props.order_information?.category}
+                subcategory={this.props.order_information?.subcategory}
                 condition={this.props.order_information?.condition}
                 expirationAt={this.props.order_information?.expireAt}
                 expirationDate={this.props.order_information?.expirydate}

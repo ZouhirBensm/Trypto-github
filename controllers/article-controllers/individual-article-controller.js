@@ -30,6 +30,8 @@ async function controller2(req, res, next) {
 
 // TODO !!!!! top nav icons overflow on a mobile layout, find solution
 
+// TODO !!!!! fix side navigation on the market page scroll
+
 
 // TODO !!!! And also google search console api and build some a page showing the metrics in the operations in the articles link hub
 // TODO !!!! Integrate apm

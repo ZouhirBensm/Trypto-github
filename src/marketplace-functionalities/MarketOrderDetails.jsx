@@ -30,6 +30,8 @@ class MarketOrderDetails extends React.Component {
       // POP UP! "No order data retrieved from server!"
     }
 
+    console.log(this.state.order)
+
   }
 
 

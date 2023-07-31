@@ -59,6 +59,8 @@ class BaseOrderInformation extends React.Component {
           }
 
           <div id='category'>{this.props.category}</div>
+          <h2>Subcategory</h2>
+          <div>{this.props.subcategory}</div><br />
           <h2>Description</h2>
           <div>{this.props.description}</div><br />
           <h2>Condition</h2>
