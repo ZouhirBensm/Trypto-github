@@ -233,7 +233,7 @@ class EditBaseOrderInformation extends React.Component {
           <select className="drop-down-icon" name="condition" id="condition-input" defaultValue={parseInt(this.props.condition)}>
             <option value="">No Selection</option>
             <option value={1}>Brand new</option>
-            <option value={2}>Just opened</option>
+            <option value={2}>Barely used</option>
             <option value={3}>In good condition</option>
             <option value={4}>Used</option>
           </select>

@@ -45,8 +45,6 @@ class _1_InputGeneralMarketOrder extends React.Component {
   setOptions(_category) {
     let options = []
 
-
-
     for (const key in MARKET_CATEGORIES) {
       if (Object.hasOwnProperty.call(MARKET_CATEGORIES, key)) {
         const MARKET_CATEGORY = MARKET_CATEGORIES[key];
@@ -128,17 +126,17 @@ class _1_InputGeneralMarketOrder extends React.Component {
             <select ref={this.selectCondition} className='picker' name="condition" id="condition-input" required value={this.props.condition} onChange={(e) => this.props.handleChange("condition", e)}>
               <option value="">No Selection</option>
               <option value={1}>Brand new</option>
-              <option value={2}>Just opened</option>
+              <option value={2}>Barely used</option>
               <option value={3}>In good condition</option>
               <option value={4}>Used</option>
             </select>
 
 
             <label htmlFor="expirydate-select">Order Expiry Date</label>
-            <input ref={this.expirydate} id="expirydate-select" type="date" name="expirydate" required value={this.props.expirydate || ''} onChange={(e) => this.props.handleChange("expirydate", e)} />
+            <input ref={this.inputExpiryDate} id="expirydate-select" type="date" name="expirydate" required value={this.props.expirydate || ''} onChange={(e) => this.props.handleChange("expirydate", e)} />
 
             <label htmlFor="expirytime-select">Order Expiry Time</label>
-            <input ref={this.expirytime} id="expirytime-select" type="time" name="expirytime" required value={this.props.expirytime || ''} onChange={(e) => this.props.handleChange("expirytime", e)} />
+            <input ref={this.inputExpiryTime} id="expirytime-select" type="time" name="expirytime" required value={this.props.expirytime || ''} onChange={(e) => this.props.handleChange("expirytime", e)} />
 
           </form>
         </div>

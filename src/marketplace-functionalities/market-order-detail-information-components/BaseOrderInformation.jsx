@@ -15,7 +15,7 @@ class BaseOrderInformation extends React.Component {
         condition = "Brand new"
         break;
       case 2:
-        condition = "Just opened"
+        condition = "Barely used"
         break;
       case 3:
         condition = "In good condition"

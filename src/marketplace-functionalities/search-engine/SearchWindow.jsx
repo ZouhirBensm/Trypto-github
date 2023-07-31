@@ -237,7 +237,7 @@ class SearchWindow extends React.Component {
             <select className='picker' name="condition" id="condition-select" defaultValue={this.props.searchEngineState.conditionTerm}>
               <option value="">Condition</option>
               <option value={1}>Brand new</option>
-              <option value={2}>Just opened</option>
+              <option value={2}>Barely used</option>
               <option value={3}>In good condition</option>
               <option value={4}>Used</option>
             </select>

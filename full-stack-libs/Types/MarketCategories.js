@@ -12,7 +12,7 @@ const MARKET_CATEGORIES = {
   PHONES: { name: "Phones", sub: [ "Cell Phones", "Cell Phone Accessories", "Cell Phone Services", "Home Phones & Answering Machines", "Phones Miscellaneous" ] },
   ELECTRONICS: { name: "Electronics", sub: [ "Cameras & Camcorders", "CDs, DVDs & Blu-ray", "TVs & Video", "Audios" ] },
   TOOLS: { name: "Tools", sub: ["Power Tools", "Tools Miscellaneous", "Hand Tools", "Ladders & Scaffolding", "Tool Storage & Benches", "Hardware Tools"] },
-  BOOKS: { name: "Books", sub: ["Baby Items", "Strollers, Carriers & Car Seats", "Other", "Feeding & High Chairs", "Toys", "Cribs", "Clothing - 12-18 Months", "Playpens, Swings & Saucers", "Clothing - 6-9 Months", "Clothing-0-3 Months", "Clothing-3-6 Months", "Multi-item", "Bathing & Changing", "Clothing-18-24 Months", "Clothing - 9-12 Months", "Clothing - 4T", "Gates, Monitors & Safety", "Clothing - 3T", "Clothing - 2T", "Clothing - 5T", "Clothing - Preemie"] },
+  BABY_ITEMS: { name: "Baby Items", sub: ["Strollers, Carriers & Car Seats", "Other", "Feeding & High Chairs", "Toys", "Cribs", "Clothing - 12-18 Months", "Playpens, Swings & Saucers", "Clothing - 6-9 Months", "Clothing-0-3 Months", "Clothing-3-6 Months", "Multi-item", "Bathing & Changing", "Clothing-18-24 Months", "Clothing - 9-12 Months", "Clothing - 4T", "Gates, Monitors & Safety", "Clothing - 3T", "Clothing - 2T", "Clothing - 5T", "Clothing - Preemie"] },
   BIKES: { name: "Bikes", sub: ["Road", "Mountain", "eBike", "Kids", "Clothing, Shoes & Accessories", "Bikes Miscellaneous", "Cruiser, Commuter & Hybrid", "Frames & Parts", "BMX", "Fixie (Single Speed)"] },
   MUSICAL_INSTRUMENTS: { name: "Musical Instruments", sub: ["Guitars", "Amps & Pedals", "Drums & Percussion", "Pianos & Keyboards", "Pro Audio & Recording Equipment", "String", "Musical Instruments Miscellaneous", "Performance & DJ Equipment", "Woodwind", "Brass"] },
   VIDEO_GAMES_CONSOLES: { name: "Video Games & Consoles", sub: ["Older Generation", "Sony Playstation 4", "Nintendo Wii", "XBOX One", "PC Games", "Sony Playstation 3", "XBOX 360", "Nintendo DS", "Nintendo Switch", "Video Games & Consoles Miscellaneous", "Sony Playstation 5", "Xbox Series X & S", "Nintendo Wii U", "Sony PSP & Vita"] },
@@ -31,6 +31,7 @@ const MARKET_CATEGORIES = {
   CRAFTS: { name: "Crafts", sub: [] },
   OTHER: { name: "Other", sub: [] },
   FREE: { name: "Free", sub: [] },
+  BOOKS: { name: "Books", sub: [] },
   TOYS_TANGIBLE_GAMES: { name: "Toys & Tangible Games", sub: [] }
 }
 
