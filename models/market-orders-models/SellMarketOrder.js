@@ -13,22 +13,60 @@ const Schema = mongoose.Schema
 //Models are defined through the Schema interface
 //Models define collections
 const SellMarketOrderSchema = new Schema({
-    title: String,
-    description: String,
-    category: String,
-    condition: Number,
-    price: Number,
-    crypto: String,
-    conversion: String,
-    payment: String,
-    chain: String,
-    expirydate: String,
-    expirytime: String,
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    category: {
+        type: String,
+        required: true
+    },
+    subcategory: {
+        type: String,
+        default: undefined
+    },
+    condition: {
+        type: Number
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    crypto: {
+        type: String,
+        required: true
+    },
+    conversion: {
+        type: String,
+        required: true
+    },
+    payment: {
+        type: String,
+        required: true
+    },
+    chain: {
+        type: String,
+        required: true
+    },
+    expirydate: {
+        type: String,
+        required: true
+    },
+    expirytime: {
+        type: String,
+        required: true
+    },
     expireAt: {
         type: Date,
         //default: Date.now,
         //expires: 5000
+        required: true
     },
+    
     userid: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

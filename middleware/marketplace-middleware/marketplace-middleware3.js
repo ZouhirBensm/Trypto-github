@@ -50,7 +50,8 @@ async function seeDataRespond(req, res, next) {
   console.log('\n\n$$$req.files---->\n', req.files)
 
 
-  res.status(200).end()
+  // res.status(200).end()
+  return next()
 }
 
 
@@ -109,6 +110,7 @@ async function instantiateMarketOrderMiddleware(req, res, next) {
     title: req.body.title,
     description: req.body.description,
     category: req.body.category,
+    subcategory: req.body.subcategory,
     condition: req.body.condition,
     price: req.body.price,
     crypto: req.body.crypto,
