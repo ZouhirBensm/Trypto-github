@@ -9,70 +9,44 @@ class EditChainWalletInformation extends React.Component {
     super(props)
     this.state = {
       options: null,
-      popup: undefined
+      popup: undefined,
+      selectedChain: this.props.chain,
+      selectedPayment: this.props.payment
     }
+
+
     this.onChange = this.onChange.bind(this)
     this.setOptions = this.setOptions.bind(this)
     this.setpopup = this.setpopup.bind(this)
   }
 
 
-  componentDidMount() {
-    this.setOptions(this.props.chain)
-  }
-
   setOptions(_chain) {
-    let options
-    let tag_options_arr_data = []
-    let message = undefined
+    console.log(_chain)
 
-    if (_chain == BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.name) {
-      tag_options_arr_data = BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.wallets
-      options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
-    }
-    else if (_chain == BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name) {
-      tag_options_arr_data = BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.wallets
-      options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
-    }
-    else if (_chain == BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.name) {
-      tag_options_arr_data = BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.wallets
-      options = tag_options_arr_data.map((el, i) => <option key={i} value={el}>{el}</option>);
-    }
-    else {
-      message = `Chain value is not valid `
-    }
+    if (_chain === BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.name) return BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.wallets
+    if (_chain === BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name) return BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.wallets
+    if (_chain === BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.name) return BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.wallets
 
-    this.setpopup(message)
+    return []
 
-    this.setState({
-      options: options
-    }, () => {
 
-      let payment_select = document.getElementById("payment-input")
-      let options_object = [...payment_select.options].map((option, index) => {
-        return { index: index, value: option.value }
-      })
-
-      const found = options_object.find(option_object => option_object.value == this.props.payment)
-
-      if (!found) {
-        payment_select.options[0].selected = true;
-        return
-      }
-
-      const selectedIndex = found.index
-      console.log(payment_select.options.selectedIndex)
-      payment_select.options[selectedIndex].selected = true;
-      return
-    })
   }
 
 
   onChange(e) {
-    this.setOptions(e.target.value)
+    // this.setOptions(e.target.value)
+    this.setState({ selectedChain: e.target.value,
+    selectedPayment: "" });
+  }
+
+  onChange2(e) {
+    this.setState({ selectedPayment: e.target.value});
   }
 
   render() {
+
+    let options = this.setOptions(this.state.selectedChain)
 
     return (
       <React.Fragment>
@@ -82,13 +56,15 @@ class EditChainWalletInformation extends React.Component {
           <button onClick={(e) => {
             this.props.handleToogleEdit(undefined)
           }}>
-            <img src="/img/SVG/market/individual-article/revert2.svg" alt="" />  
+            <img src="/img/SVG/market/individual-article/revert2.svg" alt="" />
           </button> <br />
 
 
-          <select name="chain" id="chain-input" defaultValue={this.props.chain} onChange={(e) => {
-            this.onChange(e);
-          }}>
+          <select name="chain" id="chain-input" 
+          // defaultValue={this.props.chain} 
+          value={this.state.selectedChain}
+          onChange={(e) => {this.onChange(e);}}
+          >
             <option value="">No Selection</option>
             <option value={BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.name}>{BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.name}</option>
             <option value={BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name}>{BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name}</option>
@@ -101,16 +77,22 @@ class EditChainWalletInformation extends React.Component {
 
 
           <label htmlFor="payment-input">Payment on</label>
-          <select name="payment" id="payment-input" defaultValue={this.props.payment} >
+          <select name="payment" id="payment-input" 
+          // defaultValue={this.props.payment} 
+          onChange={(e) => {this.onChange2(e);}}
+          value={this.state.selectedPayment}
+          >
             <option value="">No Selection</option>
-            {this.state.options}
+            {options.map((option, index) => (
+              <option key={index} value={option}>{option}</option>
+            ))}
           </select> <br />
 
 
 
           {this.state.popup ?
-          <span className='popup'>{this.state.popup}</span>
-          : null}
+            <span className='popup'>{this.state.popup}</span>
+            : null}
 
 
 
@@ -118,10 +100,12 @@ class EditChainWalletInformation extends React.Component {
             e.preventDefault()
             let EditBaseOrderInformation_data = {
               orderID: this.props.orderID,
-              chain: document.getElementById("my_form").elements["chain"].value,
-              payment: document.getElementById("my_form").elements["payment"].value,
+              chain: this.state.selectedChain,
+              payment: this.state.selectedPayment
             }
+
             let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data)
+
             if (ret_EditValidation) {
               let ret_EditFunction3 = await this.EditFunction3(EditBaseOrderInformation_data)
               return
@@ -149,6 +133,12 @@ class EditChainWalletInformation extends React.Component {
   EditValidation(EditBaseOrderInformation_data) {
     let error_msg_retrieved_if_any
 
+    // console.log(EditBaseOrderInformation_data.chain,
+    // this.props.chain,
+    // EditBaseOrderInformation_data.payment,
+    // this.props.payment,
+    // EditBaseOrderInformation_data.chain === this.props.chain && EditBaseOrderInformation_data.payment === this.props.payment)
+
     if (EditBaseOrderInformation_data.chain === this.props.chain && EditBaseOrderInformation_data.payment === this.props.payment) {
 
       error_msg_retrieved_if_any = `Nothing has changed, therefor nothing to update!`
@@ -165,6 +155,8 @@ class EditChainWalletInformation extends React.Component {
       this.setpopup(undefined)
       return true
     }
+
+    return false
   }
 
 
