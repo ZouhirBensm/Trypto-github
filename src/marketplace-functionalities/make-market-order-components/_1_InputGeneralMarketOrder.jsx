@@ -46,31 +46,15 @@ class _1_InputGeneralMarketOrder extends React.Component {
     let options = []
 
 
-    switch (_category) {
-      case MARKET_CATEGORIES.OTHER.name:
-        options = MARKET_CATEGORIES.OTHER.sub.map((el, i) => <option key={i} value={el}>{el}</option>);
-        break;
-      case MARKET_CATEGORIES.KITCHEN.name:
-        options = MARKET_CATEGORIES.KITCHEN.sub.map((el, i) => <option key={i} value={el}>{el}</option>);
-        break;
-      case MARKET_CATEGORIES.CLOTHES.name:
-        options = MARKET_CATEGORIES.CLOTHES.sub.map((el, i) => <option key={i} value={el}>{el}</option>);
-        break;
-      case MARKET_CATEGORIES.ELECTRONICS.name:
-        options = MARKET_CATEGORIES.ELECTRONICS.sub.map((el, i) => <option key={i} value={el}>{el}</option>);
-        break;
-      case MARKET_CATEGORIES.AUTOMOBILE.name:
-        options = MARKET_CATEGORIES.AUTOMOBILE.sub.map((el, i) => <option key={i} value={el}>{el}</option>);
-        break;
-      case MARKET_CATEGORIES.CAMPING.name:
-        options = MARKET_CATEGORIES.CAMPING.sub.map((el, i) => <option key={i} value={el}>{el}</option>);
-        break;
-      case MARKET_CATEGORIES.FURNITURE.name:
-        options = MARKET_CATEGORIES.FURNITURE.sub.map((el, i) => <option key={i} value={el}>{el}</option>);
-        break;
 
-      default:
-        break;
+    for (const key in MARKET_CATEGORIES) {
+      if (Object.hasOwnProperty.call(MARKET_CATEGORIES, key)) {
+        const MARKET_CATEGORY = MARKET_CATEGORIES[key];
+        if (MARKET_CATEGORY.name !== _category) continue
+
+        options = MARKET_CATEGORY.sub.map((el, i) => <option key={i} value={el}>{el}</option>);
+        
+      }
     }
 
     return options
