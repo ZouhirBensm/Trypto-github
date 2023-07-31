@@ -21,9 +21,11 @@ async function controller2(req, res, next) {
 }
 
 
-// TODO !!!! Hide message, CRUD messages, Add subcategories.
+// TODO !!!! Add subcategories.
 
-// TODO !!!! post on social media
+// TODO !!!! Hide message, CRUD messages.
+
+// TODO !!!! Post Bubble article on social media
 
 
 // TODO !!!!! top nav icons overflow on a mobile layout, find solution
@@ -48,7 +50,7 @@ async function controller2(req, res, next) {
 // TODO !!! several Loading spinners are showing up when the main operations page is loading to show the admin blocks
 
 
-// TODO !!!! earn answers -> luke bulmar blog, sql set, fix html, crud on articles, log in, white label SEO google search API data dashboard to sell (chrome extention), twitter space downloader
+// TODO !!!! earn answers -> luke bulmar blog, sql set, fix html, crud on articles, log in, white label SEO google search API data dashboard to sell (chrome extention), twitter space downloader -> and then produce SEO tags
 
 // TODO !!!! register to product hunt for bidblock and earnanswers
 

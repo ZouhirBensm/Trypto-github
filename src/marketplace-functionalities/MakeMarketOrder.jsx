@@ -109,21 +109,26 @@ class MakeMarketOrder extends React.Component {
 
     console.log(input)
     let payment = null
+    let subcategory = null
 
-    if (input == "chain") payment = {
-      payment: ""
-    }
+
+    if (input == "category") subcategory = {subcategory: ""}
+    
+    if (input == "chain") payment = {payment: ""}
+
 
     if (e) return this.setState({
       [input]: e.target.value,
       popup_state: null,
-      ...payment
+      ...payment,
+      ...subcategory
     });
 
     return this.setState({
       [input]: document.getElementById(`${input}-input`).value,
       popup_state: null,
     });
+
   }
 
   handleimages(newimages, newFileList, popup_state = null) {

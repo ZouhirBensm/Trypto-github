@@ -1,13 +1,17 @@
 import '../style/_1_InputGeneralMarketOrder.css'
 
 import { validateInputs, validateExpiry } from '../../../full-stack-libs/validations'
+import MARKET_CATEGORIES from '../../../full-stack-libs/Types/MarketCategories'
 
 
 
 class _1_InputGeneralMarketOrder extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      categories_options: [],
+      selectedCategory: this.props.category
+    }
 
     this.inputTitle = React.createRef();
     this.textAreaDescription = React.createRef();
@@ -16,6 +20,60 @@ class _1_InputGeneralMarketOrder extends React.Component {
     this.selectCondition = React.createRef();
     this.inputExpiryDate = React.createRef();
     this.inputExpiryTime = React.createRef();
+  }
+
+  handleCategoryChange = (event) => {
+    this.setState({ selectedCategory: event.target.value });
+  }
+
+  componentDidMount() {
+
+    let categories_options = []
+
+    for (const key in MARKET_CATEGORIES) {
+      if (Object.hasOwnProperty.call(MARKET_CATEGORIES, key)) {
+        const MARKET_CATEGORY = MARKET_CATEGORIES[key];
+        categories_options.push(MARKET_CATEGORY.name)
+      }
+    }
+
+    this.setState({ categories_options: categories_options })
+
+
+  }
+
+  setOptions(_category) {
+    let options = []
+
+
+    switch (_category) {
+      case MARKET_CATEGORIES.OTHER.name:
+        options = MARKET_CATEGORIES.OTHER.sub.map((el, i) => <option key={i} value={el}>{el}</option>);
+        break;
+      case MARKET_CATEGORIES.KITCHEN.name:
+        options = MARKET_CATEGORIES.KITCHEN.sub.map((el, i) => <option key={i} value={el}>{el}</option>);
+        break;
+      case MARKET_CATEGORIES.CLOTHES.name:
+        options = MARKET_CATEGORIES.CLOTHES.sub.map((el, i) => <option key={i} value={el}>{el}</option>);
+        break;
+      case MARKET_CATEGORIES.ELECTRONICS.name:
+        options = MARKET_CATEGORIES.ELECTRONICS.sub.map((el, i) => <option key={i} value={el}>{el}</option>);
+        break;
+      case MARKET_CATEGORIES.AUTOMOBILE.name:
+        options = MARKET_CATEGORIES.AUTOMOBILE.sub.map((el, i) => <option key={i} value={el}>{el}</option>);
+        break;
+      case MARKET_CATEGORIES.CAMPING.name:
+        options = MARKET_CATEGORIES.CAMPING.sub.map((el, i) => <option key={i} value={el}>{el}</option>);
+        break;
+      case MARKET_CATEGORIES.FURNITURE.name:
+        options = MARKET_CATEGORIES.FURNITURE.sub.map((el, i) => <option key={i} value={el}>{el}</option>);
+        break;
+
+      default:
+        break;
+    }
+
+    return options
   }
 
 
@@ -47,6 +105,8 @@ class _1_InputGeneralMarketOrder extends React.Component {
 
 
   render() {
+    // let options = []
+    let options = this.setOptions(this.state.selectedCategory)
 
     return (
       <React.Fragment>
@@ -60,23 +120,23 @@ class _1_InputGeneralMarketOrder extends React.Component {
             <textarea ref={this.textAreaDescription} name="description" id="description-select" rows="3" required value={this.props.description || ''} onChange={(e) => this.props.handleChange("description", e)} placeholder='Article details'></textarea >
 
             <label className='picker-label' htmlFor="category-select">Category</label>
-            <select ref={this.selectCategory} className='picker' name="category" id="category-select" required value={this.props.category} onChange={(e) => this.props.handleChange("category", e)}>
+            <select ref={this.selectCategory} className='picker' name="category" id="category-select" required 
+            onChange={(e) => {
+              this.props.handleChange("category", e); 
+              this.handleCategoryChange(e);
+            }}
+            value={this.state.selectedCategory}
+            >
               <option value="">No Selection</option>
-              <option value="Other">Other</option>
-              <option value="Kitchen">Kitchen</option>
-              <option value="Clothes">Clothes</option>
-              <option value="Electronics">Electronics</option>
-              <option value="Automobile">Automobile</option>
-              <option value="Camping">Camping</option>
-              <option value="Furniture">Furniture</option>
+              {this.state.categories_options.map((option, index) => (
+                <option key={index} value={option}>{option}</option>
+              ))}
             </select><br />
 
             <label className='picker-label' htmlFor="subcategory-select">Subcategory</label>
             <select ref={this.selectSubcategory} className='picker' name="subcategory" id="subcategory-select" required value={this.props.subcategory} onChange={(e) => this.props.handleChange("subcategory", e)}>
               <option value="">No Selection</option>
-              <option value="Sub1">Sub1</option>
-              <option value="Sub2">Sub2</option>
-              <option value="Sub3">Sub3</option>
+              {options}
             </select><br />
 
 

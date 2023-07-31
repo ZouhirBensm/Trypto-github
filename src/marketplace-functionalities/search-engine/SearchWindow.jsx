@@ -1,6 +1,7 @@
 
 import LocalityFilter from "./LocalityFilter"
 import '../style/SearchWindow.css'
+import MARKET_CATEGORIES from "../../../full-stack-libs/Types/MarketCategories"
 import BITCOIN_CHAINS_WALLETS from "../../../full-stack-libs/Types/BitcoinChainsWallets"
 
 
@@ -29,12 +30,18 @@ class SearchWindow extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      popup: undefined
+      popup: undefined,
+      categories_options: [],
+      selectedCategory: this.props.searchEngineState.categoryTerm
     }
 
     this.onChangeCallerMin = this.onChangeCallerMin.bind(this);
     this.onChangeCallerMax = this.onChangeCallerMax.bind(this);
     this.setPopup = this.setPopup.bind(this);
+  }
+
+  handleCategoryChange = (event) => {
+    this.setState({ selectedCategory: event.target.value });
   }
 
   setPopup(popup) {
@@ -44,6 +51,20 @@ class SearchWindow extends React.Component {
   }
 
   componentDidMount() {
+
+    let categories_options = []
+
+    for (const key in MARKET_CATEGORIES) {
+      if (Object.hasOwnProperty.call(MARKET_CATEGORIES, key)) {
+        const MARKET_CATEGORY = MARKET_CATEGORIES[key];
+        categories_options.push(MARKET_CATEGORY.name)
+      }
+    }
+
+
+
+    this.setState({ categories_options: categories_options })
+
     console.log("SearchWindow just mounted! 🔺")
     // const minPriceInput = document.getElementById("min-price-input");
 
@@ -199,15 +220,15 @@ class SearchWindow extends React.Component {
 
 
 
-            <select className='picker' name="category" id="category-select" defaultValue={this.props.searchEngineState.categoryTerm}>
-              <option value="">Category</option>
-              <option value="Other">Other</option>
-              <option value="Kitchen">Kitchen</option>
-              <option value="Clothes">Clothes</option>
-              <option value="Electronics">Electronics</option>
-              <option value="Automobile">Automobile</option>
-              <option value="Camping">Camping</option>
-              <option value="Furniture">Furniture</option>
+            <select className='picker' name="category" id="category-select" 
+            // defaultValue={this.props.searchEngineState.categoryTerm}
+            value={this.state.selectedCategory} // Use selectedCategory from state
+            onChange={this.handleCategoryChange}
+            >
+              <option value="">No Selection</option>
+              {this.state.categories_options.map((option, index) => (
+                <option key={index} value={option}>{option}</option>
+              ))}
             </select>
 
 

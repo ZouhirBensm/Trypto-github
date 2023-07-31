@@ -1,17 +1,47 @@
 
 import { validateInputs, validateExpiry } from '../../../full-stack-libs/validations'
 import './style/EditBaseOrderInformation.css'
+import MARKET_CATEGORIES from '../../../full-stack-libs/Types/MarketCategories'
 
 class EditBaseOrderInformation extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      popup: undefined
+      popup: undefined,
+      categories_options: [],
+      selectedCategory: this.props.category
     }
     this.setpopup = this.setpopup.bind(this)
+
+    this.selectCategory = React.createRef();
   }
 
-  componentDidMount(){
+  handleCategoryChange = (event) => {
+    this.setState({ selectedCategory: event.target.value });
+  }
+
+  componentDidMount() {
+
+    let categories_options = []
+
+    for (const key in MARKET_CATEGORIES) {
+      if (Object.hasOwnProperty.call(MARKET_CATEGORIES, key)) {
+        const MARKET_CATEGORY = MARKET_CATEGORIES[key];
+        categories_options.push(MARKET_CATEGORY.name)
+      }
+    }
+
+
+
+    this.setState({ categories_options: categories_options })
+    
+    
+
+    // this.selectCategory.current.value = this.props.category
+
+
+
+
     console.log("EditBaseOrderInformation just componentDidMount!")
 
     const h1 = document.querySelector('div#market-order-part1 > form#my_form > h1')
@@ -33,34 +63,34 @@ class EditBaseOrderInformation extends React.Component {
 
     console.log(containerWidth, mock_H1.offsetWidth)
 
-    
-    let rows_needed = Math.ceil(mock_H1.offsetWidth/ containerWidth)
+
+    let rows_needed = Math.ceil(mock_H1.offsetWidth / containerWidth)
     console.log(rows_needed)
-    let cols_needed = rows_needed == 1 ?  this.props.title.length : undefined
-    
+    let cols_needed = rows_needed == 1 ? this.props.title.length : undefined
+
     // rows_needed == 1 ? h1.style.width = 'fit-content' : null
-    
+
 
     textareaElement.setAttribute('rows', rows_needed);
 
     if (cols_needed) {
-      textareaElement.setAttribute('cols', (cols_needed+5)); 
-      textareaElement.style.width = 'fit-content'; 
-      textareaElement.style.margin = 'unset'; 
-      textareaElement.style.display='inline';
+      textareaElement.setAttribute('cols', (cols_needed + 5));
+      textareaElement.style.width = 'fit-content';
+      textareaElement.style.margin = 'unset';
+      textareaElement.style.display = 'inline';
     }
-    
+
     mock_H1.style.display = 'none'
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     console.log("EditBaseOrderInformation just componentWillUnmount!")
 
     const textareaElement = document.querySelector('div#market-order-part1 h1 > textarea#title-select')
 
     textareaElement.style.width = '100%'
     textareaElement.style.margin = '0 auto'
-    textareaElement.style.display='block'
+    textareaElement.style.display = 'block'
 
   }
 
@@ -135,32 +165,32 @@ class EditBaseOrderInformation extends React.Component {
 
         {/* KEPT AS REFERENCE notsure might require to place class gray-box in a div.gray-box in order for the style .gray-box{} to apply accross browsers */}
         <form className="form gray-box" id="my_form"
-          // KEPT AS REFERENCE notsure: configuration 2, kept, the onSubmit is linked to the inputs form='my_form' attribute. 
-          // My worry is that of edit part will trigger this same function instead of their defined onSubmit (as the id='myform' are the same)
-          // Temporarly kept configuration
-          // If does not work long term switch to configuration 1 for all parts
+        // KEPT AS REFERENCE notsure: configuration 2, kept, the onSubmit is linked to the inputs form='my_form' attribute. 
+        // My worry is that of edit part will trigger this same function instead of their defined onSubmit (as the id='myform' are the same)
+        // Temporarly kept configuration
+        // If does not work long term switch to configuration 1 for all parts
 
-          // onSubmit={async (e) => {
+        // onSubmit={async (e) => {
 
-          //   e.preventDefault()
-          //   let EditBaseOrderInformation_data = {
-          //     orderID: this.props.orderID,
-          //     newtitle: document.getElementById("my_form").elements["title"].value,
-          //     newdescription: document.getElementById("my_form").elements["description"].value,
-          //     newcategory: document.getElementById("my_form").elements["category"].value,
-          //     newcondition: document.getElementById("my_form").elements["condition"].value,
-          //     expirydate: document.getElementById("my_form").elements["expirydate"].value,
-          //     expirytime: document.getElementById("my_form").elements["expirytime"].value,
-          //   }
+        //   e.preventDefault()
+        //   let EditBaseOrderInformation_data = {
+        //     orderID: this.props.orderID,
+        //     newtitle: document.getElementById("my_form").elements["title"].value,
+        //     newdescription: document.getElementById("my_form").elements["description"].value,
+        //     newcategory: document.getElementById("my_form").elements["category"].value,
+        //     newcondition: document.getElementById("my_form").elements["condition"].value,
+        //     expirydate: document.getElementById("my_form").elements["expirydate"].value,
+        //     expirytime: document.getElementById("my_form").elements["expirytime"].value,
+        //   }
 
-          //   let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data)
-          //   if (ret_EditValidation) {
-          //     let ret_EditFunction1 = await this.EditFunction1(EditBaseOrderInformation_data)
-          //     return
-          //   } else {
-          //     return
-          //   }
-          // }}
+        //   let ret_EditValidation = this.EditValidation(EditBaseOrderInformation_data)
+        //   if (ret_EditValidation) {
+        //     let ret_EditFunction1 = await this.EditFunction1(EditBaseOrderInformation_data)
+        //     return
+        //   } else {
+        //     return
+        //   }
+        // }}
         >
 
 
@@ -181,15 +211,15 @@ class EditBaseOrderInformation extends React.Component {
 
 
           {/* <label htmlFor="category-select">Category</label> */}
-          <select name="category" id="category-select" defaultValue={this.props.category}>
+          <select ref={this.selectCategory} name="category" id="category-select" 
+          // defaultValue={this.props.category}
+          value={this.state.selectedCategory} // Use selectedCategory from state
+          onChange={this.handleCategoryChange}
+          >
             <option value="">No Selection</option>
-            <option value="Other">Other</option>
-            <option value="Kitchen">Kitchen</option>
-            <option value="Clothes">Clothes</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Automobile">Automobile</option>
-            <option value="Camping">Camping</option>
-            <option value="Furniture">Furniture</option>
+            {this.state.categories_options.map((option, index) => {
+              return <option key={index} value={option}>{option}</option>
+            })}
           </select>
 
 
