@@ -61,11 +61,11 @@ div#pagination > div#page_numbers {
 
 div#pagination-fragment > span#popup {
   color: red;
-  width: 100%;
+  width: fit-content;
   font-size: var(--font-size-extra);
   font-family: 'Poppins', sans-serif;
   font-weight: 300;
-  margin: 1rem 0;
+  margin: 1rem auto;
   max-width: 350px;
   display: block;
 }

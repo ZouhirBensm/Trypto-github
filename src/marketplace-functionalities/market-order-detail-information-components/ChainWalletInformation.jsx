@@ -16,6 +16,8 @@ class ChainWalletInformation extends React.Component {
 
     let chain_logo_img_src;
 
+
+
     switch (this.props.chain) {
       case BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name:
         chain_logo_img_src = '/img/PNG/chain-logo/lightning.png'

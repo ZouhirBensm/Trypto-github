@@ -178,10 +178,7 @@ marketplaceBackend_app_router.get(['/sellordersdata/:orderID', '/allmyorders/:or
 // TODO !!!! the web_keys pdf is open to public, which is an issue. Should be open only for a email in exchange
 
 
-// TODO !!!! after adding sub category, search adapted, seed adapted, 
-// operations adapted, 
-// edit adapted
-// ref where possible.
+// TODO !!!!! after adding sub category, search adapted, seed adapted
 
 
 // marketplaceBackend_app_router.post('/sellorders/save/:userID?', 

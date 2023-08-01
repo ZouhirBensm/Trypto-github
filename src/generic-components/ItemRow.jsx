@@ -21,9 +21,12 @@ class ItemRow extends React.Component {
     const options = { day: 'numeric', month: 'long', year: 'numeric' };
     const formattedDate = date.toLocaleDateString('en-US', options);
 
+    console.log('BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name\n', BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name)
+    console.log('this.props.chain\n', order.chain)
+
     let chain_logo_img_src
     switch (order.chain) {
-      case BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.name:
+      case BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name:
         chain_logo_img_src = '/img/PNG/chain-logo/lightning.png'
         break;
       case BITCOIN_CHAINS_WALLETS.BITCOIN_LIQUID.name:
