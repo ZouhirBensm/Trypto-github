@@ -38,8 +38,10 @@ class MarketOrders extends React.Component {
     }
 
     this.controls = this.controls.bind(this);
+    this.state4QueryOnMarketOrders = this.state4QueryOnMarketOrders.bind(this);
+
     this.submitFilter = this.submitFilter.bind(this)
-    this.searchEngineOnChange = this.searchEngineOnChange.bind(this)
+    
     this.resetPriceFilter = this.resetPriceFilter.bind(this)
     this.userId = userId
     this.popup = popup
@@ -164,7 +166,7 @@ class MarketOrders extends React.Component {
         <SearchEngine
           searchEngineState={searchEngineState}
           submitFilter={this.submitFilter}
-          searchEngineOnChange={this.searchEngineOnChange}
+          state4QueryOnMarketOrders={this.state4QueryOnMarketOrders}
           resetPriceFilter={this.resetPriceFilter}
           minPriceTerm={this.state.minPriceTerm}
           maxPriceTerm={this.state.maxPriceTerm}
@@ -233,55 +235,8 @@ class MarketOrders extends React.Component {
     })
   }
 
-
-  searchEngineOnChange(e) {
-    if (e.target.name == "country") {
-      document.getElementById("my_form").elements["state-province"].value = ''
-      document.getElementById("my_form").elements["city"].value = ''
-    }
-    if (e.target.name == "state-province") {
-      document.getElementById("my_form").elements["city"].value = ''
-    }
-    if (e.target.name == "category") {
-      document.getElementById("my_form").elements["subcategory"].value = ''
-    }
-
-
-    let titleTerm_value = document.getElementById("my_form").elements["title"].value
-    let categoryTerm_value = document.getElementById("my_form").elements["category"].value
-    let subcategoryTerm_value = document.getElementById("my_form").elements["subcategory"].value
-    let conditionTerm_value = document.getElementById("my_form").elements["condition"].value
-    let chainTerm_value = document.getElementById("my_form").elements["chain"].value
-
-    let minPriceTerm_value = this.state.minPriceTerm
-    let maxPriceTerm_value = this.state.maxPriceTerm
-
-    let countryTerm_value = document.getElementById("my_form").elements["country"].value
-
-    let stateProvinceTerm_value = document.getElementById("my_form").elements["state-province"].value
-    let cityTerm_value = document.getElementById("my_form").elements["city"].value
-
-    if (e.target.name == "min-price" || e.target.name == "max-price") {
-      minPriceTerm_value = document.getElementById("my_form").elements["min-price"].value
-      maxPriceTerm_value = document.getElementById("my_form").elements["max-price"].value
-    }
-
-
-    // console.log("minPriceTerm_value", minPriceTerm_value)
-
-
-    this.setState({
-      titleTerm: titleTerm_value == '' ? undefined : titleTerm_value,
-      categoryTerm: categoryTerm_value == '' ? undefined : categoryTerm_value,
-      subcategoryTerm: subcategoryTerm_value == '' ? undefined : subcategoryTerm_value,
-      conditionTerm: conditionTerm_value == '' ? undefined : conditionTerm_value,
-      chainTerm: chainTerm_value == '' ? undefined : chainTerm_value,
-      minPriceTerm: minPriceTerm_value,
-      maxPriceTerm: maxPriceTerm_value,
-      countryTerm: countryTerm_value == '' ? undefined : countryTerm_value,
-      stateProvinceTerm: stateProvinceTerm_value == '' ? undefined : stateProvinceTerm_value,
-      cityTerm: cityTerm_value == '' ? undefined : cityTerm_value,
-    })
+  state4QueryOnMarketOrders(newStateQueryTerms){
+    this.setState(newStateQueryTerms)
   }
 
 

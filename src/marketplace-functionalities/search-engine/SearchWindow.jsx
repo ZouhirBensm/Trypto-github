@@ -22,9 +22,10 @@ class SearchWindow extends React.Component {
       selectedCategory: this.props.searchEngineState.categoryTerm,
       // selectedSubcategory: this.props.searchEngineState.subcategoryTerm,
 
-
-
+      
+      
     }
+    this.searchEngineOnChange = this.searchEngineOnChange.bind(this)
 
     this.inputTitle = React.createRef();
     this.selectCategory = React.createRef();
@@ -243,7 +244,7 @@ class SearchWindow extends React.Component {
             this.props.submitFilter(e);
             this.props.displayHideFilterEngine(e);
 
-          }} onChange={this.props.searchEngineOnChange}>
+          }} onChange={this.searchEngineOnChange}>
 
 
 
@@ -376,6 +377,59 @@ class SearchWindow extends React.Component {
       </React.Fragment>
     )
   }
+
+
+
+  searchEngineOnChange(e) {
+    if (e.target.name == "country") {
+      document.getElementById("my_form").elements["state-province"].value = ''
+      document.getElementById("my_form").elements["city"].value = ''
+    }
+    if (e.target.name == "state-province") {
+      document.getElementById("my_form").elements["city"].value = ''
+    }
+    if (e.target.name == "category") {
+      this.selectSubcategory.current.value = ''
+    }
+
+    let titleTerm_value = this.inputTitle.current.value
+    let categoryTerm_value = this.selectCategory.current.value
+    let subcategoryTerm_value = this.selectSubcategory.current.value
+    let conditionTerm_value = this.selectCondition.current.value
+    let chainTerm_value = this.selectChain.current.value
+
+    let minPriceTerm_value = this.state.minPriceTerm
+    let maxPriceTerm_value = this.state.maxPriceTerm
+
+    let countryTerm_value = document.getElementById("my_form").elements["country"].value
+
+    let stateProvinceTerm_value = document.getElementById("my_form").elements["state-province"].value
+    let cityTerm_value = document.getElementById("my_form").elements["city"].value
+
+    if (e.target.name == "min-price" || e.target.name == "max-price") {
+      minPriceTerm_value = this.inputMinprice.current.value
+      maxPriceTerm_value = this.inputMaxprice.current.value
+    }
+
+
+    this.props.state4QueryOnMarketOrders({
+      titleTerm: titleTerm_value == '' ? undefined : titleTerm_value,
+      categoryTerm: categoryTerm_value == '' ? undefined : categoryTerm_value,
+      subcategoryTerm: subcategoryTerm_value == '' ? undefined : subcategoryTerm_value,
+      conditionTerm: conditionTerm_value == '' ? undefined : conditionTerm_value,
+      chainTerm: chainTerm_value == '' ? undefined : chainTerm_value,
+      minPriceTerm: minPriceTerm_value,
+      maxPriceTerm: maxPriceTerm_value,
+      countryTerm: countryTerm_value == '' ? undefined : countryTerm_value,
+      stateProvinceTerm: stateProvinceTerm_value == '' ? undefined : stateProvinceTerm_value,
+      cityTerm: cityTerm_value == '' ? undefined : cityTerm_value,
+    })
+
+  }
+  
+
+
+
 }
 
 export default SearchWindow

@@ -69,7 +69,7 @@ class SearchEngine extends React.Component {
             validation={this.validation}
             submitFilter={this.props.submitFilter}
             displayHideFilterEngine={this.displayHideFilterEngine}
-            searchEngineOnChange={this.props.searchEngineOnChange}
+            state4QueryOnMarketOrders={this.props.state4QueryOnMarketOrders}
             searchEngineState={this.props.searchEngineState}
             resetPriceFilter={this.props.resetPriceFilter}
             minPriceTerm={this.props.minPriceTerm}
