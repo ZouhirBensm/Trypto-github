@@ -77,22 +77,28 @@ async function filterSetupsMiddleware(req, res, next) {
 
   // Query string parameters
   let searchEngineTerms = req.query.search
+
+  console.log("__________________________________________\n\n")
+  console.log('\n\n\nreq.query.search: \n', req.query.search)
+
   searchEngineTerms = searchEngineTerms ? JSON.parse(searchEngineTerms) : undefined
 
-  console.log("preset1()->searchEngineTerms: ", searchEngineTerms)
+  console.log("\n\n\npreset1()->searchEngineTerms: \n", searchEngineTerms)
 
   // baseFilter, and localityFilter are either populated objects or empty {} objects, depending on whether something was sent from the front end
   let baseFilter = formOrderFindFilter(searchEngineTerms)
 
-  console.log("\n\n\preset1()->baseFilter: ", baseFilter)
+  console.log("\n\n\preset1()->baseFilter: \n", baseFilter)
   res.locals.baseFilter = baseFilter
 
   let localityFilter = formLocalityFindFilter(searchEngineTerms)
 
-  console.log("\n\n\preset1()->localityFilter: ", localityFilter)
+  console.log("\n\n\preset1()->localityFilter: \n", localityFilter)
   res.locals.localityFilter = localityFilter
 
 
+  
+  // res.status(200).end()
   return next()
 }
 

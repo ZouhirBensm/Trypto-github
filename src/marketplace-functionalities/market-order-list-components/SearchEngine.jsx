@@ -21,18 +21,7 @@ class SearchEngine extends React.Component {
 
 
 
-  validation() {
-    const filter_values = {
-      title: document.getElementById("my_form").elements["title"].value,
-      category: document.getElementById("my_form").elements["category"].value,
-      subcategory: document.getElementById("my_form").elements["subcategory"].value,
-      condition: document.getElementById("my_form").elements["condition"].value,
-      min_price: document.getElementById("my_form").elements["min-price"].value,
-      max_price: document.getElementById("my_form").elements["max-price"].value,
-      country: document.getElementById("my_form").elements["country"].value,
-      state_province: document.getElementById("my_form").elements["state-province"].value,
-      city: document.getElementById("my_form").elements["city"].value,
-    }
+  validation(filter_values) {
 
     console.log("filter_values", filter_values)
 

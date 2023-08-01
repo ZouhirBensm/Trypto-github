@@ -37,6 +37,12 @@ function formOrderFindFilter(searchEngineTerms = undefined){
               category: value,
             }
             break;
+          case "subcategoryTerm":
+            findObject = {
+              ...findObject,
+              subcategory: value,
+            }
+            break;
           case "conditionTerm":
             findObject = {
               ...findObject,

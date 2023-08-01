@@ -21,7 +21,21 @@ class SearchWindow extends React.Component {
       categories_options: [],
       selectedCategory: this.props.searchEngineState.categoryTerm,
       // selectedSubcategory: this.props.searchEngineState.subcategoryTerm,
+
+
+
     }
+
+    this.inputTitle = React.createRef();
+    this.selectCategory = React.createRef();
+    this.selectSubcategory = React.createRef();
+    this.selectChain = React.createRef();
+
+    this.selectCondition = React.createRef();
+
+    this.inputMinprice = React.createRef();
+    this.inputMaxprice = React.createRef();
+    this.divSearchinputs = React.createRef();
 
     this.onChangeCallerMin = this.onChangeCallerMin.bind(this);
     this.onChangeCallerMax = this.onChangeCallerMax.bind(this);
@@ -51,7 +65,7 @@ class SearchWindow extends React.Component {
         if (MARKET_CATEGORY.name !== _category) continue
 
         options = MARKET_CATEGORY.sub.map((el, i) => <option key={i} value={el}>{el}</option>);
-        
+
       }
     }
 
@@ -76,10 +90,9 @@ class SearchWindow extends React.Component {
     this.setState({ categories_options: categories_options })
 
     console.log("SearchWindow just mounted! 🔺")
-    // const minPriceInput = document.getElementById("min-price-input");
 
-    const minPriceTerm_value = parseInt(document.getElementById("my_form").elements["min-price"].value)
-    const maxPriceTerm_value = parseInt(document.getElementById("my_form").elements["max-price"].value)
+    const minPriceTerm_value = parseInt(this.inputMinprice.current.value)
+    const maxPriceTerm_value = parseInt(this.inputMaxprice.current.value)
 
     let percentageMin = minPriceTerm_value * 100 / range
     percentageMin = Math.round(percentageMin)
@@ -114,8 +127,8 @@ class SearchWindow extends React.Component {
     };
 
 
-  this.setState({ containerSpanMin, spanStyleMin, inputStyleMin, containerSpanMax, spanStyleMax, inputStyleMax });
-    
+    this.setState({ containerSpanMin, spanStyleMin, inputStyleMin, containerSpanMax, spanStyleMax, inputStyleMax });
+
 
   }
 
@@ -125,8 +138,8 @@ class SearchWindow extends React.Component {
   }
 
 
-  onChangeCallerMin(e){
-    const maxPriceTerm_value = parseInt(document.getElementById("my_form").elements["max-price"].value)
+  onChangeCallerMin(e) {
+    const maxPriceTerm_value = parseInt(this.inputMaxprice.current.value)
     // if (e.target.value < 2000) e.target.value = 2000
     let liveValue = parseInt(e.target.value)
 
@@ -152,19 +165,19 @@ class SearchWindow extends React.Component {
       width: width,
     };
 
-    
+
     this.setState({ containerSpanMin, spanStyleMin, inputStyleMin });
 
 
 
   }
 
-  onChangeCallerMax(e){
+  onChangeCallerMax(e) {
 
-    const minPriceTerm_value = parseInt(document.getElementById("my_form").elements["min-price"].value)
+    const minPriceTerm_value = parseInt(this.inputMinprice.current.value)
     // if (e.target.value < 2000) e.target.value = 2000
     let liveValue = parseInt(e.target.value)
-    
+
     if (liveValue < minPriceTerm_value) {
       e.target.value = minPriceTerm_value
       liveValue = parseInt(e.target.value)
@@ -184,7 +197,7 @@ class SearchWindow extends React.Component {
     const inputStyleMax = {
       width: width,
     };
-    
+
     this.setState({ containerSpanMax, spanStyleMax, inputStyleMax });
 
 
@@ -200,26 +213,35 @@ class SearchWindow extends React.Component {
 
     return (
       <React.Fragment>
-        <div className='search-inputs'>
+        <div ref={this.divSearchinputs} className='search-inputs'>
 
-          
+
 
           <form id="my_form" className='search-component' onSubmit={(e) => {
             e.preventDefault(e)
 
-            // TODO !!!!! TEMPORAL COMMENTED
-            // let retrieved = this.props.validation()
+            let retrieved = this.props.validation({
+              title: this.inputTitle.current.value,
+              category: this.selectCategory.current.value,
+              subcategory: this.selectSubcategory.current.value,
+              condition: this.selectCondition.current.value,
+              min_price: this.inputMinprice.current.value,
+              max_price: this.inputMaxprice.current.value,
+              chain: this.selectChain.current.value,
+              country: document.getElementById("my_form").elements["country"].value,
+              state_province: document.getElementById("my_form").elements["state-province"].value,
+              city: document.getElementById("my_form").elements["city"].value,
+            })
 
-            // if (retrieved) {
-            //   this.setPopup(retrieved)
-            //   const searchInputs = document.getElementsByClassName('search-inputs')[0]
-            //   searchInputs.scrollTo(0, 0);
-            //   return
-            // }
+            if (retrieved) {
+              this.setPopup(retrieved)
+              const searchInputs = this.divSearchinputs.current
+              searchInputs.scrollTo(0, 0);
+              return
+            }
 
             this.props.submitFilter(e);
-            // TODO !!!!! TEMPORAL COMMENTED
-            // this.props.displayHideFilterEngine(e);
+            this.props.displayHideFilterEngine(e);
 
           }} onChange={this.props.searchEngineOnChange}>
 
@@ -230,14 +252,14 @@ class SearchWindow extends React.Component {
             {this.state.popup ? <span id="popup">{this.state.popup}</span> : null}
 
 
-            <input type="text" id="title-select" name="title" defaultValue={this.props.searchEngineState.titleTerm} placeholder='Search' />
+            <input ref={this.inputTitle} type="text" id="title-select" name="title" defaultValue={this.props.searchEngineState.titleTerm} placeholder='Search' />
 
 
 
-            <select className='picker' name="category" id="category-select" 
-            // defaultValue={this.props.searchEngineState.categoryTerm}
-            value={this.state.selectedCategory} // Use selectedCategory from state
-            onChange={this.handleCategoryChange}
+            <select ref={this.selectCategory} className='picker' name="category" id="category-select"
+              // defaultValue={this.props.searchEngineState.categoryTerm}
+              value={this.state.selectedCategory} // Use selectedCategory from state
+              onChange={this.handleCategoryChange}
             >
               <option value="">No Selection</option>
               {this.state.categories_options.map((option, index) => (
@@ -245,9 +267,9 @@ class SearchWindow extends React.Component {
               ))}
             </select>
 
-            <select className='picker' name="subcategory" id="subcategory-select" 
-            // defaultValue={this.props.searchEngineState.categoryTerm}
-            value={this.props.searchEngineState.subcategoryTerm}
+            <select ref={this.selectSubcategory} className='picker' name="subcategory" id="subcategory-select"
+              // defaultValue={this.props.searchEngineState.categoryTerm}
+              value={this.props.searchEngineState.subcategoryTerm}
 
             // onChange={this.handleSubcategoryChange}
             >
@@ -258,7 +280,7 @@ class SearchWindow extends React.Component {
 
 
 
-            <select className='picker' name="condition" id="condition-select" defaultValue={this.props.searchEngineState.conditionTerm}>
+            <select ref={this.selectCondition} className='picker' name="condition" id="condition-select" defaultValue={this.props.searchEngineState.conditionTerm}>
               <option value="">Condition</option>
               <option value={1}>Brand new</option>
               <option value={2}>Barely used</option>
@@ -269,7 +291,7 @@ class SearchWindow extends React.Component {
 
 
 
-            <select className='picker' name="chain" id="chain-select" defaultValue={this.props.searchEngineState.chainTerm}>
+            <select ref={this.selectChain} className='picker' name="chain" id="chain-select" defaultValue={this.props.searchEngineState.chainTerm}>
               <option value="">BTC Type/Chain</option>
               <option value={BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.name}>{BITCOIN_CHAINS_WALLETS.BITCOIN_BASE_CHAIN.name}</option>
               <option value={BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name}>{BITCOIN_CHAINS_WALLETS.BITCOIN_LIGHNING.name}</option>
@@ -282,8 +304,8 @@ class SearchWindow extends React.Component {
 
             <button id='reset-price' onClick={(e) => {
               e.preventDefault()
-              const range1 = document.getElementById("my_form").elements["min-price"]
-              const range2 = document.getElementById("my_form").elements["max-price"]
+              const range1 = this.inputMinprice.current
+              const range2 = this.inputMaxprice.current
               const range_reset_value = parseInt(range1.min) + ((parseInt(range1.max) - parseInt(range1.min)) / 2)
 
               console.log(range_reset_value)
@@ -292,13 +314,13 @@ class SearchWindow extends React.Component {
               range2.value = range_reset_value
 
               const containerSpanMax = { width: width };
-              const spanStyleMax = { left: `50%`};
+              const spanStyleMax = { left: `50%` };
               const inputStyleMax = { width: width };
 
               const containerSpanMin = { width: width };
-              const spanStyleMin = { left: `50%`};
+              const spanStyleMin = { left: `50%` };
               const inputStyleMin = { width: width };
-              
+
               this.setState({ containerSpanMax, spanStyleMax, inputStyleMax, containerSpanMin, spanStyleMin, inputStyleMin });
 
 
@@ -313,16 +335,16 @@ class SearchWindow extends React.Component {
 
             <div id='relative-frame'>
 
-              <span style={{...containerSpanMin, width: width}}>
+              <span style={{ ...containerSpanMin, width: width }}>
                 <span style={spanStyleMin} id="min-price-value">{this.props.minPriceTerm ? `${this.props.minPriceTerm}$` : 'N/A'}</span>
               </span>
 
-              <input style={inputStyleMin} id="min-price-input" name="min-price" defaultValue={this.props.searchEngineState.minPriceTerm} type="range" min={`${rangeMin}`} max={`${rangeMax}`} step={`${rangeStep}`} onChange={this.onChangeCallerMin} />
+              <input ref={this.inputMinprice} style={inputStyleMin} id="min-price-input" name="min-price" defaultValue={this.props.searchEngineState.minPriceTerm} type="range" min={`${rangeMin}`} max={`${rangeMax}`} step={`${rangeStep}`} onChange={this.onChangeCallerMin} />
 
-              <input style={inputStyleMax} id="max-price-input" name="max-price" defaultValue={this.props.searchEngineState.maxPriceTerm} type="range" min={`${rangeMin}`} max={`${rangeMax}`} step={`${rangeStep}`} onChange={this.onChangeCallerMax} />
+              <input ref={this.inputMaxprice} style={inputStyleMax} id="max-price-input" name="max-price" defaultValue={this.props.searchEngineState.maxPriceTerm} type="range" min={`${rangeMin}`} max={`${rangeMax}`} step={`${rangeStep}`} onChange={this.onChangeCallerMax} />
 
-              <span style={{...containerSpanMax, width: width}}>
-                <span style={spanStyleMax} id="max-price-value">{ this.props.maxPriceTerm? `${this.props.maxPriceTerm}$` : 'N/A'}</span>
+              <span style={{ ...containerSpanMax, width: width }}>
+                <span style={spanStyleMax} id="max-price-value">{this.props.maxPriceTerm ? `${this.props.maxPriceTerm}$` : 'N/A'}</span>
               </span>
 
             </div>
@@ -337,7 +359,7 @@ class SearchWindow extends React.Component {
               cityTerm={this.props.searchEngineState.cityTerm}
             />
 
-            
+
 
             {/* <button id="filter-submit">Submit</button> */}
 
@@ -345,10 +367,10 @@ class SearchWindow extends React.Component {
 
 
           <div id="bottom-filter-buttons">
-            <input type="submit" form="my_form" id="filter-submit" value="Submit"/>
+            <input type="submit" form="my_form" id="filter-submit" value="Submit" />
             <button onClick={this.props.displayHideFilterEngine}>Hide Filter</button>
           </div>
-          
+
 
         </div>
       </React.Fragment>
