@@ -98,7 +98,7 @@ articlesBackend_app_router.get('/:category?', (req, res) => {
 
 
 
-// TODO !!!!! TEMPORAL to delete from google search console
+// TODO !!!!! Delete after Google recrawls website
 articlesBackend_app_router.get('/individual_article/64ab99cbd8c98d66aaa99b76', (req,res) => {
   res.status(404).end()
 })

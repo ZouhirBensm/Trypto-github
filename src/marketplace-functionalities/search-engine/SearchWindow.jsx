@@ -13,26 +13,14 @@ const range = rangeMax - rangeMin
 const width = '90%'
 
 
-// let container = document.getElementsByClassName("make-container")[0]
-// container.scrollTo(0, container.scrollHeight);
-
-
-// document.getElementById("react-div").scrollTo(0, 0);
-// window.scrollTo(0, 0);
-
-// const reactDiv = document.getElementById("react-div")
-// reactDiv.scrollTo(0, reactDiv.scrollHeight);
-
-// const reactDiv = document.getElementById("react-div")
-// reactDiv.scrollTo(0, reactDiv.scrollHeight);
-
 class SearchWindow extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       popup: undefined,
       categories_options: [],
-      selectedCategory: this.props.searchEngineState.categoryTerm
+      selectedCategory: this.props.searchEngineState.categoryTerm,
+      // selectedSubcategory: this.props.searchEngineState.subcategoryTerm,
     }
 
     this.onChangeCallerMin = this.onChangeCallerMin.bind(this);
@@ -44,11 +32,33 @@ class SearchWindow extends React.Component {
     this.setState({ selectedCategory: event.target.value });
   }
 
+  // handleSubcategoryChange = (event) => {
+  //   this.setState({ selectedSubcategory: event.target.value });
+  // }
+
   setPopup(popup) {
     this.setState({
       popup: popup
     })
   }
+
+  setOptions(_category) {
+    let options = []
+
+    for (const key in MARKET_CATEGORIES) {
+      if (Object.hasOwnProperty.call(MARKET_CATEGORIES, key)) {
+        const MARKET_CATEGORY = MARKET_CATEGORIES[key];
+        if (MARKET_CATEGORY.name !== _category) continue
+
+        options = MARKET_CATEGORY.sub.map((el, i) => <option key={i} value={el}>{el}</option>);
+        
+      }
+    }
+
+    return options
+  }
+
+
 
   componentDidMount() {
 
@@ -184,6 +194,8 @@ class SearchWindow extends React.Component {
 
   render() {
 
+    let options = this.setOptions(this.state.selectedCategory)
+
     const { maxValue, minValue, containerSpanMax, containerSpanMin, spanStyleMax, spanStyleMin, inputStyleMax, inputStyleMin } = this.state;
 
     return (
@@ -195,17 +207,18 @@ class SearchWindow extends React.Component {
           <form id="my_form" className='search-component' onSubmit={(e) => {
             e.preventDefault(e)
 
-            let retrieved = this.props.validation()
+            // TEMPORAL
+            // let retrieved = this.props.validation()
 
-            if (retrieved) {
-              this.setPopup(retrieved)
-              const searchInputs = document.getElementsByClassName('search-inputs')[0]
-              searchInputs.scrollTo(0, 0);
-              return
-            }
+            // if (retrieved) {
+            //   this.setPopup(retrieved)
+            //   const searchInputs = document.getElementsByClassName('search-inputs')[0]
+            //   searchInputs.scrollTo(0, 0);
+            //   return
+            // }
 
             this.props.submitFilter(e);
-            this.props.displayHideFilterEngine(e);
+            // this.props.displayHideFilterEngine(e);
 
           }} onChange={this.props.searchEngineOnChange}>
 
@@ -229,6 +242,16 @@ class SearchWindow extends React.Component {
               {this.state.categories_options.map((option, index) => (
                 <option key={index} value={option}>{option}</option>
               ))}
+            </select>
+
+            <select className='picker' name="subcategory" id="subcategory-select" 
+            // defaultValue={this.props.searchEngineState.categoryTerm}
+            value={this.props.searchEngineState.subcategoryTerm}
+
+            // onChange={this.handleSubcategoryChange}
+            >
+              <option value="">No Selection</option>
+              {options}
             </select>
 
 

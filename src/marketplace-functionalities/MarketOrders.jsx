@@ -23,6 +23,7 @@ class MarketOrders extends React.Component {
 
       titleTerm: undefined,
       categoryTerm: undefined,
+      subcategoryTerm: undefined,
       conditionTerm: undefined,
       minPriceTerm: undefined,
       maxPriceTerm: undefined,
@@ -55,6 +56,7 @@ class MarketOrders extends React.Component {
       const searchEngineState = {
         titleTerm: this.state.titleTerm,
         categoryTerm: this.state.categoryTerm,
+        subcategoryTerm: this.state.subcategoryTerm,
         conditionTerm: this.state.conditionTerm,
         minPriceTerm: this.state.minPriceTerm,
         maxPriceTerm: this.state.maxPriceTerm,
@@ -72,6 +74,7 @@ class MarketOrders extends React.Component {
     const searchEngineState = {
       titleTerm: this.state.titleTerm,
       categoryTerm: this.state.categoryTerm,
+      subcategoryTerm: this.state.subcategoryTerm,
       conditionTerm: this.state.conditionTerm,
       minPriceTerm: this.state.minPriceTerm,
       maxPriceTerm: this.state.maxPriceTerm,
@@ -91,7 +94,7 @@ class MarketOrders extends React.Component {
 
   async loadData(theUtilizedSearchQuery = undefined) {
 
-    // console.log("MarketOrders: loadData()->theUtilizedSearchQuery:", theUtilizedSearchQuery)
+    console.log("MarketOrders: loadData()\n\n->theUtilizedSearchQuery:\n\n", theUtilizedSearchQuery)
 
 
     // console.log(`/marketplace/paginated-orders/sellordersdata?page=${this.state.page}&limit=${this.state.limit}${theUtilizedSearchQuery ? theUtilizedSearchQuery : ""}`)
@@ -109,8 +112,6 @@ class MarketOrders extends React.Component {
       nextPage: serverOBJ.srv_.next,
       previousPage: serverOBJ.srv_.previous,
       number_of_pages: serverOBJ.srv_.number_of_pages.number,
-      // on_off_limit_next: prevState.nextPage === undefined,
-      // on_off_limit_previous: prevState.previousPage === undefined
     }, ()=>{
       if(this.state.nextPage==undefined){
         this.setState({
@@ -140,6 +141,7 @@ class MarketOrders extends React.Component {
     const searchEngineState = {
       titleTerm: this.state.titleTerm,
       categoryTerm: this.state.categoryTerm,
+      subcategoryTerm: this.state.subcategoryTerm,
       conditionTerm: this.state.conditionTerm,
       minPriceTerm: this.state.minPriceTerm,
       maxPriceTerm: this.state.maxPriceTerm,
@@ -210,6 +212,7 @@ class MarketOrders extends React.Component {
       const searchEngineState = {
         titleTerm: this.state.titleTerm,
         categoryTerm: this.state.categoryTerm,
+        subcategoryTerm: this.state.subcategoryTerm,
         conditionTerm: this.state.conditionTerm,
         minPriceTerm: this.state.minPriceTerm,
         maxPriceTerm: this.state.maxPriceTerm,
@@ -220,7 +223,9 @@ class MarketOrders extends React.Component {
       }
 
       let theUtilizedSearchQuery = this.setuptheSeachQuery(searchEngineState)
+      
       this.loadData(theUtilizedSearchQuery)
+      return
     })
   }
 
@@ -233,10 +238,14 @@ class MarketOrders extends React.Component {
     if (e.target.name == "state-province") {
       document.getElementById("my_form").elements["city"].value = ''
     }
+    if (e.target.name == "category") {
+      document.getElementById("my_form").elements["subcategory"].value = ''
+    }
 
 
     let titleTerm_value = document.getElementById("my_form").elements["title"].value
     let categoryTerm_value = document.getElementById("my_form").elements["category"].value
+    let subcategoryTerm_value = document.getElementById("my_form").elements["subcategory"].value
     let conditionTerm_value = document.getElementById("my_form").elements["condition"].value
     let chainTerm_value = document.getElementById("my_form").elements["chain"].value
 
@@ -260,6 +269,7 @@ class MarketOrders extends React.Component {
     this.setState({
       titleTerm: titleTerm_value == '' ? undefined : titleTerm_value,
       categoryTerm: categoryTerm_value == '' ? undefined : categoryTerm_value,
+      subcategoryTerm: subcategoryTerm_value == '' ? undefined : subcategoryTerm_value,
       conditionTerm: conditionTerm_value == '' ? undefined : conditionTerm_value,
       chainTerm: chainTerm_value == '' ? undefined : chainTerm_value,
       minPriceTerm: minPriceTerm_value,
@@ -292,7 +302,9 @@ class MarketOrders extends React.Component {
       _theUtilizedSearchQuery = `&search=${JSON.stringify(_searchEngineState)}`
     }
 
-    // console.log("MarketOrders: setuptheSeachQuery()-> setuptheSeachQuery: ", _theUtilizedSearchQuery)
+    // console.log("MarketOrders: setuptheSeachQuery()->\nsetuptheSeachQuery:\n\n", _theUtilizedSearchQuery)
+
+
     return _theUtilizedSearchQuery
   }
 

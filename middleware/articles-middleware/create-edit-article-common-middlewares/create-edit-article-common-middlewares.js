@@ -35,7 +35,8 @@ function seeData(req, res, next) {
 
 
 
-// TEMPORAL COMMENTED OUT
+// TODO !!! Excerpt should be set for all articles, commented for now as, setting an exerpt from a SUMMERNOTE is a bit off
+
 // function setTheExcerptMiddleware(req, res, next) {
 //   console.log("setTheExcerptMiddleware...")
 
@@ -183,7 +184,7 @@ async function commonArticleNestedDatatMiddleware1(req, res, next) {
         break;
       case SECTION_TYPES.A:
 
-        // TEMPORAL
+        // TODO !!! not sure if I can use image variable, is it scoped or not to the switch globaly, the image is declared above
         let image2 = undefined
 
         if (nested_data_block.image) {

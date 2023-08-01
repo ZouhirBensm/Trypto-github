@@ -38,8 +38,6 @@ class _1_InputGeneralMarketOrder extends React.Component {
     }
 
     this.setState({ categories_options: categories_options })
-
-
   }
 
   setOptions(_category) {
@@ -59,9 +57,9 @@ class _1_InputGeneralMarketOrder extends React.Component {
   }
 
 
+
+
   async validation() {
-
-
     let _1_InputGeneralMarketOrder_data = {
       title: this.inputTitle.current.value,
       description: this.textAreaDescription.current.value,
@@ -124,7 +122,10 @@ class _1_InputGeneralMarketOrder extends React.Component {
             </select><br />
 
             <label className='picker-label' htmlFor="subcategory-select">Subcategory</label>
-            <select ref={this.selectSubcategory} className='picker' name="subcategory" id="subcategory-select" value={this.props.subcategory} onChange={(e) => this.props.handleChange("subcategory", e)}>
+            <select ref={this.selectSubcategory} className='picker' name="subcategory" id="subcategory-select" 
+            value={this.props.subcategory} 
+            onChange={(e) => this.props.handleChange("subcategory", e)}
+            >
               <option value="">No Selection</option>
               {options}
             </select><br />

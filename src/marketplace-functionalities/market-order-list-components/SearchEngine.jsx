@@ -16,9 +16,6 @@ class SearchEngine extends React.Component {
       on_off: false,
     }
     this.displayHideFilterEngine = this.displayHideFilterEngine.bind(this);
-    // this.rangeLimits = this.rangeLimits.bind(this);
-
-    // console.log("order_type=", this.props.order_type)
   }
 
 
@@ -28,6 +25,7 @@ class SearchEngine extends React.Component {
     const filter_values = {
       title: document.getElementById("my_form").elements["title"].value,
       category: document.getElementById("my_form").elements["category"].value,
+      subcategory: document.getElementById("my_form").elements["subcategory"].value,
       condition: document.getElementById("my_form").elements["condition"].value,
       min_price: document.getElementById("my_form").elements["min-price"].value,
       max_price: document.getElementById("my_form").elements["max-price"].value,
@@ -45,31 +43,6 @@ class SearchEngine extends React.Component {
 
   }
 
-
-
-
-
-  // rangeLimits(e) {
-  //   // if (e.target.value < 2000) e.target.value = 2000
-  //   const liveValue = parseInt(e.target.value)
-
-  //   const minPriceTerm_value = parseInt(document.getElementById("my_form").elements["min-price"].value)
-  //   const maxPriceTerm_value = parseInt(document.getElementById("my_form").elements["max-price"].value)
-
-
-  //   if (e.target.name == "min-price") {
-  //     if (liveValue > maxPriceTerm_value) {
-  //       e.target.value = maxPriceTerm_value
-  //     }
-  //   }
-
-  //   if (e.target.name == "max-price") {
-  //     if (liveValue < minPriceTerm_value) {
-  //       e.target.value = minPriceTerm_value
-  //     }
-  //   }
-
-  // }
 
 
   displayHideFilterEngine(e = undefined) {

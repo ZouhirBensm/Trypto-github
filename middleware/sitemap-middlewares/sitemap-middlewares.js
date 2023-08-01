@@ -9,7 +9,6 @@ const Article = require('../../models/articles-models/Article')
 
 
 async function middleware1(req, res, next) {
-  // TEMPORAL
   const now = new Date()
 
   const urls = [

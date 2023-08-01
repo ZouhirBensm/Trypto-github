@@ -229,13 +229,13 @@ function arePasswordsEqual(obj) {
 
 function validateInputsAgainstInjection(obj_input, err_msg = undefined) {
 
-  const preventInjectionsRegEx = /[<>;`}(")'{\&]/;
+  const preventInjectionsRegEx = /[<>;`}(")'{]/;
 
   for (const property in obj_input) {
     console.log(`${property}: ${obj_input[property]}`);
 
     if (preventInjectionsRegEx.test(obj_input[property])) {
-      err_msg = `This field: ${property}, inputed value is not proper, i.e. Contains these chars: ()<>\`;"}'{&. Please modify.`
+      err_msg = `This field: ${property}, inputed value is not proper, i.e. Contains these chars: ()<>\`;"}'{. Please modify.`
       break
     }
   }

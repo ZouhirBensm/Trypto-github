@@ -99,8 +99,8 @@ class PageSelector extends React.Component {
     // console.log("numbered_list2", numbered_list)
     // console.log("you are on page:", this.state.page, "\n", "lower bound:", this.state.page,"\n", "upper bound:", this.state.page,"\n", "and their is:", this.props.number_of_pages,"\n")
 
-    console.log("childs fucking page: ", this.state.page)
-    console.log("<-:-> ", this.props.on_off_limit_previous, this.props.on_off_limit_next)
+    // console.log("childs fucking page: ", this.state.page)
+    // console.log("<-:-> ", this.props.on_off_limit_previous, this.props.on_off_limit_next)
 
     return (
       <div id='pagination-fragment'>
