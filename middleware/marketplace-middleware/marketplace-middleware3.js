@@ -45,6 +45,273 @@ const agendaDefineJobFunctions = require('../../full-stack-libs/define-agenda-jo
 
 
 
+
+
+
+
+// _________________________________________________________________
+
+
+
+
+
+
+
+async function filterSetupsMiddleware(req, res, next) {
+  // console.log("\n\nmarketplaceMiddleware: preset1(): \n\n\n\n")
+
+  // 1 => false => regenerate cache and orders
+  // 2, 3, 4 => true
+  //   yes => true => use cache
+  //   no => false => regenerate cache and orders
+
+  if (res.locals.page > 1) {
+    const key = "sellOrders"
+    if (c.get(key)) {
+      // retrieved sellOrders from cache
+      res.locals.sellOrders = c.get(key)
+      return next()
+    }
+  }
+
+
+  // Query string parameters
+  let searchEngineTerms = req.query.search
+  searchEngineTerms = searchEngineTerms ? JSON.parse(searchEngineTerms) : undefined
+
+  console.log("preset1()->searchEngineTerms: ", searchEngineTerms)
+
+  // baseFilter, and localityFilter are either populated objects or empty {} objects, depending on whether something was sent from the front end
+  let baseFilter = formOrderFindFilter(searchEngineTerms)
+
+  console.log("\n\n\preset1()->baseFilter: ", baseFilter)
+  res.locals.baseFilter = baseFilter
+
+  let localityFilter = formLocalityFindFilter(searchEngineTerms)
+
+  console.log("\n\n\preset1()->localityFilter: ", localityFilter)
+  res.locals.localityFilter = localityFilter
+
+
+  return next()
+}
+
+
+
+
+
+
+
+
+
+// TODO !!!! Better name: determineRearrangeDataBasedOffUserRegisteredLocality
+async function determineRearrangeDataOrNotMiddleware(req, res, next) {
+
+
+  if (res.locals.sellOrders) {
+    return next()
+  }
+
+
+  // Default
+  let option = 1
+
+
+  // Default is option 1, now, if there is no locality filter, and logged in user disposes of a locality, then go for option 2
+  if (isObjEmpty(res.locals.localityFilter)) {
+
+    let ret_user
+    try {
+      ret_user = await User.findById(req.session.userId)
+        .populate({
+          // Populate protagonists
+          path: "userassociatedlocalityID",
+          // Fields allowed to populate with
+          select: "location -_id",
+        })
+    } catch (error) {
+      console.error(error)
+    }
+
+    // console.log(ret_user)
+
+    // option 2: No Locality filter, and user disposes of a locality
+    if (!!ret_user?.userassociatedlocalityID?.location) {
+      option = 2
+      res.locals.ret_user = ret_user
+    }
+  }
+
+
+  res.locals.option = option
+
+  return next()
+}
+
+
+
+async function queryAndOrganizeDataMiddleware(req, res, next) {
+
+
+  if (res.locals.sellOrders) {
+    return next()
+  }
+
+
+  // user Location not there
+  let sellOrders
+
+  // By default option 1 retrieves and queries with the localityFilter if present
+  // console.log(res.locals.ret_user?.userassociatedlocalityID.location)
+  try {
+    // Descending: from newest to oldest
+    sellOrders = await SellMarketOrder
+      .find(res.locals.baseFilter).sort({ postedDate: -1 })
+      .populate({
+        path: 'userid',
+        select: "-password",
+      })
+      .populate({
+        path: "sellmarketorderImageID",
+        // Fields allowed to populate with
+        select: "images.name -_id",
+      })
+      .populate({
+        path: "sellmarketorderlocationID",
+        match: res.locals.localityFilter,
+        // Fields allowed to populate with
+        select: "location.country location.province_state location.city  location.neigh location.st -_id",
+      })
+
+
+    // TODO !!! use this query when referer is home page
+    // QUERY WHEN DATA NEEDED FOR HOME PAGE
+    // sellOrders = await SellMarketOrder.find().sort({ postedDate: -1 })
+    //   .select("title description price conversion chain postedDate sellmarketorderImageID")
+    //   .populate({
+    //     path: "sellmarketorderImageID",
+    //     select: "images.name -_id",
+    //   })
+
+  } catch (e) {
+    return next(e)
+  }
+
+  // Making the localityFilter act as the baseFilter in scenario where the localityFilter is present
+  // If locality filter in place
+  // Rid of the sell orders without populated locality 
+  // Because when their is no match the sellmarketorderlocationID is set to null
+  if (!isObjEmpty(res.locals.localityFilter)) {
+    sellOrders = sellOrders.filter(sellOrder => !!sellOrder.sellmarketorderlocationID)
+  }
+
+  // If your are going to implement the priviledge BASIC user have, then keep this line of code. It works in conjuction with services/additional-js-sorting-after-mongoose-queries/sorting-functions5.js
+  // Now if you do not require priviledge for BASIC users, then use sorting-functions4.js
+  if (res.locals.option == 1) {
+    sellOrders = sorting_algos.SORT_BASIC(sellOrders)
+  }
+
+  // At this point the orders are arranged from recent to oldest, by possibly a search baseFilter, by no localityFilter, and the user has a registered locality
+  if (res.locals.option == 2) {
+    let reaarranger_instance = new RearrangeClass(sellOrders)
+    // Arrange all orders based off loged in user location 
+    reaarranger_instance.LocalityArranger = res.locals.ret_user?.userassociatedlocalityID.location
+    // Retrieve the rearranged set
+    sellOrders = reaarranger_instance.getArrangedSellOrders
+  }
+
+
+
+
+
+  res.locals.sellOrders = sellOrders
+
+  const key = "sellOrders"
+
+  // if we do not have a cache, put new value
+  c.del(key)
+  c.put(key, res.locals.sellOrders);
+
+  return next()
+}
+
+
+
+
+
+
+
+
+
+
+async function ordersRetrievalMiddleware(req, res, next) {
+  console.log("\n\nmarketplaceMiddleware: ordersRetrievalMiddleware(): \n\n\n\n")
+
+  let orders
+
+  let mysellOrders = res.locals.sellOrders.filter((order_entry) => {
+    console.log(order_entry.userid._id.toString() == res.locals.path_param_userID)
+    return order_entry.userid._id.toString() == res.locals.path_param_userID
+  })
+
+  console.log('\n\n--->\nres.locals.URL_fromReferer: ', res.locals.URL_fromReferer)
+  console.log(`\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/`)
+
+  if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/marketplace/allmyorders`
+    ||
+    res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-market-orders/${res.locals.path_param_userID}`
+
+  ) {
+
+    console.log("MY MODE -> from path param")
+    orders = mysellOrders
+
+  } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/marketplace/sellordersdata`
+    ||
+    res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/`
+  ) {
+
+    console.log("NORMAL MODE: marketorders")
+    orders = res.locals.sellOrders
+
+  } else {
+    const e = new Error("The path URL not identified to enable to return proper orders")
+    return next(e)
+  }
+
+
+  // console.log("\n\n\n\nORDERS!!\n\n", orders)
+
+  res.locals.data_to_be_paginated_and_served = orders
+  return next()
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// _________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
 async function seeDataRespond(req, res, next) {
   console.log('\n\n$$$req.body---->\n', req.body)
   console.log('\n\n$$$req.files---->\n', req.files)
@@ -284,241 +551,6 @@ async function setupAgendaJobToDeleteOrderImagesOnExpiryMiddleware(req, res, nex
 
 
 
-
-
-
-
-async function filterSetupsMiddleware(req, res, next) {
-  // console.log("\n\nmarketplaceMiddleware: preset1(): \n\n\n\n")
-
-  // 1 => false => regenerate cache and orders
-  // 2, 3, 4 => true
-  //   yes => true => use cache
-  //   no => false => regenerate cache and orders
-
-  if (res.locals.page > 1) {
-    const key = "sellOrders"
-    if (c.get(key)) {
-      // retrieved sellOrders from cache
-      res.locals.sellOrders = c.get(key)
-      return next()
-    }
-
-  }
-
-
-  // Query string parameters
-  let searchEngineTerms = req.query.search
-  searchEngineTerms = searchEngineTerms ? JSON.parse(searchEngineTerms) : undefined
-
-  console.log("preset1()->searchEngineTerms: ", searchEngineTerms)
-
-  // baseFilter, and localityFilter are either populated objects or empty {} objects, depending on whether something was sent from the front end
-  let baseFilter = formOrderFindFilter(searchEngineTerms)
-
-  console.log("\n\n\preset1()->baseFilter: ", baseFilter)
-  res.locals.baseFilter = baseFilter
-
-  let localityFilter = formLocalityFindFilter(searchEngineTerms)
-
-  console.log("\n\n\preset1()->localityFilter: ", localityFilter)
-  res.locals.localityFilter = localityFilter
-
-
-  return next()
-}
-
-
-
-
-
-
-
-
-
-
-// Better name: determineRearrangeDataBasedOffUserRegisteredLocality
-async function determineRearrangeDataOrNotMiddleware(req, res, next) {
-
-
-  if (res.locals.sellOrders) {
-    return next()
-  }
-
-
-  // Default
-  let option = 1
-
-
-  // Default is option 1, now, if there is no locality filter, and logged in user disposes of a locality, then go for option 2
-  if (isObjEmpty(res.locals.localityFilter)) {
-
-    let ret_user
-    try {
-      ret_user = await User.findById(req.session.userId)
-        .populate({
-          // Populate protagonists
-          path: "userassociatedlocalityID",
-          // Fields allowed to populate with
-          select: "location -_id",
-        })
-    } catch (error) {
-      console.error(error)
-    }
-
-    // console.log(ret_user)
-
-    // option 2: No Locality filter, and user disposes of a locality
-    if (!!ret_user?.userassociatedlocalityID?.location) {
-      option = 2
-      res.locals.ret_user = ret_user
-    }
-  }
-
-
-  res.locals.option = option
-
-  return next()
-}
-
-
-
-async function queryAndOrganizeDataMiddleware(req, res, next) {
-
-
-  if (res.locals.sellOrders) {
-    return next()
-  }
-
-
-  // user Location not there
-  let sellOrders
-
-  // By default option 1 retrieves and queries with the localityFilter if present
-  // console.log(res.locals.ret_user?.userassociatedlocalityID.location)
-  try {
-    // Descending: from newest to oldest
-    sellOrders = await SellMarketOrder
-      .find(res.locals.baseFilter).sort({ postedDate: -1 })
-      .populate({
-        path: 'userid',
-        select: "-password",
-      })
-      .populate({
-        path: "sellmarketorderImageID",
-        // Fields allowed to populate with
-        select: "images.name -_id",
-      })
-      .populate({
-        path: "sellmarketorderlocationID",
-        match: res.locals.localityFilter,
-        // Fields allowed to populate with
-        select: "location.country location.province_state location.city  location.neigh location.st -_id",
-      })
-
-
-    // TODO !!! use this query when referer is home page
-    // QUERY WHEN DATA NEEDED FOR HOME PAGE
-    // sellOrders = await SellMarketOrder.find().sort({ postedDate: -1 })
-    //   .select("title description price conversion chain postedDate sellmarketorderImageID")
-    //   .populate({
-    //     path: "sellmarketorderImageID",
-    //     select: "images.name -_id",
-    //   })
-
-  } catch (e) {
-    return next(e)
-  }
-
-  // Making the localityFilter act as the baseFilter in scenario where the localityFilter is present
-  // If locality filter in place
-  // Rid of the sell orders without populated locality 
-  // Because when their is no match the sellmarketorderlocationID is set to null
-  if (!isObjEmpty(res.locals.localityFilter)) {
-    sellOrders = sellOrders.filter(sellOrder => !!sellOrder.sellmarketorderlocationID)
-  }
-
-  // If your are going to implement the priviledge BASIC user have, then keep this line of code. It works in conjuction with services/additional-js-sorting-after-mongoose-queries/sorting-functions5.js
-  // Now if you do not require priviledge for BASIC users, then use sorting-functions4.js
-  if (res.locals.option == 1) {
-    sellOrders = sorting_algos.SORT_BASIC(sellOrders)
-  }
-
-  // At this point the orders are arranged from recent to oldest, by possibly a search baseFilter, by no localityFilter, and the user has a registered locality
-  if (res.locals.option == 2) {
-    let reaarranger_instance = new RearrangeClass(sellOrders)
-    // Arrange all orders based off loged in user location 
-    reaarranger_instance.LocalityArranger = res.locals.ret_user?.userassociatedlocalityID.location
-    // Retrieve the rearranged set
-    sellOrders = reaarranger_instance.getArrangedSellOrders
-  }
-
-
-
-
-
-  res.locals.sellOrders = sellOrders
-
-  const key = "sellOrders"
-
-  // if we do not have a cache, put new value
-  c.del(key)
-  c.put(key, res.locals.sellOrders);
-
-  return next()
-}
-
-
-
-
-
-
-
-
-
-
-async function ordersRetrievalMiddleware(req, res, next) {
-  console.log("\n\nmarketplaceMiddleware: ordersRetrievalMiddleware(): \n\n\n\n")
-
-  let orders
-
-  let mysellOrders = res.locals.sellOrders.filter((order_entry) => {
-    console.log(order_entry.userid._id.toString() == res.locals.path_param_userID)
-    return order_entry.userid._id.toString() == res.locals.path_param_userID
-  })
-
-  console.log('\n\n--->\nres.locals.URL_fromReferer: ', res.locals.URL_fromReferer)
-  console.log(`\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/`)
-
-  if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/marketplace/allmyorders`
-    ||
-    res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/operations/help-for-market-orders/${res.locals.path_param_userID}`
-
-  ) {
-
-    console.log("MY MODE -> from path param")
-    orders = mysellOrders
-
-  } else if (res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/marketplace/sellordersdata`
-    ||
-    res.locals.URL_fromReferer == `${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/`
-  ) {
-
-    console.log("NORMAL MODE: marketorders")
-    orders = res.locals.sellOrders
-
-  } else {
-    const e = new Error("The path URL not identified to enable to return proper orders")
-    return next(e)
-  }
-
-
-  // console.log("\n\n\n\nORDERS!!\n\n", orders)
-
-  res.locals.data_to_be_paginated_and_served = orders
-  return next()
-
-}
 
 
 

@@ -7,6 +7,10 @@ import MarketOrderTable from './market-order-list-components/MarketOrderTable';
 import PageSelector from '../generic-components/PageSelector';
 import OnPageFooter from '../generic-components/OnPageFooter'
 
+
+// TODO !!!! Need to add refs to search elements when possible
+
+
 class MarketOrders extends React.Component {
   constructor(props) {
     super(props)
