@@ -207,7 +207,7 @@ class SearchWindow extends React.Component {
           <form id="my_form" className='search-component' onSubmit={(e) => {
             e.preventDefault(e)
 
-            // TEMPORAL
+            // TODO !!!!! TEMPORAL COMMENTED
             // let retrieved = this.props.validation()
 
             // if (retrieved) {
@@ -218,6 +218,7 @@ class SearchWindow extends React.Component {
             // }
 
             this.props.submitFilter(e);
+            // TODO !!!!! TEMPORAL COMMENTED
             // this.props.displayHideFilterEngine(e);
 
           }} onChange={this.props.searchEngineOnChange}>
