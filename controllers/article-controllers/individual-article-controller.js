@@ -21,8 +21,6 @@ async function controller2(req, res, next) {
 }
 
 
-// TODO !!!! Add subcategories.
-
 // TODO !!!! Hide message, CRUD messages.
 
 // TODO !!!! Post Bubble article on social media
