@@ -2,6 +2,7 @@ import loadable from "@loadable/component";
 import Loading from "../generic-components/Loading";
 
 import './styles/MarketPlace.css'
+import '../style/reactDivMobile.css'
 
 const MakeMarketOrder = loadable(() => import("../marketplace-functionalities/MakeMarketOrder"), {
   fallback: <Loading />
