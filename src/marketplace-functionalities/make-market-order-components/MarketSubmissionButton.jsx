@@ -1,6 +1,8 @@
 import '../style/MarketSubmissionButton.css'
 
 
+// TODO Have to rewrite entire error handling, not able to catch error when nginx memory limit exceeded. I have to normalize when from json errors to normal error accross the app of figure out a way to handle both
+
 class MarketSubmissionButton extends React.Component {
   constructor(props) {
     super(props)
@@ -65,6 +67,10 @@ class MarketSubmissionButton extends React.Component {
             ret_apiMakeMarketOrder = await this.apiMakeMarketOrder()
           } catch (error) {
             console.error('CAUGHT: ', error)
+            const err_message = 'Server error. Try again later.'
+            this.props.setpopup(err_message)
+            const reactDiv = document.getElementById("react-div")
+            reactDiv.scrollTo(0, reactDiv.scrollHeight);
           }
 
           return
