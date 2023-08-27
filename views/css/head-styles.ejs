@@ -1,9 +1,8 @@
 <style>
-
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
     height: 100vh;
     width: 100vw;
@@ -34,6 +33,7 @@
     align-items: center;
     z-index: 1;
     width: 100%;
+    overflow: scroll;
   }
 
 
@@ -78,7 +78,7 @@
 
 
   /* ul.home>li>a[href='/operations']  */
-  ul.iflog>li>a[href='/users/login']{
+  ul.iflog>li>a[href='/users/login'] {
     background: #1266FC;
     box-shadow: 0px 6px 20px #1266FC4E;
     border-radius: 8px;
@@ -111,7 +111,7 @@
   /* ul.home>li>a[href='/messaging/messages']>img  */
   ul.iflog>li>a[href='/users/login']>img,
   ul.iflog>li>a[href='/subscription']>img,
-  ul.iflog>li>a[href='/logout']>img{
+  ul.iflog>li>a[href='/logout']>img {
     width: 24px;
     height: 24px;
   }
@@ -120,6 +120,35 @@
     height: 35px;
     width: 116px;
     margin-right: 4ch;
+  }
+
+  @media (max-width: 650px) {
+    ul.iflog>li>a[href='/'] {
+      display: none;
+    }
+  }
+
+  @media (max-width: 500px) {
+    ul.iflog>li>a[href='/users/login'] {
+      margin-right: .5ch;
+    }
+
+    ul.iflog>li:last-of-type {
+      margin-right: 2%;
+    }
+    ul.iflog>li img {
+      margin-right: 0;
+    }
+
+    ul.iflog>li:first-of-type {
+      margin-left: 0;
+    }
+
+    ul.iflog>li>a[href='/users/login'],
+    ul.iflog>li>a[href='/subscription'], 
+    ul.iflog>li>a[href='/logout'] {
+      padding: .5rem .5rem;
+    }
   }
 
   a {
@@ -140,6 +169,8 @@
   li a:visited {
     color: red;
   }
+
+
 
 
   aside.sidebar-container {
@@ -333,8 +364,4 @@
     position: absolute;
     justify-content: space-around;
   } */
-
-
-
-
 </style>
