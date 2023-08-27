@@ -82,61 +82,63 @@ class HomeBanner extends React.Component {
 
     return (
       <React.Fragment>
-        <div id='header'>
+        <div>
 
-          <span id="vertical-rect"></span>
-          <span id="vertical-rect"></span>
+          <div id='header'>
 
-          <img className='symbol' src="/img/SVG/home/inner/bitcoin-symbol.svg" alt="" />
-          <img className="clean symbol" src="/img/SVG/home/outer/clean.svg" alt="" />
+            <span id="vertical-rect"></span>
+            <span id="vertical-rect"></span>
 
-          <img className="broken symbol" src="/img/SVG/home/outer/broken.svg" alt="" />
+            <img className='symbol' src="/img/SVG/home/inner/bitcoin-symbol.svg" alt="" />
+            <img className="clean symbol" src="/img/SVG/home/outer/clean.svg" alt="" />
+
+            <img className="broken symbol" src="/img/SVG/home/outer/broken.svg" alt="" />
 
 
-          <div id="home-header-text">
-            <div>
-              <h1>
-                Buy, Sell, and Trade Market Items
-              </h1>
-              <h2>
-                In Bitcoin and Sats.
-              </h2>
+            <div id="home-header-text">
               <div>
-                Welcome to Bidblock.<br />
-                We are building the most ethical item market that disposes of a system to facilitate Bitcoin transactions.
+                <h1>
+                  Buy, Sell, and Trade Market Items
+                </h1>
+                <h2>
+                  In Bitcoin and Sats.
+                </h2>
+                <div>
+                  Welcome to Bidblock.<br />
+                  We are building the most ethical item market that disposes of a system to facilitate Bitcoin transactions.
+                </div>
               </div>
             </div>
-          </div>
 
 
 
-          <div id="home-header-cards">
-            <HomeBannerCard
-              icon_path='/img/SVG/home/home-cards/downwallet.svg'
-              text='Deposit on Bitcoin wallets. Upcoming.'
-            />
-            <HomeBannerCard
-              icon_path='/img/SVG/home/home-cards/credit-card.svg'
-              text='In-app transaction system. Upcoming.'
-            />
-            <HomeBannerCard
-              icon_path='/img/SVG/home/home-cards/wallet.svg'
-              text='Sales dashboards, and graphs to monitor your financial progress. Upcoming.'
-            />
-
-          </div>
-
-
-
-
-
-          <div id="home-header-prices">
-            <div id="scroll-bar">
+            <div id="home-header-cards">
+              <HomeBannerCard
+                icon_path='/img/SVG/home/home-cards/downwallet.svg'
+                text='Deposit on Bitcoin wallets. Upcoming.'
+              />
+              <HomeBannerCard
+                icon_path='/img/SVG/home/home-cards/credit-card.svg'
+                text='In-app transaction system. Upcoming.'
+              />
+              <HomeBannerCard
+                icon_path='/img/SVG/home/home-cards/wallet.svg'
+                text='Sales dashboards, and graphs to monitor your financial progress. Upcoming.'
+              />
 
             </div>
 
 
-            {/* <table>
+
+
+
+            <div id="home-header-prices">
+              <div id="scroll-bar">
+
+              </div>
+
+
+              {/* <table>
               <tbody>
                 <tr>
                   {tds_currencies}
@@ -148,11 +150,12 @@ class HomeBanner extends React.Component {
             </table> */}
 
 
+            </div>
+
+
+
+
           </div>
-
-
-
-
         </div>
 
 

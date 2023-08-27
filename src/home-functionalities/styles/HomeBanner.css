@@ -9,33 +9,10 @@ div#header>div#home-header-cards {
 }
 
 div#header {
-  /* background: linear-gradient(170deg, rgb(235 249 255), rgb(0 182 253)); */
-  /* margin: 2vh auto; */
-  /* padding-top: 50px; */
-  /* padding-bottom: 20px; */
-  /* background-image: url(/public/img/PNG/profile/user-info/logo-bk.png); */
-
   background-image: linear-gradient(170deg, rgb(235 249 255), rgb(0 182 253));
-  /* , url('/public/img/SVG/home/bitcoin-big.svg') */
-
-  /* background-repeat: no-repeat;
-  background-size: 100% auto;
-  background-position: center; */
-
-  /* border-radius: 15px; */
-  /* overflow: hidden; */
-
-  /* height: 100vh; */
-
-  /* height: 100%; */
-
   height: fit-content;
-
-
-  /* overflow: hidden; */
   position: relative;
-
-  
+  overflow: hidden;
 }
 
 
