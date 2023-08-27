@@ -59,7 +59,14 @@ class MarketSubmissionButton extends React.Component {
         let ret_validation = this.finalSubmissionValidation()
 
         if (ret_validation) {
-          let ret_apiMakeMarketOrder = await this.apiMakeMarketOrder()
+
+          let ret_apiMakeMarketOrder
+          try {
+            ret_apiMakeMarketOrder = await this.apiMakeMarketOrder()
+          } catch (error) {
+            console.error('CAUGHT: ', error)
+          }
+
           return
         } else {
           return
@@ -125,10 +132,14 @@ class MarketSubmissionButton extends React.Component {
     let response
     let json
 
-    response = await fetch(`/marketplace/sellorders/save/${userId}`, {
-      method: 'POST',
-      body: formData
-    })
+    try {
+      response = await fetch(`/marketplace/sellorders/save/${userId}`, {
+        method: 'POST',
+        body: formData
+      })
+    } catch (error) {
+      return error
+    }
 
     json = await response.json()
 
