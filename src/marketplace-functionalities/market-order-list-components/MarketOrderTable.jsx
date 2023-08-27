@@ -23,9 +23,10 @@ class MarketOrderTable extends React.Component {
       })
       return ordersItem
     } else {
+      ordersItem = []
       const msg = `this.props.orders resolved to a false for some reason`
       console.error(msg)
-      return
+      return ordersItem
     }
   }
 

@@ -154,7 +154,7 @@ class ArticlesMobileCarousel extends React.Component {
 
             {this.props.articles.map((article, i) => (
               <ArticleItem
-                key={article._id}
+                key={`${i}-${article._id}`}
                 card_number={i}
                 article={article}
               />

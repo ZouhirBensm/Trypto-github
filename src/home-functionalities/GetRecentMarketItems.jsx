@@ -28,7 +28,7 @@ class GetRecentMarketItems extends React.Component {
     console.log(json.srv_)
 
     this.setState({
-      orders: json.srv_.ORDERS
+      orders: json.srv_?.ORDERS
     })
 
 
