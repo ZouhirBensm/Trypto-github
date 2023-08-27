@@ -36,6 +36,7 @@ class UploadImage extends React.Component {
     return (
       <React.Fragment>
         <div id='box-input' className='image-upload'>
+          
 
           <label id='upload-button' htmlFor={this.props.inputID}>Upload</label>
           <div>

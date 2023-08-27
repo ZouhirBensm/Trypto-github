@@ -157,6 +157,7 @@ class _4_InputImagesMarketOrder extends React.Component {
 
     return (
       <React.Fragment>
+        <span>Total Memory Limit 6MB</span>
         <div id='images-container'>
           <ImagesWDeletionLoop
             filelist={filelist}
