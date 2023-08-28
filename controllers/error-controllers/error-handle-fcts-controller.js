@@ -121,7 +121,7 @@ const errorResponseDispatcherController = async (err, req, res, next) => {
         error: {
           type: err.type,
           message: {
-            client_message: `${err.message}, Images need to be under: ${max_marketimagefilesize} bytes`,
+            client_message: `${err.message}, Images total size needs to be equal or less than: ${max_marketimagefilesize* Math.pow(10, -6)}MB`,
             admin_message: err.message
           }
         }
