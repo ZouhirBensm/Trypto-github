@@ -4,7 +4,7 @@ import './styles/Register2.css'
 import '../root-spas/styles/Sign-in-up.css'
 
 import { verifyEmail, verifyPassword, verifyUsername, verifyTermsConditionsClicked } from '../../full-stack-libs/validations'
-import RegisterButton from './RegisterButton2'
+import RegisterButton from './RegisterButton4'
 import RegisterNotification from './RegisterNotification'
 // import LogRegFooter from './LogRegFooter'
 
@@ -21,6 +21,8 @@ class Register extends React.Component {
     this.setNotification = this.setNotification.bind(this)
     this.handleValidation = this.handleValidation.bind(this)
     this.asyncFunctionToreturnValidation = this.asyncFunctionToreturnValidation.bind(this)
+
+    this.honneyRef = React.createRef();
   }
 
   componentDidMount() {
@@ -153,7 +155,7 @@ class Register extends React.Component {
             </label>
             <input id='terms-conditions-checkbox-id' type="checkbox" />
 
-            <input type="text" name="hny_spm" />
+            <input ref={this.honneyRef} type="text" name="hny_spm"/>
 
             <RegisterNotification
               notification={this.state.notification}
@@ -173,6 +175,7 @@ class Register extends React.Component {
             lat={this.props.lat}
             lng={this.props.lng}
             password={this.props.password}
+            honneyRef={this.honneyRef.current}
           />
 
 

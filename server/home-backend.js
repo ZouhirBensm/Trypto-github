@@ -6,7 +6,7 @@ const multer = require('multer')
 const httpStatus = require("http-status-codes")
 const CoinGecko = require('coingecko-api');
 
-const {ProfileImageUploadError} = require('../custom-errors/custom-errors')
+const { ProfileImageUploadError } = require('../custom-errors/custom-errors')
 
 const MulterSetup = require('../services/multer-services/multer.src')
 const multerinstance = new MulterSetup(`./public/img/temporal-new`, new ProfileImageUploadError("Server Error | Please, try again later", "Directory: temporal-new directory is not present."), new ProfileImageUploadError("Only images with proper extensions i.e. [ png, jpeg, apng, avif, gif, webp ] are allowed.", "Only images with proper extensions i.e. [ png, jpeg, apng, avif, gif, webp ] are allowed."))
@@ -85,7 +85,7 @@ const checkClientIsActiveMiddleware = require('../middleware/loggedin-middleware
 const passwordVerifierMiddleware = require('../middleware/loggedin-middleware/password-verifier-middleware')
 
 
-const {responseMessageSetterMiddleware} = require('../middleware/reset-password-middleware/response-message-middleware')
+const { responseMessageSetterMiddleware } = require('../middleware/reset-password-middleware/response-message-middleware')
 const checkCredentialsPresentMiddleware = require('../middleware/loggedin-middleware/check-credentials-present-middleware')
 
 const checkIfUserByEmailMiddleware = require('../middleware/generic-middleware/check-if-user-by-email-middleware')
@@ -142,19 +142,17 @@ homeBackend_app_router.get('/faqs/:faq_title?', faqDataMiddleware.retrieveFAQsMi
 
 
 
-homeBackend_app_router.get('/users/profile', 
+homeBackend_app_router.get('/users/profile',
 
-require_loggedin_for_pages(true), 
+  require_loggedin_for_pages(true),
 
-authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]), 
+  authenticate_role_for_pages([ROLE.USER.SUBSCRIBER.BASIC, ROLE.USER.NOTSUBSCRIBER, ROLE.MASTER]),
 
-getPopulatedUser("SESSION", "subscriptionID"), 
+  getPopulatedUser("SESSION", "subscriptionID"),
 
-getProfilePicNameIfAnyMiddleware("SESSION"),
+  getProfilePicNameIfAnyMiddleware("SESSION"),
 
-homeController.renderMgtUserSPAController)
-
-
+  homeController.renderMgtUserSPAController)
 
 
 
@@ -165,7 +163,9 @@ homeController.renderMgtUserSPAController)
 
 
 
-homeBackend_app_router.get('/todelete', (req,res)=>{
+
+
+homeBackend_app_router.get('/todelete', (req, res) => {
   var JSX_to_load = 'ToDelete';
 
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
@@ -188,7 +188,7 @@ homeBackend_app_router.get('/todelete', (req,res)=>{
 
 
 
-homeBackend_app_router.post('/users/upload/userprofileimage/:selectedUserID', multerinstance.upload.single('image'), profileMiddleware.makeSureDestinationFolderPresentMiddleware, profileMiddleware.sharpAndDisplaceNewProfilePicMiddleware, profileMiddleware.isThereProfilePicAlreadyMiddleware, profileMiddleware.retrievePrevImageInfo_DeletePrevPic_DeletePicEntry_Middleware,profileMiddleware.instantiateNewImageMiddleware, profileMiddleware.editUsersLinkedImageIDMiddleare, profileMiddleware.saveNewImageEntryMiddleware, profileController.sucessUploadProfilePicController)
+homeBackend_app_router.post('/users/upload/userprofileimage/:selectedUserID', multerinstance.upload.single('image'), profileMiddleware.makeSureDestinationFolderPresentMiddleware, profileMiddleware.sharpAndDisplaceNewProfilePicMiddleware, profileMiddleware.isThereProfilePicAlreadyMiddleware, profileMiddleware.retrievePrevImageInfo_DeletePrevPic_DeletePicEntry_Middleware, profileMiddleware.instantiateNewImageMiddleware, profileMiddleware.editUsersLinkedImageIDMiddleare, profileMiddleware.saveNewImageEntryMiddleware, profileController.sucessUploadProfilePicController)
 
 
 homeBackend_app_router.post('/users/submission-new-password', responseMessageSetterMiddleware("Server Error, please try again later."), reHachHexForPassResetMiddleware, markHashForPasswordResetAsUsedMiddleware, retrieveTheHashForPasswordResetMiddleware, createAndUpdateNewPasswordController)
@@ -250,20 +250,33 @@ registerController.responseOnRegistrationController
 )
 
 
+// homeBackend_app_router.post('/users/register', (re, res) => {
+//   setTimeout(() => {
+//     const success_msg = 'Success'
+//     return res.status(200).json({
+//       server: {
+//         message: [success_msg],
+//       }
+//     })
+//   }, 3000)
+// })
+
+
+
 
 homeBackend_app_router.get('/resend-user-email/:userEmail', destructureURLandRefererMiddleware, resendConfirmationController)
 
 
-homeBackend_app_router.get('/purge', 
-// TODO !!!! Need to add a backend operation click to purge all, and also the ability to purge specific job
-require_loggedin_for_data(true), 
-authenticate_role_for_data([ROLE.MASTER]), 
+homeBackend_app_router.get('/purge',
+  // TODO !!!! Need to add a backend operation click to purge all, and also the ability to purge specific job
+  require_loggedin_for_data(true),
+  authenticate_role_for_data([ROLE.MASTER]),
 
-async (req, res) => {
-  console.log('purging...')
-  const numRemoved = await agenda.purge();
-  res.status(200).json({message: `Done purge on Agenda!`})
-})
+  async (req, res) => {
+    console.log('purging...')
+    const numRemoved = await agenda.purge();
+    res.status(200).json({ message: `Done purge on Agenda!` })
+  })
 
 
 homeBackend_app_router.get('/', async (req, res) => {
@@ -420,12 +433,12 @@ homeBackend_app_router.get('/logout', require_loggedin_for_data(true), (req, res
 })
 
 
-homeBackend_app_router.post('/users/login', require_loggedin_for_data(false), 
-checkCredentialsPresentMiddleware,
-checkIfClientIsUserMiddleware,
-checkClientIsActiveMiddleware,
-passwordVerifierMiddleware,
-LoginController.loginController
+homeBackend_app_router.post('/users/login', require_loggedin_for_data(false),
+  checkCredentialsPresentMiddleware,
+  checkIfClientIsUserMiddleware,
+  checkClientIsActiveMiddleware,
+  passwordVerifierMiddleware,
+  LoginController.loginController
 )
 
 
@@ -438,27 +451,27 @@ LoginController.loginController
 
 
 
-homeBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true), 
-authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
-requester_auth_middleware(4), 
-destructureURLandRefererMiddleware, 
+homeBackend_app_router.delete('/users/profile/delete/:userId', require_loggedin_for_data(true),
+  authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]),
+  requester_auth_middleware(4),
+  destructureURLandRefererMiddleware,
 
-startEmptyNotificationsMiddleware, 
+  startEmptyNotificationsMiddleware,
 
-editUsersArticlesAuthorMiddleware, // Edit author to undefined
-deleteMarketOrderMiddleware, 
-deleteProtagonistsMiddleware, 
-deleteMessagesMiddleware,
-deleteUserProfileImageIfAnyMiddleware, 
-deleteFSProfilePictureIfAnyMiddleware,
-sessionSubscriberMiddleware, 
-conditional_Unsub_AgendaJobDel_SubDel_Middleware, 
-deleteHexMiddleware, 
-deleteUserMiddleware,
-deleteUserAssociatedLocalityMiddleware,
-saveDeletionReasonMiddleware,
-logoutMiddleware, 
-homeController.deleteAccountController
+  editUsersArticlesAuthorMiddleware, // Edit author to undefined
+  deleteMarketOrderMiddleware,
+  deleteProtagonistsMiddleware,
+  deleteMessagesMiddleware,
+  deleteUserProfileImageIfAnyMiddleware,
+  deleteFSProfilePictureIfAnyMiddleware,
+  sessionSubscriberMiddleware,
+  conditional_Unsub_AgendaJobDel_SubDel_Middleware,
+  deleteHexMiddleware,
+  deleteUserMiddleware,
+  deleteUserAssociatedLocalityMiddleware,
+  saveDeletionReasonMiddleware,
+  logoutMiddleware,
+  homeController.deleteAccountController
 )
 
 
@@ -469,17 +482,17 @@ homeController.deleteAccountController
 
 
 
-homeBackend_app_router.post('/marketing/email', 
-marketingMiddleware.emailValidationMidleware, 
-marketingMiddleware.databaseCollectionSave, 
-marketingController.emailSubmitController
+homeBackend_app_router.post('/marketing/email',
+  marketingMiddleware.emailValidationMidleware,
+  marketingMiddleware.databaseCollectionSave,
+  marketingController.emailSubmitController
 )
 
 
 
 
 
-homeBackend_app_router.get('/FAQ/:faq?', (req,res)=>{
+homeBackend_app_router.get('/FAQ/:faq?', (req, res) => {
 
 
   var JSX_to_load = 'FAQPage';
@@ -494,18 +507,18 @@ homeBackend_app_router.get('/FAQ/:faq?', (req,res)=>{
 
 
 
-homeBackend_app_router.get('/terms-conditions', 
-require_loggedin_for_data(false), 
-// authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
-(req,res)=>{
+homeBackend_app_router.get('/terms-conditions',
+  require_loggedin_for_data(false),
+  // authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
+  (req, res) => {
 
-  var JSX_to_load = 'TermsConditions';
+    var JSX_to_load = 'TermsConditions';
 
-  res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
-    JSX_to_load: JSX_to_load,
-    // selectedUser: undefined
+    res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', {
+      JSX_to_load: JSX_to_load,
+      // selectedUser: undefined
+    })
   })
-})
 
 
 
