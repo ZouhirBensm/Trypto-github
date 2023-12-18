@@ -44,7 +44,6 @@ const distributePaginatedDataController = require("../controllers/generic-contro
 
 
 // Middleware
-// const requireRefererMiddleware = require('../middleware/generic-middleware/require-referer')
 const paginatingSetupMiddleware = require('../middleware/generic-middleware/paginating-setup-middleware')
 
 const paginatedOrdersSetupMiddleware = require('../middleware/generic-middleware/paginated-orders-setup-middleware')

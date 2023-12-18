@@ -47,7 +47,6 @@ const { resendConfirmationController } = require("../controllers/register-login-
 
 // Middleware
 const profileMiddleware = require('../middleware/profile-middleware/profile-middleware2')
-const requireRefererMiddleware = require('../middleware/generic-middleware/require-referer')
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 const startEmptyNotificationsMiddleware = require('../middleware/generic-middleware/start-empty-notifications-middleware')
 const { getPopulatedUser } = require('../middleware/generic-middleware/get-populated-user')
@@ -230,11 +229,10 @@ homeBackend_app_router.get('/users/forgotpasswordpage', (req, res) => {
 })
 
 
-homeBackend_app_router.post('/check/user/register', requireRefererMiddleware, LoginController.checkRegisterController)
+homeBackend_app_router.post('/check/user/register', LoginController.checkRegisterController)
 
 
 homeBackend_app_router.post('/users/register',
-requireRefererMiddleware, 
 require_loggedin_for_data(false), 
 destructureURLandRefererMiddleware, 
 LoginController.validateController,
@@ -422,7 +420,7 @@ homeBackend_app_router.get('/logout', require_loggedin_for_data(true), (req, res
 })
 
 
-homeBackend_app_router.post('/users/login', requireRefererMiddleware, require_loggedin_for_data(false), 
+homeBackend_app_router.post('/users/login', require_loggedin_for_data(false), 
 checkCredentialsPresentMiddleware,
 checkIfClientIsUserMiddleware,
 checkClientIsActiveMiddleware,
@@ -472,7 +470,6 @@ homeController.deleteAccountController
 
 
 homeBackend_app_router.post('/marketing/email', 
-requireRefererMiddleware, 
 marketingMiddleware.emailValidationMidleware, 
 marketingMiddleware.databaseCollectionSave, 
 marketingController.emailSubmitController
@@ -482,7 +479,7 @@ marketingController.emailSubmitController
 
 
 
-homeBackend_app_router.get('/FAQ/:faq?', requireRefererMiddleware, (req,res)=>{
+homeBackend_app_router.get('/FAQ/:faq?', (req,res)=>{
 
 
   var JSX_to_load = 'FAQPage';
@@ -497,7 +494,7 @@ homeBackend_app_router.get('/FAQ/:faq?', requireRefererMiddleware, (req,res)=>{
 
 
 
-homeBackend_app_router.get('/terms-conditions', requireRefererMiddleware, 
+homeBackend_app_router.get('/terms-conditions', 
 require_loggedin_for_data(false), 
 // authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
 (req,res)=>{

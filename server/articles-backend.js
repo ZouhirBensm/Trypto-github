@@ -20,8 +20,6 @@ const individualArticleMiddleware = require('../middleware/articles-middleware/i
 
 const destructureURLandRefererMiddleware = require('../middleware/generic-middleware/destructure-URL-&-referer-middleware')
 
-const requireRefererMiddleware = require('../middleware/generic-middleware/require-referer')
-
 
 const distributePaginatedDataController = require('../controllers/generic-controllers/distribute-paginated-data-controller')
 
@@ -52,14 +50,13 @@ articlesBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 
 
-
+// TODO !!!! get rid of broken, banned social media
 
 
 
 
 
 articlesBackend_app_router.get('/paginated-articles/data',
-  requireRefererMiddleware,
   paginatingSetupMiddleware,
   destructureURLandRefererMiddleware,
 

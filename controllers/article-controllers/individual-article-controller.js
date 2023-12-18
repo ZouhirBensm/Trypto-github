@@ -20,6 +20,15 @@ async function controller2(req, res, next) {
 
 }
 
+// TODO !!!!
+// on recap:
+// - Product edits
+// - Blog Riadh to publish
+// - More blogs to come, content
+// - Plan de monetization
+// - Outsource le code (future), google banner, mediavine
+// - Outsource for blog article (upwork')
+
 
 // TODO !!!! Hide message, CRUD messages.
 

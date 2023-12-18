@@ -76,9 +76,10 @@ mongoose.connect(ENV.database_link)
 global.db = mongoose.connection
 // console.log("------>", db)
 // console.log("\n\n\n\ndb:\n\n", db._connectionString, db['$initialConnection'], typeof db)
+
 // const clientP = db.then(m => m.getClient())
 const clientP = db['$initialConnection'].then(m => {
-  // console.log("\n\n\n\nm:\n\n", m, m.getClient()); 
+  // console.log("\n\n\n\nm.getClient()->m:\n\n", m, m.getClient()); 
   return m.getClient();
 })
 // console.log("\n\n\n\clientP\n\n", clientP)
