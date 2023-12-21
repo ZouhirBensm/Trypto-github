@@ -221,39 +221,6 @@ express_server_app_router.use(express.static('public'));
 
 
 
-// Redirect all requests http to https
-express_server_app_router.use((req, res, next) => {
-
-  console.log('\n\nexpress_server_app_router.use 1:\n')
-
-  const URL_fromReferer = req.headers.referer?.split("?")[0]
-
-  console.log('\n\nURL_fromReferer\n', URL_fromReferer)
-
-  const parsed_URL_fromReferer = full_stack_utils?.parseURL(URL_fromReferer)
-
-  const protocol = parsed_URL_fromReferer[1]
-
-  // console.log('\n\n\n')
-  // console.log('\nPROTOCOL:\n')
-  // console.log(protocol)
-  // console.log('\nPROTOCOL:\n')
-  // console.log('\n\n\n')
-
-  // if (protocol === 'https') {
-  //   return next()
-  // }
-
-  // // Request is not secure, redirect to HTTPS
-  // const httpsUrl = 'https://' + req.headers.host + req.url;
-  // return res.redirect(httpsUrl);
-
-
-  return next()
-
-})
-
-
 
 express_server_app_router.use((req, res, next) => {
 
