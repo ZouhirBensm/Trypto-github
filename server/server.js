@@ -78,10 +78,13 @@ global.db = mongoose.connection
 // console.log("\n\n\n\ndb:\n\n", db._connectionString, db['$initialConnection'], typeof db)
 
 // const clientP = db.then(m => m.getClient())
+
 const clientP = db['$initialConnection'].then(m => {
   // console.log("\n\n\n\nm.getClient()->m:\n\n", m, m.getClient()); 
   return m.getClient();
 })
+
+
 // console.log("\n\n\n\clientP\n\n", clientP)
 
 // runs once the DB is connected to the web server on the open event i.e. as soon the DB "opens"/connects
@@ -345,3 +348,6 @@ process.on(CLOSE_SIGNAL, async () => {
 /*
  Entire repository with the name of Trypto-gitlab on the Gitlab platform (URL: https://gitlab.com/Maestro07/trypto-gitlab) with a Project ID: 31112112 and accessed with user account: freelancebenz@gmail.com is regimented by the intellectual property laws of the Canadian Intellectual Property Office Canadian Copyright © issued by Innovation, Science and Economic Development Canada. Copyright registered the 12th of October 2021 under the registration number 1187187. Registerer name is Zouhir Mohamed Bachir Bensmaia, born the 26th January 1993. Copyright covers all future and past software edits.
 */
+
+
+// TODO !!!!! All requests towards http -> get redirected towards https
