@@ -28,6 +28,7 @@ jobs:
         password: ${{ secrets.SERVER_PASSWORD }}
         port: ${{ secrets.SERVER_PORT }}
         script: |
+          nvm use 18.19.0
           cd Trypto-github
           rm package-lock.json
           rm -r node_modules
