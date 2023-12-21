@@ -219,29 +219,7 @@ express_server_app_router.use(express.urlencoded({ extended: true }))
 express_server_app_router.use(express.static('public'));
 
 
-// Redirect all requests http to https
-express_server_app_router.use((req, res, next) => {
-  
-  console.log('\n\nexpress_server_app_router.use 2:\n')
 
-  const URL_fromReferer = req.headers.referer?.split("?")[0]
-
-  const parsed_URL_fromReferer = full_stack_utils?.parseURL(URL_fromReferer)
-
-  const protocol = parsed_URL_fromReferer[1]
-
-  // if (protocol === 'https') {
-
-  // }
-
-  console.log('\n\n\n')
-  console.log('\nPROTOCOL:\n')
-  console.log(protocol)
-  console.log('\nPROTOCOL:\n')
-  console.log('\n\n\n')
-
-  return next()
-})
 
 
 
@@ -268,6 +246,33 @@ express_server_app_router.use((req, res, next) => {
 
 
 express_server_app_router.get('/ip', (request, response) => response.send(request.ip))
+
+
+
+// Redirect all requests http to https
+express_server_app_router.use((req, res, next) => {
+  
+  console.log('\n\nexpress_server_app_router.use 2:\n')
+
+  const URL_fromReferer = req.headers.referer?.split("?")[0]
+
+  const parsed_URL_fromReferer = full_stack_utils?.parseURL(URL_fromReferer)
+
+  const protocol = parsed_URL_fromReferer[1]
+
+  // if (protocol === 'https') {
+
+  // }
+
+  console.log('\n\n\n')
+  console.log('\nPROTOCOL:\n')
+  console.log(protocol)
+  console.log('\nPROTOCOL:\n')
+  console.log('\n\n\n')
+
+  return next()
+})
+
 
 
 express_server_app_router.use('/', homeBackend_app_router)
@@ -378,3 +383,4 @@ process.on(CLOSE_SIGNAL, async () => {
 
 // TODO !!!!! All requests towards http -> get redirected towards https
 // TODO !!!!! Article can be set to french so adapt templated and database
+// TODO !!!!! need to boot the FAQs
