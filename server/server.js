@@ -181,6 +181,9 @@ const sessionMiddleware = expressSession({
 });
 
 
+const full_stack_utils = require("../full-stack-libs/utils")
+
+
 // RATE LIMIT! !!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!
 express_server_app_router.set('trust proxy', 1)
 
@@ -216,8 +219,26 @@ express_server_app_router.use(express.urlencoded({ extended: true }))
 express_server_app_router.use(express.static('public'));
 
 
+// Redirect all requests http to https
+express_server_app_router.use((req, res, next) => {
+  
+  const URL_fromReferer = req.headers.referer?.split("?")[0]
 
+  const parsed_URL_fromReferer = full_stack_utils?.parseURL(URL_fromReferer)
 
+  const protocol = parsed_URL_fromReferer[1]
+
+  // if (protocol === 'https') {
+
+  // }
+
+  console.log('\n\n\n')
+  console.log('PROTOCOL:\n')
+  console.log(protocol)
+  console.log('\n\n\n')
+
+  return next()
+})
 
 
 
@@ -351,3 +372,4 @@ process.on(CLOSE_SIGNAL, async () => {
 
 
 // TODO !!!!! All requests towards http -> get redirected towards https
+// TODO !!!!! Article can be set to french so adapt templated and database
