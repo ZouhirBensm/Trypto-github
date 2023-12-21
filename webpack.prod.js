@@ -24,3 +24,7 @@ let prod_config = merge(config, {
 
 
 module.exports = prod_config
+
+
+// Add this to prod installation of sharp
+// npm install --os=linux --cpu=x64 sharp
