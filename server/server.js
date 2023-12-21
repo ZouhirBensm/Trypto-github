@@ -238,13 +238,16 @@ express_server_app_router.use((req, res, next) => {
   console.log('\nPROTOCOL:\n')
   console.log('\n\n\n')
 
-  if (protocol === 'https') {
-    return next()
-  }
+  // if (protocol === 'https') {
+  //   return next()
+  // }
 
-  // Request is not secure, redirect to HTTPS
-  const httpsUrl = 'https://' + req.headers.host + req.url;
-  return res.redirect(httpsUrl);
+  // // Request is not secure, redirect to HTTPS
+  // const httpsUrl = 'https://' + req.headers.host + req.url;
+  // return res.redirect(httpsUrl);
+
+
+  return next()
 
 })
 
