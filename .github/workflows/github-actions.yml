@@ -31,6 +31,7 @@ jobs:
           cat .env
           git pull https://${{ secrets.GITHUUB_USERNAME }}:${{ secrets.GITHUUB_PASSWORD }}@github.com/${{ secrets.GITHUUB_USERNAME }}/Trypto-github.git master
           npm install
+          npm uninstall sharp
           npm install --os=linux --cpu=x64 sharp
           npm run build:prod
           pm2 restart server
