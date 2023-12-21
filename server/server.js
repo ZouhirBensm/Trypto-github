@@ -224,9 +224,11 @@ express_server_app_router.use(express.static('public'));
 // Redirect all requests http to https
 express_server_app_router.use((req, res, next) => {
 
-  console.log('\n\nexpress_server_app_router.use 1:\nURL_fromReferer\n', URL_fromReferer)
+  console.log('\n\nexpress_server_app_router.use 1:\n')
 
   const URL_fromReferer = req.headers.referer?.split("?")[0]
+
+  console.log('\n\nURL_fromReferer\n', URL_fromReferer)
 
   const parsed_URL_fromReferer = full_stack_utils?.parseURL(URL_fromReferer)
 
