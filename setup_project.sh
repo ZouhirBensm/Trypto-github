@@ -22,7 +22,7 @@ npm install
 
 # Install sharp (without saving it as a dependency)
 echo "Installing sharp..."
-npm install sharp
+npm install --save-dev sharp
 
 # Build the project in development mode
 echo "Building the project..."
