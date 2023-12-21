@@ -224,7 +224,7 @@ express_server_app_router.use(express.static('public'));
 // Redirect all requests http to https
 express_server_app_router.use((req, res, next) => {
 
-  console.log('\n\nexpress_server_app_router.use 1:\n')
+  console.log('\n\nexpress_server_app_router.use 1:\nURL_fromReferer\n', URL_fromReferer)
 
   const URL_fromReferer = req.headers.referer?.split("?")[0]
 
@@ -232,11 +232,11 @@ express_server_app_router.use((req, res, next) => {
 
   const protocol = parsed_URL_fromReferer[1]
 
-  console.log('\n\n\n')
-  console.log('\nPROTOCOL:\n')
-  console.log(protocol)
-  console.log('\nPROTOCOL:\n')
-  console.log('\n\n\n')
+  // console.log('\n\n\n')
+  // console.log('\nPROTOCOL:\n')
+  // console.log(protocol)
+  // console.log('\nPROTOCOL:\n')
+  // console.log('\n\n\n')
 
   // if (protocol === 'https') {
   //   return next()
