@@ -99,7 +99,8 @@ class ArticlesMobileCarousel extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
 
-    var articleCarouselContainer = document.getElementById('article-carousel-container')
+    // TODO !!!! use ref for these
+    // var articleCarouselContainer = document.getElementById('article-carousel-container')
     var articleitems = document.getElementsByClassName('article-item')
 
 

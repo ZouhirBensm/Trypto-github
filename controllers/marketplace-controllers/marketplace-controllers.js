@@ -169,8 +169,12 @@ async function updateOrder23Controller(req, res, next) {
 
 
 
+// TODO !!!! Make sure on manual deletion of a market order purge the agenda jobs tasked with deleting the folders and files of the images 
+// i.e. other solution if does not work  make a query from the deletion to a /purge/:agendaID endpoint that needs to be created?
+// TODO !!!! Make sure on auto deletion of the market order also deletes the agenda jobs tasked with deleting the folders
 
 
+// TODO !!!! Have the purge endpoint as a operations button on the master dashboard
 
 
 async function deleteMarketOrderImages(req, res, next) {

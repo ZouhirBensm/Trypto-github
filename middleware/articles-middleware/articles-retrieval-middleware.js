@@ -48,7 +48,7 @@ async function middleware1(req,res,next) {
 
 
   
-    console.log('articles:\n\n', articles)
+    // console.log('articles:\n\n', articles)
   
     // console.log(articles[0].articleenclosureimage_id?.image)
     // console.log(articles[0].articleheadtag_id)

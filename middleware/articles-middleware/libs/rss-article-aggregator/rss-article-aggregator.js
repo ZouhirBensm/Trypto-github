@@ -19,7 +19,7 @@ async function functionArticleAggregator(ARRAY_OF_NEEDED){
     return error
   }
 
-  console.log(articlesFromCoinJournal)
+  // console.log(articlesFromCoinJournal)
   
 
 

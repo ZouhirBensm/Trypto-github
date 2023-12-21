@@ -34,8 +34,6 @@ function OnPageFooter() {
           <a href="https://www.youtube.com/@bidblock"><img className="small" src="/img/SVG/social/youtube.svg" alt="" /></a>
           <a href="https://www.tiktok.com/@bidblock"><img className="small" src="/img/SVG/social/tiktok.svg" alt="" /></a>
 
-          <a href="https://www.reddit.com/user/bidblockcanada/"><img className="small" src="/img/SVG/social/reddit.svg" alt="" /></a>
-          <a href="https://www.quora.com/profile/Bidblock"><img className="small" src="/img/SVG/social/quora.svg" alt="" /></a>
           <a href="https://www.linkedin.com/company/bidblock/"><img className="small" src="/img/SVG/social/linkedin.svg" alt="" /></a>
 
           <a href="https://discord.gg/Uznyz2Fa"><img className="small" src="/img/SVG/social/discord.svg" alt="" /></a>

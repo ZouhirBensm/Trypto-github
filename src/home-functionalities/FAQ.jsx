@@ -26,7 +26,7 @@ class FAQ extends React.Component {
     // Sign in with google and meta
 
     // social media share market items
-    // Social media: Pinterest, Reddit, Quora, Slack, Facebook, Discord
+    // Social media: Pinterest, Facebook, Discord
     // Add contact page
 
     this.loadFAQtitles = this.loadFAQtitles.bind(this)

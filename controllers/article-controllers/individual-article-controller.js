@@ -25,9 +25,30 @@ async function controller2(req, res, next) {
 // - Product edits
 // - Blog Riadh to publish
 // - More blogs to come, content
-// - Plan de monetization
 // - Outsource le code (future), google banner, mediavine
 // - Outsource for blog article (upwork')
+
+// TODO !!!! reduce banner height in blog articles
+
+// TODO !!!! install a affiliate link for bubble in the bubble article to start getting commmissions
+
+// TODO !!!! refactor todos in a seperate file and assign number importance
+
+// TODO !!!! install profanity filters in public inputs
+
+// TODO !!!! Style the inner spans in articles with same color blue as entire article
+
+// TODO !!!! add the rel="nofollow noindex" to external links in blog articles
+
+
+
+
+
+// TODO !!!!
+// Why color edits in the articles contents? Fix
+// Check the real database in prod.
+// reboot articles in the development database
+// re auto deploy ci/cd, check if works
 
 
 // TODO !!!! Hide message, CRUD messages.
