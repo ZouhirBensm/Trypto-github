@@ -125,6 +125,39 @@ const User = require('../models/User')
 const HexForUnactiveUser = require('../models/HexForUnactiveUser');
 
 
+
+
+
+// Redirect all requests http to https
+homeBackend_app_router.use((req, res, next) => {
+  
+  console.log('\n\nexpress_server_app_router.use 2:\n')
+
+  const URL_fromReferer = req.headers.referer?.split("?")[0]
+
+  const parsed_URL_fromReferer = full_stack_utils?.parseURL(URL_fromReferer)
+
+  const protocol = parsed_URL_fromReferer[1]
+
+  // if (protocol === 'https') {
+
+  // }
+
+  console.log('\n\n\n')
+  console.log('\nPROTOCOL:\n')
+  console.log(protocol)
+  console.log('\nPROTOCOL:\n')
+  console.log('\n\n\n')
+
+  return next()
+})
+
+
+
+
+
+
+
 // TODO !!! Overuse of set_user_if_any, Figure out endpoints that require it and implement set_user_if_any in cases when needed
 homeBackend_app_router.use(set_user_if_any, (req, res, next) => {
   navBars = NAVBAR.CLIENTS

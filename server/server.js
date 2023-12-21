@@ -249,29 +249,7 @@ express_server_app_router.get('/ip', (request, response) => response.send(reques
 
 
 
-// Redirect all requests http to https
-express_server_app_router.use((req, res, next) => {
-  
-  console.log('\n\nexpress_server_app_router.use 2:\n')
 
-  const URL_fromReferer = req.headers.referer?.split("?")[0]
-
-  const parsed_URL_fromReferer = full_stack_utils?.parseURL(URL_fromReferer)
-
-  const protocol = parsed_URL_fromReferer[1]
-
-  // if (protocol === 'https') {
-
-  // }
-
-  console.log('\n\n\n')
-  console.log('\nPROTOCOL:\n')
-  console.log(protocol)
-  console.log('\nPROTOCOL:\n')
-  console.log('\n\n\n')
-
-  return next()
-})
 
 
 
