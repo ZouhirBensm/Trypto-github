@@ -358,6 +358,7 @@ process.on(CLOSE_SIGNAL, async () => {
 */
 
 
-// TODO !!!!! All requests towards http -> get redirected towards https
 // TODO !!!!! Article can be set to french so adapt templated and database
 // TODO !!!!! need to boot the FAQs
+
+// TODO !!!!! Going to need to setup a FTP client connected to my remote server in linode in order to drag and drop images

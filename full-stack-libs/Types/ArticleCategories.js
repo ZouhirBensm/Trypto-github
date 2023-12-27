@@ -14,6 +14,9 @@ const CATEGORY = {
   GENERAL: "general",
   PROGRAMMING: "programming",
   BUSINESS: "business",
+  OPINION: "opinion",
+  E_COMMERCE: "e-commerce",
+  CRYPTOCURRENCY: "cryptocurrency",
 }
 
 module.exports = CATEGORY

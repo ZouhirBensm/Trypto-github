@@ -21,9 +21,13 @@ async function controller2(req, res, next) {
 }
 
 // TODO !!!!
+// Check this to paste on summernote blog without format and automatic:
+// https://stackoverflow.com/questions/30993836/paste-content-as-plain-text-in-summernote-editor
+// issue launching mongo db in background process
 // on recap:
 // - Product edits
-// - Blog Riadh to publish
+// - 2 Blogs from Riadh to publish
+// /Users/Zouhir/Documents/BidBlock/BIDBLOCK_BLOGS/Riadh_blogs
 // - More blogs to come, content
 // - Outsource le code (future), google banner, mediavine
 // - Outsource for blog article (upwork')
