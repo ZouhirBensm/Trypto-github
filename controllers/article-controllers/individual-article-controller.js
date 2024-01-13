@@ -20,7 +20,16 @@ async function controller2(req, res, next) {
 
 }
 
+
+
+
+
+
 // TODO !!!!
+// place an affiliate link for bubble in the bubble article you wrote
+// ad banner integrations research
+// blog CSS
+// ability to write french articles
 // Check this to paste on summernote blog without format and automatic:
 // https://stackoverflow.com/questions/30993836/paste-content-as-plain-text-in-summernote-editor
 // issue launching mongo db in background process

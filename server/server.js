@@ -137,6 +137,7 @@ const operationsBackend_app_router = require('./operations-backend')
 const articlesBackend_app_router = require('./articles-backend')
 const sitemapBackend_app_router = require('./sitemap-backend')
 const contactBackend_app_router = require('./contact-backend')
+const cronBackend_app_router = require('./cron-backend')
 
 const { errorLoggerMiddleware } = require('../middleware/error-middleware/error-handle-fcts-middleware')
 
@@ -277,6 +278,9 @@ express_server_app_router.use('/sitemap', sitemapBackend_app_router)
 express_server_app_router.use('/contact', contactBackend_app_router)
 
 
+express_server_app_router.use('/cron', cronBackend_app_router)
+
+
 
 // Fail-safe catch-all non registered routes to render error page 
 // if "earlier" endpoints does not exist 
@@ -315,6 +319,9 @@ const server = server_instance.listen(ENV.port, function () {
 
 // When CTRL + C closes the app
 server.on('close', () => {
+
+
+
   console.log('Express web server is closing\n');
 });
 
@@ -325,19 +332,41 @@ const CLOSE_SIGNAL = (process.env.NODE_ENV === 'development' ? 'SIGINT' : proces
 // More Info: /Users/Zouhir/Documents/OpenAI/SIGINT, SIGTERM, Disconnect MongoDB with Mongoose.pdf
 
 
+const closeServer = () => {
+  return new Promise((resolve, reject) => {
+    server.close((err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+};
+
+
+
+
+
+
 // TODO !!! when closing app make sure you are closing the socket connection as well
 process.on(CLOSE_SIGNAL, async () => {
   console.log(`\n\nReceived ${CLOSE_SIGNAL} signal...\n`);
 
 
   try {
+
+
     await mongoose.disconnect();
     console.log('Disconnected from MongoDB.\n');
     await global.agenda.stop();
     await global.agenda.close({ force: true });
     console.log("Exiting agenda gracefully.\n")
-    server.close();
+
+
+    await closeServer();
     console.log("Closed server.\n")
+
     process.exit(0);
   } catch (err) {
     console.error('Error while closing the server and disconnecting from MongoDB:', err);
