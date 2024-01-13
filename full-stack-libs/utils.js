@@ -182,6 +182,25 @@ module.exports = {
       return false;
     }
     return typeof obj[Symbol.iterator] === 'function';
+  },
+
+
+  getGoodLookingDateTime(){
+    // Get the current date and time in a readable format
+    const date = new Date();
+    
+    const GoodLookingDateTime = date.toLocaleString('en-US', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      hour12: true
+    });
+  
+    return GoodLookingDateTime
   }
   
 

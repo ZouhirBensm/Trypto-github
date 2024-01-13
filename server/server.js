@@ -7,7 +7,7 @@
 // const Compression = require('./lifecycle/middleware/use-middleware/compression-middleware')
 // app.use(Compression);
 
-
+const { ENVIRONMENT, SIGNAL } = require('../full-stack-libs/Data/env')
 
 require('dotenv').config()
 
@@ -327,8 +327,11 @@ server.on('close', () => {
 
 
 
-
-const CLOSE_SIGNAL = (process.env.NODE_ENV === 'development' ? 'SIGINT' : process.env.NODE_ENV === 'production' ? 'SIGTERM' : 'SIGINT');
+const CLOSE_SIGNAL = (
+  process.env.NODE_ENV === ENVIRONMENT.DEVELOPMENT ? SIGNAL.INTERRUPTION
+  : process.env.NODE_ENV === ENVIRONMENT.PRODUCTION ? SIGNAL.TERMINATION :
+  SIGNAL.INTERRUPTION
+);
 // More Info: /Users/Zouhir/Documents/OpenAI/SIGINT, SIGTERM, Disconnect MongoDB with Mongoose.pdf
 
 
