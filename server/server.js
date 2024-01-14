@@ -352,7 +352,11 @@ const closeServer = () => {
 
 
 
-// TODO !!! when closing app make sure you are closing the socket connection as well
+// TODO !!! Fix billing controls and api quotas to not get a suprise bill from google maps and it's api's 
+// console.cloud.google.com
+
+
+
 process.on(CLOSE_SIGNAL, async () => {
   console.log(`\n\nReceived ${CLOSE_SIGNAL} signal...\n`);
 
