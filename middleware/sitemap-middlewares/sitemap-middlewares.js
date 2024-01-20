@@ -61,14 +61,23 @@ async function middleware1(req, res, next) {
 
   try {
     articles = await Article.find()
-    .populate({
-      path: "articleheadtag_id",
-      select: "noindex -_id",
-    })
-    .select("url publishedDate updateDate changefreq -_id")
+      .populate({
+        path: "articleheadtag_id",
+        select: "noindex -_id",
+      })
+      .select("url publishedDate updateDate changefreq -_id")
   } catch (error) {
     return next(error)
   }
+
+
+
+  articles = articles.filter(article => {
+    return (
+      article.url !== '/articles/individual_article/how-to-create-saas' &&
+      article.url !== '/articles/individual_article/bubble-app-examples'
+    )
+  });
 
 
   console.log("new!---->articles!\b", articles)
@@ -89,11 +98,11 @@ async function middleware1(req, res, next) {
 
     if (article.articleheadtag_id.noindex) continue
 
-    urls.push({ 
-      URL: article.url, 
-      lastmod: article.updateDate || article.publishedDate, 
-      changefreq: article.changefreq, 
-      priority: 1.0 
+    urls.push({
+      URL: article.url,
+      lastmod: article.updateDate || article.publishedDate,
+      changefreq: article.changefreq,
+      priority: 1.0
     })
 
   }
@@ -112,14 +121,14 @@ async function middleware1(req, res, next) {
 
 
 async function middleware2(req, res, next) {
-  
+
   // console.log(urls, "\n\n")
 
   const xml = createSiteMap(res.locals.urls)
 
   // console.log(xml)
   res.locals.xml = xml
-  
+
   return next()
 }
 

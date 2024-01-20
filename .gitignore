@@ -13,3 +13,4 @@ webpack.dev.js
 package-lock.json
 .vscode/*
 !public/img/profile-images/square.png
+docs
