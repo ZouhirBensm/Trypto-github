@@ -71,15 +71,6 @@ async function middleware1(req, res, next) {
   }
 
 
-
-  articles = articles.filter(article => {
-    return (
-      article.url !== '/articles/individual_article/how-to-create-saas' &&
-      article.url !== '/articles/individual_article/bubble-app-examples'
-    )
-  });
-
-
   console.log("new!---->articles!\b", articles)
 
   // return res.status(200).end()
