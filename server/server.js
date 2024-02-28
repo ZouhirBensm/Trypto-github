@@ -249,7 +249,7 @@ express_server_app_router.use((req, res, next) => {
 express_server_app_router.get('/ip', (request, response) => response.send(request.ip))
 
 // RAL: Redirect to Affiliate Link
-express_server_app_router.use('/ral', affiliateLinks_app_router)
+express_server_app_router.get('/ral', affiliateLinks_app_router)
 
 
 
