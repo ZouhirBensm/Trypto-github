@@ -284,9 +284,6 @@ express_server_app_router.use('/cron', cronBackend_app_router)
 
 
 
-// RAL: Redirect to Affiliate Link
-express_server_app_router.use('/ral', affiliateLinks_app_router)
-
 // Fail-safe catch-all non registered routes to render error page 
 // if "earlier" endpoints does not exist 
 // i.e no endpoints match the request made on the server and no error thrown
