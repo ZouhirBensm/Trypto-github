@@ -4,6 +4,12 @@ const affiliateLinks_app_router = express.Router()
 
 
 // https://bidblock.ca/ral/one
+affiliateLinks_app_router.get('/', (req,res)=>{
+  res.status(200).send('HOME ral');
+})
+
+
+// https://bidblock.ca/ral/one
 affiliateLinks_app_router.get('/one', (req,res)=>{
   res.redirect('https://b0a443z2g-s6kv0l5qlb06pff6.hop.clickbank.net');
 })
