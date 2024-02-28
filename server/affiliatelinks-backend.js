@@ -9,6 +9,11 @@ affiliateLinks_app_router.get('/one', (req,res)=>{
   return res.redirect('https://b0a443z2g-s6kv0l5qlb06pff6.hop.clickbank.net');
 })
 
+// fe: Front-end
+affiliateLinks_app_router.get('/one-fe', (req,res)=>{
+  return res.render('redirect-one');
+})
+
 // https://bidblock.ca/ral/two
 affiliateLinks_app_router.get('/two', (req,res)=>{
   return res.redirect('https://44b61e35k2x3ry1onmodm0qntz.hop.clickbank.net');
