@@ -250,7 +250,7 @@ express_server_app_router.get('/ip', (request, response) => response.send(reques
 
 
 // RAL: Redirect to Affiliate Link
-express_server_app_router.use('/ral', (request, response) => response.send('testing /ral'))
+express_server_app_router.get('/ral', (request, response) => response.send('testing /ral'))
 
 
 
