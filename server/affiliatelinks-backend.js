@@ -3,11 +3,6 @@ const express = require('express')
 const affiliateLinks_app_router = express.Router()
 
 
-// https://bidblock.ca/ral
-affiliateLinks_app_router.get('/', (req,res)=>{
-  return res.status(200).send('HOME ral');
-})
-
 
 // https://bidblock.ca/ral/one
 affiliateLinks_app_router.get('/one', (req,res)=>{
