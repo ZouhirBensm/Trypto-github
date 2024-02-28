@@ -26,6 +26,11 @@ affiliateLinks_app_router.get('/four', (req,res)=>{
   return res.redirect('https://0ffac9yclat0r206j8yels0zew.hop.clickbank.net');
 })
 
+// https://bidblock.ca/ral/five
+affiliateLinks_app_router.get('/five', (req,res)=>{
+  return res.redirect('https://www.kqzyfj.com/click-100957645-12332060');
+})
+
 
 
 
