@@ -3,7 +3,16 @@ const express = require('express')
 const affiliateLinks_app_router = express.Router()
 
 
-// https://bidblock.ca/ral/one
+
+
+
+// Start middleware for this messagingBackend_app_router
+// Route is called upon as request from browser as '/messaging/'
+affiliateLinks_app_router.use(set_user_if_any)
+
+
+
+// https://bidblock.ca/ral
 affiliateLinks_app_router.get('/', (req,res)=>{
   return res.status(200).send('HOME ral');
 })
