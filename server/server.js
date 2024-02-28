@@ -138,6 +138,7 @@ const articlesBackend_app_router = require('./articles-backend')
 const sitemapBackend_app_router = require('./sitemap-backend')
 const contactBackend_app_router = require('./contact-backend')
 const cronBackend_app_router = require('./cron-backend')
+const affiliateLinks_app_router = require('./affiliatelinks-backend')
 
 const { errorLoggerMiddleware } = require('../middleware/error-middleware/error-handle-fcts-middleware')
 
@@ -281,6 +282,9 @@ express_server_app_router.use('/contact', contactBackend_app_router)
 express_server_app_router.use('/cron', cronBackend_app_router)
 
 
+
+// RAL: Redirect to Affiliate Link
+express_server_app_router.use('/ral', affiliateLinks_app_router)
 
 // Fail-safe catch-all non registered routes to render error page 
 // if "earlier" endpoints does not exist 
