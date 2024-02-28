@@ -10,6 +10,7 @@ affiliateLinks_app_router.get('/one', (req,res)=>{
 })
 
 // fe: Front-end
+// https://bidblock.ca/ral/one-fe
 affiliateLinks_app_router.get('/one-fe', (req,res)=>{
   return res.render('redirect-one');
 })
