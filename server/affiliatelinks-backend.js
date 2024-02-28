@@ -2,15 +2,6 @@
 const express = require('express')
 const affiliateLinks_app_router = express.Router()
 
-const { set_user_if_any } = require("../middleware/generic-middleware/set-user-if-any-middleware")
-
-
-
-// Start middleware for this messagingBackend_app_router
-// Route is called upon as request from browser as '/messaging/'
-affiliateLinks_app_router.use(set_user_if_any)
-
-
 
 // https://bidblock.ca/ral
 affiliateLinks_app_router.get('/', (req,res)=>{
