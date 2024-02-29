@@ -50,6 +50,18 @@ affiliateLinks_app_router.get('/six-fe', (req,res)=>{
 })
 
 
+// https://bidblock.ca/ral/seven-fe
+affiliateLinks_app_router.get('/seven-fe', (req,res)=>{
+  return res.render('redirect-seven');
+})
+
+
+// https://bidblock.ca/ral/eight-fe
+affiliateLinks_app_router.get('/eight-fe', (req,res)=>{
+  return res.render('redirect-eight');
+})
+
+
 
 
 module.exports = affiliateLinks_app_router
