@@ -74,6 +74,12 @@ affiliateLinks_app_router.get('/ten-fe', (req,res)=>{
 })
 
 
+// https://bidblock.ca/ral/eleven-fe
+affiliateLinks_app_router.get('/eleven-fe', (req,res)=>{
+  return res.render('redirect-eleven');
+})
+
+
 
 
 module.exports = affiliateLinks_app_router
