@@ -81,6 +81,23 @@ affiliateLinks_app_router.get('/eleven-fe', (req,res)=>{
 
 
 
+// https://bidblock.ca/ral/twelve
+affiliateLinks_app_router.get('/twelve', (req,res)=>{
+  return res.redirect('https://www.weareplufl.com?snowball=ZOUHIR68705');
+})
+
+
+
+// https://bidblock.ca/ral/twelve-fe
+affiliateLinks_app_router.get('/twelve-fe', (req,res)=>{
+  return res.render('redirect-twelve');
+})
+
+
+
+
+
+
 
 module.exports = affiliateLinks_app_router
 
