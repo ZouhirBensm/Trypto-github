@@ -94,6 +94,45 @@ affiliateLinks_app_router.get('/twelve-fe', (req,res)=>{
 })
 
 
+// https://bidblock.ca/ral/thirteen
+affiliateLinks_app_router.get('/thirteen', (req,res)=>{
+  return res.redirect('https://www.tabs.co/discount/LOVE276962');
+})
+
+
+
+// https://bidblock.ca/ral/thirteen-fe
+affiliateLinks_app_router.get('/thirteen-fe', (req,res)=>{
+  return res.render('redirect-thirteen');
+})
+
+
+// https://bidblock.ca/ral/fourteen
+affiliateLinks_app_router.get('/fourteen', (req,res)=>{
+  return res.redirect('https://snwbl.io/fore-fathers/ZOUHIR76371');
+})
+
+
+
+// https://bidblock.ca/ral/fourteen-fe
+affiliateLinks_app_router.get('/fourteen-fe', (req,res)=>{
+  return res.render('redirect-fourteen');
+})
+
+
+// https://bidblock.ca/ral/fifteen
+affiliateLinks_app_router.get('/fifteen', (req,res)=>{
+  return res.redirect('https://snwbl.io/frost-buddy/ZOUHIR89146');
+})
+
+
+
+// https://bidblock.ca/ral/fifteen-fe
+affiliateLinks_app_router.get('/fifteen-fe', (req,res)=>{
+  return res.render('redirect-fifteen');
+})
+
+
 
 
 
