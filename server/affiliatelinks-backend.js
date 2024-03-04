@@ -133,6 +133,19 @@ affiliateLinks_app_router.get('/fifteen-fe', (req,res)=>{
 })
 
 
+// https://bidblock.ca/ral/sixteen
+affiliateLinks_app_router.get('/sixteen', (req,res)=>{
+  return res.redirect('https://www.crossnetgame.com/discount/ZOUHIR66216');
+})
+
+
+
+// https://bidblock.ca/ral/sixteen-fe
+affiliateLinks_app_router.get('/sixteen-fe', (req,res)=>{
+  return res.render('redirect-fifteen');
+})
+
+
 
 
 
