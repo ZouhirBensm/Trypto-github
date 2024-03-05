@@ -151,5 +151,42 @@ affiliateLinks_app_router.get('/sixteen-fe', (req,res)=>{
 
 
 
+//
+
+
+
+
+// https://bidblock.ca/ral/seventeen
+affiliateLinks_app_router.get('/seventeen', (req,res)=>{
+  return res.redirect('https://lvnta.com/lv_P9ZwSEWjA06JLHb56m?');
+})
+
+
+
+// https://bidblock.ca/ral/seventeen-fe
+affiliateLinks_app_router.get('/seventeen-fe', (req,res)=>{
+  return res.render('redirect-seventeen');
+})
+
+
+
+// https://bidblock.ca/ral/eighteen
+affiliateLinks_app_router.get('/eighteen', (req,res)=>{
+  return res.redirect('https://lvnta.com/lv_px6znD1hR3V2UrhjVg?url=https%3A%2F%2Famazon.com%2Fdp%2FB083G7F8PG');
+})
+
+
+
+// https://bidblock.ca/ral/eighteen-fe
+affiliateLinks_app_router.get('/eighteen-fe', (req,res)=>{
+  return res.render('redirect-eighteen');
+})
+
+
+
+
+
+
+
 module.exports = affiliateLinks_app_router
 
