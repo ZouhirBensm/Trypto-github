@@ -209,6 +209,11 @@ affiliateLinks_app_router.get('/eighteen-fe', (req,res)=>{
 })
 
 
+// https://bidblock.ca/ral/nineteen
+affiliateLinks_app_router.get('/nineteen', (req,res)=>{
+  return res.redirect('https://lvnta.com/lv_9e58erh5kYS34sxzuh?url=https%3A%2F%2Famazon.com%2Fdp%2FB0786TJC33');
+})
+
 
 
 
