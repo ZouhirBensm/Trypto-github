@@ -44,6 +44,12 @@ affiliateLinks_app_router.get('/five', (req,res)=>{
 })
 
 
+// https://bidblock.ca/ral/six
+affiliateLinks_app_router.get('/six', (req,res)=>{
+  return res.redirect('https://trynoha.com/?ref=zou');
+})
+
+
 // https://bidblock.ca/ral/six-fe
 affiliateLinks_app_router.get('/six-fe', (req,res)=>{
   return res.render('redirect-six');
