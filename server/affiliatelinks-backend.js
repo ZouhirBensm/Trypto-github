@@ -68,6 +68,12 @@ affiliateLinks_app_router.get('/nine-fe', (req,res)=>{
 })
 
 
+// https://bidblock.ca/ral/ten
+affiliateLinks_app_router.get('/ten', (req,res)=>{
+  return res.redirect('https://shareasale.com/r.cfm?b=2037251&u=3912076&m=106166&urllink=&afftrack=');
+})
+
+
 // https://bidblock.ca/ral/ten-fe
 affiliateLinks_app_router.get('/ten-fe', (req,res)=>{
   return res.render('redirect-ten');
