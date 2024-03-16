@@ -175,13 +175,6 @@ affiliateLinks_app_router.get('/sixteen-fe', (req,res)=>{
 
 
 
-
-
-//
-
-
-
-
 // https://bidblock.ca/ral/seventeen
 affiliateLinks_app_router.get('/seventeen', (req,res)=>{
   return res.redirect('https://lvnta.com/lv_P9ZwSEWjA06JLHb56m?');
