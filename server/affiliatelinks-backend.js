@@ -218,6 +218,62 @@ affiliateLinks_app_router.get('/nineteen', (req,res)=>{
 
 
 
+// https://bidblock.ca/ral/twenty
+affiliateLinks_app_router.get('/twenty', (req,res)=>{
+  return res.redirect('https://lvnta.com/lv_wGEYz5pzttt9lTPrtr?url=https%3A%2F%2Famazon.com%2Fdp%2FB0BHLDQ2X1');
+})
+
+
+
+
+
+// https://bidblock.ca/ral/twenty-one
+affiliateLinks_app_router.get('/twenty-one', (req,res)=>{
+  return res.redirect('https://lvnta.com/lv_aHngiDY6dU26C0G4lt?url=https%3A%2F%2Famazon.com%2Fdp%2FB0CHX4FQXP');
+})
+
+
+
+
+
+
+// https://bidblock.ca/ral/twenty-two
+affiliateLinks_app_router.get('/twenty-two', (req,res)=>{
+  return res.redirect('https://go.fiverr.com/visit/?bta=955713&brand=fp&landingPage=https%3A%2F%2Fwww.fiverr.com%2Fshiv_graphix%2Fdesign-2-outstanding-logo-in-24-hours%3Fcontext_referrer%3Dsearch_gigs_with_modalities_logo_maker_banner%26source%3Dtop-bar%26ref_ctx_id%3D6e62a540eca64563a944db87f206b843%26pckg_id%3D1%26pos%3D6%26context_type%3Dauto%26funnel%3D6e62a540eca64563a944db87f206b843%26seller_online%3Dtrue%26imp_id%3D73abb3b6-1347-45fa-8ce4-91f03f72da73');
+})
+
+
+
+
+
+// https://bidblock.ca/ral/twenty-three
+affiliateLinks_app_router.get('/twenty-three', (req,res)=>{
+  return res.redirect('https://go.fiverr.com/visit/?bta=955713&brand=fp&landingPage=https%3A%2F%2Fwww.fiverr.com%2Fzunairaah%2Fdesign-a-modern-and-luxury-minimalist-logo%3Fcontext_referrer%3Dsearch_gigs_with_modalities_logo_maker_banner%26source%3Dtop-bar%26ref_ctx_id%3D77f6e4f734d84b978e12ffc7a364ffa5%26pckg_id%3D1%26pos%3D4%26ad_key%3D1c1dd910-c127-4288-8a59-590982732972%26context_type%3Dauto%26funnel%3D77f6e4f734d84b978e12ffc7a364ffa5%26seller_online%3Dtrue%26imp_id%3Dbbedbc09-200e-4336-acdc-39ef4361a7cc');
+})
+
+
+
+
+
+// https://bidblock.ca/ral/twenty-four
+affiliateLinks_app_router.get('/twenty-four', (req,res)=>{
+  return res.redirect('https://go.fiverr.com/visit/?bta=955713&brand=fp&landingPage=https%3A%2F%2Fwww.fiverr.com%2Fellestudio%2Fcreate-a-timeless-logo-for-your-company%3Fcontext_referrer%3Dsearch_gigs_with_modalities_logo_maker_banner%26source%3Dtop-bar%26ref_ctx_id%3D77f6e4f734d84b978e12ffc7a364ffa5%26pckg_id%3D1%26pos%3D5%26context_type%3Dauto%26funnel%3D77f6e4f734d84b978e12ffc7a364ffa5%26imp_id%3D1c0096fb-9cbd-4bd5-97bf-215c8182b3e2');
+})
+
+
+
+
+
+
+// https://bidblock.ca/ral/twenty-five
+affiliateLinks_app_router.get('/twenty-five', (req,res)=>{
+  return res.redirect('https://go.fiverr.com/visit/?bta=955713&brand=fp&landingPage=https%3A%2F%2Fwww.fiverr.com%2Fairasx%2Fdo-research-summarization-and-content-writing%3Fcontext_referrer%3Dsubcategory_listing%26source%3Dcategory_tree%26ref_ctx_id%3D8734d1e84bae42aca60d041b352ab2eb%26pckg_id%3D1%26pos%3D5%26context_type%3Drating%26funnel%3D8734d1e84bae42aca60d041b352ab2eb%26fiverr_choice%3Dtrue%26imp_id%3D35f7b035-0195-4ffd-8744-0ba616459f46');
+})
+
+
+
+
+// twenty-six, twenty-seven, twenty-eight, twenty-nine, thirty.
 
 module.exports = affiliateLinks_app_router
 
