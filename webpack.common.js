@@ -2,12 +2,6 @@ const path = require('path')
 // const { EnvironmentPlugin, ProvidePlugin, DefinePlugin } = require("webpack")
 // const Dotenv = require('dotenv-webpack');
 
-resolve: {
-  fallback: {
-    "path": require.resolve("path-browserify"),
-    "fs": false
-  }
-},
 
 var config = {
   // Deletable externals:
