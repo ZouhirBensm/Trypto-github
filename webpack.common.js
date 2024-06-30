@@ -2,6 +2,12 @@ const path = require('path')
 // const { EnvironmentPlugin, ProvidePlugin, DefinePlugin } = require("webpack")
 // const Dotenv = require('dotenv-webpack');
 
+resolve: {
+  fallback: {
+    "path": require.resolve("path-browserify"),
+    "fs": false
+  }
+},
 
 var config = {
   // Deletable externals:
@@ -20,9 +26,14 @@ var config = {
     //   'react-dom': path.resolve(__dirname, './node_modules/react-dom')
     // },
     extensions: ['.js', '.jsx'],
+    // fallback: {
+    //   // "buffer": require.resolve("buffer"),
+    //   "buffer": require.resolve("buffer/")
+    // },
     fallback: {
-      // "buffer": require.resolve("buffer"),
-      "buffer": require.resolve("buffer/")
+      "buffer": require.resolve("buffer/"),
+      "path": require.resolve("path-browserify"),
+      "fs": false  // Add fs fallback to false if not already there
     },
   },
   stats: { errorDetails: true },
