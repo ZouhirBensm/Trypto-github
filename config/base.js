@@ -1,10 +1,12 @@
+require('dotenv').config();
+
 console.log('\n\nprocess.env.NODE_ENV base.js -> ', process.env.NODE_ENV)
 
 if(process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'development') {
   // module.exports = require('./env')
 
   console.log('\n\nprocess.env.DATABASE_LINK base.js -> ',process.env.DATABASE_LINK)
-  
+
   module.exports = {
     database_link: process.env.DATABASE_LINK,
     express_session_secret: process.env.EXPRESS_SECRET,
