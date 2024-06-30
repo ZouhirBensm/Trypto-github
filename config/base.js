@@ -1,10 +1,11 @@
+// require('dotenv').config();
 // const path = require('path')
 // require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 console.log('\n\nprocess.env.NODE_ENV base.js -> ', process.env.NODE_ENV)
 
 if(process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'development') {
-  console.log('\n\nprocess.env.DATABASE_LINK base.js -> ',process.env.DATABASE_LINK)
+  
 
   module.exports = require('../env')
 

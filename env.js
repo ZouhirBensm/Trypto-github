@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+console.log('\n\nprocess.env.DATABASE_LINK /env.js -> ',process.env.DATABASE_LINK)
+
 module.exports = {
   database_link: process.env.DATABASE_LINK,
   express_session_secret: process.env.EXPRESS_SECRET,
