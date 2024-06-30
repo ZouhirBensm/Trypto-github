@@ -138,7 +138,7 @@ const articlesBackend_app_router = require('./articles-backend')
 const sitemapBackend_app_router = require('./sitemap-backend')
 const contactBackend_app_router = require('./contact-backend')
 const cronBackend_app_router = require('./cron-backend')
-const affiliateLinks_app_router = require('./affiliatelinks-backend')
+
 
 const { errorLoggerMiddleware } = require('../middleware/error-middleware/error-handle-fcts-middleware')
 
@@ -255,10 +255,6 @@ express_server_app_router.get('/ip', (req, res) => res.send(req.ip))
 
 
 express_server_app_router.use('/', homeBackend_app_router)
-
-
-// RAL: Redirect to Affiliate Link
-express_server_app_router.use('/ral', affiliateLinks_app_router)
 
 express_server_app_router.use('/marketplace', marketplaceBackend_app_router)
 
