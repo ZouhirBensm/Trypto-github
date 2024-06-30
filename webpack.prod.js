@@ -2,7 +2,7 @@ const { merge } = require('webpack-merge');
 const config = require('./webpack.common.js');
 const { EnvironmentPlugin, ProvidePlugin, DefinePlugin } = require("webpack")
 const Dotenv = require('dotenv-webpack');
-const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
+// const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
 // console.log(process.env)
 // let config_array = []
@@ -15,7 +15,7 @@ let prod_config = merge(config, {
     new ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
     }),
-    new NodePolyfillPlugin(),
+    // new NodePolyfillPlugin(),
   ],
   performance: {
     hints: false,

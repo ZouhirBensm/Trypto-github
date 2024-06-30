@@ -26,8 +26,8 @@ var config = {
     // },
     fallback: {
       "buffer": require.resolve("buffer/"),
-      "path": require.resolve("path-browserify"),
-      "fs": false  // Add fs fallback to false if not already there
+      // "path": require.resolve("path-browserify"),
+      // "fs": false  // Add fs fallback to false if not already there
     },
   },
   stats: { errorDetails: true },
