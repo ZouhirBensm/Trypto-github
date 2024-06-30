@@ -41,28 +41,3 @@ mongoose.set('strictQuery', true);
     console.error('Error:', error);
   }
 })();
-
-
-
-
-
-
-
-
-// async function updateArticles() {
-//   try {
-//     await mongoose.connect(ENV.database_link, {
-//       useNewUrlParser: true,
-//       useUnifiedTopology: true,
-//     });
-
-//     await Article.updateMany({}, { $set: { lang: 'en' } });
-
-//     console.log('All documents updated successfully');
-//     await mongoose.disconnect();
-//   } catch (err) {
-//     console.error('Error updating documents:', err);
-//   }
-// }
-
-// updateArticles();
