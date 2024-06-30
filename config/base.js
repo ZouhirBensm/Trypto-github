@@ -1,4 +1,5 @@
-require('dotenv').config();
+// require('dotenv').config();
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 console.log('\n\nprocess.env.NODE_ENV base.js -> ', process.env.NODE_ENV)
 
