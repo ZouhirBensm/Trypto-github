@@ -1,4 +1,6 @@
-require('dotenv').config();
+// This should be working and enabling the load of the process env variables in dev and prod
+const path = require('path')
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 module.exports = {
   database_link: process.env.DATABASE_LINK,

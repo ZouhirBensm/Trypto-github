@@ -8,10 +8,12 @@ if(process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'development'
   
 
   console.log('\n\nprocess.env.DATABASE_LINK /env.js -> ',process.env.DATABASE_LINK)
-  
-  // module.exports = require('../env')
+
+  // TODO should load the environment variables from the file loaded bellow, will eventually need to be uncommented and tested.
+  // module.exports = require('./env')
 
 
+  // TODO this should be commented out and then test if the module.exports = require('./env') is loading the variables in prod and dev as expected
   module.exports = {
     database_link: process.env.DATABASE_LINK,
     express_session_secret: process.env.EXPRESS_SECRET,
@@ -34,21 +36,4 @@ if(process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'development'
 } else {
   console.log(`Environment is not as wanted: ${process.env.NODE_ENV}`)
 }
-
-
-// switch (process.env.NODE_ENV) {
-//   case 'remote':
-//     console.log("Exporting Remote variables")
-//     module.exports = require('./remote')
-//     break;
-//   case 'development':
-//     console.log("Exporting Development variables")
-//     console.log(process.env)
-//     module.exports = require('./dev')
-//     break;
-//   default:
-//     console.log("Exporting Default variables")
-//     // module.exports = require('./dev')
-//     break;
-// }
 
