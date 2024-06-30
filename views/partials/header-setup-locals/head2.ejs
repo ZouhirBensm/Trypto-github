@@ -6,6 +6,9 @@
 
   <title><%=locals.article.html_title%></title>
   <meta name="bidblock_data_head" content="2">
+
+  <!-- LANGUAGE -->
+  <meta http-equiv="content-language" content="<%-locals.article.lang%>">
   
   <% const author = locals.article.author_id?.username? locals.article.author_id?.username: process.env.DOMAIN_WITHOUT_PROTOCOL; %>
   <meta name="author" content="<%=author%>">

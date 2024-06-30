@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<% if (locals.head && head == 2 && locals.article && locals.article.lang) { %><%= locals.article.lang %><% } else { %>en<% } %>">
 <%- include("partials/set_JSX_to_load") %>
 
 <% if(locals.head && head == 3) { %> 

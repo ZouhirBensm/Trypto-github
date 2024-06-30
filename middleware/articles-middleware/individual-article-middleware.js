@@ -14,11 +14,11 @@ async function middleware1(req, res, next) {
     article = await Article.findOne({
       url: `/articles${req.url}`
     })
-    .populate(`articleenclosureimage_id articleheadtag_id articlebodyheader_id articleabstract_id articlenesteddata_id`)
-    .populate({
-      path: "author_id",
-      select: "username -_id",
-    })
+      .populate(`articleenclosureimage_id articleheadtag_id articlebodyheader_id articleabstract_id articlenesteddata_id`)
+      .populate({
+        path: "author_id",
+        select: "username -_id",
+      })
   } catch (error) {
     return next(error)
   }
@@ -36,6 +36,11 @@ async function middleware1(req, res, next) {
   // console.log("\n\nrticleenclosureimage_id,\n\n", article.articleenclosureimage_id)
 
   res.locals.article = article
+  
+  // Setting the content header to proper language
+  res.setHeader('Content-Language', res.locals.article.lang);
+
+
   res.locals.SECTION_TYPES = SECTION_TYPES
 
   // res.status(200).end()
@@ -61,12 +66,12 @@ async function middleware2(req, res, next) {
   for (let index = 0; index < EMAIL_blocks.length; index++) {
     let bblock = EMAIL_blocks[index];
 
-    
+
 
     // console.log(JSON.stringify(bblock))
     // console.log(Object.getOwnPropertyNames(bblock))
     // console.log(Reflect.ownKeys(bblock))
-    
+
     // Copy has to do with accessing EMAIL_title, EMAIL_subtitle, and non-enumerable or non-serializable properties
     const copiedBlock = JSON.parse(JSON.stringify(bblock));
 
@@ -84,7 +89,7 @@ async function middleware2(req, res, next) {
     res.locals[subtitleKey] = copiedBlock.EMAIL_subtitle;
     res.locals[buttontextKey] = copiedBlock.BUTTON_text;
     res.locals[resourcePathKey] = copiedBlock.RESOURCE_path;
-    
+
   }
 
 
@@ -94,7 +99,7 @@ async function middleware2(req, res, next) {
 
 function middleware3(req, res, next) {
 
-  let H2H3_blocks = res.locals.article.articlenesteddata_id.blocks.filter(block => { return block.type === SECTION_TYPES.H2 ||  block.type === SECTION_TYPES.H3 });
+  let H2H3_blocks = res.locals.article.articlenesteddata_id.blocks.filter(block => { return block.type === SECTION_TYPES.H2 || block.type === SECTION_TYPES.H3 });
 
   if (!Array.isArray(H2H3_blocks) || !H2H3_blocks.length) {
     // array does not exist, is not an array, or is empty

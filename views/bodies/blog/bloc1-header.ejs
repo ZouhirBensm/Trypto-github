@@ -4,6 +4,10 @@
   <span itemprop="keywords" style="display: none"><%=locals.article.articlebodyheader_id.keywords?.join(', ')%></span>
   <span itemprop="about genre" style="display: none"><%=locals.article.articlebodyheader_id.category%></span>
 
+
+  <!-- META LANG FOR SCHEMA -->
+  <span itemprop="inLanguage" style="display: none"><%=locals.article.lang%></span>
+
   
   <span itemprop="publisher" itemscope itemtype="https://schema.org/Organization" style="display: none">
     <span itemprop="name"><%=process.env.DOMAIN_WITHOUT_PROTOCOL%></span>

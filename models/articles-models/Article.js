@@ -92,6 +92,10 @@ const ArticleSchema = new Schema({
   // },
   // images_folder_path: String,
   // videos_folder_path: String
+  lang: {
+    type: String,
+    default: 'en',
+  },
 })
 
 
