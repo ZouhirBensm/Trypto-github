@@ -28,6 +28,10 @@ var config = {
       "buffer": require.resolve("buffer/"),
       "path": require.resolve("path-browserify"),
       // "fs": false  // Add fs fallback to false if not already there
+      "os": require.resolve("os-browserify/browser"),
+      "crypto": require.resolve("crypto-browserify"),
+      "vm": require.resolve("vm-browserify"),
+      "stream": require.resolve("stream-browserify")
     },
   },
   stats: { errorDetails: true },

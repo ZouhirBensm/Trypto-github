@@ -1,4 +1,5 @@
 const { merge } = require('webpack-merge');
+const webpack = require('webpack')
 const config = require('./webpack.common.js');
 const { EnvironmentPlugin, ProvidePlugin, DefinePlugin } = require("webpack")
 const Dotenv = require('dotenv-webpack');
@@ -16,6 +17,9 @@ let prod_config = merge(config, {
       Buffer: ['buffer', 'Buffer'],
     }),
     // new NodePolyfillPlugin(),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
   ],
   performance: {
     hints: false,
