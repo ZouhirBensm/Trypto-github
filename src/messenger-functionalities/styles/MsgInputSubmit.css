@@ -10,10 +10,16 @@ div#chat-total form#chatForm {
   left: 0;
   /* bottom: 64px; */
   width: 90%;
-  margin: 0 auto;
+  margin: 0 auto 0 auto;
 
   border-radius: 0 0 10px 10px;
 }
+
+
+div#chat-total {
+  margin-bottom: 400px;
+}
+
 
 
 div#chat-total form#chatForm>div#input-collector {
