@@ -120,48 +120,49 @@ class Login extends React.Component {
       <React.Fragment>
 
       <div id='login-container'>
-        <div id="container-log-reg">
+          <div id="container-log-reg">
 
-          <form id="loginregister" className="form">
+            <form id="loginregister" className="form">
 
-            <h3>Sign in</h3>
+              <h3>Sign in</h3>
 
-            <p>Sign in into your account</p>
+              <p>Sign in into your account</p>
 
-            <label>Email</label>
-            <input type="text" name="email" placeholder='Your email' />
+              <label>Email</label>
+              <input type="text" name="email" placeholder='Your email' />
 
-            <div id='label'>
-              <label>Password</label>
-              <a href="/users/forgotpasswordpage">Forgot Password</a>
+              <div id='label'>
+                <label>Password</label>
+                <a href="/users/forgotpasswordpage">Forgot Password</a>
+              </div>
+
+              <input type="password" name="password" placeholder='Your password' />
+
+
+              {notifyDisplays}
+
+
+
+            </form>
+
+            <button type="submit" onClick={async (e) => {
+              let statusCode = await this.handleSubmit(e)
+              console.log(statusCode)
+            }}>CONTINUE</button>
+
+
+            <div id='more-log-reg'>
+              <p>Don't have an account?   </p>
+              <a href="/subscription">SIGN UP</a>
             </div>
 
-            <input type="password" name="password" placeholder='Your password' />
 
-
-            {notifyDisplays}
-
-
-
-          </form>
-
-          <button type="submit" onClick={async (e) => {
-            let statusCode = await this.handleSubmit(e)
-            console.log(statusCode)
-          }}>CONTINUE</button>
-
-
-          <div id='more-log-reg'>
-            <p>Don't have an account?   </p>
-            <a href="/subscription">SIGN UP</a>
           </div>
+ 
 
-
-        </div>
-
-        <OnPageFooter/>
 
       </div>
+      <OnPageFooter/>
         {/* <LogRegFooter /> */}
 
       </React.Fragment>
