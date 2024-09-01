@@ -1,6 +1,8 @@
 // This script can be deleted after execution. I freshly added the lang field to the database collection Schema named Article. This script adds the field «lang: 'en'» to all old documents in the collection. This script can be ran in dev and in prod.
 
 
+// TODO !!!! give the capacity to set the language on the create article operations front to back end processes. Lang en is set by default, upon article creation
+
 
 const mongoose = require('mongoose')
 // var fs = require("fs");
