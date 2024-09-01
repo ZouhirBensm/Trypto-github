@@ -264,9 +264,9 @@ async function getOrderController(req, res, next) {
     return next(error)
   }
 
-  // console.log("---------->>>>", order)
+  console.log("---------->>>>", order)
 
-  // console.log("Found!!!!")
+  console.log("Found!!!!")
 
 
   res.status(200).json(order)

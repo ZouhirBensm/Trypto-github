@@ -94,7 +94,7 @@ marketplaceBackend_app_router.use(set_user_if_any, (req, res, next) => {
 
 // require_loggedin_for_pages(true)
 marketplaceBackend_app_router.get(['/allmyorders', '/sellordersdata', '/makesell'], 
-require_loggedin_for_pages(true), 
+require_loggedin_for_pages(false), 
 (req, res) => {
 
   console.log("\n\nSimple\n\n")
@@ -159,12 +159,15 @@ marketplaceBackend_app_router.get('/associated-user-locality/:userID', require_l
 
 
 
-marketplaceBackend_app_router.get(['/sellordersdata/:orderID', '/allmyorders/:orderID'], require_loggedin_for_pages(true), (req, res) => {
+marketplaceBackend_app_router.get(['/sellordersdata/:orderID', '/allmyorders/:orderID'], require_loggedin_for_pages(false), (req, res) => {
 
   console.log("\n\nDetailed\n\n")
   // console.log("paths:", res.locals.paths_URL);
 
   res.locals.userId = req.session.userId
+
+
+  console.log('res.locals.userId -> ', res.locals.userId)
 
 
   var JSX_to_load = 'MarketPlace';
@@ -256,7 +259,13 @@ marketplaceBackend_app_router.get('/json/agglomerates', require_loggedin_for_dat
 
 
 
-marketplaceBackend_app_router.get(['/order/:userId/sellordersdata/:orderID', '/order/:userId/allmyorders/:orderID'], require_loggedin_for_data(true), authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), requester_auth_middleware(4), marketplaceController.getOrderController)
+marketplaceBackend_app_router.get(['/order/:userId/sellordersdata/:orderID', '/order/:userId/allmyorders/:orderID'],
+
+require_loggedin_for_data(false), 
+// authenticate_role_for_data([ROLE.MASTER, ROLE.USER.NOTSUBSCRIBER, ROLE.USER.SUBSCRIBER.BASIC]), 
+// requester_auth_middleware(4), 
+marketplaceController.getOrderController
+)
 
 
 

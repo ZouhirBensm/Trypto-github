@@ -17,6 +17,9 @@ class MarketOrderDetails extends React.Component {
   }
 
   async loadData() {
+
+    if (!userId) userId = 'undefined'
+    
     let response = await fetch(`/marketplace/order/${userId}/${this.props.match.params.order_type}/${this.props.match.params.orderID}`)
 
     let json = await response.json()
