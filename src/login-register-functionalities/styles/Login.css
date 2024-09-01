@@ -21,3 +21,9 @@ div#label {
 div#label > a {
   color: #1266FC;
 }
+
+
+
+div#login-container > div#footer-on-page {
+  background: unset;
+}
