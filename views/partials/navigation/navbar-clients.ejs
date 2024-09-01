@@ -1,62 +1,35 @@
 <nav>
 
-
-  
-<!-- <ul class="home">
-
-  <li>
-    <a href="/">
-      <img src="/img/SVG/home/nav-icons/home1.svg" alt="">
-    </a>
-  </li>
-
-  < %if(loggedIn){%>
+  <ul class="iflog">
     <li>
-      <a href="/messaging/messages">
-        <img src="/img/SVG/home/nav-icons/chatbubbles.svg" alt="">
-      </a>
+      <div onclick="toogleSideNav()"><img src="/img/SVG/home/nav-icons/toogle.svg" alt=""></div>
+      <a href="/"><img src="/img/SVG/home/nav-icons/logo.svg" alt="Bidblock logo"></a>
     </li>
-  < %}%>
-</ul> -->
 
 
 
-
-<ul class="iflog">
-
-  <li>
-    <div onclick="toogleSideNav()">
-      <img src="/img/SVG/home/nav-icons/toogle.svg" alt="">
-    </div>
-    <a href="/">
-      <img src="/img/SVG/home/nav-icons/logo.svg" alt="">
-    </a>
-  </li>
-    
+    <%if(!loggedIn){%>
+      <li>
+        <a href="/users/login" title="Login button">login</a>
+        <a href="/subscription" title="Sign up button">sign up</a>
+      </li>
+    <%}%>
+    <%if(loggedIn){%>
+      <li><a href="/logout" title="Logout button">logout</a></li>
+    <%}%>
 
 
-  <%if(!loggedIn){%>
-    <li>
-      <a href="/users/login">
-        login
-      </a>
-      <a href="/subscription">
-        sign up
-      </a>
-    </li>
-  <%}%>
-  <%if(loggedIn){%>
-    <li>
-      <a href="/logout">
-        <!-- <img src="/img/SVG/home/nav-icons/logout1dark.svg" alt=""> -->
-        logout
-      </a>
-    </li>
-  <%}%>
-
-
-</ul>
+  </ul>
 </nav>
+
+
+
+
+
+
+
+
+
 
 
 <aside class="sidebar-container">

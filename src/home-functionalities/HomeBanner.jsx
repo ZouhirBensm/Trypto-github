@@ -101,11 +101,11 @@ class HomeBanner extends React.Component {
                   Buy, Sell, and Trade Market Items
                 </h1>
                 <h2>
-                  In Bitcoin and Sats.
+                  In Bitcoin and Sats
                 </h2>
                 <div>
-                  Welcome to Bidblock.<br />
-                  We are building the most ethical item market that disposes of a system to facilitate Bitcoin transactions.
+                  Welcome to Bidblock<br />
+                  We are building the most ethical item market that disposes of a system to facilitate Bitcoin transactions
                 </div>
               </div>
             </div>

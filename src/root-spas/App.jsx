@@ -43,7 +43,6 @@ class App extends React.Component {
   }
 
   async loadData() {
-    let btc_gecko_prices = {}
     const response = await fetch(`/cryptoprice`)
     const data = await response.json()
 
