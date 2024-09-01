@@ -298,6 +298,7 @@ homeBackend_app_router.get('/', async (req, res) => {
 
   var JSX_to_load = 'App';
 
+  console.log('HERE')
   res.render('bodies/generic-boilerplate-ejs-to-render-react-components-client', { JSX_to_load: JSX_to_load })
 })
 

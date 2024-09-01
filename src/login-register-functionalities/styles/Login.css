@@ -27,3 +27,13 @@ div#label > a {
 div#login-container > div#footer-on-page {
   background: unset;
 }
+
+
+div#login-container {
+  display: flex;
+  flex-direction: column;
+}
+
+div#container-log-reg {
+  flex-grow: 1;
+}
