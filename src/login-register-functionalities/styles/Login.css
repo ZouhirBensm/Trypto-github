@@ -30,24 +30,5 @@ div#react-div > div#footer-on-page {
 
 
 div#login-container {
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* height: 100vh; */
-}
-
-div#login-container > div {
   flex-grow: 1;
-}
-div#container-log-reg {
-}
-
-
-
-div#react-div {
-  /* position: static;
-  top: unset;
-  bottom: unset;
-  left: unset; */
-  /* min-height: 100vh; */
-  justify-content: space-between;
 }
