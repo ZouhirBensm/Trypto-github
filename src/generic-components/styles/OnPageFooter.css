@@ -44,10 +44,29 @@ div#footer-on-page > img {
 
 
 
+
+
+/* Default configuration: column layout */
 div#footer-on-page > div#nav401 {
   display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
+  flex-flow: row nowrap;
+  justify-content: center; /* Center items horizontally */
+  width: 95%;
+  margin: 0 auto;
+  gap: 10px;
+}
+
+/* Configuration for larger screens: row layout */
+@media (max-width: 800px) {
+  div#footer-on-page > div#nav401 {
+    flex-flow: column nowrap;
+    align-items: center;
+  }
+}
+
+
+div#footer-on-page > div#nav401 > div {
+  text-align: center;
 }
 
 div#footer-on-page > div#nav401 > div > a {
@@ -60,6 +79,16 @@ div#footer-on-page > div#nav402 {
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
+  margin-top: 20px;
+  gap: 2px;
+}
+
+/* Configuration for larger screens: row layout */
+@media (max-width: 500px) {
+  div#footer-on-page > div#nav402 {
+    flex-flow: column nowrap;
+    align-items: center;
+  }
 }
 
 div#footer-on-page > div#nav402 > * {
@@ -67,8 +96,8 @@ div#footer-on-page > div#nav402 > * {
 }
 
 div#footer-on-page > div#nav402 img.small {
-  width: 17px;
-  height: 17px;
+  width: 40px;
+  height: 40px;
 }
 
 

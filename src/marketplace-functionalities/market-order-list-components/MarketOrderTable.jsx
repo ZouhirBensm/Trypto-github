@@ -37,7 +37,7 @@ class MarketOrderTable extends React.Component {
 
     return (
       <React.Fragment>
-        <div>
+        <div id='flex-market'>
           {ordersItem}
         </div>
       </React.Fragment>

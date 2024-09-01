@@ -1,5 +1,6 @@
 div#email-marketing-main-component {
-  width: 90%;
+  width: 40%;
+  margin: 7vh auto;
   /* height: 257px; */
   height: fit-content;
   /* margin: 0 auto; */
@@ -17,6 +18,24 @@ div#email-marketing-main-component {
   display: flex;
   flex-flow: column nowrap;
 }
+
+
+
+@media (min-width: 900px) and (max-width: 1200px) {
+  div#email-marketing-main-component {
+      width: 60%;
+  }
+}
+
+
+@media (max-width: 900px) {
+  div#email-marketing-main-component {
+      width: 85%;
+
+  }
+}
+
+
 
 div>div.content>* {
   z-index: 2;

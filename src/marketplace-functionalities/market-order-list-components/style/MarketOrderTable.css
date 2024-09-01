@@ -121,3 +121,48 @@ div.item-card > a.link {
 
 
 
+
+/* div#flex-market {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2%;
+}
+
+div.item-card {
+  flex: 1 1 44%;
+  box-sizing: border-box;
+} */
+
+
+
+/* Default (Full Width) */
+div#flex-market {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2%; /* Adjust this to fit your design */
+}
+
+div.item-card {
+  flex: 1 1 30%; /* Each item occupies approximately 30% of the container */
+  box-sizing: border-box;
+}
+
+/* Medium Size (800px to 1200px) */
+@media (max-width: 1500px) and (min-width: 800px) {
+  div.item-card {
+      flex: 1 1 44%; /* Each item occupies approximately 44% of the container */
+  }
+}
+
+/* Small Size (< 800px) */
+@media (max-width: 800px) {
+  div#flex-market {
+      flex-direction: column; /* Stack items vertically */
+  }
+  
+  div.item-card {
+      flex: 1 1 100%; /* Each item occupies 100% of the container */
+  }
+}

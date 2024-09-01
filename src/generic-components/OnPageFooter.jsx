@@ -26,9 +26,9 @@ function OnPageFooter() {
 
         <div id='nav402'>
           {/* <span>Follow us</span> */}
-          <a href="https://www.facebook.com/Bidblock"><img src="/img/SVG/social/facebook.svg" alt="" /></a>
-          <a href="https://www.instagram.com/bidblock/"><img src="/img/SVG/social/instagram.svg" alt="" /></a>
-          <a href="https://twitter.com/bidblockcanada"><img src="/img/SVG/social/twitter.svg" alt="" /></a>
+          <a href="https://www.facebook.com/Bidblock"><img className="small" src="/img/SVG/social/facebook.svg" alt="" /></a>
+          <a href="https://www.instagram.com/bidblock/"><img className="small" src="/img/SVG/social/instagram.svg" alt="" /></a>
+          <a href="https://twitter.com/bidblockcanada"><img className="small" src="/img/SVG/social/twitter.svg" alt="" /></a>
 
           <a href="https://www.pinterest.ca/bidblock/"><img className="small" src="/img/SVG/social/pinterest.svg" alt="" /></a>
           <a href="https://www.youtube.com/@bidblock"><img className="small" src="/img/SVG/social/youtube.svg" alt="" /></a>

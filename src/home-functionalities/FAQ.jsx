@@ -80,9 +80,9 @@ class FAQ extends React.Component {
               />
             })}
           </div>
+          <a id='see-all-faq' href="/FAQ">See all topics</a>
 
 
-          <a href="/FAQ">See all topics</a>
 
         </div>
       </React.Fragment>

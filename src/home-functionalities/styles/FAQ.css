@@ -1,10 +1,5 @@
-div#FAQ-main-component {
-  width: 90%;
-  /* margin: 0 auto; */
-}
-
 div#FAQ-main-component > h1 {
-  text-align: left;
+  text-align: center;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   letter-spacing: 2.9px;
@@ -13,3 +8,18 @@ div#FAQ-main-component > h1 {
 }
 
 
+
+
+/* Default configuration for screen width > 1000px */
+div#FAQ-main-component {
+  width: 50%;
+  margin: 0 auto;
+}
+
+/* Configuration for screen width < 1000px */
+@media (max-width: 1000px) {
+  div#FAQ-main-component {
+      width: 80%;
+      margin: 0 auto;
+  }
+}
