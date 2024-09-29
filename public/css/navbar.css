@@ -1,0 +1,78 @@
+.categories-container .container {
+  width: 80%;
+}
+
+.slider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.slider-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slider-item {
+  min-width: 20%; /* Adjust this value based on the number of visible items */
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: center;
+  background-color: #f2f2f2;
+  margin: 5px;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+.prev:disabled, .next:disabled {
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .slider-item {
+    min-width: 33.33%; /* 3 items visible */
+  }
+}
+@media (max-width: 480px) {
+  .slider-item {
+    min-width: 50%; /* 2 items visible */
+  }
+}
+/* Dots */
+.dots {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: #717171;
+}/*# sourceMappingURL=navbar.css.map */

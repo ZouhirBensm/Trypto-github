@@ -1,4 +1,114 @@
-<nav>
+<nav class="bidblock-navbar" id="bidblock-navbar">
+  <div class="container d-flex justify-content-between">
+    <a href="/" class="navbar-brand light" href="#">
+      <img src="/img/SVG/home/nav-icons/logo-navbar-light.svg" alt="bidblock" />
+    </a>
+
+    <a href="/" class="navbar-brand dark" href="#">
+      <img src="/img/SVG/home/nav-icons/logo-navbar-dark.svg" alt="bidblock" />
+    </a>
+
+    <button class="navbar-toggler" type="button" id="navbar-toggler">
+      <img
+        class="toggler-white"
+        src="/img/SVG/home/nav-icons/toggler-white.svg"
+        alt="toggler"
+      />
+      <img
+        class="toggler-blue"
+        src="/img/SVG/home/nav-icons/toggler-blue.svg"
+        alt="toggler"
+      />
+      <img
+        class="exit-white"
+        src="/img/SVG/home/nav-icons/exit-white.svg"
+        alt="toggler"
+      />
+    </button>
+
+    <ul class="navbar-links">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Categories</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/marketplace/sellordersdata">Marketplace</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/articles">Articles</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contact">Contact us</a>
+      </li>
+      <li class="nav-item">
+        <a class="join-us" href="/users/login">Join us</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- <ul class="iflog"> -->
+  <!-- 
+  <li>
+    <div onclick="toogleSideNav()">
+      <img src="/img/SVG/home/nav-icons/toogle.svg" alt="">
+    </div>
+    <a >
+    </a>
+  </li>
+     -->
+
+  <%if(!loggedIn){%>
+  <!-- <li>
+      <a href="/users/login">
+        login
+      </a>
+      <a href="/subscription">
+        sign up
+      </a>
+    </li> -->
+  <%}%> <%if(loggedIn){%>
+  <!-- <li>
+      <a href="/logout">
+        <img src="/img/SVG/home/nav-icons/logout1dark.svg" alt=""> 
+        logout
+      </a>
+    </li> -->
+  <%}%>
+
+  <!-- </ul> -->
+</nav>
+
+<aside class="sidebar-container">
+  <nav>
+    <ul class="sidenav">
+      <% if(typeof loggedInUserId !== 'undefined' && loggedInUserId) { %>
+      <!-- < % if(loggedIn) { %> -->
+      <div>
+        <img src="<%=loggedInUserImgProfilePath%>" alt="" />
+        <span><%=loggedInUserName%></span>
+        <hr />
+      </div>
+      <%}%> <%if(!loggedIn){%>
+      <!-- <li><a href="#">Template</a></li> -->
+      <%}%> <%if(loggedIn){%>
+      <li>
+        <a href="/messaging/messages"
+          ><img src="/img/SVG/home/nav-icons/chatbubbles.svg" alt=""
+        /></a>
+      </li>
+      <li><a href="/users/profile">Profile</a></li>
+      <li><a href="/settings">Settings</a></li>
+      <li><a href="/marketplace/sellordersdata">Market Place</a></li>
+      <%if(locals.user?.role == "MASTER"){%>
+      <li><a href="/operations">Operations</a></li>
+      <%}%> <%}%>
+
+      <li><a href="/">Home</a></li>
+      <li><a href="/articles">Articles</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<!-- <nav>
 
   <ul class="iflog">
     <li>
@@ -39,7 +149,6 @@
     <ul class="sidenav">
   
       <% if(typeof loggedInUserId !== 'undefined' && loggedInUserId) { %>
-      <!-- < % if(loggedIn) { %> -->
         <div>
           <img src='<%=loggedInUserImgProfilePath%>' alt="">
           <span><%=loggedInUserName%></span>
@@ -49,7 +158,6 @@
   
   
       <%if(!loggedIn){%>
-        <!-- <li><a href="#">Template</a></li> -->
       <%}%>
   
   
@@ -78,4 +186,4 @@
 <script defer src="/js/toogle.js"></script>
 
 
-
+ -->

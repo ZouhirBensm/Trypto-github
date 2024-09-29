@@ -1,73 +1,101 @@
-import ArticlesMobileCarousel from './ArticlesMobileCarousel'
+import "./styles/GetRecentArticles.css";
 
-import './styles/GetRecentArticles.css'
-
+import Swiper from "swiper";
+import "swiper/css/swiper.css";
 
 class GetRecentArticles extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       articles: [],
-    }
-    this.loadRecentArticles = this.loadRecentArticles.bind(this)
+    };
+    this.loadRecentArticles = this.loadRecentArticles.bind(this);
   }
 
-
-
   componentDidMount() {
-    this.loadRecentArticles()
+    this.loadRecentArticles();
   }
 
   async loadRecentArticles() {
-    let response
+    let response;
 
     response = await fetch(`/articles/paginated-articles/data?page=1&limit=5`, {
-      method: 'GET',
-    })
+      method: "GET",
+    });
 
-    let json
-    json = await response.json()
+    let json;
+    json = await response.json();
 
-    console.log(json)
+    console.log("new articles data :: ", json);
 
     this.setState({
-      articles: json.srv_.ARTICLES
-    })
+      articles: json.srv_.ARTICLES,
+    });
 
+    this.initSwiper();
+  }
 
+  initSwiper() {
+    new Swiper(".recent-articles-swiper", {
+      // Swiper parameters
+      slidesPerView: 1,
+      autoplay: true,
+      pagination: {
+        el: ".recent-articles-pagination",
+        clickable: true,
+        dynamicBullets: true,
+      },
+      navigation: {
+        nextEl: ".recent-articles-swiper-button-next",
+        prevEl: ".recent-articles-swiper-button-prev",
+      },
+    });
   }
 
   render() {
     return (
       <React.Fragment>
-        <div id="articles-main-component" className='higher-level-div'>
-          <div>
-            <h1>Latest News</h1>
-            <p>Get your latest news in the bitcoin and altcoin world from Bidblock. Plus read from insighful authors, that make your orange pill journey easier.</p>
-            <a href="/articles">See all</a>
+        <div className="recent-articles-container">
+          <div className="container">
+            <h1 className="recent-articles-title">Latest News</h1>
+            <p className="recent-articles-description">
+              Get your latest news in the bitcoin and altcoin world from
+              Bidblock. Plus read from insighful authors, that make your orange
+              pill journey easier.
+            </p>
+            <a href="/articles" className="recent-articles-button">
+              See all
+            </a>
+
+            <div className="swiper-container recent-articles-swiper">
+              <div className="swiper-wrapper">
+                {this.state.articles.map((article) => (
+                  <a
+                    className="swiper-slide recent-articles-slide"
+                    style={{
+                      backgroundImage: `url(${article.enclosure})`,
+                    }}
+                    href={article.url}
+                    target="_blank"
+                  >
+                    <div className="recent-articles-slide-wrapper">
+                      <h1 className="recent-articles-slide-title">
+                        {article.h1}
+                      </h1>
+                    </div>
+                  </a>
+                ))}
+              </div>
+              <div className="swiper-pagination recent-articles-pagination"></div>
+
+              <div className="recent-articles-swiper-button-next swiper-button-next"></div>
+              <div className="recent-articles-swiper-button-prev swiper-button-prev"></div>
+            </div>
           </div>
-
-          <br />
-          <br />
-          <br />
-          <br />
-
-          {/* <button onClick={(e) => { this.unmount(e) }}>Unmount</button>
-          {this.state.renderrender ?
-            <ArticlesMobileCarousel
-              articles={this.state.articles}
-            /> :
-            null
-          } */}
-
-          <ArticlesMobileCarousel
-            articles={this.state.articles}
-          />
-
         </div>
       </React.Fragment>
-    )
+    );
   }
 }
 
-export default GetRecentArticles
+export default GetRecentArticles;

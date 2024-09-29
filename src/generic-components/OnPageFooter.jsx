@@ -1,54 +1,46 @@
-import './styles/OnPageFooter.css'
+import "./styles/OnPageFooter.css";
+import EmailMarketingCollector from "../home-functionalities/EmailMarketingCollector";
+import EMAIL_MARKETING_TYPES from "../../full-stack-libs/Types/EmailMarketingTypes.js";
 
 function OnPageFooter() {
-
   // console.log(JSX_to_load)
 
   return (
     <React.Fragment>
-      <div id='footer-on-page'>
+      <div className="bidblock-footer" id="footer-on-page">
+        <div className="fixed-background"></div>
+        <div className="footer-content container">
+          <div className="nav-section">
+            <img
+              src="/img/SVG/home/nav-icons/logo-navbar-light.svg"
+              alt="bidblock"
+            />
+            <a href="/users/login">Join us</a>
+            <a href="/contact">Contact</a>
+            <a href="/terms-conditions">Terms and conditions</a>
+            <a href="/FAQ">FAQ</a>
+            <a href="/sitemap/html-sitemap">Sitemap</a>
+            <a href="/articles">Articles</a>
+            <a href="/marketplace/sellordersdata">Marketplace</a>
+          </div>
 
-
-        <img src="/img/PNG/logo/logoBLCSmall.png" alt="" />
-        <div id='nav401'>
-          <div>© Bidblock</div>
-          <div><a href="/contact">Contact</a></div>
-          <div><a href="/terms-conditions">Terms and Conditions</a></div>
-          {/* {
-            loggedInUserId ?
-            <div><a href="/terms-conditions">Terms and Conditions</a></div> :
-            null
-          } */}
-
-          <div><a href="/FAQ">FAQ</a></div>
-          <div><a href="/sitemap/html-sitemap">Sitemap</a></div>
+          <div className="newsletter-section">
+            <EmailMarketingCollector
+              EMAIL_title="Get product update news, and newsletter"
+              EMAIL_subtitle="Be part of our community. Be a priviledged informed user about new implementations, and web software updates. Be informed with Bidblock's progess."
+              BUTTON_text={EMAIL_MARKETING_TYPES.SEND}
+              RESOURCE_path={undefined}
+            />
+          </div>
         </div>
-
-        <div id='nav402'>
-          {/* <span>Follow us</span> */}
-          <a href="https://www.facebook.com/Bidblock"><img className="small" src="/img/SVG/social/facebook.svg" alt="" /></a>
-          <a href="https://www.instagram.com/bidblock/"><img className="small" src="/img/SVG/social/instagram.svg" alt="" /></a>
-          <a href="https://twitter.com/bidblockcanada"><img className="small" src="/img/SVG/social/twitter.svg" alt="" /></a>
-
-          <a href="https://www.pinterest.ca/bidblock/"><img className="small" src="/img/SVG/social/pinterest.svg" alt="" /></a>
-          <a href="https://www.youtube.com/@bidblock"><img className="small" src="/img/SVG/social/youtube.svg" alt="" /></a>
-          <a href="https://www.tiktok.com/@bidblock"><img className="small" src="/img/SVG/social/tiktok.svg" alt="" /></a>
-
-          <a href="https://www.linkedin.com/company/bidblock/"><img className="small" src="/img/SVG/social/linkedin.svg" alt="" /></a>
-
-          <a href="https://discord.gg/Uznyz2Fa"><img className="small" src="/img/SVG/social/discord.svg" alt="" /></a>
-
-        </div>
-
-        <img src="/img/SVG/on-page-footer/group.svg" alt="" />
       </div>
     </React.Fragment>
   );
 }
 
-if(JSX_to_load === "OnPageFooter"){
+if (JSX_to_load === "OnPageFooter") {
   const element = <OnPageFooter />;
-  ReactDOM.render(element, document.getElementById('react-div'));
+  ReactDOM.render(element, document.getElementById("react-div"));
 }
 
 export default OnPageFooter;

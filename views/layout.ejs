@@ -13,6 +13,9 @@
   <%- include("partials/header-setup-locals/setup-locals") %>
   <%- include("partials/header-setup-locals/head1") %>
 <% }%>
+<%- include("partials/scripts/header-scripts.ejs") %>
+<link rel="preload" href="/css/navbar.css"as="style" onload="this.onload=null;this.rel='stylesheet'">
+
 <body>
   <!-- Navbar will adapt to whether logged in or not -->
   <!-- narbar -->
@@ -25,5 +28,6 @@
   <!-- Body either server-side renders one of the react applications App or Databases, or a Login or Register form -->
   <%- body %>
 
+  <%- include("partials/scripts/footer-scripts.ejs") %>
 </body>
 </html>

@@ -313,6 +313,8 @@
     --font-size-button: 1.0rem;
     --font-size-h4: 1.5rem;
     --font-size-footer: 1.2rem;
+    --font-size-big-title: 4rem;
+    --font-size-big-title-smaller: 3rem;
 
     --line-height-p: 2.5rem;
     --line-height-list: 2.0rem;
@@ -321,6 +323,14 @@
     --line-height-input: 1.6rem;
 
     --line-height-generic: 1.0rem;
+
+
+    /* colors */
+    --color-primary: #1266FC;
+    --color-secondary: #80E8FF;
+    --color-accent: #010757;
+    --color-black: #0f0f0f;
+    --color-white: #FFFFFF;
   }
 
 
@@ -372,4 +382,188 @@
     position: absolute;
     justify-content: space-around;
   } */
+
+   
+  .bidblock-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1100;
+  padding-top: 25px;
+  transition: all 0.3s ease;
+}
+.bidblock-navbar .navbar-brand {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  z-index: 1001;
+  padding: 0;
+}
+.bidblock-navbar .navbar-brand img {
+  height: 100%;
+}
+.bidblock-navbar .navbar-brand.dark {
+  display: none;
+}
+.bidblock-navbar .navbar-toggler {
+  position: relative;
+  display: flex;
+  height: 40px;
+  width: 25px;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  z-index: 1001;
+}
+.bidblock-navbar .navbar-toggler img {
+  width: 25px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.bidblock-navbar .navbar-toggler img.toggler-white {
+  opacity: 1;
+}
+.bidblock-navbar .navbar-toggler img.toggler-blue {
+  opacity: 0;
+}
+.bidblock-navbar .navbar-toggler img.exit-white {
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+.bidblock-navbar .navbar-links {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  list-style-type: none;
+  display: none;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: center;
+  background-color: #010757;
+}
+.bidblock-navbar .navbar-links .nav-item {
+  width: 100%;
+  font-size: 1rem;
+}
+.bidblock-navbar .navbar-links .nav-item .nav-link {
+  color: white;
+  padding: 1rem;
+  font-family: "Poppins", sans-serif;
+}
+.bidblock-navbar .join-us {
+  background-color: #7ae0fa;
+  color: white;
+  height: 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 130px;
+  text-decoration: none !important;
+  margin: 1.5rem auto;
+}
+.bidblock-navbar.white {
+  padding: 10px;
+  background-color: white;
+}
+.bidblock-navbar.white .navbar-brand {
+  height: 35px;
+}
+.bidblock-navbar.white .navbar-brand.dark {
+  display: inline-block;
+}
+.bidblock-navbar.white .navbar-brand.light {
+  display: none;
+}
+.bidblock-navbar.white .navbar-toggler {
+  height: 35px;
+}
+.bidblock-navbar.white .navbar-toggler .toggler-white {
+  opacity: 0;
+}
+.bidblock-navbar.white .navbar-toggler .toggler-blue {
+  opacity: 1;
+}
+.bidblock-navbar.white .navbar-toggler .exit-white {
+  opacity: 0;
+}
+.bidblock-navbar.white .join-us {
+  height: 35px;
+  background-color: #1266fc;
+}
+.bidblock-navbar.white .navbar-links .nav-item {
+  font-size: 0.9rem;
+}
+.bidblock-navbar.white .navbar-links .nav-item .nav-link {
+  color: #010757;
+}
+.bidblock-navbar.show .navbar-links {
+  display: flex;
+}
+.bidblock-navbar.show .navbar-links .nav-link {
+  color: white !important;
+}
+.bidblock-navbar.show .navbar-brand.dark {
+  display: none;
+}
+.bidblock-navbar.show .navbar-brand.light {
+  display: inline-block;
+}
+.bidblock-navbar.show .navbar-toggler .toggler-white {
+  display: none !important;
+}
+.bidblock-navbar.show .navbar-toggler .toggler-white {
+  opacity: 0;
+}
+.bidblock-navbar.show .navbar-toggler .toggler-blue {
+  opacity: 0;
+}
+.bidblock-navbar.show .navbar-toggler .exit-white {
+  opacity: 1;
+}
+@media (min-width: 992px) {
+  .bidblock-navbar .navbar-brand {
+    height: 40px;
+  }
+  .bidblock-navbar .navbar-toggler {
+    display: none;
+  }
+  .bidblock-navbar .navbar-links {
+    display: flex;
+    position: relative;
+    width: -moz-fit-content;
+    width: fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    justify-content: end;
+    flex-wrap: nowrap;
+    background-color: transparent;
+  }
+  .bidblock-navbar .navbar-links .nav-item {
+    width: -moz-fit-content;
+    width: fit-content;
+    font-size: 1rem;
+  }
+  .bidblock-navbar .navbar-links .nav-item .nav-link {
+    padding: 0 1rem;
+  }
+  .bidblock-navbar .join-us {
+    margin: 0 0 0 1rem;
+  }
+}
 </style>
