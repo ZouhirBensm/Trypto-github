@@ -1,20 +1,24 @@
-const CURRENCY_CODES = {
-  'cad': {
-    name: 'Canada', 
-    symbol: 'C$',
+const CURRENCY_CODES = [
+  {
+    code: "cad",
+    name: "Canada",
+    symbol: "C$",
   },
-  'usd': {
-    name: 'United States', 
-    symbol: '$',
+  {
+    code: "usd",
+    name: "United States",
+    symbol: "$",
   },
-  'eur': {
-    name: 'Europe', 
-    symbol: '€',
+  {
+    code: "eur",
+    name: "Europe",
+    symbol: "€",
   },
-  'mxn': {
-    name: 'Mexico', 
-    symbol: 'MX$',
+  {
+    code: "mxn",
+    name: "Mexico",
+    symbol: "MX$",
   },
-}
+];
 
-module.exports = CURRENCY_CODES
+module.exports = CURRENCY_CODES;

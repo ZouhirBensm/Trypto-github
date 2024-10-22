@@ -1,30 +1,71 @@
-/* REPETED CODE */
-div#market-main-component {
-  width: 90%;
-  /* margin: 0 auto; */
+.trending-products-container {
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  padding: 3rem 0;
 }
 
-
-div#market-main-component>h1 {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: var(--font-size-h1);
-  margin: 5vh auto;
-  color: #010757;
-  display: block;
+.trending-products-container .trending-products-title {
+  color: var(--color-primary);
+  font-size: var(--font-size-root);
   text-align: center;
-  margin: 0;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  font-weight: 400;
 }
 
+.trending-products-container .trending-products-sub-title {
+  color: var(--color-accent);
+  font-size: var(--font-size-h1);
+  text-align: center;
+  font-weight: 900;
+  margin-bottom: 5rem;
+  text-shadow: 0 0 35px rgba(0, 0, 0, 0.3);
+}
+.trending-products-container .product-item {
+  width: 200px;
 
-div#market-main-component>a {
-  text-decoration: underline;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
-  letter-spacing: 1.4px;
-  color: #1266FC;
-  text-transform: uppercase;
-  margin: 0 auto;
-  display: block;
-  width: fit-content;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  overflow: hidden;
+
+  color: var(--color-black);
+}
+
+.trending-products-container .product-item:hover {
+  text-decoration: none;
+}
+.trending-products-container .product-item h3 {
+  font-size: 1rem;
+  text-align: center;
+  padding: 0.5rem 0.25rem;
+  width: 100%;
+  height: 3rem;
+  overflow: hidden;
+}
+.trending-products-container .product-item span {
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 0.5rem 0.25rem;
+  width: 100%;
+}
+.trending-products-container .product-img-container {
+  margin-top: 10px;
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+}
+
+.trending-products-container .product-img-container img {
+  width: 100%;
 }

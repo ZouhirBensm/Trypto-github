@@ -1,168 +1,92 @@
-import CURRENCY_CODES from '../../full-stack-libs/Types/CurrencyCodes'
-
-import HomeBannerCard from './HomeBannerCard'
-import './styles/HomeBanner.css'
-
+import "./styles/HomeBanner.css";
+import CURRENCY_CODES from "../../full-stack-libs/Types/CurrencyCodes";
 
 // TODO !!! rename this Component, because holds more than prices
 
 class HomeBanner extends React.Component {
   constructor(props) {
-    super(props)
-    this.state = {}
-
-    // this.scrollChildManagerInstance = new ScrollChildManager();
-    // this.popup = popup
-    // console.log(this.props)
+    super(props);
+    this.state = {};
   }
 
-  componentDidMount() {
+  renderCurrencies() {
+    return CURRENCY_CODES.map((currency, index) => {
+      let price = Math.floor(Math.random() * (1000000 - 50000 + 1)) + 50000;
 
-
-    // let reactDiv = document.getElementById('react-div')
-    // let header = document.getElementById('header')
-
-
-    // reactDiv.insertBefore(header, reactDiv.firstChild);
+      return (
+        <div className="price-card" key={index}>
+          <div
+            className="price-img-container"
+            style={{
+              backgroundImage: `url('/img/SVG/home/${currency.name}.svg')`,
+            }}
+          ></div>
+          <span className="price-text">
+            {price} ({currency.symbol})
+          </span>
+        </div>
+      );
+    });
   }
-
-
-
-
-
-  setPriceElements() {
-
-    // console.log(CURRENCY_CODES)
-    const homeHeaderPrices = document.getElementById('scroll-bar')
-
-
-    let i = 3
-
-
-    do {
-      for (const country_code in this.props?.btc_gecko_prices) {
-
-
-        if (Object.hasOwnProperty.call(this.props?.btc_gecko_prices, country_code)) {
-
-          const price = this.props?.btc_gecko_prices[country_code];
-
-          const priceElement = document.createElement('div');
-          priceElement.classList.add("price-element");
-
-          const span1 = document.createElement('span');
-          const country_name = CURRENCY_CODES[country_code].name
-          const currency_symbol = CURRENCY_CODES[country_code].symbol
-          const flagImg = document.createElement('img');
-          flagImg.src = `/img/SVG/home/${country_name}.svg`;
-
-          priceElement.appendChild(flagImg);
-          span1.innerHTML = country_name;
-          priceElement.appendChild(span1);
-          const span2 = document.createElement('span');
-          span2.innerHTML = `${price.toLocaleString()} ${currency_symbol}`;
-          priceElement.appendChild(span2);
-          homeHeaderPrices.appendChild(priceElement);
-
-        }
-      }
-
-      --i;
-
-    } while (i > 0);
-
-  }
-
-
-
 
   render() {
-    this.setPriceElements()
-
-
     return (
       <React.Fragment>
-        <div>
+        <div className="banner-container">
+          <div className="container pt-5">
+            <div className="row align-content-center">
+              <div className="col-12 col-lg-5 d-flex align-content-center flex-wrap py-5">
+                <div className="w-100">
+                  <h1 className="banner-title">
+                    Shop smart <br />
+                    <span className="with">with </span>
+                    <span className="bidblock">Bidblock</span>
+                  </h1>
+                  <p className="banner-description">
+                    Your Marketplace for Buying, Selling, and Trading Items with
+                    Bitcoin and Sats. We are building the most ethical item
+                    market that disposes of a system to facilitate Bitcoin
+                    transactions
+                  </p>
+                </div>
+                <div className="banner-search">
+                  <select class="bidblock-category-select">
+                    <option selected>Ticket</option>
+                    <option value="1">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt, qui.</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
 
-          <div id='header'>
-
-            <span id="vertical-rect"></span>
-            <span id="vertical-rect"></span>
-
-            <img className='symbol' src="/img/SVG/home/inner/bitcoin-symbol.svg" alt="" />
-            <img className="clean symbol" src="/img/SVG/home/outer/clean.svg" alt="" />
-
-            <img className="broken symbol" src="/img/SVG/home/outer/broken.svg" alt="" />
-
-
-            <div id="home-header-text">
-              <div>
-                <h1>
-                  Buy, Sell, and Trade Market Items
-                </h1>
-                <h2>
-                  In Bitcoin and Sats
-                </h2>
-                <div>
-                  Welcome to Bidblock<br />
-                  We are building the most ethical item market that disposes of a system to facilitate Bitcoin transactions
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="What are you looking for..."
+                    aria-label="What are you looking for..."
+                  />
+                  <button type="button" class="btn btn-primary">
+                    <img src="/img/icons/search.svg" alt="search" />
+                  </button>
                 </div>
               </div>
-            </div>
-
-
-
-            <div id="home-header-cards">
-              <HomeBannerCard
-                icon_path='/img/SVG/home/home-cards/downwallet.svg'
-                text='Deposit on Bitcoin wallets. Upcoming.'
-              />
-              <HomeBannerCard
-                icon_path='/img/SVG/home/home-cards/credit-card.svg'
-                text='In-app transaction system. Upcoming.'
-              />
-              <HomeBannerCard
-                icon_path='/img/SVG/home/home-cards/wallet.svg'
-                text='Sales dashboards, and graphs to monitor your financial progress. Upcoming.'
-              />
-
-            </div>
-
-
-
-
-
-            <div id="home-header-prices">
-              <div id="scroll-bar">
-
+              <div className="col-12 col-lg-7 d-none align-items-center d-lg-flex">
+                <div className="img-container">
+                  <img src="/img/home/home-bg.png" alt="Banner" />
+                </div>
               </div>
-
-
-              {/* <table>
-              <tbody>
-                <tr>
-                  {tds_currencies}
-                </tr>
-                <tr>
-                  {tds_values}
-                </tr>
-              </tbody>
-            </table> */}
-
-
+              <div className="col-12 d-flex mt-5">
+                <marquee>
+                  <div className="w-50 d-flex align-items-center">
+                    {this.renderCurrencies()}
+                    {this.renderCurrencies()}
+                  </div>
+                </marquee>
+              </div>
             </div>
-
-
-
-
           </div>
         </div>
-
-
-
       </React.Fragment>
     );
   }
 }
 
-export default HomeBanner
+export default HomeBanner;

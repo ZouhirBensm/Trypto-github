@@ -1,77 +1,74 @@
-import HomeBanner from '../home-functionalities/HomeBanner.jsx';
-import GetRecentArticles from '../home-functionalities/GetRecentArticles.jsx';
-import GetRecentMarketItems from '../home-functionalities/GetRecentMarketItems.jsx';
-import FAQ from '../home-functionalities/FAQ'
-import OnPageFooter from '../generic-components/OnPageFooter'
+import HomeBanner from "../home-functionalities/HomeBanner.jsx";
+import GetRecentArticles from "../home-functionalities/GetRecentArticles.jsx";
+import GetRecentMarketItems from "../home-functionalities/GetRecentMarketItems.jsx";
+import FAQ from "../home-functionalities/FAQ";
+import Features from "../home-functionalities/Features";
+import OnPageFooter from "../generic-components/OnPageFooter";
 
-import EMAIL_MARKETING_TYPES from '../../full-stack-libs/Types/EmailMarketingTypes.js'
+import EMAIL_MARKETING_TYPES from "../../full-stack-libs/Types/EmailMarketingTypes.js";
 
-import EmailMarketingCollector from '../home-functionalities/EmailMarketingCollector'
+import EmailMarketingCollector from "../home-functionalities/EmailMarketingCollector";
 
-import '../style/reactDivMobile.css'
+import "../style/reactDivMobile.css";
 
-import './styles/App.css'
+import "./styles/App.css";
+import HomeFirstSection from "../home-functionalities/HomeFirstSection.jsx";
+import Categories from "../home-functionalities/Categories.jsx";
+import MARKET_CATEGORIES from "../../full-stack-libs/Types/MarketCategories.js";
 
+import TicketSection from "../home-functionalities/TicketSection.jsx";
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      prices: []
-    }
-    this.popup = popup
+      prices: [],
+    };
+    this.popup = popup;
   }
-
 
   componentDidMount() {
     // console.log("in component: ", userId)
 
-    this.loadData()
-    this.popup ? this.displacePopup() : null
+    this.loadData();
+    this.popup ? this.displacePopup() : null;
   }
 
   displacePopup() {
-    let header = document.getElementById('header')
-    let popup = document.getElementById('popup')
+    let header = document.getElementById("bidblock-navbar");
+    let popup = document.getElementById("popup");
 
     popup.style.display = "block";
 
     header.insertBefore(popup, header.firstChild);
 
-
     // reactDiv.appendChild(popup)
   }
 
   async loadData() {
-    const response = await fetch(`/cryptoprice`)
-    const data = await response.json()
+    let btc_gecko_prices = {};
+    const response = await fetch(`/cryptoprice`);
+    const data = await response.json();
 
     // console.log(btc_gecko_prices, data.data.bitcoin)
 
     this.setState({
-      prices: data.data.bitcoin
-    })
-    return
+      prices: data.data.bitcoin,
+    });
+    return;
   }
-
 
   render() {
     // console.log(userId, '<<<<<--------USERID')
 
     return (
-
       // Home
       <React.Fragment>
-
-
-        <HomeBanner btc_gecko_prices={this.state.prices} />
-
-        <EmailMarketingCollector 
-          EMAIL_title="Get product update news, and newsletter"
-          EMAIL_subtitle="Be part of our community. Be a priviledged informed user about new implementations, and web software updates. Be informed with Bidblock's progess."
-          BUTTON_text={EMAIL_MARKETING_TYPES.SEND}
-          RESOURCE_path={undefined}
-        />
+        <HomeFirstSection>
+          <HomeBanner btc_gecko_prices={this.state.prices} />
+          <Categories categories={MARKET_CATEGORIES} />
+          <TicketSection />
+        </HomeFirstSection>
 
         <GetRecentMarketItems />
 
@@ -79,27 +76,19 @@ class App extends React.Component {
 
         <FAQ />
 
+        <Features />
+
         <OnPageFooter />
-
       </React.Fragment>
-
     );
   }
-
-
-
 }
 
 const element = <App />;
 
+ReactDOM.render(element, document.getElementById("react-div"));
 
-ReactDOM.render(element, document.getElementById('react-div'));
-
-
-export default App
-
-
-
+export default App;
 
 // require('react-dom');
 // window.React2 = require('react');
