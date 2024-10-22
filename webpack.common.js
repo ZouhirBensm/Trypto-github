@@ -1,102 +1,41 @@
-const path = require('path')
-// const { EnvironmentPlugin, ProvidePlugin, DefinePlugin } = require("webpack")
-// const Dotenv = require('dotenv-webpack');
+const path = require('path');
 
-
-var config = {
-  // Deletable externals:
-  // externals: {
-  //   react: "commonjs react",
-  //   "react-dom": "commonjs react-dom",
-  // },
+module.exports = {
   resolve: {
-    // Deletable alias:
-    // alias: {
-    //   // Needed when library is linked via `npm link` to app
-    //   react: path.resolve("./node_modules/react")
-    // },
-    // alias: {
-    //   'react': path.resolve(__dirname, './node_modules/react'),
-    //   'react-dom': path.resolve(__dirname, './node_modules/react-dom')
-    // },
     extensions: ['.js', '.jsx'],
-    // fallback: {
-    //   // "buffer": require.resolve("buffer"),
-    //   "buffer": require.resolve("buffer/")
-    // },
     fallback: {
-      "buffer": require.resolve("buffer/"),
-      "path": require.resolve("path-browserify"),
-      // "fs": false  // Add fs fallback to false if not already there
-      "os": require.resolve("os-browserify/browser"),
-      "crypto": require.resolve("crypto-browserify"),
-      "vm": require.resolve("vm-browserify"),
-      "stream": require.resolve("stream-browserify")
-    },
+      buffer: require.resolve('buffer/'),
+      path: require.resolve('path-browserify'),
+      os: require.resolve('os-browserify/browser'),
+      crypto: require.resolve('crypto-browserify'),
+      vm: require.resolve('vm-browserify'),
+      stream: require.resolve('stream-browserify')
+    }
   },
-  stats: { errorDetails: true },
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      },
-      {
-        test: [/\.js$/, /\.jsx$/],
-        exclude: /(node_modules)/,
+        test: /\.(js|jsx)$/, // Process both JS and JSX files
+        exclude: /node_modules/, // Ignore node_modules
         use: {
-          loader: 'babel-loader',
+          loader: 'babel-loader', // Use Babel to transpile
           options: {
-            presets: [
-              ["@babel/preset-env", {
-                "targets": {
-                  "ie": "11",
-                  "edge": "15",
-                  "safari": "10",
-                  "firefox": "50",
-                  "chrome": "49"
-                }
-              }],
-              "@babel/preset-react"
-            ]
+            configFile: path.resolve(__dirname, '.babelrc') // Ensure .babelrc is loaded
           }
         }
+      },
+      {
+        test: /\.css$/, // Process CSS files
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
-  devtool: 'inline-source-map',
   entry: {
-    App: './src/root-spas/App.jsx',
-    MarketPlace: './src/root-spas/MarketPlace.jsx',
-    MgtUser: './src/root-spas/MgtUser.jsx',
-    Messaging: './src/root-spas/Messaging.jsx',
-    Subscription: './src/root-spas/Subscription.jsx',
-    Operations: './src/root-spas/Operations.jsx',
-    // TODO merge these SPA into one SPA if possible
-    CreateArticle: './src/root-spas/CreateArticle.jsx',
-    ArticleSelector: './src/root-spas/ArticleSelector.jsx',
-    ArticlesCategorySelector: './src/root-spas/ArticlesCategorySelector.jsx',
-    Settings: './src/root-spas/Settings.jsx',
-    ToDelete: './src/root-spas/ToDelete.jsx',
-    FAQPage: './src/root-spas/FAQPage.jsx',
-    TermsConditions: './src/root-spas/TermsConditions.jsx',
-    AddFAQ: './src/root-spas/AddFAQ.jsx',
-    OnPageFooter: './src/generic-components/OnPageFooter.jsx',
-    EmailMarketingCollector: './src/home-functionalities/EmailMarketingCollector.jsx',
-    Contact: './src/root-spas/Contact.jsx'
+    App: './src/root-spas/App.jsx'
   },
   output: {
-    // Deletable libraryTarget: 'commonjs2',
-    // libraryTarget: 'commonjs2',
     filename: '[name].js',
-    path: path.resolve(__dirname, 'public/dist'),
-    // clean: true,
+    path: path.resolve(__dirname, 'public/dist')
   },
-  // plugins: [
-  // ],
+  devtool: 'inline-source-map'
 };
-
-module.exports = config
-
-
-// old versions: { node: 'v16.14.2', npm: '8.5.0' }
