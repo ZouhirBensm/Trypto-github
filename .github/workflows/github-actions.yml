@@ -3,7 +3,7 @@ name: bidblock.ca Continuous Integration
 on:
   push:
     branches:
-      - master
+      - production-v2  # Trigger deployment only when changes are pushed to production-v2
 
 jobs:
   bidblockca_Automated_Deployment_Process:
@@ -20,7 +20,7 @@ jobs:
       with:
         node-version: '18.19.0'
 
-    - name: Remove past build resources 🗑️, Check Repo and .env 👁️, Github pull origin master 🔽, Npm install 🔽, sharp special install 🔽, re-build with webpack in prod version 🔧, and PM2 restart needed process server 🔃
+    - name: Remove past build resources 🗑️, Check Repo and .env 👁️, Github pull origin production-v2 🔽, Npm install 🔽, sharp special install 🔽, re-build with webpack in prod version 🔧, and PM2 restart needed process server 🔃
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SERVER_HOSTNAME }}
@@ -35,7 +35,7 @@ jobs:
           rm -r public/dist
           ls
           cat .env
-          git pull https://${{ secrets.GITHUUB_USERNAME }}:${{ secrets.GITHUUB_PASSWORD }}@github.com/${{ secrets.GITHUUB_USERNAME }}/Trypto-github.git master
+          git pull https://${{ secrets.GITHUUB_USERNAME }}:${{ secrets.GITHUUB_PASSWORD }}@github.com/${{ secrets.GITHUUB_USERNAME }}/Trypto-github.git production-v2
           npm install
           npm uninstall sharp
           npm install --os=linux --cpu=x64 sharp
