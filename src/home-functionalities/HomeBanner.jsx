@@ -38,7 +38,7 @@ class HomeBanner extends React.Component {
               <div className="col-12 col-lg-5 d-flex align-content-center flex-wrap py-5">
                 <div className="w-100">
                   <h1 className="banner-title">
-                    Shop smart <br />
+                    Shop smart 12<br />
                     <span className="with">with </span>
                     <span className="bidblock">Bidblock</span>
                   </h1>
