@@ -214,7 +214,7 @@ class SearchWindow extends React.Component {
 
     return (
       <React.Fragment>
-        <div ref={this.divSearchinputs} className='search-inputs'>
+        <div ref={this.divSearchinputs} className='search-inputs shadow p-4'>
 
 
 

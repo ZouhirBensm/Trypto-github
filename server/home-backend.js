@@ -108,6 +108,8 @@ const faqResponseControllers = require('../controllers/home-controllers/faq-resp
 
 
 
+const checkTokenMiddleware = require('../middleware/loggedin-middleware/check-facebook-token-middleware.js')
+
 // Use this to check the role, requires a res.locals.user.role
 const { set_user_if_any } = require("../middleware/generic-middleware/set-user-if-any-middleware")
 
@@ -249,10 +251,12 @@ LoginController.validateController,
 
 registerMiddleware.instantiateHexForUnactiveUserMiddleware,
 registerMiddleware.instantiateUserMiddleware,
+registerMiddleware.instantiateUserInformationMiddleware,
 registerMiddleware.ifLocalityOrganizeAssociatedLocalityMiddleware,
 registerMiddleware.ifSubscriberInstantiateSubscriberMiddleware,
 registerMiddleware.saveHex4UnactiveUserMiddleware,
 registerMiddleware.saveUserMiddleware,
+registerMiddleware.saveUserInformationMiddleware,
 registerMiddleware.doubleCheckSaveMiddleware,
 registerMiddleware.setAgendaJobToDeleteUserIfStillNotActive,
 registerMiddleware.mailConfirmLinkMiddleware,
@@ -453,6 +457,51 @@ homeBackend_app_router.post('/users/login', require_loggedin_for_data(false),
 )
 
 
+homeBackend_app_router.post('/users/auth/:method', 
+  require_loggedin_for_data(false),
+  checkTokenMiddleware,
+  LoginController.loginController
+)
+
+
+// Check if email is already used
+homeBackend_app_router.post("/users/check-email", require_loggedin_for_data(false), async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ message: "Email is required." });
+  }
+
+  try {
+    // Query the database to find the user by email
+    const user = await User.findOne({ email: email });
+
+    // If user exists, email is taken
+    if (user) {
+      return res
+        .status(409)
+        .json({ message: "Email is already in use.", used: true });
+    }
+
+    // If user does not exist, email is available
+    return res
+      .status(200)
+      .json({ message: "Email is available.", used: false });
+  } catch (error) {
+    console.error(`Error checking email: ${error.message}`);
+    return res.status(500).json({ message: "Internal server error." });
+  }
+});
+
+// Define the route to get the social IDs
+homeBackend_app_router.get('/social-ids', (req, res) => {
+  const socialIds = {
+    googleId: process.env.GOOGLE_ID,
+    facebookId: process.env.FACEBOOK_ID,
+  };
+
+  res.json(socialIds);
+});
 
 
 

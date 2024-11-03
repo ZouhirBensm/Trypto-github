@@ -13,6 +13,11 @@ function responseOnRegistrationController(req, res) {
 
   // console.log(success_msg)
 
+
+  if(res.locals.user_instance.active) {
+    req.session.userId = res.locals.user_instance._id;
+  }
+
   return res.status(200).json({
     server: {
       message: [success_msg],

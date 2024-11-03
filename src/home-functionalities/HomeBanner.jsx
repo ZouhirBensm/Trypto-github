@@ -1,5 +1,5 @@
 import "./styles/HomeBanner.css";
-import CURRENCY_CODES from "../../full-stack-libs/Types/CurrencyCodes";
+import SelectComp from "../generic-components/SelectComp";
 
 // TODO !!! rename this Component, because holds more than prices
 
@@ -7,36 +7,43 @@ class HomeBanner extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.categories = props.categories.map((category) => ({
+      value: category.id,
+      text: category.name,
+      searchText: "",
+      selectedCategory: "all",
+    }));
   }
 
-  renderCurrencies() {
-    return CURRENCY_CODES.map((currency, index) => {
-      let price = Math.floor(Math.random() * (1000000 - 50000 + 1)) + 50000;
+  handleInputChange = (event) => {
+    this.setState({ searchText: event.target.value });
+  };
 
-      return (
-        <div className="price-card" key={index}>
-          <div
-            className="price-img-container"
-            style={{
-              backgroundImage: `url('/img/SVG/home/${currency.name}.svg')`,
-            }}
-          ></div>
-          <span className="price-text">
-            {price} ({currency.symbol})
-          </span>
-        </div>
-      );
-    });
-  }
+  handleCategorySelect = (item) => {
+    console.log(item);
+    this.setState({ selectedCategory: item.text });
+  };
 
+  handleSearch = () => {
+    const { searchText, selectedCategory } = this.state;
+    const searchParams = new URLSearchParams();
+
+    if (searchText) searchParams.append("s", searchText);
+    if (selectedCategory &&  selectedCategory.toLowerCase() !== "all") {
+      searchParams.append("cat", selectedCategory);
+    }
+
+    // Use plain JavaScript to redirect
+    window.location.href = `/marketplace/sellordersdata?${searchParams.toString()}`;
+  };
   render() {
     return (
       <React.Fragment>
         <div className="banner-container">
           <div className="container pt-5">
             <div className="row align-content-center">
-              <div className="col-12 col-lg-5 d-flex align-content-center flex-wrap py-5">
-                <div className="w-100">
+              <div className="col-12 col-lg-5 col-xl-6 d-flex align-content-center flex-wrap py-5">
+                <div className="w-100 d-block d-xl-flex justify-content-center flex-wrap">
                   <h1 className="banner-title">
                     Shop smart <br />
                     <span className="with">with </span>
@@ -49,37 +56,42 @@ class HomeBanner extends React.Component {
                     transactions
                   </p>
                 </div>
-                <div className="banner-search">
-                  <select class="bidblock-category-select">
-                    <option selected>Ticket</option>
-                    <option value="1">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt, qui.</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
 
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="What are you looking for..."
-                    aria-label="What are you looking for..."
-                  />
-                  <button type="button" class="btn btn-primary">
-                    <img src="/img/icons/search.svg" alt="search" />
-                  </button>
+                <div class="w-100 d-flex justify-content-xl-center">
+                  <div className="banner-search">
+                    <div className="select-category-container">
+                      <SelectComp
+                        data={[
+                          { value: "all", text: "All" },
+                          ...this.categories,
+                        ]}
+                        onSelect={this.handleCategorySelect}
+                      />
+                    </div>
+
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="What are you looking for..."
+                      aria-label="What are you looking for..."
+                      value={this.state.searchText}
+                      onChange={this.handleInputChange}
+                    />
+
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={this.handleSearch}
+                    >
+                      <img src="/img/icons/search.svg" alt="search" />
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div className="col-12 col-lg-7 d-none align-items-center d-lg-flex">
+              <div className="col-12 col-lg-7 col-xl-6 d-none align-items-center d-lg-flex">
                 <div className="img-container">
                   <img src="/img/home/home-bg.png" alt="Banner" />
                 </div>
-              </div>
-              <div className="col-12 d-flex mt-5">
-                <marquee>
-                  <div className="w-50 d-flex align-items-center">
-                    {this.renderCurrencies()}
-                    {this.renderCurrencies()}
-                  </div>
-                </marquee>
               </div>
             </div>
           </div>

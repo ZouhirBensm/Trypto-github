@@ -1,173 +1,263 @@
-import '../style/reactDivMobile.css'
-import '../root-spas/styles/Sign-in-up.css'
-import './styles/Login.css'
-import OnPageFooter from '../generic-components/OnPageFooter'
+import "../style/reactDivMobile.css";
+import "../root-spas/styles/Sign-in-up.css";
+import "./styles/Login.css";
 
 // import LogRegFooter from './LogRegFooter'
-import { verifyEmail, validateInputs } from '../../full-stack-libs/validations'
+import { verifyEmail, validateInputs } from "../../full-stack-libs/validations";
+import Register from "./Register";
+import OAuth2Login from "react-simple-oauth2-login";
+import ForgotPasswordRequest from "./ForgotPasswordRequest";
 
 class Login extends React.Component {
-
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       notification: popup,
-    }
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.validateInputs = this.validateInputs.bind(this)
+      isLogin: true,
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.validateInputs = this.validateInputs.bind(this);
     // console.log(this.props.loginTo)
   }
 
   validateInputs(creds) {
-    let flag = true, notification;
+    let flag = true,
+      notification;
     ({ flag, notification } = verifyEmail(creds.email));
-    console.log(flag, notification)
+    console.log(flag, notification);
 
     if (!flag) {
       return this.setState({
-        notification: notification[0]
-      })
+        notification: notification[0],
+      });
     }
 
-    let err_msg
+    let err_msg;
     err_msg = validateInputs(creds);
 
     if (err_msg) {
-      flag = false
+      flag = false;
       return this.setState({
-        notification: err_msg
-      })
+        notification: err_msg,
+      });
     }
 
-    console.log({ flag })
-    return flag
-
+    console.log({ flag });
+    return flag;
   }
 
-
   async handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    let email = document.getElementById("loginregister").elements[0].value
-    let password = document.getElementById("loginregister").elements[1].value
+    let email = document.getElementById("loginEmail").value;
+    let password = document.getElementById("loginPassword").value;
 
+    let validated = this.validateInputs({ email, password });
+    console.log({ validated });
+    if (!validated) return;
 
-    let validated = this.validateInputs({ email, password })
-    console.log({ validated })
-    if (!validated) return
-
-
-    // TODO when registering need two inputs for the password (or not)
-    // TODO in the forgot password process the app does not check that the newpassword is equal to the old one. This should be checked on the back end, and respond with an error "New Password cannot be set to the old one!"
-
-    console.log("FETCH")
-
-    let response = await fetch(`${this.props.loginTo}`, {
-      method: 'POST',
+    let response = await fetch("/users/login", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify({
         email: email,
         password: password,
-      })
-    })
+      }),
+    });
 
-    let data = await response.json()
+    let data = await response.json();
 
-    console.log(response, data)
-
+    console.log(response, data);
 
     if (response.status == 200) {
       window.location.href = `/?popup=You have successfully logged in!`;
     } else if (response.status == 403) {
       // Resends email
       let response = await fetch(`/resend-user-email/${email}`, {
-        method: 'GET',
-      })
-      console.log("email response", response)
+        method: "GET",
+      });
+      console.log("email response", response);
 
       this.setState({
         notification: data.error.message,
-      })
-
-
+      });
     } else {
       this.setState({
         notification: data.error.message,
-      })
+      });
     }
 
-    return response.status
+    return response.status;
   }
 
-  // throw new Error(`Front end does not support failed POST ${this.props.loginTo} server response`)
+  onFacebookSuccess = async (facebookResponse) => {
+    const { access_token } = facebookResponse;
 
+    let response = await fetch("/users/auth/facebook", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        token: access_token,
+      }),
+    });
 
+    let data = await response.json();
 
+    console.log(response, data);
+
+    if (response.status == 200) {
+      window.location.href = `/?popup=You have successfully logged in!`;
+    } else {
+      this.setState({
+        notification: data.error.message,
+      });
+    }
+  };
+
+  onFacebookFailure = (response) => {
+    console.log("Login Failed:", response);
+    this.setState({
+      notification: "Something went wrong please try again later",
+    });
+  };
+
+  onGoogleSuccess = async (googleResponse) => {
+    // Extract the access token from the response
+    const { access_token } = googleResponse;
+
+    let response = await fetch("/users/auth/google", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        token: access_token,
+      }),
+    });
+
+    let data = await response.json();
+
+    console.log(response, data);
+
+    if (response.status == 200) {
+      window.location.href = `/?popup=You have successfully logged in!`;
+    } else {
+      this.setState({
+        notification: data.error.message,
+      });
+    }
+  };
+
+  onGoogleFailure = (response) => {
+    console.log("GOOGLE FAIL RESPONSE :: ", response);
+    this.setState({
+      notification: "Something went wrong please try again later",
+    });
+  };
+
+  handleResetPasswordToggler = () => {
+    this.setState({ isLogin: !this.state.isLogin });
+  };
 
   render() {
-
-
-    // console.log("caught2---->", this.state.notification)
-    // const notifyDisplays = <div dangerouslySetInnerHTML={{ __html:  this.state.notification}}></div>
-
-    const notifyDisplays = <p className='popup'> {this.state.notification} </p>
-    // console.log(notifyDisplays)
+    const notifyDisplays = this.state.notification ? (
+      <p className="error-msg"> {this.state.notification} </p>
+    ) : (
+      ""
+    );
 
     return (
       <React.Fragment>
+        {this.state.isLogin ? (
+          <form className="login-form">
+            <h2 className="wlcm-back">Welcome back !</h2>
 
-      <div id='login-container'>
-          <div id="container-log-reg">
+            <p className="sign-in-msg">Sign in into your account</p>
 
-            <form id="loginregister" className="form">
+            {notifyDisplays}
 
-              <h3>Sign in</h3>
+            <label>Email</label>
+            <input
+              type="text"
+              name="email"
+              id="loginEmail"
+              placeholder="Enter your email address"
+            />
 
-              <p>Sign in into your account</p>
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              id="loginPassword"
+              placeholder="Enter your password"
+            />
 
-              <label>Email</label>
-              <input type="text" name="email" placeholder='Your email' />
+            <a href="#" onClick={this.handleResetPasswordToggler}>
+              Did you forgot Password ?
+            </a>
 
-              <div id='label'>
-                <label>Password</label>
-                <a href="/users/forgotpasswordpage">Forgot Password</a>
-              </div>
+            <button
+              className="submit-login"
+              type="submit"
+              onClick={async (e) => {
+                let statusCode = await this.handleSubmit(e);
+                console.log(statusCode);
+              }}
+            >
+              Login
+            </button>
 
-              <input type="password" name="password" placeholder='Your password' />
-
-
-              {notifyDisplays}
-
-
-
-            </form>
-
-            <button type="submit" onClick={async (e) => {
-              let statusCode = await this.handleSubmit(e)
-              console.log(statusCode)
-            }}>CONTINUE</button>
-
-
-            <div id='more-log-reg'>
-              <p>Don't have an account?   </p>
-              <a href="/subscription">SIGN UP</a>
+            <div className="or-container">
+              <hr />
+              <span>OR</span>
+              <hr />
             </div>
 
+            <OAuth2Login
+              authorizationUrl="https://www.facebook.com/v12.0/dialog/oauth"
+              clientId={this.props.facebookId}
+              redirectUri="http://localhost:3000/oauth-callback"
+              responseType="token"
+              onSuccess={this.onFacebookSuccess}
+              onFailure={this.onFacebookFailure}
+              scope="public_profile"
+              className="login-with facebook"
+            >
+              <img src="/img/icons/facebook.svg" alt="facebook" />
+              Continue with Facebook
+            </OAuth2Login>
 
-          </div>
- 
-
-
-      </div>
-      <OnPageFooter/>
-        {/* <LogRegFooter /> */}
-
+            <OAuth2Login
+              authorizationUrl="https://accounts.google.com/o/oauth2/auth"
+              clientId={this.props.googleId}
+              redirectUri="http://localhost:3000/oauth-callback"
+              responseType="token"
+              onSuccess={this.onGoogleSuccess}
+              onFailure={this.onGoogleFailure}
+              scope="profile email"
+              className="login-with google"
+            >
+              <img src="/img/icons/google.svg" alt="google" />
+              Continue with Google
+            </OAuth2Login>
+            {/* <button className="login-with apple">
+            <img src="/img/icons/apple.svg" alt="apple" />
+            Login with Apple
+          </button> */}
+          </form>
+        ) : (
+          <ForgotPasswordRequest />
+        )}
       </React.Fragment>
     );
   }
 }
 
-export default Login
+export default Login;

@@ -113,14 +113,6 @@ class ArticlesMobileCarousel extends React.Component {
 
     if (this.myInterval) return
 
-
-    // this.myInterval = setInterval(() => {
-    //   // console.log(this.state.card_number_on)
-
-    //   this.card_number_on_manager(this.state.sense)
-
-    // }, 20000)
-
   }
 
 
@@ -128,12 +120,7 @@ class ArticlesMobileCarousel extends React.Component {
 
 
   componentWillUnmount() {
-
-    console.log("Unmounting component! 1", this.myInterval)
-
     clearInterval(this.myInterval);
-
-    console.log("Unmounting component! 2", this.myInterval)
   }
 
 
@@ -142,10 +129,6 @@ class ArticlesMobileCarousel extends React.Component {
   render() {
     const isPreviousButtonDisabled = this.state.card_number_on === 0;
     const isNextButtonDisabled = this.state.card_number_on === this.numberOfScrolls
-
-    this.props.articles.forEach(article => {
-      console.log(article._id)
-    });
 
     return (
       <React.Fragment>

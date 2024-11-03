@@ -1,9 +1,9 @@
 .banner-container {
   width: 100%;
-  min-height: 100vh;
+  min-height: 800px;
 }
 .banner-container .row {
-  min-height: 100vh;
+  min-height: 800px;
 }
 .banner-container .banner-title {
   width: 300px;
@@ -32,27 +32,26 @@
   height: 2.2rem;
   margin: 1rem auto;
 }
-.banner-container .banner-search select {
+.banner-container .banner-search .select-category-container {
   position: absolute;
   left: 0;
   top: 0;
   height: 2.2rem;
   border-radius: 1.1rem 0 0 1.1rem;
   width: 100px;
-  background-color: var(--color-secondary, #7ae0fa);
-  color: var(--color-white, white);
-  border: none;
-  outline: none;
-  border-right: 0.5rem solid var(--color-secondary, #7ae0fa);
-  padding-left: 0.5rem;
+}
+
+.banner-container .banner-search .select-category-container .select-button {
+  border-radius: 1.1rem 0 0 1.1rem;
+  padding: 0 1.1rem;
 }
 .banner-container .banner-search input[type="text"] {
   height: 2.2rem;
   border-radius: 1.1rem;
   width: 100%;
-  padding: 2px 50px 0 110px;
+  padding: 0 50px 0 110px;
 }
-.banner-container .banner-search button {
+.banner-container .banner-search .btn-primary {
   position: absolute;
   right: 0;
   top: 0;
@@ -76,7 +75,6 @@
 .banner-container .img-container img {
   width: 800px;
   position: absolute;
-
 }
 .banner-container .price-card {
   display: flex;

@@ -255,11 +255,7 @@ async function ordersRetrievalMiddleware(req, res, next) {
 
   let orders
 
-  let mysellOrders = res.locals.sellOrders.filter((order_entry) => {
-    console.log(order_entry.userid._id.toString() == res.locals.path_param_userID)
-    return order_entry.userid._id.toString() == res.locals.path_param_userID
-  })
-
+  let mysellOrders = res.locals.sellOrders
   console.log('\n\n--->\nres.locals.URL_fromReferer: ', res.locals.URL_fromReferer)
   console.log(`\n\n${res.locals.parsed_URL_fromReferer[1]}://${ENV.domain_without_protocol}/`)
 

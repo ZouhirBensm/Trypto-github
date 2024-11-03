@@ -1,19 +1,18 @@
 div.item-card > div.item-preview > div#toogler1 {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
-  font-family: 'Poppins', sans-serif;
+  top: 10%;
+  left: 10%;
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-size: var(--font-size-generic);
-  width: 80px;
+  width: 80%;
 }
-
 
 label.switch {
   position: relative;
   display: inline-flex;
   align-items: center;
-  width: 250px;
+  width: 100%;
   /* width: 140px; */
   height: 35px;
   border-radius: 20px;
@@ -23,7 +22,7 @@ label.switch {
   backdrop-filter: blur(31px);
   overflow: hidden;
 
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-size: var(--font-size-generic);
   justify-content: flex-end;
@@ -34,15 +33,13 @@ label.switch > span {
   white-space: nowrap;
 }
 
-
-
 label.switch::after {
   /* content: 'CAD'; */
   position: absolute;
   width: 33px;
   height: 33px;
-  border-radius:50%;
-  background-color: #80E8FF4A;
+  border-radius: 50%;
+  background-color: #80e8ff4a;
   top: 1px;
   left: 1px;
   transition: all 0.3s;
@@ -55,14 +52,15 @@ label.switch::after {
 }
 
 input.checkbox:checked + label.switch::after {
-  left : 215px;
+  left: auto;
+  right: 0;
   content: "₿";
   font-size: 0.7rem;
 }
 
 input.checkbox:checked + label.switch {
-  background-color: #1266FC;
+  background-color: #1266fc;
 }
 input.checkbox {
-  display : none;
+  display: none;
 }

@@ -135,6 +135,7 @@ const messagingBackend_app_router = require('./messaging-backend');
 const paypalBackend_app_router = require('./paypal-backend')
 const operationsBackend_app_router = require('./operations-backend')
 const articlesBackend_app_router = require('./articles-backend')
+const countriesBackend_app_router = require('./countries-backend')
 const sitemapBackend_app_router = require('./sitemap-backend')
 const contactBackend_app_router = require('./contact-backend')
 const cronBackend_app_router = require('./cron-backend')
@@ -273,6 +274,8 @@ express_server_app_router.use('/operations', operationsBackend_app_router)
 
 
 express_server_app_router.use('/articles', articlesBackend_app_router)
+
+express_server_app_router.use('/countries', countriesBackend_app_router)
 
 express_server_app_router.use('/sitemap', sitemapBackend_app_router)
 

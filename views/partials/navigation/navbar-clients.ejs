@@ -39,42 +39,18 @@
       <li class="nav-item">
         <a class="nav-link" href="/contact">Contact us</a>
       </li>
+
+      <%if(!loggedIn){%>
       <li class="nav-item">
         <a class="join-us" href="/users/login">Join us</a>
       </li>
+      <%}%> <%if(loggedIn){%>
+      <li class="nav-item">
+        <a class="join-us" href="/logout">Logout</a>
+      </li>
+      <%}%>
     </ul>
   </div>
-
-  <!-- <ul class="iflog"> -->
-  <!-- 
-  <li>
-    <div onclick="toogleSideNav()">
-      <img src="/img/SVG/home/nav-icons/toogle.svg" alt="">
-    </div>
-    <a >
-    </a>
-  </li>
-     -->
-
-  <%if(!loggedIn){%>
-  <!-- <li>
-      <a href="/users/login">
-        login
-      </a>
-      <a href="/subscription">
-        sign up
-      </a>
-    </li> -->
-  <%}%> <%if(loggedIn){%>
-  <!-- <li>
-      <a href="/logout">
-        <img src="/img/SVG/home/nav-icons/logout1dark.svg" alt=""> 
-        logout
-      </a>
-    </li> -->
-  <%}%>
-
-  <!-- </ul> -->
 </nav>
 
 <aside class="sidebar-container">

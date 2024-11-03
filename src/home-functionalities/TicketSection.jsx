@@ -12,10 +12,6 @@ class TicketSection extends Component {
   componentWillUnmount() {}
 
   render() {
-    const categories = this.categories;
-
-    console.log(categories);
-
     return (
       <React.Fragment>
         <div className="ticket-section-container">

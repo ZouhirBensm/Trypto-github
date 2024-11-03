@@ -4,6 +4,7 @@ var nodemailer = require('nodemailer');
 const agendaDefineJobFunctions = require('../../full-stack-libs/define-agenda-job-functions/define-aganda-job-functions')
 
 const HexForUnactiveUser = require('../../models/HexForUnactiveUser')
+const UserInformation = require('../../models/UserInformation')
 const User = require('../../models/User')
 const Subscriber = require('../../models/Subscriber')
 const UserAssociatedLocality = require('../../models/UserAssociatedLocality')
@@ -50,28 +51,83 @@ function instantiateHexForUnactiveUserMiddleware(req, res, next) {
 }
 
 
+// Generates a strong, random password for users who register with third-party
+function generateStrongPassword(length = 12) {
+  const categories = [
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ", // Uppercase letters
+    "abcdefghijklmnopqrstuvwxyz", // Lowercase letters
+    "0123456789",                 // Numbers
+    "!@#$%^&*()_+{}[]<>?"         // Special characters
+  ];
+
+  let password = [];
+
+  // Ensure at least one character from each category
+  categories.forEach(category => {
+    password.push(category[Math.floor(Math.random() * category.length)]);
+  });
+
+  const allChars = categories.join('');
+  for (let i = password.length; i < length; i++) {
+    password.push(allChars[Math.floor(Math.random() * allChars.length)]);
+  }
+
+  return password.sort(() => 0.5 - Math.random()).join('');
+}
+
+
 function instantiateUserMiddleware(req, res, next) {
-  let user_instance
+  let user_instance;
+  let password =
+    req.body.facebookId || req.body.googleId || req.body.appleId
+      ? generateStrongPassword()
+      : req.body.password;
 
   user_instance = new User({
     username: req.body.username,
     email: req.body.email,
-    password: req.body.password,
-    role: req.body.role
-  })
+    password: password,
+    role: req.body.role,
+    active: !req.body.checkEmail,
+    facebookId: req.body.facebookId,
+    googleId: req.body.googleId,
+    appleId: req.body.appleId,
+    googleId: req.body.googleId,
+    appleId: req.body.appleId,
+  });
 
-  user_instance.hexforunactiveuserID = res.locals.hex_for_unactive_user_instance._id
-  user_instance.userassociatedlocalityID = null
+  user_instance.hexforunactiveuserID =
+    res.locals.hex_for_unactive_user_instance._id;
+  user_instance.userassociatedlocalityID = null;
 
+  res.locals.hex_for_unactive_user_instance.userID = user_instance._id;
 
+  res.locals.user_instance = user_instance;
 
-  res.locals.hex_for_unactive_user_instance.userID = user_instance._id
+  return next();
+}
 
+async function instantiateUserInformationMiddleware(req, res, next) {
+  try {
+    let userInformationInstance = new UserInformation({
+      user: res.locals.user_instance._id,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      phoneNumber: req.body.phoneNumber,
+      country: req.body.country,
+      state: req.body.state,
+    });
 
+    res.locals.userInformationInstance = userInformationInstance;
 
-  res.locals.user_instance = user_instance
-
-  return next()
+    return next();
+  } catch (e) {
+    err = new MongoError(
+      `Could not initiate user_information, ${e.message}`,
+      e.code
+    );
+    return next(err);
+  }
 }
 
 
@@ -210,7 +266,7 @@ async function saveUserMiddleware(req, res, next) {
     return next(err)
   }
 
-  console.log("\n\n\nSaved user information\n\n", ret_user_save._id, ' vs ', res.locals.user_instance._id)
+  console.log("\n\n\nSaved User()\n\n", ret_user_save._id, ' vs ', res.locals.user_instance._id)
 
 
   // Save returned
@@ -220,6 +276,31 @@ async function saveUserMiddleware(req, res, next) {
   return next()
 }
 
+
+async function saveUserInformationMiddleware(req, res, next) {
+  try {
+    let ret_user_information_save =
+      await res.locals.userInformationInstance.save();
+
+    console.log(
+      "\n\n\nSaved UserInformation()\n\n",
+      ret_user_information_save._id,
+      " vs ",
+      res.locals.userInformationInstance._id
+    );
+
+    // Save returned
+    res.locals.ret_user_information_save = ret_user_information_save;
+
+    return next();
+  } catch (err) {
+    err = new MongoError(
+      `You have successfully subscribed on paypal's servers, but not on BidBlock's servers' because of this error: ${err.message}`,
+      err.code
+    );
+    return next(err);
+  }
+}
 
 
 function doubleCheckSaveMiddleware(req, res, next) {
@@ -256,6 +337,7 @@ async function setAgendaJobToDeleteUserIfStillNotActive(req, res, next) {
 
 
 async function mailConfirmLinkMiddleware(req, res, next) {
+  if(req.body.checkEmail) {
   let now
   let transporter
   let info
@@ -288,7 +370,7 @@ async function mailConfirmLinkMiddleware(req, res, next) {
     let e = new Error("Message not sent")
     return next(e)
   }
-
+}
   return next()
   
 }
@@ -304,10 +386,12 @@ async function mailConfirmLinkMiddleware(req, res, next) {
 registerMiddleware = {
   instantiateHexForUnactiveUserMiddleware: instantiateHexForUnactiveUserMiddleware,
   instantiateUserMiddleware: instantiateUserMiddleware,
+  instantiateUserInformationMiddleware: instantiateUserInformationMiddleware,
   ifLocalityOrganizeAssociatedLocalityMiddleware: ifLocalityOrganizeAssociatedLocalityMiddleware,
   ifSubscriberInstantiateSubscriberMiddleware: ifSubscriberInstantiateSubscriberMiddleware,
   saveHex4UnactiveUserMiddleware: saveHex4UnactiveUserMiddleware,
   saveUserMiddleware: saveUserMiddleware,
+  saveUserInformationMiddleware: saveUserInformationMiddleware,
   doubleCheckSaveMiddleware: doubleCheckSaveMiddleware,
   setAgendaJobToDeleteUserIfStillNotActive: setAgendaJobToDeleteUserIfStillNotActive,
   mailConfirmLinkMiddleware: mailConfirmLinkMiddleware,

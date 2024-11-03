@@ -1,0 +1,35 @@
+.bidblock-popup {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  right: 50px;
+  bottom: 100px;
+  background: #4bb543;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  height: 3rem;
+  color: white;
+  z-index: 1000;
+  transition: 0.5s all ease;
+  opacity: 1;
+}
+
+.bidblock-popup .icon-container {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: white;
+  margin-left: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bidblock-popup .icon-container:focus {
+  outline: none;
+}
+
+.bidblock-popup.hidden {
+ opacity: 0;
+  pointer-events: none;
+} 

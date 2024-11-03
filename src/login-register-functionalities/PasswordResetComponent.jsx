@@ -1,158 +1,187 @@
-import '../style/reactDivMobile.css'
-import {verifyPassword, arePasswordsEqual} from '../../full-stack-libs/validations'
-import './styles/ResetPassword.css'
+import {
+  verifyPassword,
+  arePasswordsEqual,
+} from "../../full-stack-libs/validations";
+import "./styles/ResetPassword.css";
+import OnPageFooter from "../generic-components/OnPageFooter";
 
 class PasswordResetComponent extends React.Component {
-  constructor(props){
-    super(props)
-    this.state={
+  constructor(props) {
+    super(props);
+    this.state = {
       notification: undefined,
       passwordinputbox1: false,
       passwordinputbox2: false,
-    }
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.totalvalidationprocess = this.totalvalidationprocess.bind(this)
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.totalvalidationprocess = this.totalvalidationprocess.bind(this);
   }
 
+  async handleSubmit(e = null) {
+    e?.preventDefault();
+    console.log("Requesting a password reset!!");
 
-  async handleSubmit(e = null){
-    e?.preventDefault()
-    console.log("Requesting a password reset!!")
+    let password = document.getElementById("newpass").elements[0].value;
+    let password_check = document.getElementById("newpass").elements[1].value;
 
-    let password = document.getElementById("newpass").elements[0].value
-    let password_check = document.getElementById("newpass").elements[1].value
-
-    let [validation_notifs, boxalertmode] = this.totalvalidationprocess(password, password_check)
+    let [validation_notifs, boxalertmode] = this.totalvalidationprocess(
+      password,
+      password_check
+    );
     // let [validation_notifs_and_boxalertmode] = this.totalvalidationprocess(password, password_check)
 
-    console.log("---->>>>>", validation_notifs)
+    console.log("---->>>>>", validation_notifs);
 
     this.setState({
       notification: validation_notifs,
       passwordinputbox1: boxalertmode[0],
       passwordinputbox2: boxalertmode[1],
-    })
+    });
 
-    if(validation_notifs){
-      return
+    if (validation_notifs) {
+      return;
     }
 
-    let hex_token = paths_URL[2]
+    let hex_token = paths_URL[2];
     // pull in hex
-    console.log("FETCH", password, hex_token)
+    console.log("FETCH", password, hex_token);
     // return
 
     let response = await fetch(`/users/submission-new-password`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify({
         newpassword: password,
-        hex: hex_token
-      })
-    })
+        hex: hex_token,
+      }),
+    });
 
-    let data = await response.json()
+    let data = await response.json();
 
-    console.log(response, data)
+    console.log(response, data);
 
-    let notif = undefined
-    
+    let notif = undefined;
+
     if (response.status == 200) {
-      console.log("HITTTTT")
-      window.location.href = `/users/login?popup=${data.message}`
+      console.log("HITTTTT");
+      window.location.href = `/users/login?popup=${data.message}`;
     } else {
-      notif = data.error.message
+      notif = data.error.message;
     }
 
     return this.setState({
       notification: notif,
-    })
-
+    });
   }
 
-  totalvalidationprocess(_password, _password_check){
-    let passwords_obj = {_password, _password_check}
-    console.log(passwords_obj)
+  totalvalidationprocess(_password, _password_check) {
+    let passwords_obj = { _password, _password_check };
+    console.log(passwords_obj);
 
+    let verifyPasswordRet = verifyPassword(_password);
 
+    console.log({ verifyPasswordRet });
 
-    let verifyPasswordRet = verifyPassword(_password)
-    
-    console.log({verifyPasswordRet})
-
-    let msg = undefined
-    if(!verifyPasswordRet.flag) {
+    let msg = undefined;
+    if (!verifyPasswordRet.flag) {
       // TODO rename verifyPasswordRet.notification to verifyPasswordRet.notifications
-      msg = verifyPasswordRet.notification.map((element_notif, i)=>{
-        return <React.Fragment key={i}><span>{element_notif}</span><br/></React.Fragment>
-      }) 
+      msg = verifyPasswordRet.notification.map((element_notif, i) => {
+        return (
+          <React.Fragment key={i}>
+            <span>{element_notif}</span>
+            <br />
+          </React.Fragment>
+        );
+      });
 
-      return [msg, [true, false]]
+      return [msg, [true, false]];
     }
 
-    let verifyCheckPasswordRet = verifyPassword(_password_check)
-    console.log({verifyCheckPasswordRet})
+    let verifyCheckPasswordRet = verifyPassword(_password_check);
+    console.log({ verifyCheckPasswordRet });
 
-    if(!verifyCheckPasswordRet.flag) {
+    if (!verifyCheckPasswordRet.flag) {
       // TODO rename verifyCheckPasswordRet.notification to verifyCheckPasswordRet.notifications
-      msg = verifyCheckPasswordRet.notification.map((element_notif, i)=>{
-        return <React.Fragment key={i}><span>{element_notif}</span><br/></React.Fragment>
-      })
-      return [msg, [false, true]]
+      msg = verifyCheckPasswordRet.notification.map((element_notif, i) => {
+        return (
+          <React.Fragment key={i}>
+            <span>{element_notif}</span>
+            <br />
+          </React.Fragment>
+        );
+      });
+      return [msg, [false, true]];
     }
-    
 
-    let arePasswordsEqualRet = arePasswordsEqual(passwords_obj)
-    console.log({arePasswordsEqualRet})
-    
-    if(arePasswordsEqualRet) {
+    let arePasswordsEqualRet = arePasswordsEqual(passwords_obj);
+    console.log({ arePasswordsEqualRet });
+
+    if (arePasswordsEqualRet) {
       msg = <span>{arePasswordsEqualRet}</span>;
-      return [msg, [true, true]]
+      return [msg, [true, true]];
     }
 
-    console.log([msg, [false, false]])
-    return [msg, [false, false]]
+    console.log([msg, [false, false]]);
+    return [msg, [false, false]];
   }
 
-  render(){
+  render() {
     return (
       <React.Fragment>
-        <div id="container-reset-pass" className='reset-container'>
-        <form id="newpass" className="form">
-          <h3>Setup your new password here!</h3>
+        <div id="container-reset-pass" className="reset-container">
+          <form id="newpass" className="reset-form">
+            <h3>Setup your new password here!</h3>
 
-          <label>New password</label>
-          <input  style={{ border: this.state.passwordinputbox1 == true? '2px solid red':'2px inset -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133))' }} type="text" name="password"/>
+            <label>New password</label>
+            <input
+              style={{
+                border:
+                  this.state.passwordinputbox1 == true
+                    ? "2px solid red"
+                    : "2px inset -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133))",
+              }}
+              type="text"
+              name="password"
+            />
 
+            <label>Confirm new password</label>
+            <input
+              style={{
+                border:
+                  this.state.passwordinputbox2 == true
+                    ? "2px solid red"
+                    : "2px inset -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133))",
+              }}
+              type="text"
+              name="password-check"
+            />
 
-          <label>Confirm new password</label>
-          <input  style={{ border: this.state.passwordinputbox2 == true? '2px solid red': '2px inset -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133))'}} type="text" name="password-check"/>
+            <span id="popup">{this.state.notification}</span>
 
-
-          <span id='popup'>{this.state.notification}</span>
-
-
-          <button type="submit" onClick={async (e) => {
-            let handleSubmitRet
-            try {
-              handleSubmitRet = await this.handleSubmit(e);
-            } catch (error) {
-              console.error("---->>ERROR", error)
-            }
-            console.log("Click buttin Callback", handleSubmitRet)
-          }}>Submit</button>
-
-        </form>
-
-        
-
-      </div>
+            <button
+              type="submit"
+              onClick={async (e) => {
+                let handleSubmitRet;
+                try {
+                  handleSubmitRet = await this.handleSubmit(e);
+                } catch (error) {
+                  console.error("---->>ERROR", error);
+                }
+                console.log("Click buttin Callback", handleSubmitRet);
+              }}
+            >
+              Submit
+            </button>
+          </form>
+          <div className="fixed-background"></div>
+        </div>
+        <OnPageFooter />
       </React.Fragment>
-    )
+    );
   }
 }
 
-export default PasswordResetComponent
+export default PasswordResetComponent;

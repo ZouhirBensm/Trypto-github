@@ -37,6 +37,8 @@ div#contact-page {
   width: 90%;
   flex-grow: 1;
   margin: 0 auto;
+  min-height: 100vh;
+  padding: 4rem 0;
 }
 
 div#contact-page > form > label > span {

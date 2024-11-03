@@ -1,34 +1,166 @@
-form#loginregister > p:first-of-type {
-  margin: 0;
-  width: fit-content;
-  font-size: var(--font-size-p);
-  font-family: 'Poppins', sans-serif;
-  font-weight: 300;
-  margin: 1rem 0;
-  color: #6B7FA2
-}
-
-div#label {
-  display: flex;
-  justify-content: space-between;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: var(--font-size-label);
+.login-form {
   width: 100%;
-  margin: 1.2rem 0 0.5rem 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-div#label > a {
-  color: #1266FC;
+.login-form .wlcm-back {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+  width: 100%;
 }
 
-
-
-div#react-div > div#footer-on-page {
-  background: unset;
+.login-form .sign-in-msg {
+  font-size: 1.2rem;
+  font-weight: lighter;
+  margin-bottom: 2rem;
+  letter-spacing: 2px;
+  width: 100%;
 }
 
+.login-form .error-msg {
+  font-size: 1rem;
+  font-weight: lighter;
+  margin-bottom: 2rem;
+  width: 100%;
+  font-weight: 400;
+  border: 1px solid red;
+  color: red;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+}
 
-div#login-container {
-  flex-grow: 1;
+.login-form label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  width: 100%;
+}
+
+.login-form input {
+  width: 100%;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0 1rem;
+  height: 3rem;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid var(--color-white);
+  margin-bottom: 2rem;
+  color: var(--color-white);
+}
+
+.login-form input::placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.login-form input:focus {
+  border-bottom: 2px solid var(--color-secondary);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+.login-form a {
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  width: 100%;
+  color: var(--color-white);
+  margin-bottom: 1rem;
+}
+
+.login-form .submit-login {
+  width: 100%;
+  font-size: 1.1rem;
+
+  height: 3rem;
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  outline: none;
+  border: none;
+  border-radius: 1.3rem;
+  font-weight: 700;
+}
+
+.login-form .or-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.login-form .or-container hr {
+  width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 0.5px;
+  background-color: var(--color-white);
+}
+
+.login-form .or-container span {
+  color: var(--color-white);
+  font-size: 1.1rem;
+}
+
+.login-form .login-with {
+  width: 100%;
+  font-size: 1.1rem;
+
+  margin-top: 1rem;
+
+  height: 3rem;
+  outline: none;
+  border: none;
+  border-radius: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-form .login-with img {
+  height: 20px;
+  width: auto;
+  margin-right: 1rem;
+}
+.login-form .login-with.facebook {
+  background-color: #0e3a8b;
+  color: white;
+}
+.login-form .login-with.google {
+  background-color: #fff;
+  color: 000;
+}
+.login-form .login-with.apple {
+  background-color: #000;
+  color: white;
+}
+
+.login-form .back-login {
+  width: 100%;
+  font-size: 1.1rem;
+
+  height: 3rem;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  outline: none;
+  border: none;
+  border-radius: 1.3rem;
+  font-weight: 700;
+}
+
+#popup {
+  display: block;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--color-secondary);
+  border: 1px solid var(--color-secondary);
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 8px 60px rgba(0, 0, 0, 0.5);
 }

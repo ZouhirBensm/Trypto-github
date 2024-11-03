@@ -27,19 +27,18 @@ class GetRecentMarketItems extends React.Component {
         `/marketplace/paginated-orders/sellordersdata?page=1&limit=5`
       );
 
+      console.log("RESP :: ", response);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
 
       const json = await response.json();
-      console.log(json.srv_.ORDERS);
       this.setState({
         orders: json.srv_.ORDERS,
         loading: false,
       });
       this.initSwiper();
     } catch (error) {
-      console.error("Error fetching recent market items:", error);
       this.setState({
         loading: false,
         error: error.message,

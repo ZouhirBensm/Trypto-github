@@ -1,12 +1,150 @@
-form#loginregister > input[name="hny_spm"] {
-  display: none;
+.register-form {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-button:disabled {
+.register-form .wlcm-back {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+  width: 100%;
+}
+
+.register-form .sign-in-msg {
+  font-size: 1.2rem;
+  font-weight: lighter;
+  margin-bottom: 2rem;
+  letter-spacing: 2px;
+  width: 100%;
+}
+
+.register-form .error-msg {
+  font-size: 1rem;
+  font-weight: lighter;
+  margin-bottom: 2rem;
+  width: 100%;
+  font-weight: 400;
+  border: 1px solid red;
   color: red;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
 }
 
+.register-form label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  width: 100%;
+}
 
-form#loginregister > label > a[href='/terms-conditions'] {
-  color: #1266FC;
+.register-form .bidblock-input {
+  width: 100%;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0 1rem;
+  height: 3rem;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid var(--color-white);
+  color: var(--color-white);
+}
+
+.register-form .bidblock-input::placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.register-form .bidblock-input:focus {
+  border-bottom: 2px solid var(--color-secondary);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+.register-form a {
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  width: 100%;
+  color: var(--color-white);
+  margin-bottom: 1rem;
+}
+
+.register-form .submit-login {
+  width: 100%;
+  font-size: 1.1rem;
+
+  height: 3rem;
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  outline: none;
+  border: none;
+  border-radius: 1.3rem;
+  font-weight: 700;
+}
+
+.register-form .login-with {
+  width: 100%;
+  font-size: 1.1rem;
+
+  margin-top: 1rem;
+
+  height: 3rem;
+  outline: none;
+  border: none;
+  border-radius: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.register-form .login-with img {
+  height: 20px;
+  width: auto;
+  margin-right: 1rem;
+}
+.register-form .login-with.facebook {
+  background-color: #0e3a8b;
+  color: white;
+}
+.register-form .login-with.google {
+  background-color: #fff;
+  color: 000;
+}
+.register-form .login-with.apple {
+  background-color: #000;
+  color: white;
+}
+
+.register-form .or-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.register-form .or-container hr {
+  width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 0.5px;
+  background-color: var(--color-white);
+}
+
+.register-form .or-container span {
+  color: var(--color-white);
+  font-size: 1.1rem;
+}
+
+.register-form .error-message {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 5px;
+}
+
+.register-form .bidblock-input.error {
+  border-color: red;
 }

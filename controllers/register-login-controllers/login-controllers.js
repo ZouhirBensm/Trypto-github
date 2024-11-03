@@ -39,13 +39,15 @@ function validateController(req, res, next) {
     return next(error)
   }
 
-  ({ flag, notification } = verifyPassword(req.body.password));
-
-  if (!flag) {
-    const error = new ValidationError(notification, "Password")
-    return next(error)
+  if(!(req.body.facebookId || req.body.googleId || req.body.appleId)) {
+    ({ flag, notification } = verifyPassword(req.body.password));
+    
+    if (!flag) {
+      const error = new ValidationError(notification, "Password")
+      return next(error)
+    }
   }
-
+  
   return next()
 }
 

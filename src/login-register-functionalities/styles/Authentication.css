@@ -1,0 +1,176 @@
+.register-login-container {
+  min-height: 100vh;
+  position: relative;
+  background-color: #010757;
+  padding-top: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-login-container .register-login-content {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  color: var(--color-white);
+  display: flex;
+  overflow: hidden;
+  margin: 2rem auto;
+  flex-direction: row;
+  border-radius: 2rem;
+}
+
+.register-login-container .login-container {
+  width: 55%;
+  flex-shrink: 0;
+  border-radius: 2rem 0 0 2rem;
+  background-color: rgba(12, 31, 95, 0.7);
+  padding: 4rem 2rem;
+  box-shadow: 50px 0 50px rgba(0, 0, 0, 0.5);
+  position: relative;
+  left: 0;
+  opacity: 1;
+  transition: 0.3s ease all;
+}
+
+.register-login-container .toggle-msg-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  color: var(--color-white);
+
+  width: 45%;
+  border-radius: 0 2rem 2rem 0;
+  background-color: rgba(12, 31, 95, 0.8);
+  flex-shrink: 0;
+
+  position: relative;
+  left: 0;
+  transition: 0.3s ease all;
+}
+
+.register-login-container .toggle-msg-container h2 {
+  width: 100%;
+  font-weight: 900;
+  font-size: 2.5rem;
+  letter-spacing: 5px;
+  text-align: center;
+}
+
+.register-login-container .toggle-msg-container p {
+  width: 70%;
+  font-weight: 600;
+  line-height: 1.2rem;
+  text-align: center;
+  margin: 2rem auto 2.5rem auto;
+  letter-spacing: 1px;
+  line-height: 2.5rem;
+  font-size: 1.2rem;
+}
+
+.register-login-container .toggle-msg-container button {
+  width: 50%;
+  font-weight: 900;
+  margin: auto;
+  font-size: 1.1rem;
+  height: 3rem;
+  background-color: transparent;
+  outline: none;
+  border: 1px solid var(--color-white);
+  border-radius: 1.3rem;
+  font-weight: 700;
+  color: var(--color-white);
+  transition: 0.3s ease all;
+}
+
+.register-login-container .toggle-msg-container button:hover {
+  background-color: var(--color-white);
+  color: rgb(12, 31, 95);
+}
+
+.register-login-container .register-container {
+  width: 55%;
+  flex-shrink: 0;
+  border-radius: 0 2rem 2rem 0;
+  background-color: rgba(12, 31, 95, 0.6);
+  padding: 4rem 2rem;
+  box-shadow: 0px 0 100px rgba(0, 0, 0, 0.2);
+
+  position: relative;
+  left: 0;
+  opacity: 0;
+  transition: 0.3s ease all;
+}
+
+.register-login-container .register-login-content.register .login-container {
+  left: -55%;
+  opacity: 0;
+}
+
+.register-login-container
+  .register-login-content.register
+  .toggle-msg-container {
+  left: -55%;
+  border-radius: 2rem 0 0 2rem;
+}
+
+.register-login-container .register-login-content.register .register-container {
+  left: -55%;
+  opacity: 1;
+  min-height: 45rem;
+}
+
+.register-login-container > .fixed-background {
+  position: absolute;
+  z-index: 1;
+
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #010757;
+  background-image: url("/public/img/home/background.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  opacity: 0.4;
+}
+
+.toggle-msg-responsive {
+  display: none;
+}
+
+@media (max-width: 991px) {
+
+  .register-login-container .register-login-content.register .register-container {
+    left: -100%;
+  }
+
+  
+  .toggle-msg-container {
+    display: none !important;
+  }
+
+  .register-login-container .login-container {
+    width: 100% !important;
+    border-radius: 2rem;
+  }
+
+  .register-login-container .register-container {
+    width: 100% !important;
+    border-radius: 2rem;
+  }
+
+  .toggle-msg-responsive {
+    width: 100%;
+    margin-top: 1rem;
+    display: block;
+  }
+
+  .toggle-msg-responsive a {
+    color: var(--color-secondary);
+    text-decoration: underline;
+  }
+}

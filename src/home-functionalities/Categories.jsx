@@ -60,8 +60,6 @@ class Categories extends Component {
   render() {
     const categories = this.categories;
 
-    console.log(categories);
-
     return (
       <React.Fragment>
         <div className="categories-container pb-5">

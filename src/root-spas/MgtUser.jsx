@@ -4,7 +4,7 @@ import Loading from "../generic-components/Loading"
 import './styles/MgtUser.css'
 
 
-const Login = loadable(() => import("../login-register-functionalities/Login"), {
+const Authentication = loadable(() => import("../login-register-functionalities/Authentication"), {
   fallback: <Loading />
 });
 
@@ -36,7 +36,7 @@ class MgtUser extends React.Component {
       <BrowserRouter>
         <Switch>
           <Route path="/users/login" render={
-            (props) => <Login {...props} loginTo={"/users/login"} />
+            (props) => <Authentication {...props} loginTo={"/users/login"} />
           } />
 
           <Route path="/users/profile" render={

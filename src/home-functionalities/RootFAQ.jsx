@@ -15,7 +15,6 @@ class RootFAQ extends React.Component {
   }
 
   goBack = () => {
-    console.log(this.props.history)
     this.props.history.goBack();
   };
 

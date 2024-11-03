@@ -17,6 +17,7 @@ import Categories from "../home-functionalities/Categories.jsx";
 import MARKET_CATEGORIES from "../../full-stack-libs/Types/MarketCategories.js";
 
 import TicketSection from "../home-functionalities/TicketSection.jsx";
+import Popup from "../generic-components/Popup.jsx";
 
 class App extends React.Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class App extends React.Component {
     // console.log("in component: ", userId)
 
     this.loadData();
-    this.popup ? this.displacePopup() : null;
+    // this.popup ? this.displacePopup() : null;
   }
 
   displacePopup() {
@@ -39,6 +40,16 @@ class App extends React.Component {
     let popup = document.getElementById("popup");
 
     popup.style.display = "block";
+    // display: flex;
+    // position: fixed;
+    // right: 50px;
+    // bottom: 100px;
+    // background: #4BB543;
+    // padding: 1rem;
+    // border-radius: 0.5rem;
+    // height: 3rem;
+    // color: white;
+    // align-items: center;
 
     header.insertBefore(popup, header.firstChild);
 
@@ -64,13 +75,17 @@ class App extends React.Component {
     return (
       // Home
       <React.Fragment>
+        {this.popup && <Popup message={this.popup} />}
         <HomeFirstSection>
-          <HomeBanner btc_gecko_prices={this.state.prices} />
+          <HomeBanner
+            btc_gecko_prices={this.state.prices}
+            categories={MARKET_CATEGORIES}
+          />
           <Categories categories={MARKET_CATEGORIES} />
           <TicketSection />
         </HomeFirstSection>
 
-        <GetRecentMarketItems />
+        {/* <GetRecentMarketItems /> */}
 
         <GetRecentArticles />
 

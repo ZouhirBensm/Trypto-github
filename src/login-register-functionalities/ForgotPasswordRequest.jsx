@@ -1,120 +1,125 @@
-
-import '../style/reactDivMobile.css'
-import './styles/ResetPassword.css'
-import {verifyEmail, validateInputs} from '../../full-stack-libs/validations'
-
-
+import { verifyEmail, validateInputs } from "../../full-stack-libs/validations";
 
 class ForgotPasswordRequest extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       notification: undefined,
-    }
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.totalvalidationprocess = this.totalvalidationprocess.bind(this)
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.totalvalidationprocess = this.totalvalidationprocess.bind(this);
   }
 
-  
+  async handleSubmit(e = null) {
+    e?.preventDefault();
+    console.log("Reset password!!!");
+    let email = document.getElementById("forgotpass").elements[0].value;
 
-  async handleSubmit(e = null){
-    e?.preventDefault()
-    console.log("Reset password!!!")
-    let email = document.getElementById("forgotpass").elements[0].value
-
-
-    let validation_notif = this.totalvalidationprocess(email)
+    let validation_notif = this.totalvalidationprocess(email);
 
     this.setState({
-      notification: validation_notif
-    })
+      notification: validation_notif,
+    });
 
-    console.log("---->>>>>", validation_notif)
-    if(validation_notif){
-      return
+    console.log("---->>>>>", validation_notif);
+    if (validation_notif) {
+      return;
     }
 
-
-    console.log("FETCH")
+    console.log("FETCH");
 
     let response = await fetch(`/users/requestpasswordresetbyemail`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify({
         email: email,
-      })
-    })
+      }),
+    });
 
-    let data = await response.json()
+    let data = await response.json();
 
-    console.log(response, data)
+    console.log(response, data);
 
-    let notif = undefined
-    
+    let notif = undefined;
+
     if (response.status == 200) {
-      notif = data.message
+      notif = data.message;
     } else {
-      notif = data.error.message
+      notif = data.error.message;
     }
-    
+
     this.setState({
       notification: notif,
-    })
-    
-    return data
-    
-  
+    });
+
+    return data;
   }
 
-  totalvalidationprocess(_email){
-    let email_obj = {_email}
-    console.log(email_obj)
+  totalvalidationprocess(_email) {
+    let email_obj = { _email };
+    console.log(email_obj);
 
+    let verifEmailRet = verifyEmail(_email);
+    console.log({ verifEmailRet });
+    if (!verifEmailRet.flag) return verifEmailRet.notification;
 
-    let verifEmailRet = verifyEmail(_email)
-    console.log({verifEmailRet})
-    if(!verifEmailRet.flag) return verifEmailRet.notification
+    let validateInputsRetMsg = validateInputs(email_obj);
+    console.log({ validateInputsRetMsg });
+    if (validateInputsRetMsg) return validateInputsRetMsg;
 
-
-    let validateInputsRetMsg = validateInputs(email_obj)
-    console.log({validateInputsRetMsg})
-    if(validateInputsRetMsg) return validateInputsRetMsg
-
-    return undefined
+    return undefined;
   }
 
-
-
-
-  render(){
+  render() {
     return (
       <React.Fragment>
-        <div id="container-forgotpass" className='reset-container'>
-        <form id="forgotpass" className="form">
-          <h3>Reset Password</h3>
-          <label>Enter Email to Reset</label>
-          <input type="text" name="email" placeholder='email'/> 
-          <span id='popup'>{this.state.notification}</span>
-          <button type="submit" onClick={ async (e) => {
-            let handleSubmitRet
-            try {
-              handleSubmitRet = await this.handleSubmit(e);
-            } catch (error) {
-              console.error("---->>ERROR", error)
-            }
-            console.log("Click buttin Callback", handleSubmitRet)
-            }}>Reset</button>
+        <form id="forgotpass" className="login-form">
+          <h2 className="wlcm-back">Reset password</h2>
+
+          <p className="sign-in-msg">Get back on track with your account.</p>
+
+          {this.state.notification && (
+            <p id="popup">{this.state.notification}</p>
+          )}
+
+          <label>Email</label>
+          <input
+            type="text"
+            name="email"
+            id="loginEmail"
+            placeholder="Enter your email address"
+          />
+
+          <button
+            className="submit-login"
+            type="submit"
+            onClick={async (e) => {
+              let handleSubmitRet;
+              try {
+                handleSubmitRet = await this.handleSubmit(e);
+              } catch (error) {
+                console.error("---->>ERROR", error);
+              }
+              console.log("Click buttin Callback", handleSubmitRet);
+            }}
+          >
+            Reset
+          </button>
+
+          <button
+            className="back-login mt-3"
+            type="button"
+            onClick={this.props.handleResetPasswordToggler}
+          >
+            Back to login
+          </button>
         </form>
-        
-
-
-      </div>
       </React.Fragment>
-    )
+    );
   }
 }
 
-export default ForgotPasswordRequest
+export default ForgotPasswordRequest;

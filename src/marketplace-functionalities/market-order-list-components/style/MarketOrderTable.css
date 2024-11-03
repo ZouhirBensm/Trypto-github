@@ -3,26 +3,24 @@
   height: 25px;
 } */
 
-
 div.item-card {
   border-radius: 18px 18px 0px 0px;
   overflow: hidden;
   opacity: 1;
-  margin: 2rem auto;
-  background: #FFFFFF 0% 0% no-repeat padding-box;
+  margin: 1rem;
+  background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 0px 20px #00000029;
   position: relative;
-  width: 90%;
+  width: 100% !important;
 }
 
 div.item-preview {
   position: relative;
   color: white;
-  height: 500px;
-  /* height: 250px; */
+  height: 250px;
   width: 100%;
   overflow: hidden;
-  background: linear-gradient(to bottom, #1266FC5C, #010757);
+  background: linear-gradient(to bottom, #1266fc5c, #010757);
 }
 
 div.item-preview img {
@@ -41,15 +39,14 @@ div.item-card > div.item-preview > div#item-title {
   left: 50%;
   transform: translate(-50%, 0);
 
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   font-size: var(--font-size-generic);
   width: 90%;
-
 }
 
-div.item-card > div.item-preview > div#item-title > span{
+div.item-card > div.item-preview > div#item-title > span {
   width: fit-content;
   margin: 0 auto;
   display: block;
@@ -58,7 +55,7 @@ div.item-card > div.item-preview > div#item-title > span{
 
 div.item-card > div#item-data > span:first-of-type {
   display: block;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 400;
   color: #010757;
   font-size: var(--font-size-root);
@@ -67,9 +64,9 @@ div.item-card > div#item-data > span:first-of-type {
 div.item-card > div#item-data > span:last-of-type {
   display: inline;
   vertical-align: middle;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
-  color: #1266FC;
+  color: #1266fc;
   text-transform: capitalize;
   font-size: var(--font-size-root);
 }
@@ -78,7 +75,6 @@ div.item-card > div#item-data > img {
   vertical-align: middle;
   padding: 0.5rem 0 0.5rem 0.5rem;
 }
-
 
 div.item-card > div#item-data {
   position: relative;
@@ -90,79 +86,30 @@ div.item-card > span#item-published {
   top: 0; */
   display: block;
   text-align: right;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
-  color: #B8CEF5;
+  color: #b8cef5;
   font-size: var(--font-size-extra);
-  padding: .5rem;
+  padding: 0.5rem;
+  text-align: center;
 }
 
 div.item-card > div#item-data > span {
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
-
-
 div.item-card > a.link {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
   text-transform: uppercase;
-  color: #1266FC;
+  color: #1266fc;
   margin: 1rem auto;
   display: block;
   width: 80%;
   text-align: center;
   padding: 0.5rem;
   letter-spacing: 1.4px;
-  border: 1px solid #1266FC;
+  border: 1px solid #1266fc;
   border-radius: 8px;
   font-size: var(--font-size-button);
-}
-
-
-
-
-/* div#flex-market {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 2%;
-}
-
-div.item-card {
-  flex: 1 1 44%;
-  box-sizing: border-box;
-} */
-
-
-
-/* Default (Full Width) */
-div#flex-market {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 2%; /* Adjust this to fit your design */
-}
-
-div.item-card {
-  flex: 1 1 30%; /* Each item occupies approximately 30% of the container */
-  box-sizing: border-box;
-}
-
-/* Medium Size (800px to 1200px) */
-@media (max-width: 1500px) and (min-width: 800px) {
-  div.item-card {
-      flex: 1 1 44%; /* Each item occupies approximately 44% of the container */
-  }
-}
-
-/* Small Size (< 800px) */
-@media (max-width: 800px) {
-  div#flex-market {
-      flex-direction: column; /* Stack items vertically */
-  }
-  
-  div.item-card {
-      flex: 1 1 100%; /* Each item occupies 100% of the container */
-  }
 }

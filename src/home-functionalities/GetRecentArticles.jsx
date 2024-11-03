@@ -26,8 +26,6 @@ class GetRecentArticles extends React.Component {
     let json;
     json = await response.json();
 
-    console.log("new articles data :: ", json);
-
     this.setState({
       articles: json.srv_.ARTICLES,
     });

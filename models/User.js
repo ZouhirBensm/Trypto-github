@@ -56,6 +56,21 @@ const UserSchema = new Schema({
         default: false,
         required: true
     },
+    facebookId: {
+        type: String,
+        required: false,
+        default: null,
+    },
+    googleId: {
+        type: String,
+        required: false,
+        default: null,
+    },
+    appleId: {
+        type: String,
+        required: false,
+        default: null,
+    },
     hexforunactiveuserID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'HexForUnactiveUser'

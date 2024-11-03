@@ -1,6 +1,6 @@
 .categories-container {
   width: 100%;
-  min-height: 70vh;
+  min-height: 800px;
   display: flex;
   align-items: center;
   padding: 3rem 0;

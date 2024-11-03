@@ -39,7 +39,6 @@ class FAQ extends React.Component {
     response = await fetch(`/faqs?limit=5`);
 
     const contentType = response.headers.get("Content-Type");
-    // console.log(contentType)
 
     let json;
     if (contentType && contentType.includes("application/json")) {
@@ -49,7 +48,6 @@ class FAQ extends React.Component {
     if (response.status !== 200) {
       let err = "Response not 200 and not in JSON format.";
       if (json) err = json.error.message;
-      console.error(err);
       return;
     }
 

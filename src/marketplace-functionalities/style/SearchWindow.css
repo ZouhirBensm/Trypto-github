@@ -1,7 +1,6 @@
 /* WHOLE */
-div#market>div.search-inputs {
-  background-color: #FFFFFF;
-  position: absolute;
+div#market div.search-inputs {
+  background-color: #ffffff;
   top: 50px;
   /* bottom: 12vh; */
   z-index: 2;
@@ -13,34 +12,30 @@ div#market>div.search-inputs {
   border-radius: 0px 0px 21px 21px;
 }
 
-
 /* FORM */
-div#market>div.search-inputs>form#my_form {
+div#market div.search-inputs form#my_form {
   width: 90%;
   max-width: 600px;
   margin: 0 auto;
 }
 
-
-
 /* H2 */
-div#market>div.search-inputs>form#my_form>h2 {
-  font-family: 'Montserrat', sans-serif;
+div#market div.search-inputs form#my_form h2 {
+  font-family: "Montserrat", sans-serif;
   font-weight: 700;
   font-size: var(--font-size-h2);
   margin: 5vh auto;
-  color: #1266FC;
+  color: #1266fc;
   display: block;
   width: fit-content;
 }
 
-
 /* SEARCH TEXT INPUT */
-div#market>div.search-inputs>form#my_form>input#title-select {
-  border: 1px solid #B8CEF5;
+div#market div.search-inputs form#my_form input#title-select {
+  border: 1px solid #b8cef5;
   border-radius: 21px;
   color: rgba(0, 0, 0, 0.766);
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
   line-height: 2rem;
   width: 100%;
@@ -48,32 +43,27 @@ div#market>div.search-inputs>form#my_form>input#title-select {
   text-indent: 40px;
   font-size: var(--font-size-smaller-input);
 
-
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-image: url('/public/img/SVG/market/filter/chercher.svg');
+  background-image: url("/public/img/SVG/market/filter/chercher.svg");
   background-position: left 10px center;
   background-repeat: no-repeat;
 }
 
-
-div#market>div.search-inputs>form#my_form>input#title-select::placeholder {
+div#market div.search-inputs form#my_form input#title-select::placeholder {
   text-align: center;
-  color: #B8CEF5;
+  color: #b8cef5;
   font-size: var(--font-size-smaller-input);
 }
 
-
-
-
 /* PICKER CLASS */
-div#market>div.search-inputs>form#my_form>select.picker {
+div#market div.search-inputs form#my_form select.picker {
   border-radius: 21px;
   color: #010757;
   text-transform: capitalize;
   width: 100%;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
   height: 2rem;
   padding: 0 10px;
@@ -81,7 +71,7 @@ div#market>div.search-inputs>form#my_form>select.picker {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-image: url('/public/img/SVG/market/filter/drop.svg');
+  background-image: url("/public/img/SVG/market/filter/drop.svg");
   background-position: right 20px center;
   background-repeat: no-repeat;
   border: 1px solid #010757;
@@ -89,48 +79,43 @@ div#market>div.search-inputs>form#my_form>select.picker {
   font-size: var(--font-size-smaller-input);
 }
 
-
 /* RESET BUTTON */
-div#market>div.search-inputs>form#my_form>button#reset-price {
+div#market div.search-inputs form#my_form button#reset-price {
   all: unset;
   display: inline;
 }
 
-div#market>div.search-inputs>form#my_form>button#reset-price>img {
+div#market div.search-inputs form#my_form button#reset-price img {
   vertical-align: bottom;
   width: 15px;
   height: 15px;
   margin-left: 1ch;
 }
 
-
-
-
 /* LABEL */
-div#market>div.search-inputs>form#my_form>label {
+div#market div.search-inputs form#my_form label {
   letter-spacing: 1.2px;
   color: #010757;
   text-transform: capitalize;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-size: var(--font-size-label);
   display: inline-block;
   margin: 2vh 0;
 }
 
-
 /* RELATIVE PRICE CONTAINER */
-div#market>div.search-inputs>form#my_form>div#relative-frame {
+div#market div.search-inputs form#my_form div#relative-frame {
   position: relative;
   /* height: 2rem; */
   height: 80px;
 }
 
 /* PRICE INPUTS */
-div#market>div.search-inputs>form#my_form>div#relative-frame>input {
+div#market div.search-inputs form#my_form div#relative-frame input {
   -webkit-appearance: none;
   height: 6px;
-  background-color: #B8CEF5;
+  background-color: #b8cef5;
   border-radius: 6px;
   top: 30px;
 
@@ -140,133 +125,128 @@ div#market>div.search-inputs>form#my_form>div#relative-frame>input {
   transform: translate(-50%, 0);
 }
 
-
 /* MIN INPUT RANGE */
-div#market>div.search-inputs>form#my_form>div#relative-frame>input#min-price-input {
+div#market
+  div.search-inputs
+  form#my_form
+  div#relative-frame
+  input#min-price-input {
   /* z-index: 2; */
-
 }
 
-div#market>div.search-inputs>form#my_form>div#relative-frame>input#min-price-input::-webkit-slider-thumb {
+div#market
+  div.search-inputs
+  form#my_form
+  div#relative-frame
+  input#min-price-input::-webkit-slider-thumb {
   /* z-index: 10; */
 }
 
-
-
 /* MAX INPUT RANGE */
-div#market>div.search-inputs>form#my_form>div#relative-frame>input#max-price-input {
+div#market
+  div.search-inputs
+  form#my_form
+  div#relative-frame
+  input#max-price-input {
   /* top: 100px; */
   /* background-color: #6a6a6a; */
   background-color: transparent !important;
 }
 
-
 /* DISABLE RANGE INPUT CLICKS, AND ALSO ONLY LET THE HANDLE CLICKABLE */
-div#market>div.search-inputs>form#my_form>div#relative-frame>input {
+div#market div.search-inputs form#my_form div#relative-frame input {
   pointer-events: none;
 }
 
-div#market>div.search-inputs>form#my_form>div#relative-frame>input::-webkit-slider-thumb {
+div#market
+  div.search-inputs
+  form#my_form
+  div#relative-frame
+  input::-webkit-slider-thumb {
   pointer-events: auto;
 }
 
-div#market>div.search-inputs>form#my_form>div#relative-frame>input::-moz-range-thumb {
+div#market
+  div.search-inputs
+  form#my_form
+  div#relative-frame
+  input::-moz-range-thumb {
   pointer-events: auto;
 }
 
-div#market>div.search-inputs>form#my_form>div#relative-frame>input::-ms-thumb {
+div#market div.search-inputs form#my_form div#relative-frame input::-ms-thumb {
   pointer-events: auto;
 }
-
-
-
-
 
 /* PRICE DISPLAYS SPANS */
-div#market>div.search-inputs>form#my_form>div#relative-frame>span {
+div#market div.search-inputs form#my_form div#relative-frame span {
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
-  display: 'block'
+  display: "block";
 }
 
-div#market>div.search-inputs>form#my_form>div#relative-frame>span>span {
+div#market div.search-inputs form#my_form div#relative-frame span span {
   left: 50%;
   position: absolute;
 
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-size: var(--font-size-extra);
   letter-spacing: 1px;
-  color: #1266FC;
+  color: #1266fc;
   text-transform: capitalize;
 }
 
-
-
-
-
-
-
-
 /* HANDLES */
-input[type=range]::-webkit-slider-thumb,
-input[type=range]::-moz-range-thumb {
+input[type="range"]::-webkit-slider-thumb,
+input[type="range"]::-moz-range-thumb {
   width: 15px;
   height: 15px;
-  background-color: #1266FC;
+  background-color: #1266fc;
   border-radius: 50%;
   border: none;
 }
 
-
-
-
 /* BOTTOM BUTTONS */
-div#market > div.search-inputs > div#bottom-filter-buttons {
+div#market div.search-inputs div#bottom-filter-buttons {
   text-align: center;
-  border-top: 2px solid #EEF5FE;
+  border-top: 2px solid #eef5fe;
   padding: 2vh 0;
 }
 
-
-div#market > div.search-inputs > div#bottom-filter-buttons > *{
+div#market div.search-inputs div#bottom-filter-buttons * {
   text-transform: capitalize;
   padding: 0.8rem;
   border-radius: 8px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
   letter-spacing: 1.4px;
   border: none;
   background: #010757;
-  color: #80E8FF;
+  color: #80e8ff;
   margin: 1ch;
 }
 
-
-div#market > div.search-inputs > div#bottom-filter-buttons > input[type="submit"] {
+div#market div.search-inputs div#bottom-filter-buttons input[type="submit"] {
   border: none;
   background: #010757;
-  color: #80E8FF;
+  color: #80e8ff;
 }
 
-div#market > div.search-inputs > div#bottom-filter-buttons > button {
+div#market div.search-inputs div#bottom-filter-buttons button {
   border: 1px solid #010757;
   background: white;
   color: #010757;
 }
 
-
-
-
-div#market > div.search-inputs > form#my_form > span#popup {
+div#market div.search-inputs form#my_form span#popup {
   color: red;
   width: 100%;
   font-size: var(--font-size-extra);
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 300;
   margin: 1rem auto;
   display: block;
 }
-

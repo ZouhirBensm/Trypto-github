@@ -18,17 +18,15 @@ function filterObject(crypto = undefined, category = undefined, source = undefin
 
 function formOrderFindFilter(searchEngineTerms = undefined){
   let findObject = {}
-
   if(searchEngineTerms){
     for (const key in searchEngineTerms) {
       if (Object.hasOwnProperty.call(searchEngineTerms, key)) {
         const value = searchEngineTerms[key];
         switch (key) {
           case "titleTerm":
-            const reg = new RegExp(value)
             findObject = {
               ...findObject,
-              title: reg,
+              title: { $regex: value, $options: "i" },
             }
             break;
           case "categoryTerm":

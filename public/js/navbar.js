@@ -2,7 +2,6 @@ var navbar = document.getElementById("bidblock-navbar");
 var toggler = document.getElementById("navbar-toggler");
 var reactDiv = document.getElementById("react-div");
 
-
 // Function to handle navbar style based on scroll position
 function handleNavbarScroll() {
   if (window.scrollY > 50) {
@@ -14,11 +13,11 @@ function handleNavbarScroll() {
 
 // Apply the initial scroll position check when the page loads
 window.addEventListener("load", function () {
-  if (isHomePage()) {
-    console.log("Is home page")
+  if (isDarkPage()) {
+    console.log("Is home page");
     handleNavbarScroll();
   } else {
-    console.log("Is not home page")
+    console.log("Is not home page");
     navbar.classList.add("white");
   }
 });
@@ -30,11 +29,11 @@ toggler.addEventListener("click", function (e) {
 });
 
 // Adjust navbar class on scroll
-if (isHomePage()) {
+if (isDarkPage()) {
   window.addEventListener("scroll", handleNavbarScroll);
 }
 
 // Check if current page is homepage
-function isHomePage() {
-  return window.location.pathname === "/";
+function isDarkPage() {
+  return ["/", "/users/login"].includes(window.location.pathname);
 }
